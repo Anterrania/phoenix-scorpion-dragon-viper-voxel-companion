@@ -8,10 +8,11 @@
       "owner": "player (Anterranian Monarch)",
       "slot": "outfit",
       "cosmetic_only": true,
-      "description": "Black suit, magenta vest, ermine cloak/overcoat; batch_03 pedestal + batch_09 mannequin (gem belt, magenta tie).",
+      "description": "Black suit, magenta vest, ermine cloak/overcoat; batch_03 pedestal + batch_09 gem-belt mannequin + batch_10 Verdant Tree crest mannequin.",
       "concept_art": [
         "assets/concept_art/batch_03_royal_wardrobe/01_monarch_formal_black_suit_magenta_vest_ermine.png",
-        "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg"
+        "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg",
+        "assets/concept_art/batch_10/01_monarch_formal_verdant_tree_crest_ermine_cape.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -25,6 +26,12 @@
           "id": "batch_09_gem_belt_ermine_overcoat",
           "label": "Ermine overcoat, magenta vest/tie, gem belt (mannequin)",
           "concept_art": "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg"
+        },
+        {
+          "id": "batch_10_verdant_tree_crest",
+          "label": "Tree-of-life crest patch, magenta vest/tie, ermine cape, gem belt (mannequin); Order of the Verdant Tree",
+          "concept_art": "assets/concept_art/batch_10/01_monarch_formal_verdant_tree_crest_ermine_cape.jpg",
+          "linked_guild": "order_of_the_verdant_tree"
         }
       ]
     },
@@ -36,7 +43,8 @@
       "cosmetic_only": true,
       "description": "Magenta gown, ermine cloak, gold epaulettes.",
       "concept_art": [
-        "assets/concept_art/batch_03_royal_wardrobe/02_foxy_court_gown_magenta_ermine_epaulettes.png"
+        "assets/concept_art/batch_03_royal_wardrobe/02_foxy_court_gown_magenta_ermine_epaulettes.png",
+        "assets/concept_art/batch_10/02_foxy_queen_column_gown_ermine_epaulettes.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -44,6 +52,16 @@
       "accents": [
         "platinum",
         "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_10_column_gown",
+          "label": "Magenta column gown, ermine cape, gold epaulettes, crescent belt (mannequin)",
+          "concept_art": "assets/concept_art/batch_10/02_foxy_queen_column_gown_ermine_epaulettes.jpg"
+        }
+      ],
+      "also_fits": [
+        "queen_vesperine_pyre"
       ]
     },
     {
@@ -54,7 +72,8 @@
       "cosmetic_only": true,
       "description": "Magenta ball gown with ermine and jewels.",
       "concept_art": [
-        "assets/concept_art/batch_03_royal_wardrobe/03_foxy_coronation_ballgown_magenta_ermine.png"
+        "assets/concept_art/batch_03_royal_wardrobe/03_foxy_coronation_ballgown_magenta_ermine.png",
+        "assets/concept_art/batch_10/03_foxy_coronation_ballgown_ruby_jewels.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -62,6 +81,13 @@
       "accents": [
         "platinum",
         "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_10_ruby_jewels",
+          "label": "Magenta ballgown, ermine cape, ruby jewels and belt (mannequin)",
+          "concept_art": "assets/concept_art/batch_10/03_foxy_coronation_ballgown_ruby_jewels.jpg"
+        }
       ]
     },
     {
@@ -648,6 +674,120 @@
         "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg"
       ],
       "related_to": "monarch_formal_attire",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "monarch_formal_verdant_tree_crest",
+      "display_name": "Monarch Formal (Verdant Tree Crest)",
+      "owner": "player (Anterranian Monarch)",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Mannequin: black suit, magenta vest/tie, ermine cape, tree-of-life crest patch, gem belt. Links Order of the Verdant Tree.",
+      "concept_art": [
+        "assets/concept_art/batch_10/01_monarch_formal_verdant_tree_crest_ermine_cape.jpg"
+      ],
+      "related_to": "monarch_formal_attire",
+      "linked_guild": "order_of_the_verdant_tree",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_queen_column_gown_ermine_epaulettes",
+      "display_name": "Foxy Queen Column Gown (Ermine Epaulettes)",
+      "owner": "foxy_ani",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Mannequin: magenta column gown, ermine cape, gold epaulettes, crescent belt. Court/queen formal.",
+      "concept_art": [
+        "assets/concept_art/batch_10/02_foxy_queen_column_gown_ermine_epaulettes.jpg"
+      ],
+      "related_to": "foxy_court_gown",
+      "also_fits": [
+        "queen_vesperine_pyre"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_coronation_ballgown_ruby_jewels",
+      "display_name": "Foxy Coronation Ballgown (Ruby Jewels)",
+      "owner": "foxy_ani",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Mannequin: magenta ballgown, ermine cape, ruby jewels and belt. Coronation-formal variant.",
+      "concept_art": [
+        "assets/concept_art/batch_10/03_foxy_coronation_ballgown_ruby_jewels.jpg"
+      ],
+      "related_to": "foxy_coronation_gown",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "umbriel_voss_court_mage_sheer_robe",
+      "display_name": "Umbriel Voss Court Mage Sheer Robe",
+      "owner": "umbriel_voss",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Sheer black robe over magenta tunic, crest belt; court mage/consort look. Original design, palette v2.",
+      "concept_art": [
+        "assets/concept_art/batch_10/04_umbriel_voss_court_mage_sheer_robe.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "vesper_trail_alaskan_biome_tribal_envoy",
+      "display_name": "Vesper Trail Alaskan-Biome Tribal Envoy Attire",
+      "owner": "explorer_guide",
+      "category": "explorer_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Original fantasy design: black/magenta feather mantle, geometric embroidered tunic, fringe boots, gold triangle pendant. Alaskan-biome tribal envoy/explorer attire for Vesper Trail (explorer_guide). Cultural inspiration treated respectfully as original art direction; not a real-world cultural costume.",
+      "concept_art": [
+        "assets/concept_art/batch_10/06_vesper_trail_alaskan_biome_tribal_envoy.jpg"
+      ],
+      "home_biome": "alaskan_boreal",
+      "respect_note": "Original fictional design inspired by northern explorer/envoy silhouettes; not a replica of any living culture's regalia.",
       "palette_version": 2,
       "finish": "glitter_sparkle",
       "accents": [

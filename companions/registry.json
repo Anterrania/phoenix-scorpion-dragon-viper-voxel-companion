@@ -85,6 +85,11 @@
       "dir": "princess_regent_lumira",
       "role": "Heir council (princess regent)",
       "name_status": "assigned by Foxy, user may rename"
+    },
+    "umbriel-voss": {
+      "dir": "umbriel_voss",
+      "role": "Court mage / consort",
+      "name_status": "assigned by Foxy, user may rename"
     }
   }
 }

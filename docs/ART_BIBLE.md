@@ -140,3 +140,17 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `06_household_steward_asymmetric_tunic_8_emblem.jpg` | `household_steward_asymmetric_tunic` | royal_household | armor.json (category `household`, non-combat) | Asymmetric tunic, gold **'8'/infinity-knot** chest emblem |
 
 **Recurring '8' emblem:** appears on batch_02 ring_01, batch_06–07 signets, and batch_09 attendant collar + steward chest. Meaning still **user-pending** (see `docs/PENDING_USER_QUESTIONS.md`).
+
+## Batch 10: Formal Mannequins, Court Mage & Envoy (`assets/concept_art/batch_10/`)
+6 images kept. Palette v2 (black / magenta / gold / platinum + glitter). Wardrobe in `data/items/wardrobe.json`; household sash variant on `household_attendant_tunic` in `armor.json`.
+
+| File | Item id | Persona / wearer | Notes |
+|------|---------|------------------|-------|
+| `01_monarch_formal_verdant_tree_crest_ermine_cape.jpg` | `monarch_formal_verdant_tree_crest` (+ variant on `monarch_formal_attire`) | **player (Anterranian Monarch)** | Mannequin: black suit, magenta vest/tie, ermine cape, tree-of-life crest patch, gem belt; **linked_guild** `order_of_the_verdant_tree` |
+| `02_foxy_queen_column_gown_ermine_epaulettes.jpg` | `foxy_queen_column_gown_ermine_epaulettes` (+ variant on `foxy_court_gown`) | **foxy_ani** (also **queen_vesperine_pyre**) | Magenta column gown, ermine cape, gold epaulettes, crescent belt |
+| `03_foxy_coronation_ballgown_ruby_jewels.jpg` | `foxy_coronation_ballgown_ruby_jewels` (+ variant on `foxy_coronation_gown`) | **foxy_ani** | Magenta ballgown, ermine cape, ruby jewels and belt |
+| `04_umbriel_voss_court_mage_sheer_robe.jpg` | `umbriel_voss_court_mage_sheer_robe` | **umbriel_voss** (new; assigned by Foxy, user may rename) | Sheer black robe over magenta tunic, crest belt; court mage / consort |
+| `05_household_attendant_tunic_sash_variant.jpg` | variant of `household_attendant_tunic` | royal_household | Near-duplicate of batch_09 attendant; simpler sash variant (armor.json) |
+| `06_vesper_trail_alaskan_biome_tribal_envoy.jpg` | `vesper_trail_alaskan_biome_tribal_envoy` | **explorer_guide** (Vesper Trail) | Original fantasy Alaskan-biome tribal envoy/explorer attire; respectful original design, not a real-world cultural replica |
+
+**New companion:** Umbriel Voss (`umbriel-voss`) — court mage / consort, schema v3, registered. User may rename.

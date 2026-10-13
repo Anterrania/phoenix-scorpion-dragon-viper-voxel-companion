@@ -65,3 +65,10 @@
 - Household attendant + steward uniforms (05–06) in armor.json category `household` (non-combat)
 - Recurring '8' emblem noted; pending questions saved in docs/PENDING_USER_QUESTIONS.md (silent until user asks)
 - Not pushed (waiting on GitHub sign-in)
+
+## Batch 10 (formal mannequins, court mage, envoy) - done locally
+- 6 images in assets/concept_art/batch_10/
+- Monarch Verdant Tree crest formal (links order_of_the_verdant_tree); Foxy column gown + ruby coronation ballgown variants
+- New companion **Umbriel Voss** (court mage/consort) + wardrobe; household attendant sash variant in armor.json
+- Vesper Trail explorer attire (alaskan_boreal tribal envoy look; original respectful fantasy design)
+- Palette v2 on all new items; not pushed (waiting on GitHub sign-in)

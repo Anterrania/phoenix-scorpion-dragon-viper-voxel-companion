@@ -286,9 +286,10 @@
       "category": "household",
       "combat": false,
       "non_combat": true,
-      "description": "Simple black short-sleeve tunic with magenta trim, sash, tall boots; ornate gold collar with glowing magenta '8'/infinity emblem. Attendant/servant attire.",
+      "description": "Simple black short-sleeve tunic with magenta trim, sash, tall boots. Batch_09 has ornate gold collar with glowing magenta '8' emblem; batch_10 is a simpler sash variant (near-duplicate).",
       "concept_art": [
-        "assets/concept_art/batch_09/05_household_attendant_tunic_gold_collar_8.jpg"
+        "assets/concept_art/batch_09/05_household_attendant_tunic_gold_collar_8.jpg",
+        "assets/concept_art/batch_10/05_household_attendant_tunic_sash_variant.jpg"
       ],
       "emblem": "figure_8_infinity",
       "emblem_note": "Recurring '8' \u2014 meaning pending user (same open question as batch_02 ring_01 / batch_06\u201307 signets).",
@@ -301,7 +302,14 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false,
-      "status": "stub"
+      "status": "stub",
+      "variants": [
+        {
+          "id": "batch_10_sash_variant",
+          "label": "Simple black tunic, magenta trim, sash (near-duplicate of batch_09 attendant; no ornate gold collar)",
+          "concept_art": "assets/concept_art/batch_10/05_household_attendant_tunic_sash_variant.jpg"
+        }
+      ]
     },
     {
       "id": "household_steward_asymmetric_tunic",

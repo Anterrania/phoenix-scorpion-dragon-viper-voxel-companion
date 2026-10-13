@@ -6,7 +6,7 @@
   "name": "Vesper Trail",
   "role": "Explorer / guide",
   "personality": "Curious, brave, good with directions.",
-  "appearance": "Stylized voxel figure (placeholder, art TBD).",
+  "appearance": "Alaskan-biome tribal envoy/explorer attire (original fantasy design): black/magenta feather mantle, geometric embroidered tunic, fringe boots, gold triangle pendant. See assets/concept_art/batch_10/06_vesper_trail_alaskan_biome_tribal_envoy.jpg.",
   "abilities": [
     "pathfinding",
     "waypoints",
@@ -56,5 +56,8 @@
   "accents": [
     "platinum",
     "gold"
+  ],
+  "concept_art": [
+    "assets/concept_art/batch_10/06_vesper_trail_alaskan_biome_tribal_envoy.jpg"
   ]
 }

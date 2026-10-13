@@ -384,3 +384,20 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `06_aethel_key_universal_access.png` | `aethel_key` | player / authorized | currency.json | Access/ID/wallet card; biometric hologram panel (cosmetic fiction) |
 
 **Open confirmation (user):** Aethel vs Phoenix God Coin / Phoenix Embers relationship? Meaning of crowned lion coin? See `docs/PENDING_USER_QUESTIONS.md` and `docs/modules/ECONOMY.md`.
+
+
+## Batch 25: Crowned Dragon-Phoenix House Emblem (`assets/concept_art/batch_25/`)
+6 images received, **6 kept**, **0 duplicates**. Palette v2 (black / magenta / gold / platinum + glitter). All items are **game-only virtual** heraldry / UI stubs.
+
+**Extended:** `data/lore/heraldry.json` (`house_emblem` + 6 variant items), `docs/modules/HERALDRY.md`.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_crowned_dragon_phoenix_holo_flag.png` | `house_emblem_crowned_dragon_phoenix_holo_flag` | realm / house | heraldry.json | Translucent holographic flag; magenta crowned dragon-phoenix |
+| `02_crowned_dragon_phoenix_tapestry.jpg` | `house_emblem_crowned_dragon_phoenix_tapestry` | realm / house | heraldry.json | Black tapestry, gold filigree, starburst hybrid |
+| `03_crowned_dragon_phoenix_neon_emblem_card.jpg` | `house_emblem_crowned_dragon_phoenix_neon_card` | UI | heraldry.json | Neon outline card; circuit frame — card back / loading |
+| `04_crowned_dragon_phoenix_neon_circuit_body_cross_crown.jpg` | `house_emblem_crowned_dragon_phoenix_neon_circuit_body` | UI | heraldry.json | Circuit-body neon; cross crown — card back / loading |
+| `05_crowned_dragon_phoenix_magenta_banner_constellation.jpg` | `house_emblem_crowned_dragon_phoenix_magenta_banner` | realm / house | heraldry.json | Magenta banner; constellation-pattern hybrid |
+| `06_crowned_dragon_phoenix_galaxy_flag_landscape.jpg` | `house_emblem_crowned_dragon_phoenix_galaxy_flag` | realm / UI | heraldry.json | Landscape gold-frame galaxy flag |
+
+**Open confirmation (user):** Phoenix vs dragon vs this **Crowned Dragon-Phoenix** hybrid as primary seal/flag/house emblem? Hybrid catalogued as `hybrid_candidate`; does **not** close Q24. See `docs/PENDING_USER_QUESTIONS.md` and `docs/modules/HERALDRY.md`.

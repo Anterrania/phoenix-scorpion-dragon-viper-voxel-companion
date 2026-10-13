@@ -180,3 +180,11 @@
 - ECONOMY_BANKING.md cross-linked; ART_BIBLE + pending Qs updated
 - Pending: Aethel ↔ Phoenix coin relationship; lion coin meaning
 - Palette v2; not pushed (waiting on GitHub sign-in)
+
+
+## Batch 25 (Crowned Dragon-Phoenix house emblem) - done locally
+- 6 of 6 images kept in assets/concept_art/batch_25/ (no duplicates)
+- Extended `data/lore/heraldry.json`: house emblem `crowned_dragon_phoenix` (Scorpion Dragon Viper Phoenix hybrid) + 6 variants (holo flag, tapestry, 2 neon UI cards, magenta constellation banner, landscape galaxy flag)
+- HERALDRY.md + ART_BIBLE updated; neon cards noted as UI card backs / loading screens
+- Note: hybrid may answer phoenix-vs-dragon primary; **question kept open** (hybrid_candidate)
+- Palette v2; not pushed (waiting on GitHub sign-in)

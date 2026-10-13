@@ -1,5 +1,5 @@
 {
-  "_note": "SCAFFOLD. National heraldry catalog (flag, great seals, royal title, mottos). Palette v2. See docs/modules/HERALDRY.md. Primary seal/flag choice pending user.",
+  "_note": "SCAFFOLD. National heraldry catalog (flag, great seals, royal title, mottos) + house emblem Crowned Dragon-Phoenix variants (batch_25). Palette v2. See docs/modules/HERALDRY.md. Primary seal/flag choice pending user (phoenix, dragon, or hybrid).",
   "schema_version": 1,
   "realm": "Anterrania",
   "palette_version": 2,
@@ -75,6 +75,24 @@
     },
     "dragon": {
       "status": "alternate_candidate"
+    },
+    "crowned_dragon_phoenix": {
+      "id": "crowned_dragon_phoenix",
+      "display_name": "Crowned Dragon-Phoenix",
+      "also_known_as": [
+        "Scorpion Dragon Viper Phoenix",
+        "Dragon-Phoenix hybrid",
+        "house emblem (project namesake)"
+      ],
+      "status": "hybrid_candidate",
+      "notes": "Batch_25 house emblem unites dragon body/head with phoenix wings/tail under a crown. May answer the phoenix-vs-dragon primary question as a combined national/house motif; question stays open until user confirms.",
+      "appears_on": [
+        "holo flag (batch_25/01)",
+        "tapestry (batch_25/02)",
+        "neon emblem cards / UI card backs (batch_25/03\u201304)",
+        "magenta constellation banner (batch_25/05)",
+        "landscape galaxy flag (batch_25/06)"
+      ]
     }
   },
   "items": [
@@ -180,10 +198,163 @@
         "gold"
       ],
       "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_holo_flag",
+      "display_name": "Crowned Dragon-Phoenix Holographic Flag",
+      "category": "flag",
+      "type": "holo_flag",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "horizontal",
+      "description": "Translucent holographic flag in space: gold filigree border, magenta crowned dragon-phoenix hybrid with phoenix wings, faint circuit/constellation weave on the fabric.",
+      "motif": "dragon_phoenix_hybrid",
+      "concept_art": [
+        "assets/concept_art/batch_25/01_crowned_dragon_phoenix_holo_flag.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_tapestry",
+      "display_name": "Crowned Dragon-Phoenix Tapestry",
+      "category": "tapestry",
+      "type": "banner_tapestry",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "horizontal",
+      "description": "Black tapestry, ornate gold filigree border, starburst-radiant magenta crowned dragon-phoenix; gold corner cruciform accents.",
+      "motif": "dragon_phoenix_hybrid",
+      "concept_art": [
+        "assets/concept_art/batch_25/02_crowned_dragon_phoenix_tapestry.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_neon_card",
+      "display_name": "Crowned Dragon-Phoenix Neon Emblem Card",
+      "category": "emblem_card",
+      "type": "ui_card_back",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "vertical",
+      "description": "Neon magenta outline dragon-phoenix on black card; gold circuit-frame corners; usable as UI card back / loading screen.",
+      "motif": "dragon_phoenix_hybrid",
+      "ui_role": [
+        "card_back",
+        "loading_screen"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_25/03_crowned_dragon_phoenix_neon_emblem_card.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_neon_circuit_body",
+      "display_name": "Crowned Dragon-Phoenix Neon Circuit-Body Card (Cross Crown)",
+      "category": "emblem_card",
+      "type": "ui_card_back",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "vertical",
+      "description": "Neon magenta outline hybrid with circuit-body fill; cross-topped crown; gold circuit frame \u2014 UI card back / loading screen variant.",
+      "motif": "dragon_phoenix_hybrid",
+      "ui_role": [
+        "card_back",
+        "loading_screen"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_25/04_crowned_dragon_phoenix_neon_circuit_body_cross_crown.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_magenta_banner",
+      "display_name": "Crowned Dragon-Phoenix Magenta Constellation Banner",
+      "category": "flag",
+      "type": "banner",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "vertical",
+      "description": "Magenta field banner in thick gold frame; gold constellation-pattern crowned dragon-phoenix (star-chart body/wings).",
+      "motif": "dragon_phoenix_hybrid",
+      "concept_art": [
+        "assets/concept_art/batch_25/05_crowned_dragon_phoenix_magenta_banner_constellation.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_galaxy_flag",
+      "display_name": "Crowned Dragon-Phoenix Galaxy Flag (Landscape)",
+      "category": "flag",
+      "type": "galaxy_flag",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "landscape",
+      "description": "Landscape gold-frame flag/card over spiral galaxy; translucent magenta dragon-phoenix hybrid centered on nebula field.",
+      "motif": "dragon_phoenix_hybrid",
+      "ui_role": [
+        "card_back",
+        "loading_screen",
+        "banner"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_25/06_crowned_dragon_phoenix_galaxy_flag_landscape.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
     }
   ],
   "open_questions": [
-    "Is the phoenix or the dragon the primary national seal/flag? (Both catalogued; phoenix currently primary_candidate.)",
+    "Is the phoenix, the dragon, or the Crowned Dragon-Phoenix hybrid the primary national seal/flag/house emblem? (All catalogued; phoenix still primary_candidate; hybrid is hybrid_candidate from batch_25 \u2014 question remains open.)",
     "Meaning of the recurring '8' across seal, flag, coin, capitol, and regalia."
-  ]
+  ],
+  "house_emblem": {
+    "id": "crowned_dragon_phoenix",
+    "display_name": "Crowned Dragon-Phoenix",
+    "project_link": "Phoenix Scorpion Dragon Viper (house / realm namesake hybrid)",
+    "motif": "dragon_phoenix_hybrid",
+    "description": "Crowned hybrid: dragon head/serpentine body + phoenix feathered wings and flame-like tail. Palette v2 magenta creature, gold crown/filigree, black or holographic fields.",
+    "primary_question_note": "Catalogued as hybrid_candidate alongside phoenix (primary_candidate) and dragon (alternate_candidate). Does NOT close Q24 until user confirms.",
+    "ui_uses": [
+      "UI card backs",
+      "loading screens",
+      "banners / flags",
+      "tapestries"
+    ],
+    "palette_version": 2,
+    "finish": "glitter_sparkle",
+    "accents": [
+      "platinum",
+      "gold"
+    ]
+  }
 }

@@ -1,6 +1,6 @@
 # Heraldry — Anterrania (National Flag, Great Seals, Title & Mottos)
 
-> **Scaffold / lore catalog only.** Flags, seals, and the Phoenix God coin are **game-only virtual** cosmetics. Never sold for real money. Palette v2 (black / magenta / gold / platinum + glitter). Data: `data/lore/heraldry.json`, `data/items/currency.json`. Concept art: `assets/concept_art/batch_23/`. Economy: `docs/modules/ECONOMY_BANKING.md`.
+> **Scaffold / lore catalog only.** Flags, seals, and the Phoenix God coin are **game-only virtual** cosmetics. Never sold for real money. Palette v2 (black / magenta / gold / platinum + glitter). Data: `data/lore/heraldry.json`, `data/items/currency.json`. Concept art: `assets/concept_art/batch_23/` (national) + `assets/concept_art/batch_25/` (house emblem hybrid). Economy: `docs/modules/ECONOMY_BANKING.md`.
 
 ## Royal title
 
@@ -61,10 +61,27 @@ Obverse: gold phoenix. Reverse: magenta **8** over galaxy. Rim: title + **DIVINE
 
 `anterranian_capitol` in `data/items/structures.json` (batch_22 base + batch_23 variants: floating pads / phoenix plaques; gold-dome dragon crest with **8** archway).
 
+## House emblem: **Crowned Dragon-Phoenix** (batch_25)
+
+**Id:** `crowned_dragon_phoenix`  
+**Also called:** Scorpion Dragon Viper Phoenix / Dragon-Phoenix hybrid (project namesake)  
+**Motif:** Dragon head + serpentine body with phoenix feathered wings and flame-like tail, under a crown. Palette v2 magenta creature, gold crown/filigree.
+
+| Id | Type | Art | Notes |
+|----|------|-----|-------|
+| `house_emblem_crowned_dragon_phoenix_holo_flag` | holo flag | batch_25/01 | Translucent holographic flag, gold filigree |
+| `house_emblem_crowned_dragon_phoenix_tapestry` | tapestry | batch_25/02 | Black field, gold filigree, starburst |
+| `house_emblem_crowned_dragon_phoenix_neon_card` | UI emblem card | batch_25/03 | Neon outline, circuit frame — card back / loading |
+| `house_emblem_crowned_dragon_phoenix_neon_circuit_body` | UI emblem card | batch_25/04 | Circuit-body fill, cross crown — card back / loading |
+| `house_emblem_crowned_dragon_phoenix_magenta_banner` | banner | batch_25/05 | Magenta field, constellation-pattern hybrid |
+| `house_emblem_crowned_dragon_phoenix_galaxy_flag` | galaxy flag (landscape) | batch_25/06 | Gold frame over spiral galaxy |
+
+This hybrid **may** answer the phoenix-vs-dragon primary question as a combined house/national motif. **Question stays open** until the user confirms (phoenix / dragon / hybrid).
+
 ## Open confirmations (user)
 
-1. **Phoenix vs dragon** as the **primary** national seal / flag?
+1. **Phoenix vs dragon vs Crowned Dragon-Phoenix hybrid** as the **primary** national seal / flag / house emblem? (Hybrid catalogued in batch_25; does not auto-close.)
 2. Meaning of the recurring **8**?
 3. Confirm **Phoenix God** title use (see PENDING).
 
-When answered, update `data/lore/heraldry.json` `primary_candidate` flags and clear the matching PENDING items.
+When answered, update `data/lore/heraldry.json` `primary_candidate` / `hybrid_candidate` flags and clear the matching PENDING items.

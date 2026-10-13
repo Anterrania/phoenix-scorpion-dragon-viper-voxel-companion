@@ -72,7 +72,10 @@ GDExtension (arm64-v8a `.so`) + Godot's Gradle build, JDK 17, export templates t
 - `memory_export.json` / zipped brain folder syncs both ways, merged by timestamp.
 - Tool names are shared, so a plan made in chat ("build a fire altar") can replay in-game later.
 
-## Offline / local AI path
-1. **Rule-based fallback** (works today as a stub in `scripts/ai/ai_provider.gd`): keyword intents → tool calls with templated lines from the persona.
-2. **On-device LLM:** a llama.cpp GDExtension (community bindings exist; vet one or build our own) running a small quantized GGUF model (~0.5–3B parameters, Q4) on arm64. Expect a few tokens/sec on mid-range phones. Keep prompts short, use the brain cells as retrieval, and use grammar-constrained JSON for tool calls. The model downloads after install rather than shipping in the APK.
-3. **Optional cloud sync:** when online and the user has opted in, use a cloud provider (Grok/Gemini/etc., see modules/AI_INTEGRATIONS.md) for richer replies, and sync brain files with the standalone bot. Offline is always the fallback.
+## Offline / local AI path (refreshed)
+Reasoning backends are **Local (default) and Grok (optional)**. Nothing else reasons.
+1. **Rule-based local (now):** `LocalProvider` maps keyword intents to tool calls and persona lines. Works offline with no download.
+2. **On-device LLM (Phase 5 evaluation):** a llama.cpp GDExtension (vet community Godot 4/Android arm64 bindings, or build our own) with a small Q4 GGUF model (~0.5–3B). The model downloads after install, not in the APK. Prompts come from brain cells (identity, values, top-k facts). Tool calls use grammar-constrained JSON. It runs on a worker thread with a timeout and falls back to rule-based when slow or out of memory. Expect a few tokens/sec on mid-range phones.
+3. **Grok online (optional, Phase 9):** `GrokProvider` with a user-entered key. Richer replies on opt-in, plus brain sync with the standalone Grok Bot.
+4. **Data importers (separate from reasoning):** `DataImporter` brings the user's own Copilot/Gemini/Meta AI exports into memory with consent and per-item review (modules/AI_INTEGRATIONS.md).
+5. **Lead routing:** group requests go to Foxy Ani first. Her tool calls can include `delegate(companion_id, command)`.

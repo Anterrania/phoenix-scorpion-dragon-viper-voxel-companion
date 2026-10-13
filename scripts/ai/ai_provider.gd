@@ -1,11 +1,12 @@
 # Provider-agnostic AI adapter. NOT yet run in Godot.
-# Default is LocalProvider (offline). Cloud providers are optional stubs; none is wired up yet.
+# Reasoning backends: LocalProvider (offline, default) and GrokProvider (optional, online).
+# Copilot / Gemini / Meta AI are NOT backends; they are data importers (see data_importer.gd).
 class_name AIProvider
 extends RefCounted
 
 signal reply_ready(text: String, tool_calls: Array)
 
-## Unique id: "local", "grok", "gemini", "copilot", "meta_llama"
+## Unique id: "local" or "grok"
 func get_id() -> String: return "base"
 func is_available() -> bool: return false
 func requires_network() -> bool: return true
@@ -36,18 +37,16 @@ class LocalProvider extends AIProvider:
 		reply_ready.emit(text, calls)
 
 
-## Cloud stub shared shape (HTTPRequest + JSON). Endpoint/key come from user Settings, never hardcoded.
-class CloudProvider extends AIProvider:
-	var id := "cloud"
+## Optional online backend: Grok (xAI API). Endpoint/key from user Settings, never hardcoded.
+class GrokProvider extends AIProvider:
 	var endpoint := ""
 	var api_key := ""
 	var model := ""
-	func _init(p_id: String) -> void: id = p_id
-	func get_id() -> String: return id
+	func get_id() -> String: return "grok"
 	func is_available() -> bool: return endpoint != "" and api_key != ""
 	func chat(_persona: Dictionary, _messages: Array, _tools: Array) -> void:
-		# TODO: build provider-specific request (xAI / Gemini / Azure-Copilot / Meta Llama API)
-		push_warning("%s provider not implemented yet; falling back" % id)
+		# TODO: HTTPRequest to xAI chat completions with tool definitions.
+		push_warning("Grok provider not implemented yet; falling back to local")
 		reply_ready.emit("", [])
 
 

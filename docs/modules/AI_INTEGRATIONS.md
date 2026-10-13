@@ -1,26 +1,23 @@
-# Multi-AI Integrations
+# AI Integrations & Data Import
 
-> **Future module, not implemented.** Phase: Phase 5 (adapter) / Phase 9 (cloud providers). Design notes only.
+> **Planned module, not implemented.** Phase 5 (local AI + importer UI) / Phase 9 (Grok online). No live connections exist.
 
-Companions talk through a **provider-agnostic adapter** (`scripts/ai/ai_provider.gd`). The **local offline provider is the default**. Cloud providers are opt-in.
-
-**Status:** no cloud provider is wired up today. The stub only defines the interface plus a rule-based local fallback.
-
-| Provider | Path | Notes |
+## Reasoning backends (only these two), via `scripts/ai/ai_provider.gd`
+| Backend | Role | Status |
 |---|---|---|
-| Local (default) | rule-based now; llama.cpp GDExtension + small GGUF model later | Works offline, no keys |
-| Grok (xAI) | xAI API (OpenAI-compatible chat + tools) | Matches the standalone Grok Bot personas |
-| Google Gemini | Gemini API (Google AI Studio / Vertex) | Function calling supported |
-| Microsoft Copilot | No general consumer Copilot chat API; Azure OpenAI / Azure AI Foundry is the practical route | Needs an Azure account |
-| Meta AI | Llama models self-hosted (also usable via the local llama.cpp path) or Meta's Llama API where available | Open weights fit offline use |
+| **Local (default)** | Offline. Rule-based now; llama.cpp GDExtension + small GGUF later | Keyword fallback stub |
+| **Grok (xAI API)** | Optional online reasoning, matching the standalone Grok Bot personas | Stub only |
+Fallback: Grok → Local. Gameplay never blocks on the network.
 
-**Interface:**
-- `get_id()`, `is_available()`, `requires_network()`
-- `chat(persona, messages, tools)` → emits `reply_ready(text, tool_calls)`
-- Tool calls map to companion commands (`place_voxel`, `carve_area`, `follow`, ...) that `companion_agent.gd` executes.
+## Data import hooks (NOT backends), via `scripts/ai/data_importer.gd`
+Microsoft Copilot, Google Gemini and Meta AI are used **only to bring the user's own existing info into companion memory**. They never generate replies or make decisions in Phoenix.
+| Source | Planned input |
+|---|---|
+| Microsoft Copilot | The user's exported data (Microsoft privacy dashboard export) |
+| Google Gemini | Google Takeout export of Gemini activity |
+| Meta AI | Meta "Download your information" export |
+| Generic | Any text/JSON file the user picks |
 
-**Rules:**
-- API keys are entered by the user in Settings and stored in Android Keystore, never in the repo.
-- Fallback chain: the chosen provider, then local. Network failures never block gameplay.
-- The persona and brain files are the same for every provider, which keeps behavior consistent with the Grok Bot versions.
-- Verify current API terms and endpoints for each provider before implementing (they change).
+**Flow:** the user opts in → picks an export file → it's parsed into candidate facts → **preview** with accept/reject per item → accepted facts go into the chosen companion's `brain/memory/facts.jsonl`, tagged with `source`.
+
+**Rules:** explicit consent every time, on-device processing, nothing uploaded, no scraping or credential collection. Use official exports (or official APIs later, only with user authorization). Verify export formats before writing parsers. Imported facts can be removed by source.

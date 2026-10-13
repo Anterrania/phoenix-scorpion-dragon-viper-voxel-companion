@@ -8,7 +8,8 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | 0.3 | 0 | biome_generator.gd (4 biomes) | ✅ |
 | 0.4 | 0 | companion_agent.gd (persona load, state machine, VoxelTool) | ✅ |
 | 0.5 | 0 | player_controller.gd (touch+keys, raycast dig/place) | ✅ |
-| 0.6 | 0 | ai_provider.gd adapter + local fallback | ✅ |
+| 0.6 | 0 | ai_provider.gd (Local + Grok only) + data_importer.gd (Copilot/Gemini/Meta import) | ✅ |
+| 0.10 | 0 | Offline AI notes refreshed (PRI-4) | ✅ |
 | 0.7 | 0 | Shared personas v2 (foxy_ani, circuit_nova, aaliyah) | ✅ |
 | 0.8 | 0 | Architecture, Android, roadmap, module docs | ✅ |
 | 0.9 | 0 | Push branch + open PR | ⏳ blocked: gh login |

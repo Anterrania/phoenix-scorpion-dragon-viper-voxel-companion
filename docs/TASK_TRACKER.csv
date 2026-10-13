@@ -26,7 +26,7 @@ M6,Standalone chat bots from persona.json,todo,P1
 PRI-1,Godot scaffold + VoxelTerrain basic world (verify in voxel-enabled Godot),in_progress,P0
 PRI-2,Companion 3D placeholders (Foxy Ani / Circuit Nova / Aaliyah) as CharacterBody3D with VoxelTool hooks,done_untested,P0
 PRI-3,Dual-bot sync design (shared persona.json personality/memory files),done,P0
-PRI-4,Offline AI path notes (on-device model options),todo,P1
+PRI-4,Offline AI path notes (on-device model options),done,P1
 PRI-5,Future systems notes: Seed-style relationship/mood/DNA; star map; Sims needs; SimCity-style city; Second Life scripting; MobiGlass UI,todo,P2
 PRI-6,Android export pipeline research,todo,P1
 PRI-7,Social posting hooks design (no direct connectors yet),todo,P2

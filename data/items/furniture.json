@@ -38,6 +38,44 @@
         "assets/concept_art/batch_04_royal_assets/06_foxy_consort_throne_magenta_crescent.png"
       ],
       "status": "stub"
+    },
+    {
+      "id": "heir_throne_solarian",
+      "display_name": "Heir Throne of Prince Regent Solarian",
+      "owner": "Prince Regent Solarian",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        3,
+        4,
+        3
+      ],
+      "sit_point": true,
+      "description": "Black and gold throne, magenta tufted seat, eagle wings, crescent crest.",
+      "inscription": "POTENTIA HERES SEMI-DIVUS (Power, Heir, Demigod)",
+      "inscription_user_confirm": false,
+      "concept_art": [
+        "assets/concept_art/batch_05/01_heir_throne_solarian_black_gold.png"
+      ]
+    },
+    {
+      "id": "heir_throne_lumira",
+      "display_name": "Heir Throne of Princess Regent Lumira",
+      "owner": "Princess Regent Lumira",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        3,
+        4,
+        3
+      ],
+      "sit_point": true,
+      "description": "Magenta winged throne with gem/orb crest and sashes.",
+      "inscription": "POTENTIA HERES SEMI DEIVA",
+      "inscription_user_confirm": true,
+      "concept_art": [
+        "assets/concept_art/batch_05/02_heir_throne_lumira_magenta.png"
+      ]
     }
   ]
 }

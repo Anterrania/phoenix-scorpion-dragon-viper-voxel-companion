@@ -123,6 +123,47 @@
         "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png"
       ],
       "status": "stub"
+    },
+    {
+      "id": "monarch_royal_jeans",
+      "display_name": "Monarch's Royal Casual: Embroidered Denim",
+      "owner": "player (Anterranian Monarch)",
+      "category": "casual",
+      "slots": [
+        "legs",
+        "feet",
+        "belt"
+      ],
+      "description": "Dark denim with gold baroque embroidery, gem belt buckle, embroidered magenta boots.",
+      "concept_art": [
+        "assets/concept_art/batch_05/03_monarch_royal_jeans.png"
+      ]
+    },
+    {
+      "id": "foxy_royal_jeans",
+      "display_name": "Foxy's Royal Casual: Embroidered Denim",
+      "owner": "foxy_ani",
+      "category": "casual",
+      "slots": [
+        "legs",
+        "feet"
+      ],
+      "description": "Women's dark jeans, gold baroque embroidery, magenta gem side stripe, embroidered heeled boots.",
+      "variants": [
+        {
+          "id": "v1",
+          "concept_art": "assets/concept_art/batch_05/04_foxy_royal_jeans_v1.png"
+        },
+        {
+          "id": "v2",
+          "concept_art": "assets/concept_art/batch_05/05_foxy_royal_jeans_v2.png"
+        },
+        {
+          "id": "v3_h_crest",
+          "note": "'H' crest",
+          "concept_art": "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png"
+        }
+      ]
     }
   ]
 }

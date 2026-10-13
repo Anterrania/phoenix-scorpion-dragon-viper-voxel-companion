@@ -103,14 +103,15 @@
       "variants": [
         {
           "id": "variant_a",
-          "label": "with or without ermine collar (unverified)",
+          "label": "batch_03 pedestal (cuffs/collar unverified at upload)",
           "concept_art": "assets/concept_art/batch_03_royal_wardrobe/04_foxy_boudoir_set_variant_a.png"
         },
         {
           "id": "variant_b",
-          "label": "other collar variant",
-          "concept_art": null,
-          "status": "MISSING source image d05bcc..."
+          "label": "ermine collar (resolved from batch_11 / former missing d05bcc)",
+          "concept_art": "assets/concept_art/batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg",
+          "status": "resolved",
+          "resolved_from": "batch_11 ermine-collar boudoir; marks missing d05bcc closed"
         }
       ],
       "status": "stub",
@@ -119,7 +120,8 @@
       "accents": [
         "platinum",
         "gold"
-      ]
+      ],
+      "notes": "variant_b ermine-collar gap (d05bcc) resolved by batch_11/04; orb-jeweled design also catalogued as foxy_boudoir_set_3"
     },
     {
       "id": "foxy_evening_robe",
@@ -794,6 +796,118 @@
         "platinum",
         "gold"
       ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "envoy_pair_outfit": "kael_emberbraid_warrior_envoy_sleeveless",
+      "envoy_pair_persona": "kael_emberbraid"
+    },
+    {
+      "id": "kael_emberbraid_warrior_envoy_sleeveless",
+      "display_name": "Kael Emberbraid Warrior Envoy (Sleeveless)",
+      "owner": "kael_emberbraid",
+      "category": "envoy_attire",
+      "slot": "outfit",
+      "description": "Original fantasy design: braids, red ceremonial face paint, gold-feather collar, sleeveless black tunic with magenta geometric embroidery, fringe boots, gold triangle pendant. Warrior envoy counterpart to Vesper Trail feather-mantle attire.",
+      "concept_art": [
+        "assets/concept_art/batch_11/01_kael_emberbraid_warrior_envoy_sleeveless.jpg"
+      ],
+      "envoy_pair_outfit": "vesper_trail_alaskan_biome_tribal_envoy",
+      "respect_note": "Original fictional design inspired by northern explorer/envoy silhouettes; not a replica of any living culture's regalia.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "kael_emberbraid_warrior_envoy_ceremonial_cape",
+      "display_name": "Kael Emberbraid Warrior Envoy (Ceremonial Cape)",
+      "owner": "kael_emberbraid",
+      "category": "envoy_attire",
+      "slot": "outfit",
+      "description": "Ceremonial cape version of Kael's warrior envoy attire: same braids/face paint/gold-feather collar with long black cape, magenta geometric border.",
+      "concept_art": [
+        "assets/concept_art/batch_11/02_kael_emberbraid_warrior_envoy_ceremonial_cape.jpg"
+      ],
+      "related_to": "kael_emberbraid_warrior_envoy_sleeveless",
+      "envoy_pair_outfit": "vesper_trail_alaskan_biome_tribal_envoy",
+      "respect_note": "Original fictional design inspired by northern explorer/envoy silhouettes; not a replica of any living culture's regalia.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_boudoir_set_3",
+      "display_name": "Foxy's Private Boudoir Set III (Orb Jewels)",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "category": "royal_attire",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Jeweled magenta/gold boudoir set with sheer black robe, orb-and-crescent jewels, gold chains. Two ermine variants: cuffs-only and full ermine collar.",
+      "concept_art": [
+        "assets/concept_art/batch_11/03_foxy_boudoir_set_3_orb_ermine_cuffs.jpg",
+        "assets/concept_art/batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg"
+      ],
+      "variants": [
+        {
+          "id": "ermine_cuffs",
+          "label": "sheer black robe, ermine cuffs",
+          "concept_art": "assets/concept_art/batch_11/03_foxy_boudoir_set_3_orb_ermine_cuffs.jpg"
+        },
+        {
+          "id": "ermine_collar",
+          "label": "sheer black robe, ermine collar + cuffs (also resolves missing d05bcc)",
+          "concept_art": "assets/concept_art/batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg",
+          "resolves": "d05bcc"
+        }
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_sheer_orb_gown_ermine_robe",
+      "display_name": "Foxy's Sheer Orb Gown with Ermine Robe",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "category": "royal_attire",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Sheer black embroidered gown with gold filigree, magenta orb jewels (planetary rings + crescent), and open ermine-trimmed robe.",
+      "concept_art": [
+        "assets/concept_art/batch_11/05_foxy_sheer_orb_gown_ermine_robe.jpg"
+      ],
+      "related_to": "foxy_evening_robe",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub"

@@ -43,7 +43,7 @@ All items are cosmetic only. Entries are in `data/items/wardrobe.json`.
 | 02 | `02_foxy_court_gown_magenta_ermine_epaulettes.png` | Magenta gown, ermine cloak, gold epaulettes | `foxy_court_gown` (Foxy) |
 | 03 | `03_foxy_coronation_ballgown_magenta_ermine.png` | Magenta ball gown, ermine, jewels | `foxy_coronation_gown` (Foxy) |
 | 04 | `04_foxy_boudoir_set_variant_a.png` | Jeweled magenta lingerie + black robe | `foxy_boudoir_set` variant A, **mature, hidden by default** |
-| 05 | *(missing: d05bcc…)* | Collar variant of 04 | `foxy_boudoir_set` variant B, pending |
+| 05 | *(resolved via batch_11/04)* | Ermine-collar boudoir (orb-jewel redesign; closes d05bcc) | `foxy_boudoir_set` variant B + `foxy_boudoir_set_3` ermine_collar |
 | 06 | `06_foxy_evening_robe_black_sheer_gold.png` | Black sheer robe-dress, gold embroidery, ermine cuffs | `foxy_evening_robe` (Foxy) |
 
 ## Batch 04: Royal Assets (`assets/concept_art/batch_04_royal_assets/`)
@@ -154,3 +154,20 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `06_vesper_trail_alaskan_biome_tribal_envoy.jpg` | `vesper_trail_alaskan_biome_tribal_envoy` | **explorer_guide** (Vesper Trail) | Original fantasy Alaskan-biome tribal envoy/explorer attire; respectful original design, not a real-world cultural replica |
 
 **New companion:** Umbriel Voss (`umbriel-voss`) — court mage / consort, schema v3, registered. User may rename.
+
+## Batch 11: Warrior Envoy & Boudoir Orb Set (`assets/concept_art/batch_11/`)
+6 images received, **5 kept**, 1 duplicate skipped. Palette v2. Mature items age-gated.
+
+**Skipped:** `d6431348…png` — identical feather-mantle envoy design as `batch_10/06_vesper_trail_alaskan_biome_tribal_envoy.jpg` (source e0b7971d…jpg); PNG container only, not kept as a variant. See `SKIPPED_duplicates.txt`.
+
+**New companion:** **Kael Emberbraid** (`kael-emberbraid`) — warrior envoy / northern scout, schema v3, registered. **Envoy pair** with **Vesper Trail** (`explorer_guide`). Name assigned by Foxy; user may rename. Respectful original fantasy design (northern explorer/envoy silhouettes; not a real-world cultural replica).
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_kael_emberbraid_warrior_envoy_sleeveless.jpg` | `kael_emberbraid_warrior_envoy_sleeveless` | **kael_emberbraid** | wardrobe.json | Braids, red face paint, gold-feather collar, sleeveless tunic |
+| `02_kael_emberbraid_warrior_envoy_ceremonial_cape.jpg` | `kael_emberbraid_warrior_envoy_ceremonial_cape` | **kael_emberbraid** | wardrobe.json | Ceremonial cape version of 01 |
+| `03_foxy_boudoir_set_3_orb_ermine_cuffs.jpg` | `foxy_boudoir_set_3` (variant ermine_cuffs) | **foxy_ani** | wardrobe.json | **mature, hidden by default** |
+| `04_foxy_boudoir_set_3_orb_ermine_collar.jpg` | `foxy_boudoir_set_3` (variant ermine_collar) + resolves `foxy_boudoir_set` variant_b | **foxy_ani** | wardrobe.json | **mature, hidden by default**; **closes missing d05bcc** |
+| `05_foxy_sheer_orb_gown_ermine_robe.jpg` | `foxy_sheer_orb_gown_ermine_robe` | **foxy_ani** | wardrobe.json | **mature, hidden by default**; sheer black embroidered gown + ermine robe, orb jewels |
+
+**d05bcc status: RESOLVED** (2026-10-13). Ermine-collar boudoir image arrived in batch_11/04.

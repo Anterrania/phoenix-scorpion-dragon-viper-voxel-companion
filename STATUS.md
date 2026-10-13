@@ -72,3 +72,11 @@
 - New companion **Umbriel Voss** (court mage/consort) + wardrobe; household attendant sash variant in armor.json
 - Vesper Trail explorer attire (alaskan_boreal tribal envoy look; original respectful fantasy design)
 - Palette v2 on all new items; not pushed (waiting on GitHub sign-in)
+
+## Batch 11 (warrior envoy & boudoir orb) - done locally
+- 5 of 6 images kept in assets/concept_art/batch_11/ (feather-mantle PNG skipped as dup of batch_10/06)
+- New companion **Kael Emberbraid** (warrior envoy / northern scout), envoy-paired with Vesper Trail (explorer_guide)
+- Boudoir set III (orb jewels; mature/hidden) + sheer orb gown with ermine robe (mature/hidden) for Foxy
+- **d05bcc RESOLVED** via batch_11/04 ermine-collar image
+- Not pushed (waiting on GitHub sign-in)
+

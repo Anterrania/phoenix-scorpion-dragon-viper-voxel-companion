@@ -90,6 +90,12 @@
       "dir": "umbriel_voss",
       "role": "Court mage / consort",
       "name_status": "assigned by Foxy, user may rename"
+    },
+    "kael-emberbraid": {
+      "dir": "kael_emberbraid",
+      "role": "Warrior envoy / northern scout",
+      "name_status": "assigned by Foxy, user may rename",
+      "envoy_pair": "explorer-guide"
     }
   }
 }

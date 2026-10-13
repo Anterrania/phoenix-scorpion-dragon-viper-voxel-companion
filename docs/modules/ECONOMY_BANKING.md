@@ -19,3 +19,10 @@
 - Full diegetic economy section: **`docs/modules/ECONOMY.md`** + `economies.aethel` in `data/items/currency.json`.
 - **Stasis** = stable soft-currency face; **Ascendant** = variable in-game asset (game balance only); **Key** = wallet/access card; notes / lion coins / sigil as listed there.
 - Still **virtual only** — no cash value, no crypto, no real-money purchase/redemption. Pending: Aethel ↔ Phoenix God Coin / Embers relationship; lion coin meaning.
+
+## Aethel Coin (batch 26)
+
+- Main diegetic coin face: `aethel_coin` in `data/items/currency.json` (art `assets/concept_art/batch_26/03_aethel_coin_universal_currency_zodiac.jpg`).
+- Printed **AETHEL COIN - UNIVERSAL CURRENCY**; zodiac-rim crowned dragon-phoenix.
+- Still virtual only — see `docs/modules/ECONOMY.md`.
+

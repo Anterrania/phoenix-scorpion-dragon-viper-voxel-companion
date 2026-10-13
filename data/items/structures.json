@@ -91,6 +91,63 @@
           ]
         }
       ]
+    },
+    {
+      "id": "aethel_citadel",
+      "display_name": "Aethel Citadel",
+      "assigned_name": "Aethel Citadel",
+      "name_status": "pending_user_approve",
+      "alternate_titles": [
+        "Orbital Fortress",
+        "Aethel Orbital Fortress"
+      ],
+      "owner": "player (Anterranian Monarch) / realm defense",
+      "category": "landmark",
+      "type": "orbital_fortress",
+      "placeable": true,
+      "description": "Black monolithic gothic-brutalist space fortress / orbital citadel with gold circuitry and magenta energy conduits. Large crowned dragon-phoenix crest on the face; vertical gold light beams; escort starships. Nebula backdrop.",
+      "features": [
+        "orbital_monolith",
+        "dragon_phoenix_crest",
+        "magenta_energy_conduits",
+        "gold_circuitry",
+        "escort_fleet",
+        "vertical_light_beams"
+      ],
+      "heraldry_links": [
+        "crowned_dragon_phoenix",
+        "fleet_war_banner"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_26/04_aethel_citadel_orbital_fortress.png"
+      ],
+      "related_docs": [
+        "docs/modules/CITY_BUILDING.md",
+        "docs/modules/DEFENSE_PROJECTS.md",
+        "docs/modules/HERALDRY.md",
+        "docs/modules/ECONOMY.md"
+      ],
+      "city_building_doc": "docs/modules/CITY_BUILDING.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Name 'Aethel Citadel' assigned by Foxy as orbital fortress; user may rename. Links Aethel economy branding to defense landmark."
+    }
+  ],
+  "names_to_approve": [
+    {
+      "id": "aethel_citadel",
+      "proposed_name": "Aethel Citadel",
+      "type": "orbital_fortress",
+      "source": "batch_26/04",
+      "assigned_by": "foxy",
+      "status": "pending_user_approve"
     }
   ]
 }

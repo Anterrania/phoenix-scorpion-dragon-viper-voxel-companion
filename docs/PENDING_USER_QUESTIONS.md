@@ -45,8 +45,15 @@ Saved unanswered items. Replay in full when the user asks for an update.
 
 27. **Crowned lion coin** (batch_24/02 `aethel_lion_coin`): What does the lion/beast crest mean (house, order, mint, regional mint)? Relation to phoenix/dragon national emblems?
 
+
+28. **Meaning of the seven glyphs** (batch_26/02 `orb_banner_seven_glyphs`): What do the seven white glyph medallions around the central orb mean (orders, virtues, worlds, Ignis Solis subset, Aethelian subset, other)?
+
+29. **Primary Great Sigil** (batch_26/05 flames candidate vs batch_27/02 geometric medallion vs earlier great_seal_phoenix / great_seal_dragon / batch_25 house emblem): which is the **primary** Great Sigil?
+
+30. **Aethel Citadel** (batch_26/04 orbital fortress): name assigned by Foxy as **Aethel Citadel** (alt: Orbital Fortress) — approve or rename?
+
 **Partially / largely resolved:**
 - ~~SEMI DEIVA / SEMI-DIVUS ambiguity for prince heir~~ → **SEMI-DIVUS** confirmed for Solarian (`heir_throne_solarian`) via batch_15/06.
 - ~~Lumira SEMI DEIVA open~~ → **SEMI DEIVA** (feminine) largely confirmed via batch_16/01 (`heir_throne_lumira`); exact sash wording soft-confirm (item 1).
 
-When user says the final-upload cue, repeat batches 4–25 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans, batch 17 royal_jeans collection, batch 18 white regalia variants + Seraph Emberion + Ethereal Sentinels heavy trooper + Phoenix Emberwing, batch 19 ivory regalia + Project Crusader / Aegis-Guard / SCDI Dominion Shotgun + Royal Aegis mech, batch 20 SCDI Aura Cannon + suit series Universal Sentinel / Aegis Prime / Void Weaver / Abyssal Sovereign + abyssal submarine stub, batch 21 SCDI suit series 4/5/6/8/14 + Skyfall Harness + Omni-Worker unit, batch 22 Phoenix God regalia + phoenix_wing_throne + Anterranian Capitol, batch 23 capitol variants + phoenix_god_coin + heraldry flag/seals, batch 24 Aethel economy notes/coins/sigil/stasis/ascendant/key, batch 25 Crowned Dragon-Phoenix house emblem holo/tapestry/neon cards/banner/galaxy flag) + remaining open questions + GitHub sign-in reminder.
+When user says the final-upload cue, repeat batches 4–26 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans, batch 17 royal_jeans collection, batch 18 white regalia variants + Seraph Emberion + Ethereal Sentinels heavy trooper + Phoenix Emberwing, batch 19 ivory regalia + Project Crusader / Aegis-Guard / SCDI Dominion Shotgun + Royal Aegis mech, batch 20 SCDI Aura Cannon + suit series Universal Sentinel / Aegis Prime / Void Weaver / Abyssal Sovereign + abyssal submarine stub, batch 21 SCDI suit series 4/5/6/8/14 + Skyfall Harness + Omni-Worker unit, batch 22 Phoenix God regalia + phoenix_wing_throne + Anterranian Capitol, batch 23 capitol variants + phoenix_god_coin + heraldry flag/seals, batch 24 Aethel economy notes/coins/sigil/stasis/ascendant/key, batch 25 Crowned Dragon-Phoenix house emblem holo/tapestry/neon cards/banner/galaxy flag, batch 26 fleet war banner + orb seven-glyphs + aethel_coin + Aethel Citadel + Great Sigil flames candidate) + remaining open questions + GitHub sign-in reminder.

@@ -18,6 +18,7 @@ Diegetic **Aethel** economy art from concept batch_24. Catalogued in `data/items
 | Stasis | `aethel_stasis` | AETHEL-STASIS / STABLE UNIVERSAL CURRENCY | **Stable** soft currency face |
 | Ascendant | `aethel_ascendant` | AETHEL-ASCENDAND [sic ASCENDANT] / DYNAMIC UNIVERSAL ASSET | **Variable** in-game asset (balance rules only) |
 | Key | `aethel_key` | THE AETHEL KEY / UNIVERSAL ACCESS | Wallet / access / ID card item |
+| **Main coin** | `aethel_coin` | AETHEL COIN / UNIVERSAL CURRENCY | Primary Aethel coin face (zodiac rim; batch_26) |
 
 ## Rules (hard)
 
@@ -38,6 +39,13 @@ Diegetic **Aethel** economy art from concept batch_24. Catalogued in `data/items
 5. `05_aethel_ascendant_dynamic_universal_asset.png`
 6. `06_aethel_key_universal_access.png`
 
+
+7. *(batch_26)* `assets/concept_art/batch_26/03_aethel_coin_universal_currency_zodiac.jpg` — **Aethel Coin** (main face; zodiac rim dragon-phoenix)
+
+## Landmark link
+
+`aethel_citadel` in `data/items/structures.json` (batch_26/04 orbital fortress) — name pending user approve. Diegetic Aethel branding on a defense/landmark structure.
+
 ## Related
 
 - `data/items/currency.json`
@@ -45,3 +53,4 @@ Diegetic **Aethel** economy art from concept batch_24. Catalogued in `data/items
 - `docs/modules/GAME_BALANCE.md`
 - `docs/modules/HERALDRY.md`
 - `docs/PENDING_USER_QUESTIONS.md`
+

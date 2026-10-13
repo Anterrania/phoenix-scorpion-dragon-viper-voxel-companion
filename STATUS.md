@@ -188,3 +188,11 @@
 - HERALDRY.md + ART_BIBLE updated; neon cards noted as UI card backs / loading screens
 - Note: hybrid may answer phoenix-vs-dragon primary; **question kept open** (hybrid_candidate)
 - Palette v2; not pushed (waiting on GitHub sign-in)
+
+## Batch 26 (fleet heraldry, Aethel coin, citadel, Great Sigil) - done locally
+- 5 of 6 images kept in assets/concept_art/batch_26/ (PNG Great Sigil dup skipped)
+- Heraldry: `fleet_war_banner`, `orb_banner_seven_glyphs` (7 glyphs pending), `great_sigil_crowned_dragon_phoenix_flames` (primary Great Sigil candidate)
+- Currency: `aethel_coin` (AETHEL COIN - UNIVERSAL CURRENCY; zodiac rim) — game-only
+- Structures: `aethel_citadel` orbital fortress (name assigned by Foxy; pending approve)
+- ECONOMY.md / HERALDRY.md / ART_BIBLE / PENDING updated
+- Palette v2; not pushed (waiting on GitHub sign-in)

@@ -1,5 +1,5 @@
 {
-  "_note": "SCAFFOLD. National heraldry catalog (flag, great seals, royal title, mottos) + house emblem Crowned Dragon-Phoenix variants (batch_25). Palette v2. See docs/modules/HERALDRY.md. Primary seal/flag choice pending user (phoenix, dragon, or hybrid).",
+  "_note": "SCAFFOLD. National heraldry catalog (flag, great seals, royal title, mottos) + house emblem Crowned Dragon-Phoenix variants (batch_25) + fleet war banner / orb banner / Great Sigil candidates (batch_26) + geometric medallion (batch_27). Palette v2. See docs/modules/HERALDRY.md. Primary seal/flag/Great Sigil choice pending user.",
   "schema_version": 1,
   "realm": "Anterrania",
   "palette_version": 2,
@@ -93,6 +93,26 @@
         "magenta constellation banner (batch_25/05)",
         "landscape galaxy flag (batch_25/06)"
       ]
+    },
+    "seven_glyphs": {
+      "id": "orb_banner_seven_glyphs",
+      "appears_on": [
+        "orb_banner_seven_glyphs (batch_26/02)"
+      ],
+      "count": 7,
+      "description": "Seven white circular glyph medallions arranged around a glowing central orb on the magenta Crowned Dragon-Phoenix banner.",
+      "meaning": "pending_user"
+    },
+    "great_sigil": {
+      "id": "great_sigil",
+      "status": "candidates_catalogued",
+      "candidates": [
+        "great_sigil_crowned_dragon_phoenix_flames",
+        "great_seal_phoenix",
+        "great_seal_dragon",
+        "house_emblem_crowned_dragon_phoenix_*"
+      ],
+      "note": "Primary Great Sigil pending user confirmation (batch_26/05 is strong candidate)."
     }
   },
   "items": [
@@ -331,11 +351,100 @@
         "gold"
       ],
       "status": "stub"
+    },
+    {
+      "id": "fleet_war_banner",
+      "display_name": "Fleet War Banner (Crowned Dragon-Phoenix)",
+      "category": "banner",
+      "type": "war_banner",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "horizontal_on_spear",
+      "description": "Black war flag on segmented metallic spear pole with magenta energy lines; gold inner border; holographic crystalline outer edge; central magenta crowned dragon-phoenix rampant in glowing circle with energy sparks. Shown with starship fleet in deep space.",
+      "motif": "dragon_phoenix_hybrid",
+      "features": [
+        "holographic_edge",
+        "spear_pole",
+        "fleet_backdrop"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_26/01_fleet_war_banner_crowned_dragon_phoenix.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "orb_banner_seven_glyphs",
+      "display_name": "Orb Banner with Seven Glyphs (Crowned Dragon-Phoenix)",
+      "category": "banner",
+      "type": "banner_vertical",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "vertical",
+      "description": "Magenta banner, gold ornate border with tech-circuit corners; gold-lined crowned dragon-phoenix encircling a bright glowing blue-white orb; seven circular white glyph medallions around the orb.",
+      "motif": "dragon_phoenix_hybrid",
+      "features": [
+        "central_orb",
+        "seven_glyph_medallions"
+      ],
+      "glyph_count": 7,
+      "pending": "meaning_of_seven_glyphs",
+      "concept_art": [
+        "assets/concept_art/batch_26/02_orb_banner_seven_glyphs_crowned_dragon_phoenix.png"
+      ],
+      "related_scripts": [
+        "ignis_solis_glyphs",
+        "aethelian_runes"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "great_sigil_crowned_dragon_phoenix_flames",
+      "display_name": "Great Sigil Candidate \u2014 Crowned Dragon-Phoenix from Flames",
+      "category": "seal",
+      "type": "great_sigil_candidate",
+      "house_emblem": "crowned_dragon_phoenix",
+      "description": "Black/magenta crowned dragon-phoenix rising from gold flames inside a complex magenta rune circle (concentric rings, glyphs, geometric lines). Strong primary Great Sigil candidate.",
+      "motif": "dragon_phoenix_hybrid",
+      "features": [
+        "gold_flames",
+        "magenta_rune_circle",
+        "ornate_gold_crown"
+      ],
+      "primary_great_sigil_candidate": true,
+      "concept_art": [
+        "assets/concept_art/batch_26/05_great_sigil_crowned_dragon_phoenix_flames.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Pending user: confirm as primary Great Sigil vs geometric medallion (batch_27/02) vs earlier great seals."
     }
   ],
   "open_questions": [
-    "Is the phoenix, the dragon, or the Crowned Dragon-Phoenix hybrid the primary national seal/flag/house emblem? (All catalogued; phoenix still primary_candidate; hybrid is hybrid_candidate from batch_25 \u2014 question remains open.)",
-    "Meaning of the recurring '8' across seal, flag, coin, capitol, and regalia."
+    "Is the phoenix, the dragon, or the Crowned Dragon-Phoenix hybrid the primary national seal/flag/house emblem? (All catalogued; phoenix still primary_candidate; hybrid is hybrid_candidate \u2014 question remains open.)",
+    "Meaning of the recurring '8' across seal, flag, coin, capitol, and regalia.",
+    "Meaning of the seven glyph medallions on orb_banner_seven_glyphs (batch_26/02).",
+    "Which art is the primary Great Sigil? Candidate so far: great_sigil_crowned_dragon_phoenix_flames (batch_26/05); plus earlier great_seal_phoenix / great_seal_dragon / house emblem variants. (More candidates may follow.)"
   ],
   "house_emblem": {
     "id": "crowned_dragon_phoenix",

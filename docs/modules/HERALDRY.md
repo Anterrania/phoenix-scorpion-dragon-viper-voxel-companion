@@ -85,3 +85,13 @@ This hybrid **may** answer the phoenix-vs-dragon primary question as a combined 
 3. Confirm **Phoenix God** title use (see PENDING).
 
 When answered, update `data/lore/heraldry.json` `primary_candidate` / `hybrid_candidate` flags and clear the matching PENDING items.
+
+## Batch 26 — Fleet war banner, orb banner, Great Sigil candidate
+
+| Id | Type | Art | Notes |
+|----|------|-----|-------|
+| `fleet_war_banner` | war banner (spear + fleet) | batch_26/01 | Holographic-edge black flag; crowned dragon-phoenix |
+| `orb_banner_seven_glyphs` | vertical banner | batch_26/02 | Magenta; dragon-phoenix around glowing orb + **7 glyph medallions** (meaning pending) |
+| `great_sigil_crowned_dragon_phoenix_flames` | great_sigil_candidate | batch_26/05 | Crowned hybrid rising from gold flames in magenta rune circle — **primary Great Sigil candidate** |
+
+Also batch_26: `aethel_coin` (currency), `aethel_citadel` orbital fortress (structures; name pending approve).

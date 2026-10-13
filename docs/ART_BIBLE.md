@@ -401,3 +401,18 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `06_crowned_dragon_phoenix_galaxy_flag_landscape.jpg` | `house_emblem_crowned_dragon_phoenix_galaxy_flag` | realm / UI | heraldry.json | Landscape gold-frame galaxy flag |
 
 **Open confirmation (user):** Phoenix vs dragon vs this **Crowned Dragon-Phoenix** hybrid as primary seal/flag/house emblem? Hybrid catalogued as `hybrid_candidate`; does **not** close Q24. See `docs/PENDING_USER_QUESTIONS.md` and `docs/modules/HERALDRY.md`.
+
+## Batch 26: Fleet Heraldry, Aethel Coin, Citadel & Great Sigil (`assets/concept_art/batch_26/`)
+6 images received, **5 kept**, **1 duplicate skipped** (PNG of Great Sigil flames). Palette v2 (black / magenta / gold / platinum + glitter). Game-only virtual items.
+
+**Skipped:** `8bfd9a0c…png` — PNG container near-dup of Great Sigil JPG (kept as `05`). See `SKIPPED_duplicates.txt`.
+
+| File | Item id | Data | Notes |
+|------|---------|------|-------|
+| `01_fleet_war_banner_crowned_dragon_phoenix.png` | `fleet_war_banner` | heraldry.json | Holo-edge black war flag on spear; fleet backdrop |
+| `02_orb_banner_seven_glyphs_crowned_dragon_phoenix.png` | `orb_banner_seven_glyphs` | heraldry.json | Magenta banner; orb + **7 glyphs** (meaning pending) |
+| `03_aethel_coin_universal_currency_zodiac.jpg` | `aethel_coin` | currency.json | Printed AETHEL COIN - UNIVERSAL CURRENCY; zodiac rim |
+| `04_aethel_citadel_orbital_fortress.png` | `aethel_citadel` | structures.json | Orbital monolith fortress; **name pending approve** |
+| `05_great_sigil_crowned_dragon_phoenix_flames.jpg` | `great_sigil_crowned_dragon_phoenix_flames` | heraldry.json | Primary Great Sigil **candidate** |
+
+**Open (user):** Meaning of 7 glyphs; primary Great Sigil; approve Aethel Citadel name. See `docs/PENDING_USER_QUESTIONS.md`.

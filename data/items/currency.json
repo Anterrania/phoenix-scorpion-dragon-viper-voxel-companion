@@ -24,7 +24,8 @@
         "sigil": "Validation stamp/token (quest/ledger receipts).",
         "stasis": "Stable in-game soft currency face (Aethel-Stasis).",
         "ascendant": "Variable in-game asset face (Aethel-Ascendant); game balance only, not market-linked.",
-        "key": "Wallet / biometric access / ID card item (The Aethel Key)."
+        "key": "Wallet / biometric access / ID card item (The Aethel Key).",
+        "main_coin": "Primary Aethel coin face (zodiac-rim dragon-phoenix; batch_26)."
       },
       "related_docs": [
         "docs/modules/ECONOMY.md",
@@ -33,6 +34,7 @@
       ],
       "item_ids": [
         "aethel_banknotes",
+        "aethel_coin",
         "aethel_lion_coin",
         "aethel_sigil",
         "aethel_stasis",
@@ -280,7 +282,7 @@
         "crowned_dragon",
         "psi_trident_marks"
       ],
-      "gameplay_use": "Variable in-game asset (quest rewards, rare trade, prestige). Value floats only inside game balance rules — never linked to real markets or crypto.",
+      "gameplay_use": "Variable in-game asset (quest rewards, rare trade, prestige). Value floats only inside game balance rules \u2014 never linked to real markets or crypto.",
       "concept_art": [
         "assets/concept_art/batch_24/05_aethel_ascendant_dynamic_universal_asset.png"
       ],
@@ -319,7 +321,7 @@
         "gold_circuit_board",
         "biometric_panel"
       ],
-      "gameplay_use": "In-game wallet / access / ID card item. Opens vaults, guild halls, capitol pads, suit lockers. Biometric UI is cosmetic fiction — no real biometric capture.",
+      "gameplay_use": "In-game wallet / access / ID card item. Opens vaults, guild halls, capitol pads, suit lockers. Biometric UI is cosmetic fiction \u2014 no real biometric capture.",
       "concept_art": [
         "assets/concept_art/batch_24/06_aethel_key_universal_access.png"
       ],
@@ -339,6 +341,51 @@
       "crypto": false,
       "cash_value": null,
       "notes": "Access/wallet item only. Not a real payment card, crypto wallet seed, or identity document."
+    },
+    {
+      "id": "aethel_coin",
+      "display_name": "Aethel Coin (Universal Currency)",
+      "category": "currency",
+      "type": "coin",
+      "economy": "aethel",
+      "aethel_role": "main_coin",
+      "owner": "player / realm treasury",
+      "description": "Main Aethel coin face. Circular medallion: magenta crowned dragon-phoenix on dark disc; gold zodiac/alchemical glyph rim; top arc 'AETHEL COIN'; bottom 'UNIVERSAL CURRENCY'; outer glowing magenta ring. Cosmic nebula backdrop.",
+      "printed_text": {
+        "top": "AETHEL COIN",
+        "bottom": "UNIVERSAL CURRENCY",
+        "as_printed": "AETHEL COIN - UNIVERSAL CURRENCY"
+      },
+      "motifs": [
+        "crowned_dragon_phoenix",
+        "zodiac_rim"
+      ],
+      "obverse": {
+        "motif": "magenta_crowned_dragon_phoenix",
+        "ring": "gold_zodiac_glyphs",
+        "background": "dark_purple_black"
+      },
+      "gameplay_use": "Primary diegetic Aethel coin face for the soft virtual economy (integer ledger). Complements Stasis/Ascendant faces and Phoenix God Coin.",
+      "concept_art": [
+        "assets/concept_art/batch_26/03_aethel_coin_universal_currency_zodiac.jpg"
+      ],
+      "related_docs": [
+        "docs/modules/ECONOMY.md",
+        "docs/modules/ECONOMY_BANKING.md",
+        "docs/modules/HERALDRY.md"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "gold",
+        "platinum"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "notes": "Game-only virtual currency token. Label recorded as printed. Pending: how Aethel Coin relates to phoenix_god_coin / Embers / Stasis / Ascendant."
     }
   ]
 }

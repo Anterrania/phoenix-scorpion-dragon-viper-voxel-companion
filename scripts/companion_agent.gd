@@ -80,5 +80,6 @@ func place_block(pos: Vector3) -> void:
 
 func dig_sphere(center: Vector3, radius: float) -> void:
 	if _voxel_tool == null: return
+	_voxel_tool.channel = VoxelBuffer.CHANNEL_TYPE
 	_voxel_tool.mode = VoxelTool.MODE_REMOVE
 	_voxel_tool.do_sphere(center, radius)

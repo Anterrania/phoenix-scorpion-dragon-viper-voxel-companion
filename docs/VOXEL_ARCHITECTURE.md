@@ -24,3 +24,53 @@ One `persona.json` per companion (name, personality, appearance, abilities, memo
 
 ## Android
 GDExtension (arm64-v8a `.so`) + Godot's Gradle build, JDK 17, export templates that exactly match the editor version, Mobile renderer, ETC2/ASTC. See ANDROID_EXPORT.md.
+
+---
+# Expanded Zylann godot_voxel API reference (for this project)
+> Check these names against the docs for the godot_voxel version you install (https://voxel-tools.readthedocs.io). The API changes between releases. None of this has been run here yet.
+
+## Terrain nodes
+- **VoxelTerrain**: fixed-LOD, chunked, best for blocky edits. Key properties: `generator`, `mesher`, `stream`, `max_view_distance`, `generate_collisions`, `collision_layer`/`mask`, `bounds`. Signals: `block_loaded`, `block_unloaded`. Helpers: `get_voxel_tool()`, `voxel_to_data_block()`, `save_modified_blocks()`.
+- **VoxelLodTerrain**: octree LOD for smooth (SDF) terrain over huge distances. Properties: `lod_count`, `lod_distance`, `mesher` (`VoxelMesherTransvoxel`), `full_load_mode_enabled`. Planned use is distant cosmic/planet vistas, not the main blocky play area.
+- **VoxelViewer**: attach to the player (and optionally the camera for distant realms). It drives which chunks load. Has `view_distance`, `requires_collisions` and `requires_visuals`. Companions far from the player can carry their own viewer, but that costs memory.
+
+## VoxelTool (from `terrain.get_voxel_tool()`)
+- Settings: `channel` (TYPE for blocky, SDF for smooth), `mode` (MODE_ADD / MODE_REMOVE / MODE_SET / MODE_TEXTURE_PAINT), `value`, `sdf_scale`, `sdf_strength`.
+- Edits: `do_point`, `do_sphere`, `do_box(begin, end)`, `do_path` (smooth), `paste` / `paste_masked` (copy a VoxelBuffer into the world, which blueprints will use), `copy`.
+- Queries: `get_voxel`, `get_voxel_f`, `set_voxel`, `is_area_editable`, `raycast(origin, dir, max_distance, collision_mask)` → `VoxelRaycastResult` (`position`, `previous_position`, `distance`).
+- Variants: `VoxelToolTerrain` (blocky; adds `run_blocky_random_tick` for growth/melt simulation), `VoxelToolLodTerrain` (smooth; adds `do_sphere` async, `stamp_sdf`), and `VoxelToolBuffer` (offline edits on a buffer).
+- Used by `scripts/player_controller.gd` (raycast + do_point) and `scripts/companion_agent.gd` (do_point / do_sphere).
+
+## Blocky library
+- **VoxelMesherBlocky** + **VoxelBlockyLibrary** (newer versions: `VoxelBlockyLibrary` / `VoxelBlockyTypeLibrary`) list models in id order: 0 air, then stone, snow, ice, stardust, crystal, basalt, lava, concrete, neon. Ids must match the constants in `biome_generator.gd`.
+- Model types: `VoxelBlockyModelCube` (atlas tiles), `VoxelBlockyModelMesh` (custom meshes such as slabs and plants), `VoxelBlockyModelEmpty` (air). Set `transparent` for ice and glass. Use emissive materials for lava and neon.
+
+## Generators
+- **VoxelGeneratorScript**: `_generate_block(out_buffer, origin, lod)` and `_get_used_channels_mask()`. Easy to write but slow-ish. It runs on threads, so no scene access.
+- **VoxelGeneratorGraph**: a node graph compiled to fast native code, with SDF + blocky outputs. Planned for production biomes once the shapes are settled.
+- Built-ins for prototyping: `VoxelGeneratorFlat`, `VoxelGeneratorNoise`, `VoxelGeneratorNoise2D`, `VoxelGeneratorWaves`.
+- Noise: `FastNoiseLite` (Godot) or `ZN_FastNoiseLite` (bundled, faster with the graph).
+
+## Streams (saving)
+- **VoxelStreamSQLite**: one `.sqlite` file per realm (`database_path`). Good on mobile and the plan of record. Stores only modified blocks.
+- **VoxelStreamRegionFiles**: a folder of region files, easy to inspect and diff.
+- Call `terrain.save_modified_blocks()` on pause or quit (Android `NOTIFICATION_APPLICATION_PAUSED`).
+
+## VoxelInstancer
+- A child of the terrain that scatters many instances (grass, crystals, snow pines, neon lamps) on generated surfaces. Uses `VoxelInstanceLibrary` with per-item density, LOD and `persistent` (so player-removed items stay removed). Can also host scene instances for usable objects.
+
+## Android notes
+- Use the GDExtension build for the exact Godot 4.x version. The `.gdextension` file must list `android.arm64` (and optionally `android.x86_64` for emulators).
+- Mobile renderer; `max_view_distance` around 96–128; collisions only near the player; limit threads (`ProjectSettings voxel/threads/*`) on low-end devices.
+- Test on a real device. Emulators misrepresent GPU performance.
+
+## Dual 3D + Grok Bot compatibility
+- Single source of truth: `companions/<id>/persona.json` (+ brain folder, see modules/BRAIN_FILES.md).
+- In-world agent = persona + world tools (VoxelTool) + needs/mood. Standalone Grok Bot = persona + chat-only tools.
+- `memory_export.json` / zipped brain folder syncs both ways, merged by timestamp.
+- Tool names are shared, so a plan made in chat ("build a fire altar") can replay in-game later.
+
+## Offline / local AI path
+1. **Rule-based fallback** (works today as a stub in `scripts/ai/ai_provider.gd`): keyword intents → tool calls with templated lines from the persona.
+2. **On-device LLM:** a llama.cpp GDExtension (community bindings exist; vet one or build our own) running a small quantized GGUF model (~0.5–3B parameters, Q4) on arm64. Expect a few tokens/sec on mid-range phones. Keep prompts short, use the brain cells as retrieval, and use grammar-constrained JSON for tool calls. The model downloads after install rather than shipping in the APK.
+3. **Optional cloud sync:** when online and the user has opted in, use a cloud provider (Grok/Gemini/etc., see modules/AI_INTEGRATIONS.md) for richer replies, and sync brain files with the standalone bot. Offline is always the fallback.

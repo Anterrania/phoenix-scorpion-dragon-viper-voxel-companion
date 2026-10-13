@@ -207,7 +207,7 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 
 | File | Item id | Persona / wearer | Data | Notes |
 |------|---------|------------------|------|-------|
-| `01_household_court_aide_officer_dress_uniform.jpg` | `household_court_aide_officer_dress` (+ variant on `household_court_aide_tunic_coat`) | royal_household | armor.json (category `household`, non-combat) | Double-breasted officer dress + magenta shoulder sash — **same short-haired court aide as batch_12/03** (parent noted batch_13; that character already lands in batch_12) |
+| `01_household_court_aide_officer_dress_uniform.jpg` | `household_court_aide_officer_dress` (+ variant on `household_court_aide_tunic_coat`) | royal_household | armor.json (category `household`, non-combat) | Double-breasted officer dress + magenta shoulder sash — **same short-haired court aide as batch_12/03 and batch_13/04** (`household_court_officer_sash_tunic`) |
 | `02_nyra_coil_field_courier_jumpsuit.jpg` | `nyra_coil_field_courier_jumpsuit` | **nyra_coil** (new; assigned by Foxy, user may rename) | wardrobe.json | Black jumpsuit, magenta scarf, satchel, rank patch — field courier / royal technician |
 | `03_ledger_vale_chancellor_officer_coat.jpg` | `ledger_vale_chancellor_officer_coat` | **economy_advisor** (Ledger Vale); also Monarch | wardrobe.json | Long gold-embroidered officer coat, magenta crossed sash, **gold ledger box** — royal chancellor / treasurer look |
 

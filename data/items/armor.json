@@ -292,7 +292,7 @@
         "assets/concept_art/batch_10/05_household_attendant_tunic_sash_variant.jpg"
       ],
       "emblem": "figure_8_infinity",
-      "emblem_note": "Recurring '8' \u2014 meaning pending user (same open question as batch_02 ring_01 / batch_06\u201307 signets).",
+      "emblem_note": "Recurring '8' — meaning pending user (same open question as batch_02 ring_01 / batch_06–07 signets).",
       "stats": null,
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -323,7 +323,7 @@
         "assets/concept_art/batch_09/06_household_steward_asymmetric_tunic_8_emblem.jpg"
       ],
       "emblem": "figure_8_infinity",
-      "emblem_note": "Recurring '8' \u2014 meaning pending user (linked to batch_02 ring and batch_07 signet questions).",
+      "emblem_note": "Recurring '8' — meaning pending user (linked to batch_02 ring and batch_07 signet questions).",
       "stats": null,
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -389,7 +389,8 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub",
-      "notes": "Same short-haired court aide character as batch_12/03; dress-uniform variant. Not a new named companion."
+      "notes": "Same short-haired court aide character as batch_12/03 and batch_13/04 (household_court_officer_sash_tunic); dress-uniform variant. Not a new named companion.",
+      "also_same_line_as": "household_court_officer_sash_tunic"
     },
     {
       "id": "household_court_officer_sash_tunic",
@@ -413,7 +414,9 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub",
-      "notes": "Catalogued as household uniform (not a new named companion), consistent with batch_12 court aide. Short dark bob silhouette with magenta sash."
+      "notes": "Catalogued as household uniform (not a new named companion), consistent with batch_12 court aide. Short dark bob silhouette with magenta sash.",
+      "same_character_as": "household_court_aide_tunic_coat",
+      "also_same_line_as": "household_court_aide_officer_dress"
     }
   ]
 }

@@ -108,11 +108,12 @@
       "status": "candidates_catalogued",
       "candidates": [
         "great_sigil_crowned_dragon_phoenix_flames",
+        "great_sigil_crowned_dragon_geometric_medallion",
         "great_seal_phoenix",
         "great_seal_dragon",
         "house_emblem_crowned_dragon_phoenix_*"
       ],
-      "note": "Primary Great Sigil pending user confirmation (batch_26/05 is strong candidate)."
+      "note": "Primary Great Sigil pending user confirmation (batch_26/05 is strong candidate; batch_27/02 geometric medallion also)."
     }
   },
   "items": [
@@ -438,13 +439,41 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Pending user: confirm as primary Great Sigil vs geometric medallion (batch_27/02) vs earlier great seals."
+    },
+    {
+      "id": "great_sigil_crowned_dragon_geometric_medallion",
+      "display_name": "Great Sigil Candidate \u2014 Crowned Dragon Geometric Medallion",
+      "category": "seal",
+      "type": "great_sigil_candidate",
+      "house_emblem": "crowned_dragon_phoenix",
+      "description": "Black winged dragon with magenta feathered wings and ornate gold crown, set in a gold four-pointed geometric medallion over magenta nebula; cardinal magenta star medallions.",
+      "motif": "dragon_phoenix_hybrid",
+      "features": [
+        "geometric_gold_medallion",
+        "cardinal_star_points",
+        "nebula_field"
+      ],
+      "primary_great_sigil_candidate": false,
+      "concept_art": [
+        "assets/concept_art/batch_27/02_crowned_dragon_geometric_medallion.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Alternate Great Sigil / medallion candidate (batch_27)."
     }
   ],
   "open_questions": [
     "Is the phoenix, the dragon, or the Crowned Dragon-Phoenix hybrid the primary national seal/flag/house emblem? (All catalogued; phoenix still primary_candidate; hybrid is hybrid_candidate \u2014 question remains open.)",
     "Meaning of the recurring '8' across seal, flag, coin, capitol, and regalia.",
     "Meaning of the seven glyph medallions on orb_banner_seven_glyphs (batch_26/02).",
-    "Which art is the primary Great Sigil? Candidate so far: great_sigil_crowned_dragon_phoenix_flames (batch_26/05); plus earlier great_seal_phoenix / great_seal_dragon / house emblem variants. (More candidates may follow.)"
+    "Which art is the primary Great Sigil? Candidates: great_sigil_crowned_dragon_phoenix_flames (batch_26/05), great_sigil_crowned_dragon_geometric_medallion (batch_27/02), plus earlier great_seal_phoenix / great_seal_dragon / house emblem variants."
   ],
   "house_emblem": {
     "id": "crowned_dragon_phoenix",

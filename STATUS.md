@@ -196,3 +196,10 @@
 - Structures: `aethel_citadel` orbital fortress (name assigned by Foxy; pending approve)
 - ECONOMY.md / HERALDRY.md / ART_BIBLE / PENDING updated
 - Palette v2; not pushed (waiting on GitHub sign-in)
+
+## Batch 27 (writing systems + geometric medallion) - done locally
+- 3 of 6 images kept in assets/concept_art/batch_27/ (3 PNG dups skipped)
+- New `data/lore/scripts.json`: Ignis Solis Glyphs + Aethelian Runes (in-game writing systems; art typos recorded)
+- Heraldry: `great_sigil_crowned_dragon_geometric_medallion` (alternate Great Sigil candidate)
+- Palette v2; not pushed (waiting on GitHub sign-in)
+

@@ -95,3 +95,25 @@ When answered, update `data/lore/heraldry.json` `primary_candidate` / `hybrid_ca
 | `great_sigil_crowned_dragon_phoenix_flames` | great_sigil_candidate | batch_26/05 | Crowned hybrid rising from gold flames in magenta rune circle — **primary Great Sigil candidate** |
 
 Also batch_26: `aethel_coin` (currency), `aethel_citadel` orbital fortress (structures; name pending approve).
+
+## Batch 27 — Writing systems + geometric medallion
+
+| Id | Type | Art | Notes |
+|----|------|-----|-------|
+| `great_sigil_crowned_dragon_geometric_medallion` | great_sigil_candidate | batch_27/02 | Crowned dragon in gold geometric medallion — alternate Great Sigil |
+| `ignis_solis_glyphs` | writing system | batch_27/01 | Flame-sun phoenix rune circle (`data/lore/scripts.json`) |
+| `aethelian_runes` | writing system | batch_27/03 | Bat-winged dragon rune mark; art AETEHLIAN / MONORARTY typos |
+
+Data: `data/lore/scripts.json`. Printed typos kept; official **AETHELIAN** / **MONARCHY**.
+
+## Open confirmations (user) — extended
+
+1. **Phoenix vs dragon vs Crowned Dragon-Phoenix hybrid** as the **primary** national seal / flag / house emblem?
+2. Meaning of the recurring **8**?
+3. Confirm **Phoenix God** title use (see PENDING).
+4. Meaning of the **seven glyphs** on `orb_banner_seven_glyphs`?
+5. Which art is the **primary Great Sigil** (flames candidate vs geometric medallion vs earlier seals)?
+6. Approve fortress name **Aethel Citadel**?
+
+When answered, update `data/lore/heraldry.json` candidate flags and clear the matching PENDING items.
+

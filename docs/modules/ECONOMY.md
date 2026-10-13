@@ -46,6 +46,10 @@ Diegetic **Aethel** economy art from concept batch_24. Catalogued in `data/items
 
 `aethel_citadel` in `data/items/structures.json` (batch_26/04 orbital fortress) — name pending user approve. Diegetic Aethel branding on a defense/landmark structure.
 
+## Writing systems (batch 27)
+
+`data/lore/scripts.json`: **Ignis Solis Glyphs** and **Aethelian Runes** (in-game only). Aethelian runes may appear on coin rims / validation marks.
+
 ## Related
 
 - `data/items/currency.json`

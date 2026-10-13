@@ -416,3 +416,17 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `05_great_sigil_crowned_dragon_phoenix_flames.jpg` | `great_sigil_crowned_dragon_phoenix_flames` | heraldry.json | Primary Great Sigil **candidate** |
 
 **Open (user):** Meaning of 7 glyphs; primary Great Sigil; approve Aethel Citadel name. See `docs/PENDING_USER_QUESTIONS.md`.
+
+## Batch 27: Writing Systems & Geometric Medallion (`assets/concept_art/batch_27/`)
+6 images received, **3 kept**, **3 PNG duplicates skipped**. Palette v2.
+
+**Skipped:** `d27e5dde…png`, `e58aebce…png`, `21d64ca2…png` — PNG container near-dups of the three JPGs. See `SKIPPED_duplicates.txt`.
+
+| File | Item id | Data | Notes |
+|------|---------|------|-------|
+| `01_ignis_solis_glyphs_flame_sun_phoenix.jpg` | `ignis_solis_glyphs` | scripts.json | IGNIS SOLIS GLYPHS; art MONCACHY→MONARCHY |
+| `02_crowned_dragon_geometric_medallion.jpg` | `great_sigil_crowned_dragon_geometric_medallion` | heraldry.json | Alternate Great Sigil candidate |
+| `03_aethelian_rune_mark_bat_winged_dragon.jpg` | `aethelian_runes` | scripts.json | AETEHLIAN→AETHELIAN; MONORARTY→MONARCHY |
+
+**New:** `data/lore/scripts.json` — Ignis Solis Glyphs + Aethelian Runes as in-game writing systems.
+

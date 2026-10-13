@@ -502,10 +502,11 @@
       "display_name": "Monarch's White Regalia",
       "owner": "player (Anterranian Monarch)",
       "category": "regalia_attire",
-      "description": "White royal regalia with orb scepter family: batch_06 orb-scepter look + batch_18 orb-ring scepter / white jeweled boots variant.",
+      "description": "White royal regalia with orb scepter family: batch_06 orb-scepter look; batch_18 orb-ring scepter / white jeweled boots variant; batch_29 white tunic + white ermine cape + orb-ring staff on rune platform.",
       "concept_art": [
         "assets/concept_art/batch_06/02_monarch_white_regalia_orb_scepter.png",
-        "assets/concept_art/batch_18/02_monarch_white_regalia_orb_ring_scepter_variant.jpg"
+        "assets/concept_art/batch_18/02_monarch_white_regalia_orb_ring_scepter_variant.jpg",
+        "assets/concept_art/batch_29/01_monarch_white_tunic_ermine_cape_orb_ring_staff.png"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -523,6 +524,20 @@
             "assets/concept_art/batch_18/02_monarch_white_regalia_orb_ring_scepter_variant.jpg"
           ],
           "notes": "Distinct from batch_06/02; links orb_ring_scepter regalia."
+        },
+        {
+          "id": "batch_29_white_tunic_ermine_orb_ring_staff",
+          "label": "White tunic, gold embroidery, white ermine cape (magenta lining), magenta gem belt, white jeweled boots, orb-ring staff on rune platform (prince/Monarch white regalia)",
+          "concept_art": [
+            "assets/concept_art/batch_29/01_monarch_white_tunic_ermine_cape_orb_ring_staff.png"
+          ],
+          "also_fits": [
+            "prince_regent_solarian"
+          ],
+          "related_regalia": [
+            "orb_ring_scepter"
+          ],
+          "notes": "Batch_29 Monarch/prince white regalia; distinct from batch_18 orb-ring white-boots look (white ermine cape exterior vs prior black/magenta cloak variants)."
         }
       ]
     },
@@ -531,10 +546,11 @@
       "display_name": "Monarch's White Formal Suit",
       "owner": "player (Anterranian Monarch)",
       "category": "formal",
-      "description": "White formal suit family: batch_06 white formal + batch_18 white tuxedo with magenta vest/bowtie and ermine cape.",
+      "description": "White formal suit family: batch_06 white formal; batch_18 white tuxedo with magenta vest/bowtie and white ermine cape; batch_29 white tuxedo with magenta vest/bowtie and black ermine-trimmed cape.",
       "concept_art": [
         "assets/concept_art/batch_06/03_monarch_white_formal_suit.png",
-        "assets/concept_art/batch_18/03_monarch_white_tuxedo_magenta_vest_ermine_cape.jpg"
+        "assets/concept_art/batch_18/03_monarch_white_tuxedo_magenta_vest_ermine_cape.jpg",
+        "assets/concept_art/batch_29/02_monarch_white_tuxedo_magenta_vest_black_ermine_cape.png"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -552,6 +568,14 @@
             "assets/concept_art/batch_18/03_monarch_white_tuxedo_magenta_vest_ermine_cape.jpg"
           ],
           "notes": "Distinct from batch_06/03 white formal; tuxedo + bowtie + ermine cape variant."
+        },
+        {
+          "id": "batch_29_white_tuxedo_magenta_vest_black_ermine_cape",
+          "label": "White tuxedo, magenta vest and bowtie, gold shoulder chain with magenta gems, black cape with magenta lining and ermine trim, white jeweled shoes, rune platform",
+          "concept_art": [
+            "assets/concept_art/batch_29/02_monarch_white_tuxedo_magenta_vest_black_ermine_cape.png"
+          ],
+          "notes": "Batch_29 Monarch white tuxedo variant; distinct from batch_18 (white/ermine cape exterior) \u2014 this variant uses black cape exterior with ermine trim."
         }
       ]
     },
@@ -560,9 +584,10 @@
       "display_name": "Foxy's Ivory Gown with Burgundy Cape",
       "owner": "foxy_ani",
       "category": "formal",
-      "description": "Ivory gown with burgundy cape.",
+      "description": "Ivory gown with burgundy/magenta-lined cape family: batch_06 ivory gown + burgundy cape; batch_29 ivory gown with gold filigree, magenta gem belt, ermine-trimmed cape on rune platform.",
       "concept_art": [
-        "assets/concept_art/batch_06/04_foxy_ivory_gown_burgundy_cape.png"
+        "assets/concept_art/batch_06/04_foxy_ivory_gown_burgundy_cape.png",
+        "assets/concept_art/batch_29/03_foxy_ivory_gown_burgundy_cape_ermine_rune_platform.png"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -571,7 +596,23 @@
         "gold"
       ],
       "cosmetic_gameplay_only": true,
-      "real_money": false
+      "real_money": false,
+      "variants": [
+        {
+          "id": "batch_29_ivory_burgundy_ermine_rune_platform",
+          "label": "Ivory gown, gold filigree, magenta gem belt and necklace, burgundy/magenta-lined cape with ermine trim, white jeweled boots, rune platform (queen variant)",
+          "concept_art": [
+            "assets/concept_art/batch_29/03_foxy_ivory_gown_burgundy_cape_ermine_rune_platform.png"
+          ],
+          "also_fits": [
+            "queen_vesperine_pyre"
+          ],
+          "notes": "Batch_29 Foxy/queen ivory gown variant expanding batch_06/04 ivory+burgundy cape look; ermine trim + rune platform staging."
+        }
+      ],
+      "also_fits": [
+        "queen_vesperine_pyre"
+      ]
     },
     {
       "id": "monarch_black_regalia",

@@ -211,3 +211,8 @@
 - Wardrobe: Foxy white ermine ballgown variant on `foxy_white_coronation_gown`
 - Palette v2; not pushed (waiting on GitHub sign-in)
 
+## Batch 29 (Monarch white regalia/tuxedo + Foxy ivory gown) - done locally
+- 3 of 6 images kept in assets/concept_art/batch_29/ (3 JPG dups skipped)
+- Wardrobe variants: `monarch_white_regalia` (white tunic + white ermine cape + orb-ring staff); `monarch_white_formal_suit` (white tuxedo + black ermine cape); `foxy_ivory_gown_burgundy_cape` (ermine + rune platform)
+- Palette v2; not pushed (waiting on GitHub sign-in)
+

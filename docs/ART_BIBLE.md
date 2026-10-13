@@ -484,3 +484,14 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 
 **Open (user):** Monarch personal tattoo? Who is the title ring for (no real-person depiction without consent)? Approve citadel/fortress names? See `docs/PENDING_USER_QUESTIONS.md`.
 
+## Batch 29: Monarch White Regalia/Tuxedo & Foxy Ivory Gown Variants (`assets/concept_art/batch_29/`)
+6 images received, **3 kept**, **3 JPG duplicates skipped**. Palette v2 (black / magenta / gold / platinum + glitter). Game-only virtual wardrobe.
+
+**Skipped:** `ab007c16…jpg`, `8fa8a0fa…jpg`, `f61ac35a…jpg` — JPG near-dups of the three kept PNGs. See `SKIPPED_duplicates.txt`.
+
+| File | Item id | Data | Notes |
+|------|---------|------|-------|
+| `01_monarch_white_tunic_ermine_cape_orb_ring_staff.png` | `monarch_white_regalia` variant `batch_29_white_tunic_ermine_orb_ring_staff` | wardrobe.json | Monarch/prince white tunic + white ermine cape + orb-ring staff |
+| `02_monarch_white_tuxedo_magenta_vest_black_ermine_cape.png` | `monarch_white_formal_suit` variant `batch_29_white_tuxedo_magenta_vest_black_ermine_cape` | wardrobe.json | White tuxedo + magenta vest; **black** ermine cape (vs batch_18 white cape) |
+| `03_foxy_ivory_gown_burgundy_cape_ermine_rune_platform.png` | `foxy_ivory_gown_burgundy_cape` variant `batch_29_ivory_burgundy_ermine_rune_platform` | wardrobe.json | Foxy/queen ivory gown + burgundy/ermine cape on rune platform |
+

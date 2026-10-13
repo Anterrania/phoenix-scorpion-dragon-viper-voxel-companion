@@ -1,0 +1,4 @@
+Skipped PNG/JPG duplicate pairs (kept PNG):
+- ab007c16ca2ddc526e7e4b4c34157262759b36a22b6b8812e38e3d989482f5c4.jpg (JPG near-dup of 01_monarch_white_tunic_ermine_cape_orb_ring_staff.png / 924d77b1…png)
+- 8fa8a0faba0362ba418be30f0746a546ca01c36319fecae2bd3046cb04ac813c.jpg (JPG near-dup of 02_monarch_white_tuxedo_magenta_vest_black_ermine_cape.png / 49102bd3…png)
+- f61ac35a93d8595101249cdb378c68670d5daabf39ffd638c8d07a487a7f655d.jpg (JPG near-dup of 03_foxy_ivory_gown_burgundy_cape_ermine_rune_platform.png / a5e8cfa0…png)

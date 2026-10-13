@@ -42,10 +42,10 @@
           "id": "cosmic_hover",
           "label": "Cosmic hover (batch_13)",
           "concept_art": "assets/concept_art/batch_13/06_royal_suv_cosmic_hover_variant.jpg",
-          "notes": "Same black SUV + gold filigree + magenta glow family; adds hover rings under wheels, constellation windshield etching, floating platform presentation. Catalogued as variant of royal_suv, not a new vehicle id."
+          "notes": "Same black SUV + gold filigree + magenta glow family; adds hover rings under wheels, constellation windshield etching, floating platform presentation. Catalogued as variant of royal_suv, not a new vehicle id. Confirmed again by t33ua0 uploads 0409d216/fb4251ca (deduped)."
         }
       ],
-      "notes": "batch_13/06 kept as cosmic_hover variant of royal_suv (same vehicle family as batch_04)."
+      "notes": "batch_13/06 kept as cosmic_hover variant of royal_suv (same vehicle family as batch_04). t33ua0: videos 0409d216 + fb4251ca are repeats of cosmic_hover variant \u2014 no new frames kept."
     },
     {
       "id": "royal_flagship_starfighter",
@@ -96,7 +96,7 @@
       "program": "scdi",
       "scdi_program": true,
       "guild": "order_of_the_trident",
-      "description": "Dark multi-prop submarine seen with the Abyssal Sovereign underwater suit (batch_20/05). Stub only — silhouette from concept art; no detailed stats yet. Linked to Order of the Trident navy/sea role.",
+      "description": "Dark multi-prop submarine seen with the Abyssal Sovereign underwater suit (batch_20/05). Stub only \u2014 silhouette from concept art; no detailed stats yet. Linked to Order of the Trident navy/sea role.",
       "physics": {
         "mass_kg": 0,
         "thrust": 0,
@@ -151,6 +151,79 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Stub from gallery overview t32u; needs full-size image. Distinct from royal_suv."
+    },
+    {
+      "id": "scdi_sky_liner",
+      "display_name": "SCDI Sky Liner",
+      "owner": "player (Anterranian Monarch)",
+      "type": "air",
+      "node": "VehicleBody3D",
+      "seats": 200,
+      "description": "Luxury white cruise-liner hull on a flying carrier platform; fighter escorts, vapor trails, red waterline. Transit (hex deck) and combat-carrier (wing decks under fire) presentations.",
+      "program": "scdi",
+      "scdi_program": true,
+      "fx": [
+        "vapor_wake",
+        "escort_fighters",
+        "deck_lights"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua0/scdi_sky_liner_transit_escort.jpg",
+        "art/references/batch_t33ua0/scdi_sky_liner_combat_carrier.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "variants": [
+        {
+          "id": "transit_escort",
+          "label": "Transit escort (t33ua0)",
+          "concept_art": "art/references/batch_t33ua0/scdi_sky_liner_transit_escort.jpg",
+          "notes": "Source 43faa3c8. Peaceful high-altitude cruise over tropical coast; hex dark platform, fighter wing."
+        },
+        {
+          "id": "combat_carrier",
+          "label": "Combat carrier (t33ua0)",
+          "concept_art": "art/references/batch_t33ua0/scdi_sky_liner_combat_carrier.jpg",
+          "notes": "Source a05590ef. Same liner family under missile fire; smoke, wing flight decks, dogfight."
+        }
+      ],
+      "notes": "Batch t33ua0. Name/SCDI assignment pending user confirm."
+    },
+    {
+      "id": "scdi_arrowhead_sky_flagship",
+      "display_name": "SCDI Arrowhead Sky Flagship",
+      "owner": "player (Anterranian Monarch)",
+      "type": "air",
+      "node": "VehicleBody3D",
+      "seats": 80,
+      "description": "Colossal arrowhead aerial warship with tiered circular bridge towers, wood-tone decking, pink-orange vertical thrusters; leads a mixed sky fleet over island seas.",
+      "program": "scdi",
+      "scdi_program": true,
+      "fx": [
+        "pink_thruster_beams",
+        "contrails",
+        "fleet_escort"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua0/scdi_arrowhead_sky_flagship.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua0 source dbb9ec9a. Fleet backdrop is environment, not separate vehicle ids."
     }
   ]
 }

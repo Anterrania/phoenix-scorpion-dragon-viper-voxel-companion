@@ -40,6 +40,37 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Image stored for art reference. Real-person name from source art intentionally omitted from all game JSON/docs."
+    },
+    {
+      "id": "phoenix_twin_eagle_cosmic_ring",
+      "display_name": "Phoenix Twin-Eagle Cosmic Ring",
+      "slot": "ring",
+      "rarity": "legendary",
+      "description": "Dark silver cocktail ring: large faceted magenta center stone, twin sculpted phoenix/eagle heads and gold-tipped wings wrapping the setting; band with magenta nebula inlay and gold zodiac glyphs on the rim.",
+      "motifs": [
+        "phoenix",
+        "eagle",
+        "magenta_gem",
+        "zodiac",
+        "nebula"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua0/phoenix_twin_eagle_cosmic_ring.jpg"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua0 source 0c01c411. Distinct from moonstone_phoenix_title_ring and magenta oval halo ring. Name pending approval."
     }
   ]
 }

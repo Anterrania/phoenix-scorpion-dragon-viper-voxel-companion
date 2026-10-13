@@ -236,6 +236,23 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Another occurrence of the recurring '8' symbol (panels). Reinforces PENDING Q on meaning of the '8'. Name assigned by Foxy; user may rename."
+    },
+    {
+      "id": "tempest_pillar_sea",
+      "display_name": "Tempest Pillar Sea",
+      "type": "location_setpiece",
+      "description": "High-altitude view of a white ocean cruise liner under a colossal white lightning pillar pouring from a dark storm vortex; magenta/pink underlight on the clouds, turquoise island reefs.",
+      "concept_art": [
+        "art/references/batch_t33ua0/tempest_pillar_sea.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "notes": "Batch t33ua0 source 05f06e6c. Surface sea scene (not the flying Sky Liner). Zone assignment pending."
     }
   ],
   "names_to_approve": [

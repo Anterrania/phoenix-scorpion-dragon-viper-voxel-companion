@@ -105,3 +105,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Is **Monarch's Edge** the same family as `royal_cosmic_katana`, or a separate blade?
 - Is the wardrobe-grid **lingerie set** a new outfit, or another `foxy_boudoir_set` variant?
 
+## Batch t33ua0
+- Approve or rename: **SCDI Sky Liner** (`scdi_sky_liner`, transit + combat variants), **SCDI Arrowhead Sky Flagship**, location **Tempest Pillar Sea**, ring **Phoenix Twin-Eagle Cosmic Ring**, spear **Zodiac Nebula Spear**, gauntlets **Zodiac Astrolabe Gauntlets**.
+- Are the Sky Liner / Arrowhead Flagship officially SCDI fleet, or royal/private airships?
+- Are **Zodiac Astrolabe Gauntlets** the full-size version of the gallery stub **`scdi_power_gauntlet`**, or a separate set?
+- Which zone/map does **Tempest Pillar Sea** belong to?
+- Videos `0409d216` / `fb4251ca` were treated as repeats of **`royal_suv` cosmic_hover** — correct?

@@ -619,3 +619,17 @@ Phone gallery grids (thumbnails only). Palette v2. **6 kept, 0 MD5 dups** vs `ba
 - `gallery_royal_lingerie_set` (wardrobe.json, **mature/gated**; confirm vs foxy_boudoir family)
 
 **Pending:** full-size images of every new thumbnail before promoting beyond stub. See `docs/PENDING_USER_QUESTIONS.md` Batch t32u galleries.
+
+## Batch t33ua0: sky fleet + cosmic gear (`art/references/batch_t33ua0/`)
+Palette v2. Source videos are not committed, only one clothed frame each. No people / no nude frames. Mature gate N/A (no cosmetics).
+
+**Deduped (already catalogued — frames not kept):**
+- `0409d216`, `fb4251ca`: black SUV with gold filigree, magenta neon interior/underglow, floating over a magenta-sigil stone pedestal in purple space. Same family as **`royal_suv` → `cosmic_hover`** (batch_13). Distinct MD5s from the existing concept art, but not a new vehicle.
+
+**Kept (7 frames → 6 stubs):**
+- `scdi_sky_liner_transit_escort.jpg` (43faa3c8) + `scdi_sky_liner_combat_carrier.jpg` (a05590ef): white flying cruise-liner on a carrier platform with fighter escorts — peaceful hex-deck transit vs missile/smoke combat. **New vehicle stub: `scdi_sky_liner`** (variants `transit_escort`, `combat_carrier`). SCDI/name pending.
+- `scdi_arrowhead_sky_flagship.jpg` (dbb9ec9a): arrowhead aerial warship with tiered bridge towers, pink thruster beams, leading a sky fleet over island seas. **New vehicle stub: `scdi_arrowhead_sky_flagship`**.
+- `tempest_pillar_sea.jpg` (05f06e6c): surface ocean cruise liner under a colossal lightning pillar from a storm vortex (magenta cloud glow). **New location stub: `tempest_pillar_sea`** ("Tempest Pillar Sea"). Not the flying Sky Liner.
+- `phoenix_twin_eagle_cosmic_ring.jpg` (0c01c411): dark-silver cocktail ring, large magenta gem, twin phoenix/eagle sculpted wings, zodiac-glyph band. **New ring stub: `phoenix_twin_eagle_cosmic_ring`**.
+- `zodiac_nebula_spear.jpg` (21ad1698): black/gold spiral spear with magenta lightning core over a pink galaxy. **New weapon stub: `zodiac_nebula_spear`**.
+- `zodiac_astrolabe_gauntlets.jpg` (4a39c33d): paired black/gold gauntlets with zodiac-wheel bracers and hexagonal magenta galaxy gems. **New weapon stub: `zodiac_astrolabe_gauntlets`** (confirm vs thumbnail `scdi_power_gauntlet`).

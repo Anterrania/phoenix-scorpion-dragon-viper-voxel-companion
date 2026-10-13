@@ -1,5 +1,12 @@
 # Voxel Architecture
 
+## Pinned versions (verified 2026-10-13 against GitHub releases)
+- **Godot 4.7.2-stable** (official, `Godot_v4.7.2-stable_linux.x86_64.zip`; editor reports `v4.7.2.stable.official.ed1daf0bf`). Export templates must be **4.7.2-stable** too.
+- **godot_voxel GDExtension v1.7x** (`GodotVoxelExtension.zip`, released 2026-08-20, "Voxel Tools GDExtension 1.7 for Godot 4.5+"; its `voxel.gdextension` declares `compatibility_minimum = "4.4.1"`). Unzip at the project root → `addons/zylann.voxel/`.
+- Ships Android libs: `libvoxel.android.editor.arm64.so` (debug) and `libvoxel.android.template_release.arm64.so` (release), plus x86_64 variants for emulators. Binaries are gitignored (`addons/zylann.voxel/bin/`). Re-download them from the release; don't commit them.
+- Alternative: the custom module build "Godot 4.7.2 + Voxel Tools 1.7" (tag v1.7) is also available. We use the GDExtension so that stock Godot and stock export templates work. Upstream warns that the extension has had less testing than module builds.
+
+
 > Status: scaffold only. Nothing here has been opened or run in Godot yet. Requires **Zylann godot_voxel**. Use either a custom Godot build that includes the module, or the **GDExtension** release (1.x; check that its version matches your Godot 4.x minor) in `addons/zylann.voxel/`. The addon is **not** in this repo.
 
 ## Terrain nodes

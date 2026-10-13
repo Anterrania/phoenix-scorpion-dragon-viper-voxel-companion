@@ -1,11 +1,11 @@
-; Engine configuration file. Godot 4.3+
+; Engine configuration file. Pinned: Godot 4.7.2-stable + godot_voxel GDExtension v1.7x
 config_version=5
 
 [application]
 config/name="Phoenix Scorpion Dragon Viper AI Voxel Companion"
 config/description="Android voxel world with in-game AI companions that build realms."
 run/main_scene="res://scenes/main_world.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+config/features=PackedStringArray("4.7", "Mobile")
 
 [autoload]
 Settings="*res://scripts/autoload/settings.gd"

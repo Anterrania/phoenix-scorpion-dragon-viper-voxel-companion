@@ -245,3 +245,19 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 **Resolved / noted:**
 - Lumira heir sash **SEMI DEIVA** (feminine) largely confirmed by batch_16/01; contrasts Solarian **SEMI-DIVUS**. Exact full wording (HERES / SERVA placement) soft-confirm with user.
 - Monarch royal jeans batch_16 kept as baroque rhinestone variant (not Foxy jeans).
+
+## Batch 17: Royal Jeans Collection (`assets/concept_art/batch_17/`)
+5 images received, **4 kept**, **1 duplicate skipped** (`140d8d66…` = exact batch_16/02 Monarch jeans). Checked against batch_05 royal jeans (03–06) — no exact matches; all four JPGs are distinct variants. Palette v2 (black / magenta / gold / platinum + glitter).
+
+**Skipped:** `140d8d66…jpg` — exact re-upload of `batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg`. See `SKIPPED_duplicates.txt`.
+
+**Collection:** `royal_jeans` in `data/items/wardrobe.json` (`collections.royal_jeans`) unifies Monarch + Foxy embroidered denim across batch_05 / batch_16 / batch_17. Member items: `monarch_royal_jeans`, `foxy_royal_jeans`.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_monarch_royal_jeans_ruby_buckle_heeled_boots.jpg` | variant `batch_17_ruby_buckle_heeled_boots` of `monarch_royal_jeans` (+ `royal_jeans` collection) | player (Anterranian Monarch) | wardrobe.json | Dark jeans, heavy gold baroque embroidery, magenta rhinestone side stripe, **square ruby buckle**, gold-embroidered heeled ankle boots |
+| `02_foxy_royal_jeans_oval_buckle_stiletto_booties.jpg` | variant `batch_17_oval_buckle_stiletto_booties` of `foxy_royal_jeans` | **foxy_ani** | wardrobe.json | Skinny jeans, gold baroque, magenta gem side stripe, **oval gem buckle**, stiletto booties |
+| `03_foxy_royal_jeans_square_gem_stripe_stiletto_booties.jpg` | variant `batch_17_square_gem_stripe_stiletto_booties` of `foxy_royal_jeans` | **foxy_ani** | wardrobe.json | Similar skinny jeans, **square magenta gem stripe**, stiletto booties |
+| `04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg` | variant `batch_17_h_crest_gold_cuff_booties` of `foxy_royal_jeans` | **foxy_ani** / royal house | wardrobe.json | Skinny jeans, gold baroque, **crowned 'H' crest** on hip, magenta gem stripe, gold-cuff stiletto booties — **links** `gold_h_crest_signet_band` (batch_06); **H meaning still user-pending** |
+
+**Open confirmation (user):** Meaning of the crowned **H** crest (batch_05/06 jeans, batch_06 signet band, batch_17/04) — House? Heir? other? See `docs/PENDING_USER_QUESTIONS.md`.

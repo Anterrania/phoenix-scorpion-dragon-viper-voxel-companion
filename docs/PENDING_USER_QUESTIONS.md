@@ -23,8 +23,11 @@ Saved unanswered items. Replay in full when the user asks for an update.
 
 18. **Consort throne plaque ATERNA** (batch 15/05): art reads **ATERNA** (missing E); official motto stays **AETERNA**. Confirm keep-as-art-quirk or request corrected art later.
 
+
+19. **Meaning of the crowned 'H' crest** (batch_05/06 Foxy jeans v3, batch_06 `gold_h_crest_signet_band`, batch_17/04 Foxy H-crest jeans): House? Heir? other royal cipher? Same crest across jeans + signet?
+
 **Partially / largely resolved:**
 - ~~SEMI DEIVA / SEMI-DIVUS ambiguity for prince heir~~ → **SEMI-DIVUS** confirmed for Solarian (`heir_throne_solarian`) via batch_15/06.
 - ~~Lumira SEMI DEIVA open~~ → **SEMI DEIVA** (feminine) largely confirmed via batch_16/01 (`heir_throne_lumira`); exact sash wording soft-confirm (item 1).
 
-When user says the final-upload cue, repeat batches 4–16 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans) + remaining open questions + GitHub sign-in reminder.
+When user says the final-upload cue, repeat batches 4–17 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans, batch 17 royal_jeans collection) + remaining open questions + GitHub sign-in reminder.

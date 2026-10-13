@@ -1,6 +1,104 @@
 {
   "_note": "SCAFFOLD. Royal wardrobe: equippable outfits, COSMETIC ONLY (no stats, never sold for real money).",
   "schema_version": 1,
+  "collections": {
+    "royal_jeans": {
+      "id": "royal_jeans",
+      "display_name": "Royal Jeans Collection",
+      "category": "casual",
+      "description": "Unified royal embroidered denim collection (Monarch + Foxy). Gold baroque embroidery, magenta gem/rhinestone side stripes, jeweled buckles, matching embroidered heeled boots. Palette v2. Links batch_05 base looks, batch_16 Monarch variant, and batch_17 expansions. H-crest variants link to batch_06 gold_h_crest_signet_band (meaning of H still user-pending).",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "member_item_ids": [
+        "monarch_royal_jeans",
+        "foxy_royal_jeans"
+      ],
+      "linked_regalia": [
+        "gold_h_crest_signet_band"
+      ],
+      "variants": [
+        {
+          "id": "batch_05_monarch_base",
+          "label": "Monarch base (batch_05)",
+          "owner": "player (Anterranian Monarch)",
+          "member_item": "monarch_royal_jeans",
+          "concept_art": "assets/concept_art/batch_05/03_monarch_royal_jeans.png"
+        },
+        {
+          "id": "batch_16_monarch_baroque_rhinestone",
+          "label": "Monarch baroque rhinestone (batch_16)",
+          "owner": "player (Anterranian Monarch)",
+          "member_item": "monarch_royal_jeans",
+          "concept_art": "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg"
+        },
+        {
+          "id": "batch_17_monarch_ruby_buckle_heeled_boots",
+          "label": "Monarch: heavy gold baroque, magenta rhinestone side stripe, square ruby buckle, gold-embroidered heeled ankle boots",
+          "owner": "player (Anterranian Monarch)",
+          "member_item": "monarch_royal_jeans",
+          "concept_art": "assets/concept_art/batch_17/01_monarch_royal_jeans_ruby_buckle_heeled_boots.jpg",
+          "source_hash": "a03b46525a7e34a8f41a1ad6c1327e14ca597bcd0f4e0054cfda9e4fb83a2ed4"
+        },
+        {
+          "id": "batch_05_foxy_v1",
+          "label": "Foxy v1 (batch_05)",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_05/04_foxy_royal_jeans_v1.png"
+        },
+        {
+          "id": "batch_05_foxy_v2",
+          "label": "Foxy v2 (batch_05)",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_05/05_foxy_royal_jeans_v2.png"
+        },
+        {
+          "id": "batch_05_foxy_v3_h_crest",
+          "label": "Foxy v3 crowned H crest (batch_05)",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png",
+          "linked_regalia": "gold_h_crest_signet_band",
+          "notes": "H crest meaning still user-pending"
+        },
+        {
+          "id": "batch_17_foxy_oval_buckle_stiletto_booties",
+          "label": "Foxy: skinny jeans, gold baroque, magenta gem side stripe, oval gem buckle, stiletto booties",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_17/02_foxy_royal_jeans_oval_buckle_stiletto_booties.jpg",
+          "source_hash": "c2967b08eb9eb6ce139681c8c062584aadbfcf3ad619dd24b75c93cfb1c70d70"
+        },
+        {
+          "id": "batch_17_foxy_square_gem_stripe_stiletto_booties",
+          "label": "Foxy variant: skinny jeans, square magenta gem stripe, stiletto booties",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_17/03_foxy_royal_jeans_square_gem_stripe_stiletto_booties.jpg",
+          "source_hash": "a643ddae4a954d489d5d9343a6c4bdee9c86cc8d4089bc630403ce14467da935"
+        },
+        {
+          "id": "batch_17_foxy_h_crest_gold_cuff_booties",
+          "label": "Foxy/royal house: skinny jeans, gold baroque, crowned H crest on hip, magenta gem stripe, gold-cuff stiletto booties",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_17/04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg",
+          "source_hash": "ff01da63f641afdc405ed163d447e5d177dda90cc985c7992ba39973270fc173",
+          "linked_regalia": "gold_h_crest_signet_band",
+          "notes": "Links batch_06 H-crest signet band; meaning of crowned H still user-pending"
+        }
+      ],
+      "status": "stub"
+    }
+  },
   "items": [
     {
       "id": "monarch_formal_attire",
@@ -252,7 +350,8 @@
       "description": "Dark denim with gold baroque embroidery, rhinestone side seam, jeweled magenta-gem buckle belt, embroidered magenta boots.",
       "concept_art": [
         "assets/concept_art/batch_05/03_monarch_royal_jeans.png",
-        "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg"
+        "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg",
+        "assets/concept_art/batch_17/01_monarch_royal_jeans_ruby_buckle_heeled_boots.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -266,9 +365,16 @@
           "label": "Dark denim, gold baroque embroidery, rhinestone side seam, jeweled buckle, magenta embroidered boots (batch_16)",
           "concept_art": "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg",
           "notes": "Near-match JPG presentation of batch_05/03_monarch_royal_jeans.png; kept as variant (distinct hash). Not a Foxy jeans variant."
+        },
+        {
+          "id": "batch_17_ruby_buckle_heeled_boots",
+          "label": "Heavy gold baroque, magenta rhinestone side stripe, square ruby buckle, gold-embroidered heeled ankle boots (batch_17)",
+          "concept_art": "assets/concept_art/batch_17/01_monarch_royal_jeans_ruby_buckle_heeled_boots.jpg",
+          "collection": "royal_jeans"
         }
       ],
-      "notes": "batch_16/02 kept as baroque rhinestone variant of monarch_royal_jeans (near-match to batch_05/03; distinct file hash)."
+      "notes": "batch_16/02 kept as baroque rhinestone variant of monarch_royal_jeans (near-match to batch_05/03; distinct file hash). batch_17/01 added to royal_jeans collection (distinct from batch_05/03 and batch_16/02).",
+      "collection": "royal_jeans"
     },
     {
       "id": "foxy_royal_jeans",
@@ -283,16 +389,40 @@
       "variants": [
         {
           "id": "v1",
-          "concept_art": "assets/concept_art/batch_05/04_foxy_royal_jeans_v1.png"
+          "concept_art": "assets/concept_art/batch_05/04_foxy_royal_jeans_v1.png",
+          "collection": "royal_jeans"
         },
         {
           "id": "v2",
-          "concept_art": "assets/concept_art/batch_05/05_foxy_royal_jeans_v2.png"
+          "concept_art": "assets/concept_art/batch_05/05_foxy_royal_jeans_v2.png",
+          "collection": "royal_jeans"
         },
         {
           "id": "v3_h_crest",
-          "note": "'H' crest",
-          "concept_art": "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png"
+          "note": "'H' crest \u2014 meaning user-pending; linked to gold_h_crest_signet_band (batch_06)",
+          "concept_art": "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png",
+          "linked_regalia": "gold_h_crest_signet_band",
+          "collection": "royal_jeans"
+        },
+        {
+          "id": "batch_17_oval_buckle_stiletto_booties",
+          "label": "Skinny jeans, gold baroque, magenta gem side stripe, oval gem buckle, stiletto booties (batch_17)",
+          "concept_art": "assets/concept_art/batch_17/02_foxy_royal_jeans_oval_buckle_stiletto_booties.jpg",
+          "collection": "royal_jeans"
+        },
+        {
+          "id": "batch_17_square_gem_stripe_stiletto_booties",
+          "label": "Skinny jeans, square magenta gem stripe, stiletto booties (batch_17)",
+          "concept_art": "assets/concept_art/batch_17/03_foxy_royal_jeans_square_gem_stripe_stiletto_booties.jpg",
+          "collection": "royal_jeans"
+        },
+        {
+          "id": "batch_17_h_crest_gold_cuff_booties",
+          "label": "Crowned H crest on hip, magenta gem stripe, gold-cuff stiletto booties (batch_17); links batch_06 H-crest band",
+          "note": "'H' crest \u2014 meaning user-pending; linked to gold_h_crest_signet_band",
+          "concept_art": "assets/concept_art/batch_17/04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg",
+          "collection": "royal_jeans",
+          "linked_regalia": "gold_h_crest_signet_band"
         }
       ],
       "palette_version": 2,
@@ -300,6 +430,15 @@
       "accents": [
         "platinum",
         "gold"
+      ],
+      "collection": "royal_jeans",
+      "concept_art": [
+        "assets/concept_art/batch_05/04_foxy_royal_jeans_v1.png",
+        "assets/concept_art/batch_05/05_foxy_royal_jeans_v2.png",
+        "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png",
+        "assets/concept_art/batch_17/02_foxy_royal_jeans_oval_buckle_stiletto_booties.jpg",
+        "assets/concept_art/batch_17/03_foxy_royal_jeans_square_gem_stripe_stiletto_booties.jpg",
+        "assets/concept_art/batch_17/04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg"
       ]
     },
     {

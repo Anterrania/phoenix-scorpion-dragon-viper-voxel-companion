@@ -113,3 +113,10 @@
 - Lumira heir throne variant confirms feminine **SEMI DEIVA** (+ SERVA; possible HERES) — pending question largely resolved
 - Monarch royal jeans baroque rhinestone variant of batch_05/03 (distinct hash; not Foxy jeans)
 - Palette v2 on all; not pushed (waiting on GitHub sign-in)
+
+## Batch 17 (royal jeans collection) - done locally
+- 4 of 5 images kept in assets/concept_art/batch_17/ (`140d8d66…` skipped as exact batch_16/02 Monarch jeans)
+- Checked vs batch_05 jeans (03–06): no exact matches; all four kept as new variants
+- New wardrobe **collection** `royal_jeans` (palette v2) unifying Monarch + Foxy denim across batch_05/16/17
+- Monarch: ruby-buckle heeled boots variant; Foxy: oval buckle, square gem stripe, and crowned H-crest gold-cuff booties
+- H crest meaning still pending (linked to batch_06 `gold_h_crest_signet_band`); not pushed (waiting on GitHub sign-in)

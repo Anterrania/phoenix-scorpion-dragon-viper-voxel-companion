@@ -203,3 +203,11 @@
 - Heraldry: `great_sigil_crowned_dragon_geometric_medallion` (alternate Great Sigil candidate)
 - Palette v2; not pushed (waiting on GitHub sign-in)
 
+## Batch 28 (command citadel, fortress, tattoo, title ring, ballgown) - done locally
+- 5 of 6 images kept in assets/concept_art/batch_28/ (JPG gown dup skipped)
+- Structures: `zodiac_command_citadel` (glyph-ring command citadel), `phoenix_eight_fortress` ('8' panels) — names pending approve
+- Cosmetics: `tattoo_dragon_phoenix_divine_right_back` (body-art; real-world flags noted; pending Monarch personal?)
+- New `data/items/rings.json`: `moonstone_phoenix_title_ring` with **placeholder** inscription only (source art named a real public figure — name NOT in game data)
+- Wardrobe: Foxy white ermine ballgown variant on `foxy_white_coronation_gown`
+- Palette v2; not pushed (waiting on GitHub sign-in)
+

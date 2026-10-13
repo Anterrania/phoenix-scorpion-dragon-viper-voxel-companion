@@ -466,3 +466,21 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 **Warrior note:** upload `94ac5177…jpg` is the same file as Batch 01/02 — persona remains **Gemini Reaper Vex** (`gemini_reaper_vex`); weapon reads as glowing magenta polearm/halberd (Batch 01 listed scythe).
 
 **Open confirmation (user):** Approve warrior name **Gemini Reaper Vex**? Is the magenta tuxedo the Monarch's? See `docs/PENDING_USER_QUESTIONS.md`.
+
+## Batch 28: Command Citadel, Fortress, Tattoo, Title Ring & White Ballgown (`assets/concept_art/batch_28/`)
+6 images received, **5 kept**, **1 JPG duplicate skipped**. Palette v2 (black / magenta / gold / platinum + glitter). Game-only virtual items.
+
+**Skipped:** `b62c0956…jpg` — JPG near-dup of white ermine ballgown PNG (kept as `05`). See `SKIPPED_duplicates.txt`.
+
+| File | Item id | Data | Notes |
+|------|---------|------|-------|
+| `01_zodiac_command_citadel_gothic_floating.png` | `zodiac_command_citadel` | structures.json | Gothic floating command citadel; dragon crest + zodiac/glyph ring + holo data panels; **name pending approve** |
+| `02_tattoo_dragon_phoenix_divine_right_back.png` | `tattoo_dragon_phoenix_divine_right_back` | cosmetics.json | Back/shoulder body-art; scroll **DIVINE RIGHT**; shield quarters include **real-world flags** (US, Iceland-like) + Saturn — pending: Monarch personal tattoo? |
+| `03_phoenix_eight_fortress_orbital.png` | `phoenix_eight_fortress` | structures.json | Black fortress; phoenix crest + magenta **'8'** panels (another '8'); **name pending approve** |
+| `04_moonstone_phoenix_title_ring.jpg` | `moonstone_phoenix_title_ring` | **rings.json** (new) | Moonstone + phoenix title ring; source art named a **real public figure** — **name omitted from all game data**; placeholder inscription only |
+| `05_foxy_white_ermine_ballgown_magenta_gems_black_cape.png` | `foxy_white_coronation_gown` variant `batch_28_white_ermine_magenta_gems_black_cape` | wardrobe.json | Foxy/queen white ermine ballgown, magenta gems, black cape, rune platform |
+
+**New:** `data/items/rings.json` — jewelry catalog (placeholder inscriptions when source art would identify a real person).
+
+**Open (user):** Monarch personal tattoo? Who is the title ring for (no real-person depiction without consent)? Approve citadel/fortress names? See `docs/PENDING_USER_QUESTIONS.md`.
+

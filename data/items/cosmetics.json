@@ -37,6 +37,38 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false
+    },
+    {
+      "id": "tattoo_dragon_phoenix_divine_right_back",
+      "display_name": "Dragon-Phoenix Divine Right Back Tattoo",
+      "category": "body_tattoo",
+      "slot": "back_and_shoulder",
+      "description": "Large back/shoulder body-art: crowned dragon-phoenix with fiery wings; heraldic shield quartered with real-world flag motifs (US flag, Saturn, Iceland-like flag with bird) and scroll text 'DIVINE RIGHT'; secondary arm dragon-phoenix; purple/gold filigree + glyphs backdrop. Character-customization cosmetic only.",
+      "printed_text": {
+        "scroll": "DIVINE RIGHT"
+      },
+      "contains_real_world_flags": true,
+      "real_world_flag_notes": [
+        "United States flag (shield quarter)",
+        "Iceland-like Nordic cross flag with bird (shield quarter)",
+        "Saturn as celestial quarter (not a flag)"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_28/02_tattoo_dragon_phoenix_divine_right_back.png"
+      ],
+      "owner_default": "player (Anterranian Monarch)",
+      "open_questions": [
+        "Is this a personal tattoo design for the Monarch?"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Body-art / tattoo character customization. Real-world national flags appear in the shield art \u2014 keep as cosmetic fiction; pending user confirm whether this is the Monarch's personal tattoo design."
     }
   ]
 }

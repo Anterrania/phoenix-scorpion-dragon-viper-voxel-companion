@@ -446,11 +446,12 @@
       "display_name": "Foxy's White Coronation Gown",
       "owner": "foxy_ani",
       "category": "formal",
-      "description": "White/ivory coronation & queen regalia family: batch_06 white gown; batch_18 satin ballgown with ruby jewels and ermine-trimmed black/magenta cloak; batch_19 ivory gown with gold baroque, magenta jeweled sash, ermine cape over black/plum cloak, white jeweled boots.",
+      "description": "White/ivory coronation & queen regalia family: batch_06 white gown; batch_18 satin ballgown with ruby jewels and ermine-trimmed black/magenta cloak; batch_19 ivory gown with gold baroque, magenta jeweled sash, ermine capelet; batch_28 white ermine ballgown with magenta gems, black/magenta ermine cape on rune platform.",
       "concept_art": [
         "assets/concept_art/batch_06/01_foxy_white_coronation_gown.png",
         "assets/concept_art/batch_18/01_foxy_white_coronation_wedding_gown_ruby_cloak.jpg",
-        "assets/concept_art/batch_19/01_foxy_ivory_regalia_magenta_sash_ermine_cape.jpg"
+        "assets/concept_art/batch_19/01_foxy_ivory_regalia_magenta_sash_ermine_cape.jpg",
+        "assets/concept_art/batch_28/05_foxy_white_ermine_ballgown_magenta_gems_black_cape.png"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -482,6 +483,17 @@
             "queen_vesperine_pyre"
           ],
           "notes": "Distinct MD5 from batch_18/01 white wedding/ruby-cloak gown (aa1c3b31 vs e908553e); kept as ivory/magenta-sash queen-regalia variant of foxy_white_coronation_gown. Palette v2."
+        },
+        {
+          "id": "batch_28_white_ermine_magenta_gems_black_cape",
+          "label": "White/ivory ermine ballgown, large magenta waist + hem gems, gold chains, black cape with magenta lining and ermine trim, rune platform (queen variant)",
+          "concept_art": [
+            "assets/concept_art/batch_28/05_foxy_white_ermine_ballgown_magenta_gems_black_cape.png"
+          ],
+          "also_fits": [
+            "queen_vesperine_pyre"
+          ],
+          "notes": "Batch_28 Foxy/queen white ballgown variant; distinct from batch_18 wedding ruby-cloak and batch_19 ivory magenta-sash looks."
         }
       ]
     },

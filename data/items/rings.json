@@ -1,0 +1,45 @@
+{
+  "_note": "SCAFFOLD. Equippable ring-slot items (split from regalia.json for jewelry catalog). Cosmetic/gameplay only, never real-money. Inscriptions that would identify real people are replaced with placeholders.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "moonstone_phoenix_title_ring",
+      "display_name": "Moonstone Phoenix Title Ring",
+      "slot": "ring",
+      "rarity": "legendary",
+      "description": "Wide gold signet-style ring with purple glitter enamel face, central moonstone under a crescent, raised magenta phoenix relief, gold stars and crescents. Band carries a placeholder title inscription (source art named a real public figure \u2014 that name is NOT stored in game data).",
+      "inscription_placeholder": {
+        "side_panel": "[DEDICATEE PLACEHOLDER \u2014 awaiting user]",
+        "band_curve": "[TITLE LINE PLACEHOLDER \u2014 awaiting user]",
+        "note": "Source concept art engraved a real public figure's full name plus title string. Game data uses placeholders only. Do not depict real people without consent."
+      },
+      "motifs": [
+        "moonstone",
+        "crescent",
+        "phoenix",
+        "stars"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_28/04_moonstone_phoenix_title_ring.jpg"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
+      "status": "stub",
+      "open_questions": [
+        "Who is this ring for? (Game cannot depict real people without consent.)"
+      ],
+      "privacy_policy": "no_real_person_names_in_game_data",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Image stored for art reference. Real-person name from source art intentionally omitted from all game JSON/docs."
+    }
+  ]
+}

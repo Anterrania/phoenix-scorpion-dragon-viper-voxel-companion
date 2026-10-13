@@ -280,3 +280,21 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `05_ethereal_sentinels_heavy_trooper_plasma_cannon.png` | `ethereal_sentinels_heavy_trooper_armor` + `ethereal_sentinels_phoenix_plasma_cannon` | **ethereal_sentinels** (also Monarch) | armor.json + weapons.json | Heavy trooper armor (magenta visor) + ornate gold-filigree plasma cannon with phoenix emblem |
 | `06_phoenix_emberwing_mount_crescent_ruins.jpg` | `phoenix_emberwing` | player (Anterranian Monarch); also **foxy_ani** | creatures.json | Dark violet phoenix, ember-fire wings, crescent moon, ruined castle — pet/mount + project Phoenix emblem lore |
 
+## Batch 19: Defense Projects, Ivory Regalia & SCDI (`assets/concept_art/batch_19/`)
+6 images received, **5 kept**, **1 duplicate skipped** (PNG of Royal Aegis). Palette v2 (black / magenta / gold / platinum + glitter). All weapons/armor/mechs are game-only virtual items.
+
+**Checked vs batch_18 white gown:** `01` ivory gown distinct MD5 from batch_18/01 white wedding/ruby-cloak gown — kept as ivory/magenta-sash queen-regalia variant of `foxy_white_coronation_gown`.
+
+**Skipped:** `015a68f28cef…png` — PNG container duplicate of Royal Aegis (kept JPG as `05`). See `SKIPPED_duplicates.txt`.
+
+**New module:** `docs/modules/DEFENSE_PROJECTS.md` — Project Crusader, Project Aegis-Guard, SCDI program.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_foxy_ivory_regalia_magenta_sash_ermine_cape.jpg` | variant `batch_19_ivory_magenta_sash_ermine` of `foxy_white_coronation_gown` | **foxy_ani** (also **queen_vesperine_pyre**) | wardrobe.json | Ivory gown, gold baroque, magenta jeweled sash, ermine cape over black/plum cloak, white jeweled boots |
+| `02_project_crusader_apex_modular_kinetic_rifle.png` | `project_crusader_apex_modular_kinetic_rifle` + `project_crusader_soldier_armor` | player / royal_guard | weapons.json + armor.json | Printed PROJECT CRUSADER; Magnelcration / Phamx noted as likely typos |
+| `03_project_aegis_guard_triton_coast_guard_attire.jpg` | `project_aegis_guard_triton_coast_guard` | **order_of_the_trident** | armor.json | Triton-Class coast guard; links Order of the Trident navy |
+| `04_scdi_dominion_shotgun_crowned_heavy_trooper.jpg` | `scdi_dominion_shotgun` + `scdi_dominion_heavy_trooper_armor` | player / ethereal_sentinels | weapons.json + armor.json | Art prints SHOTGUAN → recorded as Dominion Shotgun |
+| `05_scdi_royal_aegis_mech.jpg` | `scdi_royal_aegis_mech` | player (Anterranian Monarch) | mechs.json | SCDI \| ROYAL AEGIS crowned mech, plasma greatsword + cannons |
+
+**Open confirmation (user):** What does **SCDI** stand for? (Also on batch_01 Omni-Worker.) See `docs/PENDING_USER_QUESTIONS.md`.

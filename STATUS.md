@@ -129,3 +129,12 @@
 - New `data/creatures.json` with **Phoenix Emberwing** pet/mount (project Phoenix emblem lore)
 - Palette v2 on all; not pushed (waiting on GitHub sign-in)
 
+## Batch 19 (defense projects, ivory regalia, SCDI) - done locally
+- 5 of 6 images kept in assets/concept_art/batch_19/ (Royal Aegis PNG skipped as dup of JPG)
+- Foxy ivory queen regalia variant of `foxy_white_coronation_gown` (distinct from batch_18 white wedding gown)
+- Project Crusader rifle + soldier armor (weapons.json + armor.json); printed Magnelcration/Phamx typo notes
+- Project Aegis-Guard Triton coast guard attire → armor.json, linked Order of the Trident navy
+- SCDI Dominion Shotgun (SHOTGUAN art spelling noted) + Dominion heavy trooper armor
+- New `data/items/mechs.json` with SCDI Royal Aegis mech
+- New `docs/modules/DEFENSE_PROJECTS.md`; pending: what SCDI stands for
+- Palette v2; all game-only virtual items; not pushed (waiting on GitHub sign-in)

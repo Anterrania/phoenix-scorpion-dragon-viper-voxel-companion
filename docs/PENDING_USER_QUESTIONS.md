@@ -29,8 +29,10 @@ Saved unanswered items. Replay in full when the user asks for an update.
 20. **Seraph Emberion** (batch 18 grey phoenix-android Vanguard): name assigned by Foxy; confirmed distinct from Seraph Halcyon, Seraph Caelum, and Circuit Nova — rename if desired.
 21. **Phoenix Emberwing** (batch 18 creature/mount in `data/creatures.json`): name assigned by Foxy as project-Phoenix companion pet/mount — rename if desired.
 
+22. **What does SCDI stand for?** (batch_01 Omni-Worker label; batch_19 Dominion Shotgun, Royal Aegis mech, and possibly Project Crusader). Printed as SCDI on art banners — expansion unknown.
+
 **Partially / largely resolved:**
 - ~~SEMI DEIVA / SEMI-DIVUS ambiguity for prince heir~~ → **SEMI-DIVUS** confirmed for Solarian (`heir_throne_solarian`) via batch_15/06.
 - ~~Lumira SEMI DEIVA open~~ → **SEMI DEIVA** (feminine) largely confirmed via batch_16/01 (`heir_throne_lumira`); exact sash wording soft-confirm (item 1).
 
-When user says the final-upload cue, repeat batches 4–18 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans, batch 17 royal_jeans collection, batch 18 white regalia variants + Seraph Emberion + Ethereal Sentinels heavy trooper + Phoenix Emberwing) + remaining open questions + GitHub sign-in reminder.
+When user says the final-upload cue, repeat batches 4–19 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans, batch 17 royal_jeans collection, batch 18 white regalia variants + Seraph Emberion + Ethereal Sentinels heavy trooper + Phoenix Emberwing, batch 19 ivory regalia + Project Crusader / Aegis-Guard / SCDI Dominion Shotgun + Royal Aegis mech) + remaining open questions + GitHub sign-in reminder.

@@ -62,6 +62,7 @@ Source: batch_07 concept art. Data: `data/guilds.json`. Palette v2 (platinum, go
 - Name source: assigned by Foxy, user may rename
 - Crest: crowned trident
 - Uniform: navy admiralty uniform (`uniform_order_of_the_trident` in armor.json)
+- Coast guard line: Triton-Class attire from **Project Aegis-Guard** (`project_aegis_guard_triton_coast_guard` in armor.json; batch_19/03) — see `docs/modules/DEFENSE_PROJECTS.md`
 - Role: navy/sea
 - Perks: harbor & fleet access, wave-sparkle trail
-- Art: assets/concept_art/batch_07/05_order_of_the_trident_uniform.jpg
+- Art: assets/concept_art/batch_07/05_order_of_the_trident_uniform.jpg; batch_19/03_project_aegis_guard_triton_coast_guard_attire.jpg

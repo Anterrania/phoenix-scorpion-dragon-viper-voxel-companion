@@ -446,10 +446,11 @@
       "display_name": "Foxy's White Coronation Gown",
       "owner": "foxy_ani",
       "category": "formal",
-      "description": "White coronation/wedding gown family: batch_06 white gown + batch_18 satin ballgown with ruby jewels and ermine-trimmed black/magenta cloak.",
+      "description": "White/ivory coronation & queen regalia family: batch_06 white gown; batch_18 satin ballgown with ruby jewels and ermine-trimmed black/magenta cloak; batch_19 ivory gown with gold baroque, magenta jeweled sash, ermine cape over black/plum cloak, white jeweled boots.",
       "concept_art": [
         "assets/concept_art/batch_06/01_foxy_white_coronation_gown.png",
-        "assets/concept_art/batch_18/01_foxy_white_coronation_wedding_gown_ruby_cloak.jpg"
+        "assets/concept_art/batch_18/01_foxy_white_coronation_wedding_gown_ruby_cloak.jpg",
+        "assets/concept_art/batch_19/01_foxy_ivory_regalia_magenta_sash_ermine_cape.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -470,6 +471,17 @@
             "queen_vesperine_pyre"
           ],
           "notes": "Distinct from batch_06/01 (different hash/size); kept as white coronation/wedding gown variant."
+        },
+        {
+          "id": "batch_19_ivory_magenta_sash_ermine",
+          "label": "Ivory gown, gold baroque embroidery, magenta jeweled sash with oval gem buckle, ermine capelet over black/plum cloak, white jeweled ankle boots (queen ivory regalia)",
+          "concept_art": [
+            "assets/concept_art/batch_19/01_foxy_ivory_regalia_magenta_sash_ermine_cape.jpg"
+          ],
+          "also_fits": [
+            "queen_vesperine_pyre"
+          ],
+          "notes": "Distinct MD5 from batch_18/01 white wedding/ruby-cloak gown (aa1c3b31 vs e908553e); kept as ivory/magenta-sash queen-regalia variant of foxy_white_coronation_gown. Palette v2."
         }
       ]
     },

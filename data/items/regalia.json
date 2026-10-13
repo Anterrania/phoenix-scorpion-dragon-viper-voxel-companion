@@ -128,6 +128,63 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false
+    },
+    {
+      "id": "orb_ring_scepter",
+      "display_name": "Orb-Ring Scepter",
+      "slot": "scepter",
+      "category": "scepter",
+      "rarity": "legendary",
+      "description": "Long staff topped with a glowing magenta orb inside a gold planetary ring; elder/queen cosmic court regalia.",
+      "concept_art": [
+        "assets/concept_art/batch_08/01_queen_vesperine_black_magenta_robe_orb_ring_scepter.jpg",
+        "assets/concept_art/batch_08/04_king_ignatius_orb_scepter_magenta_tabard.jpg",
+        "assets/concept_art/batch_08/06_king_ignatius_orb_scepter_gold_greaves_variant.jpg"
+      ],
+      "wearers": [
+        "queen_vesperine_pyre",
+        "king_ignatius_pyre",
+        "player (Anterranian Monarch)"
+      ],
+      "linked_batch07": "assets/concept_art/batch_07/19_orb_scepter_king_dup_of_batch02_elder.jpg",
+      "linked_batch02": "assets/concept_art/batch_02/03_elder_king_orb_scepter_floating_rock.png",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "crescent_scepter",
+      "display_name": "Crescent Scepter",
+      "slot": "scepter",
+      "category": "scepter",
+      "rarity": "legendary",
+      "description": "Staff topped with a gold crescent framing a magenta orb; heir/queen cosmic court regalia (moon/Venus lineage).",
+      "concept_art": [
+        "assets/concept_art/batch_08/02_prince_solarian_armored_ermine_crown_crescent_scepter.jpg",
+        "assets/concept_art/batch_08/03_queen_vesperine_ermine_cape_crescent_scepter.jpg"
+      ],
+      "wearers": [
+        "prince_regent_solarian",
+        "queen_vesperine_pyre",
+        "foxy_ani",
+        "player (Anterranian Monarch)"
+      ],
+      "linked_batch02": "assets/concept_art/batch_02/05_young_king_ermine_crescent_scepter.png",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
     }
   ]
 }

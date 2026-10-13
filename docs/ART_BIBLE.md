@@ -108,3 +108,22 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 
 ## Batch 07: Royal Orders, Tattoos & Court Robes (`assets/concept_art/batch_07/`)
 30 images received, 19 kept, 11 duplicates skipped. Eight royal orders (see docs/modules/ROYAL_ORDERS.md): Lumina Healers, Seraphic Vanguard, Ethereal Sentinels (printed names), plus Scales, Eye, Verdant Tree, Hourglass, Trident (assigned by Foxy, user may rename). Tattoo + signet pairs in cosmetics.json/regalia.json, three-ring set, navy sun/moon court robes (queen, king, princess), navy officer ermine uniforms. 19_orb_scepter_king is kept as reference but likely duplicates the batch_02 elder king. All palette v2.
+
+## Batch 08: Cosmic Court Robes & Scepters (`assets/concept_art/batch_08/`)
+6 images kept (cosmic court set). Palette v2 (black / magenta / gold / platinum + glitter). Wardrobe in `data/items/wardrobe.json`; scepters in `data/items/regalia.json`.
+
+| File | Item id | Persona / wearer | Notes |
+|------|---------|------------------|-------|
+| `01_queen_vesperine_black_magenta_robe_orb_ring_scepter.jpg` | `vesperine_cosmic_orb_ring_robe` | **queen_vesperine_pyre** | Black/magenta robe, orb-ring scepter, floating rune platform |
+| `02_prince_solarian_armored_ermine_crown_crescent_scepter.jpg` | `solarian_armored_ermine_crown_set` | **prince_regent_solarian** (also Monarch attire) | Armored black/magenta, ermine crown, crescent scepter |
+| `03_queen_vesperine_ermine_cape_crescent_scepter.jpg` | `vesperine_ermine_cape_crescent` | **queen_vesperine_pyre** (also **foxy_ani** royal attire) | Ermine cape + crescent scepter |
+| `04_king_ignatius_orb_scepter_magenta_tabard.jpg` | `ignatius_orb_scepter_magenta_tabard` | **king_ignatius_pyre** (also Monarch) | Elder king, magenta tabard, orb scepter — **same elder as** `batch_07/19_orb_scepter_king_dup_of_batch02_elder` and `batch_02/03_elder_king_*` |
+| `05_prince_solarian_high_collar_sigil_robe_sparkle_cape.jpg` | `solarian_sigil_robe_sparkle_cape` | **prince_regent_solarian** (also Monarch) | High collar, sigil embroidery, black fur, glitter sparkle cape |
+| `06_king_ignatius_orb_scepter_gold_greaves_variant.jpg` | `ignatius_orb_scepter_gold_greaves_variant` | **king_ignatius_pyre** | Near-duplicate of 04 (gold greaves variant); same elder link as above |
+
+**New regalia (scepters):**
+- `orb_ring_scepter` — magenta orb in gold planetary ring (queen + elder king sets)
+- `crescent_scepter` — gold crescent framing magenta orb (heir + ermine-cape queen; moon/Venus lineage from batch_02)
+
+**Open confirmation (user):** elder orb-scepter king in batch_08 / batch_07-19 confirmed as Ignatius Pyre (same as batch_02 elder); rename if wrong.
+

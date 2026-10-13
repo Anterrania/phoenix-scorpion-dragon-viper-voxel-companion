@@ -400,6 +400,161 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false
+    },
+    {
+      "id": "vesperine_cosmic_orb_ring_robe",
+      "display_name": "Vesperine Cosmic Robe (Orb-Ring Scepter)",
+      "owner": "queen_vesperine_pyre",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black/magenta cosmic court robe with gold filigree; paired with orb-ring scepter on floating rune platform.",
+      "concept_art": [
+        "assets/concept_art/batch_08/01_queen_vesperine_black_magenta_robe_orb_ring_scepter.jpg"
+      ],
+      "paired_regalia": "orb_ring_scepter",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_armored_ermine_crown_set",
+      "display_name": "Solarian Armored Ermine Crown Set",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Young king armored black/magenta with ermine crown and crescent scepter.",
+      "concept_art": [
+        "assets/concept_art/batch_08/02_prince_solarian_armored_ermine_crown_crescent_scepter.jpg"
+      ],
+      "paired_regalia": "crescent_scepter",
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "vesperine_ermine_cape_crescent",
+      "display_name": "Vesperine Ermine Cape Court Robe",
+      "owner": "queen_vesperine_pyre",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Queen robe with floor-length ermine cape and crescent scepter; also usable as Foxy royal attire variant.",
+      "concept_art": [
+        "assets/concept_art/batch_08/03_queen_vesperine_ermine_cape_crescent_scepter.jpg"
+      ],
+      "paired_regalia": "crescent_scepter",
+      "also_fits": [
+        "foxy_ani"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "ignatius_orb_scepter_magenta_tabard",
+      "display_name": "Ignatius Orb-Scepter Magenta Tabard",
+      "owner": "king_ignatius_pyre",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Elder king cosmic court set: magenta tabard, orb scepter. Same elder as batch_02/03 and batch_07/19.",
+      "concept_art": [
+        "assets/concept_art/batch_08/04_king_ignatius_orb_scepter_magenta_tabard.jpg"
+      ],
+      "paired_regalia": "orb_ring_scepter",
+      "linked_concept_art": [
+        "assets/concept_art/batch_07/19_orb_scepter_king_dup_of_batch02_elder.jpg",
+        "assets/concept_art/batch_02/03_elder_king_orb_scepter_floating_rock.png"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_sigil_robe_sparkle_cape",
+      "display_name": "Solarian Sigil Robe with Sparkle Cape",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "High-collar sigil-embroidered black/magenta robe, black fur trim, glitter sparkle cape.",
+      "concept_art": [
+        "assets/concept_art/batch_08/05_prince_solarian_high_collar_sigil_robe_sparkle_cape.jpg"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "ignatius_orb_scepter_gold_greaves_variant",
+      "display_name": "Ignatius Orb-Scepter Gold Greaves (variant)",
+      "owner": "king_ignatius_pyre",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Near-duplicate elder king variant of 04: gold armored greaves emphasized. Links to batch_07/19 and batch_02 elder.",
+      "concept_art": [
+        "assets/concept_art/batch_08/06_king_ignatius_orb_scepter_gold_greaves_variant.jpg"
+      ],
+      "variant_of": "ignatius_orb_scepter_magenta_tabard",
+      "paired_regalia": "orb_ring_scepter",
+      "linked_concept_art": [
+        "assets/concept_art/batch_07/19_orb_scepter_king_dup_of_batch02_elder.jpg",
+        "assets/concept_art/batch_02/03_elder_king_orb_scepter_floating_rock.png"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
     }
   ]
 }

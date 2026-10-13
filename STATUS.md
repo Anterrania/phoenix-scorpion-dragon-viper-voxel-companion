@@ -51,3 +51,10 @@
 - 19 of 30 images kept (11 duplicates skipped) in assets/concept_art/batch_07/
 - 8 guilds in data/guilds.json + docs/modules/ROYAL_ORDERS.md; uniforms in armor.json; robes/officer uniforms in wardrobe.json; rings in regalia.json; tattoos in new data/items/cosmetics.json
 - Not pushed (waiting on GitHub sign-in)
+
+## Batch 08 (cosmic court) - done locally
+- 6 images in assets/concept_art/batch_08/ (queen/king/prince cosmic robes + scepters)
+- Mapped: queen_vesperine_pyre (01, 03), prince_regent_solarian (02, 05), king_ignatius_pyre (04, 06); Monarch/Foxy as also_fits where noted
+- Elder orb-scepter king (04/06) linked to batch_07/19 and batch_02 elder king
+- New regalia: orb_ring_scepter, crescent_scepter (palette v2)
+- Not pushed (waiting on GitHub sign-in)

@@ -106,7 +106,7 @@
           "id": "batch_15_magenta_wings_semi_divus",
           "label": "Magenta tufted seat, black wings, crescent-tree crest; banner POTENTIA HERES SEMI-DIVUS (batch_15)",
           "concept_art": "assets/concept_art/batch_15/06_heir_throne_solarian_semi_divus_magenta_wings.jpg",
-          "notes": "Confirms prince heir throne text as SEMI-DIVUS. Lumira SEMI DEIVA still pending user confirm."
+          "notes": "Confirms prince heir throne text as SEMI-DIVUS. Lumira SEMI DEIVA largely resolved via batch_16/01 (exact wording soft-confirm)."
         }
       ]
     },
@@ -122,11 +122,12 @@
         3
       ],
       "sit_point": true,
-      "description": "Magenta winged throne with gem/orb crest and sashes.",
-      "inscription": "POTENTIA HERES SEMI DEIVA",
+      "description": "Magenta winged throne with gem/orb crest and sashes; batch_16 variant records visible banner text roughly 'POTENTIA \u2026 SEMI DEIVA SERVA' (possible HERES), confirming feminine SEMI DEIVA for Lumira vs SEMI-DIVUS for Solarian.",
+      "inscription": "POTENTIA HERES SEMI DEIVA SERVA",
       "inscription_user_confirm": true,
       "concept_art": [
-        "assets/concept_art/batch_05/02_heir_throne_lumira_magenta.png"
+        "assets/concept_art/batch_05/02_heir_throne_lumira_magenta.png",
+        "assets/concept_art/batch_16/01_heir_throne_lumira_semi_deiva_serva_variant.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -134,7 +135,24 @@
         "platinum",
         "gold"
       ],
-      "inscription_note": "Still pending user confirmation (SEMI DEIVA). Batch_15/06 confirmed SEMI-DIVUS for Solarian only; does not resolve Lumira."
+      "inscription_note": "Largely resolved by batch_16/01: SEMI DEIVA confirmed for Lumira (feminine) vs SEMI-DIVUS for Solarian. Exact full sash wording (incl. HERES / SERVA placement) still soft-confirm with user.",
+      "inscription_largely_resolved": true,
+      "inscription_visible_approx": {
+        "left_banner": "POTENTIA \u2026 (DEIVA / HERES uncertain layout)",
+        "right_banner": "SEMI / DEIVA / SERVA",
+        "possible_center": "HERES",
+        "reading_working": "POTENTIA HERES SEMI DEIVA SERVA",
+        "note": "Confirms feminine SEMI DEIVA for Princess Lumira; contrasts Solarian SEMI-DIVUS (batch_15/06). Exact sash wording still soft-confirm with user."
+      },
+      "inscription_confirmed_by": "batch_16/01 banners clearly show SEMI DEIVA (feminine); SERVA also visible",
+      "variants": [
+        {
+          "id": "batch_16_semi_deiva_serva",
+          "label": "Black wings, gold spires, oval magenta gem with pearl + celestial ring, crescent crest; banners ~POTENTIA \u2026 SEMI DEIVA SERVA (batch_16)",
+          "concept_art": "assets/concept_art/batch_16/01_heir_throne_lumira_semi_deiva_serva_variant.jpg",
+          "notes": "Near-match JPG presentation of batch_05/02; kept as text-confirming variant. Largely resolves Lumira SEMI DEIVA question."
+        }
+      ]
     }
   ]
 }

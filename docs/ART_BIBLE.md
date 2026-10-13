@@ -62,7 +62,7 @@ Source files are the user's uploads (hash-named originals) in the bot attachment
 | File | Item | Owner | Notes |
 |---|---|---|---|
 | 01_heir_throne_solarian_black_gold.png | `heir_throne_solarian` | Prince Regent Solarian | Black/gold, magenta tufted seat, eagle wings, crescent crest; banner "POTENTIA HERES SEMI-DIVUS" (Power, Heir, Demigod) |
-| 02_heir_throne_lumira_magenta.png | `heir_throne_lumira` | Princess Regent Lumira | Magenta winged throne, gem/orb crest; sashes "POTENTIA HERES SEMI DEIVA" — **text unclear, user to confirm** |
+| 02_heir_throne_lumira_magenta.png | `heir_throne_lumira` | Princess Regent Lumira | Magenta winged throne, gem/orb crest; sashes "POTENTIA HERES SEMI DEIVA" — **largely resolved by batch_16/01 (SEMI DEIVA feminine); exact wording soft-confirm** |
 | 03_monarch_royal_jeans.png | `monarch_royal_jeans` | Monarch | Dark denim, gold baroque embroidery, gem belt buckle, embroidered magenta boots |
 | 04/05/06_foxy_royal_jeans_*.png | `foxy_royal_jeans` (3 variants) | Foxy | Gold baroque embroidery, magenta gem side stripe, embroidered heeled boots; v3 has "H" crest |
 
@@ -225,10 +225,23 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `03_royal_flagship_starfighter_phoenix_filigree.png` | `royal_flagship_starfighter` | player (Anterranian Monarch) | vehicles.json (`type: space`) | Black/magenta starfighter, gold filigree, phoenix decals, magenta energy aura; **star_map** flagship_fighter |
 | `04_monarch_throne_black_tufted_eagles_ringed_orb.jpg` | variant of `monarch_throne` | player (Anterranian Monarch) | furniture.json | Black tufted back, magenta seat, twin eagles, ringed orb + crescent — Monarch throne variant (≠ batch_04 exact) |
 | `05_foxy_consort_throne_aterna_plaque_variant.jpg` | variant of `foxy_consort_throne` | **foxy_ani** | furniture.json | Oval ringed gem, crescent+sun, eagles; plaque art reads **ATERNA** (missing E). Official motto **AETERNA** |
-| `06_heir_throne_solarian_semi_divus_magenta_wings.jpg` | variant of `heir_throne_solarian` | **prince_regent_solarian** | furniture.json | Magenta seat, black wings, crescent-tree crest; banner **POTENTIA HERES SEMI-DIVUS** — **confirms prince heir text**; Lumira SEMI DEIVA still open |
+| `06_heir_throne_solarian_semi_divus_magenta_wings.jpg` | variant of `heir_throne_solarian` | **prince_regent_solarian** | furniture.json | Magenta seat, black wings, crescent-tree crest; banner **POTENTIA HERES SEMI-DIVUS** — **confirms prince heir text**; Lumira SEMI DEIVA largely resolved in batch_16 |
 
 **Resolved / noted:**
 - Prince heir banner text recorded as **SEMI-DIVUS** (batch_15/06 confirms batch_05 Solarian reading).
 - Consort throne art discrepancy: **ATERNA** in image vs canonical **AETERNA**.
-- Lumira sash **SEMI DEIVA** remains user-pending.
+- Lumira sash **SEMI DEIVA** → largely resolved in batch_16 (exact wording soft-confirm).
 
+## Batch 16: Lumira Heir Throne Text Confirm & Monarch Jeans Variant (`assets/concept_art/batch_16/`)
+6 images received, **2 kept**, **4 duplicates skipped** (re-uploads already in batch_15). Palette v2 (black / magenta / gold / platinum + glitter). Compared to batch_05 heir thrones and royal jeans — near-match presentations kept as variants (distinct hashes).
+
+**Skipped:** `01afb713…` (= batch_15/06 Solarian heir), `361d0b97…` (= batch_15/05 consort ATERNA), `12251163…` (= batch_15/04 Monarch throne), `ceae7ef3…` (= batch_15/03 flagship). See `SKIPPED_duplicates.txt`.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_heir_throne_lumira_semi_deiva_serva_variant.jpg` | variant `batch_16_semi_deiva_serva` of `heir_throne_lumira` | **princess_regent_lumira** | furniture.json | Magenta tufted seat, black feathered wings, gold spires, oval magenta gem with pearl + celestial ring, crescent crest; banners ~**POTENTIA … SEMI DEIVA SERVA** (possible **HERES**). Confirms feminine **SEMI DEIVA** for Lumira vs **SEMI-DIVUS** for Solarian |
+| `02_monarch_royal_jeans_baroque_rhinestone_variant.jpg` | variant `batch_16_baroque_rhinestone` of `monarch_royal_jeans` | player (Anterranian Monarch) | wardrobe.json | Dark denim, gold baroque embroidery, rhinestone side seam, jeweled magenta-gem buckle, magenta embroidered boots — near-match of batch_05/03; kept as variant |
+
+**Resolved / noted:**
+- Lumira heir sash **SEMI DEIVA** (feminine) largely confirmed by batch_16/01; contrasts Solarian **SEMI-DIVUS**. Exact full wording (HERES / SERVA placement) soft-confirm with user.
+- Monarch royal jeans batch_16 kept as baroque rhinestone variant (not Foxy jeans).

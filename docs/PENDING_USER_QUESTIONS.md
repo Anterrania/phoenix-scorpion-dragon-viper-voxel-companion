@@ -1,7 +1,7 @@
 # Pending User Questions (do not ask until user says final-upload / "ok")
 Saved unanswered items. Replay in full when the user asks for an update.
 
-1. **Lumira throne sash text** (batch 05): confirm reading of "POTENTIA HERES SEMI DEIVA" (vs SEMI-DIVA / SEMI-DEA / other). **Note:** batch_15/06 confirmed **SEMI-DIVUS** for the **prince** heir throne (Solarian); Lumira's text is still open.
+1. **Lumira throne sash text** (batch 05 + batch_16/01): ~~open~~ **LARGELY RESOLVED** — batch_16/01 banners show feminine **SEMI DEIVA** (plus **SERVA**; possible **HERES**), reading roughly **POTENTIA … SEMI DEIVA SERVA**. Contrasts Solarian **SEMI-DIVUS** (batch_15/06). Soft-confirm exact full wording when convenient.
 2. **Meaning of the "8"** on ring_01 / gold H-crest signet band / batch_07 rings — now also on batch_09 attendant gold collar and steward chest emblem (infinity-knot / figure-8). Same symbol?
 3. **Signet stack** (batch 02 moon/Venus + pearl/black bands): one combined item or a set of separate rings?
 4. **Missing image d05bcc**: ~~please re-send~~ **RESOLVED** (batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg; also `foxy_boudoir_set` variant_b).
@@ -23,7 +23,8 @@ Saved unanswered items. Replay in full when the user asks for an update.
 
 18. **Consort throne plaque ATERNA** (batch 15/05): art reads **ATERNA** (missing E); official motto stays **AETERNA**. Confirm keep-as-art-quirk or request corrected art later.
 
-**Partially resolved (batch 15):**
-- ~~SEMI DEIVA / SEMI-DIVUS ambiguity for prince heir~~ → **SEMI-DIVUS** confirmed for Solarian (`heir_throne_solarian`) via batch_15/06. Lumira still open (item 1).
+**Partially / largely resolved:**
+- ~~SEMI DEIVA / SEMI-DIVUS ambiguity for prince heir~~ → **SEMI-DIVUS** confirmed for Solarian (`heir_throne_solarian`) via batch_15/06.
+- ~~Lumira SEMI DEIVA open~~ → **SEMI DEIVA** (feminine) largely confirmed via batch_16/01 (`heir_throne_lumira`); exact sash wording soft-confirm (item 1).
 
-When user says the final-upload cue, repeat batches 4–15 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants) + remaining open questions + GitHub sign-in reminder.
+When user says the final-upload cue, repeat batches 4–16 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans) + remaining open questions + GitHub sign-in reminder.

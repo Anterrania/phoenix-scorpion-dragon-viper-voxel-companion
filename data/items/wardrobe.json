@@ -249,16 +249,26 @@
         "feet",
         "belt"
       ],
-      "description": "Dark denim with gold baroque embroidery, gem belt buckle, embroidered magenta boots.",
+      "description": "Dark denim with gold baroque embroidery, rhinestone side seam, jeweled magenta-gem buckle belt, embroidered magenta boots.",
       "concept_art": [
-        "assets/concept_art/batch_05/03_monarch_royal_jeans.png"
+        "assets/concept_art/batch_05/03_monarch_royal_jeans.png",
+        "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
       "accents": [
         "platinum",
         "gold"
-      ]
+      ],
+      "variants": [
+        {
+          "id": "batch_16_baroque_rhinestone",
+          "label": "Dark denim, gold baroque embroidery, rhinestone side seam, jeweled buckle, magenta embroidered boots (batch_16)",
+          "concept_art": "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg",
+          "notes": "Near-match JPG presentation of batch_05/03_monarch_royal_jeans.png; kept as variant (distinct hash). Not a Foxy jeans variant."
+        }
+      ],
+      "notes": "batch_16/02 kept as baroque rhinestone variant of monarch_royal_jeans (near-match to batch_05/03; distinct file hash)."
     },
     {
       "id": "foxy_royal_jeans",

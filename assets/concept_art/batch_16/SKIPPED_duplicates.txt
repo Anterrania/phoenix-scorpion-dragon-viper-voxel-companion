@@ -1,0 +1,15 @@
+# Batch 16 — skipped duplicates (already in batch_15; identical md5)
+01afb7139ea863c00c3508ab4c6e89151a5701f141c136c2a557d89ac35f65ed.jpg
+  reason: identical re-upload of batch_15/06_heir_throne_solarian_semi_divus_magenta_wings.jpg
+361d0b9783cb72efd9593bd15d43796878759c3774350d5d0667ad00b6c2e2aa.jpg
+  reason: identical re-upload of batch_15/05_foxy_consort_throne_aterna_plaque_variant.jpg
+12251163dc78b83dedfbd1c004f26843f55945a8b1c485001fcbebbf0b0bbd4c.jpg
+  reason: identical re-upload of batch_15/04_monarch_throne_black_tufted_eagles_ringed_orb.jpg
+ceae7ef35762027ae677a4dad44e056f61442f8aa3e08ab380e023172a97eec9.png
+  reason: identical re-upload of batch_15/03_royal_flagship_starfighter_phoenix_filigree.png
+
+# Kept (2 variants vs batch_05; distinct hashes / JPG presentations)
+7a1ebacf… → 01_heir_throne_lumira_semi_deiva_serva_variant.jpg
+  (near-match to batch_05/02_heir_throne_lumira_magenta.png; kept as text-confirming variant)
+140d8d66… → 02_monarch_royal_jeans_baroque_rhinestone_variant.jpg
+  (near-match to batch_05/03_monarch_royal_jeans.png; kept as baroque rhinestone variant)

@@ -106,5 +106,10 @@
 - Foxy jeweled thigh boots + ankle booties variant of `foxy_embroidered_boots`
 - New space vehicle `royal_flagship_starfighter` (vehicles.json) linked to STAR_MAP.md
 - Throne variants: Monarch black-tufted; Foxy consort (ATERNA art vs AETERNA official); Solarian heir confirms SEMI-DIVUS
-- Lumira SEMI DEIVA still pending; palette v2 on all; not pushed (waiting on GitHub sign-in)
+- Lumira SEMI DEIVA largely resolved via batch_16; palette v2 on all; not pushed (waiting on GitHub sign-in)
 
+## Batch 16 (Lumira heir throne text + Monarch jeans variant) - done locally
+- 2 of 6 images kept in assets/concept_art/batch_16/ (4 re-uploads of batch_15 skipped)
+- Lumira heir throne variant confirms feminine **SEMI DEIVA** (+ SERVA; possible HERES) — pending question largely resolved
+- Monarch royal jeans baroque rhinestone variant of batch_05/03 (distinct hash; not Foxy jeans)
+- Palette v2 on all; not pushed (waiting on GitHub sign-in)

@@ -160,7 +160,14 @@
         "gold"
       ],
       "cosmetic_gameplay_only": true,
-      "real_money": false
+      "real_money": false,
+      "related_armor": [
+        "scdi_verdant_guardian_suit"
+      ],
+      "related_weapons": [
+        "scdi_verdant_guardian_energy_machete",
+        "scdi_verdant_guardian_jungle_rifle"
+      ]
     },
     {
       "id": "order_of_the_hourglass",

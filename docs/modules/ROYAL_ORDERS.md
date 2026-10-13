@@ -49,6 +49,7 @@ Source: batch_07 concept art. Data: `data/guilds.json`. Palette v2 (platinum, go
 - Role: nature/agriculture
 - Perks: greenhouse access, leaf-sparkle trail
 - Art: assets/concept_art/batch_07/08_order_of_the_verdant_tree_uniform.jpg
+- SCDI combat suit (batch_21 card 6): `scdi_verdant_guardian_suit` + `scdi_verdant_guardian_energy_machete` + `scdi_verdant_guardian_jungle_rifle` (see `docs/modules/DEFENSE_PROJECTS.md`)
 
 ## Order of the Hourglass
 - Name source: assigned by Foxy, user may rename

@@ -44,7 +44,9 @@
     },
     "omni-worker": {
       "dir": "omni_worker",
-      "role": "utility companion"
+      "role": "utility companion / android worker unit (NPC type; not a uniquely named court companion)",
+      "npc_unit_id": "scdi_omni_worker_unit",
+      "unit_type": "android_worker"
     },
     "gemini-reaper-vex": {
       "dir": "gemini_reaper_vex",

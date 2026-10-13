@@ -6,9 +6,10 @@
   "name": "SCDI Omni-Worker",
   "role": "Utility companion: universal android assistant",
   "personality": "Efficient, polite, task-focused; confirms before acting.",
-  "appearance": "Black-and-gold android (concept art: assets/concept_art/batch_01/06_scdi_omni_worker_android.png).",
+  "appearance": "Black-and-gold android with magenta neon seams and crowned double-headed eagle crest (concept art: batch_01/06 + batch_21/06 SCDI Omni-Worker card 14).",
   "concept_art": [
-    "assets/concept_art/batch_01/06_scdi_omni_worker_android.png"
+    "assets/concept_art/batch_01/06_scdi_omni_worker_android.png",
+    "assets/concept_art/batch_21/06_scdi_omni_worker_universal_android_assistant.jpg"
   ],
   "abilities": [
     "hauling and resource gathering",
@@ -59,5 +60,10 @@
   "accents": [
     "platinum",
     "gold"
-  ]
+  ],
+  "unit_type": "android_worker",
+  "npc_unit_id": "scdi_omni_worker_unit",
+  "scdi_program": true,
+  "scdi_suit_series_index": 14,
+  "notes": "Worker unit template (not a uniquely named court companion). batch_21 card 14 catalogs the unit type in data/npcs.json; this persona remains the spawnable template."
 }

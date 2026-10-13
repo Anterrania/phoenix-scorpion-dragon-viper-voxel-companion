@@ -315,3 +315,21 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `05_scdi_abyssal_sovereign_underwater_suit.png` | `scdi_abyssal_sovereign_suit` + `scdi_abyssal_submarine` | **order_of_the_trident** | armor.json + vehicles.json | Suit card **3**; prints SOVEREGIN → Sovereign; submarine stub |
 
 **Open confirmation (user):** What does **SCDI** stand for? (Still pending from batch_01 / batch_19.) See `docs/PENDING_USER_QUESTIONS.md`.
+
+## Batch 21: SCDI Suit Series cards 4–6, 8, 14 + Skyfall Harness (`assets/concept_art/batch_21/`)
+6 images received, **6 kept**, **0 duplicates**. Palette v2 (black / magenta / gold / platinum + glitter). All armor/weapons/NPC units are **game-only virtual items**.
+
+**Module update:** `docs/modules/DEFENSE_PROJECTS.md` — SCDI Suit Series extended (cards 4, 5, 6, 8, 14 + unnumbered Skyfall); **missing cards 7, 9–13**.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_scdi_firestorme_warden_pyro_resilient_hazard_suit.jpg` | `scdi_firestorme_warden_suit` | player / royal_guard | armor.json | Suit card **4**; prints FIRESTORME / PYRO-RESILENT → Firestorm / Pyro-Resilient; Venus fire biome |
+| `02_scdi_terra_explorer_all_terrain_civilian_explorer_suit.png` | `scdi_terra_explorer_suit` | player / explorer | armor.json | Suit card **5**; all-terrain civilian & explorer |
+| `03_scdi_verdant_guardian_forest_jungle_combat_suit.jpg` | `scdi_verdant_guardian_suit` + energy machete + jungle rifle | **order_of_the_verdant_tree** | armor.json + weapons.json | Suit card **6**; links Verdant Tree order |
+| `04_scdi_skyfall_harness_advanced_parachute_bungee_system.jpg` | `scdi_skyfall_harness` | player / aerial | armor.json | **Unnumbered**; prints PARCHUTE / BUNNGE → Parachute / Bungee; wing glider gear |
+| `05_scdi_cosmic_habitation_space_station_operations_suit.jpg` | `scdi_cosmic_habitation_suit` | player / station ops | armor.json | Suit card **8** |
+| `06_scdi_omni_worker_universal_android_assistant.jpg` | `scdi_omni_worker_unit` (NPC worker) | android worker unit | data/npcs.json | Suit card **14**; **not** a new named companion — template remains `omni_worker` (batch_01/06) |
+
+**Printed → corrected:** FIRESTORME→Firestorm; PYRO-RESILENT→Pyro-Resilient; PARCHUTE→Parachute; BUNNGE→Bungee (printed strings kept for art fidelity).
+
+**Open confirmation (user):** What does **SCDI** stand for? (Still pending.) Missing suit cards **7, 9–13**. See `docs/PENDING_USER_QUESTIONS.md`.

@@ -148,3 +148,10 @@
 - Updated `docs/modules/DEFENSE_PROJECTS.md` with suit series table
 - Palette v2; all game-only virtual items; not pushed (waiting on GitHub sign-in)
 
+## Batch 21 (SCDI suit series 4/5/6/8/14 + Skyfall) - done locally
+- 6 of 6 images kept in assets/concept_art/batch_21/ (no duplicates)
+- SCDI Suit Series cards **4** Firestorme Warden (Venus fire), **5** Terra Explorer, **6** Verdant Guardian (Order of the Verdant Tree + energy machete + jungle rifle), **8** Cosmic Habitation → armor.json / weapons.json
+- Unnumbered **Skyfall Harness** (PARCHUTE/BUNNGE typos noted) → armor.json mobility_harness
+- Card **14** Omni-Worker → `data/npcs.json` worker unit `scdi_omni_worker_unit` (not a new named companion); batch_01 `omni_worker` remains template
+- Extended `docs/modules/DEFENSE_PROJECTS.md`; **missing cards 7, 9–13** noted
+- Palette v2; all game-only virtual items; not pushed (waiting on GitHub sign-in)

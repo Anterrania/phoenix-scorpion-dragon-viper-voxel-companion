@@ -18,7 +18,13 @@
       "concept_art": [
         "assets/concept_art/batch_04_royal_assets/05_monarch_throne_black_gold_eagles.png"
       ],
-      "status": "stub"
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
     },
     {
       "id": "foxy_consort_throne",
@@ -37,7 +43,13 @@
       "concept_art": [
         "assets/concept_art/batch_04_royal_assets/06_foxy_consort_throne_magenta_crescent.png"
       ],
-      "status": "stub"
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
     },
     {
       "id": "heir_throne_solarian",
@@ -56,6 +68,12 @@
       "inscription_user_confirm": false,
       "concept_art": [
         "assets/concept_art/batch_05/01_heir_throne_solarian_black_gold.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
       ]
     },
     {
@@ -75,6 +93,12 @@
       "inscription_user_confirm": true,
       "concept_art": [
         "assets/concept_art/batch_05/02_heir_throne_lumira_magenta.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
       ]
     }
   ]

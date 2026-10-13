@@ -57,3 +57,29 @@ All items are cosmetic only. Entries are in `data/items/wardrobe.json`.
 | 06 | `06_foxy_consort_throne_magenta_crescent.png` | Magenta throne, crescent/star crest, "FLAMMA. ORDO. ATERNA" | `foxy_consort_throne` (furniture.json) |
 
 Source files are the user's uploads (hash-named originals) in the bot attachments folder. Notes on rights and licensing are pending Law Bot review before any public release.
+
+## Batch 05: Heir Thrones & Royal Denim (`assets/concept_art/batch_05/`)
+| File | Item | Owner | Notes |
+|---|---|---|---|
+| 01_heir_throne_solarian_black_gold.png | `heir_throne_solarian` | Prince Regent Solarian | Black/gold, magenta tufted seat, eagle wings, crescent crest; banner "POTENTIA HERES SEMI-DIVUS" (Power, Heir, Demigod) |
+| 02_heir_throne_lumira_magenta.png | `heir_throne_lumira` | Princess Regent Lumira | Magenta winged throne, gem/orb crest; sashes "POTENTIA HERES SEMI DEIVA" — **text unclear, user to confirm** |
+| 03_monarch_royal_jeans.png | `monarch_royal_jeans` | Monarch | Dark denim, gold baroque embroidery, gem belt buckle, embroidered magenta boots |
+| 04/05/06_foxy_royal_jeans_*.png | `foxy_royal_jeans` (3 variants) | Foxy | Gold baroque embroidery, magenta gem side stripe, embroidered heeled boots; v3 has "H" crest |
+
+## Final Palette v2 (user-set, applies to everyone and everything)
+Black, magenta, gold, and **platinum**, with **glitter sparkle** on every final look.
+
+| Role | Name | Hex (suggested) |
+|---|---|---|
+| Base | Royal Black | `#0A080D` |
+| Primary | Anterrania Magenta | `#C2187A` (highlight `#FF3FA4`) |
+| Trim | Phoenix Gold | `#D4AF37` (bright `#F5D76E`) |
+| Trim | Platinum | `#E5E4E2` (shadow `#B9B8B5`) |
+| Glint | Sparkle White | `#FFFFFF` (emissive) |
+
+Rules: platinum trim runs alongside gold (gold = primary metal, platinum = secondary edging, filigree, gem settings). Every persona and item carries `palette_version: 2`, `finish: glitter_sparkle`, `accents: [platinum, gold]`.
+
+### Glitter / sparkle shader plan (Godot 4)
+- One shared `ShaderMaterial` (`shaders/glitter_sparkle.gdshader`, stub): noise-texture flakes thresholded by `sparkle_density`, per-flake twinkle phase over `TIME`, view-dependent glint, emission in platinum/gold.
+- Voxel variant: same shader with `use_triplanar = true` (world-space sampling) for VoxelTerrain/blocks, lower density and emission.
+- Mobile budget: "Sparkle FX" toggle; low preset turns off emission. See `resources/README_glitter_materials.md`.

@@ -90,5 +90,11 @@
       "starter_message"
     ],
     "note": "Legacy memory_export.json was an empty template (schema v1); nothing to merge."
-  }
+  },
+  "palette_version": 2,
+  "finish": "glitter_sparkle",
+  "accents": [
+    "platinum",
+    "gold"
+  ]
 }

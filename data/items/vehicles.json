@@ -24,7 +24,13 @@
       "concept_art": [
         "assets/concept_art/batch_04_royal_assets/04_royal_vehicle_black_suv_gold_filigree.png"
       ],
-      "status": "stub"
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
     }
   ]
 }

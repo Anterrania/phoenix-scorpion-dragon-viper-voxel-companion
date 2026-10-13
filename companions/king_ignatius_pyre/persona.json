@@ -54,5 +54,11 @@
     "rank": "role",
     "reports_to": "foxy_ani",
     "council": "elder_council"
-  }
+  },
+  "palette_version": 2,
+  "finish": "glitter_sparkle",
+  "accents": [
+    "platinum",
+    "gold"
+  ]
 }

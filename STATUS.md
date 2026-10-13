@@ -36,3 +36,8 @@
 3. Authenticate gh, push branches, open PRs.
 4. Add the missing export presets and a voxel-enabled Godot build for CI, then do an Android debug APK test on the Motorola.
 5. Settle the exchange through the Ledger; add art for the role companions.
+
+## Update: palette v2 + batch 05
+- Final palette v2 (black/magenta/gold/platinum + glitter sparkle) documented in ART_BIBLE; applied as tags to all companion personas and all items.
+- Stub `shaders/glitter_sparkle.gdshader` (untested; not run in Godot yet).
+- Batch 05: heir thrones for Solarian and Lumira (Lumira inscription awaits user confirmation), Monarch and Foxy royal denim.

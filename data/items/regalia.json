@@ -1,7 +1,14 @@
 {
   "_note": "SCAFFOLD. In-game equippable regalia items. Stats are placeholders. Item names are descriptive, not lore names (awaiting user naming).",
   "schema_version": 1,
-  "motto": {"canonical": "Flamma. Ordo. Aeterna.", "as_engraved": ["FLAMMA. ORDO. ATERNA. 8", "Flamma, Ordo, Aterna"], "spelling_status": "user-confirm (Aeterna vs Aterna)"},
+  "motto": {
+    "canonical": "Flamma. Ordo. Aeterna.",
+    "as_engraved": [
+      "FLAMMA. ORDO. ATERNA. 8",
+      "Flamma, Ordo, Aterna"
+    ],
+    "spelling_status": "user-confirm (Aeterna vs Aterna)"
+  },
   "items": [
     {
       "id": "ring_magenta_oval_halo",
@@ -10,9 +17,20 @@
       "rarity": "legendary",
       "description": "Gold ring with an oval magenta stone in a black-and-white diamond halo. Band inscribed 'FLAMMA. ORDO. ATERNA. 8'.",
       "concept_art": "assets/concept_art/batch_02/01_ring_gold_magenta_oval_diamond_halo.png",
-      "stats": {"fire_affinity": 0, "order_affinity": 0},
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
       "status": "stub",
-      "open_questions": ["Meaning of the trailing '8' on the inscription"]
+      "open_questions": [
+        "Meaning of the trailing '8' on the inscription"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
     },
     {
       "id": "signet_magenta_moon_venus_stack",
@@ -21,10 +39,25 @@
       "rarity": "legendary",
       "description": "Signet ring with a magenta stone and a moon/Venus symbol, stacked with a pearl band and a black band engraved 'Flamma, Ordo, Aterna'.",
       "concept_art": "assets/concept_art/batch_02/02_signet_ring_magenta_moon_venus_stack.png",
-      "components": ["signet", "pearl_band", "black_engraved_band"],
-      "stats": {"fire_affinity": 0, "venus_affinity": 0},
+      "components": [
+        "signet",
+        "pearl_band",
+        "black_engraved_band"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "venus_affinity": 0
+      },
       "status": "stub",
-      "open_questions": ["Single item or a three-piece set?"]
+      "open_questions": [
+        "Single item or a three-piece set?"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
     }
   ]
 }

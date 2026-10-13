@@ -53,5 +53,11 @@
   "safety": {
     "non_clinical": true,
     "crisis_disclaimer": "Not a substitute for professional care. In crisis: US 988 or 911; elsewhere local emergency services."
-  }
+  },
+  "palette_version": 2,
+  "finish": "glitter_sparkle",
+  "accents": [
+    "platinum",
+    "gold"
+  ]
 }

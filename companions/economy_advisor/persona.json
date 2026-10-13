@@ -53,5 +53,11 @@
   "safety": {
     "virtual_currency_only": true,
     "real_money_requires": "Anterrania Law Bot legal review"
-  }
+  },
+  "palette_version": 2,
+  "finish": "glitter_sparkle",
+  "accents": [
+    "platinum",
+    "gold"
+  ]
 }

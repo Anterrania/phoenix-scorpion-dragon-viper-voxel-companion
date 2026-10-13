@@ -24,6 +24,8 @@
 ## Added 2026-10-13 (midday)
 - Concept art batch_01 (6 images) + docs/ART_BIBLE.md; new omni-worker utility companion (schema v3, registered). Images 02–05 are unassigned, awaiting user naming.
 
+- Concept art batch_02 (2 rings + 4 royals), ART_BIBLE Regalia & Jewelry section, data/items/regalia.json stubs. Royals unassigned; motto spelling needs user confirmation.
+
 ## Next
 1. Open in Godot 4 with godot_voxel and fix any parse errors.
 2. Register PersonaRegistry as an autoload.

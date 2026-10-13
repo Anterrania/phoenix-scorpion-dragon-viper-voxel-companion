@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/companion_agent.tscn" id="3"]
+[ext_resource type="Resource" path="res://resources/characters/foxy_ani_firecaster_grey.tres" id="4"]
+[ext_resource type="Resource" path="res://resources/characters/metallic_companion.tres" id="5"]
+[ext_resource type="Resource" path="res://resources/characters/aaliyah_refined.tres" id="6"]
+[ext_resource type="Script" path="res://scripts/chat_ui.gd" id="7"]
+
+[sub_resource type="Environment" id="env"]
+background_mode = 1
+background_color = Color(0.1, 0.1, 0.2, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.6, 0.7, 1)
+fog_enabled = true
+
+[node name="MainWorld" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866, 0, -0.866, 0.5, 0, 40, 0)
+shadow_enabled = true
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
+
+[node name="FoxyAni" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 40, 2)
+config = ExtResource("4")
+player_path = NodePath("../Player")
+world_path = NodePath("..")
+
+[node name="MetallicCompanion" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 40, 2)
+config = ExtResource("5")
+player_path = NodePath("../Player")
+world_path = NodePath("..")
+
+[node name="Aaliyah" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 4)
+config = ExtResource("6")
+player_path = NodePath("../Player")
+world_path = NodePath("..")
+
+[node name="ChatUI" type="CanvasLayer" parent="."]
+script = ExtResource("7")
+companion_path = NodePath("../FoxyAni")
+
+[node name="Panel" type="PanelContainer" parent="ChatUI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -260.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="ChatUI/Panel"]
+layout_mode = 2
+
+[node name="Log" type="RichTextLabel" parent="ChatUI/Panel/VBox"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="Input" type="LineEdit" parent="ChatUI/Panel/VBox"]
+layout_mode = 2
+placeholder_text = "Talk to your companion..."

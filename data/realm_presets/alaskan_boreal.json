@@ -1,0 +1,34 @@
+{
+  "name": "Spruce Hollow Boreal",
+  "biome": "alaskan_boreal",
+  "palette": {
+    "sky": "#2a3b55",
+    "ground": "#3d5c3a",
+    "accent": "#ffd27a",
+    "fog": "#9aa8a0"
+  },
+  "noise": {
+    "seed": 202,
+    "frequency": 0.012,
+    "octaves": 5,
+    "height_scale": 28,
+    "base_height": 4
+  },
+  "structures": [
+    {
+      "type": "hut",
+      "count": 5,
+      "material": 5
+    },
+    {
+      "type": "tower",
+      "count": 1,
+      "material": 5
+    }
+  ],
+  "ambience": {
+    "fog_density": 0.04,
+    "particles": "falling_needles",
+    "light_energy": 1.0
+  }
+}

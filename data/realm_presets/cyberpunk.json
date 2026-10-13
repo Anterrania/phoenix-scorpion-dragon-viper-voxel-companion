@@ -1,0 +1,34 @@
+{
+  "name": "Neon Aurora Stage",
+  "biome": "cyberpunk",
+  "palette": {
+    "sky": "#0a0716",
+    "ground": "#101820",
+    "accent": "#ff2fd0",
+    "fog": "#2a1a3a"
+  },
+  "noise": {
+    "seed": 505,
+    "frequency": 0.03,
+    "octaves": 2,
+    "height_scale": 48,
+    "base_height": 0
+  },
+  "structures": [
+    {
+      "type": "tower",
+      "count": 14,
+      "material": 6
+    },
+    {
+      "type": "wall",
+      "count": 6,
+      "material": 8
+    }
+  ],
+  "ambience": {
+    "fog_density": 0.05,
+    "particles": "neon_fireworks",
+    "light_energy": 0.7
+  }
+}

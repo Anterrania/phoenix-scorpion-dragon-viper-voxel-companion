@@ -163,3 +163,12 @@
 - New `data/items/structures.json`: landmark `anterranian_capitol` (prints PHOENIX GOD / ANTERRANIAN MONORCH [sic MONARCH])
 - Pending notes: '8' again (floor seal + capitol banners); Phoenix God title recorded
 - Palette v2; game-only; not pushed (waiting on GitHub sign-in)
+
+## Batch 23 (capitol variants, coin, heraldry) - done locally
+- 6 of 6 images kept in assets/concept_art/batch_23/ (no duplicates)
+- Capitol variants on `anterranian_capitol`: floating pads + plaques (8 / PHOENIX GOD / ANTERRANIAN MONAACH [sic]); gold-dome dragon crest + 8 archway → structures.json
+- New `data/items/currency.json`: `phoenix_god_coin` (obverse phoenix, reverse magenta 8/galaxy; mottos Divine Right / Universal Wealth) — **virtual only, not real money/crypto**
+- New `data/lore/heraldry.json` + `docs/modules/HERALDRY.md`: national flag (phoenix radiating), great seals phoenix + dragon, vertical flag variants, title Phoenix God / Anterranian Monarch, mottos
+- ECONOMY_BANKING.md updated with coin face; pending: phoenix vs dragon primary?; recurring 8
+- Palette v2; not pushed (waiting on GitHub sign-in)
+

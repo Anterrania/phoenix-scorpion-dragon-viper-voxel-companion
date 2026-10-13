@@ -1,0 +1,66 @@
+{
+  "_note": "SCAFFOLD. In-game virtual currency only. No cash value; cannot be bought, sold, or redeemed for real money or crypto. Real-money features blocked until Law Bot review + Anterranian approval. See docs/modules/ECONOMY_BANKING.md.",
+  "schema_version": 1,
+  "ledger_unit": {
+    "id": "phoenix_embers",
+    "display_name": "Phoenix Embers",
+    "working_name": true,
+    "note": "Soft ledger unit (integer amounts). Physical coin art below is the diegetic coin face for the same virtual economy."
+  },
+  "items": [
+    {
+      "id": "phoenix_god_coin",
+      "display_name": "Phoenix God Coin",
+      "category": "currency",
+      "type": "coin",
+      "owner": "player (Anterranian Monarch) / realm treasury",
+      "description": "Gold-rimmed in-game coin. Obverse: embossed gold phoenix on black disc with magenta tech ring. Reverse: magenta figure-8 over gold galaxy spiral. Rim text (as printed): 'PHOENIX GOD, ANTERRANIAN MONACH' (sic MONARCH), 'DIVINE RIGHT', 'UNIVERSAL WEALTH'.",
+      "obverse": {
+        "motif": "gold_phoenix",
+        "ring": "magenta_tech",
+        "background": "black"
+      },
+      "reverse": {
+        "motif": "magenta_8_over_galaxy",
+        "ring": "magenta_tech",
+        "background": "black_gold_galaxy"
+      },
+      "printed_text": {
+        "rim_title": "PHOENIX GOD, ANTERRANIAN MONACH",
+        "rim_title_official": "PHOENIX GOD, ANTERRANIAN MONARCH",
+        "motto_1": "DIVINE RIGHT",
+        "motto_2": "UNIVERSAL WEALTH",
+        "note": "Art prints MONACH (missing R); canonical title spelling is MONARCH. Same title family as batch_22 MONORCH typo."
+      },
+      "mottos": [
+        "Divine Right",
+        "Universal Wealth"
+      ],
+      "recurring_symbols": [
+        "gold_8",
+        "phoenix",
+        "phoenix_god_title"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_23/03_phoenix_god_coin_divine_right_universal_wealth.jpg"
+      ],
+      "related_docs": [
+        "docs/modules/ECONOMY_BANKING.md",
+        "docs/modules/HERALDRY.md",
+        "data/lore/heraldry.json"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "notes": "Game-only virtual currency token. Reinforces pending '8' question (reverse face). Not a real-world coin, NFT, or crypto asset."
+    }
+  ]
+}

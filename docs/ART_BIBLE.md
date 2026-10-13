@@ -348,3 +348,21 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `03_anterranian_capitol_phoenix_god.jpg` | `anterranian_capitol` | player (Anterranian Monarch) | structures.json | Black domed capitol, phoenix pediment, gold **'8' banners**, landing pads, starships. Prints **PHOENIX GOD / ANTERRANIAN MONORCH** (sic MONARCH) |
 
 **Open confirmation (user):** Meaning of the **'8'** (now also floor seal + capitol banners). Title **Phoenix God** noted. Printed **MONORCH** → official **MONARCH**. See `docs/PENDING_USER_QUESTIONS.md`.
+
+## Batch 23: Capitol Variants, Phoenix God Coin & Heraldry (`assets/concept_art/batch_23/`)
+6 images received, **6 kept**, **0 duplicates**. Palette v2 (black / magenta / gold / platinum + glitter). All items are **game-only virtual** stubs (currency is not real money or crypto).
+
+**New catalogs:** `data/lore/heraldry.json`, `data/items/currency.json`, `docs/modules/HERALDRY.md`.  
+**Updated:** `data/items/structures.json` (capitol variants), `docs/modules/ECONOMY_BANKING.md` (coin face).
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_anterranian_capitol_floating_pads_phoenix_god.jpg` | variant `floating_pads_phoenix_god` of `anterranian_capitol` | player (Anterranian Monarch) | structures.json | Floating landing pads; plaques **8 / PHOENIX GOD / ANTERRANIAN MONAACH** (sic MONARCH) |
+| `02_anterranian_capitol_gold_dome_dragon_crest.png` | variant `gold_dome_dragon_crest` of `anterranian_capitol` | player (Anterranian Monarch) | structures.json | Gold dome, dragon crest, **8** archway |
+| `03_phoenix_god_coin_divine_right_universal_wealth.jpg` | `phoenix_god_coin` | realm treasury / player | currency.json | Obverse phoenix; reverse magenta **8** over galaxy; rim **DIVINE RIGHT** / **UNIVERSAL WEALTH**; title MONACH→MONARCH |
+| `04_national_flag_phoenix_radiating_8s.jpg` | `national_flag_phoenix_radiating` + `great_seal_phoenix` | realm | heraldry.json | Black flag, magenta radiating lines + edge 8s; seal with twin 8s |
+| `05_great_seal_phoenix_vertical_flag.png` | `great_seal_phoenix` + `national_flag_phoenix_vertical` | realm | heraldry.json | Phoenix seal + vertical flag variant |
+| `06_great_seal_dragon_vertical_flag.png` | `great_seal_dragon` + `national_flag_dragon_vertical` | realm | heraldry.json | Dragon seal + vertical flag (magenta 8 in tail loop) |
+
+**Open confirmation (user):** Phoenix vs dragon as **primary** seal/flag? Meaning of the recurring **8** (now also coin reverse + capitol plaques/archway)? See `docs/PENDING_USER_QUESTIONS.md` and `docs/modules/HERALDRY.md`.
+

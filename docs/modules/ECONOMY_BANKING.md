@@ -6,3 +6,10 @@
 - **Ledger/banking:** double-entry, append-only ledger (`scripts/economy/ledger.gd`). Every transfer is a debit plus a credit with matching amounts. Balances are derived from entries. Amounts are integers (no floats). Optional bank accounts for realms/guilds, plus interest as a game mechanic.
 - **Sinks/faucets:** track both. Ledger Vale (economy-advisor persona) explains them in-game.
 - Persistence: local first. Later MySQL tables `ledger_entries`, `accounts`, `orders` (DATA_MYSQL_AND_BACKUP.md).
+
+## Coin face (batch 23)
+
+- **Physical diegetic coin:** `phoenix_god_coin` in `data/items/currency.json` (concept art `assets/concept_art/batch_23/03_phoenix_god_coin_divine_right_universal_wealth.jpg`).
+- Obverse gold phoenix; reverse magenta **8** over galaxy; rim mottos **Divine Right** / **Universal Wealth**; rim title **Phoenix God, Anterranian Monarch** (art may print MONACH).
+- Still **virtual only** — no cash value, no crypto, no real-money purchase/redemption. Heraldry: `docs/modules/HERALDRY.md`.
+

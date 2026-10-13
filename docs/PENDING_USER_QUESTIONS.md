@@ -2,7 +2,7 @@
 Saved unanswered items. Replay in full when the user asks for an update.
 
 1. **Lumira throne sash text** (batch 05 + batch_16/01): ~~open~~ **LARGELY RESOLVED** — batch_16/01 banners show feminine **SEMI DEIVA** (plus **SERVA**; possible **HERES**), reading roughly **POTENTIA … SEMI DEIVA SERVA**. Contrasts Solarian **SEMI-DIVUS** (batch_15/06). Soft-confirm exact full wording when convenient.
-2. **Meaning of the "8"** on ring_01 / gold H-crest signet band / batch_07 rings — also on batch_09 attendant gold collar and steward chest emblem (infinity-knot / figure-8); **again** on batch_22/01 gold floor seal under Phoenix God regalia and batch_22/03 Anterranian Capitol gold banners. Same symbol?
+2. **Meaning of the "8"** on ring_01 / gold H-crest signet band / batch_07 rings — also on batch_09 attendant gold collar and steward chest emblem (infinity-knot / figure-8); **again** on batch_22/01 gold floor seal under Phoenix God regalia and batch_22/03 Anterranian Capitol gold banners; **again** on batch_23 capitol plaques/archway, national flag (radiating + edge 8s), both great seals, and coin reverse (magenta 8 over galaxy). Same symbol?
 3. **Signet stack** (batch 02 moon/Venus + pearl/black bands): one combined item or a set of separate rings?
 4. **Missing image d05bcc**: ~~please re-send~~ **RESOLVED** (batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg; also `foxy_boudoir_set` variant_b).
 5. **Royal guard uniforms** (batch 06): who wears officer dress / field / purple tactical / cosmic camo / navy hussar?
@@ -32,10 +32,16 @@ Saved unanswered items. Replay in full when the user asks for an update.
 22. **What does SCDI stand for?** (batch_01 Omni-Worker label; batch_19 Dominion Shotgun, Royal Aegis mech, and possibly Project Crusader). Printed as SCDI on art banners — expansion unknown.
 
 
-23. **Title "Phoenix God"** (batch_22/01 regalia + batch_22/03 capitol banner `PHOENIX GOD`): official royal style for the Anterranian Monarch, ceremonial epithet, or art-only label? Art also prints `ANTERRANIAN MONORCH` (sic; official **MONARCH**).
+23. **Title "Phoenix God"** (batch_22/01 regalia + batch_22/03 capitol banner `PHOENIX GOD`; also batch_23 coin rim + capitol plaques + seal rims): official royal style for the Anterranian Monarch, ceremonial epithet, or art-only label? Art typos: `MONORCH` (batch_22), `MONAACH` (batch_23/01), `MONACH` (batch_23/03 coin) — official **MONARCH**.
+
+
+
+24. **Primary seal / flag motif** (batch_23): phoenix (radiating national flag + great seal) vs dragon (great seal + vertical flag) — which is the **primary** national emblem? Both catalogued; phoenix currently `primary_candidate` in `data/lore/heraldry.json`.
+
+25. **Coin mottos** (batch_23/03): confirm **Divine Right** and **Universal Wealth** as official heraldic/coin mottos alongside Flamma. Ordo. Aeterna.?
 
 **Partially / largely resolved:**
 - ~~SEMI DEIVA / SEMI-DIVUS ambiguity for prince heir~~ → **SEMI-DIVUS** confirmed for Solarian (`heir_throne_solarian`) via batch_15/06.
 - ~~Lumira SEMI DEIVA open~~ → **SEMI DEIVA** (feminine) largely confirmed via batch_16/01 (`heir_throne_lumira`); exact sash wording soft-confirm (item 1).
 
-When user says the final-upload cue, repeat batches 4–22 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans, batch 17 royal_jeans collection, batch 18 white regalia variants + Seraph Emberion + Ethereal Sentinels heavy trooper + Phoenix Emberwing, batch 19 ivory regalia + Project Crusader / Aegis-Guard / SCDI Dominion Shotgun + Royal Aegis mech, batch 20 SCDI Aura Cannon + suit series Universal Sentinel / Aegis Prime / Void Weaver / Abyssal Sovereign + abyssal submarine stub, batch 21 SCDI suit series 4/5/6/8/14 + Skyfall Harness + Omni-Worker unit, batch 22 Phoenix God regalia + phoenix_wing_throne + Anterranian Capitol) + remaining open questions + GitHub sign-in reminder.
+When user says the final-upload cue, repeat batches 4–23 results (including batch 13 cosmic companions, batch 14 chancellor/courier, batch 15 flagship + throne variants, batch 16 Lumira SEMI DEIVA + Monarch jeans, batch 17 royal_jeans collection, batch 18 white regalia variants + Seraph Emberion + Ethereal Sentinels heavy trooper + Phoenix Emberwing, batch 19 ivory regalia + Project Crusader / Aegis-Guard / SCDI Dominion Shotgun + Royal Aegis mech, batch 20 SCDI Aura Cannon + suit series Universal Sentinel / Aegis Prime / Void Weaver / Abyssal Sovereign + abyssal submarine stub, batch 21 SCDI suit series 4/5/6/8/14 + Skyfall Harness + Omni-Worker unit, batch 22 Phoenix God regalia + phoenix_wing_throne + Anterranian Capitol, batch 23 capitol variants + phoenix_god_coin + heraldry flag/seals) + remaining open questions + GitHub sign-in reminder.

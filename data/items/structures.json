@@ -29,7 +29,9 @@
         "phoenix_god_title"
       ],
       "concept_art": [
-        "assets/concept_art/batch_22/03_anterranian_capitol_phoenix_god.jpg"
+        "assets/concept_art/batch_22/03_anterranian_capitol_phoenix_god.jpg",
+        "assets/concept_art/batch_23/01_anterranian_capitol_floating_pads_phoenix_god.jpg",
+        "assets/concept_art/batch_23/02_anterranian_capitol_gold_dome_dragon_crest.png"
       ],
       "related_wardrobe": [
         "monarch_phoenix_god_regalia"
@@ -48,7 +50,47 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false,
-      "notes": "Landmark catalog entry. Gold '8' banners reinforce pending question on meaning of the '8'. Title Phoenix God recorded."
+      "notes": "Landmark catalog entry. Gold '8' banners/plaques reinforce pending question on meaning of the '8'. Title Phoenix God recorded. Batch_23 adds floating-pads and gold-dome dragon-crest variants.",
+      "variants": [
+        {
+          "id": "floating_pads_phoenix_god",
+          "display_name": "Anterranian Capitol (Floating Pads / Phoenix God plaques)",
+          "description": "Capitol variant with floating circular landing pads, phoenix pediment, stacked gold plaques reading '8 / PHOENIX GOD / ANTERRANIAN MONAACH' (sic MONARCH; art doubles the A), magenta nebula backdrop, starships.",
+          "printed_text": {
+            "plaque_1": "8",
+            "plaque_2": "PHOENIX GOD",
+            "plaque_3": "ANTERRANIAN MONAACH",
+            "plaque_3_official": "ANTERRANIAN MONARCH",
+            "note": "Art prints MONAACH (extra A); canonical spelling is MONARCH."
+          },
+          "features": [
+            "floating_landing_pads",
+            "phoenix_pediment",
+            "gold_8_plaques",
+            "magenta_spire_beam",
+            "starship_berths"
+          ],
+          "concept_art": [
+            "assets/concept_art/batch_23/01_anterranian_capitol_floating_pads_phoenix_god.jpg"
+          ]
+        },
+        {
+          "id": "gold_dome_dragon_crest",
+          "display_name": "Anterranian Capitol (Gold Dome / Dragon Crest)",
+          "description": "Gold-dome capitol variant with dragon crest and '8' archway (palette v2 black / magenta / gold / platinum).",
+          "features": [
+            "gold_dome",
+            "dragon_crest",
+            "gold_8_archway"
+          ],
+          "concept_art": [
+            "assets/concept_art/batch_23/02_anterranian_capitol_gold_dome_dragon_crest.png"
+          ],
+          "related_heraldry": [
+            "great_seal_dragon"
+          ]
+        }
+      ]
     }
   ]
 }

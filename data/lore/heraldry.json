@@ -1,0 +1,189 @@
+{
+  "_note": "SCAFFOLD. National heraldry catalog (flag, great seals, royal title, mottos). Palette v2. See docs/modules/HERALDRY.md. Primary seal/flag choice pending user.",
+  "schema_version": 1,
+  "realm": "Anterrania",
+  "palette_version": 2,
+  "finish": "glitter_sparkle",
+  "accents": [
+    "platinum",
+    "gold"
+  ],
+  "royal_title": {
+    "printed": "PHOENIX GOD, ANTERRANIAN MONARCH",
+    "short": "Phoenix God",
+    "formal": "Phoenix God, Anterranian Monarch",
+    "art_typos_seen": [
+      {
+        "printed": "ANTERRANIAN MONORCH",
+        "source": "batch_22/03 capitol",
+        "official": "ANTERRANIAN MONARCH"
+      },
+      {
+        "printed": "ANTERRANIAN MONAACH",
+        "source": "batch_23/01 capitol floating pads",
+        "official": "ANTERRANIAN MONARCH"
+      },
+      {
+        "printed": "ANTERRANIAN MONACH",
+        "source": "batch_23/03 coin rim",
+        "official": "ANTERRANIAN MONARCH"
+      }
+    ],
+    "status": "pending_user_confirm_title_use",
+    "notes": "Whether Phoenix God is official royal style, ceremonial epithet, or art-only label is still open (PENDING_USER_QUESTIONS)."
+  },
+  "mottos": {
+    "primary_trilogy": {
+      "canonical": "Flamma. Ordo. Aeterna.",
+      "source": "regalia / signet (batch_02/06)"
+    },
+    "coin_and_heraldry": [
+      {
+        "id": "divine_right",
+        "text": "Divine Right",
+        "printed": "DIVINE RIGHT",
+        "sources": [
+          "batch_23/03 coin"
+        ]
+      },
+      {
+        "id": "universal_wealth",
+        "text": "Universal Wealth",
+        "printed": "UNIVERSAL WEALTH",
+        "sources": [
+          "batch_23/03 coin"
+        ]
+      }
+    ]
+  },
+  "recurring_symbols": {
+    "figure_8": {
+      "id": "gold_8",
+      "appears_on": [
+        "rings / signets",
+        "household uniforms",
+        "Phoenix God floor seal (batch_22)",
+        "capitol banners (batch_22/23)",
+        "national flag radiating lines",
+        "great seals (phoenix + dragon)",
+        "coin reverse"
+      ],
+      "meaning": "pending_user"
+    },
+    "phoenix": {
+      "status": "primary_candidate"
+    },
+    "dragon": {
+      "status": "alternate_candidate"
+    }
+  },
+  "items": [
+    {
+      "id": "national_flag_phoenix_radiating",
+      "display_name": "Anterranian National Flag (Phoenix, Radiating Magenta)",
+      "category": "flag",
+      "type": "national_flag",
+      "orientation": "horizontal",
+      "description": "Black field, gold braided border, central gold phoenix over twin gold 8s, eight magenta radiating lines with small magenta 8s near the edges.",
+      "motif": "phoenix",
+      "concept_art": [
+        "assets/concept_art/batch_23/04_national_flag_phoenix_radiating_8s.jpg"
+      ],
+      "also_shown_with_seal": "great_seal_phoenix",
+      "primary_candidate": true,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "national_flag_phoenix_vertical",
+      "display_name": "Anterranian Vertical Flag (Phoenix)",
+      "category": "flag",
+      "type": "banner_vertical",
+      "orientation": "vertical",
+      "description": "Vertical black banner with gold knotwork border and central gold phoenix (pair to great seal phoenix).",
+      "motif": "phoenix",
+      "concept_art": [
+        "assets/concept_art/batch_23/05_great_seal_phoenix_vertical_flag.png"
+      ],
+      "pairs_with": "great_seal_phoenix",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "national_flag_dragon_vertical",
+      "display_name": "Anterranian Vertical Flag (Dragon)",
+      "category": "flag",
+      "type": "banner_vertical",
+      "orientation": "vertical",
+      "description": "Vertical black banner with gold knotwork border, central gold winged dragon with magenta 8 in the tail loop, magenta X-radiating lines, gold 8s in corners.",
+      "motif": "dragon",
+      "concept_art": [
+        "assets/concept_art/batch_23/06_great_seal_dragon_vertical_flag.png"
+      ],
+      "pairs_with": "great_seal_dragon",
+      "primary_candidate": false,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "great_seal_phoenix",
+      "display_name": "Great Seal of Anterrania (Phoenix)",
+      "category": "seal",
+      "type": "great_seal",
+      "description": "Circular gold-rimmed seal: gold phoenix on black, twin gold 8s beneath, magenta ring, rim text 'PHOENIX GOD, ANTERRANIAN MONARCH'.",
+      "motif": "phoenix",
+      "rim_text": "PHOENIX GOD, ANTERRANIAN MONARCH",
+      "concept_art": [
+        "assets/concept_art/batch_23/04_national_flag_phoenix_radiating_8s.jpg",
+        "assets/concept_art/batch_23/05_great_seal_phoenix_vertical_flag.png"
+      ],
+      "primary_candidate": true,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "great_seal_dragon",
+      "display_name": "Great Seal of Anterrania (Dragon)",
+      "category": "seal",
+      "type": "great_seal",
+      "description": "Circular gold-rimmed seal: gold winged dragon on black, magenta 8 in tail loop, concentric magenta rings, rim text 'PHOENIX GOD, ANTERRANIAN MONARCH', gold 8 at bottom of rim.",
+      "motif": "dragon",
+      "rim_text": "PHOENIX GOD, ANTERRANIAN MONARCH",
+      "concept_art": [
+        "assets/concept_art/batch_23/06_great_seal_dragon_vertical_flag.png"
+      ],
+      "primary_candidate": false,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    }
+  ],
+  "open_questions": [
+    "Is the phoenix or the dragon the primary national seal/flag? (Both catalogued; phoenix currently primary_candidate.)",
+    "Meaning of the recurring '8' across seal, flag, coin, capitol, and regalia."
+  ]
+}

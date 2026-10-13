@@ -15,6 +15,12 @@
 - Stubs: scripts/economy/ledger.gd, currency_exchange.gd, scripts/progression/skill_by_use.gd.
 - DRAFT CI: .github/workflows/export.yml (manual trigger; never run; only the Android preset exists).
 
+## Added 2026-10-13 (late morning)
+- export_presets.cfg: Linux, Windows, macOS, Web (single-threaded), iOS (Xcode project only). Written by hand and never exported.
+- export.yml DRAFT: Godot 4.7.2-stable + godot_voxel GDExtension v1.7x (versions checked against the releases; Dev Bot pins the final one), official Java/Android setup, debug keystore generation, and release keystore from secrets.
+- PLATFORMS_TESTING.md: web threading/COOP-COEP problem, workarounds, voxel-on-web risk + fallback.
+- Blocker for Dev Bot: project.godot still declares Godot 4.3, but the extension needs 4.5+.
+
 ## Next
 1. Open in Godot 4 with godot_voxel and fix any parse errors.
 2. Register PersonaRegistry as an autoload.

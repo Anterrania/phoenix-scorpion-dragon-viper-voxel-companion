@@ -10,8 +10,22 @@ Test device: **one Motorola 5G Android phone** (no PC dev loop is assumed). No A
 ## 2. CI builds (GitHub Actions)
 `.github/workflows/export.yml` (DRAFT, manual trigger only). It uses a Godot headless container plus export templates for each preset: Android (debug APK), Linux, Windows, macOS (unsigned zip), Web (HTML5), iOS (Xcode project only; signing needs a Mac + Apple account). The Zylann voxel module needs a **custom Godot build** or the GDExtension version. CI must use a matching editor and templates. Open item.
 
-## 3. Web build on the phone
-Godot 4 web export needs SharedArrayBuffer → COOP/COEP headers (or Godot 4.3+ single-threaded export). GitHub Pages doesn't set the headers, so use the single-threaded build or the `coi-serviceworker` shim. Open it in Chrome on the Motorola. Expect lower performance than native, and the voxel extension may not support web; verify.
+## 3. Web build on the phone: threading and browser isolation
+**Problem.** Godot's threaded web export uses WebAssembly threads, which need `SharedArrayBuffer`. Browsers only enable that when the page is **cross-origin isolated**, which means the server must send:
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+GitHub Pages and most simple hosts can't set these headers, so a threaded build fails to start there ("SharedArrayBuffer is not defined" / a cross-origin isolation error).
+
+**Workarounds (in order of preference):**
+1. **Single-threaded export** (the Web preset already sets `variant/thread_support=false`; Godot 4.3+). No special headers are needed, so it runs on GitHub Pages and in Chrome on the Motorola. The cost is that audio and any worker-thread work run on the main thread.
+2. **Host that sets the headers** (Netlify/Cloudflare Pages `_headers` file, itch.io's "SharedArrayBuffer support" checkbox) for the threaded variant.
+3. **`coi-serviceworker` shim**: a service worker that injects the headers. It works on Pages but reloads the page once and isn't supported everywhere.
+4. Godot's web export option "Ensure Cross Origin Isolation Headers" (PWA service worker) is similar to #3.
+
+**Voxel plugin on web: may not work.** godot_voxel relies on threads for meshing and generation. The GDExtension release (v1.7x) may not ship a web binary at all, and GDExtension on web also needs `variant/extensions_support=true` (set) plus a matching dlink build. Expect any of these: (a) no web build of the extension, so VoxelTerrain is missing; (b) it runs single-threaded and is very slow; (c) it only works with threads + COOP/COEP. **Fallback plan:** `scripts/world.gd` already checks `ClassDB.class_exists("VoxelTerrain")`. On web we'd show a static/pre-baked mesh demo realm (menus, chat with companions, MobiGlass UI) instead of live voxel editing. Native Android stays the main target.
+- Check: after CI, open the `*.gdextension` file printed in the log and confirm whether it lists `web.*` entries.
 
 ## 4. Termux notes
 - `pkg install android-tools` → `adb pair`/`adb connect` to the phone's own Wireless debugging to get `adb logcat` on-device.

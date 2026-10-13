@@ -31,7 +31,7 @@ These are concept references uploaded by the user. Their in-game voxel versions 
 ## Regalia & Jewelry
 - **Primary motto: "Anterrania"** (user decision 2026-10-13). Use it on banners, crests, and UI.
 - **Ring inscription:** "Flamma. Ordo. Aeterna." (kept as the engraving and secondary motto; the engraved spelling "Aeterna" is still user-confirm).
-- **Inscription notes:** *"Flamma. Ordo. Aeterna."* ("Flame. Order. Eternal.", Latin). The images spell it **"Aeterna"**: **user-confirm** whether the in-world spelling is the classical *Aeterna* or the stylized *Aeterna*. The "8" after the motto on ring 01 is unexplained (user-confirm).
+- **Inscription notes:** *"Flamma. Ordo. Aeterna."* ("Flame. Order. Eternal.", Latin). The images spell it **"Aeterna"**: **user-confirm** whether the in-world spelling is the classical *Aeterna* or the stylized *Aeterna*. The "8" after the motto on ring 01 is unexplained (user-confirm); same figure-8/infinity motif recurs on batch_09 household collar and steward emblem (see PENDING_USER_QUESTIONS.md).
 - **Regalia language:** crowns, orb scepters (elder pair), crescent scepter (young king; ties to the moon/Venus symbol), ermine cloaks, floating-rock "sky throne" settings. Same palette as above, with magenta stones set in gold.
 - **Rings as equippable items:** both rings are in-game `ring`-slot items, stubbed in `data/items/regalia.json` (placeholder names and zeroed stats). Planned hooks: affinity bonuses to fire/order (GRINDING_PROGRESSION gems), a cosmetic glow, and royal-rank gating. They're **cosmetic/gameplay only, never real-money items** (see ECONOMY_BANKING.md).
 
@@ -127,3 +127,16 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 
 **Open confirmation (user):** elder orb-scepter king in batch_08 / batch_07-19 confirmed as Ignatius Pyre (same as batch_02 elder); rename if wrong.
 
+## Batch 09: Court Daywear & Household Staff (`assets/concept_art/batch_09/`)
+6 images kept. Palette v2. Young-man court outfits → **prince_regent_solarian** (+ Monarch wardrobe). Mannequin formal → Monarch. Staff → household non-combat uniforms in `armor.json`.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_solarian_magenta_black_court_tunic_coat.jpg` | `solarian_magenta_black_court_tunic_coat` | **prince_regent_solarian** (also Monarch) | wardrobe.json | Long magenta/black court tunic coat, gold filigree, belt |
+| `02_solarian_black_frock_coat_magenta_waistcoat_half_cape.jpg` | `solarian_black_frock_coat_half_cape` | **prince_regent_solarian** (also Monarch) | wardrobe.json | Black frock coat, magenta waistcoat, half cape, tall boots |
+| `03_solarian_casual_royal_blazer_pinstripe.jpg` | `solarian_casual_royal_blazer_pinstripe` | **prince_regent_solarian** (also Monarch) | wardrobe.json | Casual royal: blazer, magenta vest, pinstripe, cape |
+| `04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg` | `monarch_formal_suit_ermine_overcoat_gem_belt` (+ variant on `monarch_formal_attire`) | **player (Anterranian Monarch)** | wardrobe.json | Mannequin: black suit, magenta vest/tie, ermine overcoat, gem belt |
+| `05_household_attendant_tunic_gold_collar_8.jpg` | `household_attendant_tunic` | royal_household | armor.json (category `household`, non-combat) | Gold collar with magenta **'8'** emblem |
+| `06_household_steward_asymmetric_tunic_8_emblem.jpg` | `household_steward_asymmetric_tunic` | royal_household | armor.json (category `household`, non-combat) | Asymmetric tunic, gold **'8'/infinity-knot** chest emblem |
+
+**Recurring '8' emblem:** appears on batch_02 ring_01, batch_06–07 signets, and batch_09 attendant collar + steward chest. Meaning still **user-pending** (see `docs/PENDING_USER_QUESTIONS.md`).

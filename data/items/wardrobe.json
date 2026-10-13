@@ -8,9 +8,10 @@
       "owner": "player (Anterranian Monarch)",
       "slot": "outfit",
       "cosmetic_only": true,
-      "description": "Black suit, magenta vest, ermine cloak; shown on a runic pedestal.",
+      "description": "Black suit, magenta vest, ermine cloak/overcoat; batch_03 pedestal + batch_09 mannequin (gem belt, magenta tie).",
       "concept_art": [
-        "assets/concept_art/batch_03_royal_wardrobe/01_monarch_formal_black_suit_magenta_vest_ermine.png"
+        "assets/concept_art/batch_03_royal_wardrobe/01_monarch_formal_black_suit_magenta_vest_ermine.png",
+        "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -18,6 +19,13 @@
       "accents": [
         "platinum",
         "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_09_gem_belt_ermine_overcoat",
+          "label": "Ermine overcoat, magenta vest/tie, gem belt (mannequin)",
+          "concept_art": "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg"
+        }
       ]
     },
     {
@@ -546,6 +554,100 @@
       "also_fits": [
         "player (Anterranian Monarch)"
       ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_magenta_black_court_tunic_coat",
+      "display_name": "Solarian Magenta-Black Court Tunic Coat",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Long magenta/black court tunic coat with gold filigree, high collar, gold clasps, wide gold-buckle belt, black gloves and knee boots.",
+      "concept_art": [
+        "assets/concept_art/batch_09/01_solarian_magenta_black_court_tunic_coat.jpg"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_black_frock_coat_half_cape",
+      "display_name": "Solarian Black Frock Coat with Magenta Waistcoat",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black frock coat, magenta waistcoat, half cape (magenta lining), gold filigree, tall boots.",
+      "concept_art": [
+        "assets/concept_art/batch_09/02_solarian_black_frock_coat_magenta_waistcoat_half_cape.jpg"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_casual_royal_blazer_pinstripe",
+      "display_name": "Solarian Casual Royal Blazer (Pinstripe)",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Casual royal: black blazer, magenta vest, pinstripe trousers, short cape, tall boots, gold chain pendant.",
+      "concept_art": [
+        "assets/concept_art/batch_09/03_solarian_casual_royal_blazer_pinstripe.jpg"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "monarch_formal_suit_ermine_overcoat_gem_belt",
+      "display_name": "Monarch Formal Suit (Ermine Overcoat, Gem Belt)",
+      "owner": "player (Anterranian Monarch)",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Headless mannequin display: black suit, magenta vest and tie, ermine overcoat, gem-set gold belt buckle and shoe buckles. Related to monarch_formal_attire (batch_03).",
+      "concept_art": [
+        "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg"
+      ],
+      "related_to": "monarch_formal_attire",
       "palette_version": 2,
       "finish": "glitter_sparkle",
       "accents": [

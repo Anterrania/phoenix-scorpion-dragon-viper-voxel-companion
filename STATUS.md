@@ -58,3 +58,10 @@
 - Elder orb-scepter king (04/06) linked to batch_07/19 and batch_02 elder king
 - New regalia: orb_ring_scepter, crescent_scepter (palette v2)
 - Not pushed (waiting on GitHub sign-in)
+
+## Batch 09 (court daywear & household) - done locally
+- 6 images in assets/concept_art/batch_09/
+- Solarian court daywear (01–03) + Monarch formal mannequin (04) in wardrobe.json; also_fits Monarch on Solarian sets
+- Household attendant + steward uniforms (05–06) in armor.json category `household` (non-combat)
+- Recurring '8' emblem noted; pending questions saved in docs/PENDING_USER_QUESTIONS.md (silent until user asks)
+- Not pushed (waiting on GitHub sign-in)

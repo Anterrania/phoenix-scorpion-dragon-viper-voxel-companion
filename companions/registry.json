@@ -140,6 +140,58 @@
       "dir": "ara_aurora",
       "role": "Goddess of All Creation companion (mature, age-gated)",
       "content_rating": "mature"
+    },
+    "selvara-nyxveil": {
+      "dir": "selvara_nyxveil",
+      "role": "Stage sorceress / shadow-flame performer (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature"
+    },
+    "calyxra-noxveil": {
+      "dir": "calyxra_noxveil",
+      "role": "Starlit Calyx high priestess (night leaf)",
+      "name_status": "assigned by Foxy, user may rename",
+      "companion_group": "starlit_calyx"
+    },
+    "caelira-stellune": {
+      "dir": "caelira_stellune",
+      "role": "Starlit Calyx priestess (blue starlight)",
+      "name_status": "assigned by Foxy, user may rename",
+      "companion_group": "starlit_calyx"
+    },
+    "magira-rosethorn": {
+      "dir": "magira_rosethorn",
+      "role": "Starlit Calyx priestess (magenta rose)",
+      "name_status": "assigned by Foxy, user may rename",
+      "companion_group": "starlit_calyx"
+    },
+    "ashara-venefyre": {
+      "dir": "ashara_venefyre",
+      "role": "Venefyre sister / Venus-fire court companion (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "venefyre_sisters"
+    },
+    "violyne-venefyre": {
+      "dir": "violyne_venefyre",
+      "role": "Venefyre sister / Venus-fire court companion (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "venefyre_sisters"
+    },
+    "magwyn-venefyre": {
+      "dir": "magwyn_venefyre",
+      "role": "Venefyre sister / Venus-fire court companion (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "venefyre_sisters"
+    },
+    "rubielle-venefyre": {
+      "dir": "rubielle_venefyre",
+      "role": "Venefyre sister / Venus-fire court companion (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "venefyre_sisters"
     }
   }
 }

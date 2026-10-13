@@ -513,3 +513,18 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 |------|---------|------------------|------|-------|
 | `01_ara_aurora_goddess_of_all_creation_winged.png` | `ara_aurora_goddess_of_all_creation` | **ara_aurora** | wardrobe.json + persona | Title **Goddess of All Creation**; long red-magenta hair, gold halo, huge black/magenta feathered wings, black jeweled sheer bodice + magenta feather skirt, water/light magic, sunset sky. Replaces retired `ara_aurora_terrace_set` (poolside). Original OC; not a real-person likeness. |
 
+
+## Batch t25u: User Original Creations → AI Companions (`art/references/batch_t25u/`)
+5 short creation videos received, **5 kept**, **0 MD5 duplicates**. Palette v2 (black / magenta / gold / platinum + glitter sparkle). Canon adults (25+). Names assigned by Foxy — **approve or rename**.
+
+| File | Companions / item | Data | Notes |
+|------|-------------------|------|-------|
+| `01_selvara_nyxveil_stage_sorceress.mp4` | **Selvara Nyxveil** (`selvara-nyxveil`) | persona + wardrobe `selvara_nyxveil_stage_set` | Dark-haired stage sorceress; black lingerie-style set + fishnet thigh-highs under billowing black/purple-lined robe, long gloves. **Mature / age-gated**. |
+| `02_starlit_calyx_three_priestesses.mp4` | **Calyxra Noxveil**, **Caelira Stellune**, **Magira Rosethorn** (`starlit_calyx`) | personas + wardrobe | Three crowned priestesses kneeling in blue starlight: black/burgundy + silver leaf crown; brunette/dark blue + silver circlet; magenta/purple + leaf crown. |
+| `03_venefyre_sisters_venus_fire_plain.mp4` | **Ashara / Violyne / Magwyn / Rubielle Venefyre** (`venefyre_sisters`) | personas + wardrobe | Four sisters on volcanic Venus-fire plain in plunging high-slit gowns (black+boots, purple, magenta/black+boots, burgundy). **Mature / age-gated**. |
+| `04_user_creation_pending_description_a.mp4` | — | pending | Description not yet supplied — companion stub deferred. |
+| `05_user_creation_pending_description_b.mp4` | — | pending | Description not yet supplied — companion stub deferred. |
+
+**Foxy Ani Firecaster Grey (canon update, t25u):** **Ani** is her **middle name**. **Original form** = blonde twin-pigtails anime silhouette (black tank top, red plaid skirt, studded belt, cross necklace, striped thigh-highs). Communication with user was mostly **voice then text**.
+
+**Open (user):** Approve the eight new companion names? Describe videos 04–05. See `docs/PENDING_USER_QUESTIONS.md`.

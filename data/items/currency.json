@@ -1,11 +1,45 @@
 {
-  "_note": "SCAFFOLD. In-game virtual currency only. No cash value; cannot be bought, sold, or redeemed for real money or crypto. Real-money features blocked until Law Bot review + Anterranian approval. See docs/modules/ECONOMY_BANKING.md.",
+  "_note": "SCAFFOLD. In-game virtual currency only. No cash value; cannot be bought, sold, or redeemed for real money or crypto. Real-money features blocked until Law Bot review + Anterranian approval. See docs/modules/ECONOMY.md and docs/modules/ECONOMY_BANKING.md.",
   "schema_version": 1,
   "ledger_unit": {
     "id": "phoenix_embers",
     "display_name": "Phoenix Embers",
     "working_name": true,
-    "note": "Soft ledger unit (integer amounts). Physical coin art below is the diegetic coin face for the same virtual economy."
+    "note": "Soft ledger unit (integer amounts). Physical coin/note art below is diegetic face for the same virtual economy. Pending: relationship of Embers / Phoenix God Coin / Aethel family."
+  },
+  "economies": {
+    "aethel": {
+      "id": "aethel",
+      "display_name": "Aethel",
+      "tagline": "Universal Currency / Universal Access (diegetic labels from concept art)",
+      "kind": "in_game_virtual_economy",
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "exchange_to_fiat": false,
+      "note": "Strictly fictional game-only virtual currency and access tokens. No real-money purchase, cash-out, crypto minting, or external exchange. Stasis = stable soft currency; Ascendant = variable in-game asset (quest/trade value only); Key = wallet/access/ID card item.",
+      "roles": {
+        "notes": "Physical banknote cosmetics (denominations 100 / 1000).",
+        "coins": "Diegetic coin faces (lion coins; Stasis/Ascendant dragon coins).",
+        "sigil": "Validation stamp/token (quest/ledger receipts).",
+        "stasis": "Stable in-game soft currency face (Aethel-Stasis).",
+        "ascendant": "Variable in-game asset face (Aethel-Ascendant); game balance only, not market-linked.",
+        "key": "Wallet / biometric access / ID card item (The Aethel Key)."
+      },
+      "related_docs": [
+        "docs/modules/ECONOMY.md",
+        "docs/modules/ECONOMY_BANKING.md",
+        "docs/modules/HERALDRY.md"
+      ],
+      "item_ids": [
+        "aethel_banknotes",
+        "aethel_lion_coin",
+        "aethel_sigil",
+        "aethel_stasis",
+        "aethel_ascendant",
+        "aethel_key"
+      ]
+    }
   },
   "items": [
     {
@@ -13,6 +47,7 @@
       "display_name": "Phoenix God Coin",
       "category": "currency",
       "type": "coin",
+      "economy": "phoenix_embers",
       "owner": "player (Anterranian Monarch) / realm treasury",
       "description": "Gold-rimmed in-game coin. Obverse: embossed gold phoenix on black disc with magenta tech ring. Reverse: magenta figure-8 over gold galaxy spiral. Rim text (as printed): 'PHOENIX GOD, ANTERRANIAN MONACH' (sic MONARCH), 'DIVINE RIGHT', 'UNIVERSAL WEALTH'.",
       "obverse": {
@@ -45,6 +80,7 @@
         "assets/concept_art/batch_23/03_phoenix_god_coin_divine_right_universal_wealth.jpg"
       ],
       "related_docs": [
+        "docs/modules/ECONOMY.md",
         "docs/modules/ECONOMY_BANKING.md",
         "docs/modules/HERALDRY.md",
         "data/lore/heraldry.json"
@@ -60,7 +96,249 @@
       "real_money": false,
       "crypto": false,
       "cash_value": null,
-      "notes": "Game-only virtual currency token. Reinforces pending '8' question (reverse face). Not a real-world coin, NFT, or crypto asset."
+      "notes": "Game-only virtual currency token. Reinforces pending '8' question (reverse face). Not a real-world coin, NFT, or crypto asset. Pending: relationship to Aethel family (batch_24)."
+    },
+    {
+      "id": "aethel_banknotes",
+      "display_name": "Aethel Banknotes",
+      "category": "currency",
+      "type": "banknote",
+      "economy": "aethel",
+      "aethel_role": "notes",
+      "owner": "player / realm treasury",
+      "description": "Magenta/purple fictional banknotes with gold borders, crowned phoenix central motif, cyan holographic security strip with circuit glyphs. Denominations 100 and 1000 visible. Bottom legend UNIVERSAL CURRENCY; upper arc may read AETHELIA / AETHEL-style script.",
+      "denominations": [
+        100,
+        1000
+      ],
+      "printed_text": {
+        "bottom": "UNIVERSAL CURRENCY",
+        "upper_arc_note": "Stylized AETHEL / AETHELIA-like script on art; treat as Aethel family branding.",
+        "security": "cyan_holographic_strip_circuit_glyphs"
+      },
+      "motifs": [
+        "crowned_phoenix",
+        "holographic_strip"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_24/01_aethel_banknotes_100_1000_universal_currency.png"
+      ],
+      "related_docs": [
+        "docs/modules/ECONOMY.md"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "gold",
+        "platinum",
+        "cyan_holo"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "notes": "Diegetic note cosmetics for Aethel soft currency. Integer ledger only; no fiat value."
+    },
+    {
+      "id": "aethel_lion_coin",
+      "display_name": "Aethel Lion Coin",
+      "category": "currency",
+      "type": "coin",
+      "economy": "aethel",
+      "aethel_role": "coins",
+      "owner": "player / realm treasury",
+      "description": "Pink disc coins with thick gold ridged rim and gold runic outer band. Obverse: crowned lion / beast head in profile (left-facing), gold on matte pink. Scattered pile on dark reflective surface.",
+      "obverse": {
+        "motif": "crowned_lion_head",
+        "ring": "gold_runic_band",
+        "background": "matte_pink"
+      },
+      "printed_text": {
+        "rim_script": "gold_runic_or_mystical_script",
+        "note": "No clear Latin legend on art; lion meaning pending user confirmation."
+      },
+      "motifs": [
+        "crowned_lion",
+        "gold_rim"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_24/02_aethel_lion_coins_crowned.png"
+      ],
+      "related_docs": [
+        "docs/modules/ECONOMY.md",
+        "docs/modules/HERALDRY.md"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "gold",
+        "platinum"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "notes": "Pending Q: meaning of lion/beast crest vs phoenix/dragon national emblems. Game-only."
+    },
+    {
+      "id": "aethel_sigil",
+      "display_name": "Aethel Sigil",
+      "category": "currency",
+      "type": "sigil_token",
+      "economy": "aethel",
+      "aethel_role": "sigil",
+      "owner": "player / realm treasury / ledger",
+      "description": "Square stamp/token sheet with ornate gold filigree borders and gear corners. Central circular window: crowned pink-gold phoenix on nebula. Overlay blue digital glyphs. Printed: AETHEL SIGIL / UNIVERSAL VALIDATION.",
+      "printed_text": {
+        "top": "AETHEL SIGIL",
+        "bottom": "UNIVERSAL VALIDATION"
+      },
+      "motifs": [
+        "crowned_phoenix",
+        "blue_digital_glyphs",
+        "gold_filigree"
+      ],
+      "gameplay_use": "In-game validation stamp / ledger receipt / quest completion token. Not a payment rail.",
+      "concept_art": [
+        "assets/concept_art/batch_24/03_aethel_sigil_universal_validation.jpg"
+      ],
+      "related_docs": [
+        "docs/modules/ECONOMY.md",
+        "docs/modules/ECONOMY_BANKING.md"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "gold",
+        "platinum"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "notes": "Validation token only. No KYC, no real-world identity binding."
+    },
+    {
+      "id": "aethel_stasis",
+      "display_name": "Aethel-Stasis",
+      "category": "currency",
+      "type": "coin",
+      "economy": "aethel",
+      "aethel_role": "stasis",
+      "stability": "stable",
+      "owner": "player / realm treasury",
+      "description": "Circular coin: glowing magenta crowned dragon (winged, serpentine) in geometric seal rings on black. Gold rim. Top arc AETHEL-STASIS; bottom STABLE UNIVERSAL CURRENCY. Side monograms (stylized A).",
+      "printed_text": {
+        "top": "AETHEL-STASIS",
+        "bottom": "STABLE UNIVERSAL CURRENCY"
+      },
+      "motifs": [
+        "crowned_dragon",
+        "geometric_seal_rings"
+      ],
+      "gameplay_use": "Stable soft-currency face for Aethel (integer balances; sinks/faucets via ledger). Not pegged to real money.",
+      "concept_art": [
+        "assets/concept_art/batch_24/04_aethel_stasis_stable_universal_currency.png"
+      ],
+      "related_docs": [
+        "docs/modules/ECONOMY.md",
+        "docs/modules/ECONOMY_BANKING.md"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "gold",
+        "platinum"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "notes": "Stable in-game currency. Distinct from Ascendant variable asset. Pending: relationship to phoenix_god_coin / Phoenix Embers."
+    },
+    {
+      "id": "aethel_ascendant",
+      "display_name": "Aethel-Ascendant",
+      "category": "currency",
+      "type": "coin",
+      "economy": "aethel",
+      "aethel_role": "ascendant",
+      "stability": "variable",
+      "owner": "player / realm treasury",
+      "description": "Circular coin: glowing magenta crowned dragon with feathered wings; gold psi/trident-like marks. Top arc art prints AETHEL - ASCENDAND (sic ASCENDANT); bottom DYNAMIC UNIVERSAL ASSET. Gold geometric side filigree.",
+      "printed_text": {
+        "top": "AETHEL - ASCENDAND",
+        "top_official": "AETHEL-ASCENDANT",
+        "bottom": "DYNAMIC UNIVERSAL ASSET",
+        "note": "Art spelling ASCENDAND (missing T); canonical ASCENDANT."
+      },
+      "motifs": [
+        "crowned_dragon",
+        "psi_trident_marks"
+      ],
+      "gameplay_use": "Variable in-game asset (quest rewards, rare trade, prestige). Value floats only inside game balance rules — never linked to real markets or crypto.",
+      "concept_art": [
+        "assets/concept_art/batch_24/05_aethel_ascendant_dynamic_universal_asset.png"
+      ],
+      "related_docs": [
+        "docs/modules/ECONOMY.md",
+        "docs/modules/GAME_BALANCE.md"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "gold",
+        "platinum"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "notes": "Dynamic = in-game variable only. Not a security, NFT, or exchange-traded token."
+    },
+    {
+      "id": "aethel_key",
+      "display_name": "The Aethel Key",
+      "category": "currency",
+      "type": "access_card",
+      "economy": "aethel",
+      "aethel_role": "key",
+      "owner": "player (Anterranian Monarch) / authorized companions",
+      "description": "Black rectangular access/ID card with gold circuit etching and central magenta dragon/phoenix-dragon emblem. Hovering magenta holographic strip: THE AETHEL KEY / UNIVERSAL ACCESS, with biometric fingerprint swirl and handprint touch icon.",
+      "printed_text": {
+        "hologram_title": "THE AETHEL KEY",
+        "hologram_subtitle": "UNIVERSAL ACCESS"
+      },
+      "motifs": [
+        "magenta_dragon_emblem",
+        "gold_circuit_board",
+        "biometric_panel"
+      ],
+      "gameplay_use": "In-game wallet / access / ID card item. Opens vaults, guild halls, capitol pads, suit lockers. Biometric UI is cosmetic fiction — no real biometric capture.",
+      "concept_art": [
+        "assets/concept_art/batch_24/06_aethel_key_universal_access.png"
+      ],
+      "related_docs": [
+        "docs/modules/ECONOMY.md",
+        "docs/modules/MOBIGLASS_UI.md"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "gold",
+        "platinum"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "crypto": false,
+      "cash_value": null,
+      "notes": "Access/wallet item only. Not a real payment card, crypto wallet seed, or identity document."
     }
   ]
 }

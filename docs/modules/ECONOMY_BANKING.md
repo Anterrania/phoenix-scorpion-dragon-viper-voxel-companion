@@ -13,3 +13,9 @@
 - Obverse gold phoenix; reverse magenta **8** over galaxy; rim mottos **Divine Right** / **Universal Wealth**; rim title **Phoenix God, Anterranian Monarch** (art may print MONACH).
 - Still **virtual only** — no cash value, no crypto, no real-money purchase/redemption. Heraldry: `docs/modules/HERALDRY.md`.
 
+
+## Aethel family (batch 24)
+
+- Full diegetic economy section: **`docs/modules/ECONOMY.md`** + `economies.aethel` in `data/items/currency.json`.
+- **Stasis** = stable soft-currency face; **Ascendant** = variable in-game asset (game balance only); **Key** = wallet/access card; notes / lion coins / sigil as listed there.
+- Still **virtual only** — no cash value, no crypto, no real-money purchase/redemption. Pending: Aethel ↔ Phoenix God Coin / Embers relationship; lion coin meaning.

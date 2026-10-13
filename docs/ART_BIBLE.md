@@ -366,3 +366,21 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 
 **Open confirmation (user):** Phoenix vs dragon as **primary** seal/flag? Meaning of the recurring **8** (now also coin reverse + capitol plaques/archway)? See `docs/PENDING_USER_QUESTIONS.md` and `docs/modules/HERALDRY.md`.
 
+
+## Batch 24: Aethel Economy (notes, coins, sigil, stasis, ascendant, key) (`assets/concept_art/batch_24/`)
+6 images received, **6 kept**, **0 duplicates**. Palette v2 (black / magenta / gold / platinum + glitter). All items are **game-only virtual** stubs — **not** real money, crypto, or exchange products.
+
+**Extended:** `data/items/currency.json` (`economies.aethel` + 6 new items).  
+**New:** `docs/modules/ECONOMY.md`.  
+**Updated:** `docs/modules/ECONOMY_BANKING.md` (Aethel cross-link).
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_aethel_banknotes_100_1000_universal_currency.png` | `aethel_banknotes` | player / realm treasury | currency.json | Magenta notes 100/1000; crowned phoenix; cyan holo strip; **UNIVERSAL CURRENCY** |
+| `02_aethel_lion_coins_crowned.png` | `aethel_lion_coin` | player / realm treasury | currency.json | Pink coins; crowned lion/beast head; gold runic band — **lion meaning pending** |
+| `03_aethel_sigil_universal_validation.jpg` | `aethel_sigil` | player / ledger | currency.json | Stamp sheet; **AETHEL SIGIL / UNIVERSAL VALIDATION**; crowned phoenix |
+| `04_aethel_stasis_stable_universal_currency.png` | `aethel_stasis` | player / realm treasury | currency.json | Dragon coin; **STABLE UNIVERSAL CURRENCY** (stable soft face) |
+| `05_aethel_ascendant_dynamic_universal_asset.png` | `aethel_ascendant` | player / realm treasury | currency.json | Dragon coin; art **ASCENDAND**→**ASCENDANT**; **DYNAMIC UNIVERSAL ASSET** (variable in-game only) |
+| `06_aethel_key_universal_access.png` | `aethel_key` | player / authorized | currency.json | Access/ID/wallet card; biometric hologram panel (cosmetic fiction) |
+
+**Open confirmation (user):** Aethel vs Phoenix God Coin / Phoenix Embers relationship? Meaning of crowned lion coin? See `docs/PENDING_USER_QUESTIONS.md` and `docs/modules/ECONOMY.md`.

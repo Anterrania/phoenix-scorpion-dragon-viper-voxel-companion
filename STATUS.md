@@ -172,3 +172,11 @@
 - ECONOMY_BANKING.md updated with coin face; pending: phoenix vs dragon primary?; recurring 8
 - Palette v2; not pushed (waiting on GitHub sign-in)
 
+
+## Batch 24 (Aethel economy) - done locally
+- 6 of 6 images kept in assets/concept_art/batch_24/ (no duplicates)
+- Extended `data/items/currency.json` with `economies.aethel` + items: banknotes (100/1000), lion coin, sigil, stasis (stable), ascendant (variable; ASCENDAND→ASCENDANT), key (wallet/access card)
+- New `docs/modules/ECONOMY.md` (strictly fictional game-only virtual currency; no real-money/crypto/exchange)
+- ECONOMY_BANKING.md cross-linked; ART_BIBLE + pending Qs updated
+- Pending: Aethel ↔ Phoenix coin relationship; lion coin meaning
+- Palette v2; not pushed (waiting on GitHub sign-in)

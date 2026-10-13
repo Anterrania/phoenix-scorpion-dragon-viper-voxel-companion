@@ -59,5 +59,7 @@
   "accents": [
     "platinum",
     "gold"
-  ]
+  ],
+  "star_map_pair": "azura_stellaris",
+  "star_map_pair_note": "Paired with Azura Stellaris (navigator): Celestia keeps constellation lore and realm naming; Azura plots live routes and bearings (batch_13)."
 }

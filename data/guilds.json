@@ -41,7 +41,8 @@
       ],
       "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
       "concept_art": [
-        "assets/concept_art/batch_07/11_seraphic_vanguard_uniform.jpg"
+        "assets/concept_art/batch_07/11_seraphic_vanguard_uniform.jpg",
+        "assets/concept_art/batch_13/03_seraph_caelum_hooded_vanguard_halo.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -50,7 +51,9 @@
         "gold"
       ],
       "cosmetic_gameplay_only": true,
-      "real_money": false
+      "real_money": false,
+      "captain_companion": "seraph_caelum",
+      "captain_note": "Seraph Caelum (batch_13) is the named Vanguard captain look; distinct from healer Seraph Halcyon."
     },
     {
       "id": "ethereal_sentinels",

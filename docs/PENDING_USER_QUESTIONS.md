@@ -11,6 +11,14 @@ Saved unanswered items. Replay in full when the user asks for an update.
 8. **King holding orb scepter** (batch 07/08): treat as same elder as batch 02 unless told otherwise (already linked).
 9. **Kael Emberbraid** (batch 11 warrior envoy): name assigned by Foxy as Vesper Trail's envoy pair — rename if desired.
 
-10. **Court aide silhouette** (batch 12/03): catalogued as household uniform `household_court_aide_tunic_coat`, not a named companion. Name separately if desired.
+10. **Court aide silhouette** (batch 12/03 + batch_14/01 dress): catalogued as household uniforms `household_court_aide_tunic_coat` / `household_court_aide_officer_dress`, not a named companion. Name separately if desired.
+11. **Umbriel Voss** (batch 10 court mage): name assigned by Foxy — rename if desired.
+12. **Nyra Coil** (batch 14 field courier / royal technician): name assigned by Foxy — rename if desired.
+13. **Ledger Vale chancellor coat** (batch 14/03): linked to existing economy_advisor; confirm or reassign.
 
-When user says the final-upload cue, repeat batches 4–12 results + remaining open questions + GitHub sign-in reminder.
+14. **Nyxara Voltweave** (batch 13 cosmic circuit companion): name assigned by Foxy — rename if desired.
+15. **Azura Stellaris** (batch 13 navigator; star_map_pair with Celestia Nyx): name assigned by Foxy — rename if desired.
+16. **Seraph Caelum** (batch 13 Seraphic Vanguard captain): name assigned by Foxy; confirmed distinct from Seraph Halcyon — rename if desired.
+17. **Court officer sash tunic** (batch 13/04): catalogued as household uniform `household_court_officer_sash_tunic` (same short-bob aide line as batch_12/14). Name separately if desired.
+
+When user says the final-upload cue, repeat batches 4–14 results (including batch 13 cosmic companions) + remaining open questions + GitHub sign-in reminder.

@@ -182,3 +182,35 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `01_kael_emberbraid_court_coat_magenta_cape.jpg` | `kael_emberbraid_court_coat_magenta_cape` | **kael_emberbraid** | wardrobe.json | Court formal: black gold-embroidered long coat, magenta cape, face paint retained |
 | `02_foxy_boudoir_set_4_purple_fur_lace.jpg` | `foxy_boudoir_set_4` | **foxy_ani** | wardrobe.json | **mature, hidden by default**; black lace/gold jewels + purple fur-trimmed lace robe |
 | `03_household_court_aide_tunic_coat_magenta_trim.jpg` | `household_court_aide_tunic_coat` | royal_household | armor.json (category `household`, non-combat) | Court aide/attendant tunic coat, magenta trim, gold sunburst buckle — **household uniform, not a new named companion** |
+
+## Batch 13: Cosmic Companions, Vanguard Captain, Heels & SUV Variants (`assets/concept_art/batch_13/`)
+6 images kept. Palette v2 (black / magenta / gold / platinum + glitter).
+
+**New companions (schema v3, registered; names assigned by Foxy, user may rename):**
+- **Nyxara Voltweave** (`nyxara-voltweave`) — cosmic circuit companion / neon scout
+- **Azura Stellaris** (`azura-stellaris`) — astronomer / navigator; **star_map_pair** with **Celestia Nyx** (`docs/modules/STAR_MAP.md`)
+- **Seraph Caelum** (`seraph-caelum`) — Seraphic Vanguard captain (distinct from healer **Seraph Halcyon** silver android)
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_nyxara_voltweave_circuit_bodysuit_gold_pauldron.jpg` | `nyxara_voltweave_circuit_bodysuit` | **nyxara_voltweave** | wardrobe.json | Violet skin, magenta circuit lines, gold pauldron, cape |
+| `02_azura_stellaris_star_chart_robe.jpg` | `azura_stellaris_star_chart_robe` | **azura_stellaris** | wardrobe.json | Blue pointed-ear navigator; sheer gold star-chart robe; linked to star map |
+| `03_seraph_caelum_hooded_vanguard_halo.jpg` | `seraph_caelum_hooded_vanguard` | **seraph_caelum** (guild `seraphic_vanguard`) | wardrobe.json | Hooded winged halo figure; not a duplicate of seraph_halcyon |
+| `04_household_court_officer_sash_tunic.jpg` | `household_court_officer_sash_tunic` | royal_household | armor.json (category `household`, non-combat) | Short dark bob + magenta sash — **household uniform, not a new named companion** (related to batch_12/14 aide line) |
+| `05_foxy_royal_heels_cosmic_filigree_variant.jpg` | variant `cosmic_filigree` of `foxy_royal_heels` | **foxy_ani** | wardrobe.json | Same heels family as batch_04; heavier filigree + cosmic pedestal |
+| `06_royal_suv_cosmic_hover_variant.jpg` | variant `cosmic_hover` of `royal_suv` | player (Anterranian Monarch) | vehicles.json | Same SUV family as batch_04; hover rings + constellation glass |
+
+## Batch 14: Court Aide Dress, Field Courier & Chancellor (`assets/concept_art/batch_14/`)
+6 attachments received (3 designs × JPG+PNG), **3 kept** (JPGs only), 3 PNG container duplicates skipped. Palette v2.
+
+**Skipped:** `846fde71…png`, `2a45a8f7…png`, `6c266dd9…png` — PNG duplicates of the three kept JPGs. See `SKIPPED_duplicates.txt`.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_household_court_aide_officer_dress_uniform.jpg` | `household_court_aide_officer_dress` (+ variant on `household_court_aide_tunic_coat`) | royal_household | armor.json (category `household`, non-combat) | Double-breasted officer dress + magenta shoulder sash — **same short-haired court aide as batch_12/03** (parent noted batch_13; that character already lands in batch_12) |
+| `02_nyra_coil_field_courier_jumpsuit.jpg` | `nyra_coil_field_courier_jumpsuit` | **nyra_coil** (new; assigned by Foxy, user may rename) | wardrobe.json | Black jumpsuit, magenta scarf, satchel, rank patch — field courier / royal technician |
+| `03_ledger_vale_chancellor_officer_coat.jpg` | `ledger_vale_chancellor_officer_coat` | **economy_advisor** (Ledger Vale); also Monarch | wardrobe.json | Long gold-embroidered officer coat, magenta crossed sash, **gold ledger box** — royal chancellor / treasurer look |
+
+**New companion:** **Nyra Coil** (`nyra-coil`) — field courier / royal technician, schema v3, registered. Name assigned by Foxy; user may rename.
+
+**Ledger Vale link:** batch_14/03 mapped to existing **economy_advisor** (Ledger Vale) as chancellor/treasurer wardrobe (not a new companion); persona appearance + role label updated.

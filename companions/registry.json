@@ -40,7 +40,7 @@
     },
     "economy-advisor": {
       "dir": "economy_advisor",
-      "role": "Finance / economy advisor (in-game)"
+      "role": "Finance / economy advisor (in-game); royal chancellor / treasurer"
     },
     "omni-worker": {
       "dir": "omni_worker",
@@ -96,6 +96,28 @@
       "role": "Warrior envoy / northern scout",
       "name_status": "assigned by Foxy, user may rename",
       "envoy_pair": "explorer-guide"
+    },
+    "nyra-coil": {
+      "dir": "nyra_coil",
+      "role": "Field courier / royal technician",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "nyxara-voltweave": {
+      "dir": "nyxara_voltweave",
+      "role": "Cosmic circuit companion / neon scout",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "azura-stellaris": {
+      "dir": "azura_stellaris",
+      "role": "Astronomer / navigator companion",
+      "name_status": "assigned by Foxy, user may rename",
+      "star_map_pair": "celestia-nyx"
+    },
+    "seraph-caelum": {
+      "dir": "seraph_caelum",
+      "role": "Seraphic Vanguard captain / winged guardian",
+      "name_status": "assigned by Foxy, user may rename",
+      "guild": "seraphic_vanguard"
     }
   }
 }

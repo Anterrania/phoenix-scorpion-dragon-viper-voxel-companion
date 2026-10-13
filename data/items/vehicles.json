@@ -22,7 +22,8 @@
         "emblem_emissive"
       ],
       "concept_art": [
-        "assets/concept_art/batch_04_royal_assets/04_royal_vehicle_black_suv_gold_filigree.png"
+        "assets/concept_art/batch_04_royal_assets/04_royal_vehicle_black_suv_gold_filigree.png",
+        "assets/concept_art/batch_13/06_royal_suv_cosmic_hover_variant.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -30,7 +31,21 @@
       "accents": [
         "platinum",
         "gold"
-      ]
+      ],
+      "variants": [
+        {
+          "id": "ground_filigree",
+          "label": "Ground filigree (batch_04)",
+          "concept_art": "assets/concept_art/batch_04_royal_assets/04_royal_vehicle_black_suv_gold_filigree.png"
+        },
+        {
+          "id": "cosmic_hover",
+          "label": "Cosmic hover (batch_13)",
+          "concept_art": "assets/concept_art/batch_13/06_royal_suv_cosmic_hover_variant.jpg",
+          "notes": "Same black SUV + gold filigree + magenta glow family; adds hover rings under wheels, constellation windshield etching, floating platform presentation. Catalogued as variant of royal_suv, not a new vehicle id."
+        }
+      ],
+      "notes": "batch_13/06 kept as cosmic_hover variant of royal_suv (same vehicle family as batch_04)."
     }
   ]
 }

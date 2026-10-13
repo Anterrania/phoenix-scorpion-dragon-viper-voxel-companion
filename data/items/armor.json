@@ -357,7 +357,63 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub",
-      "notes": "Catalogued as household uniform (not a new named companion). Short-haired court aide/attendant silhouette."
+      "notes": "Catalogued as household uniform (not a new named companion). Short-haired court aide/attendant silhouette (batch_12/03 daywear; batch_14/01 officer dress).",
+      "variants": [
+        {
+          "id": "batch_14_officer_dress",
+          "label": "Double-breasted officer dress uniform with magenta shoulder sash (batch_14/01)",
+          "concept_art": "assets/concept_art/batch_14/01_household_court_aide_officer_dress_uniform.jpg"
+        }
+      ]
+    },
+    {
+      "id": "household_court_aide_officer_dress",
+      "display_name": "Household Court Aide Officer Dress Uniform",
+      "owner": "royal_household",
+      "category": "household",
+      "combat": false,
+      "non_combat": true,
+      "description": "Double-breasted black officer tunic with magenta piping, magenta shoulder sash pinned with gold brooch, wide gold belt with circular crest buckle, black trousers and tall boots, gold filigree on cuffs/hem. Dress-uniform variant of the short-haired court aide (same silhouette as batch_12/03 household_court_aide_tunic_coat).",
+      "concept_art": [
+        "assets/concept_art/batch_14/01_household_court_aide_officer_dress_uniform.jpg"
+      ],
+      "related_to": "household_court_aide_tunic_coat",
+      "same_character_as": "household_court_aide_tunic_coat",
+      "stats": null,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Same short-haired court aide character as batch_12/03; dress-uniform variant. Not a new named companion."
+    },
+    {
+      "id": "household_court_officer_sash_tunic",
+      "display_name": "Household Court Officer Sash Tunic",
+      "owner": "royal_household",
+      "category": "household",
+      "combat": false,
+      "non_combat": true,
+      "description": "Black asymmetric mid-thigh tunic with magenta piping and embroidery, magenta shoulder sash pinned with gold brooch, gold rectangular buckle with cross insignia, chest badge, tall black boots. Court officer / aide daywear (non-combat).",
+      "concept_art": [
+        "assets/concept_art/batch_13/04_household_court_officer_sash_tunic.jpg"
+      ],
+      "related_to": "household_court_aide_tunic_coat",
+      "stats": null,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Catalogued as household uniform (not a new named companion), consistent with batch_12 court aide. Short dark bob silhouette with magenta sash."
     }
   ]
 }

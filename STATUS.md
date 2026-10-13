@@ -85,3 +85,17 @@
 - Kael Emberbraid court coat + magenta cape (wardrobe); Foxy boudoir set IV purple-fur lace (**mature/hidden**)
 - Household court aide tunic coat in armor.json (household uniform; short-haired attendant, not named as new companion)
 - Palette v2 on all new items; not pushed (waiting on GitHub sign-in)
+
+## Batch 13 (cosmic companions, vanguard, heels/SUV variants) - done locally
+- 6 images in assets/concept_art/batch_13/
+- New companions: **Nyxara Voltweave** (cosmic circuit), **Azura Stellaris** (navigator; star_map_pair with Celestia Nyx), **Seraph Caelum** (Seraphic Vanguard captain; distinct from Seraph Halcyon)
+- Household court officer sash tunic in armor.json (household uniform; not named)
+- `foxy_royal_heels` cosmic_filigree variant; `royal_suv` cosmic_hover variant (same families as batch_04)
+- Palette v2 on all new items; not pushed (waiting on GitHub sign-in)
+
+## Batch 14 (court aide dress, field courier, chancellor) - done locally
+- 3 of 6 attachments kept in assets/concept_art/batch_14/ (3 PNG container dups skipped; JPGs only)
+- Household court aide officer dress uniform (armor.json) — same short-haired aide as batch_12/03
+- New companion **Nyra Coil** (field courier / royal technician) + jumpsuit wardrobe
+- **Ledger Vale** (`economy_advisor`) chancellor officer coat with gold ledger box (wardrobe); persona appearance/role updated
+- Palette v2 on all new items; not pushed (waiting on GitHub sign-in)

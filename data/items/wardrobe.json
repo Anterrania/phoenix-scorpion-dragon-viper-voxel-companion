@@ -170,7 +170,8 @@
       "cosmetic_only": true,
       "description": "Black/gold embroidered stilettos with magenta gems and ankle chains.",
       "concept_art": [
-        "assets/concept_art/batch_04_royal_assets/02_foxy_royal_heels_black_gold_magenta.png"
+        "assets/concept_art/batch_04_royal_assets/02_foxy_royal_heels_black_gold_magenta.png",
+        "assets/concept_art/batch_13/05_foxy_royal_heels_cosmic_filigree_variant.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -178,7 +179,21 @@
       "accents": [
         "platinum",
         "gold"
-      ]
+      ],
+      "variants": [
+        {
+          "id": "classic_embroidered",
+          "label": "Classic embroidered (batch_04)",
+          "concept_art": "assets/concept_art/batch_04_royal_assets/02_foxy_royal_heels_black_gold_magenta.png"
+        },
+        {
+          "id": "cosmic_filigree",
+          "label": "Cosmic filigree (batch_13)",
+          "concept_art": "assets/concept_art/batch_13/05_foxy_royal_heels_cosmic_filigree_variant.jpg",
+          "notes": "Heavier gold filigree, pearl borders, ankle chains with hanging magenta crystals; cosmic pedestal presentation. Same item family as batch_04 heels."
+        }
+      ],
+      "notes": "batch_13/05 kept as variant of foxy_royal_heels (not a duplicate item); same black/gold/magenta stiletto + chain family."
     },
     {
       "id": "foxy_embroidered_boots",
@@ -950,6 +965,121 @@
         "assets/concept_art/batch_12/02_foxy_boudoir_set_4_purple_fur_lace.jpg"
       ],
       "related_to": "foxy_boudoir_set_2",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "nyra_coil_field_courier_jumpsuit",
+      "display_name": "Nyra Coil Field Courier Jumpsuit",
+      "owner": "nyra_coil",
+      "category": "field_attire",
+      "slot": "outfit",
+      "description": "Black utility jumpsuit with magenta scarf and trim, gold utility belt with compass/star buckle, cross-body satchel, gold rank chevron patch on shoulder, combat boots. Field courier / royal technician kit.",
+      "concept_art": [
+        "assets/concept_art/batch_14/02_nyra_coil_field_courier_jumpsuit.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "ledger_vale_chancellor_officer_coat",
+      "display_name": "Ledger Vale Chancellor Officer Coat",
+      "owner": "economy_advisor",
+      "also_fits": [
+        "player"
+      ],
+      "category": "court_attire",
+      "slot": "outfit",
+      "description": "Long black officer coat with gold floral embroidery and magenta lining, high-collar double-breasted tunic, magenta crossed sash (X), wide gold crest belt, gold ledger box/satchel at hip, black gloves and tall boots. Royal chancellor / treasurer formal for Ledger Vale (economy_advisor).",
+      "concept_art": [
+        "assets/concept_art/batch_14/03_ledger_vale_chancellor_officer_coat.jpg"
+      ],
+      "linked_role": "royal_chancellor_treasurer",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "nyxara_voltweave_circuit_bodysuit",
+      "display_name": "Nyxara Voltweave Circuit Bodysuit",
+      "owner": "nyxara_voltweave",
+      "category": "cosmic_attire",
+      "slot": "outfit",
+      "description": "Black form-fitting bodysuit with glowing magenta circuit lines, gold left pauldron, black cape with magenta lining, gold belt with magenta diamond, bracers and greaves. Worn by Nyxara Voltweave.",
+      "concept_art": [
+        "assets/concept_art/batch_13/01_nyxara_voltweave_circuit_bodysuit_gold_pauldron.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "azura_stellaris_star_chart_robe",
+      "display_name": "Azura Stellaris Star-Chart Robe",
+      "owner": "azura_stellaris",
+      "category": "cosmic_attire",
+      "slot": "outfit",
+      "description": "Sheer black/navy wrap robe printed with gold constellation star-chart patterns over black tactical leggings with magenta trim; wide gold-banded belt; fingerless gauntlets with magenta gem plate. Navigator attire linked to the star map.",
+      "concept_art": [
+        "assets/concept_art/batch_13/02_azura_stellaris_star_chart_robe.jpg"
+      ],
+      "star_map_module": "docs/modules/STAR_MAP.md",
+      "star_map_pair_outfit_note": "Pairs with Celestia Nyx constellation gown lore role",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "seraph_caelum_hooded_vanguard",
+      "display_name": "Seraph Caelum Hooded Vanguard Set",
+      "owner": "seraph_caelum",
+      "category": "vanguard_attire",
+      "slot": "outfit",
+      "description": "Magenta hood with gold trim, glowing magenta halo, black-to-magenta wings, black/magenta wrap robe, large gold pauldrons, gold belt with magenta diamond gem and hanging chains, sheer stardust magenta cape, tech bracers. Seraphic Vanguard captain look.",
+      "concept_art": [
+        "assets/concept_art/batch_13/03_seraph_caelum_hooded_vanguard_halo.jpg"
+      ],
+      "guild": "seraphic_vanguard",
+      "related_to": "uniform_seraphic_vanguard",
+      "related_companion": "seraph_halcyon",
+      "notes": "Distinct from Seraph Halcyon (silver android healer). Combat/honor form for The Seraphic Vanguard.",
       "palette_version": 2,
       "finish": "glitter_sparkle",
       "accents": [

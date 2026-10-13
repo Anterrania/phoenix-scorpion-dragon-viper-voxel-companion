@@ -1,6 +1,7 @@
 extends CharacterBody3D
 ## Reusable in-game AI companion. Configure with a CompanionConfig resource.
 ## Idle wander / follow behavior + tool implementations called by AgentBrain.
+## Merged: also exposes command() (simple follow/stay/build/dig) from the old top-level script.
 
 signal said(text: String)
 
@@ -167,3 +168,14 @@ func tool_emote(a: Dictionary) -> Dictionary:
 	if ap and ap.has_animation(str(a.name)):
 		ap.play(str(a.name))
 	return {"ok": true}
+
+# ---------- simple commands (lead companion / UI / LocalProvider) ----------
+## Foxy Ani (lead) can delegate these to other companions.
+func command(action: String) -> Dictionary:
+	var ahead := global_position - global_basis.z * 2.0
+	match action:
+		"follow": return tool_follow({"enabled": true})
+		"stay": return tool_follow({"enabled": false})
+		"build": return tool_place_voxel({"x": ahead.x, "y": ahead.y, "z": ahead.z, "material": 1})
+		"dig": return tool_carve_area({"x": ahead.x, "y": ahead.y - 1.0, "z": ahead.z, "radius": 2.0})
+	return {"ok": false, "error": "unknown command"}

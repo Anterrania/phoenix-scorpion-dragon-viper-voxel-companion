@@ -41,7 +41,7 @@ GDExtension (arm64-v8a `.so`) + Godot's Gradle build, JDK 17, export templates t
 - Edits: `do_point`, `do_sphere`, `do_box(begin, end)`, `do_path` (smooth), `paste` / `paste_masked` (copy a VoxelBuffer into the world, which blueprints will use), `copy`.
 - Queries: `get_voxel`, `get_voxel_f`, `set_voxel`, `is_area_editable`, `raycast(origin, dir, max_distance, collision_mask)` → `VoxelRaycastResult` (`position`, `previous_position`, `distance`).
 - Variants: `VoxelToolTerrain` (blocky; adds `run_blocky_random_tick` for growth/melt simulation), `VoxelToolLodTerrain` (smooth; adds `do_sphere` async, `stamp_sdf`), and `VoxelToolBuffer` (offline edits on a buffer).
-- Used by `scripts/player_controller.gd` (raycast + do_point) and `scripts/companion_agent.gd` (do_point / do_sphere).
+- Used by `scripts/player_controller.gd` (raycast + do_point) and `scripts/agent/companion_agent.gd` (do_point / do_sphere / do_box tools + `command()`).
 
 ## Blocky library
 - **VoxelMesherBlocky** + **VoxelBlockyLibrary** (newer versions: `VoxelBlockyLibrary` / `VoxelBlockyTypeLibrary`) list models in id order: 0 air, then stone, snow, ice, stardust, crystal, basalt, lava, concrete, neon. Ids must match the constants in `biome_generator.gd`.

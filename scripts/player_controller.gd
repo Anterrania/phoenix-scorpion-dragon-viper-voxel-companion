@@ -1,10 +1,10 @@
 # Player: keyboard/mouse + touch move, look, jump, and VoxelTool raycast dig/place.
-# Requires Zylann godot_voxel. NOT yet run in Godot.
+# Requires Zylann godot_voxel (pinned: GDExtension 1.7x, Godot 4.7.2). Merged from old scripts/player.gd.
 # Touch: left half drag = move; right half drag = look; right tap = dig;
 #        right long-press = place; two-finger tap = jump.
 extends CharacterBody3D
 
-@export var terrain_path: NodePath
+@export var terrain_path: NodePath = NodePath("../VoxelTerrain")
 @export var speed := 5.0
 @export var jump_velocity := 5.5
 @export var mouse_sensitivity := 0.003
@@ -13,7 +13,9 @@ extends CharacterBody3D
 @export var place_block_id := 1
 @export var long_press_time := 0.4
 
-@onready var camera: Camera3D = $Camera3D
+## Camera may live under a Head pivot (scenes/player.tscn) or directly under the body.
+@onready var head: Node3D = get_node_or_null("Head")
+@onready var camera: Camera3D = get_node_or_null("Head/Camera3D") if has_node("Head/Camera3D") else get_node_or_null("Camera3D")
 var _vt: VoxelTool
 var _move_touch := -1
 var _move_origin := Vector2.ZERO
@@ -31,6 +33,10 @@ func _ready() -> void:
 		_vt.channel = VoxelBuffer.CHANNEL_TYPE
 	if not DisplayServer.is_touchscreen_available():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+## External UI (on-screen joystick) can drive movement.
+func set_move_vector(v: Vector2) -> void:
+	_move_vec = v.limit_length(1.0)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -73,7 +79,8 @@ func _on_drag(e: InputEventScreenDrag) -> void:
 
 func _look(d: Vector2) -> void:
 	rotate_y(-d.x)
-	camera.rotation.x = clampf(camera.rotation.x - d.y, -1.4, 1.4)
+	var pitch: Node3D = head if head else camera
+	pitch.rotation.x = clampf(pitch.rotation.x - d.y, -1.4, 1.4)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

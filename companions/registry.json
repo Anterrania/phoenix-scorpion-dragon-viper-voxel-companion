@@ -1,0 +1,9 @@
+{
+  "_note": "SCAFFOLD. Maps canonical public ids to on-disk persona folders. One persona.json per companion is shared by the in-world 3D CharacterBody3D form and the standalone Grok Bot form.",
+  "schema_version": 3,
+  "companions": {
+    "foxy-ani-firecaster-grey": {"dir": "foxy_ani", "role": "lead controller / primary interface"},
+    "circuit-nova": {"dir": "circuit_nova", "role": "engineering companion"},
+    "aaliyah": {"dir": "aaliyah", "role": "companion"}
+  }
+}

@@ -29,8 +29,21 @@ These are concept references uploaded by the user. Their in-game voxel versions 
 | 06 | `06_queen_ermine_scepter.png` | Crowned queen in an ermine cloak with a scepter (pairs with 05) | unassigned, awaiting user naming |
 
 ## Regalia & Jewelry
-- **Motto:** *"Flamma. Ordo. Aeterna."* ("Flame. Order. Eternal.", Latin). The images spell it **"Aterna"**: **user-confirm** whether the in-world spelling is the classical *Aeterna* or the stylized *Aterna*. The "8" after the motto on ring 01 is unexplained (user-confirm).
+- **Primary motto: "Anterrania"** (user decision 2026-10-13). Use it on banners, crests, and UI.
+- **Ring inscription:** "Flamma. Ordo. Aeterna." (kept as the engraving and secondary motto; the engraved spelling "Aterna" is still user-confirm).
+- **Inscription notes:** *"Flamma. Ordo. Aeterna."* ("Flame. Order. Eternal.", Latin). The images spell it **"Aterna"**: **user-confirm** whether the in-world spelling is the classical *Aeterna* or the stylized *Aterna*. The "8" after the motto on ring 01 is unexplained (user-confirm).
 - **Regalia language:** crowns, orb scepters (elder pair), crescent scepter (young king; ties to the moon/Venus symbol), ermine cloaks, floating-rock "sky throne" settings. Same palette as above, with magenta stones set in gold.
 - **Rings as equippable items:** both rings are in-game `ring`-slot items, stubbed in `data/items/regalia.json` (placeholder names and zeroed stats). Planned hooks: affinity bonuses to fire/order (GRINDING_PROGRESSION gems), a cosmetic glow, and royal-rank gating. They're **cosmetic/gameplay only, never real-money items** (see ECONOMY_BANKING.md).
+
+## Batch 03: Royal Wardrobe (`assets/concept_art/batch_03_royal_wardrobe/`)
+All items are cosmetic only. Entries are in `data/items/wardrobe.json`.
+| # | File | Description | Item / owner |
+|---|---|---|---|
+| 01 | `01_monarch_formal_black_suit_magenta_vest_ermine.png` | Men's black suit, magenta vest, ermine cloak, runic pedestal | `monarch_formal_attire` (player) |
+| 02 | `02_foxy_court_gown_magenta_ermine_epaulettes.png` | Magenta gown, ermine cloak, gold epaulettes | `foxy_court_gown` (Foxy) |
+| 03 | `03_foxy_coronation_ballgown_magenta_ermine.png` | Magenta ball gown, ermine, jewels | `foxy_coronation_gown` (Foxy) |
+| 04 | `04_foxy_boudoir_set_variant_a.png` | Jeweled magenta lingerie + black robe | `foxy_boudoir_set` variant A, **mature, hidden by default** |
+| 05 | *(missing: d05bcc…)* | Collar variant of 04 | `foxy_boudoir_set` variant B, pending |
+| 06 | `06_foxy_evening_robe_black_sheer_gold.png` | Black sheer robe-dress, gold embroidery, ermine cuffs | `foxy_evening_robe` (Foxy) |
 
 Source files are the user's uploads (hash-named originals) in the bot attachments folder. Notes on rights and licensing are pending Law Bot review before any public release.

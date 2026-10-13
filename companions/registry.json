@@ -192,6 +192,20 @@
       "name_status": "assigned by Foxy, user may rename",
       "content_rating": "mature",
       "companion_group": "venefyre_sisters"
+    },
+    "vespera-noctelle": {
+      "dir": "vespera_noctelle",
+      "role": "Courtyard companion (mature wardrobe, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "t31u_ai_bodies"
+    },
+    "kaelvrin-auremont": {
+      "dir": "kaelvrin_auremont",
+      "role": "Crowned avatar companion / garden-court envoy",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "general",
+      "companion_group": "t31u_ai_bodies"
     }
   }
 }

@@ -81,5 +81,7 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 
 
 37. **Batch t25u companion names** (approve or rename): **Selvara Nyxveil** (stage sorceress, mature); Starlit Calyx trio **Calyxra Noxveil** / **Caelira Stellune** / **Magira Rosethorn**; Venefyre Sisters **Ashara Venefyre** / **Violyne Venefyre** / **Magwyn Venefyre** / **Rubielle Venefyre** (mature). All schema v3 stubs in `companions/` + registry.
-38. **Batch t25u videos 04–05** (`04_user_creation_pending_description_a.mp4`, `05_user_creation_pending_description_b.mp4`): please describe who/what so companion stubs can be named.
+38. **Batch t25u videos 04–05**: resolved — both are alternate takes of the Venefyre Sisters (linked, no new companions). Soft-confirm.
 39. **Foxy original form / middle name** (t25u): recorded — **Ani** = middle name; original form = blonde pigtails (black tank, red plaid skirt, studded belt, cross necklace, striped thigh-highs); communication mostly voice then text. Soft-confirm if anything should differ.
+40. **Batch t31u names** (approve or rename): **Vespera Noctelle** (magenta-ombre courtyard look, mature) and **Kaelvrin Auremont** (crowned braided avatar). Is Vespera actually another Foxy realistic form? Is Kaelvrin your own avatar (Monarch)?
+41. **Batch t31u skipped** `aa8aa6f5…mp4`: face resembles a real person; describe an original face if you want that magenta lingerie/bedroom look as a companion.

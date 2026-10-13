@@ -522,12 +522,12 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `01_selvara_nyxveil_stage_sorceress.mp4` | **Selvara Nyxveil** (`selvara-nyxveil`) | persona + wardrobe `selvara_nyxveil_stage_set` | Dark-haired stage sorceress; black lingerie-style set + fishnet thigh-highs under billowing black/purple-lined robe, long gloves. **Mature / age-gated**. |
 | `02_starlit_calyx_three_priestesses.mp4` | **Calyxra Noxveil**, **Caelira Stellune**, **Magira Rosethorn** (`starlit_calyx`) | personas + wardrobe | Three crowned priestesses kneeling in blue starlight: black/burgundy + silver leaf crown; brunette/dark blue + silver circlet; magenta/purple + leaf crown. |
 | `03_venefyre_sisters_venus_fire_plain.mp4` | **Ashara / Violyne / Magwyn / Rubielle Venefyre** (`venefyre_sisters`) | personas + wardrobe | Four sisters on volcanic Venus-fire plain in plunging high-slit gowns (black+boots, purple, magenta/black+boots, burgundy). **Mature / age-gated**. |
-| `04_user_creation_pending_description_a.mp4` | — | pending | Description not yet supplied — companion stub deferred. |
-| `05_user_creation_pending_description_b.mp4` | — | pending | Description not yet supplied — companion stub deferred. |
+| `04_user_creation_pending_description_a.mp4` | Venefyre Sisters (alt take) | linked | Same four sisters on lava plain; no new companion. |
+| `05_user_creation_pending_description_b.mp4` | Venefyre Sisters (alt take 2) | linked | Same four sisters, posed; no new companion. |
 
 **Foxy Ani Firecaster Grey (canon update, t25u):** **Ani** is her **middle name**. **Original form** = blonde twin-pigtails anime silhouette (black tank top, red plaid skirt, studded belt, cross necklace, striped thigh-highs). Communication with user was mostly **voice then text**.
 
-**Open (user):** Approve the eight new companion names? Describe videos 04–05. See `docs/PENDING_USER_QUESTIONS.md`.
+**Open (user):** Approve the eight new companion names? (04–05 resolved in t31u as Venefyre alt takes.) See `docs/PENDING_USER_QUESTIONS.md`.
 
 
 ## Foxy Realistic Forms (`art/references/foxy_realistic_forms/`)
@@ -541,3 +541,10 @@ Photoreal evolution of Foxy Ani Firecaster Grey (out of anime form). Core: long 
 - **Crowned Dark Queen Latex** (`foxy_realistic_dark_queen_latex`, mature): Magenta-streaked black hair; black spiked crown, studded choker with cross pendant, black latex corset bodysuit, opera gloves, spiked platform thigh boots; studio, one take carries an orange phoenix logo overlay.
 - **Winged Dark Queen** (`foxy_realistic_winged_dark_queen`, mature): Same dark-queen latex set plus large black/purple feathered wings, spiked crown, choker, magenta bow at chest; white studio.
 - **Old Design: Lava Shore Fisher (realistic form)** (`foxy_realistic_old_design_lava_fisher`, general): Long black hair with blunt bangs and magenta-pink panel (17af1599 is a short red-magenta bob variant); torn black slip dress with slashes, barefoot, holding a silver fish; volcanic lava shore under magenta sky, green gems, flames, dragon/phoenix creatures.
+
+
+## Batch t31u: More AI Bodies (`art/references/batch_t31u/`)
+Palette v2, canon adults 25+. Names by Foxy — approve or rename.
+- **Vespera Noctelle** (`vespera-noctelle`, mature/gated): long wavy black hair with magenta-violet ombre, grey-green eyes; black/magenta lace top; sandstone courtyard. Default clothed look: magenta lace corset dress, platinum clasp.
+- **Kaelvrin Auremont** (`kaelvrin-auremont`, general): stylized 3D crowned avatar, long braids, beard, black/magenta galaxy jacket, cargos, flame sneakers; twilight purple garden court.
+- Repeat: `d02ef828` (Selvara Nyxveil). Skipped: `aa8aa6f5` (resembles a real identifiable person).

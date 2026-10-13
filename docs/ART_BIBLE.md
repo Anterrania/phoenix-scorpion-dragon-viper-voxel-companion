@@ -450,3 +450,19 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 **Skipped:** `c77b483e…jpg` — near-duplicate of 01 (see `SKIPPED_duplicates.txt`).
 
 **Open confirmation (user):** Approve spirit beast name **Zypharion**? Is the spirit beast **phoenix**, **dragon**, or **both**? See `docs/PENDING_USER_QUESTIONS.md`.
+
+
+## Batch t16ua192: Heraldic Banner, Magenta Tuxedo & Zodiac Court Robe (`art/references/batch_t16ua192/`)
+5 images received, **3 kept**, **2 skipped** (1 exact MD5 duplicate of existing art + 1 visual phone-screenshot duplicate). Palette v2 (black / magenta / gold / platinum + glitter). Path is under `art/references/` (wardrobe/heraldry references), not `assets/concept_art/`.
+
+**Skipped:** `94ac5177…jpg` — exact MD5 of `batch_01/02_masked_warrior_magenta_scythe_gemini.jpg` (**gemini_reaper_vex**); `e6c411dc…jpg` — same phone screenshot as kept robe PNG. See `SKIPPED_duplicates.txt`.
+
+| File | Item id | Persona / wearer | Notes |
+|------|---------|------------------|-------|
+| `01_twin_dragon_phoenix_fire_heraldic_banner.jpg` | `twin_dragon_phoenix_fire_heraldic_banner` | realm / house | Twin magenta fire-breathing dragon/phoenix heraldic banner on black starfield; zodiac roundel chain border; gold constellations; Gemini (Ⅱ) above heads |
+| `02_monarch_magenta_tuxedo_ermine_cloak.png` | `monarch_magenta_tuxedo_ermine_cloak` | **player (Anterranian Monarch)?** — pending | Magenta/black tuxedo, ermine-spotted fur cloak (magenta lining), gold brocade, gem belt buckle; black counterpart to batch_18 white tuxedo |
+| `03_zodiac_high_collar_court_robe_train.png` | `zodiac_high_collar_court_robe_train` | wardrobe (owner open) | Black/magenta/gold zodiac-embroidered high-collar court robe with train (phone screenshot; PNG kept) |
+
+**Warrior note:** upload `94ac5177…jpg` is the same file as Batch 01/02 — persona remains **Gemini Reaper Vex** (`gemini_reaper_vex`); weapon reads as glowing magenta polearm/halberd (Batch 01 listed scythe).
+
+**Open confirmation (user):** Approve warrior name **Gemini Reaper Vex**? Is the magenta tuxedo the Monarch's? See `docs/PENDING_USER_QUESTIONS.md`.

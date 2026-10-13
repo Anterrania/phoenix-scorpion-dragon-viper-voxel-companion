@@ -399,7 +399,7 @@
         },
         {
           "id": "v3_h_crest",
-          "note": "'H' crest \u2014 meaning user-pending; linked to gold_h_crest_signet_band (batch_06)",
+          "note": "'H' crest — meaning user-pending; linked to gold_h_crest_signet_band (batch_06)",
           "concept_art": "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png",
           "linked_regalia": "gold_h_crest_signet_band",
           "collection": "royal_jeans"
@@ -419,7 +419,7 @@
         {
           "id": "batch_17_h_crest_gold_cuff_booties",
           "label": "Crowned H crest on hip, magenta gem stripe, gold-cuff stiletto booties (batch_17); links batch_06 H-crest band",
-          "note": "'H' crest \u2014 meaning user-pending; linked to gold_h_crest_signet_band",
+          "note": "'H' crest — meaning user-pending; linked to gold_h_crest_signet_band",
           "concept_art": "assets/concept_art/batch_17/04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg",
           "collection": "royal_jeans",
           "linked_regalia": "gold_h_crest_signet_band"
@@ -575,7 +575,7 @@
           "concept_art": [
             "assets/concept_art/batch_29/02_monarch_white_tuxedo_magenta_vest_black_ermine_cape.png"
           ],
-          "notes": "Batch_29 Monarch white tuxedo variant; distinct from batch_18 (white/ermine cape exterior) \u2014 this variant uses black cape exterior with ermine trim."
+          "notes": "Batch_29 Monarch white tuxedo variant; distinct from batch_18 (white/ermine cape exterior) — this variant uses black cape exterior with ermine trim."
         }
       ]
     },
@@ -1446,7 +1446,7 @@
     },
     {
       "id": "ara_aurora_goddess_of_all_creation",
-      "display_name": "Ara Aurora \u2014 Goddess of All Creation",
+      "display_name": "Ara Aurora — Goddess of All Creation",
       "owner": "ara_aurora",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1462,7 +1462,7 @@
     },
     {
       "id": "selvara_nyxveil_stage_set",
-      "display_name": "Selvara Nyxveil \u2014 Stage Set",
+      "display_name": "Selvara Nyxveil — Stage Set",
       "owner": "selvara_nyxveil",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1478,7 +1478,7 @@
     },
     {
       "id": "calyxra_noxveil_burgundy_leaf_robe",
-      "display_name": "Calyxra Noxveil \u2014 Burgundy Leaf Robe",
+      "display_name": "Calyxra Noxveil — Burgundy Leaf Robe",
       "owner": "calyxra_noxveil",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1491,7 +1491,7 @@
     },
     {
       "id": "caelira_stellune_dark_blue_gown",
-      "display_name": "Caelira Stellune \u2014 Dark Blue Gown",
+      "display_name": "Caelira Stellune — Dark Blue Gown",
       "owner": "caelira_stellune",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1504,7 +1504,7 @@
     },
     {
       "id": "magira_rosethorn_purple_leaf_gown",
-      "display_name": "Magira Rosethorn \u2014 Purple Leaf Gown",
+      "display_name": "Magira Rosethorn — Purple Leaf Gown",
       "owner": "magira_rosethorn",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1517,7 +1517,7 @@
     },
     {
       "id": "ashara_venefyre_black_slit_gown",
-      "display_name": "Ashara Venefyre \u2014 Black Slit Gown",
+      "display_name": "Ashara Venefyre — Black Slit Gown",
       "owner": "ashara_venefyre",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1533,7 +1533,7 @@
     },
     {
       "id": "violyne_venefyre_purple_slit_gown",
-      "display_name": "Violyne Venefyre \u2014 Purple Slit Gown",
+      "display_name": "Violyne Venefyre — Purple Slit Gown",
       "owner": "violyne_venefyre",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1549,7 +1549,7 @@
     },
     {
       "id": "magwyn_venefyre_black_magenta_slit_gown",
-      "display_name": "Magwyn Venefyre \u2014 Black Magenta Slit Gown",
+      "display_name": "Magwyn Venefyre — Black Magenta Slit Gown",
       "owner": "magwyn_venefyre",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1565,7 +1565,7 @@
     },
     {
       "id": "rubielle_venefyre_burgundy_slit_gown",
-      "display_name": "Rubielle Venefyre \u2014 Burgundy Slit Gown",
+      "display_name": "Rubielle Venefyre — Burgundy Slit Gown",
       "owner": "rubielle_venefyre",
       "slot": "outfit",
       "cosmetic_only": true,
@@ -1578,6 +1578,258 @@
       "content_rating": "mature",
       "hidden_by_default": true,
       "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_bustier_studio",
+      "display_name": "Foxy Realistic Form: Lace-Up Leather Bustier (Studio)",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Long wavy black hair with deep magenta/plum streaks, light grey-green eyes, freckles; black leather lace-up bustier with subtle red filigree; pale grey-blue studio wall.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/01_bustier_studio.jpg"
+      ],
+      "source_upload_prefixes": [
+        "4b057df7",
+        "838245f9",
+        "108d3ade",
+        "ef39b463"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_desert_dusk_cami",
+      "display_name": "Foxy Realistic Form: Desert Dusk Laced Cami",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Black hair with vivid magenta/crimson streaks, grey-green eyes; black leather laced plunge cami, thin silver chain with cross pendant, white nails; pale desert dunes at dusk (one studio take with playful surprised expressions).",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/02_desert_dusk_cami.jpg"
+      ],
+      "source_upload_prefixes": [
+        "f795f794",
+        "1da0a4f2",
+        "c591d4c1",
+        "04422a04",
+        "65a58ea3"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_bikini_spiked_boots",
+      "display_name": "Foxy Realistic Form: Leather Bikini & Spiked Thigh Boots",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Magenta-streaked black hair; black leather bikini, black lace-up thigh-high boots with silver spikes, silver necklace; white loft studio with tall windows.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/03_bikini_spiked_boots.jpg"
+      ],
+      "source_upload_prefixes": [
+        "79d66968"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_beach_swim",
+      "display_name": "Foxy Realistic Form: Beach Black Swimsuit",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Dark magenta-red long hair; black glossy one-piece swimsuit (later shots topless, swim bottoms); bright turquoise beach and sand.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/04_beach_swim.jpg"
+      ],
+      "source_upload_prefixes": [
+        "06e64e6b",
+        "c8e87b13",
+        "307a7cdc"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_slit_gown_runway",
+      "display_name": "Foxy Realistic Form: Shredded Black Slit Dress (Runway)",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "general",
+      "description": "Dark hair with hot-pink ends flowing; black spaghetti-strap dress with slashed cutouts and high slit, barefoot full-body catwalk; grey studio.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/05_slit_gown_runway.jpg"
+      ],
+      "source_upload_prefixes": [
+        "411d913a",
+        "4491c86c"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_realistic_dark_queen_latex",
+      "display_name": "Foxy Realistic Form: Crowned Dark Queen Latex",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Magenta-streaked black hair; black spiked crown, studded choker with cross pendant, black latex corset bodysuit, opera gloves, spiked platform thigh boots; studio, one take carries an orange phoenix logo overlay.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/06_dark_queen_latex.jpg"
+      ],
+      "source_upload_prefixes": [
+        "28dc9429",
+        "2ac4691c"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_winged_dark_queen",
+      "display_name": "Foxy Realistic Form: Winged Dark Queen",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Same dark-queen latex set plus large black/purple feathered wings, spiked crown, choker, magenta bow at chest; white studio.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/07_winged_dark_queen.jpg"
+      ],
+      "source_upload_prefixes": [
+        "c1e0491c",
+        "faadc8bb"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_old_design_lava_fisher",
+      "display_name": "Foxy Realistic Form: Old Design: Lava Shore Fisher (realistic form)",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form",
+        "old designs"
+      ],
+      "content_rating": "general",
+      "description": "Long black hair with blunt bangs and magenta-pink panel (17af1599 is a short red-magenta bob variant); torn black slip dress with slashes, barefoot, holding a silver fish; volcanic lava shore under magenta sky, green gems, flames, dragon/phoenix creatures.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/08_old_design_lava_fisher.jpg"
+      ],
+      "source_upload_prefixes": [
+        "17af1599",
+        "8ea84ac7",
+        "497f05ce",
+        "5faac3e2"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
     }
   ]
 }

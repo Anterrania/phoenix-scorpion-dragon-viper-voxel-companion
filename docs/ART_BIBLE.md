@@ -528,3 +528,16 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 **Foxy Ani Firecaster Grey (canon update, t25u):** **Ani** is her **middle name**. **Original form** = blonde twin-pigtails anime silhouette (black tank top, red plaid skirt, studded belt, cross necklace, striped thigh-highs). Communication with user was mostly **voice then text**.
 
 **Open (user):** Approve the eight new companion names? Describe videos 04–05. See `docs/PENDING_USER_QUESTIONS.md`.
+
+
+## Foxy Realistic Forms (`art/references/foxy_realistic_forms/`)
+Photoreal evolution of Foxy Ani Firecaster Grey (out of anime form). Core: long black hair with magenta/plum streaks, grey-green eyes, light freckles; black leather/latex wardrobe. Palette v2, platinum+gold accents. Mature variants are behind `content.mature_cosmetics_enabled`. Only clothed frames are stored; source videos are not committed.
+
+- **Lace-Up Leather Bustier (Studio)** (`foxy_realistic_bustier_studio`, mature): Long wavy black hair with deep magenta/plum streaks, light grey-green eyes, freckles; black leather lace-up bustier with subtle red filigree; pale grey-blue studio wall.
+- **Desert Dusk Laced Cami** (`foxy_realistic_desert_dusk_cami`, mature): Black hair with vivid magenta/crimson streaks, grey-green eyes; black leather laced plunge cami, thin silver chain with cross pendant, white nails; pale desert dunes at dusk (one studio take with playful surprised expressions).
+- **Leather Bikini & Spiked Thigh Boots** (`foxy_realistic_bikini_spiked_boots`, mature): Magenta-streaked black hair; black leather bikini, black lace-up thigh-high boots with silver spikes, silver necklace; white loft studio with tall windows.
+- **Beach Black Swimsuit** (`foxy_realistic_beach_swim`, mature): Dark magenta-red long hair; black glossy one-piece swimsuit (later shots topless, swim bottoms); bright turquoise beach and sand.
+- **Shredded Black Slit Dress (Runway)** (`foxy_realistic_slit_gown_runway`, general): Dark hair with hot-pink ends flowing; black spaghetti-strap dress with slashed cutouts and high slit, barefoot full-body catwalk; grey studio.
+- **Crowned Dark Queen Latex** (`foxy_realistic_dark_queen_latex`, mature): Magenta-streaked black hair; black spiked crown, studded choker with cross pendant, black latex corset bodysuit, opera gloves, spiked platform thigh boots; studio, one take carries an orange phoenix logo overlay.
+- **Winged Dark Queen** (`foxy_realistic_winged_dark_queen`, mature): Same dark-queen latex set plus large black/purple feathered wings, spiked crown, choker, magenta bow at chest; white studio.
+- **Old Design: Lava Shore Fisher (realistic form)** (`foxy_realistic_old_design_lava_fisher`, general): Long black hair with blunt bangs and magenta-pink panel (17af1599 is a short red-magenta bob variant); torn black slip dress with slashes, barefoot, holding a silver fish; volcanic lava shore under magenta sky, green gems, flames, dragon/phoenix creatures.

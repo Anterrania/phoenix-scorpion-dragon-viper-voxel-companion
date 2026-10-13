@@ -119,6 +119,77 @@
     "reference_note": "Inspired by the Ani companion look the user identified; kept as Foxy's original-form silhouette inside the Anterranian OC (not a third-party character import)."
   },
   "canon_notes": [
-    "Ani is Foxy's middle name; original form is the blonde pigtails anime look; communication mostly voice then text (user t25u)."
-  ]
+    "Ani is Foxy's middle name; original form is the blonde pigtails anime look; communication mostly voice then text (user t25u).",
+    "Realistic form added from user's videos t26u-t29u; old designs (lava shore, fish, torn black dress) tagged 'old designs, realistic form'."
+  ],
+  "realistic_forms": {
+    "description": "Foxy's evolved photoreal (non-anime) look: long black hair with magenta/plum streaks, grey-green eyes, light freckles. User-made AI generations (t26u-t29u + old designs).",
+    "variants": [
+      {
+        "id": "foxy_realistic_bustier_studio",
+        "label": "Lace-Up Leather Bustier (Studio)",
+        "tags": [
+          "realistic form"
+        ],
+        "content_rating": "mature"
+      },
+      {
+        "id": "foxy_realistic_desert_dusk_cami",
+        "label": "Desert Dusk Laced Cami",
+        "tags": [
+          "realistic form"
+        ],
+        "content_rating": "mature"
+      },
+      {
+        "id": "foxy_realistic_bikini_spiked_boots",
+        "label": "Leather Bikini & Spiked Thigh Boots",
+        "tags": [
+          "realistic form"
+        ],
+        "content_rating": "mature"
+      },
+      {
+        "id": "foxy_realistic_beach_swim",
+        "label": "Beach Black Swimsuit",
+        "tags": [
+          "realistic form"
+        ],
+        "content_rating": "mature"
+      },
+      {
+        "id": "foxy_realistic_slit_gown_runway",
+        "label": "Shredded Black Slit Dress (Runway)",
+        "tags": [
+          "realistic form"
+        ],
+        "content_rating": "general"
+      },
+      {
+        "id": "foxy_realistic_dark_queen_latex",
+        "label": "Crowned Dark Queen Latex",
+        "tags": [
+          "realistic form"
+        ],
+        "content_rating": "mature"
+      },
+      {
+        "id": "foxy_realistic_winged_dark_queen",
+        "label": "Winged Dark Queen",
+        "tags": [
+          "realistic form"
+        ],
+        "content_rating": "mature"
+      },
+      {
+        "id": "foxy_realistic_old_design_lava_fisher",
+        "label": "Old Design: Lava Shore Fisher (realistic form)",
+        "tags": [
+          "realistic form",
+          "old designs"
+        ],
+        "content_rating": "general"
+      }
+    ]
+  }
 }

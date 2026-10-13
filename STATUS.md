@@ -41,3 +41,8 @@
 - Final palette v2 (black/magenta/gold/platinum + glitter sparkle) documented in ART_BIBLE; applied as tags to all companion personas and all items.
 - Stub `shaders/glitter_sparkle.gdshader` (untested; not run in Godot yet).
 - Batch 05: heir thrones for Solarian and Lumira (Lumira inscription awaits user confirmation), Monarch and Foxy royal denim.
+
+## Update: batch 06
+- 14 designs: 5 wardrobe, 2 weapons (new weapons.json), 6 armor/uniforms (new armor.json), 1 signet band. Duplicates skipped.
+- Weapons/armor have placeholder stats tied to PHYSICS_RPG; sidearms fictional, in-game only. All cosmetic/gameplay only, no real money.
+- Motto spelling AETERNA now canonical everywhere.

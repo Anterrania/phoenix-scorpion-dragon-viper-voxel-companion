@@ -224,6 +224,96 @@
         "platinum",
         "gold"
       ]
+    },
+    {
+      "id": "foxy_white_coronation_gown",
+      "display_name": "Foxy's White Coronation Gown",
+      "owner": "foxy_ani",
+      "category": "formal",
+      "description": "White coronation gown.",
+      "concept_art": [
+        "assets/concept_art/batch_06/01_foxy_white_coronation_gown.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "monarch_white_regalia",
+      "display_name": "Monarch's White Regalia",
+      "owner": "player (Anterranian Monarch)",
+      "category": "regalia_attire",
+      "description": "White royal regalia with orb scepter.",
+      "concept_art": [
+        "assets/concept_art/batch_06/02_monarch_white_regalia_orb_scepter.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "monarch_white_formal_suit",
+      "display_name": "Monarch's White Formal Suit",
+      "owner": "player (Anterranian Monarch)",
+      "category": "formal",
+      "description": "White formal suit.",
+      "concept_art": [
+        "assets/concept_art/batch_06/03_monarch_white_formal_suit.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "foxy_ivory_gown_burgundy_cape",
+      "display_name": "Foxy's Ivory Gown with Burgundy Cape",
+      "owner": "foxy_ani",
+      "category": "formal",
+      "description": "Ivory gown with burgundy cape.",
+      "concept_art": [
+        "assets/concept_art/batch_06/04_foxy_ivory_gown_burgundy_cape.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "monarch_black_regalia",
+      "display_name": "Monarch's Black Regalia",
+      "owner": "player (Anterranian Monarch)",
+      "category": "regalia_attire",
+      "description": "Black royal regalia with orb scepter.",
+      "concept_art": [
+        "assets/concept_art/batch_06/05_monarch_black_regalia_orb_scepter.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

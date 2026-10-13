@@ -1,0 +1,49 @@
+{
+  "_note": "SCAFFOLD. Cosmetic/gameplay only, never sold for real money. Combat: docs/modules/PHYSICS_RPG.md.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "royal_cosmic_katana",
+      "display_name": "Royal Cosmic Katana",
+      "owner": "player (Anterranian Monarch)",
+      "category": "melee",
+      "description": "Katana with cosmic blade finish and scabbard.",
+      "concept_art": [
+        "assets/concept_art/batch_06/06_royal_cosmic_katana.png"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "slot": "main_hand",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "royal_twin_sidearms",
+      "display_name": "Royal Twin Sidearms",
+      "owner": "player (Anterranian Monarch)",
+      "category": "ranged_fictional",
+      "description": "Fictional in-game twin sidearms with jeweled holster belt.",
+      "concept_art": [
+        "assets/concept_art/batch_06/07_royal_twin_sidearms_holster.png"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "slot": "dual",
+      "note": "Fictional, in-game only; no real-world weapon data.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    }
+  ]
+}

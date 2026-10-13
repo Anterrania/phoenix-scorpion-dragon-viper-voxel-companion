@@ -4,10 +4,10 @@
   "motto": {
     "canonical": "Flamma. Ordo. Aeterna.",
     "as_engraved": [
-      "FLAMMA. ORDO. ATERNA. 8",
-      "Flamma, Ordo, Aterna"
+      "FLAMMA. ORDO. AETERNA. 8",
+      "Flamma, Ordo, Aeterna"
     ],
-    "spelling_status": "user-confirm (Aeterna vs Aterna)"
+    "spelling_status": "confirmed: AETERNA (batch_06 signet)"
   },
   "items": [
     {
@@ -15,7 +15,7 @@
       "display_name": "Magenta Oval Halo Ring (placeholder name)",
       "slot": "ring",
       "rarity": "legendary",
-      "description": "Gold ring with an oval magenta stone in a black-and-white diamond halo. Band inscribed 'FLAMMA. ORDO. ATERNA. 8'.",
+      "description": "Gold ring with an oval magenta stone in a black-and-white diamond halo. Band inscribed 'FLAMMA. ORDO. AETERNA. 8'.",
       "concept_art": "assets/concept_art/batch_02/01_ring_gold_magenta_oval_diamond_halo.png",
       "stats": {
         "fire_affinity": 0,
@@ -37,7 +37,7 @@
       "display_name": "Magenta Signet Ring Stack (placeholder name)",
       "slot": "ring",
       "rarity": "legendary",
-      "description": "Signet ring with a magenta stone and a moon/Venus symbol, stacked with a pearl band and a black band engraved 'Flamma, Ordo, Aterna'.",
+      "description": "Signet ring with a magenta stone and a moon/Venus symbol, stacked with a pearl band and a black band engraved 'Flamma, Ordo, Aeterna'.",
       "concept_art": "assets/concept_art/batch_02/02_signet_ring_magenta_moon_venus_stack.png",
       "components": [
         "signet",
@@ -58,6 +58,25 @@
         "platinum",
         "gold"
       ]
+    },
+    {
+      "id": "gold_h_crest_signet_band",
+      "display_name": "Gold H-Crest Signet Band",
+      "owner": "player (Anterranian Monarch)",
+      "category": "ring",
+      "description": "Wide gold band with H crest, inscribed 'FLAMMA. ORDO. AETERNA. 8'.",
+      "concept_art": [
+        "assets/concept_art/batch_06/14_gold_h_crest_signet_band.jpg"
+      ],
+      "inscription": "FLAMMA. ORDO. AETERNA. 8",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

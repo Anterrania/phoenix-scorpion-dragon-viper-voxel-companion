@@ -21,8 +21,8 @@ These are concept references uploaded by the user. Their in-game voxel versions 
 ## Batch 02 (`assets/concept_art/batch_02/`)
 | # | File | Description | Persona/item link |
 |---|---|---|---|
-| 01 | `01_ring_gold_magenta_oval_diamond_halo.png` | Gold ring with an oval magenta stone, a black/white diamond halo, band inscription "FLAMMA. ORDO. ATERNA. 8" | item `ring_magenta_oval_halo` |
-| 02 | `02_signet_ring_magenta_moon_venus_stack.png` | Signet ring with a magenta stone and a moon/Venus symbol, with a pearl band and a black band engraved "Flamma, Ordo, Aterna" | item `signet_magenta_moon_venus_stack` |
+| 01 | `01_ring_gold_magenta_oval_diamond_halo.png` | Gold ring with an oval magenta stone, a black/white diamond halo, band inscription "FLAMMA. ORDO. AETERNA. 8" | item `ring_magenta_oval_halo` |
+| 02 | `02_signet_ring_magenta_moon_venus_stack.png` | Signet ring with a magenta stone and a moon/Venus symbol, with a pearl band and a black band engraved "Flamma, Ordo, Aeterna" | item `signet_magenta_moon_venus_stack` |
 | 03 | `03_elder_king_orb_scepter_floating_rock.png` | Older crowned king with an orb scepter on a floating rock (pairs with 04) | **king_ignatius_pyre** (assigned by Foxy, user may rename) |
 | 04 | `04_queen_orb_scepter_floating_rock.png` | Crowned queen with an orb scepter on a floating rock (pairs with 03) | **queen_vesperine_pyre** (assigned by Foxy, user may rename) |
 | 05 | `05_young_king_ermine_crescent_scepter.png` | Younger crowned king in an ermine cloak with a crescent scepter (pairs with 06) | **prince_regent_solarian** (assigned by Foxy, user may rename) |
@@ -30,8 +30,8 @@ These are concept references uploaded by the user. Their in-game voxel versions 
 
 ## Regalia & Jewelry
 - **Primary motto: "Anterrania"** (user decision 2026-10-13). Use it on banners, crests, and UI.
-- **Ring inscription:** "Flamma. Ordo. Aeterna." (kept as the engraving and secondary motto; the engraved spelling "Aterna" is still user-confirm).
-- **Inscription notes:** *"Flamma. Ordo. Aeterna."* ("Flame. Order. Eternal.", Latin). The images spell it **"Aterna"**: **user-confirm** whether the in-world spelling is the classical *Aeterna* or the stylized *Aterna*. The "8" after the motto on ring 01 is unexplained (user-confirm).
+- **Ring inscription:** "Flamma. Ordo. Aeterna." (kept as the engraving and secondary motto; the engraved spelling "Aeterna" is still user-confirm).
+- **Inscription notes:** *"Flamma. Ordo. Aeterna."* ("Flame. Order. Eternal.", Latin). The images spell it **"Aeterna"**: **user-confirm** whether the in-world spelling is the classical *Aeterna* or the stylized *Aeterna*. The "8" after the motto on ring 01 is unexplained (user-confirm).
 - **Regalia language:** crowns, orb scepters (elder pair), crescent scepter (young king; ties to the moon/Venus symbol), ermine cloaks, floating-rock "sky throne" settings. Same palette as above, with magenta stones set in gold.
 - **Rings as equippable items:** both rings are in-game `ring`-slot items, stubbed in `data/items/regalia.json` (placeholder names and zeroed stats). Planned hooks: affinity bonuses to fire/order (GRINDING_PROGRESSION gems), a cosmetic glow, and royal-rank gating. They're **cosmetic/gameplay only, never real-money items** (see ECONOMY_BANKING.md).
 
@@ -54,7 +54,7 @@ All items are cosmetic only. Entries are in `data/items/wardrobe.json`.
 | 03 | `03_foxy_embroidered_boots_and_booties.png` | Thigh-high embroidered boots + booties | `foxy_embroidered_boots` (wardrobe, 2 variants) |
 | 04 | `04_royal_vehicle_black_suv_gold_filigree.png` | Black SUV, gold filigree, magenta glow, orb emblem | `royal_suv` (vehicles.json) |
 | 05 | `05_monarch_throne_black_gold_eagles.png` | Black/gold throne, eagles, orb crown | `monarch_throne` (furniture.json) |
-| 06 | `06_foxy_consort_throne_magenta_crescent.png` | Magenta throne, crescent/star crest, "FLAMMA. ORDO. ATERNA" | `foxy_consort_throne` (furniture.json) |
+| 06 | `06_foxy_consort_throne_magenta_crescent.png` | Magenta throne, crescent/star crest, "FLAMMA. ORDO. AETERNA" | `foxy_consort_throne` (furniture.json) |
 
 Source files are the user's uploads (hash-named originals) in the bot attachments folder. Notes on rights and licensing are pending Law Bot review before any public release.
 
@@ -83,3 +83,25 @@ Rules: platinum trim runs alongside gold (gold = primary metal, platinum = secon
 - One shared `ShaderMaterial` (`shaders/glitter_sparkle.gdshader`, stub): noise-texture flakes thresholded by `sparkle_density`, per-flake twinkle phase over `TIME`, view-dependent glint, emission in platinum/gold.
 - Voxel variant: same shader with `use_triplanar = true` (world-space sampling) for VoxelTerrain/blocks, lower density and emission.
 - Mobile budget: "Sparkle FX" toggle; low preset turns off emission. See `resources/README_glitter_materials.md`.
+
+## Batch 06: Royal Attire, Armory & Signet (`assets/concept_art/batch_06/`)
+Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette v2, cosmetic/gameplay only.
+
+| File | Item | Owner | Data | Notes |
+|---|---|---|---|---|
+| 01_foxy_white_coronation_gown.png | `foxy_white_coronation_gown` | foxy_ani | wardrobe.json | White coronation gown. |
+| 02_monarch_white_regalia_orb_scepter.png | `monarch_white_regalia` | player (Anterranian Monarch) | wardrobe.json | White royal regalia with orb scepter. |
+| 03_monarch_white_formal_suit.png | `monarch_white_formal_suit` | player (Anterranian Monarch) | wardrobe.json | White formal suit. |
+| 04_foxy_ivory_gown_burgundy_cape.png | `foxy_ivory_gown_burgundy_cape` | foxy_ani | wardrobe.json | Ivory gown with burgundy cape. |
+| 05_monarch_black_regalia_orb_scepter.png | `monarch_black_regalia` | player (Anterranian Monarch) | wardrobe.json | Black royal regalia with orb scepter. |
+| 06_royal_cosmic_katana.png | `royal_cosmic_katana` | player (Anterranian Monarch) | weapons.json | Katana with cosmic blade finish and scabbard. |
+| 07_royal_twin_sidearms_holster.png | `royal_twin_sidearms` | player (Anterranian Monarch) | weapons.json | Fictional in-game twin sidearms with jeweled holster belt. |
+| 08_royal_knight_armor_venus_mars.jpg | `royal_knight_armor` | player (Anterranian Monarch) | armor.json | Knight armor with Venus/Mars shield and sword. |
+| 09_royal_guard_officer_dress.jpg | `royal_guard_officer_dress` | royal_guard | armor.json | Officer dress uniform. |
+| 10_royal_guard_field_uniform.jpg | `royal_guard_field_uniform` | royal_guard | armor.json | Field uniform. |
+| 11_purple_royal_tactical_armor_beret.jpg | `purple_royal_tactical_armor` | royal_guard | armor.json | Purple tactical armor with beret. |
+| 12_cosmic_camo_combat_uniform.jpg | `cosmic_camo_combat_uniform` | royal_guard | armor.json | Cosmic camo combat uniform. |
+| 13_navy_hussar_ermine_cape.jpg | `navy_hussar_ceremonial` | royal_guard | armor.json | Navy hussar uniform with ermine cape. |
+| 14_gold_h_crest_signet_band.jpg | `gold_h_crest_signet_band` | player (Anterranian Monarch) | regalia.json | Wide gold band with H crest, inscribed 'FLAMMA. ORDO. AETERNA. 8'. |
+
+**Motto spelling canonical: "FLAMMA. ORDO. AETERNA."** (confirmed by the batch_06 signet band). Earlier 'Aterna' readings normalized.

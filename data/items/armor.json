@@ -1,0 +1,130 @@
+{
+  "_note": "SCAFFOLD. Cosmetic/gameplay only, never sold for real money. Combat: docs/modules/PHYSICS_RPG.md.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "royal_knight_armor",
+      "display_name": "Royal Knight Armor",
+      "owner": "player (Anterranian Monarch)",
+      "category": "heavy",
+      "description": "Knight armor with Venus/Mars shield and sword.",
+      "concept_art": [
+        "assets/concept_art/batch_06/08_royal_knight_armor_venus_mars.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "includes": [
+        "shield_venus_mars",
+        "knight_sword"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "royal_guard_officer_dress",
+      "display_name": "Royal Guard Officer Dress Uniform",
+      "owner": "royal_guard",
+      "category": "ceremonial",
+      "description": "Officer dress uniform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/09_royal_guard_officer_dress.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "royal_guard_field_uniform",
+      "display_name": "Royal Guard Field Uniform",
+      "owner": "royal_guard",
+      "category": "light",
+      "description": "Field uniform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/10_royal_guard_field_uniform.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "purple_royal_tactical_armor",
+      "display_name": "Purple Royal Tactical Armor",
+      "owner": "royal_guard",
+      "category": "medium",
+      "description": "Purple tactical armor with beret.",
+      "concept_art": [
+        "assets/concept_art/batch_06/11_purple_royal_tactical_armor_beret.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "cosmic_camo_combat_uniform",
+      "display_name": "Cosmic Camo Royal Combat Uniform",
+      "owner": "royal_guard",
+      "category": "light",
+      "description": "Cosmic camo combat uniform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/12_cosmic_camo_combat_uniform.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "navy_hussar_ceremonial",
+      "display_name": "Navy Hussar Ceremonial Uniform",
+      "owner": "royal_guard",
+      "category": "ceremonial",
+      "description": "Navy hussar uniform with ermine cape.",
+      "concept_art": [
+        "assets/concept_art/batch_06/13_navy_hussar_ermine_cape.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    }
+  ]
+}

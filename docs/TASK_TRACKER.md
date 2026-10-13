@@ -13,8 +13,8 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | 0.7 | 0 | Shared personas v2 (foxy_ani, circuit_nova, aaliyah) | ✅ |
 | 0.8 | 0 | Architecture, Android, roadmap, module docs | ✅ |
 | 0.9 | 0 | Push branch + open PR | ⏳ blocked: gh login |
-| 1.1 | 1 | Install godot_voxel GDExtension, open project, fix errors | ⏳ |
-| 1.2 | 1 | Build VoxelBlockyLibrary ids 0–9 | ⏳ |
+| 1.1 | 1 | Install godot_voxel GDExtension, open project, fix errors | ✅ |
+| 1.2 | 1 | Build VoxelBlockyLibrary ids 0–9 (scripts/main.gd, code-built) | ✅ |
 | 1.3 | 1 | Verify player movement + dig/place | ⏳ |
 | 2.1 | 2 | Chat UI → AIProvider → companion command() | ⏳ |
 | 2.2a | 0 | Merge v1/v2 personas into short ids; Foxy Ani lead | ✅ |
@@ -31,7 +31,7 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | 7.x | 7 | DNA genetics | 🧊 |
 | 8.x | 8 | Star map, city building, economy | 🧊 |
 | 9.x | 9 | Cloud AI providers, social hooks, scripting | 🧊 |
-| PRI-1 | 1 | Verify scaffold in voxel-enabled Godot | ⛔ blocked: needs Godot + godot_voxel install |
+| PRI-1 | 1 | Verify scaffold in voxel-enabled Godot | ✅ headless (Godot 4.7.2 + voxel 1.7x): import clean, both scenes run 600 frames, bodies land, companion build cmd ok. Not yet verified: rendering/visuals, touch input, Android device |
 | PRI-5 | 0 | Future systems notes (docs/modules) | ✅ |
 | PRI-6 | 0 | Android export pipeline plan (ANDROID_EXPORT.md) | ✅ |
 | PRI-7 | 0 | Social hooks design (SOCIAL_HOOKS.md) | ✅ |

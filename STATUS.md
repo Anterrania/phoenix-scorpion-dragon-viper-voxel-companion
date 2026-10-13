@@ -21,6 +21,9 @@
 - PLATFORMS_TESTING.md: web threading/COOP-COEP problem, workarounds, voxel-on-web risk + fallback.
 - Blocker for Dev Bot: project.godot still declares Godot 4.3, but the extension needs 4.5+.
 
+## Added 2026-10-13 (midday)
+- Concept art batch_01 (6 images) + docs/ART_BIBLE.md; new omni-worker utility companion (schema v3, registered). Images 02–05 are unassigned, awaiting user naming.
+
 ## Next
 1. Open in Godot 4 with godot_voxel and fix any parse errors.
 2. Register PersonaRegistry as an autoload.

@@ -41,6 +41,10 @@
     "economy-advisor": {
       "dir": "economy_advisor",
       "role": "Finance / economy advisor (in-game)"
+    },
+    "omni-worker": {
+      "dir": "omni_worker",
+      "role": "utility companion"
     }
   }
 }

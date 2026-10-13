@@ -94,3 +94,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - The gallery screenshots are thumbnails. Please send full-size images of the new items: the crowns collection, jewelry set (earrings, necklaces, ring sets), handbag, wallet and belt, plus any new SCDI starships and command bridges.
 - Should the crowned Venus emblem be the game crest or the Venusian Music logo? And the sigil-ring orrery the loading screen or the map icon?
 - Approve or rename the new stubs "Saint-Queen Aurelith" (white crowned figure) and "Abbess Morwenna Vey" (ossuary nun, mature/gated)?
+
+## Batch t32ua12
+- The four Ani stage videos share one black-haired Ani look with title cards **"Shake Your Heart" / "Morning Star" / "Be the One"**. Linked to **Foxy Ani** as a black-hair stage/idol form. Is "Morning Star" just the song title (Venusian Music), or should this look move to the separate companion **Morning Star**?
+- Approve or rename the new stub **"Lyra Fellwyn"** (black fedora + white feather gown dancer)?
+- One video (e49a2f62) was skipped as a real-person likeness in lingerie — if you want that vibe as an OC, describe an original face/outfit and I'll write a sheet.

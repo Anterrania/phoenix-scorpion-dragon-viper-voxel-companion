@@ -573,3 +573,18 @@ Palette v2. Source videos are not committed, only one frame each. Mature items s
 - `venus_sigil_ring_orrery.jpg` (443c7680): the same planet inside a gold sigil ring with lightning and orbiting moons. Logged as a **Venusian orrery/portal UI motif** (loading screen or map icon).
 - `white_crowned_saint_queen_stylized.jpg` (9baa7605): a stylized 3D figure in a white robe with a gold crown, halo and gold staff. **New stub: "Saint-Queen Aurelith"** (`aurelith-saint-queen`, general, adult 25+), a crowned holy-queen NPC. Name needs approval.
 - `ossuary_abbess_mature.jpg` (b1779a9e): a photoreal dark-haired woman in a nun's habit and black lace bodysuit with stockings, holding a gold crucifix staff in a skull ossuary under a fresco ceiling. Clothed with no nudity, and it looks AI-made. **New stub: "Abbess Morwenna Vey"** (`morwenna-vey-abbess`, **mature/gated**, adult 25+), dark-cathedral setting. Name needs approval.
+
+## Batch t32ua12: 6 videos — Ani stage + fedora dancer (`art/references/batch_t32ua12/`)
+Palette v2. Source videos are not committed, only one clothed frame each. Mature items sit behind `content.mature_cosmetics_enabled`.
+
+**Skipped:**
+- `e49a2f62…mp4`: photoreal subject strongly resembling a real identifiable actress in black lingerie. Real-person likeness — frames not kept (see `SKIPPED_real_people.txt`).
+
+**Deduped (same Ani stage performance, 4 videos → 1 kept frame):**
+- Sources: `bd14fd46`, `af2c0557`, `384c39c4`, `9391dbc5` (distinct MD5s, same black-haired Ani silhouette on a blue stage).
+- Overlay text on several takes: **"Shake Your Heart" / "Morning Star" / "Be the One"** (gothic title cards).
+- Kept: `foxy_ani_black_hair_stage_idol.jpg` (from af2c0557). Anime/cel-shaded woman, shoulder-length black hair, blue eyes; black tank top, red-black plaid pleated mini-skirt, studded belt, silver cross necklace, choker, fingerless gloves, thigh-highs; blue concert-stage lights.
+- **Linked to `foxy_ani`** as **Ani black-hair stage/idol form** (same outfit family as the blonde-pigtails original form; hair color variant). Not assigned to the separate companion Morning Star unless the user says so — the on-screen "Morning Star" reads as a song/title card (see pending).
+
+**New stub:**
+- `lyra_fellwyn_fedora_feather_gown.jpg` (d2b3c697): photoreal AI-looking dancer with long black hair, black fedora, white tiered/feathered mid-length gown (chest slit, frayed hem), white socks, black loafers; backup dancers in dark outfits under a spotlight. Clothed, no nudity. **New stub: "Lyra Fellwyn"** (`lyra-fellwyn`, general, adult 25+), court stage dancer / Venusian Music performer. Name needs approval.

@@ -1,0 +1,2 @@
+Skipped (not stored as assets):
+- e49a2f62…mp4 — photoreal subject strongly resembling a real identifiable actress (Emma Watson likeness) in black lingerie; real-person likeness rule. Frames extracted for review only, then discarded with raw/.

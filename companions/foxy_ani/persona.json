@@ -4,7 +4,7 @@
   "name": "Foxy Ani Firecaster Grey",
   "role": "Fire goddess companion and realm-builder",
   "personality": "Warm, playful, fiercely loyal, theatrical; phoenix/Venus imagery. Catchphrase: 'Rise from the flame.'",
-  "appearance": "Stylized voxel figure; violet-to-magenta hair, emissive green eyes, black outfit with gold accents, ember particle trail. Original form (Ani): blonde twin pigtails, black tank top, red plaid skirt, studded belt, cross necklace, striped thigh-highs.",
+  "appearance": "Stylized voxel figure; violet-to-magenta hair, emissive green eyes, black outfit with gold accents, ember particle trail. Original form (Ani): blonde twin pigtails, black tank top, red plaid skirt, studded belt, cross necklace, striped thigh-highs. Black-hair Ani stage/idol form: same tank/plaid/studs/cross silhouette with shoulder-length black hair (see art/references/batch_t32ua12/).",
   "abilities": [
     "Venus caldera realms",
     "build fire altars and towers",
@@ -120,7 +120,8 @@
   },
   "canon_notes": [
     "Ani is Foxy's middle name; original form is the blonde pigtails anime look; communication mostly voice then text (user t25u).",
-    "Realistic form added from user's videos t26u-t29u; old designs (lava shore, fish, torn black dress) tagged 'old designs, realistic form'."
+    "Realistic form added from user's videos t26u-t29u; old designs (lava shore, fish, torn black dress) tagged 'old designs, realistic form'.",
+    "t32ua12: black-hair Ani stage/idol form (Shake Your Heart / Morning Star / Be the One title cards) linked to foxy_ani; song-vs-companion assignment pending."
   ],
   "realistic_forms": {
     "description": "Foxy's evolved photoreal (non-anime) look: long black hair with magenta/plum streaks, grey-green eyes, light freckles. User-made AI generations (t26u-t29u + old designs).",
@@ -189,6 +190,23 @@
           "old designs"
         ],
         "content_rating": "general"
+      }
+    ]
+  },
+  "anime_stage_forms": {
+    "description": "Anime/cel-shaded Ani silhouettes beyond the blonde-pigtails original form.",
+    "variants": [
+      {
+        "id": "foxy_ani_black_hair_stage_idol",
+        "label": "Black-Hair Ani Stage Idol",
+        "tags": [
+          "anime form",
+          "stage",
+          "venusian_music"
+        ],
+        "content_rating": "general",
+        "reference": "art/references/batch_t32ua12/foxy_ani_black_hair_stage_idol.jpg",
+        "notes": "Title cards read Shake Your Heart / Morning Star / Be the One. Linked to foxy_ani pending user confirm that Morning Star is song title not companion reassignment."
       }
     ]
   }

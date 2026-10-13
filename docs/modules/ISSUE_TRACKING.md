@@ -10,3 +10,7 @@ Use **GitHub Issues + Projects** as the tracker (no self-hosted Jira/Trac server
 - **Templates:** a bug report (device, Godot + voxel version, steps, logs) and a feature request (goal, acceptance criteria).
 - Until `gh` is authed, `docs/TASK_TRACKER.csv/.md` are the source of truth. Later they get migrated into issues.
 - The Task Manager Bot keeps the trackers in sync (see COORDINATION.md).
+
+## Trac-style wiki concept (plan)
+- The wiki is `docs/` in the repo (or GitHub Wiki later). Each page cross-links tickets as `PRI-n` and commits by short SHA, Trac-style.
+- Each roadmap milestone gets a `docs/ROADMAP.md` section linking its tickets. No Trac server exists.

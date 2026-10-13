@@ -99,3 +99,12 @@
 - New companion **Nyra Coil** (field courier / royal technician) + jumpsuit wardrobe
 - **Ledger Vale** (`economy_advisor`) chancellor officer coat with gold ledger box (wardrobe); persona appearance/role updated
 - Palette v2 on all new items; not pushed (waiting on GitHub sign-in)
+
+## Batch 15 (chancellor formal, jeweled boots, flagship, throne variants) - done locally
+- 6 of 6 images kept in assets/concept_art/batch_15/ (no exact duplicates vs batch_04/05/13/14)
+- Ledger Vale chancellor formal sash+medallion variant (wardrobe); same treasurer as batch_14
+- Foxy jeweled thigh boots + ankle booties variant of `foxy_embroidered_boots`
+- New space vehicle `royal_flagship_starfighter` (vehicles.json) linked to STAR_MAP.md
+- Throne variants: Monarch black-tufted; Foxy consort (ATERNA art vs AETERNA official); Solarian heir confirms SEMI-DIVUS
+- Lumira SEMI DEIVA still pending; palette v2 on all; not pushed (waiting on GitHub sign-in)
+

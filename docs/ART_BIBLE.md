@@ -214,3 +214,21 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 **New companion:** **Nyra Coil** (`nyra-coil`) — field courier / royal technician, schema v3, registered. Name assigned by Foxy; user may rename.
 
 **Ledger Vale link:** batch_14/03 mapped to existing **economy_advisor** (Ledger Vale) as chancellor/treasurer wardrobe (not a new companion); persona appearance + role label updated.
+
+## Batch 15: Chancellor Formal, Jeweled Boots, Flagship Fighter & Throne Variants (`assets/concept_art/batch_15/`)
+6 images received, **6 kept**, 0 exact duplicates skipped. Palette v2 (black / magenta / gold / platinum + glitter). Checked against batch_04 heels/boots/thrones, batch_05 heir thrones, batch_13 heels/SUV, batch_14 chancellor coat — all distinct hashes / variant presentations.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_ledger_vale_chancellor_formal_sash_medallion.jpg` | variant `batch_15_formal_sash_medallion` of `ledger_vale_chancellor_officer_coat` | **economy_advisor** (Ledger Vale); also Monarch | wardrobe.json | Same treasurer/chancellor as batch_14/03; formal diagonal sash + shoulder medallion + hip ledger pouch |
+| `02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg` | variant `batch_15_jeweled_cosmic` of `foxy_embroidered_boots` | **foxy_ani** | wardrobe.json | Thigh-high + ankle booties sheet; jeweled cosmic pedestals. Same family as batch_04/03 (not heels) |
+| `03_royal_flagship_starfighter_phoenix_filigree.png` | `royal_flagship_starfighter` | player (Anterranian Monarch) | vehicles.json (`type: space`) | Black/magenta starfighter, gold filigree, phoenix decals, magenta energy aura; **star_map** flagship_fighter |
+| `04_monarch_throne_black_tufted_eagles_ringed_orb.jpg` | variant of `monarch_throne` | player (Anterranian Monarch) | furniture.json | Black tufted back, magenta seat, twin eagles, ringed orb + crescent — Monarch throne variant (≠ batch_04 exact) |
+| `05_foxy_consort_throne_aterna_plaque_variant.jpg` | variant of `foxy_consort_throne` | **foxy_ani** | furniture.json | Oval ringed gem, crescent+sun, eagles; plaque art reads **ATERNA** (missing E). Official motto **AETERNA** |
+| `06_heir_throne_solarian_semi_divus_magenta_wings.jpg` | variant of `heir_throne_solarian` | **prince_regent_solarian** | furniture.json | Magenta seat, black wings, crescent-tree crest; banner **POTENTIA HERES SEMI-DIVUS** — **confirms prince heir text**; Lumira SEMI DEIVA still open |
+
+**Resolved / noted:**
+- Prince heir banner text recorded as **SEMI-DIVUS** (batch_15/06 confirms batch_05 Solarian reading).
+- Consort throne art discrepancy: **ATERNA** in image vs canonical **AETERNA**.
+- Lumira sash **SEMI DEIVA** remains user-pending.
+

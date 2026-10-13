@@ -1,0 +1,15 @@
+Batch 15: 6 attachments received, 6 kept. No exact duplicates.
+
+Checked hashes against:
+- batch_04 heels / embroidered boots / monarch throne / consort throne
+- batch_05 Solarian + Lumira heir thrones
+- batch_13 cosmic heels + SUV
+- batch_14 chancellor officer coat
+
+All six are distinct files / variant presentations (not byte-identical). Kept:
+- 01 chancellor formal sash (variant of batch_14 chancellor)
+- 02 jeweled thigh boots + booties (variant of batch_04 embroidered boots)
+- 03 royal flagship starfighter (new space vehicle)
+- 04 monarch throne black-tufted (variant of batch_04 monarch)
+- 05 consort throne ATERNA plaque (variant of batch_04 consort; art spelling discrepancy noted)
+- 06 Solarian heir SEMI-DIVUS magenta wings (variant of batch_05 Solarian; confirms SEMI-DIVUS)

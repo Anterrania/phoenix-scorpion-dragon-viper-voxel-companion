@@ -201,19 +201,34 @@
       "owner": "foxy_ani",
       "slot": "feet",
       "cosmetic_only": true,
-      "description": "Embroidered footwear, two variants from one concept sheet.",
+      "description": "Embroidered footwear: thigh-high boots + ankle booties. Batch_04 classic embroidery sheet; batch_15 jeweled cosmic-pedestal variant (heavier gold filigree, magenta gems, pearl ankle chains on booties).",
       "variants": [
         {
           "id": "thigh_high",
-          "label": "Thigh-high boots"
+          "label": "Thigh-high boots",
+          "concept_art_sheets": [
+            "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png",
+            "assets/concept_art/batch_15/02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg"
+          ]
         },
         {
           "id": "booties",
-          "label": "Booties"
+          "label": "Ankle booties",
+          "concept_art_sheets": [
+            "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png",
+            "assets/concept_art/batch_15/02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg"
+          ]
+        },
+        {
+          "id": "batch_15_jeweled_cosmic",
+          "label": "Jeweled cosmic-pedestal sheet (thigh-high + ankle booties; batch_15)",
+          "concept_art": "assets/concept_art/batch_15/02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg",
+          "notes": "Same black/gold/magenta embroidered footwear family as batch_04/03; not exact duplicate of heels (batch_04/13) or classic boots sheet."
         }
       ],
       "concept_art": [
-        "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png"
+        "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png",
+        "assets/concept_art/batch_15/02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -221,7 +236,8 @@
       "accents": [
         "platinum",
         "gold"
-      ]
+      ],
+      "notes": "batch_15/02 kept as jeweled variant of foxy_embroidered_boots (thigh-high + booties). Distinct from foxy_royal_heels."
     },
     {
       "id": "monarch_royal_jeans",
@@ -1006,9 +1022,10 @@
       ],
       "category": "court_attire",
       "slot": "outfit",
-      "description": "Long black officer coat with gold floral embroidery and magenta lining, high-collar double-breasted tunic, magenta crossed sash (X), wide gold crest belt, gold ledger box/satchel at hip, black gloves and tall boots. Royal chancellor / treasurer formal for Ledger Vale (economy_advisor).",
+      "description": "Long black officer coat with gold floral embroidery and magenta lining; batch_14 crossed-sash + gold ledger box; batch_15 formal diagonal sash + shoulder medallion + hip ledger pouch. Royal chancellor / treasurer for Ledger Vale (economy_advisor).",
       "concept_art": [
-        "assets/concept_art/batch_14/03_ledger_vale_chancellor_officer_coat.jpg"
+        "assets/concept_art/batch_14/03_ledger_vale_chancellor_officer_coat.jpg",
+        "assets/concept_art/batch_15/01_ledger_vale_chancellor_formal_sash_medallion.jpg"
       ],
       "linked_role": "royal_chancellor_treasurer",
       "palette_version": 2,
@@ -1020,7 +1037,15 @@
       "cosmetic_only": true,
       "cosmetic_gameplay_only": true,
       "real_money": false,
-      "status": "stub"
+      "status": "stub",
+      "variants": [
+        {
+          "id": "batch_15_formal_sash_medallion",
+          "label": "Formal diagonal magenta sash, gold shoulder medallion, hip ledger pouch (batch_15)",
+          "concept_art": "assets/concept_art/batch_15/01_ledger_vale_chancellor_formal_sash_medallion.jpg",
+          "notes": "Same chancellor/treasurer as batch_14/03; formal cosmic-backdrop variant, not a new companion."
+        }
+      ]
     },
     {
       "id": "nyxara_voltweave_circuit_bodysuit",

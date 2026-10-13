@@ -46,6 +46,41 @@
         }
       ],
       "notes": "batch_13/06 kept as cosmic_hover variant of royal_suv (same vehicle family as batch_04)."
+    },
+    {
+      "id": "royal_flagship_starfighter",
+      "display_name": "Royal Flagship Starfighter",
+      "owner": "player (Anterranian Monarch)",
+      "type": "space",
+      "node": "VehicleBody3D",
+      "seats": 2,
+      "description": "Black/magenta starfighter with gold filigree, phoenix wing decals, and magenta energy aura. Royal flagship fighter for star-map travel between realms.",
+      "physics": {
+        "mass_kg": 1800,
+        "thrust": 0,
+        "max_speed": 0,
+        "atmosphere_capable": true,
+        "space_capable": true
+      },
+      "fx": [
+        "magenta_energy_aura",
+        "phoenix_decal_emissive",
+        "gold_filigree_glitter"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_15/03_royal_flagship_starfighter_phoenix_filigree.png"
+      ],
+      "star_map_module": "docs/modules/STAR_MAP.md",
+      "star_map_role": "flagship_fighter",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

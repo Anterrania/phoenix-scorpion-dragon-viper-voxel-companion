@@ -9,3 +9,6 @@
 - Later: ships as buildable voxel structures (Dual Universe-style), and quantum-travel-like transitions.
 
 - Companion hooks (scaffold): **Celestia Nyx** (star-map keeper / lore) paired with **Azura Stellaris** (navigator / route plotting; concept art `assets/concept_art/batch_13/02_azura_stellaris_star_chart_robe.jpg`).
+
+- Vehicle hook (scaffold): **Royal Flagship Starfighter** (`royal_flagship_starfighter` in `data/items/vehicles.json`; concept art `assets/concept_art/batch_15/03_royal_flagship_starfighter_phoenix_filigree.png`) — space-type fighter for star-map realm travel (flagship_fighter role).
+

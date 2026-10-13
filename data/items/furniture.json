@@ -14,9 +14,10 @@
         3
       ],
       "sit_point": true,
-      "description": "Black and gold throne with eagles and an orb crown.",
+      "description": "Black and gold throne with eagles and an orb crown; batch_15 adds black-tufted back, magenta seat, twin eagles, ringed-orb crest with crescent.",
       "concept_art": [
-        "assets/concept_art/batch_04_royal_assets/05_monarch_throne_black_gold_eagles.png"
+        "assets/concept_art/batch_04_royal_assets/05_monarch_throne_black_gold_eagles.png",
+        "assets/concept_art/batch_15/04_monarch_throne_black_tufted_eagles_ringed_orb.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -24,6 +25,14 @@
       "accents": [
         "platinum",
         "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_15_black_tufted_ringed_orb",
+          "label": "Black tufted back, magenta seat, twin eagles, ringed orb + crescent crest (batch_15)",
+          "concept_art": "assets/concept_art/batch_15/04_monarch_throne_black_tufted_eagles_ringed_orb.jpg",
+          "notes": "Monarch throne variant; same eagle / orb / crescent family as batch_04; not an exact duplicate."
+        }
       ]
     },
     {
@@ -38,10 +47,11 @@
         3
       ],
       "sit_point": true,
-      "description": "Magenta throne with a crescent/star crest, inscribed 'FLAMMA. ORDO. AETERNA'.",
+      "description": "Magenta throne with crescent/star crest; official inscription 'FLAMMA. ORDO. AETERNA'. Batch_15 plaque art reads 'ATERNA' (missing E) \u2014 discrepancy recorded.",
       "inscription": "FLAMMA. ORDO. AETERNA",
       "concept_art": [
-        "assets/concept_art/batch_04_royal_assets/06_foxy_consort_throne_magenta_crescent.png"
+        "assets/concept_art/batch_04_royal_assets/06_foxy_consort_throne_magenta_crescent.png",
+        "assets/concept_art/batch_15/05_foxy_consort_throne_aterna_plaque_variant.jpg"
       ],
       "status": "stub",
       "palette_version": 2,
@@ -49,6 +59,20 @@
       "accents": [
         "platinum",
         "gold"
+      ],
+      "inscription_art_discrepancy": {
+        "art_reads": "FLAMMA. ORDO. ATERNA",
+        "official": "FLAMMA. ORDO. AETERNA",
+        "source": "assets/concept_art/batch_15/05_foxy_consort_throne_aterna_plaque_variant.jpg",
+        "note": "Concept art plaque omits the E in AETERNA; canonical spelling remains AETERNA (batch_06 signet)."
+      },
+      "variants": [
+        {
+          "id": "batch_15_aterna_plaque",
+          "label": "Oval ringed gem, crescent+sun crest, eagles; plaque art reads ATERNA (batch_15)",
+          "concept_art": "assets/concept_art/batch_15/05_foxy_consort_throne_aterna_plaque_variant.jpg",
+          "notes": "Consort/Foxy throne variant. Art plaque spells ATERNA; official motto AETERNA."
+        }
       ]
     },
     {
@@ -63,17 +87,27 @@
         3
       ],
       "sit_point": true,
-      "description": "Black and gold throne, magenta tufted seat, eagle wings, crescent crest.",
+      "description": "Black and gold throne, magenta tufted seat, eagle wings, crescent crest; batch_15 magenta-winged variant confirms banner 'POTENTIA HERES SEMI-DIVUS'.",
       "inscription": "POTENTIA HERES SEMI-DIVUS (Power, Heir, Demigod)",
       "inscription_user_confirm": false,
       "concept_art": [
-        "assets/concept_art/batch_05/01_heir_throne_solarian_black_gold.png"
+        "assets/concept_art/batch_05/01_heir_throne_solarian_black_gold.png",
+        "assets/concept_art/batch_15/06_heir_throne_solarian_semi_divus_magenta_wings.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
       "accents": [
         "platinum",
         "gold"
+      ],
+      "inscription_confirmed_by": "batch_15/06 banner clearly reads SEMI-DIVUS",
+      "variants": [
+        {
+          "id": "batch_15_magenta_wings_semi_divus",
+          "label": "Magenta tufted seat, black wings, crescent-tree crest; banner POTENTIA HERES SEMI-DIVUS (batch_15)",
+          "concept_art": "assets/concept_art/batch_15/06_heir_throne_solarian_semi_divus_magenta_wings.jpg",
+          "notes": "Confirms prince heir throne text as SEMI-DIVUS. Lumira SEMI DEIVA still pending user confirm."
+        }
       ]
     },
     {
@@ -99,7 +133,8 @@
       "accents": [
         "platinum",
         "gold"
-      ]
+      ],
+      "inscription_note": "Still pending user confirmation (SEMI DEIVA). Batch_15/06 confirmed SEMI-DIVUS for Solarian only; does not resolve Lumira."
     }
   ]
 }

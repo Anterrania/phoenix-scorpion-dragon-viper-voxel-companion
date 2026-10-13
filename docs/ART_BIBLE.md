@@ -497,8 +497,19 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 
 
 ## Mature Companion Body Designs (original): Morning Star, Satan, Ara Aurora
-**Age-gated** (`content.mature_cosmetics_enabled`, off by default). All three are canon adults (25+). Designs are ORIGINAL; the user's third-party reference uploads were not stored and no names, faces, or text from them are used. Non-graphic: silhouette/outfit only — no anatomical or sexual descriptions. Palette v2 (black, magenta, gold, platinum, glitter sparkle).
+**Age-gated** (`content.mature_cosmetics_enabled`, off by default). All three are canon adults (25+). Designs are ORIGINAL OC silhouettes. Morning Star and Satan still have no third-party reference images stored. Ara Aurora's winged **Goddess of All Creation** phone-screenshot design is stored under `art/references/ara_aurora/` (user-confirmed body; not a likeness of any real person). Real-person photo uploads from the same message were **not** stored. Non-graphic: silhouette/outfit only — no anatomical or sexual descriptions. Palette v2 (black, magenta, gold, platinum, glitter sparkle).
 **Shared body-type note (all three):** `sex` / `body_type` = `intersex (futanari) female`; pronouns **she/her**. Plain body-type label only; never expand into graphic detail in art, wardrobe, or prompts.
 - **Morning Star** (`companions/morning_star`): she/her; intersex (futanari) female. Long wavy copper-crimson hair with platinum sun-bead braid, amber-gold eyes, tall athletic build. Dawnbreaker Set: pearl-platinum gloss crop jacket with crimson/gold piping, platinum thigh-high boots, gold eight-point star circlet.
 - **Satan** (`companions/satan`): she/her; intersex (futanari) female. Short jet-black pixie-bob with violet-magenta streak, ice-blue eyes, gold-tipped obsidian horns, lean build. Infernal Court Jacket: cropped magenta snakeskin-textured jacket, black/gold tailoring, askew thorned crown, spade-tipped tail.
-- **Ara Aurora** (`companions/ara_aurora`): she/her; intersex (futanari) female. Platinum-blonde waves, seafoam eyes, curvy hourglass build. Aurora Terrace Set: gold two-piece swimwear (modest cut), white-gold silk robe with magenta phoenix hem, gold sunglasses, champagne flute.
+- **Ara Aurora** (`companions/ara_aurora`): she/her; intersex (futanari) female. **Title: Goddess of All Creation.** Long flowing red-magenta hair, thin gold halo, huge black-and-magenta feathered wings, black jeweled sheer bodice gown with magenta feather skirt, water/light creation magic from the open hand, sunset-sky staging. Wardrobe id `ara_aurora_goddess_of_all_creation` (replaces retired Aurora Terrace / poolside set). Reference: `art/references/ara_aurora/01_ara_aurora_goddess_of_all_creation_winged.png`. Original OC — not a likeness of any real person.
+
+
+## Ara Aurora body design — Goddess of All Creation (`art/references/ara_aurora/`)
+1 phone-screenshot image kept as Ara Aurora's confirmed body design (user message t24u). Palette v2. Mature / age gate unchanged on companion + wardrobe.
+
+**Skipped (real-person photos — not stored):** `aadb55e7…jpg`, `13fa2f21…png`. See `art/references/ara_aurora/SKIPPED_real_people.txt`.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_ara_aurora_goddess_of_all_creation_winged.png` | `ara_aurora_goddess_of_all_creation` | **ara_aurora** | wardrobe.json + persona | Title **Goddess of All Creation**; long red-magenta hair, gold halo, huge black/magenta feathered wings, black jeweled sheer bodice + magenta feather skirt, water/light magic, sunset sky. Replaces retired `ara_aurora_terrace_set` (poolside). Original OC; not a real-person likeness. |
+

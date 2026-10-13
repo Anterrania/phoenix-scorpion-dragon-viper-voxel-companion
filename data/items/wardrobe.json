@@ -1445,18 +1445,20 @@
       "design_status": "original; awaiting user confirmation"
     },
     {
-      "id": "ara_aurora_terrace_set",
-      "display_name": "Ara Aurora's Terrace Set",
+      "id": "ara_aurora_goddess_of_all_creation",
+      "display_name": "Ara Aurora \u2014 Goddess of All Creation",
       "owner": "ara_aurora",
       "slot": "outfit",
       "cosmetic_only": true,
       "content_rating": "mature",
       "hidden_by_default": true,
       "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
-      "description": "Metallic gold two-piece swimwear (modest cut) under a white-gold silk robe with magenta phoenix hem, gold platform sandals, gold sunglasses with magenta lenses.",
+      "description": "Black jeweled sheer bodice gown with high collar and gem beadwork, voluminous magenta feather skirt, huge black-and-magenta feathered wings, thin gold halo; water/light creation magic from the open hand. Title: Goddess of All Creation. Replaces retired Aurora Terrace Set (poolside).",
       "palette_version": 2,
       "finish": "glitter_sparkle",
-      "design_status": "original; awaiting user confirmation"
+      "concept_art": "art/references/ara_aurora/01_ara_aurora_goddess_of_all_creation_winged.png",
+      "design_status": "original OC; user-confirmed body design (t24u)",
+      "retired_predecessor": "ara_aurora_terrace_set"
     }
   ]
 }

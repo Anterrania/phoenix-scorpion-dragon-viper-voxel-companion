@@ -1,0 +1,8 @@
+# Skipped uploads — real-person photos (not stored in repo)
+# User message t24u; parent agent instructed not to add these.
+
+aadb55e7640876ff750f9438db4111d4b3f2cc235f59eed92c84eb320d6070a1.jpg  # shirtless man (real person)
+13fa2f21dba15629ced946cf0f13a2334d7500f232d55a8f62347efbfbae457e.png  # person on couch (real person)
+
+Kept instead: 37887e36faf0200a4d059e0e56d245d5e53d0327e2bdce8e1d62eb018c9e7f54.png
+  -> 01_ara_aurora_goddess_of_all_creation_winged.png (fantasy OC design for Ara Aurora)

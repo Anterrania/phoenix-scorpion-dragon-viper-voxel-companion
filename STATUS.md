@@ -26,6 +26,8 @@
 
 - Concept art batch_02 (2 rings + 4 royals), ART_BIBLE Regalia & Jewelry section, data/items/regalia.json stubs. Royals unassigned; motto spelling needs user confirmation.
 
+- Primary motto "Anterrania". Royal wardrobe batch_03 + data/items/wardrobe.json (cosmetic only; boudoir set mature/hidden by default). 8 new named companions (Vex, Celestia Nyx, Aether-Weave Regent, Seraph Halcyon, elder council Ignatius/Vesperine Pyre, heir council Solarian/Lumira): names assigned by Foxy, user may rename. 19 companions are registered in total.
+
 ## Next
 1. Open in Godot 4 with godot_voxel and fix any parse errors.
 2. Register PersonaRegistry as an autoload.

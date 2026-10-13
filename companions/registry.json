@@ -45,6 +45,46 @@
     "omni-worker": {
       "dir": "omni_worker",
       "role": "utility companion"
+    },
+    "gemini-reaper-vex": {
+      "dir": "gemini_reaper_vex",
+      "role": "Guardian / combat companion",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "celestia-nyx": {
+      "dir": "celestia_nyx",
+      "role": "Astronomer / star-map keeper",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "aether-weave-regent": {
+      "dir": "aether_weave_regent",
+      "role": "Royal tailor / wardrobe keeper",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "seraph-halcyon": {
+      "dir": "seraph_halcyon",
+      "role": "Guardian / healer companion",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "king-ignatius-pyre": {
+      "dir": "king_ignatius_pyre",
+      "role": "Elder council (king)",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "queen-vesperine-pyre": {
+      "dir": "queen_vesperine_pyre",
+      "role": "Elder council (queen)",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "prince-regent-solarian": {
+      "dir": "prince_regent_solarian",
+      "role": "Heir council (prince regent)",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "princess-regent-lumira": {
+      "dir": "princess_regent_lumira",
+      "role": "Heir council (princess regent)",
+      "name_status": "assigned by Foxy, user may rename"
     }
   }
 }

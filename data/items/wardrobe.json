@@ -1332,6 +1332,36 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub"
+    },
+    {
+      "id": "monarch_phoenix_god_regalia",
+      "display_name": "Monarch Phoenix God Regalia",
+      "owner": "player (Anterranian Monarch)",
+      "category": "regalia_attire",
+      "slot": "outfit",
+      "description": "Crystal-crowned black/gold phoenix cloak with magenta flame shoulders, standing on a gold '8' floor seal in a crystal hall overlooking a city. Title noted in art as 'Phoenix God' / printed capitol banner 'PHOENIX GOD'. Links to the player Anterranian Monarch.",
+      "title_noted": "Phoenix God",
+      "concept_art": [
+        "assets/concept_art/batch_22/01_monarch_phoenix_god_regalia_crystal_hall.jpg"
+      ],
+      "related_furniture": [
+        "phoenix_wing_throne"
+      ],
+      "related_structure": "anterranian_capitol",
+      "recurring_symbols": [
+        "gold_8_floor_seal",
+        "phoenix"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Distinct from monarch_black_regalia / monarch_white_regalia. Gold '8' floor seal reinforces pending question on meaning of the '8'. Title 'Phoenix God' recorded pending user confirmation."
     }
   ]
 }

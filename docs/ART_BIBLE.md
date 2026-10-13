@@ -333,3 +333,18 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 **Printed → corrected:** FIRESTORME→Firestorm; PYRO-RESILENT→Pyro-Resilient; PARCHUTE→Parachute; BUNNGE→Bungee (printed strings kept for art fidelity).
 
 **Open confirmation (user):** What does **SCDI** stand for? (Still pending.) Missing suit cards **7, 9–13**. See `docs/PENDING_USER_QUESTIONS.md`.
+
+## Batch 22: Phoenix God Regalia, Wing Throne & Anterranian Capitol (`assets/concept_art/batch_22/`)
+6 images received, **3 kept**, **3 duplicates skipped** (Omni-Worker PNG + two PNG containers of keepers). Palette v2 (black / magenta / gold / platinum + glitter). All items are **game-only virtual** stubs.
+
+**Skipped:** `532b851…png` (Omni-Worker dup of batch_21/06); `9eb58ce3…png` (PNG of Phoenix God regalia); `d15aee7a…png` (PNG of wing-throne scene). See `SKIPPED_duplicates.txt`.
+
+**New catalog:** `data/items/structures.json` — landmark / capitol buildings.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_monarch_phoenix_god_regalia_crystal_hall.jpg` | `monarch_phoenix_god_regalia` | player (Anterranian Monarch) | wardrobe.json | Crystal crown, magenta flame shoulders, black/gold phoenix cloak; gold **'8' floor seal**; crystal hall city window. Title noted: **Phoenix God** |
+| `02_phoenix_wing_throne_throne_room_scene.jpg` | `phoenix_wing_throne` | player (Anterranian Monarch) | furniture.json | Winged phoenix throne on dais under golden phoenix sigil + constellation lines — throne room scene |
+| `03_anterranian_capitol_phoenix_god.jpg` | `anterranian_capitol` | player (Anterranian Monarch) | structures.json | Black domed capitol, phoenix pediment, gold **'8' banners**, landing pads, starships. Prints **PHOENIX GOD / ANTERRANIAN MONORCH** (sic MONARCH) |
+
+**Open confirmation (user):** Meaning of the **'8'** (now also floor seal + capitol banners). Title **Phoenix God** noted. Printed **MONORCH** → official **MONARCH**. See `docs/PENDING_USER_QUESTIONS.md`.

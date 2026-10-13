@@ -155,3 +155,11 @@
 - Card **14** Omni-Worker → `data/npcs.json` worker unit `scdi_omni_worker_unit` (not a new named companion); batch_01 `omni_worker` remains template
 - Extended `docs/modules/DEFENSE_PROJECTS.md`; **missing cards 7, 9–13** noted
 - Palette v2; all game-only virtual items; not pushed (waiting on GitHub sign-in)
+
+## Batch 22 (Phoenix God regalia, wing throne, Anterranian Capitol) - done locally
+- 3 of 6 images kept in assets/concept_art/batch_22/ (Omni-Worker PNG + 2 PNG containers skipped)
+- Wardrobe: `monarch_phoenix_god_regalia` (crystal crown, flame shoulders, phoenix cloak; gold '8' floor seal; title Phoenix God)
+- Furniture: `phoenix_wing_throne` + throne-room scene (distinct from eagle-orb monarch_throne)
+- New `data/items/structures.json`: landmark `anterranian_capitol` (prints PHOENIX GOD / ANTERRANIAN MONORCH [sic MONARCH])
+- Pending notes: '8' again (floor seal + capitol banners); Phoenix God title recorded
+- Palette v2; game-only; not pushed (waiting on GitHub sign-in)

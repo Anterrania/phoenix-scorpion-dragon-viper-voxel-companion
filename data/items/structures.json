@@ -1,0 +1,54 @@
+{
+  "_note": "SCAFFOLD. Landmark / buildable structures (city-scale). Placeable blueprints later via CITY_BUILDING.md. Cosmetic/gameplay only, never sold for real money.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "anterranian_capitol",
+      "display_name": "Anterranian Capitol",
+      "owner": "player (Anterranian Monarch)",
+      "category": "landmark",
+      "type": "capitol_building",
+      "placeable": true,
+      "description": "Black domed capitol with phoenix pediment, gold '8' banners, landing pads, and starships. Printed banner text: 'PHOENIX GOD / ANTERRANIAN MONORCH' (sic \u2014 art spells MONORCH; official title Anterranian Monarch).",
+      "printed_text": {
+        "line_1": "PHOENIX GOD",
+        "line_2": "ANTERRANIAN MONORCH",
+        "line_2_official": "ANTERRANIAN MONARCH",
+        "note": "Art prints MONORCH (missing A); canonical spelling is MONARCH."
+      },
+      "features": [
+        "black_dome",
+        "phoenix_pediment",
+        "gold_8_banners",
+        "landing_pads",
+        "starship_berths"
+      ],
+      "recurring_symbols": [
+        "gold_8",
+        "phoenix",
+        "phoenix_god_title"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_22/03_anterranian_capitol_phoenix_god.jpg"
+      ],
+      "related_wardrobe": [
+        "monarch_phoenix_god_regalia"
+      ],
+      "related_furniture": [
+        "phoenix_wing_throne",
+        "monarch_throne"
+      ],
+      "city_building_doc": "docs/modules/CITY_BUILDING.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Landmark catalog entry. Gold '8' banners reinforce pending question on meaning of the '8'. Title Phoenix God recorded."
+    }
+  ]
+}

@@ -8,3 +8,7 @@ SimCity / Sims build-buy inspired.
 - **Zoning (later):** residential, commercial and industrial zones in a realm, with simple sims of population, demand and power.
 - **Economy:** a soft currency (earned by quests, crafting and selling builds) and resource nodes (ore, ice, crystal, lava rock) per biome. Prices are balanced in GAME_BALANCE.md.
 - No real-money trading at launch. Any future monetization needs separate legal review.
+
+## Landmark stubs (batch_22)
+- Catalog: `data/items/structures.json`
+- **Anterranian Capitol** (`anterranian_capitol`) — black domed capitol with phoenix pediment, gold '8' banners, landing pads, starships. Printed art: `PHOENIX GOD / ANTERRANIAN MONORCH` (sic; official **MONARCH**). Cosmetically placeable later via build mode; no real-money.

@@ -153,6 +153,36 @@
           "notes": "Near-match JPG presentation of batch_05/02; kept as text-confirming variant. Largely resolves Lumira SEMI DEIVA question."
         }
       ]
+    },
+    {
+      "id": "phoenix_wing_throne",
+      "display_name": "Phoenix Wing Throne",
+      "owner": "player (Anterranian Monarch)",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        5,
+        6,
+        4
+      ],
+      "sit_point": true,
+      "description": "Winged phoenix throne on a raised dais under a golden phoenix sigil, constellation lines on the chamber walls. Scene shows the Monarch in Phoenix God regalia. Distinct from eagle-orb monarch_throne (batch_04/15).",
+      "concept_art": [
+        "assets/concept_art/batch_22/02_phoenix_wing_throne_throne_room_scene.jpg"
+      ],
+      "scene_notes": "Throne room scene concept: winged phoenix throne on dais, golden phoenix sigil above, constellation line decor. See docs/modules/THRONE_ROOM.md.",
+      "related_wardrobe": [
+        "monarch_phoenix_god_regalia"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

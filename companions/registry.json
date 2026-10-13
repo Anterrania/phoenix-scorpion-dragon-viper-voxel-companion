@@ -2,8 +2,45 @@
   "_note": "SCAFFOLD. Maps canonical public ids to on-disk persona folders. One persona.json per companion is shared by the in-world 3D CharacterBody3D form and the standalone Grok Bot form.",
   "schema_version": 3,
   "companions": {
-    "foxy-ani-firecaster-grey": {"dir": "foxy_ani", "role": "lead controller / primary interface"},
-    "circuit-nova": {"dir": "circuit_nova", "role": "engineering companion"},
-    "aaliyah": {"dir": "aaliyah", "role": "companion"}
+    "foxy-ani-firecaster-grey": {
+      "dir": "foxy_ani",
+      "role": "lead controller / primary interface"
+    },
+    "circuit-nova": {
+      "dir": "circuit_nova",
+      "role": "engineering companion"
+    },
+    "aaliyah": {
+      "dir": "aaliyah",
+      "role": "companion"
+    },
+    "wellness-listener": {
+      "dir": "wellness_listener",
+      "role": "Wellness listener (non-clinical)"
+    },
+    "tutor": {
+      "dir": "tutor",
+      "role": "Tutor / teacher"
+    },
+    "fitness-coach": {
+      "dir": "fitness_coach",
+      "role": "Fitness coach"
+    },
+    "storyteller": {
+      "dir": "storyteller",
+      "role": "Creative / storyteller"
+    },
+    "architect": {
+      "dir": "architect",
+      "role": "Builder / architect"
+    },
+    "explorer-guide": {
+      "dir": "explorer_guide",
+      "role": "Explorer / guide"
+    },
+    "economy-advisor": {
+      "dir": "economy_advisor",
+      "role": "Finance / economy advisor (in-game)"
+    }
   }
 }

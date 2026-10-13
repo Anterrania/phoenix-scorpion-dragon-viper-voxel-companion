@@ -1,0 +1,47 @@
+# DRAFT — Godot 4 export matrix. Manual trigger only; never run successfully yet.
+# Known gaps:
+#  - export_presets.cfg only has an "Android" preset; add Linux/Windows/macOS/Web/iOS presets.
+#  - Zylann godot_voxel needs a custom editor + matching templates (or the GDExtension build);
+#    replace GODOT_URL/TEMPLATES_URL accordingly.
+#  - Android needs a debug keystore (generated below) and the Android SDK; release signing via secrets later.
+name: export-draft
+on:
+  workflow_dispatch:
+env:
+  GODOT_VERSION: "4.3-stable"
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { preset: "Android", file: "phoenix-debug.apk" }
+          - { preset: "Linux",   file: "phoenix.x86_64" }
+          - { preset: "Windows", file: "phoenix.exe" }
+          - { preset: "macOS",   file: "phoenix-macos.zip" }
+          - { preset: "Web",     file: "web/index.html" }
+          - { preset: "iOS",     file: "ios/phoenix.xcodeproj" }  # project only; needs a Mac to sign
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot + templates (TODO: voxel-enabled build)
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip
+          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz
+          unzip -q Godot_*_linux.x86_64.zip && mv Godot_v*_linux.x86_64 godot
+          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION/-/.}
+          unzip -q Godot_*_export_templates.tpz -d /tmp/t && mv /tmp/t/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION/-/.}/
+      - name: Android SDK + debug keystore
+        if: matrix.preset == 'Android'
+        run: |
+          keytool -genkeypair -v -keystore debug.keystore -storepass android -alias androiddebugkey \
+            -keypass android -keyalg RSA -validity 10000 -dname "CN=Android Debug"
+          echo "TODO: set android_sdk_path / keystore in editor settings"
+      - name: Export
+        run: |
+          mkdir -p build/$(dirname "${{ matrix.file }}")
+          ./godot --headless --export-debug "${{ matrix.preset }}" "build/${{ matrix.file }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: phoenix-${{ matrix.preset }}
+          path: build/

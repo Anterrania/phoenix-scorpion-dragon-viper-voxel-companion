@@ -1,0 +1,12 @@
+# Batch 12 — skipped duplicates (already in batch_11)
+c413395d02765a203ac427dc058f6c53f3a35910a887b0e0821e52440feb966e.jpg
+  reason: identical to batch_11/03_foxy_boudoir_set_3_orb_ermine_cuffs.jpg (re-upload)
+b48620e41715d4db4fd5d10784ba2b5e43589d4eb746be60d05482c7363d5cab.jpg
+  reason: identical to batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg (re-upload)
+37cc1f01ac3ad0fd31dd4c4ba18aabc01006e245b76d18a2224c392e54bc420a.jpg
+  reason: identical to batch_11/05_foxy_sheer_orb_gown_ermine_robe.jpg (re-upload)
+
+# Kept (3 new)
+79f84e85… → 01_kael_emberbraid_court_coat_magenta_cape.jpg
+43b85e78… → 02_foxy_boudoir_set_4_purple_fur_lace.jpg
+b0a96499… → 03_household_court_aide_tunic_coat_magenta_trim.jpg

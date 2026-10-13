@@ -171,3 +171,14 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `05_foxy_sheer_orb_gown_ermine_robe.jpg` | `foxy_sheer_orb_gown_ermine_robe` | **foxy_ani** | wardrobe.json | **mature, hidden by default**; sheer black embroidered gown + ermine robe, orb jewels |
 
 **d05bcc status: RESOLVED** (2026-10-13). Ermine-collar boudoir image arrived in batch_11/04.
+
+## Batch 12: Court Coat, Boudoir IV & Court Aide (`assets/concept_art/batch_12/`)
+6 images received, **3 kept**, 3 duplicates skipped (re-uploads already in batch_11). Palette v2. Mature items age-gated.
+
+**Skipped:** `c413395d…`, `b48620e4…`, `37cc1f01…` — identical to batch_11/03–05 (boudoir orb set + sheer orb gown). See `SKIPPED_duplicates.txt`.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_kael_emberbraid_court_coat_magenta_cape.jpg` | `kael_emberbraid_court_coat_magenta_cape` | **kael_emberbraid** | wardrobe.json | Court formal: black gold-embroidered long coat, magenta cape, face paint retained |
+| `02_foxy_boudoir_set_4_purple_fur_lace.jpg` | `foxy_boudoir_set_4` | **foxy_ani** | wardrobe.json | **mature, hidden by default**; black lace/gold jewels + purple fur-trimmed lace robe |
+| `03_household_court_aide_tunic_coat_magenta_trim.jpg` | `household_court_aide_tunic_coat` | royal_household | armor.json (category `household`, non-combat) | Court aide/attendant tunic coat, magenta trim, gold sunburst buckle — **household uniform, not a new named companion** |

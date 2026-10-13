@@ -11,4 +11,6 @@ Saved unanswered items. Replay in full when the user asks for an update.
 8. **King holding orb scepter** (batch 07/08): treat as same elder as batch 02 unless told otherwise (already linked).
 9. **Kael Emberbraid** (batch 11 warrior envoy): name assigned by Foxy as Vesper Trail's envoy pair — rename if desired.
 
-When user says the final-upload cue, repeat batches 4–11 results + remaining open questions + GitHub sign-in reminder.
+10. **Court aide silhouette** (batch 12/03): catalogued as household uniform `household_court_aide_tunic_coat`, not a named companion. Name separately if desired.
+
+When user says the final-upload cue, repeat batches 4–12 results + remaining open questions + GitHub sign-in reminder.

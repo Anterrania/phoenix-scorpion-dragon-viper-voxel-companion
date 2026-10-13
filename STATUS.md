@@ -80,3 +80,8 @@
 - **d05bcc RESOLVED** via batch_11/04 ermine-collar image
 - Not pushed (waiting on GitHub sign-in)
 
+## Batch 12 (court coat, boudoir IV, court aide) - done locally
+- 3 of 6 images kept in assets/concept_art/batch_12/ (3 re-uploads of batch_11 boudoir/sheer gown skipped)
+- Kael Emberbraid court coat + magenta cape (wardrobe); Foxy boudoir set IV purple-fur lace (**mature/hidden**)
+- Household court aide tunic coat in armor.json (household uniform; short-haired attendant, not named as new companion)
+- Palette v2 on all new items; not pushed (waiting on GitHub sign-in)

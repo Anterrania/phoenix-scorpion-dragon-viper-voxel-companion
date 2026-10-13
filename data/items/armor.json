@@ -334,6 +334,30 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub"
+    },
+    {
+      "id": "household_court_aide_tunic_coat",
+      "display_name": "Household Court Aide Tunic Coat",
+      "owner": "royal_household",
+      "category": "household",
+      "combat": false,
+      "non_combat": true,
+      "description": "Black knee-length tunic coat with magenta piping on collar/opening/hem, gold filigree on shoulders/chest/cuffs, circular gold sunburst buckle, tall black boots. Court aide / attendant formal daywear (more ornate than the basic attendant tunic).",
+      "concept_art": [
+        "assets/concept_art/batch_12/03_household_court_aide_tunic_coat_magenta_trim.jpg"
+      ],
+      "related_to": "household_attendant_tunic",
+      "stats": null,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Catalogued as household uniform (not a new named companion). Short-haired court aide/attendant silhouette."
     }
   ]
 }

@@ -911,6 +911,55 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub"
+    },
+    {
+      "id": "kael_emberbraid_court_coat_magenta_cape",
+      "display_name": "Kael Emberbraid Court Coat (Magenta Cape)",
+      "owner": "kael_emberbraid",
+      "category": "court_attire",
+      "slot": "outfit",
+      "description": "Court formal for warrior envoy Kael Emberbraid: black long coat with gold floral-filigree embroidery, floor-length magenta cape with gold border, wide gold sunburst belt, tall black boots; red ceremonial face paint and braids retained from envoy looks.",
+      "concept_art": [
+        "assets/concept_art/batch_12/01_kael_emberbraid_court_coat_magenta_cape.jpg"
+      ],
+      "related_to": "kael_emberbraid_warrior_envoy_ceremonial_cape",
+      "envoy_pair_outfit": "vesper_trail_alaskan_biome_tribal_envoy",
+      "respect_note": "Original fictional design; court formalization of northern explorer/envoy silhouette; not a replica of any living culture's regalia.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_boudoir_set_4",
+      "display_name": "Foxy's Private Boudoir Set IV (Purple Fur Lace)",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "category": "royal_attire",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Black lace and gold jeweled lingerie with magenta gem centerpieces and gold body chains; sheer black lace robe with purple/black fur trim at collar and cuffs, gold clasps with hanging chains. Cosmic pedestal presentation.",
+      "concept_art": [
+        "assets/concept_art/batch_12/02_foxy_boudoir_set_4_purple_fur_lace.jpg"
+      ],
+      "related_to": "foxy_boudoir_set_2",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
     }
   ]
 }

@@ -17,6 +17,8 @@
 Add `VoxelStreamSQLite` (or `VoxelStreamRegionFiles`) at a `user://worlds/<realm>.sqlite` path. That saves only edited chunks, and the generator recreates everything else.
 
 ## Companion AI
+**Lead:** Foxy Ani is the primary controller. Group commands route through her, and she delegates to Circuit Nova and Aaliyah (persona `hierarchy` field). A future `CompanionCoordinator` autoload will dispatch per-companion `command()` calls.
+
 `CharacterBody3D` runs a state machine (IDLE/FOLLOW/BUILD/DIG). `command()` is the entry point for LLM tool calls. Each companion loads `companions/<id>/persona.json`.
 
 ## Dual in-world + Grok Bot persona

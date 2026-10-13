@@ -16,7 +16,8 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | 1.2 | 1 | Build VoxelBlockyLibrary ids 0–9 | ⏳ |
 | 1.3 | 1 | Verify player movement + dig/place | ⏳ |
 | 2.1 | 2 | Chat UI → AIProvider → companion command() | ⏳ |
-| 2.2 | 2 | Merge v1/v2 persona ids; memory save/load | ⏳ |
+| 2.2a | 0 | Merge v1/v2 personas into short ids; Foxy Ani lead | ✅ |
+| 2.2 | 2 | Memory save/load | ⏳ |
 | 2.3 | 2 | Companion pathing | ⏳ |
 | 3.1 | 3 | VoxelStreamSQLite per realm, save on pause | ⏳ |
 | 3.2 | 3 | Realm switcher + VoxelInstancer decor | ⏳ |

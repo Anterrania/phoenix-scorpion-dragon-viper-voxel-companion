@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1")
-persona_path = "res://companions/metallic_companion/persona.json"
+persona_path = "res://companions/circuit_nova/persona.json"
 body_color = Color(0.72, 0.78, 0.88, 1)
 accent_color = Color(0.2, 0.75, 1, 1)
 emissive = 1.2

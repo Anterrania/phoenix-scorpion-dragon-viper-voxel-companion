@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://scripts/world.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/companion_agent.tscn" id="3"]
-[ext_resource type="Resource" path="res://resources/characters/foxy_ani_firecaster_grey.tres" id="4"]
-[ext_resource type="Resource" path="res://resources/characters/metallic_companion.tres" id="5"]
-[ext_resource type="Resource" path="res://resources/characters/aaliyah_refined.tres" id="6"]
+[ext_resource type="Resource" path="res://resources/characters/foxy_ani.tres" id="4"]
+[ext_resource type="Resource" path="res://resources/characters/circuit_nova.tres" id="5"]
+[ext_resource type="Resource" path="res://resources/characters/aaliyah.tres" id="6"]
 [ext_resource type="Script" path="res://scripts/chat_ui.gd" id="7"]
 
 [sub_resource type="Environment" id="env"]

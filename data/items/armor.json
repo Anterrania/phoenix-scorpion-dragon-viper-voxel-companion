@@ -125,6 +125,159 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false
+    },
+    {
+      "id": "uniform_lumina_healers",
+      "display_name": "The Lumina Healers Uniform",
+      "owner": "lumina_healers",
+      "category": "order_uniform",
+      "description": "white and gold healer uniform, crest: golden chalice",
+      "concept_art": [
+        "assets/concept_art/batch_07/10_lumina_healers_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_seraphic_vanguard",
+      "display_name": "The Seraphic Vanguard Uniform",
+      "owner": "seraphic_vanguard",
+      "category": "order_uniform",
+      "description": "navy ermine-caped vanguard uniform, crest: winged crescent",
+      "concept_art": [
+        "assets/concept_art/batch_07/11_seraphic_vanguard_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_ethereal_sentinels",
+      "display_name": "The Ethereal Sentinels Uniform",
+      "owner": "ethereal_sentinels",
+      "category": "order_uniform",
+      "description": "crimson/navy knight uniform with glowing sword and shield, crest: lion",
+      "concept_art": [
+        "assets/concept_art/batch_07/12_ethereal_sentinels_uniform.jpg",
+        "assets/concept_art/batch_07/04_ethereal_sentinels_knight_sword_shield.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_scales",
+      "display_name": "Order of the Scales Uniform",
+      "owner": "order_of_the_scales",
+      "category": "order_uniform",
+      "description": "navy and gold magistrate uniform, crest: scales of justice",
+      "concept_art": [
+        "assets/concept_art/batch_07/06_order_of_the_scales_uniform.png"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_eye",
+      "display_name": "Order of the Eye Uniform",
+      "owner": "order_of_the_eye",
+      "category": "order_uniform",
+      "description": "navy intelligence uniform, crest: crowned eye",
+      "concept_art": [
+        "assets/concept_art/batch_07/07_order_of_the_eye_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_verdant_tree",
+      "display_name": "Order of the Verdant Tree Uniform",
+      "owner": "order_of_the_verdant_tree",
+      "category": "order_uniform",
+      "description": "green and gold warden uniform, crest: tree of life",
+      "concept_art": [
+        "assets/concept_art/batch_07/08_order_of_the_verdant_tree_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_hourglass",
+      "display_name": "Order of the Hourglass Uniform",
+      "owner": "order_of_the_hourglass",
+      "category": "order_uniform",
+      "description": "violet and gold chronicler uniform, crest: hourglass with serpent",
+      "concept_art": [
+        "assets/concept_art/batch_07/09_order_of_the_hourglass_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_trident",
+      "display_name": "Order of the Trident Uniform",
+      "owner": "order_of_the_trident",
+      "category": "order_uniform",
+      "description": "navy admiralty uniform, crest: crowned trident",
+      "concept_art": [
+        "assets/concept_art/batch_07/05_order_of_the_trident_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

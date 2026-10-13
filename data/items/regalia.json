@@ -77,6 +77,57 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false
+    },
+    {
+      "id": "signet_crest_ring_b7",
+      "display_name": "Crest Signet Ring (tattoo pair)",
+      "category": "ring",
+      "concept_art": [
+        "assets/concept_art/batch_07/13_tattoo_signet_pair_crest.jpg"
+      ],
+      "paired_cosmetic": "tattoo_crest_forearm",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "signet_lion_ring_b7",
+      "display_name": "Lion Signet Ring (tattoo pair)",
+      "category": "ring",
+      "concept_art": [
+        "assets/concept_art/batch_07/14_tattoo_signet_pair_lion.jpg"
+      ],
+      "paired_cosmetic": "tattoo_lion_forearm",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "royal_three_ring_set",
+      "display_name": "Royal Three-Ring Set",
+      "category": "ring_set",
+      "set_size": 3,
+      "concept_art": [
+        "assets/concept_art/batch_07/15_three_ring_set.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

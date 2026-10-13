@@ -46,3 +46,8 @@
 - 14 designs: 5 wardrobe, 2 weapons (new weapons.json), 6 armor/uniforms (new armor.json), 1 signet band. Duplicates skipped.
 - Weapons/armor have placeholder stats tied to PHYSICS_RPG; sidearms fictional, in-game only. All cosmetic/gameplay only, no real money.
 - Motto spelling AETERNA now canonical everywhere.
+
+## Batch 07 (royal orders) - done locally
+- 19 of 30 images kept (11 duplicates skipped) in assets/concept_art/batch_07/
+- 8 guilds in data/guilds.json + docs/modules/ROYAL_ORDERS.md; uniforms in armor.json; robes/officer uniforms in wardrobe.json; rings in regalia.json; tattoos in new data/items/cosmetics.json
+- Not pushed (waiting on GitHub sign-in)

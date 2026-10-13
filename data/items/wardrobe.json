@@ -314,6 +314,92 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false
+    },
+    {
+      "id": "navy_officer_ermine_cape",
+      "display_name": "Navy Officer Uniform with Ermine Cape",
+      "owner": "royal_guard",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/02_navy_officer_ermine_cape_a.jpg",
+        "assets/concept_art/batch_07/03_navy_officer_ermine_cape_b.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "ermine_navy_king_regalia",
+      "display_name": "Ermine Navy King Regalia",
+      "owner": "player (Anterranian Monarch)",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/01_ermine_navy_king_regalia.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "sun_moon_court_robe_queen",
+      "display_name": "Sun & Moon Court Robe (Queen)",
+      "owner": "Foxy",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/16_sun_moon_court_robe_queen.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "sun_moon_court_robe_king",
+      "display_name": "Sun & Moon Court Robe (King)",
+      "owner": "player (Anterranian Monarch)",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/17_sun_moon_court_robe_king.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "sun_moon_court_robe_princess",
+      "display_name": "Sun & Moon Court Robe (Princess)",
+      "owner": "Princess Regent Lumira",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/18_sun_moon_court_robe_princess.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

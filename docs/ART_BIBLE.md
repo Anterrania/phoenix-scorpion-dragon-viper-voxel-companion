@@ -548,3 +548,10 @@ Palette v2, canon adults 25+. Names by Foxy — approve or rename.
 - **Vespera Noctelle** (`vespera-noctelle`, mature/gated): long wavy black hair with magenta-violet ombre, grey-green eyes; black/magenta lace top; sandstone courtyard. Default clothed look: magenta lace corset dress, platinum clasp.
 - **Kaelvrin Auremont** (`kaelvrin-auremont`, general): stylized 3D crowned avatar, long braids, beard, black/magenta galaxy jacket, cargos, flame sneakers; twilight purple garden court.
 - Repeat: `d02ef828` (Selvara Nyxveil). Skipped: `aa8aa6f5` (resembles a real identifiable person).
+
+## Batch t32u: "AI Bodies" uploads, all locations (`art/references/batch_t32u/`)
+None of the six videos shows a character. All of them are environments or title cards, so no companions were made from them. They're logged as location references (palette v2).
+- `venusian_music_capitol_titlecard.jpg`: from 0c871736, abdc2549 and 0144c479, three takes of one title card. A white domed capitol with a phoenix on the dome, lightning, volcanoes and a lava floor, plus the gold text "Phoenix Dragon Fire's Venusian Music". Possible music or menu title screen.
+- `phoenix_capitol_lava_plain.jpg`: from 69de0d7e. An aerial view of a capitol complex with a bronze phoenix on the dome, cracked black lava plains and storm skies.
+- `gods_palace_floating.jpg`: from cf7e1f36. "GOD'S PALACE", a gold-domed capitol on a floating dark-mechanical island, with a lava fall, a flaming gold phoenix, gothic spires and lightning.
+- `storm_spire_cathedral.jpg`: from 650a9c4d. A crimson-and-gold tiered spire palace over a gold-roofed city in blue storm clouds.

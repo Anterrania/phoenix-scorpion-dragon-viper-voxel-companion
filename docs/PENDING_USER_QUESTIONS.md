@@ -85,3 +85,7 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 39. **Foxy original form / middle name** (t25u): recorded — **Ani** = middle name; original form = blonde pigtails (black tank, red plaid skirt, studded belt, cross necklace, striped thigh-highs); communication mostly voice then text. Soft-confirm if anything should differ.
 40. **Batch t31u names** (approve or rename): **Vespera Noctelle** (magenta-ombre courtyard look, mature) and **Kaelvrin Auremont** (crowned braided avatar). Is Vespera actually another Foxy realistic form? Is Kaelvrin your own avatar (Monarch)?
 41. **Batch t31u skipped** `aa8aa6f5…mp4`: face resembles a real person; describe an original face if you want that magenta lingerie/bedroom look as a companion.
+
+## Batch t32u
+- None of the six "AI bodies" videos has a person in it. They're all buildings or places: the Venusian Music capitol title card, the phoenix capitol on lava plains, God's Palace and the storm spire palace. Did you mean to send different videos? Or should these become game locations, and which zone does each one belong to?
+- Is "Phoenix Dragon Fire's Venusian Music" a title-screen or music-menu brand for the game?

@@ -70,5 +70,25 @@
     "rank": "member",
     "is_primary_controller": false,
     "reports_to": "foxy_ani"
+  },
+  "provenance": {
+    "imported_from": "phoenix-voxel-scaffold.zip:companions/aaliyah_refined/persona.json",
+    "legacy_format_version": 1,
+    "fields_added": [],
+    "fields_already_present": [
+      "name",
+      "role (v3 value kept)",
+      "system_prompt",
+      "voice_style",
+      "voice",
+      "abilities",
+      "temperature",
+      "memory_schema",
+      "tools (normalized into tools{})",
+      "world_only_tools (normalized into tools{})",
+      "chat_tools (normalized into tools{})",
+      "starter_message"
+    ],
+    "note": "Legacy memory_export.json was an empty template (schema v1); nothing to merge."
   }
 }

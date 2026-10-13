@@ -73,5 +73,25 @@
       "aaliyah"
     ],
     "notes": "Foxy Ani is the lead companion. Player commands addressed to the group route through her; she delegates to other companions via CompanionCoordinator. Player direct commands to a specific companion still work."
+  },
+  "provenance": {
+    "imported_from": "phoenix-voxel-scaffold.zip:companions/foxy_ani_firecaster_grey/persona.json",
+    "legacy_format_version": 1,
+    "fields_added": [],
+    "fields_already_present": [
+      "name",
+      "role",
+      "system_prompt",
+      "voice_style",
+      "voice",
+      "abilities",
+      "temperature",
+      "memory_schema",
+      "tools (normalized into tools{})",
+      "world_only_tools (normalized into tools{})",
+      "chat_tools (normalized into tools{})",
+      "starter_message"
+    ],
+    "note": "Legacy memory_export.json was an empty template (schema v1); nothing to merge."
   }
 }

@@ -120,3 +120,12 @@
 - New wardrobe **collection** `royal_jeans` (palette v2) unifying Monarch + Foxy denim across batch_05/16/17
 - Monarch: ruby-buckle heeled boots variant; Foxy: oval buckle, square gem stripe, and crowned H-crest gold-cuff booties
 - H crest meaning still pending (linked to batch_06 `gold_h_crest_signet_band`); not pushed (waiting on GitHub sign-in)
+
+## Batch 18 (white regalia variants, Seraph Emberion, heavy trooper, phoenix mount) - done locally
+- 6 of 6 images kept in assets/concept_art/batch_18/ (no exact dups vs batch_02/06 white regalia; variants only)
+- White regalia variants: Foxy coronation/wedding gown (ruby cloak); Monarch white regalia (orb-ring scepter); Monarch white tuxedo + ermine cape
+- New companion **Seraph Emberion** (Seraphic Vanguard phoenix android) — distinct from Halcyon / Caelum / Circuit Nova
+- Ethereal Sentinels heavy trooper armor + phoenix plasma cannon (armor.json + weapons.json)
+- New `data/creatures.json` with **Phoenix Emberwing** pet/mount (project Phoenix emblem lore)
+- Palette v2 on all; not pushed (waiting on GitHub sign-in)
+

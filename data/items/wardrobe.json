@@ -446,9 +446,10 @@
       "display_name": "Foxy's White Coronation Gown",
       "owner": "foxy_ani",
       "category": "formal",
-      "description": "White coronation gown.",
+      "description": "White coronation/wedding gown family: batch_06 white gown + batch_18 satin ballgown with ruby jewels and ermine-trimmed black/magenta cloak.",
       "concept_art": [
-        "assets/concept_art/batch_06/01_foxy_white_coronation_gown.png"
+        "assets/concept_art/batch_06/01_foxy_white_coronation_gown.png",
+        "assets/concept_art/batch_18/01_foxy_white_coronation_wedding_gown_ruby_cloak.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -457,16 +458,30 @@
         "gold"
       ],
       "cosmetic_gameplay_only": true,
-      "real_money": false
+      "real_money": false,
+      "variants": [
+        {
+          "id": "batch_18_wedding_ruby_cloak",
+          "label": "White satin ballgown, gold baroque, ruby gems, ringed-orb pendant, ermine-trimmed black/magenta cloak (coronation/wedding)",
+          "concept_art": [
+            "assets/concept_art/batch_18/01_foxy_white_coronation_wedding_gown_ruby_cloak.jpg"
+          ],
+          "also_fits": [
+            "queen_vesperine_pyre"
+          ],
+          "notes": "Distinct from batch_06/01 (different hash/size); kept as white coronation/wedding gown variant."
+        }
+      ]
     },
     {
       "id": "monarch_white_regalia",
       "display_name": "Monarch's White Regalia",
       "owner": "player (Anterranian Monarch)",
       "category": "regalia_attire",
-      "description": "White royal regalia with orb scepter.",
+      "description": "White royal regalia with orb scepter family: batch_06 orb-scepter look + batch_18 orb-ring scepter / white jeweled boots variant.",
       "concept_art": [
-        "assets/concept_art/batch_06/02_monarch_white_regalia_orb_scepter.png"
+        "assets/concept_art/batch_06/02_monarch_white_regalia_orb_scepter.png",
+        "assets/concept_art/batch_18/02_monarch_white_regalia_orb_ring_scepter_variant.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -475,16 +490,27 @@
         "gold"
       ],
       "cosmetic_gameplay_only": true,
-      "real_money": false
+      "real_money": false,
+      "variants": [
+        {
+          "id": "batch_18_orb_ring_scepter_white_boots",
+          "label": "White tunic suit, gold embroidery, ermine cloak, orb-ring scepter, white jeweled boots",
+          "concept_art": [
+            "assets/concept_art/batch_18/02_monarch_white_regalia_orb_ring_scepter_variant.jpg"
+          ],
+          "notes": "Distinct from batch_06/02; links orb_ring_scepter regalia."
+        }
+      ]
     },
     {
       "id": "monarch_white_formal_suit",
       "display_name": "Monarch's White Formal Suit",
       "owner": "player (Anterranian Monarch)",
       "category": "formal",
-      "description": "White formal suit.",
+      "description": "White formal suit family: batch_06 white formal + batch_18 white tuxedo with magenta vest/bowtie and ermine cape.",
       "concept_art": [
-        "assets/concept_art/batch_06/03_monarch_white_formal_suit.png"
+        "assets/concept_art/batch_06/03_monarch_white_formal_suit.png",
+        "assets/concept_art/batch_18/03_monarch_white_tuxedo_magenta_vest_ermine_cape.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -493,7 +519,17 @@
         "gold"
       ],
       "cosmetic_gameplay_only": true,
-      "real_money": false
+      "real_money": false,
+      "variants": [
+        {
+          "id": "batch_18_white_tuxedo_magenta_vest_ermine_cape",
+          "label": "White tuxedo, magenta vest and bowtie, ermine cape",
+          "concept_art": [
+            "assets/concept_art/batch_18/03_monarch_white_tuxedo_magenta_vest_ermine_cape.jpg"
+          ],
+          "notes": "Distinct from batch_06/03 white formal; tuxedo + bowtie + ermine cape variant."
+        }
+      ]
     },
     {
       "id": "foxy_ivory_gown_burgundy_cape",
@@ -1261,6 +1297,26 @@
         "gold"
       ],
       "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "seraph_emberion_phoenix_android_armor",
+      "display_name": "Seraph Emberion Phoenix Android Armor",
+      "owner": "seraph_emberion",
+      "category": "vanguard_armor_attire",
+      "description": "Black/gold android power armor with glowing magenta phoenix chest sigil, magenta tabard and cape, neon magenta halo, black feathered wings. Seraphic Vanguard look for Seraph Emberion.",
+      "concept_art": [
+        "assets/concept_art/batch_18/04_seraph_emberion_phoenix_android_vanguard.jpg"
+      ],
+      "guild": "seraphic_vanguard",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub"

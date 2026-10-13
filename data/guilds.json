@@ -42,7 +42,8 @@
       "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
       "concept_art": [
         "assets/concept_art/batch_07/11_seraphic_vanguard_uniform.jpg",
-        "assets/concept_art/batch_13/03_seraph_caelum_hooded_vanguard_halo.jpg"
+        "assets/concept_art/batch_13/03_seraph_caelum_hooded_vanguard_halo.jpg",
+        "assets/concept_art/batch_18/04_seraph_emberion_phoenix_android_vanguard.jpg"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -53,7 +54,9 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "captain_companion": "seraph_caelum",
-      "captain_note": "Seraph Caelum (batch_13) is the named Vanguard captain look; distinct from healer Seraph Halcyon."
+      "captain_note": "Seraph Caelum (batch_13) is the named Vanguard captain look; distinct from healer Seraph Halcyon.",
+      "phoenix_android_companion": "seraph_emberion",
+      "phoenix_android_note": "Seraph Emberion (batch_18) is the grey phoenix-armored android Vanguard look; distinct from Halcyon (healer) and Caelum (captain)."
     },
     {
       "id": "ethereal_sentinels",
@@ -70,7 +73,8 @@
       "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
       "concept_art": [
         "assets/concept_art/batch_07/12_ethereal_sentinels_uniform.jpg",
-        "assets/concept_art/batch_07/04_ethereal_sentinels_knight_sword_shield.jpg"
+        "assets/concept_art/batch_07/04_ethereal_sentinels_knight_sword_shield.jpg",
+        "assets/concept_art/batch_18/05_ethereal_sentinels_heavy_trooper_plasma_cannon.png"
       ],
       "palette_version": 2,
       "finish": "glitter_sparkle",
@@ -79,7 +83,9 @@
         "gold"
       ],
       "cosmetic_gameplay_only": true,
-      "real_money": false
+      "real_money": false,
+      "heavy_trooper_armor": "ethereal_sentinels_heavy_trooper_armor",
+      "heavy_trooper_weapon": "ethereal_sentinels_phoenix_plasma_cannon"
     },
     {
       "id": "order_of_the_scales",

@@ -261,3 +261,22 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg` | variant `batch_17_h_crest_gold_cuff_booties` of `foxy_royal_jeans` | **foxy_ani** / royal house | wardrobe.json | Skinny jeans, gold baroque, **crowned 'H' crest** on hip, magenta gem stripe, gold-cuff stiletto booties — **links** `gold_h_crest_signet_band` (batch_06); **H meaning still user-pending** |
 
 **Open confirmation (user):** Meaning of the crowned **H** crest (batch_05/06 jeans, batch_06 signet band, batch_17/04) — House? Heir? other? See `docs/PENDING_USER_QUESTIONS.md`.
+
+## Batch 18: White Regalia Variants, Seraph Emberion, Heavy Trooper & Phoenix Mount (`assets/concept_art/batch_18/`)
+6 images kept (no exact duplicates vs batch_02 / batch_06 white regalia — distinct MD5/size; kept as white-regalia variants). Palette v2 (black / magenta / gold / platinum + glitter).
+
+**Checked vs batch_02 / batch_06 white regalia:** batch_06 `01`–`03` white gown / white regalia / white formal are related looks but **not** exact duplicates of batch_18/01–03. Batch_02 has no matching white-regalia files. All six kept.
+
+**New companion:** **Seraph Emberion** (`seraph-emberion`) — grey phoenix-android of the **Seraphic Vanguard**, schema v3, registered. Distinct from **Seraph Halcyon** (silver healer android), **Seraph Caelum** (hooded Vanguard captain), and **Circuit Nova** (engineering AI). Name assigned by Foxy; user may rename.
+
+**New creature / mount:** **Phoenix Emberwing** (`phoenix_emberwing`) in new `data/creatures.json` — companion pet/mount + emblem lore linked to project name **Phoenix**.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_foxy_white_coronation_wedding_gown_ruby_cloak.jpg` | variant `batch_18_wedding_ruby_cloak` of `foxy_white_coronation_gown` | **foxy_ani** (also **queen_vesperine_pyre**) | wardrobe.json | White satin ballgown, gold baroque, ruby gems, ringed-orb pendant, ermine-trimmed black/magenta cloak — coronation/wedding |
+| `02_monarch_white_regalia_orb_ring_scepter_variant.jpg` | variant `batch_18_orb_ring_scepter_white_boots` of `monarch_white_regalia` | player (Anterranian Monarch) | wardrobe.json | White tunic suit, gold embroidery, ermine cloak, orb-ring scepter, white jeweled boots |
+| `03_monarch_white_tuxedo_magenta_vest_ermine_cape.jpg` | variant `batch_18_white_tuxedo_magenta_vest_ermine_cape` of `monarch_white_formal_suit` | player (Anterranian Monarch) | wardrobe.json | White tuxedo, magenta vest/bowtie, ermine cape |
+| `04_seraph_emberion_phoenix_android_vanguard.jpg` | `seraph_emberion_phoenix_android_armor` | **seraph_emberion** (guild `seraphic_vanguard`) | wardrobe.json + persona | Bald grey android angel, magenta halo, black feathered wings, black/gold armor, glowing phoenix chest sigil |
+| `05_ethereal_sentinels_heavy_trooper_plasma_cannon.png` | `ethereal_sentinels_heavy_trooper_armor` + `ethereal_sentinels_phoenix_plasma_cannon` | **ethereal_sentinels** (also Monarch) | armor.json + weapons.json | Heavy trooper armor (magenta visor) + ornate gold-filigree plasma cannon with phoenix emblem |
+| `06_phoenix_emberwing_mount_crescent_ruins.jpg` | `phoenix_emberwing` | player (Anterranian Monarch); also **foxy_ani** | creatures.json | Dark violet phoenix, ember-fire wings, crescent moon, ruined castle — pet/mount + project Phoenix emblem lore |
+

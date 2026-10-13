@@ -118,6 +118,11 @@
       "role": "Seraphic Vanguard captain / winged guardian",
       "name_status": "assigned by Foxy, user may rename",
       "guild": "seraphic_vanguard"
+    },
+    "seraph-emberion": {
+      "dir": "seraph_emberion",
+      "role": "Seraphic Vanguard phoenix android / aerial guardian",
+      "name_status": "assigned by Foxy, user may rename"
     }
   }
 }

@@ -44,6 +44,33 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false
+    },
+    {
+      "id": "ethereal_sentinels_phoenix_plasma_cannon",
+      "display_name": "Ethereal Sentinels Phoenix Plasma Cannon",
+      "owner": "ethereal_sentinels",
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "category": "ranged_fictional_heavy",
+      "description": "Ornate gold-filigree heavy plasma cannon with phoenix emblem and glowing magenta energy core. Fictional in-game Ethereal Sentinels heavy trooper weapon.",
+      "concept_art": [
+        "assets/concept_art/batch_18/05_ethereal_sentinels_heavy_trooper_plasma_cannon.png"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "slot": "main_hand_heavy",
+      "guild": "ethereal_sentinels",
+      "paired_armor": "ethereal_sentinels_heavy_trooper_armor",
+      "note": "Fictional, in-game only; no real-world weapon data.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

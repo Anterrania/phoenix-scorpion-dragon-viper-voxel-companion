@@ -125,6 +125,21 @@
       "dir": "seraph_emberion",
       "role": "Seraphic Vanguard phoenix android / aerial guardian",
       "name_status": "assigned by Foxy, user may rename"
+    },
+    "morning-star": {
+      "dir": "morning_star",
+      "role": "Dawn-herald companion (mature, age-gated)",
+      "content_rating": "mature"
+    },
+    "satan": {
+      "dir": "satan",
+      "role": "Infernal sovereign companion (mature, age-gated)",
+      "content_rating": "mature"
+    },
+    "ara-aurora": {
+      "dir": "ara_aurora",
+      "role": "Luxury leisure companion (mature, age-gated)",
+      "content_rating": "mature"
     }
   }
 }

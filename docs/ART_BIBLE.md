@@ -495,3 +495,9 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `02_monarch_white_tuxedo_magenta_vest_black_ermine_cape.png` | `monarch_white_formal_suit` variant `batch_29_white_tuxedo_magenta_vest_black_ermine_cape` | wardrobe.json | White tuxedo + magenta vest; **black** ermine cape (vs batch_18 white cape) |
 | `03_foxy_ivory_gown_burgundy_cape_ermine_rune_platform.png` | `foxy_ivory_gown_burgundy_cape` variant `batch_29_ivory_burgundy_ermine_rune_platform` | wardrobe.json | Foxy/queen ivory gown + burgundy/ermine cape on rune platform |
 
+
+## Mature Companion Body Designs (original): Morning Star, Satan, Ara Aurora
+**Age-gated** (`content.mature_cosmetics_enabled`, off by default). All three are canon adults (25+). Designs are ORIGINAL; the user's third-party reference uploads were not stored and no names, faces, or text from them are used. Non-graphic: silhouette/outfit only. Palette v2 (black, magenta, gold, platinum, glitter sparkle).
+- **Morning Star** (`companions/morning_star`): long wavy copper-crimson hair with platinum sun-bead braid, amber-gold eyes, tall athletic build. Dawnbreaker Set: pearl-platinum gloss crop jacket with crimson/gold piping, platinum thigh-high boots, gold eight-point star circlet.
+- **Satan** (`companions/satan`): short jet-black pixie-bob with violet-magenta streak, ice-blue eyes, gold-tipped obsidian horns, lean build. Infernal Court Jacket: cropped magenta snakeskin-textured jacket, black/gold tailoring, askew thorned crown, spade-tipped tail.
+- **Ara Aurora** (`companions/ara_aurora`): platinum-blonde waves, seafoam eyes, curvy hourglass build. Aurora Terrace Set: gold two-piece swimwear (modest cut), white-gold silk robe with magenta phoenix hem, gold sunglasses, champagne flute.

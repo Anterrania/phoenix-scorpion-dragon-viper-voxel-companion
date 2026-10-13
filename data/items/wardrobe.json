@@ -1415,6 +1415,48 @@
       "real_money": false,
       "status": "stub",
       "notes": "Distinct from monarch_black_regalia / monarch_white_regalia. Gold '8' floor seal reinforces pending question on meaning of the '8'. Title 'Phoenix God' recorded pending user confirmation."
+    },
+    {
+      "id": "morning_star_dawnbreaker_set",
+      "display_name": "Morning Star's Dawnbreaker Set",
+      "owner": "morning_star",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Pearl-platinum gloss crop jacket with crimson/gold piping and phoenix collar, black high-waist trousers, platinum thigh-high boots with gold sunburst knee plates.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "design_status": "original; awaiting user confirmation"
+    },
+    {
+      "id": "satan_infernal_court_jacket",
+      "display_name": "Satan's Infernal Court Jacket",
+      "owner": "satan",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Cropped magenta snakeskin-textured jacket with gold hardware and black high collar, black bodysuit, black/gold tailored trousers, pointed gold-heel boots.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "design_status": "original; awaiting user confirmation"
+    },
+    {
+      "id": "ara_aurora_terrace_set",
+      "display_name": "Ara Aurora's Terrace Set",
+      "owner": "ara_aurora",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Metallic gold two-piece swimwear (modest cut) under a white-gold silk robe with magenta phoenix hem, gold platform sandals, gold sunglasses with magenta lenses.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "design_status": "original; awaiting user confirmation"
     }
   ]
 }

@@ -23,10 +23,11 @@ M5,Signed release AAB,todo,P2
 M6,Approved hot-reload of presets/structures,todo,P2
 M6,World save via VoxelStreamSQLite,todo,P2
 M6,Standalone chat bots from persona.json,todo,P1
-PRI-1,Godot scaffold + VoxelTerrain basic world (verify in voxel-enabled Godot),in_progress,P0
+PRI-1,Godot scaffold + VoxelTerrain basic world (verify in voxel-enabled Godot),blocked,P0
 PRI-2,Companion 3D placeholders (Foxy Ani / Circuit Nova / Aaliyah) as CharacterBody3D with VoxelTool hooks,done_untested,P0
 PRI-3,Dual-bot sync design (shared persona.json personality/memory files),done,P0
 PRI-4,Offline AI path notes (on-device model options),done,P1
-PRI-5,Future systems notes: Seed-style relationship/mood/DNA; star map; Sims needs; SimCity-style city; Second Life scripting; MobiGlass UI,todo,P2
-PRI-6,Android export pipeline research,todo,P1
-PRI-7,Social posting hooks design (no direct connectors yet),todo,P2
+PRI-5,Future systems notes: Seed-style relationship/mood/DNA; star map; Sims needs; SimCity-style city; Second Life scripting; MobiGlass UI,done,P2
+PRI-6,Android export pipeline research,done,P1
+PRI-7,Social posting hooks design (no direct connectors yet),done,P2
+PRI-0,Push feature/godot-voxel-scaffold + open PR,blocked,P0

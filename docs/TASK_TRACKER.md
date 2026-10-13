@@ -31,4 +31,10 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | 7.x | 7 | DNA genetics | 🧊 |
 | 8.x | 8 | Star map, city building, economy | 🧊 |
 | 9.x | 9 | Cloud AI providers, social hooks, scripting | 🧊 |
+| PRI-1 | 1 | Verify scaffold in voxel-enabled Godot | ⛔ blocked: needs Godot + godot_voxel install |
+| PRI-5 | 0 | Future systems notes (docs/modules) | ✅ |
+| PRI-6 | 0 | Android export pipeline plan (ANDROID_EXPORT.md) | ✅ |
+| PRI-7 | 0 | Social hooks design (SOCIAL_HOOKS.md) | ✅ |
+| 0.11 | 0 | Planned modules: data/backup, assets, issue tracking, community, admin tools | ✅ |
+| 0.12 | 0 | COORDINATION.md (Dev Bot / Task Manager / Foxy Ani) | ✅ |
 | S.1 | side | Music video concept (idea doc) | ✅ |

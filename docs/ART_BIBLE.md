@@ -555,3 +555,21 @@ None of the six videos shows a character. All of them are environments or title 
 - `phoenix_capitol_lava_plain.jpg`: from 69de0d7e. An aerial view of a capitol complex with a bronze phoenix on the dome, cracked black lava plains and storm skies.
 - `gods_palace_floating.jpg`: from cf7e1f36. "GOD'S PALACE", a gold-domed capitol on a floating dark-mechanical island, with a lava fall, a flaming gold phoenix, gothic spires and lightning.
 - `storm_spire_cathedral.jpg`: from 650a9c4d. A crimson-and-gold tiered spire palace over a gold-roofed city in blue storm clouds.
+
+## Batch t32ua6: Gallery overviews + 4 videos (`art/references/batch_t32ua6/`)
+Palette v2. Source videos are not committed, only one frame each. Mature items sit behind `content.mature_cosmetics_enabled`.
+
+**Overview index sheets (phone gallery screenshots, thumbnails only):**
+- `overview_regalia_recently_added.png`: about 12 magenta/gold/ermine crowns, signet rings, a scepter, necklaces, earrings, ring sets, royal figures, a handbag, a wallet, a belt, ermine coats and gowns.
+- `overview_scdi_scifi_download_2025-10-09.png`: SCDI spired citadels, mechs, a submarine, starships, command bridges, armor-suit cards, an android, orbital stations.
+
+**Cross-check against the catalog:**
+- Already catalogued: scepter, signet rings, ermine robes/gowns, citadels, mechs, submarine, android, orbital stations, armor suits.
+- Probably new: a full **crowns collection** (only individual crowns logged so far), a **jewelry set** (earrings, necklaces, stacked ring sets), and **accessories** (handbag, wallet; belts so far appear only on outfits). Also possibly new: more **starship** classes and **command-bridge** interiors.
+- Full-size images are needed before anything here becomes an asset (see pending Qs).
+
+**Videos:**
+- `crowned_venus_orrery_emblem.jpg` (9d6a151e): a blazing Venus-like planet with gold rings inside a silver filigree frame, topped by a jeweled crown. Logged as the **Venusian crest/emblem** and linked to the Venusian Music title card (t32u).
+- `venus_sigil_ring_orrery.jpg` (443c7680): the same planet inside a gold sigil ring with lightning and orbiting moons. Logged as a **Venusian orrery/portal UI motif** (loading screen or map icon).
+- `white_crowned_saint_queen_stylized.jpg` (9baa7605): a stylized 3D figure in a white robe with a gold crown, halo and gold staff. **New stub: "Saint-Queen Aurelith"** (`aurelith-saint-queen`, general, adult 25+), a crowned holy-queen NPC. Name needs approval.
+- `ossuary_abbess_mature.jpg` (b1779a9e): a photoreal dark-haired woman in a nun's habit and black lace bodysuit with stockings, holding a gold crucifix staff in a skull ossuary under a fresco ceiling. Clothed with no nudity, and it looks AI-made. **New stub: "Abbess Morwenna Vey"** (`morwenna-vey-abbess`, **mature/gated**, adult 25+), dark-cathedral setting. Name needs approval.

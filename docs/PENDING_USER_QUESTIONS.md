@@ -89,3 +89,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 ## Batch t32u
 - None of the six "AI bodies" videos has a person in it. They're all buildings or places: the Venusian Music capitol title card, the phoenix capitol on lava plains, God's Palace and the storm spire palace. Did you mean to send different videos? Or should these become game locations, and which zone does each one belong to?
 - Is "Phoenix Dragon Fire's Venusian Music" a title-screen or music-menu brand for the game?
+
+## Batch t32ua6
+- The gallery screenshots are thumbnails. Please send full-size images of the new items: the crowns collection, jewelry set (earrings, necklaces, ring sets), handbag, wallet and belt, plus any new SCDI starships and command bridges.
+- Should the crowned Venus emblem be the game crest or the Venusian Music logo? And the sigil-ring orrery the loading screen or the map icon?
+- Approve or rename the new stubs "Saint-Queen Aurelith" (white crowned figure) and "Abbess Morwenna Vey" (ossuary nun, mature/gated)?

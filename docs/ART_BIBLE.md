@@ -298,3 +298,20 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `05_scdi_royal_aegis_mech.jpg` | `scdi_royal_aegis_mech` | player (Anterranian Monarch) | mechs.json | SCDI \| ROYAL AEGIS crowned mech, plasma greatsword + cannons |
 
 **Open confirmation (user):** What does **SCDI** stand for? (Also on batch_01 Omni-Worker.) See `docs/PENDING_USER_QUESTIONS.md`.
+
+## Batch 20: SCDI Aura Cannon & Suit Series 0–3 (`assets/concept_art/batch_20/`)
+6 images received, **5 kept**, **1 duplicate skipped** (PNG of Aura Cannon). Palette v2 (black / magenta / gold / platinum + glitter). All weapons/armor/vehicles are **game-only virtual items**.
+
+**Skipped:** `ada72d9bb57b…png` — PNG container duplicate of Aura Cannon (kept JPG as `01`). See `SKIPPED_duplicates.txt`.
+
+**Module update:** `docs/modules/DEFENSE_PROJECTS.md` — SCDI Suit Series cards 0–3 + Aura Cannon.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_scdi_aura_cannon_rockets_grenade_launcher.jpg` | `scdi_aura_cannon` | player / ethereal_sentinels | weapons.json | Printed SCDI | AURA CANNON - Rockets / Grenade Launcher; magenta plasma heavy |
+| `02_scdi_universal_sentinel_exoskeleton_uniform.jpg` | `scdi_universal_sentinel_exoskeleton` | **ethereal_sentinels** | armor.json | Suit card **0**; prints EXOSKELTON → Exoskeleton; links Sentinel trooper (batch_18/05) |
+| `03_scdi_aegis_prime_universal_combat_exploration_suit.png` | `scdi_aegis_prime_suit` | player / ethereal_sentinels | armor.json | Suit card **1**; ≠ Aegis-Guard Triton ≠ Royal Aegis mech |
+| `04_scdi_void_weaver_spacecraft_piloting_eva_suit.jpg` | `scdi_void_weaver_eva_suit` | player (pilot) | armor.json | Suit card **2**; prints SPACRACT → Spacecraft; EVA / piloting |
+| `05_scdi_abyssal_sovereign_underwater_suit.png` | `scdi_abyssal_sovereign_suit` + `scdi_abyssal_submarine` | **order_of_the_trident** | armor.json + vehicles.json | Suit card **3**; prints SOVEREGIN → Sovereign; submarine stub |
+
+**Open confirmation (user):** What does **SCDI** stand for? (Still pending from batch_01 / batch_19.) See `docs/PENDING_USER_QUESTIONS.md`.

@@ -138,3 +138,13 @@
 - New `data/items/mechs.json` with SCDI Royal Aegis mech
 - New `docs/modules/DEFENSE_PROJECTS.md`; pending: what SCDI stands for
 - Palette v2; all game-only virtual items; not pushed (waiting on GitHub sign-in)
+
+## Batch 20 (SCDI Aura Cannon + suit series 0–3) - done locally
+- 5 of 6 images kept in assets/concept_art/batch_20/ (Aura Cannon PNG skipped as dup of JPG)
+- SCDI Aura Cannon (rockets/grenade launcher plasma heavy) → weapons.json
+- SCDI Suit Series cards 0–3 → armor.json: Universal Sentinel (links Ethereal Sentinels trooper), Aegis Prime, Void Weaver (pilot/EVA), Abyssal Sovereign (Order of the Trident)
+- Printed typos recorded: EXOSKELTON, SPACRACT, SOVEREGIN → corrected Exoskeleton / Spacecraft / Sovereign
+- Submarine stub `scdi_abyssal_submarine` in vehicles.json (background of Abyssal Sovereign art)
+- Updated `docs/modules/DEFENSE_PROJECTS.md` with suit series table
+- Palette v2; all game-only virtual items; not pushed (waiting on GitHub sign-in)
+

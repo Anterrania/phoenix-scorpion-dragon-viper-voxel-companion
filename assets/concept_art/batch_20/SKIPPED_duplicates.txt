@@ -1,0 +1,12 @@
+# Batch 20 — skipped
+ada72d9bb57bba72e8462939c5f0fb7c36330d7cc117aff4ef389a4989c3f1ca.png
+  reason: PNG container duplicate of Aura Cannon (kept JPG as 01_scdi_aura_cannon_rockets_grenade_launcher.jpg)
+  source_jpg_md5: 456642775e6838fccb2c64d8e94a5ae0
+  skipped_png_md5: facb297bc72677fce26a3892b3203945
+
+# Kept (5 of 6):
+# 01 Aura Cannon (weapon; not part of numbered suit cards 0–3)
+# 02 Universal Sentinel exoskeleton/uniform — suit card 0; links Ethereal Sentinels heavy trooper
+# 03 Aegis Prime combat & exploration suit — suit card 1
+# 04 Void Weaver spacecraft piloting & EVA suit — suit card 2
+# 05 Abyssal Sovereign underwater suit (+ submarine stub) — suit card 3; links Order of the Trident

@@ -445,7 +445,9 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false,
-      "status": "stub"
+      "status": "stub",
+      "also_related_to": "scdi_universal_sentinel_exoskeleton",
+      "notes": "Batch_20 Universal Sentinel exoskeleton is SCDI suit-series card 0 linked to this Sentinel trooper line."
     },
     {
       "id": "project_crusader_soldier_armor",
@@ -546,6 +548,144 @@
       "real_money": false,
       "status": "stub",
       "notes": "SCDI expansion pending user. Art prints DOMINION SHOTGUAN on paired weapon."
+    },
+    {
+      "id": "scdi_universal_sentinel_exoskeleton",
+      "display_name": "SCDI Universal Sentinel Exoskeleton / Uniform",
+      "owner": "ethereal_sentinels",
+      "also_fits": [
+        "player (Anterranian Monarch)",
+        "royal_guard"
+      ],
+      "category": "heavy",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 0,
+      "description": "Universal Sentinel exoskeleton/uniform \u2014 black power armor with gold filigree, magenta energy lines, gold winged-crown crest, gold-tinted visor. Printed: SCDI | UNIVERSAL SENTINEL - EXOSKELTON/UNIFORM (art misspells EXOSKELETON as EXOSKELTON). Suit series card 0.",
+      "printed_name": "SCDI | UNIVERSAL SENTINEL - EXOSKELTON/UNIFORM",
+      "printed_typo_notes": "Image spells EXOSKELTON; recorded as Exoskeleton. Suit card number 0.",
+      "concept_art": [
+        "assets/concept_art/batch_20/02_scdi_universal_sentinel_exoskeleton_uniform.jpg"
+      ],
+      "guild": "ethereal_sentinels",
+      "related_to": "ethereal_sentinels_heavy_trooper_armor",
+      "links_sentinel_trooper": true,
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Links Ethereal Sentinels heavy trooper (batch_18/05). SCDI suit series card 0 of 0\u20133."
+    },
+    {
+      "id": "scdi_aegis_prime_suit",
+      "display_name": "SCDI Aegis Prime Universal Combat & Exploration Suit",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "ethereal_sentinels",
+        "royal_guard"
+      ],
+      "category": "heavy",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 1,
+      "description": "Aegis Prime \u2014 Universal Combat & Exploration Suit. Full black/gold power armor with magenta seam glow, HUD visor, forearm energy weapons. Printed: SCDI | AEGIS PRIME - Universal Combat & Exploration Suit. Suit series card 1.",
+      "printed_name": "SCDI | AEGIS PRIME - UNIVERSAL COMBAT & EXPLORATION SUIT",
+      "concept_art": [
+        "assets/concept_art/batch_20/03_scdi_aegis_prime_universal_combat_exploration_suit.png"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 1 of 0\u20133. Distinct from Project Aegis-Guard Triton coast attire (batch_19) and Royal Aegis mech."
+    },
+    {
+      "id": "scdi_void_weaver_eva_suit",
+      "display_name": "SCDI Void Weaver Spacecraft Piloting & EVA Suit",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "royal_navy",
+        "azura_stellaris"
+      ],
+      "category": "pilot_eva",
+      "role": "pilot",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 2,
+      "description": "Void Weaver \u2014 Spacecraft Piloting & EVA Suit. Black suit with gold filigree and magenta neon seams, gold-tinted HUD visor, cockpit joysticks. Printed: SCDI | VOID WEAVER - SPACRACT PILOTING & EVA SUIT (art misspells SPACECRAFT as SPACRACT). Suit series card 2. Pilot / EVA role; pairs with star-map craft.",
+      "printed_name": "SCDI | VOID WEAVER - SPACRACT PILOTING & EVA SUIT",
+      "printed_typo_notes": "Image spells SPACRACT; recorded as Spacecraft. Suit card number 2.",
+      "concept_art": [
+        "assets/concept_art/batch_20/04_scdi_void_weaver_spacecraft_piloting_eva_suit.jpg"
+      ],
+      "star_map_module": "docs/modules/STAR_MAP.md",
+      "related_vehicle": "royal_flagship_starfighter",
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 2 of 0\u20133. Pilot / EVA; game-only virtual item."
+    },
+    {
+      "id": "scdi_abyssal_sovereign_suit",
+      "display_name": "SCDI Abyssal Sovereign Underwater Exploration & Combat Suit",
+      "owner": "order_of_the_trident",
+      "also_fits": [
+        "player (Anterranian Monarch)",
+        "royal_navy"
+      ],
+      "category": "heavy",
+      "guild": "order_of_the_trident",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 3,
+      "description": "Abyssal Sovereign \u2014 Underwater Exploration & Combat Suit. Black/gold diving power armor with magenta energy lines, trident-linked chest core, hose helmet. Printed: SCDI | ABYSSAL SOVEREGIN - UNDERWATER EXPLORATION & COMBAT SUIT (art misspells SOVEREIGN as SOVEREGIN). Suit series card 3. Linked to Order of the Trident; pairs with abyssal submarine stub.",
+      "printed_name": "SCDI | ABYSSAL SOVEREGIN - UNDERWATER EXPLORATION & COMBAT SUIT",
+      "printed_typo_notes": "Image spells SOVEREGIN; recorded as Sovereign. Suit card number 3.",
+      "concept_art": [
+        "assets/concept_art/batch_20/05_scdi_abyssal_sovereign_underwater_suit.png"
+      ],
+      "related_to": "uniform_order_of_the_trident",
+      "also_related_to": "project_aegis_guard_triton_coast_guard",
+      "paired_vehicle": "scdi_abyssal_submarine",
+      "royal_orders_doc": "docs/modules/ROYAL_ORDERS.md",
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 3 of 0\u20133. Order of the Trident underwater combat/exploration line. Submarine visible in art \u2192 vehicles.json stub."
     }
   ]
 }

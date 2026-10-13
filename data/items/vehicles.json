@@ -81,6 +81,51 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false
+    },
+    {
+      "id": "scdi_abyssal_submarine",
+      "display_name": "SCDI Abyssal Submarine",
+      "owner": "order_of_the_trident",
+      "also_fits": [
+        "player (Anterranian Monarch)",
+        "royal_navy"
+      ],
+      "type": "underwater",
+      "node": "VehicleBody3D",
+      "seats": 4,
+      "program": "scdi",
+      "scdi_program": true,
+      "guild": "order_of_the_trident",
+      "description": "Dark multi-prop submarine seen with the Abyssal Sovereign underwater suit (batch_20/05). Stub only \u2014 silhouette from concept art; no detailed stats yet. Linked to Order of the Trident navy/sea role.",
+      "physics": {
+        "mass_kg": 0,
+        "thrust": 0,
+        "max_speed": 0,
+        "submersible": true,
+        "atmosphere_capable": false,
+        "space_capable": false
+      },
+      "fx": [
+        "magenta_running_lights",
+        "gold_filigree_glitter"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_20/05_scdi_abyssal_sovereign_underwater_suit.png"
+      ],
+      "paired_armor": "scdi_abyssal_sovereign_suit",
+      "related_to": "project_aegis_guard_triton_coast_guard",
+      "royal_orders_doc": "docs/modules/ROYAL_ORDERS.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Background vehicle in Abyssal Sovereign card art. Game-only virtual stub."
     }
   ]
 }

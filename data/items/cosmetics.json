@@ -68,7 +68,68 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false,
-      "notes": "Body-art / tattoo character customization. Real-world national flags appear in the shield art \u2014 keep as cosmetic fiction; pending user confirm whether this is the Monarch's personal tattoo design."
+      "notes": "Body-art / tattoo character customization. Real-world national flags appear in the shield art — keep as cosmetic fiction; pending user confirm whether this is the Monarch's personal tattoo design."
+    },
+    {
+      "id": "royal_handbag",
+      "display_name": "Royal Handbag (placeholder)",
+      "category": "accessory",
+      "slot": "hand_accessory",
+      "description": "Structured black and magenta handbag with gold filigree and tassel. Overview thumbnail only — full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/06_overview_crowns_jewelry_handbag_wallet.png",
+        "art/references/batch_t32ua6/overview_regalia_recently_added.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "royal_wallet_clutch",
+      "display_name": "Royal Wallet / Clutch (placeholder)",
+      "category": "accessory",
+      "slot": "hand_accessory",
+      "description": "Rectangular black wallet/clutch with gold patterns and central magenta gem. Distinct from aethel_key access card. Overview thumbnail — full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/06_overview_crowns_jewelry_handbag_wallet.png",
+        "art/references/batch_t32ua6/overview_regalia_recently_added.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Not aethel_key; fashion accessory clutch/wallet."
+    },
+    {
+      "id": "royal_filigree_belt",
+      "display_name": "Royal Filigree Belt (placeholder)",
+      "category": "accessory",
+      "slot": "waist",
+      "description": "Black leather belt with large ornate gold/magenta rectangular buckle and hanging gold chain. Standalone accessory (belts previously only on outfits). Full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/06_overview_crowns_jewelry_handbag_wallet.png",
+        "art/references/batch_t32ua6/overview_regalia_recently_added.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

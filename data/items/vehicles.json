@@ -96,7 +96,7 @@
       "program": "scdi",
       "scdi_program": true,
       "guild": "order_of_the_trident",
-      "description": "Dark multi-prop submarine seen with the Abyssal Sovereign underwater suit (batch_20/05). Stub only \u2014 silhouette from concept art; no detailed stats yet. Linked to Order of the Trident navy/sea role.",
+      "description": "Dark multi-prop submarine seen with the Abyssal Sovereign underwater suit (batch_20/05). Stub only — silhouette from concept art; no detailed stats yet. Linked to Order of the Trident navy/sea role.",
       "physics": {
         "mass_kg": 0,
         "thrust": 0,
@@ -126,6 +126,31 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Background vehicle in Abyssal Sovereign card art. Game-only virtual stub."
+    },
+    {
+      "id": "scdi_bastion_tank",
+      "display_name": "SCDI Bastion Tank (placeholder)",
+      "owner": "player (Anterranian Monarch)",
+      "type": "ground_armor",
+      "node": "VehicleBody3D",
+      "seats": 3,
+      "description": "Heavy multi-tread / multi-wheel SCDI tank with magenta glowing ports. Appears in vehicles/troopers overview and weapons/ordnance overview. Full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/01_overview_scdi_vehicles_troopers_armor_weapons_oct8.png",
+        "art/references/batch_t32u_galleries/02_overview_scdi_weapons_ordnance_mechs_vehicles.png"
+      ],
+      "program": "scdi",
+      "scdi_program": true,
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Stub from gallery overview t32u; needs full-size image. Distinct from royal_suv."
     }
   ]
 }

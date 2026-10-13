@@ -588,3 +588,34 @@ Palette v2. Source videos are not committed, only one clothed frame each. Mature
 
 **New stub:**
 - `lyra_fellwyn_fedora_feather_gown.jpg` (d2b3c697): photoreal AI-looking dancer with long black hair, black fedora, white tiered/feathered mid-length gown (chest slit, frayed hem), white socks, black loafers; backup dancers in dark outfits under a spotlight. Clothed, no nudity. **New stub: "Lyra Fellwyn"** (`lyra-fellwyn`, general, adult 25+), court stage dancer / Venusian Music performer. Name needs approval.
+
+## Batch t32u galleries: 6 overview index sheets (`art/references/batch_t32u_galleries/`)
+Phone gallery grids (thumbnails only). Palette v2. **6 kept, 0 MD5 dups** vs `batch_t32ua6` overviews (different screenshots). Mature lingerie stub behind `content.mature_cosmetics_enabled`.
+
+| File | Focus |
+|------|--------|
+| `01_overview_scdi_vehicles_troopers_armor_weapons_oct8.png` | SCDI vehicles / troopers / armor; Oct 8 weapons (helmet, pistols, rifles, **gauntlet**, **axe**/sword, **bow**) |
+| `02_overview_scdi_weapons_ordnance_mechs_vehicles.png` | **Grenades**, **missiles**, guns, swords, Royal Aegis mech, **Monarch's Edge**, tanks, ships |
+| `03_overview_scdi_citadels_ships_bases.png` | Citadels, ships, bases, bridges, walkers, hover vehicles |
+| `04_overview_wardrobe_regalia_thrones_android.png` | Ermine coats/gowns, **lingerie set**, **heels**, **car**, boots, thrones, royal jeans, white regalia, winged android |
+| `05_overview_heraldry_flags_aethel_capitols.png` | Flags, Aethel coins/notes, citadels, capitols, starships, robed figures |
+| `06_overview_crowns_jewelry_handbag_wallet.png` | **Crowns collection**, rings, **jewelry** (necklaces/earrings), royal figures, **handbag**, **wallet**, belt |
+
+**Cross-check vs catalog — already present (overview only, no new stub):**
+- Royal Aegis mech → `scdi_royal_aegis_mech`
+- Armor suits (Universal Sentinel, Abyssal Sovereign, etc.) → armor.json SCDI series
+- Car / royal SUV → `royal_suv`
+- Heels → `foxy_royal_heels`
+- Boots, thrones, royal jeans, white/ermine regalia, winged android (Seraph Emberion line), flags/seals, Aethel currency, citadels/capitols, starships, pistols/rifles/katana families already stubbed
+
+**Looks new (stubs added, full-size still required):**
+- `scdi_frag_grenade`, `scdi_missile` (weapons.json)
+- `scdi_power_gauntlet`, `scdi_energy_bow`, `scdi_battle_axe` (weapons.json)
+- `monarchs_edge_blade` (weapons.json; confirm vs `royal_cosmic_katana`)
+- `scdi_flight_helmet` (armor.json)
+- `scdi_bastion_tank` (vehicles.json)
+- `anterranian_crowns_collection`, `celestial_collar_necklace`, `celestial_drop_earrings` (regalia.json)
+- `royal_handbag`, `royal_wallet_clutch`, `royal_filigree_belt` (cosmetics.json)
+- `gallery_royal_lingerie_set` (wardrobe.json, **mature/gated**; confirm vs foxy_boudoir family)
+
+**Pending:** full-size images of every new thumbnail before promoting beyond stub. See `docs/PENDING_USER_QUESTIONS.md` Batch t32u galleries.

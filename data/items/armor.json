@@ -856,6 +856,33 @@
       "real_money": false,
       "status": "stub",
       "notes": "SCDI suit series card 8. Station ops / low-g habitation. Missing cards 7, 9–13 noted in DEFENSE_PROJECTS.md. Game-only virtual item."
+    },
+    {
+      "id": "scdi_flight_helmet",
+      "display_name": "SCDI Flight Helmet (placeholder)",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "royal_guard",
+        "ethereal_sentinels"
+      ],
+      "category": "helmet",
+      "program": "scdi",
+      "scdi_program": true,
+      "description": "Sleek black flight-style helmet with gold-tinted visor reflecting magenta landscape. Overview thumbnail (Oct 8 weapons strip). Full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/01_overview_scdi_vehicles_troopers_armor_weapons_oct8.png"
+      ],
+      "slot": "head",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Stub from gallery overview t32u; needs full-size image."
     }
   ]
 }

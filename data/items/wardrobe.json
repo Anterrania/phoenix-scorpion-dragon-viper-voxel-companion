@@ -1830,6 +1830,31 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub"
+    },
+    {
+      "id": "gallery_royal_lingerie_set",
+      "display_name": "Royal Lingerie Set (gallery overview stub)",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Magenta/black lace lingerie with sheer robe/cape variants on cosmic pedestals in wardrobe overview grid. May overlap foxy_boudoir_set family — confirm with full-size images. Mature / age-gated.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/04_overview_wardrobe_regalia_thrones_android.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "open_questions": [
+        "Distinct from foxy_boudoir_set / _2 / _3 / _4, or a new variant of those?"
+      ],
+      "notes": "Thumbnail-only stub from batch_t32u_galleries/04. Full-size required before promoting to wearable variants."
     }
   ]
 }

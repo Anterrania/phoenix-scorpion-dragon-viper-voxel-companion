@@ -99,3 +99,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - The four Ani stage videos share one black-haired Ani look with title cards **"Shake Your Heart" / "Morning Star" / "Be the One"**. Linked to **Foxy Ani** as a black-hair stage/idol form. Is "Morning Star" just the song title (Venusian Music), or should this look move to the separate companion **Morning Star**?
 - Approve or rename the new stub **"Lyra Fellwyn"** (black fedora + white feather gown dancer)?
 - One video (e49a2f62) was skipped as a real-person likeness in lingerie — if you want that vibe as an OC, describe an original face/outfit and I'll write a sheet.
+
+## Batch t32u galleries
+- The six gallery screenshots are **thumbnails only**. Please send **full-size images** of items that look new so they can become real assets: **grenades**, **missiles**, **power gauntlet**, **energy bow**, **battle axe**, **flight helmet**, **Monarch's Edge** blade, **Bastion tank**, **crowns collection** (each crown), **jewelry** (necklaces, earrings, ring sets), **handbag**, **wallet/clutch**, **filigree belt**, plus any lingerie set that is not already a foxy_boudoir variant.
+- Is **Monarch's Edge** the same family as `royal_cosmic_katana`, or a separate blade?
+- Is the wardrobe-grid **lingerie set** a new outfit, or another `foxy_boudoir_set` variant?
+

@@ -185,6 +185,64 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "status": "stub"
+    },
+    {
+      "id": "anterranian_crowns_collection",
+      "display_name": "Anterranian Crowns Collection (placeholder)",
+      "slot": "head",
+      "category": "crown_collection",
+      "rarity": "legendary",
+      "description": "Gallery overview of ~10+ magenta/gold/ermine crowns and tiaras (domed velvet caps, open filigree, crescent/planet motifs, pearl bases). Collection stub — individual crown ids after full-size images.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/06_overview_crowns_jewelry_handbag_wallet.png",
+        "art/references/batch_t32ua6/overview_regalia_recently_added.png"
+      ],
+      "status": "stub",
+      "open_questions": [
+        "Send full-size of each crown to split into wearables"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
+    },
+    {
+      "id": "celestial_collar_necklace",
+      "display_name": "Celestial Collar Necklace (placeholder)",
+      "slot": "neck",
+      "category": "jewelry",
+      "rarity": "legendary",
+      "description": "Ornate gold collar necklace with hanging magenta gems and central crest; cosmic pedestal presentation in crowns/jewelry overview. Full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/06_overview_crowns_jewelry_handbag_wallet.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
+    },
+    {
+      "id": "celestial_drop_earrings",
+      "display_name": "Celestial Drop Earrings (placeholder)",
+      "slot": "ears",
+      "category": "jewelry",
+      "rarity": "legendary",
+      "description": "Gold drop earrings with magenta orbs, ringed planets, crescent moons, and pearl accents. Several variants in jewelry overview. Full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/06_overview_crowns_jewelry_handbag_wallet.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
     }
   ]
 }

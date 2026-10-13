@@ -54,6 +54,10 @@ Saved unanswered items. Replay in full when the user asks for an update.
 
 31. **Ignis Solis Glyphs / Aethelian Runes** (batch_27): confirm as the two official in-game writing systems? Art typos: MONCACHY→MONARCHY; AETEHLIAN→AETHELIAN; MONORARTY→MONARCHY.
 
+
+28. **Zypharion spirit beast name** (batch t16u / `art/references/batch_t16u_spirit_essence/`): name **Zypharion** assigned by Foxy as the Monarch's zanpakutō-style spirit essence / soul-blade spirit beast — **approve or rename**.
+29. **Zypharion form** (batch t16u): is the spirit beast a **phoenix**, a **dragon**, or **both** (phoenix–dragon hybrid as drawn)?
+
 **Partially / largely resolved:**
 - ~~SEMI DEIVA / SEMI-DIVUS ambiguity for prince heir~~ → **SEMI-DIVUS** confirmed for Solarian (`heir_throne_solarian`) via batch_15/06.
 - ~~Lumira SEMI DEIVA open~~ → **SEMI DEIVA** (feminine) largely confirmed via batch_16/01 (`heir_throne_lumira`); exact sash wording soft-confirm (item 1).

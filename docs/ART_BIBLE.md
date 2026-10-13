@@ -430,3 +430,23 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 
 **New:** `data/lore/scripts.json` — Ignis Solis Glyphs + Aethelian Runes as in-game writing systems.
 
+
+
+## Batch t16u: Spirit Essence / Zanpakutō Spirit Beast (`art/references/batch_t16u_spirit_essence/`)
+4 images received (+ 2 videos), **3 images kept**, **1 near-duplicate skipped** (`c77b483e…` ≈ primary `a82fbf8a…`). Palette v2 (black / magenta / gold / platinum + glitter). Path is under `art/references/` (spirit/lore references), not `assets/concept_art/`.
+
+**New creature:** **Zypharion** (`spirit_beast_zypharion`) in `data/creatures.json` — Monarch's spiritual essence / zanpakutō-style soul-blade spirit beast (distinct from pet/mount **Phoenix Emberwing**).  
+**New realm stub:** **Celestial Ruin Sanctum** (`data/realm_presets/celestial_ruin_sanctum.json`).  
+**Git LFS:** not configured; videos committed as normal blobs. See batch `CATALOG.md`.
+
+| File | Item id | Persona / wearer | Data | Notes |
+|------|---------|------------------|------|-------|
+| `01_zypharion_spirit_beast_celestial_ruin_sanctum.jpg` | `spirit_beast_zypharion` | player (Anterranian Monarch) | creatures.json | Primary full art: giant winged phoenix–dragon, glittering magenta/gold/black scales, fiery wings over moonlit cosmic temple ruin with angels + orb spirits |
+| `02_zypharion_spirit_beast_phone_screenshot.png` | (same) | player (Anterranian Monarch) | creatures.json | Phone screenshot of the same art |
+| `03_zypharion_spirit_beast_crop.jpg` | (same) | player (Anterranian Monarch) | creatures.json | Crop of the beast |
+| `04_user_video_world_things_old_crest_pending_a.mp4` | — | — | — | *user video, more world things, old crest, pending description* |
+| `05_user_video_world_things_old_crest_pending_b.mp4` | — | — | — | *user video, more world things, old crest, pending description* |
+
+**Skipped:** `c77b483e…jpg` — near-duplicate of 01 (see `SKIPPED_duplicates.txt`).
+
+**Open confirmation (user):** Approve spirit beast name **Zypharion**? Is the spirit beast **phoenix**, **dragon**, or **both**? See `docs/PENDING_USER_QUESTIONS.md`.

@@ -29,3 +29,6 @@ Realms are never finished: the monarchy's law is *create freely*, so companions 
 1. Rebuild the phoenix-fire bridge between Venus and Saturn, one altar per realm.
 2. Choreograph a dance on the Neon Aurora Stage (companions sync emotes to music).
 3. Carve an ice temple in the glacier that glows when Foxy Ani casts fire inside.
+
+## Spirit essence — Zypharion (stub)
+The Anterranian Monarch's spiritual essence manifests as **Zypharion**, a zanpakutō-style soul-blade spirit beast (phoenix–dragon hybrid pending user confirm), dwelling in the **Celestial Ruin Sanctum** — a moonlit cosmic temple ruin among angels and orb spirits. Distinct from the companion mount **Phoenix Emberwing**. Name and form pending user approval (`docs/PENDING_USER_QUESTIONS.md` items 28–29). Concept art: `art/references/batch_t16u_spirit_essence/`.

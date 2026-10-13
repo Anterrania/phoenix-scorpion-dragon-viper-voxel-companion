@@ -1,0 +1,30 @@
+{
+  "_note": "SCAFFOLD. Drivable vehicles; see docs/modules/PHYSICS_RPG.md. Physics values are placeholders.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "royal_suv",
+      "display_name": "Royal Vehicle (SUV)",
+      "owner": "player (Anterranian Monarch)",
+      "type": "ground",
+      "node": "VehicleBody3D",
+      "seats": 5,
+      "description": "Black SUV with gold filigree, magenta underglow, and an orb emblem.",
+      "physics": {
+        "mass_kg": 2400,
+        "engine_force": 0,
+        "brake": 0,
+        "max_steer_deg": 30,
+        "wheels": 4
+      },
+      "fx": [
+        "magenta_underglow",
+        "emblem_emissive"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/04_royal_vehicle_black_suv_gold_filigree.png"
+      ],
+      "status": "stub"
+    }
+  ]
+}

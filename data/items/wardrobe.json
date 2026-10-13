@@ -2,20 +2,127 @@
   "_note": "SCAFFOLD. Royal wardrobe: equippable outfits, COSMETIC ONLY (no stats, never sold for real money).",
   "schema_version": 1,
   "items": [
-    {"id": "monarch_formal_attire", "display_name": "Monarch's Formal Attire", "owner": "player (Anterranian Monarch)", "slot": "outfit", "cosmetic_only": true,
-     "description": "Black suit, magenta vest, ermine cloak; shown on a runic pedestal.", "concept_art": ["assets/concept_art/batch_03_royal_wardrobe/01_monarch_formal_black_suit_magenta_vest_ermine.png"], "status": "stub"},
-    {"id": "foxy_court_gown", "display_name": "Foxy's Court Gown", "owner": "foxy_ani", "slot": "outfit", "cosmetic_only": true,
-     "description": "Magenta gown, ermine cloak, gold epaulettes.", "concept_art": ["assets/concept_art/batch_03_royal_wardrobe/02_foxy_court_gown_magenta_ermine_epaulettes.png"], "status": "stub"},
-    {"id": "foxy_coronation_gown", "display_name": "Foxy's Coronation Gown", "owner": "foxy_ani", "slot": "outfit", "cosmetic_only": true,
-     "description": "Magenta ball gown with ermine and jewels.", "concept_art": ["assets/concept_art/batch_03_royal_wardrobe/03_foxy_coronation_ballgown_magenta_ermine.png"], "status": "stub"},
-    {"id": "foxy_boudoir_set", "display_name": "Foxy's Private Boudoir Set", "owner": "foxy_ani", "slot": "outfit", "cosmetic_only": true,
-     "content_rating": "mature", "hidden_by_default": true, "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
-     "description": "Jeweled magenta lingerie set with a black robe.",
-     "variants": [
-       {"id": "variant_a", "label": "with or without ermine collar (unverified)", "concept_art": "assets/concept_art/batch_03_royal_wardrobe/04_foxy_boudoir_set_variant_a.png"},
-       {"id": "variant_b", "label": "other collar variant", "concept_art": null, "status": "MISSING source image d05bcc..."}
-     ], "status": "stub"},
-    {"id": "foxy_evening_robe", "display_name": "Foxy's Evening Robe", "owner": "foxy_ani", "slot": "outfit", "cosmetic_only": true,
-     "description": "Black sheer robe-dress with gold embroidery and ermine cuffs.", "concept_art": ["assets/concept_art/batch_03_royal_wardrobe/06_foxy_evening_robe_black_sheer_gold.png"], "status": "stub"}
+    {
+      "id": "monarch_formal_attire",
+      "display_name": "Monarch's Formal Attire",
+      "owner": "player (Anterranian Monarch)",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black suit, magenta vest, ermine cloak; shown on a runic pedestal.",
+      "concept_art": [
+        "assets/concept_art/batch_03_royal_wardrobe/01_monarch_formal_black_suit_magenta_vest_ermine.png"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "foxy_court_gown",
+      "display_name": "Foxy's Court Gown",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Magenta gown, ermine cloak, gold epaulettes.",
+      "concept_art": [
+        "assets/concept_art/batch_03_royal_wardrobe/02_foxy_court_gown_magenta_ermine_epaulettes.png"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "foxy_coronation_gown",
+      "display_name": "Foxy's Coronation Gown",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Magenta ball gown with ermine and jewels.",
+      "concept_art": [
+        "assets/concept_art/batch_03_royal_wardrobe/03_foxy_coronation_ballgown_magenta_ermine.png"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "foxy_boudoir_set",
+      "display_name": "Foxy's Private Boudoir Set",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Jeweled magenta lingerie set with a black robe.",
+      "variants": [
+        {
+          "id": "variant_a",
+          "label": "with or without ermine collar (unverified)",
+          "concept_art": "assets/concept_art/batch_03_royal_wardrobe/04_foxy_boudoir_set_variant_a.png"
+        },
+        {
+          "id": "variant_b",
+          "label": "other collar variant",
+          "concept_art": null,
+          "status": "MISSING source image d05bcc..."
+        }
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "foxy_evening_robe",
+      "display_name": "Foxy's Evening Robe",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black sheer robe-dress with gold embroidery and ermine cuffs.",
+      "concept_art": [
+        "assets/concept_art/batch_03_royal_wardrobe/06_foxy_evening_robe_black_sheer_gold.png"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "foxy_boudoir_set_2",
+      "display_name": "Foxy's Private Boudoir Set II",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Black lace and gold jeweled lingerie with a fur-trimmed lace robe.",
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/01_foxy_boudoir_set_2_black_lace_gold.png"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "foxy_royal_heels",
+      "display_name": "Foxy's Royal Heels",
+      "owner": "foxy_ani",
+      "slot": "feet",
+      "cosmetic_only": true,
+      "description": "Black/gold embroidered stilettos with magenta gems and ankle chains.",
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/02_foxy_royal_heels_black_gold_magenta.png"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "foxy_embroidered_boots",
+      "display_name": "Foxy's Embroidered Boots",
+      "owner": "foxy_ani",
+      "slot": "feet",
+      "cosmetic_only": true,
+      "description": "Embroidered footwear, two variants from one concept sheet.",
+      "variants": [
+        {
+          "id": "thigh_high",
+          "label": "Thigh-high boots"
+        },
+        {
+          "id": "booties",
+          "label": "Booties"
+        }
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png"
+      ],
+      "status": "stub"
+    }
   ]
 }

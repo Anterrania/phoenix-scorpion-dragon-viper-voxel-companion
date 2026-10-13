@@ -1,0 +1,43 @@
+{
+  "_note": "SCAFFOLD. Placeable props (snap to the voxel grid). See docs/modules/THRONE_ROOM.md.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "monarch_throne",
+      "display_name": "The Monarch's Throne",
+      "owner": "player (Anterranian Monarch)",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        3,
+        4,
+        3
+      ],
+      "sit_point": true,
+      "description": "Black and gold throne with eagles and an orb crown.",
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/05_monarch_throne_black_gold_eagles.png"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "foxy_consort_throne",
+      "display_name": "Foxy's Consort Throne",
+      "owner": "foxy_ani",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        3,
+        4,
+        3
+      ],
+      "sit_point": true,
+      "description": "Magenta throne with a crescent/star crest, inscribed 'FLAMMA. ORDO. ATERNA'.",
+      "inscription": "FLAMMA. ORDO. ATERNA (spelling user-confirm)",
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/06_foxy_consort_throne_magenta_crescent.png"
+      ],
+      "status": "stub"
+    }
+  ]
+}

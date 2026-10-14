@@ -148,3 +148,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Is "Planet Venus City" the title screen, the realm name, or a loading card? Is it the same place as the Venusian Music capitol?
 - God's Palace v2 (d4e900eb): should it replace the earlier God's Palace or be a second version?
 - Approve these names: Duskfire Court Gowns, Amethyst Regent Longcoat, Plumefall Promenade, Magenta Plume Ball Gown, Venus Lava Quartet Gowns, Violet Corset Bodysuit.
+
+## Batch t33ua53
+- I named the domed lava/storm capitol "Stormcrown Capitol" and the black-catsuit squad "Viper Vanguard". OK? Is the capitol the same place as the phoenix capitol on the lava plain?
+- Are the Viper Vanguard women companions (with names), or a guard unit / enemy squad?
+- Several faces look photoreal. Are they your own AI originals? I only save the settings and outfits and build original faces.

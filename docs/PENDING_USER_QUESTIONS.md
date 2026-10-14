@@ -224,3 +224,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Another song: "Stop standing there, come over here, I want to feel your love ... just take my hand, we'll dance all night." Is this yours, and what's it called? I'm calling it "Dance All Night." One part sounded like "it's crystal," but I'm not sure.
 - "Sing a new song to the Lord on high, let the heavens rejoice" sounds like more of the "New Song" hymn. Should it go in the same song?
 - Two of the videos were the same clip (one had no sound). Was one meant to be a different video?
+
+## Batch t35ua0
+- Same real-looking singer duo again, so I saved only stages: a "Crimson-Phoenix Cloud Stage," a "Neon-Bar Smoke Runway," a "Galaxy-Portal Wall" and a "Crystal Wyvern Sanctum" with a giant crystal winged dragon. Should the crystal dragon be part of the Seraph-Dragon Unity Crest look?
+- New line: "Sing a new song tonight, under cosmic lights, our spirits igniting." Is it yours, and which song does it go in ("Phoenix Wing," "Rise of Monarchy," or another)?
+- One video was attached twice. Was the second meant to be a different clip?

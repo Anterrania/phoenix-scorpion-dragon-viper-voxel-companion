@@ -467,6 +467,39 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Alternate Great Sigil / medallion candidate (batch_27)."
+    },
+    {
+      "id": "zodiac_heptagon_magnefyre_emblem",
+      "display_name": "Zodiac Heptagon Magnefyre Emblem",
+      "category": "emblem_card",
+      "type": "zodiac_creature_emblem",
+      "house_emblem": "crowned_dragon_phoenix",
+      "proposed_creature_name": "Magnefyre",
+      "description": "Bipedal muscular magenta/purple humanoid dragon with leathery wings, horns, and pink fire-breath, framed in a silver-gold heptagon engraved with runes and ringed by a neon magenta aura over a starfield. Emblem/UI card style \u2014 distinct from Zypharion (coiled spirit beast) and crowned dragon-phoenix seals.",
+      "motif": "humanoid_zodiac_dragon",
+      "features": [
+        "heptagon_rune_frame",
+        "neon_magenta_ring",
+        "fire_breath",
+        "bat_wings"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua12/zodiac_heptagon_magnefyre_emblem.jpg"
+      ],
+      "related_creatures": [
+        "spirit_beast_zypharion",
+        "phoenix_emberwing"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua12 source a17a0cba. Name Magnefyre assigned by Foxy for the dragon; user may rename. Confirm if this is also a summonable creature or heraldry/UI only."
     }
   ],
   "open_questions": [

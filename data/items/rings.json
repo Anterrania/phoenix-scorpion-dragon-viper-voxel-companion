@@ -71,6 +71,74 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Batch t33ua0 source 0c01c411. Distinct from moonstone_phoenix_title_ring and magenta oval halo ring. Name pending approval."
+    },
+    {
+      "id": "gemini_dragon_galaxy_ring",
+      "display_name": "Gemini Dragon Galaxy Ring",
+      "slot": "ring",
+      "rarity": "legendary",
+      "description": "Wide dark-silver cocktail ring with gold constellation filigree; large oval magenta gem holding a spiral galaxy; gold dragon head atop the setting with Gemini (\u2161) glyph on the brow. Cosmic nebula presentation.",
+      "motifs": [
+        "gemini",
+        "dragon",
+        "galaxy_gem",
+        "constellation",
+        "zodiac"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua12/gemini_dragon_galaxy_ring.jpg"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua12 source a8913f93. Distinct from phoenix_twin_eagle_cosmic_ring (dragon+Gemini vs twin eagle). Name pending approval."
+    },
+    {
+      "id": "zodiac_quadragon_galaxy_ring",
+      "display_name": "Zodiac Quad-Dragon Galaxy Ring",
+      "slot": "ring",
+      "rarity": "legendary",
+      "description": "Dark band ring with four golden dragon-head claws gripping a hemispherical magenta galaxy cabochon; side panel with glowing Gemini glyph. Shown worn with black constellation-etched finger plates (link to zodiac_astrolabe_gauntlets).",
+      "motifs": [
+        "gemini",
+        "dragon",
+        "galaxy_cabochon",
+        "zodiac",
+        "gauntlet_pair"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua12/zodiac_quadragon_galaxy_ring.jpg"
+      ],
+      "related": [
+        "zodiac_astrolabe_gauntlets"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua12 source 1d42ae78. Finger armor in frame treated as same family as zodiac_astrolabe_gauntlets (confirm). Name pending approval.",
+      "open_questions": [
+        "Are the constellation finger plates part of zodiac_astrolabe_gauntlets, or a separate finger-armor piece?"
+      ]
     }
   ]
 }

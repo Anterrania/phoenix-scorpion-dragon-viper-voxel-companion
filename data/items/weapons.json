@@ -452,7 +452,10 @@
       ],
       "cosmetic_gameplay_only": true,
       "real_money": false,
-      "notes": "Batch t33ua0 source 4a39c33d. Full-size ornate pair \u2014 distinct from thumbnail stub scdi_power_gauntlet (confirm if same family or separate).",
+      "notes": "Batch t33ua0 source 4a39c33d. Full-size ornate pair \u2014 distinct from thumbnail stub scdi_power_gauntlet (confirm if same family or separate). Batch t33ua12 frame 1d42ae78 shows constellation finger plates with zodiac_quadragon_galaxy_ring \u2014 possible same set.",
+      "related": [
+        "zodiac_quadragon_galaxy_ring"
+      ],
       "open_questions": [
         "Same family as scdi_power_gauntlet, or a separate zodiac regalia set?"
       ]

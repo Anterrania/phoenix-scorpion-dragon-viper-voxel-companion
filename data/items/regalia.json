@@ -243,6 +243,35 @@
         "platinum",
         "gold"
       ]
+    },
+    {
+      "id": "gemini_aries_orrery_pendant",
+      "display_name": "Gemini-Aries Orrery Pendant",
+      "slot": "neck",
+      "category": "jewelry",
+      "rarity": "legendary",
+      "description": "Large black oval cabochon pendant in gold/silver swirling filigree; internal gold constellation ring around a spiral galaxy; Gemini glyph above and Aries glyph below; silver dragon-head bail on a heavy black-and-gold link chain. Cosmic magenta nebula presentation.",
+      "motifs": [
+        "gemini",
+        "aries",
+        "galaxy",
+        "orrery",
+        "dragon_bail",
+        "zodiac"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua12/gemini_aries_orrery_pendant.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua12 source 2661b215. Distinct from celestial_collar_necklace (oval orrery pendant vs collar). Name pending approval."
     }
   ]
 }

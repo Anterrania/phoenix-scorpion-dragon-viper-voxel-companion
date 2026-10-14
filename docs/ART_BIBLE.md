@@ -633,3 +633,16 @@ Palette v2. Source videos are not committed, only one clothed frame each. No peo
 - `phoenix_twin_eagle_cosmic_ring.jpg` (0c01c411): dark-silver cocktail ring, large magenta gem, twin phoenix/eagle sculpted wings, zodiac-glyph band. **New ring stub: `phoenix_twin_eagle_cosmic_ring`**.
 - `zodiac_nebula_spear.jpg` (21ad1698): black/gold spiral spear with magenta lightning core over a pink galaxy. **New weapon stub: `zodiac_nebula_spear`**.
 - `zodiac_astrolabe_gauntlets.jpg` (4a39c33d): paired black/gold gauntlets with zodiac-wheel bracers and hexagonal magenta galaxy gems. **New weapon stub: `zodiac_astrolabe_gauntlets`** (confirm vs thumbnail `scdi_power_gauntlet`).
+
+## Batch t33ua12: zodiac jewelry + Magnefyre emblem + crystal helm (`art/references/batch_t33ua12/`)
+Palette v2. Source videos are not committed, only one clothed frame each. No nude frames. Mature gate N/A (no cosmetics / no people as subjects — jewelry hands only).
+
+**Deduped (already catalogued — frames not kept):**
+- `d6ff8537`: zodiac court robe animation — same family as **`zodiac_high_collar_court_robe_train`** (batch_t16ua192). See `SKIPPED_duplicates.txt`.
+
+**Kept (5 frames → 5 stubs):**
+- `zodiac_heptagon_magnefyre_emblem.jpg` (a17a0cba): bipedal magenta/purple humanoid dragon in a rune heptagon with neon magenta ring, pink fire-breath, bat wings, cosmic starfield. **New heraldry stub: `zodiac_heptagon_magnefyre_emblem`** (proposed creature name **Magnefyre**). Distinct from Zypharion and crowned dragon-phoenix seals.
+- `gemini_dragon_galaxy_ring.jpg` (a8913f93): dark-silver cocktail ring, oval magenta galaxy gem, gold Gemini-brow dragon head, constellation band. **New ring stub: `gemini_dragon_galaxy_ring`**. Distinct from `phoenix_twin_eagle_cosmic_ring`.
+- `gemini_aries_orrery_pendant.jpg` (2661b215): black oval orrery pendant with Gemini + Aries glyphs, galaxy core, dragon-head bail, gold/silver filigree chain. **New regalia stub: `gemini_aries_orrery_pendant`**. Distinct from `celestial_collar_necklace`.
+- `zodiac_quadragon_galaxy_ring.jpg` (1d42ae78): four golden dragon claws on a magenta galaxy cabochon, Gemini side gem; worn with constellation-etched black finger plates. **New ring stub: `zodiac_quadragon_galaxy_ring`**; finger plates linked to **`zodiac_astrolabe_gauntlets`**.
+- `zodiac_crystal_horn_helm.jpg` (802386b2): dark gold-filigree knight helm with jagged magenta crystal horns/crest and glowing visor, zodiac forehead medallion. **New armor stub: `zodiac_crystal_horn_helm`**. Distinct from `scdi_flight_helmet`.

@@ -111,3 +111,10 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Are **Zodiac Astrolabe Gauntlets** the full-size version of the gallery stub **`scdi_power_gauntlet`**, or a separate set?
 - Which zone/map does **Tempest Pillar Sea** belong to?
 - Videos `0409d216` / `fb4251ca` were treated as repeats of **`royal_suv` cosmic_hover** — correct?
+
+## Batch t33ua12
+- Approve or rename: heraldry/creature **Magnefyre** (`zodiac_heptagon_magnefyre_emblem`), rings **Gemini Dragon Galaxy Ring** and **Zodiac Quad-Dragon Galaxy Ring**, pendant **Gemini-Aries Orrery Pendant**, helm **Zodiac Crystal-Horn Helm**.
+- Is **Magnefyre** heraldry/UI only, or also a summonable creature (alongside Zypharion / Phoenix Emberwing)?
+- Are the constellation finger plates in `1d42ae78` part of **Zodiac Astrolabe Gauntlets**, or a separate finger-armor piece?
+- Video `d6ff8537` treated as a repeat of **`zodiac_high_collar_court_robe_train`** — correct?
+

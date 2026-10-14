@@ -158,3 +158,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Approve or rename: **Crowned Laurel Sunset Standard**, **Radiant Crown Fringed War Standard**.
 - Both flags use red borders. Keep red, or re-tint them magenta per palette v2?
 - Are these the national flag, the royal or Monarch's personal standard, or military banners?
+
+## Batch t33ua64
+- All six clips have photoreal faces that look like real people (two look strongly like specific actresses), so I saved only original outfit ideas. Which companion should wear each look?
+- d34d01eb used the Superman "S" logo. Is the original "Phoenix Crest Orbit Suit" replacement okay?
+- Approve these names: Nyx Rose Lace Set, Velvet Eclipse Wrap Gown, Thornlace Garter Set, Eclipse Veil Spin, Phoenix Crest Orbit Suit, Candlelit Noir Lace Bodysuit, Gilded Ring Cabaret Stage, Orbit Dawn Overlook, Candlelit Velvet Chamber. All are mature-gated.

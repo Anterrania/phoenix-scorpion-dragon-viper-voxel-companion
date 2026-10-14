@@ -153,3 +153,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - I named the domed lava/storm capitol "Stormcrown Capitol" and the black-catsuit squad "Viper Vanguard". OK? Is the capitol the same place as the phoenix capitol on the lava plain?
 - Are the Viper Vanguard women companions (with names), or a guard unit / enemy squad?
 - Several faces look photoreal. Are they your own AI originals? I only save the settings and outfits and build original faces.
+
+## Batch t33ua59
+- Approve or rename: **Crowned Laurel Sunset Standard**, **Radiant Crown Fringed War Standard**.
+- Both flags use red borders. Keep red, or re-tint them magenta per palette v2?
+- Are these the national flag, the royal or Monarch's personal standard, or military banners?

@@ -662,3 +662,8 @@ Palette v2. Source videos are not committed, only one clothed frame each. No nud
 - `golden_spire_skyport_city.jpg` (6ea0979b): location ref "Golden Spire Skyport": gold-clouded sky city, central spire, floating saucer platforms with light beams, cyan light roads, glitter confetti celebration (people cropped out). Reference only.
 - e7438dcc: wardrobe idea only, "Venefyre Storm Guard uniforms": black/gold and magenta/gold filigree bodysuits and long coats with capes on a gold dais under orange lightning. No frame saved (photoreal faces may be real people).
 - Skipped: 9a239fc1, the same real-person singer as batch t33ua24.
+
+### Batch t33ua59
+- `crowned_laurel_sunset_standard.jpg` (526604ff): black/red flag, crown in gold laurel. **New heraldry stub.**
+- `radiant_crown_fringed_war_standard.jpg` (47fe6474): fringed black/red flag, crown medallion on star-ray burst with laurels. **New heraldry stub.**
+- Skipped repeats: 77696da9, f51ae2e7 (t33ua47), 31b6cc2a (t33ua41).

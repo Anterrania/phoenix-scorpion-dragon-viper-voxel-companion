@@ -587,6 +587,38 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Batch t33ua35 source aad49339. Name by Foxy, pending; meaning of E.W unknown."
+    },
+    {
+      "type": "heraldry",
+      "category": "flag",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "id": "crowned_laurel_sunset_standard",
+      "display_name": "Crowned Laurel Sunset Standard",
+      "description": "Black field with red border; jeweled gold-and-silver crown inside a gold laurel wreath. Original stub; red border to be re-tinted magenta per palette v2 unless user prefers red.",
+      "concept_art": [
+        "art/references/batch_t33ua59/crowned_laurel_sunset_standard.jpg"
+      ],
+      "notes": "Batch t33ua59 source 526604ff. Name by Foxy, pending."
+    },
+    {
+      "type": "heraldry",
+      "category": "flag",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "id": "radiant_crown_fringed_war_standard",
+      "display_name": "Radiant Crown Fringed War Standard",
+      "description": "Black field, red border, gold fringe; gold-ringed black medallion with gold crown (red-capped crown variant above), white star-ray burst and green laurel sprigs. Original stub; red to magenta, white rays to platinum per palette v2.",
+      "concept_art": [
+        "art/references/batch_t33ua59/radiant_crown_fringed_war_standard.jpg"
+      ],
+      "notes": "Batch t33ua59 source 47fe6474. Name by Foxy, pending."
     }
   ],
   "open_questions": [

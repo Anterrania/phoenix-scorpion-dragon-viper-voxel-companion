@@ -210,3 +210,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - The fireworks-stage duet videos pair the real singer again with a chrome cyborg dancer. I kept the cyborg (named "Chrome Star-Circuit Dancer"), the stage with the phoenix finale, and the outfit ideas. Is the cyborg a new companion or a look for Foxy? (I removed the "XAI" logo from her pants.)
 - One song has the lyrics "In the stars we ignite, cosmic fire burning bright, eternal dance through the night, our monarchy shining light." Is it yours? Should it be the Anterranian anthem or the title-screen song, and what's its real title? I'm calling it "Monarchy Shining Light" for now.
 - The video you attached twice is the same clip as another one in this batch, just saved again. Was the second copy meant to be a different video?
+
+## Batch t34ua22
+- These three clips show the same real-looking singer duo again, so I saved only the stages (named "Seraph-Wing Nebula Stage" and "Ribbon-Aurora Phoenix Arena") and a finale dance. Do you want either stage for the concert/title screen?
+- New lyrics: "In the cosmic light we rise, eternal flames in our eyes ... forever in the phoenix wing ... to eternal night." Is this yours, and is it a second verse of "Monarchy Shining Light" or its own song? I'm calling it "Phoenix Wing" for now. A couple of words were unclear ("sons of the new song"? "fade to eternal night"?).
+- Another song says "Praise the Lord with a new song, sing to him all the earth ... His mercy endures forever." Is this a song you wrote? Should a worship hymn be in the game, for example in a chapel or at the coronation?
+- The video you attached twice is the same as another clip in this batch. Was one meant to be a different video?

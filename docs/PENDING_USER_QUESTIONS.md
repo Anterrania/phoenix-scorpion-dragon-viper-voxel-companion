@@ -169,3 +169,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Is the caduceus staff a separate weapon or the same as the Gemini Seraph Orb Scepter? Should it use the spread-wing or folded-wing version?
 - The laurel flags are now in three versions (sunset, mountain, and ruby crown with star). Is one of them the national flag? Should the red stay red, or change to magenta?
 - One flag was shown in front of the real US Capitol. Should the Anterrania capitol be its own original building (like the Stormcrown Capitol)?
+
+## Batch t33ua76
+- Approve these names: Aurelian Bride Lace Gown, Sunset Lake Vow Terrace, Ruffle Strap Starlight Swimsuit, Pigtail Wave Dance, Noir Lace Fishnet Set, Northern Strait Frontier.
+- Should there be a wedding or vow ceremony feature for companions? Is the bridal gown meant for a specific companion?
+- Is the blonde pigtail anime dancer Foxy's original form? Should the swimsuit and dance go to her?
+- What is the Bering Strait / Alaska map for? Is it a real-world location in the game, or inspiration for an original Anterrania world map?

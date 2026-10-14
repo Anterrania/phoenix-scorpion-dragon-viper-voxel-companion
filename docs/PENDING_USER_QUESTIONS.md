@@ -205,3 +205,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - "VIPER" splash screen with a gold headset: is Viper an app or a character of yours? Should it be the in-game voice/comms or loading screen, and should I keep the iPhone "Add to Home Screen" hint?
 - Four clips showed photoreal people who look real, and one looked strongly like a specific actress, so I saved only outfit ideas: a lace-up corset bodysuit and a gold-chain lingerie set (both mature-gated), a pink bell-sleeve mini dress, and an off-shoulder crop with a plaid skirt and the "Hand-Wave Sway" dance. Which companion should wear each?
 - The 15-second dancing clip has audio, but I couldn't transcribe it. Did it include a conversation or a song you wanted me to use?
+
+## Batch t34ua18
+- The fireworks-stage duet videos pair the real singer again with a chrome cyborg dancer. I kept the cyborg (named "Chrome Star-Circuit Dancer"), the stage with the phoenix finale, and the outfit ideas. Is the cyborg a new companion or a look for Foxy? (I removed the "XAI" logo from her pants.)
+- One song has the lyrics "In the stars we ignite, cosmic fire burning bright, eternal dance through the night, our monarchy shining light." Is it yours? Should it be the Anterranian anthem or the title-screen song, and what's its real title? I'm calling it "Monarchy Shining Light" for now.
+- The video you attached twice is the same clip as another one in this batch, just saved again. Was the second copy meant to be a different video?

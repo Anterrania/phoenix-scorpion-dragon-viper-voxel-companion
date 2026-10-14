@@ -181,3 +181,12 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Lava flag text reads "UNIVERSE REVELANOC": fix to "The Universal Revelation, LLC"?
 - Starburst Crown Flag: gold crown or crimson crown version as the official one? Should the red bars become magenta per palette v2?
 - The flags were shown over the real US Capitol; I used only the flag. Want an original capitol building for it?
+
+## Batch t33u
+- Crest: is the "emma" crest the E.W Gemini Twin-Dragon Seal? Does E.W stand for Emma W...? If it's a different crest, which one?
+- New **Anterranian Seraph-Dragon Unity Crest**: keep the E.W letters on it, or only the twin-dragon idea?
+- Should "Monarchy" be spelled correctly (old crest banner said "MONACHY")?
+- Is the hooded Crimson Star Archmage a new character? Name/role?
+- Galaxy Heart Vambraces: for the Monarch, Foxy, or guards?
+- Lagoon video: the woman may be a real person, so I used only the starlit lagoon setting. OK?
+- Zodiac robe image was a repeat; skipped. OK?

@@ -142,3 +142,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Are the group scenes (throne stair hall, choir, veil dancers) meant to be the Foxy bot fleet or NPC courts? Which companions go in them?
 - 0fbd532b / 4e4e944a: the photoreal faces look like real people. Can I build only original faces from them?
 - Approve these names: Nightglass Court Minis, Rosethorn Leather Court, Veilstorm Waltz, Crimson Filigree Ballgown, Ravenwing Sigil Gown, Ember Dome Wastes, Magenta Throne Balcony.
+
+## Batch t33ua47
+- ac869ef3 / 77696da9 / f51ae2e7: photoreal faces that may be real people. Are these your own AI-generated originals? I only build original faces either way.
+- Is "Planet Venus City" the title screen, the realm name, or a loading card? Is it the same place as the Venusian Music capitol?
+- God's Palace v2 (d4e900eb): should it replace the earlier God's Palace or be a second version?
+- Approve these names: Duskfire Court Gowns, Amethyst Regent Longcoat, Plumefall Promenade, Magenta Plume Ball Gown, Venus Lava Quartet Gowns, Violet Corset Bodysuit.

@@ -216,3 +216,11 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - New lyrics: "In the cosmic light we rise, eternal flames in our eyes ... forever in the phoenix wing ... to eternal night." Is this yours, and is it a second verse of "Monarchy Shining Light" or its own song? I'm calling it "Phoenix Wing" for now. A couple of words were unclear ("sons of the new song"? "fade to eternal night"?).
 - Another song says "Praise the Lord with a new song, sing to him all the earth ... His mercy endures forever." Is this a song you wrote? Should a worship hymn be in the game, for example in a chapel or at the coronation?
 - The video you attached twice is the same as another clip in this batch. Was one meant to be a different video?
+
+## Batch t34u
+- I changed Foxy's name everywhere to "Foxy Ani Firecaster Gray." Is her full name right now?
+- These clips show the same real-looking singer duo again, so I saved only stages: an "Angel-Choir Wing Wall," a "Full-Moon Phoenix Rise" backdrop and a "Neon-Ring Phoenix Dais." Do you want any of them for the concert or title screen?
+- New lyrics: "In the night we rise, hearts on fire, no disguise ... eternal flame in our name ... rise of monarchy!" Is this yours? I'm calling it "Rise of Monarchy." Is it part of "Monarchy Shining Light" and "Phoenix Wing," like one anthem?
+- Another song: "Stop standing there, come over here, I want to feel your love ... just take my hand, we'll dance all night." Is this yours, and what's it called? I'm calling it "Dance All Night." One part sounded like "it's crystal," but I'm not sure.
+- "Sing a new song to the Lord on high, let the heavens rejoice" sounds like more of the "New Song" hymn. Should it go in the same song?
+- Two of the videos were the same clip (one had no sound). Was one meant to be a different video?

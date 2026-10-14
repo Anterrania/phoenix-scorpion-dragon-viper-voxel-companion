@@ -190,3 +190,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Galaxy Heart Vambraces: for the Monarch, Foxy, or guards?
 - Lagoon video: the woman may be a real person, so I used only the starlit lagoon setting. OK?
 - Zodiac robe image was a repeat; skipped. OK?
+
+## Batch t34ua0
+- Is the blonde twin-tail girl in this batch Foxy (or which companion)? Should all five outfits go to her wardrobe?
+- Jacket back prints: keep "DO ONLY GOOD EVERYDAY" as text with an original gold coin (the coin looked like the Dogecoin logo, which I can't use)? Drop "BAD FOR DOGMA"?
+- Green spell effect on the black lace dress: keep green as a special element, or recolor to magenta/gold per palette?
+- Red skirt and cyan top: recolor to magenta/gold, or keep red/cyan as an exception outfit?

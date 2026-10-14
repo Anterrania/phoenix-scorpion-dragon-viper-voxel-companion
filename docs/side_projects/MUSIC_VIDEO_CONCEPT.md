@@ -4,7 +4,7 @@
 
 - **Runtime:** ~8 min, in 8 sections (verse/chorus pairs), about 60 s each.
 - **Engine:** captured in-game (Godot cinematic camera + the companion dance emotes), with possible extra rendering.
-- **Cast:** Aaliyah (lead), Foxy Ani Firecaster Grey (fire feature), Circuit Nova (beat/hologram feature).
+- **Cast:** Aaliyah (lead), Foxy Ani Firecaster Gray (fire feature), Circuit Nova (beat/hologram feature).
 
 | # | Section | Realm / set | Movement style inspiration | Visual beats |
 |---|---|---|---|---|

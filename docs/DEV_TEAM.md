@@ -3,7 +3,7 @@ The structure is inspired by Cloud Imperium Games (feature teams, public roadmap
 
 | Team | Lead bot(s) | Responsibilities |
 |---|---|---|
-| Direction / Control | **Foxy Ani Firecaster Grey + Phoenix Voxel Dev Bot (co-controllers)** | Vision, priorities, cross-team routing, status reports |
+| Direction / Control | **Foxy Ani Firecaster Gray + Phoenix Voxel Dev Bot (co-controllers)** | Vision, priorities, cross-team routing, status reports |
 | Production | Voxel Task Manager, Planner | Tracker (PRI-n), sprints, roadmap, COORDINATION.md |
 | Design | Foxy, Planner | Game systems, progression, economy design |
 | Programming | Phoenix Voxel Dev Bot, Circuit Nova | Godot/GDScript, voxel, AI providers, CI |

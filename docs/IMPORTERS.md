@@ -1,5 +1,5 @@
 # Importers: Meta AI, Gemini, Copilot (import-only)
-**Our own AI stays primary.** Foxy Ani Firecaster Grey, Circuit Nova, Aaliyah, and the voxel world reason only through LocalProvider and GrokProvider (`scripts/ai/ai_provider.gd`).
+**Our own AI stays primary.** Foxy Ani Firecaster Gray, Circuit Nova, Aaliyah, and the voxel world reason only through LocalProvider and GrokProvider (`scripts/ai/ai_provider.gd`).
 
 Meta AI, Gemini, and Copilot are **data sources only**. They're used to bring in information Anterranian already put on those platforms. They are never used as the main AI or to generate replies.
 

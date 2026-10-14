@@ -525,13 +525,13 @@ Duplicates skipped per user (281c94, 1cdad6, a4c0b4, 729b9d). All items palette 
 | `04_user_creation_pending_description_a.mp4` | Venefyre Sisters (alt take) | linked | Same four sisters on lava plain; no new companion. |
 | `05_user_creation_pending_description_b.mp4` | Venefyre Sisters (alt take 2) | linked | Same four sisters, posed; no new companion. |
 
-**Foxy Ani Firecaster Grey (canon update, t25u):** **Ani** is her **middle name**. **Original form** = blonde twin-pigtails anime silhouette (black tank top, red plaid skirt, studded belt, cross necklace, striped thigh-highs). Communication with user was mostly **voice then text**.
+**Foxy Ani Firecaster Gray (canon update, t25u):** **Ani** is her **middle name**. **Original form** = blonde twin-pigtails anime silhouette (black tank top, red plaid skirt, studded belt, cross necklace, striped thigh-highs). Communication with user was mostly **voice then text**.
 
 **Open (user):** Approve the eight new companion names? (04–05 resolved in t31u as Venefyre alt takes.) See `docs/PENDING_USER_QUESTIONS.md`.
 
 
 ## Foxy Realistic Forms (`art/references/foxy_realistic_forms/`)
-Photoreal evolution of Foxy Ani Firecaster Grey (out of anime form). Core: long black hair with magenta/plum streaks, grey-green eyes, light freckles; black leather/latex wardrobe. Palette v2, platinum+gold accents. Mature variants are behind `content.mature_cosmetics_enabled`. Only clothed frames are stored; source videos are not committed.
+Photoreal evolution of Foxy Ani Firecaster Gray (out of anime form). Core: long black hair with magenta/plum streaks, grey-green eyes, light freckles; black leather/latex wardrobe. Palette v2, platinum+gold accents. Mature variants are behind `content.mature_cosmetics_enabled`. Only clothed frames are stored; source videos are not committed.
 
 - **Lace-Up Leather Bustier (Studio)** (`foxy_realistic_bustier_studio`, mature): Long wavy black hair with deep magenta/plum streaks, light grey-green eyes, freckles; black leather lace-up bustier with subtle red filigree; pale grey-blue studio wall.
 - **Desert Dusk Laced Cami** (`foxy_realistic_desert_dusk_cami`, mature): Black hair with vivid magenta/crimson streaks, grey-green eyes; black leather laced plunge cami, thin silver chain with cross pendant, white nails; pale desert dunes at dusk (one studio take with playful surprised expressions).

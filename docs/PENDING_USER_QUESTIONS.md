@@ -137,3 +137,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - What does **E.W** stand for on the twin-dragon Gemini seal (aad49339)?
 - e7438dcc (four women in filigree uniforms): are these existing companions, for example the Venefyre sisters? I saved only the uniform design, since the faces look photoreal.
 - Throne hall (5a8b0506) and gold skyport city (6ea0979b): which realm or capitol do they belong to?
+
+## Batch t33ua41
+- Are the group scenes (throne stair hall, choir, veil dancers) meant to be the Foxy bot fleet or NPC courts? Which companions go in them?
+- 0fbd532b / 4e4e944a: the photoreal faces look like real people. Can I build only original faces from them?
+- Approve these names: Nightglass Court Minis, Rosethorn Leather Court, Veilstorm Waltz, Crimson Filigree Ballgown, Ravenwing Sigil Gown, Ember Dome Wastes, Magenta Throne Balcony.

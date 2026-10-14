@@ -127,3 +127,7 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 
 ### Batch t33ua24 (5 videos) — skipped as real-person likeness
 - All 5 clips (463d6a08, f6c9fdb5, adcdb020, 6a2a30ed, 822367fa) show the same photoreal blonde/pink-streaked singer in a tiara, black tank and studded pants at a drum-kit stage. They appear to depict a real celebrity, so no likeness was saved. Q: Do you want an original "punk stage idol" wardrobe (silver tiara, black crop tank, grommet-studded black flares, chain belt) in palette v2 for Foxy or another companion, with no real-person face?
+
+### Batch t33ua29 (6 attachments, 5 unique)
+- Is the **Crowned Venus Scepter Seal** (8778541b/92596b54) the official Venus house seal, and is "VENUS" the planet/realm name or a faction? Keep the eye-in-triangle crest?
+- Lava-plain capitol (da76620c): is the version without the phoenix statue a different building, or the same capitol at another time (e.g. during a meteor storm)?

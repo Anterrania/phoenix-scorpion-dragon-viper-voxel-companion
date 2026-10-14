@@ -539,6 +539,22 @@
       "finish": "glitter_sparkle",
       "status": "stub",
       "notes": "Batch t33ua18 source 496dedf0. Same phoenix-sash design as phoenix_sash_constellation_flag, astrolabe-wheel presentation. Name pending approval."
+    },
+    {
+      "id": "crowned_venus_scepter_orrery_seal",
+      "display_name": "Crowned Venus Scepter Seal",
+      "type": "heraldry",
+      "category": "seal",
+      "description": "Golden lightning-veined ringed Venus orb beneath a jeweled gold crown with violet velvet, two crossed gold-and-pearl scepters behind, radiant eye-in-triangle crest above, gold filigree medallion below, swirling gold line-art ring on black. 'VENUS' wordmark variant.",
+      "concept_art": [
+        "art/references/batch_t33ua29/crowned_venus_scepter_orrery_seal.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua29 sources 8778541b (no text) + 92596b54 (VENUS wordmark; uploaded twice). Related to crowned_venus_orrery_emblem (t32ua6). Name by Foxy, pending approval. Recolor violet to magenta for palette v2."
     }
   ],
   "open_questions": [

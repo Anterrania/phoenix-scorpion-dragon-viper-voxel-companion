@@ -649,3 +649,8 @@ Palette v2. Source videos are not committed, only one clothed frame each. No nud
 
 ### Batch t33ua18
 - Nebula Heart Crown, Gemini Seraph Orb Scepter, Storm-Crown Command Helm; phoenix magenta-sash flag + zodiac-wheel banner; Gemini Ember Wyrm seal. Refs in `art/references/batch_t33ua18/`.
+
+### Batch t33ua29
+- `crowned_venus_scepter_orrery_seal.jpg` (8778541b + 92596b54 "VENUS" variant): crowned golden ringed Venus orb, crossed scepters, eye-in-triangle crest. **New heraldry stub: `crowned_venus_scepter_orrery_seal`**.
+- `phoenix_capitol_lava_plain_v2.jpg` (da76620c): variant of the t32u phoenix capitol on lava plain (no phoenix finial, meteor fire streak). Reference only.
+- Repeats skipped: 28c4937c (= Venusian Music title card, t32u), 9e190c64 (= crowned_venus_orrery_emblem, t32ua6).

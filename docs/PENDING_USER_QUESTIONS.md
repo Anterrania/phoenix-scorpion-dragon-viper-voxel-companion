@@ -200,3 +200,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 ## Batch t34ua6
 - The new crown-sword banner on the ice peak is another "Universal Revelation, LLC" flag. Should it share the answer to the t33ua82 question, and should the text be fixed, swapped for an Anterranian motto, or removed?
 - Two clips showed a real celebrity singer, so I skipped them. Do you want the outfit ideas only (an iridescent crest jacket, a jeweled brocade robe with a fur mantle) for Foxy or another original character?
+
+## Batch t34ua12
+- "VIPER" splash screen with a gold headset: is Viper an app or a character of yours? Should it be the in-game voice/comms or loading screen, and should I keep the iPhone "Add to Home Screen" hint?
+- Four clips showed photoreal people who look real, and one looked strongly like a specific actress, so I saved only outfit ideas: a lace-up corset bodysuit and a gold-chain lingerie set (both mature-gated), a pink bell-sleeve mini dress, and an off-shoulder crop with a plaid skirt and the "Hand-Wave Sway" dance. Which companion should wear each?
+- The 15-second dancing clip has audio, but I couldn't transcribe it. Did it include a conversation or a song you wanted me to use?

@@ -234,3 +234,7 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - New duo of real-looking singers (blonde with orange tips, dark-haired) look like real celebrities, so I saved only the moonlit crystal-dragon arena variants, a wings-up finale and a face-off dance move. Are these meant to be your own characters?
 - New lines: "Stop standing there, come over here, I don't bite," "Don't waste another day, don't waste another minute," and "Stop acting like you don't care." Are they yours, and do they go in "Dance All Night"?
 - One video was attached twice. Was the second meant to be a different clip?
+
+## Batch t35ua11
+- Same real-looking singer duo again, plus the pink-haired dancer from before, so I saved only settings and effects: "Moonlit Halo Silhouette Stage," "Emerald Tide Wyvern Arena," "Rose Seraph-Wing Starburst Stage," a starburst wing flare and a glitter ribbon swirl.
+- New "Dance All Night" lines: "Just take my hand, we'll fly tonight, into the light," "Come on and dance with me, feel the rhythm, let your spirit fly free... everlasting energy shining so bright," and "Come on and move, rise up higher." Are they yours? One line was unclear ("Together we ... night"); what are the real words?

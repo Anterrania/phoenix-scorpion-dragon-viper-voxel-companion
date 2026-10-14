@@ -124,3 +124,6 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Is the phoenix-with-magenta-sash design the official national flag (replacing/alongside the existing phoenix flags)?
 - Is the black fire-breathing wyrm in `510e07bd` the same creature as **Magnefyre**, or a new one?
 - Does the Nebula Heart Crown belong to a specific character (Foxy, Ara Aurora, Saint-Queen Aurelith)?
+
+### Batch t33ua24 (5 videos) — skipped as real-person likeness
+- All 5 clips (463d6a08, f6c9fdb5, adcdb020, 6a2a30ed, 822367fa) show the same photoreal blonde/pink-streaked singer in a tiara, black tank and studded pants at a drum-kit stage. They appear to depict a real celebrity, so no likeness was saved. Q: Do you want an original "punk stage idol" wardrobe (silver tiara, black crop tank, grommet-studded black flares, chain belt) in palette v2 for Foxy or another companion, with no real-person face?

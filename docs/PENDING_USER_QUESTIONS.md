@@ -229,3 +229,8 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Same real-looking singer duo again, so I saved only stages: a "Crimson-Phoenix Cloud Stage," a "Neon-Bar Smoke Runway," a "Galaxy-Portal Wall" and a "Crystal Wyvern Sanctum" with a giant crystal winged dragon. Should the crystal dragon be part of the Seraph-Dragon Unity Crest look?
 - New line: "Sing a new song tonight, under cosmic lights, our spirits igniting." Is it yours, and which song does it go in ("Phoenix Wing," "Rise of Monarchy," or another)?
 - One video was attached twice. Was the second meant to be a different clip?
+
+## Batch t35ua5
+- New duo of real-looking singers (blonde with orange tips, dark-haired) look like real celebrities, so I saved only the moonlit crystal-dragon arena variants, a wings-up finale and a face-off dance move. Are these meant to be your own characters?
+- New lines: "Stop standing there, come over here, I don't bite," "Don't waste another day, don't waste another minute," and "Stop acting like you don't care." Are they yours, and do they go in "Dance All Night"?
+- One video was attached twice. Was the second meant to be a different clip?

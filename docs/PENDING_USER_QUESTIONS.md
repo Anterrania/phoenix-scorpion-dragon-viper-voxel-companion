@@ -196,3 +196,7 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Jacket back prints: keep "DO ONLY GOOD EVERYDAY" as text with an original gold coin (the coin looked like the Dogecoin logo, which I can't use)? Drop "BAD FOR DOGMA"?
 - Green spell effect on the black lace dress: keep green as a special element, or recolor to magenta/gold per palette?
 - Red skirt and cyan top: recolor to magenta/gold, or keep red/cyan as an exception outfit?
+
+## Batch t34ua6
+- The new crown-sword banner on the ice peak is another "Universal Revelation, LLC" flag. Should it share the answer to the t33ua82 question, and should the text be fixed, swapped for an Anterranian motto, or removed?
+- Two clips showed a real celebrity singer, so I skipped them. Do you want the outfit ideas only (an iridescent crest jacket, a jeweled brocade robe with a fur mantle) for Foxy or another original character?

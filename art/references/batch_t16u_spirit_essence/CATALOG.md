@@ -13,8 +13,8 @@ User upload: spiritual essence / zanpakutō-style soul-blade artwork, plus world
 | 01 | `01_zypharion_spirit_beast_celestial_ruin_sanctum.jpg` | primary art | Full scene; source `a82fbf8a…jpg` |
 | 02 | `02_zypharion_spirit_beast_phone_screenshot.png` | phone screenshot | Same art framed in phone UI (Sep 26); source `5a0e0be6…png` |
 | 03 | `03_zypharion_spirit_beast_crop.jpg` | crop | Tight crop of the beast; source `895bec5b…jpg` |
-| 04 | `04_user_video_world_things_old_crest_pending_a.mp4` | user video | *user video, more world things, old crest, pending description*; source `69bd7deb…mp4` |
-| 05 | `05_user_video_world_things_old_crest_pending_b.mp4` | user video | *user video, more world things, old crest, pending description*; source `10cf169d…mp4` |
+| 04 | `04_user_video_world_things_old_crest_pending_a.mp4` | user video | *user video, more world things, old crest*: Anterranian Monarchy Zodiac Dragon Crest (described t33ua35); source `69bd7deb…mp4` |
+| 05 | `05_user_video_world_things_old_crest_pending_b.mp4` | user video | *user video, more world things, old crest*: Anterranian Monarchy Zodiac Dragon Crest (described t33ua35); source `10cf169d…mp4` |
 
 **Skipped:** `c77b483e…jpg` — visual near-duplicate of 01 (see `SKIPPED_duplicates.txt`).
 

@@ -555,6 +555,38 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Batch t33ua29 sources 8778541b (no text) + 92596b54 (VENUS wordmark; uploaded twice). Related to crowned_venus_orrery_emblem (t32ua6). Name by Foxy, pending approval. Recolor violet to magenta for palette v2."
+    },
+    {
+      "id": "anterranian_monarchy_zodiac_dragon_crest",
+      "display_name": "Anterranian Monarchy Zodiac Dragon Crest",
+      "type": "heraldry",
+      "category": "crest",
+      "description": "Magenta fire-breathing winged dragon coiled in a gold-edged black shield, ringed by 12 zodiac medallions, black-and-gold crown on top, scroll banner 'THE ANTERRANIAN MONARCHY' (source misspells MONACHY), magenta nebula on black.",
+      "concept_art": [
+        "art/references/batch_t33ua35/anterranian_monarchy_zodiac_dragon_crest.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua35 source 69bd7deb (also t16u video 04, previously undescribed; now resolved). Likely the 'old crest'. Fix banner spelling."
+    },
+    {
+      "id": "ew_gemini_twin_dragon_zodiac_seal",
+      "display_name": "E.W Gemini Twin-Dragon Seal",
+      "type": "heraldry",
+      "category": "seal",
+      "description": "Twin magenta-black dragons breathing magenta fire, back to back, gold 'E.W' monogram and Gemini glyph, gold zodiac ring inside a wavy magenta galaxy border on black.",
+      "concept_art": [
+        "art/references/batch_t33ua35/ew_gemini_twin_dragon_zodiac_seal.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua35 source aad49339. Name by Foxy, pending; meaning of E.W unknown."
     }
   ],
   "open_questions": [

@@ -654,3 +654,11 @@ Palette v2. Source videos are not committed, only one clothed frame each. No nud
 - `crowned_venus_scepter_orrery_seal.jpg` (8778541b + 92596b54 "VENUS" variant): crowned golden ringed Venus orb, crossed scepters, eye-in-triangle crest. **New heraldry stub: `crowned_venus_scepter_orrery_seal`**.
 - `phoenix_capitol_lava_plain_v2.jpg` (da76620c): variant of the t32u phoenix capitol on lava plain (no phoenix finial, meteor fire streak). Reference only.
 - Repeats skipped: 28c4937c (= Venusian Music title card, t32u), 9e190c64 (= crowned_venus_orrery_emblem, t32ua6).
+
+### Batch t33ua35
+- `anterranian_monarchy_zodiac_dragon_crest.jpg` (69bd7deb; resolves t16u video 04): **new heraldry stub `anterranian_monarchy_zodiac_dragon_crest`**.
+- `ew_gemini_twin_dragon_zodiac_seal.jpg` (aad49339): **new heraldry stub `ew_gemini_twin_dragon_zodiac_seal`**.
+- `obsidian_chandelier_throne_hall.jpg` (5a8b0506): location ref "Obsidian Chandelier Throne Hall": coffered gold ceiling, black crystal chandelier with magenta candles, gothic arches overlooking a spired city with floating islands and lava rivers; court of women in black/magenta gowns (people cropped out). Reference only.
+- `golden_spire_skyport_city.jpg` (6ea0979b): location ref "Golden Spire Skyport": gold-clouded sky city, central spire, floating saucer platforms with light beams, cyan light roads, glitter confetti celebration (people cropped out). Reference only.
+- e7438dcc: wardrobe idea only, "Venefyre Storm Guard uniforms": black/gold and magenta/gold filigree bodysuits and long coats with capes on a gold dais under orange lightning. No frame saved (photoreal faces may be real people).
+- Skipped: 9a239fc1, the same real-person singer as batch t33ua24.

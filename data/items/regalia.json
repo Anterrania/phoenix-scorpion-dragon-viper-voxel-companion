@@ -325,6 +325,36 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Batch t33ua18 source 4366ac0e. Distinct from crescent_scepter / orb_ring_scepter. Name pending approval."
+    },
+    {
+      "id": "gemini_twin_dragon_caduceus_staff",
+      "display_name": "Gemini Twin-Dragon Caduceus Staff",
+      "slot": "hand",
+      "category": "scepter",
+      "description": "Tall black staff wrapped by a platinum spiral ribbon; Gemini glyph collar; twin black dragons face each other around a glowing magenta galaxy orb, with huge magenta bat-wings spread behind. Nebula clouds and reflective cosmic floor.",
+      "concept_art": [
+        "art/references/batch_t33ua70/gemini_twin_dragon_caduceus_staff.jpg"
+      ],
+      "notes": "Batch t33ua70 source 80a959e5. Two wing variants (spread/folded). Name by Foxy, pending.",
+      "palette": "v2 black/magenta/gold/platinum + glitter",
+      "mature": false,
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "twin_dragon_zodiac_galaxy_locket",
+      "display_name": "Twin-Dragon Zodiac Galaxy Locket",
+      "slot": "neck",
+      "category": "jewelry",
+      "description": "Heavy platinum chain; round gunmetal locket with gold filigree, silver twin dragons clasping a glowing magenta galaxy orb; Aries, Gemini and Cancer glyph studs around the rim.",
+      "concept_art": [
+        "art/references/batch_t33ua70/twin_dragon_zodiac_galaxy_locket.jpg"
+      ],
+      "notes": "Batch t33ua70 source f7dd2b8c. Distinct from gemini_aries_orrery_pendant. Name pending.",
+      "palette": "v2 black/magenta/gold/platinum + glitter",
+      "mature": false,
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

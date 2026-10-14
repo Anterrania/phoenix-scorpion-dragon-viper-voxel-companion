@@ -619,6 +619,24 @@
         "art/references/batch_t33ua59/radiant_crown_fringed_war_standard.jpg"
       ],
       "notes": "Batch t33ua59 source 47fe6474. Name by Foxy, pending."
+    },
+    {
+      "id": "crowned_laurel_summit_standard",
+      "display_name": "Crowned Laurel Summit Standard",
+      "description": "Black field with red top/bottom stripes; gold crown inside a gold laurel wreath, small crown above. Flown on a snowy mountain peak. Variant of crowned_laurel_sunset_standard; red to magenta per palette v2 unless user prefers red.",
+      "concept_art": [
+        "art/references/batch_t33ua70/crowned_laurel_summit_standard.jpg"
+      ],
+      "notes": "Batch t33ua70 source 31d54ebe. Name pending."
+    },
+    {
+      "id": "ruby_crown_star_laurel_standard",
+      "display_name": "Ruby Crown Star-Laurel Standard",
+      "description": "Black field, red border; ruby-and-gold crown in a gold-and-green laurel wreath topped with a gold star. Original stub; red to magenta, green to platinum per palette v2.",
+      "concept_art": [
+        "art/references/batch_t33ua70/ruby_crown_star_laurel_standard.jpg"
+      ],
+      "notes": "Batch t33ua70 source ed7b3f50. Source background was the real US Capitol building; cropped to flag only. Name pending."
     }
   ],
   "open_questions": [

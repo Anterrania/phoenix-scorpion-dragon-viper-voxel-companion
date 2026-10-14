@@ -941,6 +941,21 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Batch t33ua18 source a6474062. Distinct from zodiac_crystal_horn_helm (HUD faceplate + lightning shield). Name pending approval."
+    },
+    {
+      "id": "phoenix_galaxy_visor_crown_helm",
+      "display_name": "Phoenix Galaxy-Visor Crown Helm",
+      "slot": "head",
+      "category": "helm",
+      "description": "Open black-and-gold crown helm with five glowing magenta crystal spikes, gold phoenix forehead crest, and a heart-shaped spiral-galaxy visor; platinum side guards; lightning aura.",
+      "concept_art": [
+        "art/references/batch_t33ua70/phoenix_galaxy_visor_crown_helm.jpg"
+      ],
+      "notes": "Batch t33ua70 source 506cc4c4. Distinct from zodiac_crystal_horn_helm and storm_crown_command_helm. Name pending.",
+      "palette": "v2 black/magenta/gold/platinum + glitter",
+      "mature": false,
+      "cosmetic_gameplay_only": true,
+      "real_money": false
     }
   ]
 }

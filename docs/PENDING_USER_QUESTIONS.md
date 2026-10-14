@@ -163,3 +163,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - All six clips have photoreal faces that look like real people (two look strongly like specific actresses), so I saved only original outfit ideas. Which companion should wear each look?
 - d34d01eb used the Superman "S" logo. Is the original "Phoenix Crest Orbit Suit" replacement okay?
 - Approve these names: Nyx Rose Lace Set, Velvet Eclipse Wrap Gown, Thornlace Garter Set, Eclipse Veil Spin, Phoenix Crest Orbit Suit, Candlelit Noir Lace Bodysuit, Gilded Ring Cabaret Stage, Orbit Dawn Overlook, Candlelit Velvet Chamber. All are mature-gated.
+
+## Batch t33ua70
+- Approve these names: Gemini Twin-Dragon Caduceus Staff, Phoenix Galaxy-Visor Crown Helm, Twin-Dragon Zodiac Galaxy Locket, Crowned Laurel Summit Standard, Ruby Crown Star-Laurel Standard.
+- Is the caduceus staff a separate weapon or the same as the Gemini Seraph Orb Scepter? Should it use the spread-wing or folded-wing version?
+- The laurel flags are now in three versions (sunset, mountain, and ruby crown with star). Is one of them the national flag? Should the red stay red, or change to magenta?
+- One flag was shown in front of the real US Capitol. Should the Anterrania capitol be its own original building (like the Stormcrown Capitol)?

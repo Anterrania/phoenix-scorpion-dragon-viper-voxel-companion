@@ -118,3 +118,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Are the constellation finger plates in `1d42ae78` part of **Zodiac Astrolabe Gauntlets**, or a separate finger-armor piece?
 - Video `d6ff8537` treated as a repeat of **`zodiac_high_collar_court_robe_train`** — correct?
 
+
+## Batch t33ua18
+- Approve or rename: **Nebula Heart Crown**, **Gemini Seraph Orb Scepter**, **Storm-Crown Command Helm**, heraldry **Phoenix Sash Constellation Flag**, **Gemini Ember Wyrm Seal**, **Zodiac Wheel Phoenix Sash Banner**.
+- Is the phoenix-with-magenta-sash design the official national flag (replacing/alongside the existing phoenix flags)?
+- Is the black fire-breathing wyrm in `510e07bd` the same creature as **Magnefyre**, or a new one?
+- Does the Nebula Heart Crown belong to a specific character (Foxy, Ara Aurora, Saint-Queen Aurelith)?

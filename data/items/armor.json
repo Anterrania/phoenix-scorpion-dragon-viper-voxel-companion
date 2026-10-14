@@ -914,6 +914,33 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Batch t33ua12 source 802386b2. Distinct from scdi_flight_helmet (ornate crystal fantasy helm vs sleek flight helmet). Name pending approval."
+    },
+    {
+      "id": "storm_crown_command_helm",
+      "display_name": "Storm-Crown Command Helm",
+      "slot": "head",
+      "category": "armor",
+      "rarity": "legendary",
+      "description": "Black-and-gold full helm with a holographic HUD faceplate and phoenix crest display, five magenta crystal spires, crescent energy-shield wings crackling with magenta lightning.",
+      "motifs": [
+        "phoenix",
+        "crystal",
+        "lightning",
+        "hud"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua18/storm_crown_command_helm.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua18 source a6474062. Distinct from zodiac_crystal_horn_helm (HUD faceplate + lightning shield). Name pending approval."
     }
   ]
 }

@@ -272,6 +272,59 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Batch t33ua12 source 2661b215. Distinct from celestial_collar_necklace (oval orrery pendant vs collar). Name pending approval."
+    },
+    {
+      "id": "nebula_heart_crown",
+      "display_name": "Nebula Heart Crown",
+      "slot": "head",
+      "category": "regalia",
+      "rarity": "legendary",
+      "description": "Platinum crown band with gold M-filigree center, ring of magenta cut crystals and a tall central magenta crystal holding a spiral galaxy; nebula backdrop.",
+      "motifs": [
+        "crown",
+        "galaxy",
+        "crystal"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua18/nebula_heart_crown.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua18 source 6809f1a3. Candidate entry for anterranian_crowns_collection. Name pending approval."
+    },
+    {
+      "id": "gemini_seraph_orb_scepter",
+      "display_name": "Gemini Seraph Orb Scepter",
+      "slot": "main_hand",
+      "category": "regalia",
+      "rarity": "legendary",
+      "description": "Black starfield shaft wrapped in a gold ribbon with Gemini glyph, platinum twin-dragon/seraph wing crest with magenta feather tips cradling a glowing magenta orb.",
+      "motifs": [
+        "gemini",
+        "orb",
+        "wings",
+        "twin_dragon"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua18/gemini_seraph_orb_scepter.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua18 source 4366ac0e. Distinct from crescent_scepter / orb_ring_scepter. Name pending approval."
     }
   ]
 }

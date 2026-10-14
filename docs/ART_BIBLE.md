@@ -646,3 +646,6 @@ Palette v2. Source videos are not committed, only one clothed frame each. No nud
 - `gemini_aries_orrery_pendant.jpg` (2661b215): black oval orrery pendant with Gemini + Aries glyphs, galaxy core, dragon-head bail, gold/silver filigree chain. **New regalia stub: `gemini_aries_orrery_pendant`**. Distinct from `celestial_collar_necklace`.
 - `zodiac_quadragon_galaxy_ring.jpg` (1d42ae78): four golden dragon claws on a magenta galaxy cabochon, Gemini side gem; worn with constellation-etched black finger plates. **New ring stub: `zodiac_quadragon_galaxy_ring`**; finger plates linked to **`zodiac_astrolabe_gauntlets`**.
 - `zodiac_crystal_horn_helm.jpg` (802386b2): dark gold-filigree knight helm with jagged magenta crystal horns/crest and glowing visor, zodiac forehead medallion. **New armor stub: `zodiac_crystal_horn_helm`**. Distinct from `scdi_flight_helmet`.
+
+### Batch t33ua18
+- Nebula Heart Crown, Gemini Seraph Orb Scepter, Storm-Crown Command Helm; phoenix magenta-sash flag + zodiac-wheel banner; Gemini Ember Wyrm seal. Refs in `art/references/batch_t33ua18/`.

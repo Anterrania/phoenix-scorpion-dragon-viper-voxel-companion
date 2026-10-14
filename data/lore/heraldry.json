@@ -89,7 +89,7 @@
       "appears_on": [
         "holo flag (batch_25/01)",
         "tapestry (batch_25/02)",
-        "neon emblem cards / UI card backs (batch_25/03\u201304)",
+        "neon emblem cards / UI card backs (batch_25/03–04)",
         "magenta constellation banner (batch_25/05)",
         "landscape galaxy flag (batch_25/06)"
       ]
@@ -291,7 +291,7 @@
       "type": "ui_card_back",
       "house_emblem": "crowned_dragon_phoenix",
       "orientation": "vertical",
-      "description": "Neon magenta outline hybrid with circuit-body fill; cross-topped crown; gold circuit frame \u2014 UI card back / loading screen variant.",
+      "description": "Neon magenta outline hybrid with circuit-body fill; cross-topped crown; gold circuit frame — UI card back / loading screen variant.",
       "motif": "dragon_phoenix_hybrid",
       "ui_role": [
         "card_back",
@@ -414,7 +414,7 @@
     },
     {
       "id": "great_sigil_crowned_dragon_phoenix_flames",
-      "display_name": "Great Sigil Candidate \u2014 Crowned Dragon-Phoenix from Flames",
+      "display_name": "Great Sigil Candidate — Crowned Dragon-Phoenix from Flames",
       "category": "seal",
       "type": "great_sigil_candidate",
       "house_emblem": "crowned_dragon_phoenix",
@@ -442,7 +442,7 @@
     },
     {
       "id": "great_sigil_crowned_dragon_geometric_medallion",
-      "display_name": "Great Sigil Candidate \u2014 Crowned Dragon Geometric Medallion",
+      "display_name": "Great Sigil Candidate — Crowned Dragon Geometric Medallion",
       "category": "seal",
       "type": "great_sigil_candidate",
       "house_emblem": "crowned_dragon_phoenix",
@@ -475,7 +475,7 @@
       "type": "zodiac_creature_emblem",
       "house_emblem": "crowned_dragon_phoenix",
       "proposed_creature_name": "Magnefyre",
-      "description": "Bipedal muscular magenta/purple humanoid dragon with leathery wings, horns, and pink fire-breath, framed in a silver-gold heptagon engraved with runes and ringed by a neon magenta aura over a starfield. Emblem/UI card style \u2014 distinct from Zypharion (coiled spirit beast) and crowned dragon-phoenix seals.",
+      "description": "Bipedal muscular magenta/purple humanoid dragon with leathery wings, horns, and pink fire-breath, framed in a silver-gold heptagon engraved with runes and ringed by a neon magenta aura over a starfield. Emblem/UI card style — distinct from Zypharion (coiled spirit beast) and crowned dragon-phoenix seals.",
       "motif": "humanoid_zodiac_dragon",
       "features": [
         "heptagon_rune_frame",
@@ -500,10 +500,49 @@
       "cosmetic_gameplay_only": true,
       "real_money": false,
       "notes": "Batch t33ua12 source a17a0cba. Name Magnefyre assigned by Foxy for the dragon; user may rename. Confirm if this is also a summonable creature or heraldry/UI only."
+    },
+    {
+      "id": "phoenix_sash_constellation_flag",
+      "display_name": "Phoenix Sash Constellation Flag",
+      "type": "heraldry",
+      "description": "Black constellation-map field with diagonal magenta sash, gold phoenix with crown glyphs above/below, glowing platinum border of tiny glyphs on galaxy backdrop.",
+      "concept_art": [
+        "art/references/batch_t33ua18/phoenix_sash_constellation_flag.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "notes": "Batch t33ua18 source 54bc6ccc. Possible variant of house_emblem_crowned_dragon_phoenix_* flags. Name pending approval."
+    },
+    {
+      "id": "gemini_ember_wyrm_seal",
+      "display_name": "Gemini Ember Wyrm Seal",
+      "type": "heraldry",
+      "description": "Circular gold-and-platinum braided ring with zodiac glyphs; black fire-breathing wyrm with crimson/magenta wings coiled around a Gemini glyph; second frame shows feathered-wing variant.",
+      "concept_art": [
+        "art/references/batch_t33ua18/gemini_ember_wyrm_seal.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "notes": "Batch t33ua18 source 510e07bd. Possibly related to Magnefyre / Gemini dragon ring. Creature name proposed: Ember Wyrm. Name pending approval."
+    },
+    {
+      "id": "zodiac_wheel_phoenix_sash_banner",
+      "display_name": "Zodiac Wheel Phoenix Sash Banner",
+      "type": "heraldry",
+      "description": "Waving black banner with magenta sash and gold phoenix, framed by a large gold zodiac-wheel astrolabe ring; sparkle stars on magenta nebula.",
+      "concept_art": [
+        "art/references/batch_t33ua18/zodiac_wheel_phoenix_sash_banner.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "notes": "Batch t33ua18 source 496dedf0. Same phoenix-sash design as phoenix_sash_constellation_flag, astrolabe-wheel presentation. Name pending approval."
     }
   ],
   "open_questions": [
-    "Is the phoenix, the dragon, or the Crowned Dragon-Phoenix hybrid the primary national seal/flag/house emblem? (All catalogued; phoenix still primary_candidate; hybrid is hybrid_candidate \u2014 question remains open.)",
+    "Is the phoenix, the dragon, or the Crowned Dragon-Phoenix hybrid the primary national seal/flag/house emblem? (All catalogued; phoenix still primary_candidate; hybrid is hybrid_candidate — question remains open.)",
     "Meaning of the recurring '8' across seal, flag, coin, capitol, and regalia.",
     "Meaning of the seven glyph medallions on orb_banner_seven_glyphs (batch_26/02).",
     "Which art is the primary Great Sigil? Candidates: great_sigil_crowned_dragon_phoenix_flames (batch_26/05), great_sigil_crowned_dragon_geometric_medallion (batch_27/02), plus earlier great_seal_phoenix / great_seal_dragon / house emblem variants."

@@ -175,3 +175,9 @@ When user says the final-upload cue, repeat batches 4–29 + t16u + t16ua192 res
 - Should there be a wedding or vow ceremony feature for companions? Is the bridal gown meant for a specific companion?
 - Is the blonde pigtail anime dancer Foxy's original form? Should the swimsuit and dance go to her?
 - What is the Bering Strait / Alaska map for? Is it a real-world location in the game, or inspiration for an original Anterrania world map?
+
+## Batch t33ua82
+- Is "The Universal Revelation, LLC" your company name, and should it appear in-game (banner text) or stay out of game?
+- Lava flag text reads "UNIVERSE REVELANOC": fix to "The Universal Revelation, LLC"?
+- Starburst Crown Flag: gold crown or crimson crown version as the official one? Should the red bars become magenta per palette v2?
+- The flags were shown over the real US Capitol; I used only the flag. Want an original capitol building for it?

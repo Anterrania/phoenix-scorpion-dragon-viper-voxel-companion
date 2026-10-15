@@ -1,4 +1,4 @@
-# DRAFT — Godot export matrix. Manual trigger only; has never run.
+# Multi-platform export matrix (manual trigger). Android CI lives in ci.yml.
 #
 # Version pin (checked against GitHub releases on 2026-10-13):
 #   - Zylann/godot_voxel tag v1.7x = "Voxel Tools GDExtension 1.7 for Godot 4.5+",
@@ -90,7 +90,7 @@ jobs:
           # Godot reads android_sdk_path from editor settings (no env var). Path/filename to verify for 4.7.
           mkdir -p ~/.config/godot
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' \
-            "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-4.tres
+            "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-4.7.tres
 
       - name: Import project
         run: ./godot --headless --import || true

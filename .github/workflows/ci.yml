@@ -1,0 +1,55 @@
+# CI: headless tests + Android arm64 debug APK on every push / PR.
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+env:
+  GODOT_VERSION: "4.7.2"
+  GODOT_TAG: "4.7.2-stable"
+  VOXEL_TAG: "v1.7x"
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON
+        run: find . -name '*.json' -not -path './.git/*' -print0 | xargs -0 -n1 python3 -m json.tool > /dev/null
+      - name: Install Godot + Voxel Tools GDExtension
+        run: |
+          base=https://github.com/godotengine/godot/releases/download/${GODOT_TAG}
+          curl -fsSLO $base/Godot_v${GODOT_TAG}_linux.x86_64.zip
+          unzip -q Godot_v${GODOT_TAG}_linux.x86_64.zip && mv Godot_v${GODOT_TAG}_linux.x86_64 godot
+          curl -fsSL -o voxel.zip https://github.com/Zylann/godot_voxel/releases/download/${VOXEL_TAG}/GodotVoxelExtension.zip
+          unzip -q -o voxel.zip -d .
+      - name: Import project
+        run: ./godot --headless --import
+      - name: Run tests
+        run: ./godot --headless res://tests/test_runner.tscn
+      - name: Install export templates
+        run: |
+          curl -fsSLO https://github.com/godotengine/godot/releases/download/${GODOT_TAG}/Godot_v${GODOT_TAG}_export_templates.tpz
+          tdir=~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          mkdir -p "$tdir" /tmp/t && unzip -q Godot_v${GODOT_TAG}_export_templates.tpz -d /tmp/t && mv /tmp/t/templates/* "$tdir"/
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: "17" }
+      - uses: android-actions/setup-android@v3
+      - run: sdkmanager "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+      - name: Debug keystore + editor settings
+        run: |
+          keytool -genkeypair -keystore "$RUNNER_TEMP/debug.keystore" -storepass android \
+            -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 \
+            -dname "CN=Android Debug,O=Android,C=US"
+          mkdir -p ~/.config/godot
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\nexport/android/debug_keystore = "%s"\nexport/android/debug_keystore_user = "androiddebugkey"\nexport/android/debug_keystore_pass = "android"\n' \
+            "$ANDROID_SDK_ROOT" "$JAVA_HOME" "$RUNNER_TEMP/debug.keystore" > ~/.config/godot/editor_settings-4.7.tres
+      - name: Export Android debug APK
+        run: |
+          mkdir -p build/android
+          ./godot --headless --export-debug Android build/android/phoenix-voxel.apk
+          test -s build/android/phoenix-voxel.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: phoenix-voxel-android-debug
+          path: build/android/phoenix-voxel.apk

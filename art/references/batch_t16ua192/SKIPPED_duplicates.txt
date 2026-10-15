@@ -1,0 +1,17 @@
+# Batch t16ua192 — skipped duplicates / near-duplicates
+# Source: agent attachments (t16ua192 art ingest)
+
+94ac5177464f4be0287513dd386c5920ea9c8013aa0b3a75e2f860608d61c1d1.jpg
+  md5: e40b67564c13d46477995d55893ce874
+  reason: Exact MD5 duplicate of
+    assets/concept_art/batch_01/02_masked_warrior_magenta_scythe_gemini.jpg
+  persona: gemini_reaper_vex (Gemini Reaper Vex) — already catalogued in ART_BIBLE Batch 01.
+  notes: Cosmic armored warrior; magenta phoenix chest sigil; Gemini glyphs; pink cape;
+    glowing magenta polearm/halberd (Batch 01 described the weapon as a scythe).
+
+e6c411dc46276f87ce4122611673fbfd8af53ff74a4397dbb91047d8304f519c.jpg
+  md5: c282468e6a78450bcadec26776c06a6b
+  reason: Visual duplicate (same phone screenshot) of kept
+    art/references/batch_t16ua192/03_zodiac_high_collar_court_robe_train.png
+    (source 50937f98…png, md5 e47f1232fb8e58daec6eb4bb53c9b18d; larger PNG kept).
+  notes: Distinct MD5 (JPG re-encode / smaller); not an MD5 match of any existing art.

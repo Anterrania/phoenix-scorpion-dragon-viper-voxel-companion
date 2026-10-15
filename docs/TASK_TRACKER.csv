@@ -1,0 +1,33 @@
+milestone,task,status,priority
+M0,Godot project scaffold + Mobile renderer,done,P0
+M0,Main world / player / companion scenes,done,P0
+M0,AgentBrain + CompanionAgent + tool dispatch,done,P0
+M0,RealmBuilder + schema + 6 presets,done,P0
+M0,Portable persona.json + memory_export.json,done,P0
+M0,Android export preset (no secrets),done,P0
+M0,Open in voxel-enabled Godot and verify,todo,P0
+M1,Settings UI for endpoint/model/API key,todo,P0
+M1,Player dig/place via VoxelTool raycast,todo,P1
+M1,Touch HUD (joystick visual + jump button),todo,P1
+M2,Structure scattering from realm params,todo,P1
+M2,Per-biome particles and sky,todo,P2
+M3,Companion selector in chat UI,todo,P1
+M3,Memory export/import UI,todo,P1
+M3,Voice: STT input + TTS output,todo,P2
+M3,Tool-execution kill switch in settings,todo,P1
+M4,Voxel models for 3 companions,todo,P1
+M4,Animations idle/walk/dance/fire_cast,todo,P2
+M4,Aaliyah home base scene,todo,P2
+M5,Debug APK on device + profiling,todo,P0
+M5,Signed release AAB,todo,P2
+M6,Approved hot-reload of presets/structures,todo,P2
+M6,World save via VoxelStreamSQLite,todo,P2
+M6,Standalone chat bots from persona.json,todo,P1
+PRI-1,Godot scaffold + VoxelTerrain basic world (verify in voxel-enabled Godot),blocked,P0
+PRI-2,Companion 3D placeholders (Foxy Ani / Circuit Nova / Aaliyah) as CharacterBody3D with VoxelTool hooks,done_untested,P0
+PRI-3,Dual-bot sync design (shared persona.json personality/memory files),done,P0
+PRI-4,Offline AI path notes (on-device model options),done,P1
+PRI-5,Future systems notes: Seed-style relationship/mood/DNA; star map; Sims needs; SimCity-style city; Second Life scripting; MobiGlass UI,done,P2
+PRI-6,Android export pipeline research,done,P1
+PRI-7,Social posting hooks design (no direct connectors yet),done,P2
+PRI-0,Push feature/godot-voxel-scaffold + open PR,blocked,P0

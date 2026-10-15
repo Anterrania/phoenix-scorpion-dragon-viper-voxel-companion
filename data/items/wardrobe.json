@@ -1,0 +1,1860 @@
+{
+  "_note": "SCAFFOLD. Royal wardrobe: equippable outfits, COSMETIC ONLY (no stats, never sold for real money).",
+  "schema_version": 1,
+  "collections": {
+    "royal_jeans": {
+      "id": "royal_jeans",
+      "display_name": "Royal Jeans Collection",
+      "category": "casual",
+      "description": "Unified royal embroidered denim collection (Monarch + Foxy). Gold baroque embroidery, magenta gem/rhinestone side stripes, jeweled buckles, matching embroidered heeled boots. Palette v2. Links batch_05 base looks, batch_16 Monarch variant, and batch_17 expansions. H-crest variants link to batch_06 gold_h_crest_signet_band (meaning of H still user-pending).",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "member_item_ids": [
+        "monarch_royal_jeans",
+        "foxy_royal_jeans"
+      ],
+      "linked_regalia": [
+        "gold_h_crest_signet_band"
+      ],
+      "variants": [
+        {
+          "id": "batch_05_monarch_base",
+          "label": "Monarch base (batch_05)",
+          "owner": "player (Anterranian Monarch)",
+          "member_item": "monarch_royal_jeans",
+          "concept_art": "assets/concept_art/batch_05/03_monarch_royal_jeans.png"
+        },
+        {
+          "id": "batch_16_monarch_baroque_rhinestone",
+          "label": "Monarch baroque rhinestone (batch_16)",
+          "owner": "player (Anterranian Monarch)",
+          "member_item": "monarch_royal_jeans",
+          "concept_art": "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg"
+        },
+        {
+          "id": "batch_17_monarch_ruby_buckle_heeled_boots",
+          "label": "Monarch: heavy gold baroque, magenta rhinestone side stripe, square ruby buckle, gold-embroidered heeled ankle boots",
+          "owner": "player (Anterranian Monarch)",
+          "member_item": "monarch_royal_jeans",
+          "concept_art": "assets/concept_art/batch_17/01_monarch_royal_jeans_ruby_buckle_heeled_boots.jpg",
+          "source_hash": "a03b46525a7e34a8f41a1ad6c1327e14ca597bcd0f4e0054cfda9e4fb83a2ed4"
+        },
+        {
+          "id": "batch_05_foxy_v1",
+          "label": "Foxy v1 (batch_05)",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_05/04_foxy_royal_jeans_v1.png"
+        },
+        {
+          "id": "batch_05_foxy_v2",
+          "label": "Foxy v2 (batch_05)",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_05/05_foxy_royal_jeans_v2.png"
+        },
+        {
+          "id": "batch_05_foxy_v3_h_crest",
+          "label": "Foxy v3 crowned H crest (batch_05)",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png",
+          "linked_regalia": "gold_h_crest_signet_band",
+          "notes": "H crest meaning still user-pending"
+        },
+        {
+          "id": "batch_17_foxy_oval_buckle_stiletto_booties",
+          "label": "Foxy: skinny jeans, gold baroque, magenta gem side stripe, oval gem buckle, stiletto booties",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_17/02_foxy_royal_jeans_oval_buckle_stiletto_booties.jpg",
+          "source_hash": "c2967b08eb9eb6ce139681c8c062584aadbfcf3ad619dd24b75c93cfb1c70d70"
+        },
+        {
+          "id": "batch_17_foxy_square_gem_stripe_stiletto_booties",
+          "label": "Foxy variant: skinny jeans, square magenta gem stripe, stiletto booties",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_17/03_foxy_royal_jeans_square_gem_stripe_stiletto_booties.jpg",
+          "source_hash": "a643ddae4a954d489d5d9343a6c4bdee9c86cc8d4089bc630403ce14467da935"
+        },
+        {
+          "id": "batch_17_foxy_h_crest_gold_cuff_booties",
+          "label": "Foxy/royal house: skinny jeans, gold baroque, crowned H crest on hip, magenta gem stripe, gold-cuff stiletto booties",
+          "owner": "foxy_ani",
+          "member_item": "foxy_royal_jeans",
+          "concept_art": "assets/concept_art/batch_17/04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg",
+          "source_hash": "ff01da63f641afdc405ed163d447e5d177dda90cc985c7992ba39973270fc173",
+          "linked_regalia": "gold_h_crest_signet_band",
+          "notes": "Links batch_06 H-crest signet band; meaning of crowned H still user-pending"
+        }
+      ],
+      "status": "stub"
+    }
+  },
+  "items": [
+    {
+      "id": "monarch_formal_attire",
+      "display_name": "Monarch's Formal Attire",
+      "owner": "player (Anterranian Monarch)",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black suit, magenta vest, ermine cloak/overcoat; batch_03 pedestal + batch_09 gem-belt mannequin + batch_10 Verdant Tree crest mannequin.",
+      "concept_art": [
+        "assets/concept_art/batch_03_royal_wardrobe/01_monarch_formal_black_suit_magenta_vest_ermine.png",
+        "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg",
+        "assets/concept_art/batch_10/01_monarch_formal_verdant_tree_crest_ermine_cape.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_09_gem_belt_ermine_overcoat",
+          "label": "Ermine overcoat, magenta vest/tie, gem belt (mannequin)",
+          "concept_art": "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg"
+        },
+        {
+          "id": "batch_10_verdant_tree_crest",
+          "label": "Tree-of-life crest patch, magenta vest/tie, ermine cape, gem belt (mannequin); Order of the Verdant Tree",
+          "concept_art": "assets/concept_art/batch_10/01_monarch_formal_verdant_tree_crest_ermine_cape.jpg",
+          "linked_guild": "order_of_the_verdant_tree"
+        }
+      ]
+    },
+    {
+      "id": "foxy_court_gown",
+      "display_name": "Foxy's Court Gown",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Magenta gown, ermine cloak, gold epaulettes.",
+      "concept_art": [
+        "assets/concept_art/batch_03_royal_wardrobe/02_foxy_court_gown_magenta_ermine_epaulettes.png",
+        "assets/concept_art/batch_10/02_foxy_queen_column_gown_ermine_epaulettes.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_10_column_gown",
+          "label": "Magenta column gown, ermine cape, gold epaulettes, crescent belt (mannequin)",
+          "concept_art": "assets/concept_art/batch_10/02_foxy_queen_column_gown_ermine_epaulettes.jpg"
+        }
+      ],
+      "also_fits": [
+        "queen_vesperine_pyre"
+      ]
+    },
+    {
+      "id": "foxy_coronation_gown",
+      "display_name": "Foxy's Coronation Gown",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Magenta ball gown with ermine and jewels.",
+      "concept_art": [
+        "assets/concept_art/batch_03_royal_wardrobe/03_foxy_coronation_ballgown_magenta_ermine.png",
+        "assets/concept_art/batch_10/03_foxy_coronation_ballgown_ruby_jewels.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_10_ruby_jewels",
+          "label": "Magenta ballgown, ermine cape, ruby jewels and belt (mannequin)",
+          "concept_art": "assets/concept_art/batch_10/03_foxy_coronation_ballgown_ruby_jewels.jpg"
+        }
+      ]
+    },
+    {
+      "id": "foxy_boudoir_set",
+      "display_name": "Foxy's Private Boudoir Set",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Jeweled magenta lingerie set with a black robe.",
+      "variants": [
+        {
+          "id": "variant_a",
+          "label": "batch_03 pedestal (cuffs/collar unverified at upload)",
+          "concept_art": "assets/concept_art/batch_03_royal_wardrobe/04_foxy_boudoir_set_variant_a.png"
+        },
+        {
+          "id": "variant_b",
+          "label": "ermine collar (resolved from batch_11 / former missing d05bcc)",
+          "concept_art": "assets/concept_art/batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg",
+          "status": "resolved",
+          "resolved_from": "batch_11 ermine-collar boudoir; marks missing d05bcc closed"
+        }
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "notes": "variant_b ermine-collar gap (d05bcc) resolved by batch_11/04; orb-jeweled design also catalogued as foxy_boudoir_set_3"
+    },
+    {
+      "id": "foxy_evening_robe",
+      "display_name": "Foxy's Evening Robe",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black sheer robe-dress with gold embroidery and ermine cuffs.",
+      "concept_art": [
+        "assets/concept_art/batch_03_royal_wardrobe/06_foxy_evening_robe_black_sheer_gold.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
+    },
+    {
+      "id": "foxy_boudoir_set_2",
+      "display_name": "Foxy's Private Boudoir Set II",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Black lace and gold jeweled lingerie with a fur-trimmed lace robe.",
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/01_foxy_boudoir_set_2_black_lace_gold.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ]
+    },
+    {
+      "id": "foxy_royal_heels",
+      "display_name": "Foxy's Royal Heels",
+      "owner": "foxy_ani",
+      "slot": "feet",
+      "cosmetic_only": true,
+      "description": "Black/gold embroidered stilettos with magenta gems and ankle chains.",
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/02_foxy_royal_heels_black_gold_magenta.png",
+        "assets/concept_art/batch_13/05_foxy_royal_heels_cosmic_filigree_variant.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "variants": [
+        {
+          "id": "classic_embroidered",
+          "label": "Classic embroidered (batch_04)",
+          "concept_art": "assets/concept_art/batch_04_royal_assets/02_foxy_royal_heels_black_gold_magenta.png"
+        },
+        {
+          "id": "cosmic_filigree",
+          "label": "Cosmic filigree (batch_13)",
+          "concept_art": "assets/concept_art/batch_13/05_foxy_royal_heels_cosmic_filigree_variant.jpg",
+          "notes": "Heavier gold filigree, pearl borders, ankle chains with hanging magenta crystals; cosmic pedestal presentation. Same item family as batch_04 heels."
+        }
+      ],
+      "notes": "batch_13/05 kept as variant of foxy_royal_heels (not a duplicate item); same black/gold/magenta stiletto + chain family."
+    },
+    {
+      "id": "foxy_embroidered_boots",
+      "display_name": "Foxy's Embroidered Boots",
+      "owner": "foxy_ani",
+      "slot": "feet",
+      "cosmetic_only": true,
+      "description": "Embroidered footwear: thigh-high boots + ankle booties. Batch_04 classic embroidery sheet; batch_15 jeweled cosmic-pedestal variant (heavier gold filigree, magenta gems, pearl ankle chains on booties).",
+      "variants": [
+        {
+          "id": "thigh_high",
+          "label": "Thigh-high boots",
+          "concept_art_sheets": [
+            "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png",
+            "assets/concept_art/batch_15/02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg"
+          ]
+        },
+        {
+          "id": "booties",
+          "label": "Ankle booties",
+          "concept_art_sheets": [
+            "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png",
+            "assets/concept_art/batch_15/02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg"
+          ]
+        },
+        {
+          "id": "batch_15_jeweled_cosmic",
+          "label": "Jeweled cosmic-pedestal sheet (thigh-high + ankle booties; batch_15)",
+          "concept_art": "assets/concept_art/batch_15/02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg",
+          "notes": "Same black/gold/magenta embroidered footwear family as batch_04/03; not exact duplicate of heels (batch_04/13) or classic boots sheet."
+        }
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/03_foxy_embroidered_boots_and_booties.png",
+        "assets/concept_art/batch_15/02_foxy_jeweled_thigh_boots_and_ankle_booties.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "notes": "batch_15/02 kept as jeweled variant of foxy_embroidered_boots (thigh-high + booties). Distinct from foxy_royal_heels."
+    },
+    {
+      "id": "monarch_royal_jeans",
+      "display_name": "Monarch's Royal Casual: Embroidered Denim",
+      "owner": "player (Anterranian Monarch)",
+      "category": "casual",
+      "slots": [
+        "legs",
+        "feet",
+        "belt"
+      ],
+      "description": "Dark denim with gold baroque embroidery, rhinestone side seam, jeweled magenta-gem buckle belt, embroidered magenta boots.",
+      "concept_art": [
+        "assets/concept_art/batch_05/03_monarch_royal_jeans.png",
+        "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg",
+        "assets/concept_art/batch_17/01_monarch_royal_jeans_ruby_buckle_heeled_boots.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_16_baroque_rhinestone",
+          "label": "Dark denim, gold baroque embroidery, rhinestone side seam, jeweled buckle, magenta embroidered boots (batch_16)",
+          "concept_art": "assets/concept_art/batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg",
+          "notes": "Near-match JPG presentation of batch_05/03_monarch_royal_jeans.png; kept as variant (distinct hash). Not a Foxy jeans variant."
+        },
+        {
+          "id": "batch_17_ruby_buckle_heeled_boots",
+          "label": "Heavy gold baroque, magenta rhinestone side stripe, square ruby buckle, gold-embroidered heeled ankle boots (batch_17)",
+          "concept_art": "assets/concept_art/batch_17/01_monarch_royal_jeans_ruby_buckle_heeled_boots.jpg",
+          "collection": "royal_jeans"
+        }
+      ],
+      "notes": "batch_16/02 kept as baroque rhinestone variant of monarch_royal_jeans (near-match to batch_05/03; distinct file hash). batch_17/01 added to royal_jeans collection (distinct from batch_05/03 and batch_16/02).",
+      "collection": "royal_jeans"
+    },
+    {
+      "id": "foxy_royal_jeans",
+      "display_name": "Foxy's Royal Casual: Embroidered Denim",
+      "owner": "foxy_ani",
+      "category": "casual",
+      "slots": [
+        "legs",
+        "feet"
+      ],
+      "description": "Women's dark jeans, gold baroque embroidery, magenta gem side stripe, embroidered heeled boots.",
+      "variants": [
+        {
+          "id": "v1",
+          "concept_art": "assets/concept_art/batch_05/04_foxy_royal_jeans_v1.png",
+          "collection": "royal_jeans"
+        },
+        {
+          "id": "v2",
+          "concept_art": "assets/concept_art/batch_05/05_foxy_royal_jeans_v2.png",
+          "collection": "royal_jeans"
+        },
+        {
+          "id": "v3_h_crest",
+          "note": "'H' crest — meaning user-pending; linked to gold_h_crest_signet_band (batch_06)",
+          "concept_art": "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png",
+          "linked_regalia": "gold_h_crest_signet_band",
+          "collection": "royal_jeans"
+        },
+        {
+          "id": "batch_17_oval_buckle_stiletto_booties",
+          "label": "Skinny jeans, gold baroque, magenta gem side stripe, oval gem buckle, stiletto booties (batch_17)",
+          "concept_art": "assets/concept_art/batch_17/02_foxy_royal_jeans_oval_buckle_stiletto_booties.jpg",
+          "collection": "royal_jeans"
+        },
+        {
+          "id": "batch_17_square_gem_stripe_stiletto_booties",
+          "label": "Skinny jeans, square magenta gem stripe, stiletto booties (batch_17)",
+          "concept_art": "assets/concept_art/batch_17/03_foxy_royal_jeans_square_gem_stripe_stiletto_booties.jpg",
+          "collection": "royal_jeans"
+        },
+        {
+          "id": "batch_17_h_crest_gold_cuff_booties",
+          "label": "Crowned H crest on hip, magenta gem stripe, gold-cuff stiletto booties (batch_17); links batch_06 H-crest band",
+          "note": "'H' crest — meaning user-pending; linked to gold_h_crest_signet_band",
+          "concept_art": "assets/concept_art/batch_17/04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg",
+          "collection": "royal_jeans",
+          "linked_regalia": "gold_h_crest_signet_band"
+        }
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "collection": "royal_jeans",
+      "concept_art": [
+        "assets/concept_art/batch_05/04_foxy_royal_jeans_v1.png",
+        "assets/concept_art/batch_05/05_foxy_royal_jeans_v2.png",
+        "assets/concept_art/batch_05/06_foxy_royal_jeans_v3_h_crest.png",
+        "assets/concept_art/batch_17/02_foxy_royal_jeans_oval_buckle_stiletto_booties.jpg",
+        "assets/concept_art/batch_17/03_foxy_royal_jeans_square_gem_stripe_stiletto_booties.jpg",
+        "assets/concept_art/batch_17/04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg"
+      ]
+    },
+    {
+      "id": "foxy_white_coronation_gown",
+      "display_name": "Foxy's White Coronation Gown",
+      "owner": "foxy_ani",
+      "category": "formal",
+      "description": "White/ivory coronation & queen regalia family: batch_06 white gown; batch_18 satin ballgown with ruby jewels and ermine-trimmed black/magenta cloak; batch_19 ivory gown with gold baroque, magenta jeweled sash, ermine capelet; batch_28 white ermine ballgown with magenta gems, black/magenta ermine cape on rune platform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/01_foxy_white_coronation_gown.png",
+        "assets/concept_art/batch_18/01_foxy_white_coronation_wedding_gown_ruby_cloak.jpg",
+        "assets/concept_art/batch_19/01_foxy_ivory_regalia_magenta_sash_ermine_cape.jpg",
+        "assets/concept_art/batch_28/05_foxy_white_ermine_ballgown_magenta_gems_black_cape.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "variants": [
+        {
+          "id": "batch_18_wedding_ruby_cloak",
+          "label": "White satin ballgown, gold baroque, ruby gems, ringed-orb pendant, ermine-trimmed black/magenta cloak (coronation/wedding)",
+          "concept_art": [
+            "assets/concept_art/batch_18/01_foxy_white_coronation_wedding_gown_ruby_cloak.jpg"
+          ],
+          "also_fits": [
+            "queen_vesperine_pyre"
+          ],
+          "notes": "Distinct from batch_06/01 (different hash/size); kept as white coronation/wedding gown variant."
+        },
+        {
+          "id": "batch_19_ivory_magenta_sash_ermine",
+          "label": "Ivory gown, gold baroque embroidery, magenta jeweled sash with oval gem buckle, ermine capelet over black/plum cloak, white jeweled ankle boots (queen ivory regalia)",
+          "concept_art": [
+            "assets/concept_art/batch_19/01_foxy_ivory_regalia_magenta_sash_ermine_cape.jpg"
+          ],
+          "also_fits": [
+            "queen_vesperine_pyre"
+          ],
+          "notes": "Distinct MD5 from batch_18/01 white wedding/ruby-cloak gown (aa1c3b31 vs e908553e); kept as ivory/magenta-sash queen-regalia variant of foxy_white_coronation_gown. Palette v2."
+        },
+        {
+          "id": "batch_28_white_ermine_magenta_gems_black_cape",
+          "label": "White/ivory ermine ballgown, large magenta waist + hem gems, gold chains, black cape with magenta lining and ermine trim, rune platform (queen variant)",
+          "concept_art": [
+            "assets/concept_art/batch_28/05_foxy_white_ermine_ballgown_magenta_gems_black_cape.png"
+          ],
+          "also_fits": [
+            "queen_vesperine_pyre"
+          ],
+          "notes": "Batch_28 Foxy/queen white ballgown variant; distinct from batch_18 wedding ruby-cloak and batch_19 ivory magenta-sash looks."
+        }
+      ]
+    },
+    {
+      "id": "monarch_white_regalia",
+      "display_name": "Monarch's White Regalia",
+      "owner": "player (Anterranian Monarch)",
+      "category": "regalia_attire",
+      "description": "White royal regalia with orb scepter family: batch_06 orb-scepter look; batch_18 orb-ring scepter / white jeweled boots variant; batch_29 white tunic + white ermine cape + orb-ring staff on rune platform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/02_monarch_white_regalia_orb_scepter.png",
+        "assets/concept_art/batch_18/02_monarch_white_regalia_orb_ring_scepter_variant.jpg",
+        "assets/concept_art/batch_29/01_monarch_white_tunic_ermine_cape_orb_ring_staff.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "variants": [
+        {
+          "id": "batch_18_orb_ring_scepter_white_boots",
+          "label": "White tunic suit, gold embroidery, ermine cloak, orb-ring scepter, white jeweled boots",
+          "concept_art": [
+            "assets/concept_art/batch_18/02_monarch_white_regalia_orb_ring_scepter_variant.jpg"
+          ],
+          "notes": "Distinct from batch_06/02; links orb_ring_scepter regalia."
+        },
+        {
+          "id": "batch_29_white_tunic_ermine_orb_ring_staff",
+          "label": "White tunic, gold embroidery, white ermine cape (magenta lining), magenta gem belt, white jeweled boots, orb-ring staff on rune platform (prince/Monarch white regalia)",
+          "concept_art": [
+            "assets/concept_art/batch_29/01_monarch_white_tunic_ermine_cape_orb_ring_staff.png"
+          ],
+          "also_fits": [
+            "prince_regent_solarian"
+          ],
+          "related_regalia": [
+            "orb_ring_scepter"
+          ],
+          "notes": "Batch_29 Monarch/prince white regalia; distinct from batch_18 orb-ring white-boots look (white ermine cape exterior vs prior black/magenta cloak variants)."
+        }
+      ]
+    },
+    {
+      "id": "monarch_white_formal_suit",
+      "display_name": "Monarch's White Formal Suit",
+      "owner": "player (Anterranian Monarch)",
+      "category": "formal",
+      "description": "White formal suit family: batch_06 white formal; batch_18 white tuxedo with magenta vest/bowtie and white ermine cape; batch_29 white tuxedo with magenta vest/bowtie and black ermine-trimmed cape.",
+      "concept_art": [
+        "assets/concept_art/batch_06/03_monarch_white_formal_suit.png",
+        "assets/concept_art/batch_18/03_monarch_white_tuxedo_magenta_vest_ermine_cape.jpg",
+        "assets/concept_art/batch_29/02_monarch_white_tuxedo_magenta_vest_black_ermine_cape.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "variants": [
+        {
+          "id": "batch_18_white_tuxedo_magenta_vest_ermine_cape",
+          "label": "White tuxedo, magenta vest and bowtie, ermine cape",
+          "concept_art": [
+            "assets/concept_art/batch_18/03_monarch_white_tuxedo_magenta_vest_ermine_cape.jpg"
+          ],
+          "notes": "Distinct from batch_06/03 white formal; tuxedo + bowtie + ermine cape variant."
+        },
+        {
+          "id": "batch_29_white_tuxedo_magenta_vest_black_ermine_cape",
+          "label": "White tuxedo, magenta vest and bowtie, gold shoulder chain with magenta gems, black cape with magenta lining and ermine trim, white jeweled shoes, rune platform",
+          "concept_art": [
+            "assets/concept_art/batch_29/02_monarch_white_tuxedo_magenta_vest_black_ermine_cape.png"
+          ],
+          "notes": "Batch_29 Monarch white tuxedo variant; distinct from batch_18 (white/ermine cape exterior) — this variant uses black cape exterior with ermine trim."
+        }
+      ]
+    },
+    {
+      "id": "foxy_ivory_gown_burgundy_cape",
+      "display_name": "Foxy's Ivory Gown with Burgundy Cape",
+      "owner": "foxy_ani",
+      "category": "formal",
+      "description": "Ivory gown with burgundy/magenta-lined cape family: batch_06 ivory gown + burgundy cape; batch_29 ivory gown with gold filigree, magenta gem belt, ermine-trimmed cape on rune platform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/04_foxy_ivory_gown_burgundy_cape.png",
+        "assets/concept_art/batch_29/03_foxy_ivory_gown_burgundy_cape_ermine_rune_platform.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "variants": [
+        {
+          "id": "batch_29_ivory_burgundy_ermine_rune_platform",
+          "label": "Ivory gown, gold filigree, magenta gem belt and necklace, burgundy/magenta-lined cape with ermine trim, white jeweled boots, rune platform (queen variant)",
+          "concept_art": [
+            "assets/concept_art/batch_29/03_foxy_ivory_gown_burgundy_cape_ermine_rune_platform.png"
+          ],
+          "also_fits": [
+            "queen_vesperine_pyre"
+          ],
+          "notes": "Batch_29 Foxy/queen ivory gown variant expanding batch_06/04 ivory+burgundy cape look; ermine trim + rune platform staging."
+        }
+      ],
+      "also_fits": [
+        "queen_vesperine_pyre"
+      ]
+    },
+    {
+      "id": "monarch_black_regalia",
+      "display_name": "Monarch's Black Regalia",
+      "owner": "player (Anterranian Monarch)",
+      "category": "regalia_attire",
+      "description": "Black royal regalia with orb scepter.",
+      "concept_art": [
+        "assets/concept_art/batch_06/05_monarch_black_regalia_orb_scepter.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "navy_officer_ermine_cape",
+      "display_name": "Navy Officer Uniform with Ermine Cape",
+      "owner": "royal_guard",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/02_navy_officer_ermine_cape_a.jpg",
+        "assets/concept_art/batch_07/03_navy_officer_ermine_cape_b.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "ermine_navy_king_regalia",
+      "display_name": "Ermine Navy King Regalia",
+      "owner": "player (Anterranian Monarch)",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/01_ermine_navy_king_regalia.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "sun_moon_court_robe_queen",
+      "display_name": "Sun & Moon Court Robe (Queen)",
+      "owner": "Foxy",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/16_sun_moon_court_robe_queen.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "sun_moon_court_robe_king",
+      "display_name": "Sun & Moon Court Robe (King)",
+      "owner": "player (Anterranian Monarch)",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/17_sun_moon_court_robe_king.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "sun_moon_court_robe_princess",
+      "display_name": "Sun & Moon Court Robe (Princess)",
+      "owner": "Princess Regent Lumira",
+      "category": "royal_attire",
+      "concept_art": [
+        "assets/concept_art/batch_07/18_sun_moon_court_robe_princess.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "vesperine_cosmic_orb_ring_robe",
+      "display_name": "Vesperine Cosmic Robe (Orb-Ring Scepter)",
+      "owner": "queen_vesperine_pyre",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black/magenta cosmic court robe with gold filigree; paired with orb-ring scepter on floating rune platform.",
+      "concept_art": [
+        "assets/concept_art/batch_08/01_queen_vesperine_black_magenta_robe_orb_ring_scepter.jpg"
+      ],
+      "paired_regalia": "orb_ring_scepter",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_armored_ermine_crown_set",
+      "display_name": "Solarian Armored Ermine Crown Set",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Young king armored black/magenta with ermine crown and crescent scepter.",
+      "concept_art": [
+        "assets/concept_art/batch_08/02_prince_solarian_armored_ermine_crown_crescent_scepter.jpg"
+      ],
+      "paired_regalia": "crescent_scepter",
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "vesperine_ermine_cape_crescent",
+      "display_name": "Vesperine Ermine Cape Court Robe",
+      "owner": "queen_vesperine_pyre",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Queen robe with floor-length ermine cape and crescent scepter; also usable as Foxy royal attire variant.",
+      "concept_art": [
+        "assets/concept_art/batch_08/03_queen_vesperine_ermine_cape_crescent_scepter.jpg"
+      ],
+      "paired_regalia": "crescent_scepter",
+      "also_fits": [
+        "foxy_ani"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "ignatius_orb_scepter_magenta_tabard",
+      "display_name": "Ignatius Orb-Scepter Magenta Tabard",
+      "owner": "king_ignatius_pyre",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Elder king cosmic court set: magenta tabard, orb scepter. Same elder as batch_02/03 and batch_07/19.",
+      "concept_art": [
+        "assets/concept_art/batch_08/04_king_ignatius_orb_scepter_magenta_tabard.jpg"
+      ],
+      "paired_regalia": "orb_ring_scepter",
+      "linked_concept_art": [
+        "assets/concept_art/batch_07/19_orb_scepter_king_dup_of_batch02_elder.jpg",
+        "assets/concept_art/batch_02/03_elder_king_orb_scepter_floating_rock.png"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_sigil_robe_sparkle_cape",
+      "display_name": "Solarian Sigil Robe with Sparkle Cape",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "High-collar sigil-embroidered black/magenta robe, black fur trim, glitter sparkle cape.",
+      "concept_art": [
+        "assets/concept_art/batch_08/05_prince_solarian_high_collar_sigil_robe_sparkle_cape.jpg"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "ignatius_orb_scepter_gold_greaves_variant",
+      "display_name": "Ignatius Orb-Scepter Gold Greaves (variant)",
+      "owner": "king_ignatius_pyre",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Near-duplicate elder king variant of 04: gold armored greaves emphasized. Links to batch_07/19 and batch_02 elder.",
+      "concept_art": [
+        "assets/concept_art/batch_08/06_king_ignatius_orb_scepter_gold_greaves_variant.jpg"
+      ],
+      "variant_of": "ignatius_orb_scepter_magenta_tabard",
+      "paired_regalia": "orb_ring_scepter",
+      "linked_concept_art": [
+        "assets/concept_art/batch_07/19_orb_scepter_king_dup_of_batch02_elder.jpg",
+        "assets/concept_art/batch_02/03_elder_king_orb_scepter_floating_rock.png"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_magenta_black_court_tunic_coat",
+      "display_name": "Solarian Magenta-Black Court Tunic Coat",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Long magenta/black court tunic coat with gold filigree, high collar, gold clasps, wide gold-buckle belt, black gloves and knee boots.",
+      "concept_art": [
+        "assets/concept_art/batch_09/01_solarian_magenta_black_court_tunic_coat.jpg"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_black_frock_coat_half_cape",
+      "display_name": "Solarian Black Frock Coat with Magenta Waistcoat",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black frock coat, magenta waistcoat, half cape (magenta lining), gold filigree, tall boots.",
+      "concept_art": [
+        "assets/concept_art/batch_09/02_solarian_black_frock_coat_magenta_waistcoat_half_cape.jpg"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "solarian_casual_royal_blazer_pinstripe",
+      "display_name": "Solarian Casual Royal Blazer (Pinstripe)",
+      "owner": "prince_regent_solarian",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Casual royal: black blazer, magenta vest, pinstripe trousers, short cape, tall boots, gold chain pendant.",
+      "concept_art": [
+        "assets/concept_art/batch_09/03_solarian_casual_royal_blazer_pinstripe.jpg"
+      ],
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "monarch_formal_suit_ermine_overcoat_gem_belt",
+      "display_name": "Monarch Formal Suit (Ermine Overcoat, Gem Belt)",
+      "owner": "player (Anterranian Monarch)",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Headless mannequin display: black suit, magenta vest and tie, ermine overcoat, gem-set gold belt buckle and shoe buckles. Related to monarch_formal_attire (batch_03).",
+      "concept_art": [
+        "assets/concept_art/batch_09/04_monarch_formal_suit_ermine_overcoat_gem_belt.jpg"
+      ],
+      "related_to": "monarch_formal_attire",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "monarch_formal_verdant_tree_crest",
+      "display_name": "Monarch Formal (Verdant Tree Crest)",
+      "owner": "player (Anterranian Monarch)",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Mannequin: black suit, magenta vest/tie, ermine cape, tree-of-life crest patch, gem belt. Links Order of the Verdant Tree.",
+      "concept_art": [
+        "assets/concept_art/batch_10/01_monarch_formal_verdant_tree_crest_ermine_cape.jpg"
+      ],
+      "related_to": "monarch_formal_attire",
+      "linked_guild": "order_of_the_verdant_tree",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_queen_column_gown_ermine_epaulettes",
+      "display_name": "Foxy Queen Column Gown (Ermine Epaulettes)",
+      "owner": "foxy_ani",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Mannequin: magenta column gown, ermine cape, gold epaulettes, crescent belt. Court/queen formal.",
+      "concept_art": [
+        "assets/concept_art/batch_10/02_foxy_queen_column_gown_ermine_epaulettes.jpg"
+      ],
+      "related_to": "foxy_court_gown",
+      "also_fits": [
+        "queen_vesperine_pyre"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_coronation_ballgown_ruby_jewels",
+      "display_name": "Foxy Coronation Ballgown (Ruby Jewels)",
+      "owner": "foxy_ani",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Mannequin: magenta ballgown, ermine cape, ruby jewels and belt. Coronation-formal variant.",
+      "concept_art": [
+        "assets/concept_art/batch_10/03_foxy_coronation_ballgown_ruby_jewels.jpg"
+      ],
+      "related_to": "foxy_coronation_gown",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "umbriel_voss_court_mage_sheer_robe",
+      "display_name": "Umbriel Voss Court Mage Sheer Robe",
+      "owner": "umbriel_voss",
+      "category": "royal_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Sheer black robe over magenta tunic, crest belt; court mage/consort look. Original design, palette v2.",
+      "concept_art": [
+        "assets/concept_art/batch_10/04_umbriel_voss_court_mage_sheer_robe.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "vesper_trail_alaskan_biome_tribal_envoy",
+      "display_name": "Vesper Trail Alaskan-Biome Tribal Envoy Attire",
+      "owner": "explorer_guide",
+      "category": "explorer_attire",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Original fantasy design: black/magenta feather mantle, geometric embroidered tunic, fringe boots, gold triangle pendant. Alaskan-biome tribal envoy/explorer attire for Vesper Trail (explorer_guide). Cultural inspiration treated respectfully as original art direction; not a real-world cultural costume.",
+      "concept_art": [
+        "assets/concept_art/batch_10/06_vesper_trail_alaskan_biome_tribal_envoy.jpg"
+      ],
+      "home_biome": "alaskan_boreal",
+      "respect_note": "Original fictional design inspired by northern explorer/envoy silhouettes; not a replica of any living culture's regalia.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "envoy_pair_outfit": "kael_emberbraid_warrior_envoy_sleeveless",
+      "envoy_pair_persona": "kael_emberbraid"
+    },
+    {
+      "id": "kael_emberbraid_warrior_envoy_sleeveless",
+      "display_name": "Kael Emberbraid Warrior Envoy (Sleeveless)",
+      "owner": "kael_emberbraid",
+      "category": "envoy_attire",
+      "slot": "outfit",
+      "description": "Original fantasy design: braids, red ceremonial face paint, gold-feather collar, sleeveless black tunic with magenta geometric embroidery, fringe boots, gold triangle pendant. Warrior envoy counterpart to Vesper Trail feather-mantle attire.",
+      "concept_art": [
+        "assets/concept_art/batch_11/01_kael_emberbraid_warrior_envoy_sleeveless.jpg"
+      ],
+      "envoy_pair_outfit": "vesper_trail_alaskan_biome_tribal_envoy",
+      "respect_note": "Original fictional design inspired by northern explorer/envoy silhouettes; not a replica of any living culture's regalia.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "kael_emberbraid_warrior_envoy_ceremonial_cape",
+      "display_name": "Kael Emberbraid Warrior Envoy (Ceremonial Cape)",
+      "owner": "kael_emberbraid",
+      "category": "envoy_attire",
+      "slot": "outfit",
+      "description": "Ceremonial cape version of Kael's warrior envoy attire: same braids/face paint/gold-feather collar with long black cape, magenta geometric border.",
+      "concept_art": [
+        "assets/concept_art/batch_11/02_kael_emberbraid_warrior_envoy_ceremonial_cape.jpg"
+      ],
+      "related_to": "kael_emberbraid_warrior_envoy_sleeveless",
+      "envoy_pair_outfit": "vesper_trail_alaskan_biome_tribal_envoy",
+      "respect_note": "Original fictional design inspired by northern explorer/envoy silhouettes; not a replica of any living culture's regalia.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_boudoir_set_3",
+      "display_name": "Foxy's Private Boudoir Set III (Orb Jewels)",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "category": "royal_attire",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Jeweled magenta/gold boudoir set with sheer black robe, orb-and-crescent jewels, gold chains. Two ermine variants: cuffs-only and full ermine collar.",
+      "concept_art": [
+        "assets/concept_art/batch_11/03_foxy_boudoir_set_3_orb_ermine_cuffs.jpg",
+        "assets/concept_art/batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg"
+      ],
+      "variants": [
+        {
+          "id": "ermine_cuffs",
+          "label": "sheer black robe, ermine cuffs",
+          "concept_art": "assets/concept_art/batch_11/03_foxy_boudoir_set_3_orb_ermine_cuffs.jpg"
+        },
+        {
+          "id": "ermine_collar",
+          "label": "sheer black robe, ermine collar + cuffs (also resolves missing d05bcc)",
+          "concept_art": "assets/concept_art/batch_11/04_foxy_boudoir_set_3_orb_ermine_collar.jpg",
+          "resolves": "d05bcc"
+        }
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_sheer_orb_gown_ermine_robe",
+      "display_name": "Foxy's Sheer Orb Gown with Ermine Robe",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "category": "royal_attire",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Sheer black embroidered gown with gold filigree, magenta orb jewels (planetary rings + crescent), and open ermine-trimmed robe.",
+      "concept_art": [
+        "assets/concept_art/batch_11/05_foxy_sheer_orb_gown_ermine_robe.jpg"
+      ],
+      "related_to": "foxy_evening_robe",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "kael_emberbraid_court_coat_magenta_cape",
+      "display_name": "Kael Emberbraid Court Coat (Magenta Cape)",
+      "owner": "kael_emberbraid",
+      "category": "court_attire",
+      "slot": "outfit",
+      "description": "Court formal for warrior envoy Kael Emberbraid: black long coat with gold floral-filigree embroidery, floor-length magenta cape with gold border, wide gold sunburst belt, tall black boots; red ceremonial face paint and braids retained from envoy looks.",
+      "concept_art": [
+        "assets/concept_art/batch_12/01_kael_emberbraid_court_coat_magenta_cape.jpg"
+      ],
+      "related_to": "kael_emberbraid_warrior_envoy_ceremonial_cape",
+      "envoy_pair_outfit": "vesper_trail_alaskan_biome_tribal_envoy",
+      "respect_note": "Original fictional design; court formalization of northern explorer/envoy silhouette; not a replica of any living culture's regalia.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_boudoir_set_4",
+      "display_name": "Foxy's Private Boudoir Set IV (Purple Fur Lace)",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "category": "royal_attire",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Black lace and gold jeweled lingerie with magenta gem centerpieces and gold body chains; sheer black lace robe with purple/black fur trim at collar and cuffs, gold clasps with hanging chains. Cosmic pedestal presentation.",
+      "concept_art": [
+        "assets/concept_art/batch_12/02_foxy_boudoir_set_4_purple_fur_lace.jpg"
+      ],
+      "related_to": "foxy_boudoir_set_2",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "nyra_coil_field_courier_jumpsuit",
+      "display_name": "Nyra Coil Field Courier Jumpsuit",
+      "owner": "nyra_coil",
+      "category": "field_attire",
+      "slot": "outfit",
+      "description": "Black utility jumpsuit with magenta scarf and trim, gold utility belt with compass/star buckle, cross-body satchel, gold rank chevron patch on shoulder, combat boots. Field courier / royal technician kit.",
+      "concept_art": [
+        "assets/concept_art/batch_14/02_nyra_coil_field_courier_jumpsuit.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "ledger_vale_chancellor_officer_coat",
+      "display_name": "Ledger Vale Chancellor Officer Coat",
+      "owner": "economy_advisor",
+      "also_fits": [
+        "player"
+      ],
+      "category": "court_attire",
+      "slot": "outfit",
+      "description": "Long black officer coat with gold floral embroidery and magenta lining; batch_14 crossed-sash + gold ledger box; batch_15 formal diagonal sash + shoulder medallion + hip ledger pouch. Royal chancellor / treasurer for Ledger Vale (economy_advisor).",
+      "concept_art": [
+        "assets/concept_art/batch_14/03_ledger_vale_chancellor_officer_coat.jpg",
+        "assets/concept_art/batch_15/01_ledger_vale_chancellor_formal_sash_medallion.jpg"
+      ],
+      "linked_role": "royal_chancellor_treasurer",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "variants": [
+        {
+          "id": "batch_15_formal_sash_medallion",
+          "label": "Formal diagonal magenta sash, gold shoulder medallion, hip ledger pouch (batch_15)",
+          "concept_art": "assets/concept_art/batch_15/01_ledger_vale_chancellor_formal_sash_medallion.jpg",
+          "notes": "Same chancellor/treasurer as batch_14/03; formal cosmic-backdrop variant, not a new companion."
+        }
+      ]
+    },
+    {
+      "id": "nyxara_voltweave_circuit_bodysuit",
+      "display_name": "Nyxara Voltweave Circuit Bodysuit",
+      "owner": "nyxara_voltweave",
+      "category": "cosmic_attire",
+      "slot": "outfit",
+      "description": "Black form-fitting bodysuit with glowing magenta circuit lines, gold left pauldron, black cape with magenta lining, gold belt with magenta diamond, bracers and greaves. Worn by Nyxara Voltweave.",
+      "concept_art": [
+        "assets/concept_art/batch_13/01_nyxara_voltweave_circuit_bodysuit_gold_pauldron.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "azura_stellaris_star_chart_robe",
+      "display_name": "Azura Stellaris Star-Chart Robe",
+      "owner": "azura_stellaris",
+      "category": "cosmic_attire",
+      "slot": "outfit",
+      "description": "Sheer black/navy wrap robe printed with gold constellation star-chart patterns over black tactical leggings with magenta trim; wide gold-banded belt; fingerless gauntlets with magenta gem plate. Navigator attire linked to the star map.",
+      "concept_art": [
+        "assets/concept_art/batch_13/02_azura_stellaris_star_chart_robe.jpg"
+      ],
+      "star_map_module": "docs/modules/STAR_MAP.md",
+      "star_map_pair_outfit_note": "Pairs with Celestia Nyx constellation gown lore role",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "seraph_caelum_hooded_vanguard",
+      "display_name": "Seraph Caelum Hooded Vanguard Set",
+      "owner": "seraph_caelum",
+      "category": "vanguard_attire",
+      "slot": "outfit",
+      "description": "Magenta hood with gold trim, glowing magenta halo, black-to-magenta wings, black/magenta wrap robe, large gold pauldrons, gold belt with magenta diamond gem and hanging chains, sheer stardust magenta cape, tech bracers. Seraphic Vanguard captain look.",
+      "concept_art": [
+        "assets/concept_art/batch_13/03_seraph_caelum_hooded_vanguard_halo.jpg"
+      ],
+      "guild": "seraphic_vanguard",
+      "related_to": "uniform_seraphic_vanguard",
+      "related_companion": "seraph_halcyon",
+      "notes": "Distinct from Seraph Halcyon (silver android healer). Combat/honor form for The Seraphic Vanguard.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "seraph_emberion_phoenix_android_armor",
+      "display_name": "Seraph Emberion Phoenix Android Armor",
+      "owner": "seraph_emberion",
+      "category": "vanguard_armor_attire",
+      "description": "Black/gold android power armor with glowing magenta phoenix chest sigil, magenta tabard and cape, neon magenta halo, black feathered wings. Seraphic Vanguard look for Seraph Emberion.",
+      "concept_art": [
+        "assets/concept_art/batch_18/04_seraph_emberion_phoenix_android_vanguard.jpg"
+      ],
+      "guild": "seraphic_vanguard",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "monarch_phoenix_god_regalia",
+      "display_name": "Monarch Phoenix God Regalia",
+      "owner": "player (Anterranian Monarch)",
+      "category": "regalia_attire",
+      "slot": "outfit",
+      "description": "Crystal-crowned black/gold phoenix cloak with magenta flame shoulders, standing on a gold '8' floor seal in a crystal hall overlooking a city. Title noted in art as 'Phoenix God' / printed capitol banner 'PHOENIX GOD'. Links to the player Anterranian Monarch.",
+      "title_noted": "Phoenix God",
+      "concept_art": [
+        "assets/concept_art/batch_22/01_monarch_phoenix_god_regalia_crystal_hall.jpg"
+      ],
+      "related_furniture": [
+        "phoenix_wing_throne"
+      ],
+      "related_structure": "anterranian_capitol",
+      "recurring_symbols": [
+        "gold_8_floor_seal",
+        "phoenix"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Distinct from monarch_black_regalia / monarch_white_regalia. Gold '8' floor seal reinforces pending question on meaning of the '8'. Title 'Phoenix God' recorded pending user confirmation."
+    },
+    {
+      "id": "morning_star_dawnbreaker_set",
+      "display_name": "Morning Star's Dawnbreaker Set",
+      "owner": "morning_star",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Pearl-platinum gloss crop jacket with crimson/gold piping and phoenix collar, black high-waist trousers, platinum thigh-high boots with gold sunburst knee plates.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "design_status": "original; awaiting user confirmation"
+    },
+    {
+      "id": "satan_infernal_court_jacket",
+      "display_name": "Satan's Infernal Court Jacket",
+      "owner": "satan",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Cropped magenta snakeskin-textured jacket with gold hardware and black high collar, black bodysuit, black/gold tailored trousers, pointed gold-heel boots.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "design_status": "original; awaiting user confirmation"
+    },
+    {
+      "id": "ara_aurora_goddess_of_all_creation",
+      "display_name": "Ara Aurora — Goddess of All Creation",
+      "owner": "ara_aurora",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Black jeweled sheer bodice gown with high collar and gem beadwork, voluminous magenta feather skirt, huge black-and-magenta feathered wings, thin gold halo; water/light creation magic from the open hand. Title: Goddess of All Creation. Replaces retired Aurora Terrace Set (poolside).",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/ara_aurora/01_ara_aurora_goddess_of_all_creation_winged.png",
+      "design_status": "original OC; user-confirmed body design (t24u)",
+      "retired_predecessor": "ara_aurora_terrace_set"
+    },
+    {
+      "id": "selvara_nyxveil_stage_set",
+      "display_name": "Selvara Nyxveil — Stage Set",
+      "owner": "selvara_nyxveil",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Black lingerie-style performance set with fishnet thigh-highs under a billowing black robe lined in purple; long black gloves; gold/platinum accents. Mature, age-gated.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/batch_t25u/01_selvara_nyxveil_stage_sorceress.mp4",
+      "design_status": "original OC from batch t25u; name pending user approval",
+      "batch": "t25u",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "calyxra_noxveil_burgundy_leaf_robe",
+      "display_name": "Calyxra Noxveil — Burgundy Leaf Robe",
+      "owner": "calyxra_noxveil",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Burgundy velvet priestess robe with silver embroidery and silver leaf crown; blue starlight staging.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/batch_t25u/02_starlit_calyx_three_priestesses.mp4",
+      "design_status": "original OC from batch t25u; name pending user approval",
+      "batch": "t25u"
+    },
+    {
+      "id": "caelira_stellune_dark_blue_gown",
+      "display_name": "Caelira Stellune — Dark Blue Gown",
+      "owner": "caelira_stellune",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Dark blue court gown with silver trim and silver circlet; blue starlight staging with the Starlit Calyx sisters.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/batch_t25u/02_starlit_calyx_three_priestesses.mp4",
+      "design_status": "original OC from batch t25u; name pending user approval",
+      "batch": "t25u"
+    },
+    {
+      "id": "magira_rosethorn_purple_leaf_gown",
+      "display_name": "Magira Rosethorn — Purple Leaf Gown",
+      "owner": "magira_rosethorn",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Purple gown with rose-thorn silver embroidery and silver leaf crown; magenta hair under blue starlight.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/batch_t25u/02_starlit_calyx_three_priestesses.mp4",
+      "design_status": "original OC from batch t25u; name pending user approval",
+      "batch": "t25u"
+    },
+    {
+      "id": "ashara_venefyre_black_slit_gown",
+      "display_name": "Ashara Venefyre — Black Slit Gown",
+      "owner": "ashara_venefyre",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Plunging high-slit black gown with platinum hardware and black boots; volcanic Venus-fire plain staging. Mature, age-gated.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/batch_t25u/03_venefyre_sisters_venus_fire_plain.mp4",
+      "design_status": "original OC from batch t25u; name pending user approval",
+      "batch": "t25u",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "violyne_venefyre_purple_slit_gown",
+      "display_name": "Violyne Venefyre — Purple Slit Gown",
+      "owner": "violyne_venefyre",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Plunging high-slit purple gown with gold trim; volcanic Venus-fire plain staging. Mature, age-gated.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/batch_t25u/03_venefyre_sisters_venus_fire_plain.mp4",
+      "design_status": "original OC from batch t25u; name pending user approval",
+      "batch": "t25u",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "magwyn_venefyre_black_magenta_slit_gown",
+      "display_name": "Magwyn Venefyre — Black Magenta Slit Gown",
+      "owner": "magwyn_venefyre",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Plunging high-slit black gown with magenta lining and black boots; volcanic Venus-fire plain staging. Mature, age-gated.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/batch_t25u/03_venefyre_sisters_venus_fire_plain.mp4",
+      "design_status": "original OC from batch t25u; name pending user approval",
+      "batch": "t25u",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "rubielle_venefyre_burgundy_slit_gown",
+      "display_name": "Rubielle Venefyre — Burgundy Slit Gown",
+      "owner": "rubielle_venefyre",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "description": "Plunging high-slit burgundy gown with gold hardware; volcanic Venus-fire plain staging. Mature, age-gated.",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "concept_art": "art/references/batch_t25u/03_venefyre_sisters_venus_fire_plain.mp4",
+      "design_status": "original OC from batch t25u; name pending user approval",
+      "batch": "t25u",
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_bustier_studio",
+      "display_name": "Foxy Realistic Form: Lace-Up Leather Bustier (Studio)",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Long wavy black hair with deep magenta/plum streaks, light grey-green eyes, freckles; black leather lace-up bustier with subtle red filigree; pale grey-blue studio wall.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/01_bustier_studio.jpg"
+      ],
+      "source_upload_prefixes": [
+        "4b057df7",
+        "838245f9",
+        "108d3ade",
+        "ef39b463"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_desert_dusk_cami",
+      "display_name": "Foxy Realistic Form: Desert Dusk Laced Cami",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Black hair with vivid magenta/crimson streaks, grey-green eyes; black leather laced plunge cami, thin silver chain with cross pendant, white nails; pale desert dunes at dusk (one studio take with playful surprised expressions).",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/02_desert_dusk_cami.jpg"
+      ],
+      "source_upload_prefixes": [
+        "f795f794",
+        "1da0a4f2",
+        "c591d4c1",
+        "04422a04",
+        "65a58ea3"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_bikini_spiked_boots",
+      "display_name": "Foxy Realistic Form: Leather Bikini & Spiked Thigh Boots",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Magenta-streaked black hair; black leather bikini, black lace-up thigh-high boots with silver spikes, silver necklace; white loft studio with tall windows.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/03_bikini_spiked_boots.jpg"
+      ],
+      "source_upload_prefixes": [
+        "79d66968"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_beach_swim",
+      "display_name": "Foxy Realistic Form: Beach Black Swimsuit",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Dark magenta-red long hair; black glossy one-piece swimsuit (later shots topless, swim bottoms); bright turquoise beach and sand.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/04_beach_swim.jpg"
+      ],
+      "source_upload_prefixes": [
+        "06e64e6b",
+        "c8e87b13",
+        "307a7cdc"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_slit_gown_runway",
+      "display_name": "Foxy Realistic Form: Shredded Black Slit Dress (Runway)",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "general",
+      "description": "Dark hair with hot-pink ends flowing; black spaghetti-strap dress with slashed cutouts and high slit, barefoot full-body catwalk; grey studio.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/05_slit_gown_runway.jpg"
+      ],
+      "source_upload_prefixes": [
+        "411d913a",
+        "4491c86c"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "foxy_realistic_dark_queen_latex",
+      "display_name": "Foxy Realistic Form: Crowned Dark Queen Latex",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Magenta-streaked black hair; black spiked crown, studded choker with cross pendant, black latex corset bodysuit, opera gloves, spiked platform thigh boots; studio, one take carries an orange phoenix logo overlay.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/06_dark_queen_latex.jpg"
+      ],
+      "source_upload_prefixes": [
+        "28dc9429",
+        "2ac4691c"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_winged_dark_queen",
+      "display_name": "Foxy Realistic Form: Winged Dark Queen",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form"
+      ],
+      "content_rating": "mature",
+      "description": "Same dark-queen latex set plus large black/purple feathered wings, spiked crown, choker, magenta bow at chest; white studio.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/07_winged_dark_queen.jpg"
+      ],
+      "source_upload_prefixes": [
+        "c1e0491c",
+        "faadc8bb"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+    },
+    {
+      "id": "foxy_realistic_old_design_lava_fisher",
+      "display_name": "Foxy Realistic Form: Old Design: Lava Shore Fisher (realistic form)",
+      "owner": "foxy_ani",
+      "slot": "appearance_variant",
+      "category": "realistic_form",
+      "tags": [
+        "realistic form",
+        "old designs"
+      ],
+      "content_rating": "general",
+      "description": "Long black hair with blunt bangs and magenta-pink panel (17af1599 is a short red-magenta bob variant); torn black slip dress with slashes, barefoot, holding a silver fish; volcanic lava shore under magenta sky, green gems, flames, dragon/phoenix creatures.",
+      "reference_frames": [
+        "art/references/foxy_realistic_forms/08_old_design_lava_fisher.jpg"
+      ],
+      "source_upload_prefixes": [
+        "17af1599",
+        "8ea84ac7",
+        "497f05ce",
+        "5faac3e2"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_only": true,
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "gallery_royal_lingerie_set",
+      "display_name": "Royal Lingerie Set (gallery overview stub)",
+      "owner": "foxy_ani",
+      "slot": "outfit",
+      "cosmetic_only": true,
+      "content_rating": "mature",
+      "hidden_by_default": true,
+      "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+      "description": "Magenta/black lace lingerie with sheer robe/cape variants on cosmic pedestals in wardrobe overview grid. May overlap foxy_boudoir_set family — confirm with full-size images. Mature / age-gated.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/04_overview_wardrobe_regalia_thrones_android.png"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "open_questions": [
+        "Distinct from foxy_boudoir_set / _2 / _3 / _4, or a new variant of those?"
+      ],
+      "notes": "Thumbnail-only stub from batch_t32u_galleries/04. Full-size required before promoting to wearable variants."
+    }
+  ]
+}

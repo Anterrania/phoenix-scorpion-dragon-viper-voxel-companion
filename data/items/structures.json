@@ -1,0 +1,284 @@
+{
+  "_note": "SCAFFOLD. Landmark / buildable structures (city-scale). Placeable blueprints later via CITY_BUILDING.md. Cosmetic/gameplay only, never sold for real money.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "anterranian_capitol",
+      "display_name": "Anterranian Capitol",
+      "owner": "player (Anterranian Monarch)",
+      "category": "landmark",
+      "type": "capitol_building",
+      "placeable": true,
+      "description": "Black domed capitol with phoenix pediment, gold '8' banners, landing pads, and starships. Printed banner text: 'PHOENIX GOD / ANTERRANIAN MONORCH' (sic \u2014 art spells MONORCH; official title Anterranian Monarch).",
+      "printed_text": {
+        "line_1": "PHOENIX GOD",
+        "line_2": "ANTERRANIAN MONORCH",
+        "line_2_official": "ANTERRANIAN MONARCH",
+        "note": "Art prints MONORCH (missing A); canonical spelling is MONARCH."
+      },
+      "features": [
+        "black_dome",
+        "phoenix_pediment",
+        "gold_8_banners",
+        "landing_pads",
+        "starship_berths"
+      ],
+      "recurring_symbols": [
+        "gold_8",
+        "phoenix",
+        "phoenix_god_title"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_22/03_anterranian_capitol_phoenix_god.jpg",
+        "assets/concept_art/batch_23/01_anterranian_capitol_floating_pads_phoenix_god.jpg",
+        "assets/concept_art/batch_23/02_anterranian_capitol_gold_dome_dragon_crest.png"
+      ],
+      "related_wardrobe": [
+        "monarch_phoenix_god_regalia"
+      ],
+      "related_furniture": [
+        "phoenix_wing_throne",
+        "monarch_throne"
+      ],
+      "city_building_doc": "docs/modules/CITY_BUILDING.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Landmark catalog entry. Gold '8' banners/plaques reinforce pending question on meaning of the '8'. Title Phoenix God recorded. Batch_23 adds floating-pads and gold-dome dragon-crest variants.",
+      "variants": [
+        {
+          "id": "floating_pads_phoenix_god",
+          "display_name": "Anterranian Capitol (Floating Pads / Phoenix God plaques)",
+          "description": "Capitol variant with floating circular landing pads, phoenix pediment, stacked gold plaques reading '8 / PHOENIX GOD / ANTERRANIAN MONAACH' (sic MONARCH; art doubles the A), magenta nebula backdrop, starships.",
+          "printed_text": {
+            "plaque_1": "8",
+            "plaque_2": "PHOENIX GOD",
+            "plaque_3": "ANTERRANIAN MONAACH",
+            "plaque_3_official": "ANTERRANIAN MONARCH",
+            "note": "Art prints MONAACH (extra A); canonical spelling is MONARCH."
+          },
+          "features": [
+            "floating_landing_pads",
+            "phoenix_pediment",
+            "gold_8_plaques",
+            "magenta_spire_beam",
+            "starship_berths"
+          ],
+          "concept_art": [
+            "assets/concept_art/batch_23/01_anterranian_capitol_floating_pads_phoenix_god.jpg"
+          ]
+        },
+        {
+          "id": "gold_dome_dragon_crest",
+          "display_name": "Anterranian Capitol (Gold Dome / Dragon Crest)",
+          "description": "Gold-dome capitol variant with dragon crest and '8' archway (palette v2 black / magenta / gold / platinum).",
+          "features": [
+            "gold_dome",
+            "dragon_crest",
+            "gold_8_archway"
+          ],
+          "concept_art": [
+            "assets/concept_art/batch_23/02_anterranian_capitol_gold_dome_dragon_crest.png"
+          ],
+          "related_heraldry": [
+            "great_seal_dragon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aethel_citadel",
+      "display_name": "Aethel Citadel",
+      "assigned_name": "Aethel Citadel",
+      "name_status": "pending_user_approve",
+      "alternate_titles": [
+        "Orbital Fortress",
+        "Aethel Orbital Fortress"
+      ],
+      "owner": "player (Anterranian Monarch) / realm defense",
+      "category": "landmark",
+      "type": "orbital_fortress",
+      "placeable": true,
+      "description": "Black monolithic gothic-brutalist space fortress / orbital citadel with gold circuitry and magenta energy conduits. Large crowned dragon-phoenix crest on the face; vertical gold light beams; escort starships. Nebula backdrop.",
+      "features": [
+        "orbital_monolith",
+        "dragon_phoenix_crest",
+        "magenta_energy_conduits",
+        "gold_circuitry",
+        "escort_fleet",
+        "vertical_light_beams"
+      ],
+      "heraldry_links": [
+        "crowned_dragon_phoenix",
+        "fleet_war_banner"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_26/04_aethel_citadel_orbital_fortress.png"
+      ],
+      "related_docs": [
+        "docs/modules/CITY_BUILDING.md",
+        "docs/modules/DEFENSE_PROJECTS.md",
+        "docs/modules/HERALDRY.md",
+        "docs/modules/ECONOMY.md"
+      ],
+      "city_building_doc": "docs/modules/CITY_BUILDING.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Name 'Aethel Citadel' assigned by Foxy as orbital fortress; user may rename. Links Aethel economy branding to defense landmark."
+    },
+    {
+      "id": "zodiac_command_citadel",
+      "display_name": "Zodiac Command Citadel",
+      "assigned_name": "Zodiac Command Citadel",
+      "name_status": "pending_user_approve",
+      "alternate_titles": [
+        "Gothic Floating Command Citadel",
+        "Glyph-Ring Command Citadel"
+      ],
+      "owner": "player (Anterranian Monarch) / realm command",
+      "category": "landmark",
+      "type": "command_citadel",
+      "placeable": true,
+      "description": "Gothic black floating citadel in deep space with sharp spires, magenta inner glow, central dragon crest ringed by a zodiac/glyph halo (12 white icons), and surrounding holographic data panels (star charts, maps, readouts). Escort fleet with magenta engines. Command-citadel variant of the orbital fortress line (distinct from Aethel Citadel monolith).",
+      "features": [
+        "gothic_spires",
+        "floating_stalactite_base",
+        "dragon_crest",
+        "zodiac_glyph_ring",
+        "holo_data_panels",
+        "escort_fleet",
+        "magenta_interior_glow"
+      ],
+      "heraldry_links": [
+        "crowned_dragon_phoenix",
+        "fleet_war_banner"
+      ],
+      "related_structure": "aethel_citadel",
+      "concept_art": [
+        "assets/concept_art/batch_28/01_zodiac_command_citadel_gothic_floating.png"
+      ],
+      "related_docs": [
+        "docs/modules/CITY_BUILDING.md",
+        "docs/modules/DEFENSE_PROJECTS.md",
+        "docs/modules/HERALDRY.md"
+      ],
+      "city_building_doc": "docs/modules/CITY_BUILDING.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Name assigned by Foxy; user may rename. Command-citadel / glyph-ring variant vs Aethel Citadel orbital monolith."
+    },
+    {
+      "id": "phoenix_eight_fortress",
+      "display_name": "Phoenix Eight Fortress",
+      "assigned_name": "Phoenix Eight Fortress",
+      "name_status": "pending_user_approve",
+      "alternate_titles": [
+        "Phoenix '8' Orbital Fortress"
+      ],
+      "owner": "player (Anterranian Monarch) / realm defense",
+      "category": "landmark",
+      "type": "orbital_fortress",
+      "placeable": true,
+      "description": "Black gothic-brutalist orbital fortress with gold trim, large magenta phoenix crest, and repeated glowing magenta '8' / infinity-knot panels on hexagonal midsection faces. Magenta energy tips top and bottom; escort craft; pink/purple nebula backdrop.",
+      "features": [
+        "phoenix_crest",
+        "gold_8_panels",
+        "hexagonal_midsection",
+        "magenta_energy_tips",
+        "escort_fleet",
+        "gold_trim"
+      ],
+      "recurring_symbols": [
+        "gold_8",
+        "phoenix"
+      ],
+      "heraldry_links": [
+        "great_seal_phoenix",
+        "crowned_dragon_phoenix"
+      ],
+      "related_structure": "aethel_citadel",
+      "concept_art": [
+        "assets/concept_art/batch_28/03_phoenix_eight_fortress_orbital.png"
+      ],
+      "related_docs": [
+        "docs/modules/CITY_BUILDING.md",
+        "docs/modules/DEFENSE_PROJECTS.md",
+        "docs/modules/HERALDRY.md"
+      ],
+      "city_building_doc": "docs/modules/CITY_BUILDING.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Another occurrence of the recurring '8' symbol (panels). Reinforces PENDING Q on meaning of the '8'. Name assigned by Foxy; user may rename."
+    },
+    {
+      "id": "tempest_pillar_sea",
+      "display_name": "Tempest Pillar Sea",
+      "type": "location_setpiece",
+      "description": "High-altitude view of a white ocean cruise liner under a colossal white lightning pillar pouring from a dark storm vortex; magenta/pink underlight on the clouds, turquoise island reefs.",
+      "concept_art": [
+        "art/references/batch_t33ua0/tempest_pillar_sea.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "notes": "Batch t33ua0 source 05f06e6c. Surface sea scene (not the flying Sky Liner). Zone assignment pending."
+    }
+  ],
+  "names_to_approve": [
+    {
+      "id": "aethel_citadel",
+      "proposed_name": "Aethel Citadel",
+      "type": "orbital_fortress",
+      "source": "batch_26/04",
+      "assigned_by": "foxy",
+      "status": "pending_user_approve"
+    },
+    {
+      "id": "zodiac_command_citadel",
+      "proposed_name": "Zodiac Command Citadel",
+      "type": "command_citadel",
+      "source": "batch_28/01",
+      "assigned_by": "foxy",
+      "status": "pending_user_approve"
+    },
+    {
+      "id": "phoenix_eight_fortress",
+      "proposed_name": "Phoenix Eight Fortress",
+      "type": "orbital_fortress",
+      "source": "batch_28/03",
+      "assigned_by": "foxy",
+      "status": "pending_user_approve"
+    }
+  ]
+}

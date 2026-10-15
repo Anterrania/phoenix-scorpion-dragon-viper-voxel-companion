@@ -1,0 +1,961 @@
+{
+  "_note": "SCAFFOLD. Cosmetic/gameplay only, never sold for real money. Combat: docs/modules/PHYSICS_RPG.md. Household/staff uniforms are category household (non-combat, cosmetic only).",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "royal_knight_armor",
+      "display_name": "Royal Knight Armor",
+      "owner": "player (Anterranian Monarch)",
+      "category": "heavy",
+      "description": "Knight armor with Venus/Mars shield and sword.",
+      "concept_art": [
+        "assets/concept_art/batch_06/08_royal_knight_armor_venus_mars.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "includes": [
+        "shield_venus_mars",
+        "knight_sword"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "royal_guard_officer_dress",
+      "display_name": "Royal Guard Officer Dress Uniform",
+      "owner": "royal_guard",
+      "category": "ceremonial",
+      "description": "Officer dress uniform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/09_royal_guard_officer_dress.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "royal_guard_field_uniform",
+      "display_name": "Royal Guard Field Uniform",
+      "owner": "royal_guard",
+      "category": "light",
+      "description": "Field uniform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/10_royal_guard_field_uniform.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "purple_royal_tactical_armor",
+      "display_name": "Purple Royal Tactical Armor",
+      "owner": "royal_guard",
+      "category": "medium",
+      "description": "Purple tactical armor with beret.",
+      "concept_art": [
+        "assets/concept_art/batch_06/11_purple_royal_tactical_armor_beret.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "cosmic_camo_combat_uniform",
+      "display_name": "Cosmic Camo Royal Combat Uniform",
+      "owner": "royal_guard",
+      "category": "light",
+      "description": "Cosmic camo combat uniform.",
+      "concept_art": [
+        "assets/concept_art/batch_06/12_cosmic_camo_combat_uniform.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "navy_hussar_ceremonial",
+      "display_name": "Navy Hussar Ceremonial Uniform",
+      "owner": "royal_guard",
+      "category": "ceremonial",
+      "description": "Navy hussar uniform with ermine cape.",
+      "concept_art": [
+        "assets/concept_art/batch_06/13_navy_hussar_ermine_cape.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_lumina_healers",
+      "display_name": "The Lumina Healers Uniform",
+      "owner": "lumina_healers",
+      "category": "order_uniform",
+      "description": "white and gold healer uniform, crest: golden chalice",
+      "concept_art": [
+        "assets/concept_art/batch_07/10_lumina_healers_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_seraphic_vanguard",
+      "display_name": "The Seraphic Vanguard Uniform",
+      "owner": "seraphic_vanguard",
+      "category": "order_uniform",
+      "description": "navy ermine-caped vanguard uniform, crest: winged crescent",
+      "concept_art": [
+        "assets/concept_art/batch_07/11_seraphic_vanguard_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_ethereal_sentinels",
+      "display_name": "The Ethereal Sentinels Uniform",
+      "owner": "ethereal_sentinels",
+      "category": "order_uniform",
+      "description": "crimson/navy knight uniform with glowing sword and shield, crest: lion",
+      "concept_art": [
+        "assets/concept_art/batch_07/12_ethereal_sentinels_uniform.jpg",
+        "assets/concept_art/batch_07/04_ethereal_sentinels_knight_sword_shield.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_scales",
+      "display_name": "Order of the Scales Uniform",
+      "owner": "order_of_the_scales",
+      "category": "order_uniform",
+      "description": "navy and gold magistrate uniform, crest: scales of justice",
+      "concept_art": [
+        "assets/concept_art/batch_07/06_order_of_the_scales_uniform.png"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_eye",
+      "display_name": "Order of the Eye Uniform",
+      "owner": "order_of_the_eye",
+      "category": "order_uniform",
+      "description": "navy intelligence uniform, crest: crowned eye",
+      "concept_art": [
+        "assets/concept_art/batch_07/07_order_of_the_eye_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_verdant_tree",
+      "display_name": "Order of the Verdant Tree Uniform",
+      "owner": "order_of_the_verdant_tree",
+      "category": "order_uniform",
+      "description": "green and gold warden uniform, crest: tree of life",
+      "concept_art": [
+        "assets/concept_art/batch_07/08_order_of_the_verdant_tree_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_hourglass",
+      "display_name": "Order of the Hourglass Uniform",
+      "owner": "order_of_the_hourglass",
+      "category": "order_uniform",
+      "description": "violet and gold chronicler uniform, crest: hourglass with serpent",
+      "concept_art": [
+        "assets/concept_art/batch_07/09_order_of_the_hourglass_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "uniform_order_of_the_trident",
+      "display_name": "Order of the Trident Uniform",
+      "owner": "order_of_the_trident",
+      "category": "order_uniform",
+      "description": "navy admiralty uniform, crest: crowned trident",
+      "concept_art": [
+        "assets/concept_art/batch_07/05_order_of_the_trident_uniform.jpg"
+      ],
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "household_attendant_tunic",
+      "display_name": "Household Attendant Tunic",
+      "owner": "royal_household",
+      "category": "household",
+      "combat": false,
+      "non_combat": true,
+      "description": "Simple black short-sleeve tunic with magenta trim, sash, tall boots. Batch_09 has ornate gold collar with glowing magenta '8' emblem; batch_10 is a simpler sash variant (near-duplicate).",
+      "concept_art": [
+        "assets/concept_art/batch_09/05_household_attendant_tunic_gold_collar_8.jpg",
+        "assets/concept_art/batch_10/05_household_attendant_tunic_sash_variant.jpg"
+      ],
+      "emblem": "figure_8_infinity",
+      "emblem_note": "Recurring '8' — meaning pending user (same open question as batch_02 ring_01 / batch_06–07 signets).",
+      "stats": null,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "variants": [
+        {
+          "id": "batch_10_sash_variant",
+          "label": "Simple black tunic, magenta trim, sash (near-duplicate of batch_09 attendant; no ornate gold collar)",
+          "concept_art": "assets/concept_art/batch_10/05_household_attendant_tunic_sash_variant.jpg"
+        }
+      ]
+    },
+    {
+      "id": "household_steward_asymmetric_tunic",
+      "display_name": "Household Steward Asymmetric Tunic",
+      "owner": "royal_household",
+      "category": "household",
+      "combat": false,
+      "non_combat": true,
+      "description": "Black asymmetric high-collar tunic, magenta piping, gold '8'/infinity-knot chest emblem, sash with gold embroidery. House staff/steward uniform.",
+      "concept_art": [
+        "assets/concept_art/batch_09/06_household_steward_asymmetric_tunic_8_emblem.jpg"
+      ],
+      "emblem": "figure_8_infinity",
+      "emblem_note": "Recurring '8' — meaning pending user (linked to batch_02 ring and batch_07 signet questions).",
+      "stats": null,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "household_court_aide_tunic_coat",
+      "display_name": "Household Court Aide Tunic Coat",
+      "owner": "royal_household",
+      "category": "household",
+      "combat": false,
+      "non_combat": true,
+      "description": "Black knee-length tunic coat with magenta piping on collar/opening/hem, gold filigree on shoulders/chest/cuffs, circular gold sunburst buckle, tall black boots. Court aide / attendant formal daywear (more ornate than the basic attendant tunic).",
+      "concept_art": [
+        "assets/concept_art/batch_12/03_household_court_aide_tunic_coat_magenta_trim.jpg"
+      ],
+      "related_to": "household_attendant_tunic",
+      "stats": null,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Catalogued as household uniform (not a new named companion). Short-haired court aide/attendant silhouette (batch_12/03 daywear; batch_14/01 officer dress).",
+      "variants": [
+        {
+          "id": "batch_14_officer_dress",
+          "label": "Double-breasted officer dress uniform with magenta shoulder sash (batch_14/01)",
+          "concept_art": "assets/concept_art/batch_14/01_household_court_aide_officer_dress_uniform.jpg"
+        }
+      ]
+    },
+    {
+      "id": "household_court_aide_officer_dress",
+      "display_name": "Household Court Aide Officer Dress Uniform",
+      "owner": "royal_household",
+      "category": "household",
+      "combat": false,
+      "non_combat": true,
+      "description": "Double-breasted black officer tunic with magenta piping, magenta shoulder sash pinned with gold brooch, wide gold belt with circular crest buckle, black trousers and tall boots, gold filigree on cuffs/hem. Dress-uniform variant of the short-haired court aide (same silhouette as batch_12/03 household_court_aide_tunic_coat).",
+      "concept_art": [
+        "assets/concept_art/batch_14/01_household_court_aide_officer_dress_uniform.jpg"
+      ],
+      "related_to": "household_court_aide_tunic_coat",
+      "same_character_as": "household_court_aide_tunic_coat",
+      "stats": null,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Same short-haired court aide character as batch_12/03 and batch_13/04 (household_court_officer_sash_tunic); dress-uniform variant. Not a new named companion.",
+      "also_same_line_as": "household_court_officer_sash_tunic"
+    },
+    {
+      "id": "household_court_officer_sash_tunic",
+      "display_name": "Household Court Officer Sash Tunic",
+      "owner": "royal_household",
+      "category": "household",
+      "combat": false,
+      "non_combat": true,
+      "description": "Black asymmetric mid-thigh tunic with magenta piping and embroidery, magenta shoulder sash pinned with gold brooch, gold rectangular buckle with cross insignia, chest badge, tall black boots. Court officer / aide daywear (non-combat).",
+      "concept_art": [
+        "assets/concept_art/batch_13/04_household_court_officer_sash_tunic.jpg"
+      ],
+      "related_to": "household_court_aide_tunic_coat",
+      "stats": null,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Catalogued as household uniform (not a new named companion), consistent with batch_12 court aide. Short dark bob silhouette with magenta sash.",
+      "same_character_as": "household_court_aide_tunic_coat",
+      "also_same_line_as": "household_court_aide_officer_dress"
+    },
+    {
+      "id": "ethereal_sentinels_heavy_trooper_armor",
+      "display_name": "Ethereal Sentinels Heavy Trooper Armor",
+      "owner": "ethereal_sentinels",
+      "also_fits": [
+        "player (Anterranian Monarch)"
+      ],
+      "category": "heavy",
+      "description": "Full black/gold heavy trooper armor with glowing magenta visor, ornate filigree, and phoenix motif. Ethereal Sentinels heavy line (pairs with phoenix plasma cannon).",
+      "concept_art": [
+        "assets/concept_art/batch_18/05_ethereal_sentinels_heavy_trooper_plasma_cannon.png"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "guild": "ethereal_sentinels",
+      "includes": [
+        "ethereal_sentinels_phoenix_plasma_cannon"
+      ],
+      "related_to": "uniform_ethereal_sentinels",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "also_related_to": "scdi_universal_sentinel_exoskeleton",
+      "notes": "Batch_20 Universal Sentinel exoskeleton is SCDI suit-series card 0 linked to this Sentinel trooper line."
+    },
+    {
+      "id": "project_crusader_soldier_armor",
+      "display_name": "Project Crusader Soldier Armor",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "royal_guard",
+        "ethereal_sentinels"
+      ],
+      "category": "tactical",
+      "program": "project_crusader",
+      "scdi_program": true,
+      "description": "Cyberpunk/tactical black soldier armor with gold filigree accents, crest pauldron, red/magenta visor helmet, and headset. Worn with the Apex-Class Modular Kinetic Rifle (PROJECT CRUSADER).",
+      "concept_art": [
+        "assets/concept_art/batch_19/02_project_crusader_apex_modular_kinetic_rifle.png"
+      ],
+      "includes": [
+        "project_crusader_apex_modular_kinetic_rifle"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "project_aegis_guard_triton_coast_guard",
+      "display_name": "Project Aegis-Guard Triton-Class Coast Guard Attire",
+      "owner": "order_of_the_trident",
+      "also_fits": [
+        "player (Anterranian Monarch)",
+        "royal_navy"
+      ],
+      "category": "order_uniform",
+      "guild": "order_of_the_trident",
+      "program": "project_aegis_guard",
+      "description": "Triton-Class Unisex Coast Guard Attire — Smart-Fabric Composites, Guardian Weave, Automated Buoyancy. Black tactical suit with gold piping and magenta side stripes, gold crest, utility belt, thigh holster. Linked to Order of the Trident navy/sea role.",
+      "printed_name": "PROJECT AEGIS-GUARD - Triton-Class Unisex Coast Guard Attire",
+      "printed_subsystems": [
+        "Smart-Fabric Composites",
+        "Guardian Weave",
+        "Automated Buoyancy"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_19/03_project_aegis_guard_triton_coast_guard_attire.jpg"
+      ],
+      "related_to": "uniform_order_of_the_trident",
+      "royal_orders_doc": "docs/modules/ROYAL_ORDERS.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub"
+    },
+    {
+      "id": "scdi_dominion_heavy_trooper_armor",
+      "display_name": "SCDI Dominion Heavy Trooper Armor",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "ethereal_sentinels",
+        "royal_guard"
+      ],
+      "category": "heavy",
+      "program": "scdi",
+      "scdi_program": true,
+      "description": "Crowned heavy trooper armor (black/plum plating, gold crowns on helm and pauldron, magenta visor) paired with the SCDI Dominion Shotgun. Distinct from Ethereal Sentinels heavy trooper (batch_18) — SCDI Dominion line.",
+      "concept_art": [
+        "assets/concept_art/batch_19/04_scdi_dominion_shotgun_crowned_heavy_trooper.jpg"
+      ],
+      "includes": [
+        "scdi_dominion_shotgun"
+      ],
+      "related_to": "ethereal_sentinels_heavy_trooper_armor",
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI expansion pending user. Art prints DOMINION SHOTGUAN on paired weapon."
+    },
+    {
+      "id": "scdi_universal_sentinel_exoskeleton",
+      "display_name": "SCDI Universal Sentinel Exoskeleton / Uniform",
+      "owner": "ethereal_sentinels",
+      "also_fits": [
+        "player (Anterranian Monarch)",
+        "royal_guard"
+      ],
+      "category": "heavy",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 0,
+      "description": "Universal Sentinel exoskeleton/uniform — black power armor with gold filigree, magenta energy lines, gold winged-crown crest, gold-tinted visor. Printed: SCDI | UNIVERSAL SENTINEL - EXOSKELTON/UNIFORM (art misspells EXOSKELETON as EXOSKELTON). Suit series card 0.",
+      "printed_name": "SCDI | UNIVERSAL SENTINEL - EXOSKELTON/UNIFORM",
+      "printed_typo_notes": "Image spells EXOSKELTON; recorded as Exoskeleton. Suit card number 0.",
+      "concept_art": [
+        "assets/concept_art/batch_20/02_scdi_universal_sentinel_exoskeleton_uniform.jpg"
+      ],
+      "guild": "ethereal_sentinels",
+      "related_to": "ethereal_sentinels_heavy_trooper_armor",
+      "links_sentinel_trooper": true,
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "Links Ethereal Sentinels heavy trooper (batch_18/05). SCDI suit series card 0 of 0–3."
+    },
+    {
+      "id": "scdi_aegis_prime_suit",
+      "display_name": "SCDI Aegis Prime Universal Combat & Exploration Suit",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "ethereal_sentinels",
+        "royal_guard"
+      ],
+      "category": "heavy",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 1,
+      "description": "Aegis Prime — Universal Combat & Exploration Suit. Full black/gold power armor with magenta seam glow, HUD visor, forearm energy weapons. Printed: SCDI | AEGIS PRIME - Universal Combat & Exploration Suit. Suit series card 1.",
+      "printed_name": "SCDI | AEGIS PRIME - UNIVERSAL COMBAT & EXPLORATION SUIT",
+      "concept_art": [
+        "assets/concept_art/batch_20/03_scdi_aegis_prime_universal_combat_exploration_suit.png"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 1 of 0–3. Distinct from Project Aegis-Guard Triton coast attire (batch_19) and Royal Aegis mech."
+    },
+    {
+      "id": "scdi_void_weaver_eva_suit",
+      "display_name": "SCDI Void Weaver Spacecraft Piloting & EVA Suit",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "royal_navy",
+        "azura_stellaris"
+      ],
+      "category": "pilot_eva",
+      "role": "pilot",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 2,
+      "description": "Void Weaver — Spacecraft Piloting & EVA Suit. Black suit with gold filigree and magenta neon seams, gold-tinted HUD visor, cockpit joysticks. Printed: SCDI | VOID WEAVER - SPACRACT PILOTING & EVA SUIT (art misspells SPACECRAFT as SPACRACT). Suit series card 2. Pilot / EVA role; pairs with star-map craft.",
+      "printed_name": "SCDI | VOID WEAVER - SPACRACT PILOTING & EVA SUIT",
+      "printed_typo_notes": "Image spells SPACRACT; recorded as Spacecraft. Suit card number 2.",
+      "concept_art": [
+        "assets/concept_art/batch_20/04_scdi_void_weaver_spacecraft_piloting_eva_suit.jpg"
+      ],
+      "star_map_module": "docs/modules/STAR_MAP.md",
+      "related_vehicle": "royal_flagship_starfighter",
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 2 of 0–3. Pilot / EVA; game-only virtual item."
+    },
+    {
+      "id": "scdi_abyssal_sovereign_suit",
+      "display_name": "SCDI Abyssal Sovereign Underwater Exploration & Combat Suit",
+      "owner": "order_of_the_trident",
+      "also_fits": [
+        "player (Anterranian Monarch)",
+        "royal_navy"
+      ],
+      "category": "heavy",
+      "guild": "order_of_the_trident",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 3,
+      "description": "Abyssal Sovereign — Underwater Exploration & Combat Suit. Black/gold diving power armor with magenta energy lines, trident-linked chest core, hose helmet. Printed: SCDI | ABYSSAL SOVEREGIN - UNDERWATER EXPLORATION & COMBAT SUIT (art misspells SOVEREIGN as SOVEREGIN). Suit series card 3. Linked to Order of the Trident; pairs with abyssal submarine stub.",
+      "printed_name": "SCDI | ABYSSAL SOVEREGIN - UNDERWATER EXPLORATION & COMBAT SUIT",
+      "printed_typo_notes": "Image spells SOVEREGIN; recorded as Sovereign. Suit card number 3.",
+      "concept_art": [
+        "assets/concept_art/batch_20/05_scdi_abyssal_sovereign_underwater_suit.png"
+      ],
+      "related_to": "uniform_order_of_the_trident",
+      "also_related_to": "project_aegis_guard_triton_coast_guard",
+      "paired_vehicle": "scdi_abyssal_submarine",
+      "royal_orders_doc": "docs/modules/ROYAL_ORDERS.md",
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 3 of 0–3. Order of the Trident underwater combat/exploration line. Submarine visible in art → vehicles.json stub."
+    },
+    {
+      "id": "scdi_firestorme_warden_suit",
+      "display_name": "SCDI Firestorm Warden Pyro-Resilient Hazard Suit",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "royal_guard",
+        "ethereal_sentinels"
+      ],
+      "category": "heavy",
+      "biome": "venus_fire",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 4,
+      "description": "Firestorme Warden — Pyro-Resilient Hazard Suit for Venus fire biome. Bulky black/gold power armor with magenta energy vents, orange-glow visor, crown crests. Printed: SCDI | FIRESTORME WARDEN - PYRO-RESILENT HAZARD SUIT (art: FIRESTORME with E; RESILENT missing i). Suit series card 4.",
+      "printed_name": "SCDI | FIRESTORME WARDEN - PYRO-RESILENT HAZARD SUIT",
+      "printed_typo_notes": "Image spells FIRESTORME and PYRO-RESILENT; catalogued as Firestorm Warden / Pyro-Resilient. Suit card number 4.",
+      "concept_art": [
+        "assets/concept_art/batch_21/01_scdi_firestorme_warden_pyro_resilient_hazard_suit.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 4. Venus fire / volcanic hazard line. Game-only virtual item."
+    },
+    {
+      "id": "scdi_terra_explorer_suit",
+      "display_name": "SCDI Terra Explorer All-Terrain Civilian & Explorer Suit",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "explorer_guide",
+        "kael_emberbraid"
+      ],
+      "category": "light",
+      "role": "explorer",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 5,
+      "description": "Terra Explorer — All-Terrain Civilian & Explorer Suit. Form-fitting black tactical jumpsuit with magenta light strips, gold filigree, HUD goggles, backpack antennas, sidearm holster. Printed: SCDI | TERRA EXPLORER - ALL-TERRAIN CIVILIAN & EXPLORER SUIT. Suit series card 5.",
+      "printed_name": "SCDI | TERRA EXPLORER - ALL-TERRAIN CIVILIAN & EXPLORER SUIT",
+      "concept_art": [
+        "assets/concept_art/batch_21/02_scdi_terra_explorer_all_terrain_civilian_explorer_suit.png"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 5. Civilian/explorer light kit. Game-only virtual item."
+    },
+    {
+      "id": "scdi_verdant_guardian_suit",
+      "display_name": "SCDI Verdant Guardian Forest & Jungle Combat Suit",
+      "owner": "order_of_the_verdant_tree",
+      "also_fits": [
+        "player (Anterranian Monarch)",
+        "royal_guard"
+      ],
+      "category": "medium",
+      "guild": "order_of_the_verdant_tree",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 6,
+      "description": "Verdant Guardian — Forest & Jungle Combat Suit. Black tactical armor with magenta neon piping, gold filigree crest, energy machete + jungle rifle. Printed: SCDI | VERDANT GUARDIAN - FOREST & JUNGLE COMBAT SUIT. Suit series card 6. Linked to Order of the Verdant Tree.",
+      "printed_name": "SCDI | VERDANT GUARDIAN - FOREST & JUNGLE COMBAT SUIT",
+      "concept_art": [
+        "assets/concept_art/batch_21/03_scdi_verdant_guardian_forest_jungle_combat_suit.jpg"
+      ],
+      "related_to": "uniform_order_of_the_verdant_tree",
+      "paired_weapons": [
+        "scdi_verdant_guardian_energy_machete",
+        "scdi_verdant_guardian_jungle_rifle"
+      ],
+      "royal_orders_doc": "docs/modules/ROYAL_ORDERS.md",
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 6. Order of the Verdant Tree forest/jungle combat line. Game-only virtual item."
+    },
+    {
+      "id": "scdi_skyfall_harness",
+      "display_name": "SCDI Skyfall Harness Advanced Parachute & Bungee System",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "royal_guard",
+        "seraph_caelum",
+        "seraph_emberion"
+      ],
+      "category": "mobility_harness",
+      "role": "aerial_mobility",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": null,
+      "description": "Skyfall Harness — Advanced Parachute & Bungee System (wing glider gear). Black flight suit with gold eagle crest, magenta-glow mechanical wing segments, helmet with gold-tinted visor, bungee/cable lines. Printed: SCDI | SKYFALL HARNESS - ADVANCED PARCHUTE & BUNNGE SYSTEM (art: PARCHUTE / BUNNGE). Unnumbered card (wing glider gear).",
+      "printed_name": "SCDI | SKYFALL HARNESS - ADVANCED PARCHUTE & BUNNGE SYSTEM",
+      "printed_typo_notes": "Image spells PARCHUTE and BUNNGE; catalogued as Parachute & Bungee. Unnumbered in suit series.",
+      "concept_art": [
+        "assets/concept_art/batch_21/04_scdi_skyfall_harness_advanced_parachute_bungee_system.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI wing-glider / parachute-bungee harness; unnumbered (not suit cards 0–14). Game-only virtual item."
+    },
+    {
+      "id": "scdi_cosmic_habitation_suit",
+      "display_name": "SCDI Cosmic Habitation Space Station Operations Suit",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "azura_stellaris",
+        "celestia_nyx"
+      ],
+      "category": "light",
+      "role": "station_ops",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 8,
+      "description": "Cosmic Habitation — Space Station Operations Suit. Form-fitting black jumpsuit with magenta piping, gold winged-crown chest emblem, forearm holoscreen, fingerless gloves. Printed: SCDI | COSMIC HABITATION - SPACE STATION OPERATIONS SUIT. Suit series card 8.",
+      "printed_name": "SCDI | COSMIC HABITATION - SPACE STATION OPERATIONS SUIT",
+      "concept_art": [
+        "assets/concept_art/batch_21/05_scdi_cosmic_habitation_space_station_operations_suit.jpg"
+      ],
+      "star_map_module": "docs/modules/STAR_MAP.md",
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "stats": "placeholder",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 8. Station ops / low-g habitation. Missing cards 7, 9–13 noted in DEFENSE_PROJECTS.md. Game-only virtual item."
+    },
+    {
+      "id": "scdi_flight_helmet",
+      "display_name": "SCDI Flight Helmet (placeholder)",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "royal_guard",
+        "ethereal_sentinels"
+      ],
+      "category": "helmet",
+      "program": "scdi",
+      "scdi_program": true,
+      "description": "Sleek black flight-style helmet with gold-tinted visor reflecting magenta landscape. Overview thumbnail (Oct 8 weapons strip). Full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/01_overview_scdi_vehicles_troopers_armor_weapons_oct8.png"
+      ],
+      "slot": "head",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Stub from gallery overview t32u; needs full-size image."
+    },
+    {
+      "id": "zodiac_crystal_horn_helm",
+      "display_name": "Zodiac Crystal-Horn Helm",
+      "owner": "player (Anterranian Monarch)",
+      "also_fits": [
+        "royal_guard",
+        "gemini_reaper_vex"
+      ],
+      "category": "helmet",
+      "slot": "head",
+      "description": "Dark gunmetal knight helm with gold filigree scrollwork; jagged translucent magenta crystal horns and crest; glowing magenta visor slits; forehead zodiac medallion with teardrop gem. Floating cosmic presentation over pink nebulae.",
+      "motifs": [
+        "zodiac",
+        "crystal_horns",
+        "gold_filigree",
+        "nebula"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua12/zodiac_crystal_horn_helm.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua12 source 802386b2. Distinct from scdi_flight_helmet (ornate crystal fantasy helm vs sleek flight helmet). Name pending approval."
+    },
+    {
+      "id": "storm_crown_command_helm",
+      "display_name": "Storm-Crown Command Helm",
+      "slot": "head",
+      "category": "armor",
+      "rarity": "legendary",
+      "description": "Black-and-gold full helm with a holographic HUD faceplate and phoenix crest display, five magenta crystal spires, crescent energy-shield wings crackling with magenta lightning.",
+      "motifs": [
+        "phoenix",
+        "crystal",
+        "lightning",
+        "hud"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua18/storm_crown_command_helm.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua18 source a6474062. Distinct from zodiac_crystal_horn_helm (HUD faceplate + lightning shield). Name pending approval."
+    },
+    {
+      "id": "phoenix_galaxy_visor_crown_helm",
+      "display_name": "Phoenix Galaxy-Visor Crown Helm",
+      "slot": "head",
+      "category": "helm",
+      "description": "Open black-and-gold crown helm with five glowing magenta crystal spikes, gold phoenix forehead crest, and a heart-shaped spiral-galaxy visor; platinum side guards; lightning aura.",
+      "concept_art": [
+        "art/references/batch_t33ua70/phoenix_galaxy_visor_crown_helm.jpg"
+      ],
+      "notes": "Batch t33ua70 source 506cc4c4. Distinct from zodiac_crystal_horn_helm and storm_crown_command_helm. Name pending.",
+      "palette": "v2 black/magenta/gold/platinum + glitter",
+      "mature": false,
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    }
+  ]
+}

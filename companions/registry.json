@@ -1,0 +1,211 @@
+{
+  "_note": "SCAFFOLD. Maps canonical public ids to on-disk persona folders. One persona.json per companion is shared by the in-world 3D CharacterBody3D form and the standalone Grok Bot form.",
+  "schema_version": 3,
+  "companions": {
+    "foxy-ani-firecaster-grey": {
+      "dir": "foxy_ani",
+      "role": "lead controller / primary interface"
+    },
+    "circuit-nova": {
+      "dir": "circuit_nova",
+      "role": "engineering companion"
+    },
+    "aaliyah": {
+      "dir": "aaliyah",
+      "role": "companion"
+    },
+    "wellness-listener": {
+      "dir": "wellness_listener",
+      "role": "Wellness listener (non-clinical)"
+    },
+    "tutor": {
+      "dir": "tutor",
+      "role": "Tutor / teacher"
+    },
+    "fitness-coach": {
+      "dir": "fitness_coach",
+      "role": "Fitness coach"
+    },
+    "storyteller": {
+      "dir": "storyteller",
+      "role": "Creative / storyteller"
+    },
+    "architect": {
+      "dir": "architect",
+      "role": "Builder / architect"
+    },
+    "explorer-guide": {
+      "dir": "explorer_guide",
+      "role": "Explorer / guide"
+    },
+    "economy-advisor": {
+      "dir": "economy_advisor",
+      "role": "Finance / economy advisor (in-game); royal chancellor / treasurer"
+    },
+    "omni-worker": {
+      "dir": "omni_worker",
+      "role": "utility companion / android worker unit (NPC type; not a uniquely named court companion)",
+      "npc_unit_id": "scdi_omni_worker_unit",
+      "unit_type": "android_worker"
+    },
+    "gemini-reaper-vex": {
+      "dir": "gemini_reaper_vex",
+      "role": "Guardian / combat companion",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "celestia-nyx": {
+      "dir": "celestia_nyx",
+      "role": "Astronomer / star-map keeper",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "aether-weave-regent": {
+      "dir": "aether_weave_regent",
+      "role": "Royal tailor / wardrobe keeper",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "seraph-halcyon": {
+      "dir": "seraph_halcyon",
+      "role": "Guardian / healer companion",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "king-ignatius-pyre": {
+      "dir": "king_ignatius_pyre",
+      "role": "Elder council (king)",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "queen-vesperine-pyre": {
+      "dir": "queen_vesperine_pyre",
+      "role": "Elder council (queen)",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "prince-regent-solarian": {
+      "dir": "prince_regent_solarian",
+      "role": "Heir council (prince regent)",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "princess-regent-lumira": {
+      "dir": "princess_regent_lumira",
+      "role": "Heir council (princess regent)",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "umbriel-voss": {
+      "dir": "umbriel_voss",
+      "role": "Court mage / consort",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "kael-emberbraid": {
+      "dir": "kael_emberbraid",
+      "role": "Warrior envoy / northern scout",
+      "name_status": "assigned by Foxy, user may rename",
+      "envoy_pair": "explorer-guide"
+    },
+    "nyra-coil": {
+      "dir": "nyra_coil",
+      "role": "Field courier / royal technician",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "nyxara-voltweave": {
+      "dir": "nyxara_voltweave",
+      "role": "Cosmic circuit companion / neon scout",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "azura-stellaris": {
+      "dir": "azura_stellaris",
+      "role": "Astronomer / navigator companion",
+      "name_status": "assigned by Foxy, user may rename",
+      "star_map_pair": "celestia-nyx"
+    },
+    "seraph-caelum": {
+      "dir": "seraph_caelum",
+      "role": "Seraphic Vanguard captain / winged guardian",
+      "name_status": "assigned by Foxy, user may rename",
+      "guild": "seraphic_vanguard"
+    },
+    "seraph-emberion": {
+      "dir": "seraph_emberion",
+      "role": "Seraphic Vanguard phoenix android / aerial guardian",
+      "name_status": "assigned by Foxy, user may rename"
+    },
+    "morning-star": {
+      "dir": "morning_star",
+      "role": "Dawn-herald companion (mature, age-gated)",
+      "content_rating": "mature"
+    },
+    "satan": {
+      "dir": "satan",
+      "role": "Infernal sovereign companion (mature, age-gated)",
+      "content_rating": "mature"
+    },
+    "ara-aurora": {
+      "dir": "ara_aurora",
+      "role": "Goddess of All Creation companion (mature, age-gated)",
+      "content_rating": "mature"
+    },
+    "selvara-nyxveil": {
+      "dir": "selvara_nyxveil",
+      "role": "Stage sorceress / shadow-flame performer (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature"
+    },
+    "calyxra-noxveil": {
+      "dir": "calyxra_noxveil",
+      "role": "Starlit Calyx high priestess (night leaf)",
+      "name_status": "assigned by Foxy, user may rename",
+      "companion_group": "starlit_calyx"
+    },
+    "caelira-stellune": {
+      "dir": "caelira_stellune",
+      "role": "Starlit Calyx priestess (blue starlight)",
+      "name_status": "assigned by Foxy, user may rename",
+      "companion_group": "starlit_calyx"
+    },
+    "magira-rosethorn": {
+      "dir": "magira_rosethorn",
+      "role": "Starlit Calyx priestess (magenta rose)",
+      "name_status": "assigned by Foxy, user may rename",
+      "companion_group": "starlit_calyx"
+    },
+    "ashara-venefyre": {
+      "dir": "ashara_venefyre",
+      "role": "Venefyre sister / Venus-fire court companion (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "venefyre_sisters"
+    },
+    "violyne-venefyre": {
+      "dir": "violyne_venefyre",
+      "role": "Venefyre sister / Venus-fire court companion (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "venefyre_sisters"
+    },
+    "magwyn-venefyre": {
+      "dir": "magwyn_venefyre",
+      "role": "Venefyre sister / Venus-fire court companion (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "venefyre_sisters"
+    },
+    "rubielle-venefyre": {
+      "dir": "rubielle_venefyre",
+      "role": "Venefyre sister / Venus-fire court companion (mature, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "venefyre_sisters"
+    },
+    "vespera-noctelle": {
+      "dir": "vespera_noctelle",
+      "role": "Courtyard companion (mature wardrobe, age-gated)",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "mature",
+      "companion_group": "t31u_ai_bodies"
+    },
+    "kaelvrin-auremont": {
+      "dir": "kaelvrin_auremont",
+      "role": "Crowned avatar companion / garden-court envoy",
+      "name_status": "assigned by Foxy, user may rename",
+      "content_rating": "general",
+      "companion_group": "t31u_ai_bodies"
+    }
+  }
+}

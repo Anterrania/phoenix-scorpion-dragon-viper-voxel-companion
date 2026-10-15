@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "companion_id": "foxy_ani",
+  "source": "template",
+  "facts": [],
+  "history": [],
+  "relationship": {
+    "affinity": 0
+  },
+  "built_structures": [],
+  "updated_at": ""
+}

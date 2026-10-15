@@ -1,0 +1,8 @@
+# Batch t33ua64 (original-design notes only; no frames saved; adults 25+, palette black/magenta/gold/platinum + glitter)
+All six clips are photoreal lingerie/swimwear renders, and the faces look like real people. No images were saved. Only the original wardrobe ideas below are kept, all behind `content.mature_cosmetics_enabled` (off by default).
+- 63a3fb79 (md5 24b0bb8c…) -> SKIPPED face (possible real-person likeness). Gated wardrobe stub: "Nyx Rose Lace Set" (black and magenta filigree lace two-piece). Hair idea: black with magenta streaks.
+- b7394067 (md5 3433b45e…) -> SKIPPED face. Gated stub: "Velvet Eclipse Wrap Gown" (black and violet-magenta cross-wrap sash gown with garters and opera gloves). Stage location idea: "Gilded Ring Cabaret Stage" (red curtains, gold bulb ring, twin platinum poles).
+- 24d927d0 (md5 cf285449…) -> SKIPPED face. Gated stub: "Thornlace Garter Set" (magenta-black lace with fingerless lace gloves, thigh-highs, and a sheer peplum).
+- c4ea7db5 (md5 f3d39f1d…) -> SKIPPED face. Same gown as b7394067, in motion. Emote idea: "Eclipse Veil Spin" (cape swirl and back-turn).
+- d34d01eb (md5 63d70e0a…) -> SKIPPED: possible real-person face plus the trademarked Superman "S" shield. Original replacement stub: "Phoenix Crest Orbit Suit" (gated). Gold phoenix-diamond chest crest on magenta-black, a cape, and a gold chain belt. Location idea: "Orbit Dawn Overlook" above the planet.
+- 737f6b11 (md5 e07734d5…) -> SKIPPED face (strong real-celebrity resemblance). Gated stub: "Candlelit Noir Lace Bodysuit" (black lace bodysuit with choker and stockings). Location idea: "Candlelit Velvet Chamber".

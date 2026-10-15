@@ -1,0 +1,12 @@
+{
+  "schema_version": 3,
+  "companion_id": "seraph_halcyon",
+  "source": "template",
+  "facts": [],
+  "history": [],
+  "relationship": {
+    "affinity": 0
+  },
+  "built_structures": [],
+  "updated_at": ""
+}

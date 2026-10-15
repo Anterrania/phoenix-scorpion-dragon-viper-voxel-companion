@@ -1,0 +1,49 @@
+{
+  "_note": "SCAFFOLD. Piloted mechs / large combat frames. Cosmetic/gameplay only, never sold for real money. Combat: docs/modules/PHYSICS_RPG.md. Defense programs: docs/modules/DEFENSE_PROJECTS.md.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "scdi_royal_aegis_mech",
+      "display_name": "SCDI Royal Aegis",
+      "owner": "player (Anterranian Monarch)",
+      "type": "mech",
+      "node": "VehicleBody3D",
+      "seats": 1,
+      "program": "scdi",
+      "scdi_program": true,
+      "description": "Black/gold crowned bipedal mech with baroque filigree, magenta energy halo, plasma greatsword, multi-barrel plasma cannon, and shoulder cannons. Printed banner: SCDI | ROYAL AEGIS.",
+      "printed_name": "SCDI | ROYAL AEGIS",
+      "loadout": [
+        "plasma_greatsword",
+        "multi_barrel_plasma_cannon",
+        "shoulder_plasma_cannons"
+      ],
+      "physics": {
+        "mass_kg": 12000,
+        "thrust": 0,
+        "max_speed": 0,
+        "bipedal": true
+      },
+      "fx": [
+        "magenta_energy_halo",
+        "gold_filigree_glitter",
+        "plasma_blade_emissive"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_19/05_scdi_royal_aegis_mech.jpg"
+      ],
+      "combat_ref": "docs/modules/PHYSICS_RPG.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "SCDI expansion pending user (same program tag as Omni-Worker and Dominion Shotgun). Game-only virtual item."
+    }
+  ]
+}

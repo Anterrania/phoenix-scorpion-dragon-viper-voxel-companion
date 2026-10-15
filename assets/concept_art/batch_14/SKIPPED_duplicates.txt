@@ -1,0 +1,6 @@
+Batch 14: 6 attachments received (3 designs × JPG+PNG). Kept JPGs only; PNGs skipped as container duplicates of the same designs.
+
+Skipped (PNG duplicates of kept JPGs):
+- 846fde71ea5513a09a9952ed150678e8ff721cd35b8b695cf752cfeafbdd8219.png → same design as 01_household_court_aide_officer_dress_uniform.jpg (5a8f34b8…jpg)
+- 2a45a8f7bd046a46b580ea30250073db6b67438bb8b9a2a68cb02ef892a3814b.png → same design as 02_nyra_coil_field_courier_jumpsuit.jpg (723f221f…jpg)
+- 6c266dd9fe655386a4a044f65e4a96217cc8854061ea83928dcc84729f4518bc.png → same design as 03_ledger_vale_chancellor_officer_coat.jpg (612fd6ac…jpg)

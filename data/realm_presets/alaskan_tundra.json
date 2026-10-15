@@ -1,0 +1,34 @@
+{
+  "name": "Aurora Tundra",
+  "biome": "alaskan_tundra",
+  "palette": {
+    "sky": "#1b2a4a",
+    "ground": "#e8eef5",
+    "accent": "#3cff9a",
+    "fog": "#b8c6d8"
+  },
+  "noise": {
+    "seed": 101,
+    "frequency": 0.006,
+    "octaves": 3,
+    "height_scale": 10,
+    "base_height": 0
+  },
+  "structures": [
+    {
+      "type": "hut",
+      "count": 3,
+      "material": 5
+    },
+    {
+      "type": "pillar",
+      "count": 6,
+      "material": 4
+    }
+  ],
+  "ambience": {
+    "fog_density": 0.02,
+    "particles": "snow_light",
+    "light_energy": 0.8
+  }
+}

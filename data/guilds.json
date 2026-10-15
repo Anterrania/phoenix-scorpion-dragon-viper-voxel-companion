@@ -1,0 +1,223 @@
+{
+  "_note": "Royal orders (guilds) from batch_07. Cosmetic/gameplay only.",
+  "schema_version": 1,
+  "guilds": [
+    {
+      "id": "lumina_healers",
+      "name": "The Lumina Healers",
+      "name_source": "printed",
+      "crest": "golden chalice",
+      "uniform_item": "uniform_lumina_healers",
+      "uniform": "white and gold healer uniform",
+      "role": "healing, triage, wellness support (links Ember, Seraph Halcyon)",
+      "perks": [
+        "+cosmetic healer aura",
+        "access to Infirmary hall"
+      ],
+      "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
+      "concept_art": [
+        "assets/concept_art/batch_07/10_lumina_healers_uniform.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "seraphic_vanguard",
+      "name": "The Seraphic Vanguard",
+      "name_source": "printed (image text reads \"Serahic\", normalized)",
+      "crest": "winged crescent",
+      "uniform_item": "uniform_seraphic_vanguard",
+      "uniform": "navy ermine-caped vanguard uniform",
+      "role": "front-line honor guard, escorts",
+      "perks": [
+        "+cosmetic wing trail",
+        "vanguard parade emote"
+      ],
+      "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
+      "concept_art": [
+        "assets/concept_art/batch_07/11_seraphic_vanguard_uniform.jpg",
+        "assets/concept_art/batch_13/03_seraph_caelum_hooded_vanguard_halo.jpg",
+        "assets/concept_art/batch_18/04_seraph_emberion_phoenix_android_vanguard.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "captain_companion": "seraph_caelum",
+      "captain_note": "Seraph Caelum (batch_13) is the named Vanguard captain look; distinct from healer Seraph Halcyon.",
+      "phoenix_android_companion": "seraph_emberion",
+      "phoenix_android_note": "Seraph Emberion (batch_18) is the grey phoenix-armored android Vanguard look; distinct from Halcyon (healer) and Caelum (captain)."
+    },
+    {
+      "id": "ethereal_sentinels",
+      "name": "The Ethereal Sentinels",
+      "name_source": "printed",
+      "crest": "lion",
+      "uniform_item": "uniform_ethereal_sentinels",
+      "uniform": "crimson/navy knight uniform with glowing sword and shield",
+      "role": "palace & realm defense",
+      "perks": [
+        "+cosmetic sword glow",
+        "sentinel post access"
+      ],
+      "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
+      "concept_art": [
+        "assets/concept_art/batch_07/12_ethereal_sentinels_uniform.jpg",
+        "assets/concept_art/batch_07/04_ethereal_sentinels_knight_sword_shield.jpg",
+        "assets/concept_art/batch_18/05_ethereal_sentinels_heavy_trooper_plasma_cannon.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "heavy_trooper_armor": "ethereal_sentinels_heavy_trooper_armor",
+      "heavy_trooper_weapon": "ethereal_sentinels_phoenix_plasma_cannon"
+    },
+    {
+      "id": "order_of_the_scales",
+      "name": "Order of the Scales",
+      "name_source": "assigned by Foxy, user may rename",
+      "crest": "scales of justice",
+      "uniform_item": "uniform_order_of_the_scales",
+      "uniform": "navy and gold magistrate uniform",
+      "role": "justice/law; linked to Anterrania Law Bot",
+      "perks": [
+        "court hall access",
+        "judge robe emote"
+      ],
+      "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
+      "concept_art": [
+        "assets/concept_art/batch_07/06_order_of_the_scales_uniform.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "order_of_the_eye",
+      "name": "Order of the Eye",
+      "name_source": "assigned by Foxy, user may rename",
+      "crest": "crowned eye",
+      "uniform_item": "uniform_order_of_the_eye",
+      "uniform": "navy intelligence uniform",
+      "role": "intelligence/research; linked to Research Bot",
+      "perks": [
+        "archive/research lab access",
+        "scan-pulse cosmetic"
+      ],
+      "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
+      "concept_art": [
+        "assets/concept_art/batch_07/07_order_of_the_eye_uniform.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "order_of_the_verdant_tree",
+      "name": "Order of the Verdant Tree",
+      "name_source": "assigned by Foxy, user may rename",
+      "crest": "tree of life",
+      "uniform_item": "uniform_order_of_the_verdant_tree",
+      "uniform": "green and gold warden uniform",
+      "role": "nature/agriculture",
+      "perks": [
+        "greenhouse access",
+        "leaf-sparkle trail"
+      ],
+      "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
+      "concept_art": [
+        "assets/concept_art/batch_07/08_order_of_the_verdant_tree_uniform.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "related_armor": [
+        "scdi_verdant_guardian_suit"
+      ],
+      "related_weapons": [
+        "scdi_verdant_guardian_energy_machete",
+        "scdi_verdant_guardian_jungle_rifle"
+      ]
+    },
+    {
+      "id": "order_of_the_hourglass",
+      "name": "Order of the Hourglass",
+      "name_source": "assigned by Foxy, user may rename",
+      "crest": "hourglass with serpent",
+      "uniform_item": "uniform_order_of_the_hourglass",
+      "uniform": "violet and gold chronicler uniform",
+      "role": "time/history/archives",
+      "perks": [
+        "Royal Archives access",
+        "sand-sparkle trail"
+      ],
+      "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
+      "concept_art": [
+        "assets/concept_art/batch_07/09_order_of_the_hourglass_uniform.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "order_of_the_trident",
+      "name": "Order of the Trident",
+      "name_source": "assigned by Foxy, user may rename",
+      "crest": "crowned trident",
+      "uniform_item": "uniform_order_of_the_trident",
+      "uniform": "navy admiralty uniform",
+      "role": "navy/sea",
+      "perks": [
+        "harbor & fleet access",
+        "wave-sparkle trail"
+      ],
+      "perks_note": "cosmetic/access only, no stat or pay-to-win effect",
+      "concept_art": [
+        "assets/concept_art/batch_07/05_order_of_the_trident_uniform.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "_note": "SCAFFOLD. NPC / unit-type catalog (not named companions). Worker units and generic android assistants. Named companion personas stay in companions/. All game-only; never sold for real money.",
+  "schema_version": 1,
+  "units": [
+    {
+      "id": "scdi_omni_worker_unit",
+      "display_name": "SCDI Omni-Worker Universal Android Assistant",
+      "unit_type": "android_worker",
+      "named_companion": false,
+      "template_companion_id": "omni_worker",
+      "template_canonical_id": "omni-worker",
+      "program": "scdi",
+      "scdi_program": true,
+      "scdi_suit_series_index": 14,
+      "description": "Universal android assistant worker unit — black metallic humanoid with gold filigree, magenta seam glow, crowned double-headed eagle chest crest. Printed: SCDI | OMNI-WORKER - UNIVERSAL ANDROID ASSISTANT. Suit series card 14. Catalogued as an NPC worker unit type (not a new named companion); batch_01 companion omni_worker is the spawnable template.",
+      "printed_name": "SCDI | OMNI-WORKER - UNIVERSAL ANDROID ASSISTANT",
+      "concept_art": [
+        "assets/concept_art/batch_21/06_scdi_omni_worker_universal_android_assistant.jpg",
+        "assets/concept_art/batch_01/06_scdi_omni_worker_android.png"
+      ],
+      "role": "utility_worker",
+      "abilities": [
+        "hauling and resource gathering",
+        "bulk voxel fill/clear",
+        "repairs",
+        "inventory sorting"
+      ],
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "status": "stub",
+      "notes": "SCDI suit series card 14. Worker unit / NPC type — do not register a second named companion. Links existing companions/omni_worker/."
+    }
+  ]
+}

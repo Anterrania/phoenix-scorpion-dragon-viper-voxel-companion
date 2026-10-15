@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CompanionConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/agent/companion_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+persona_path = "res://companions/aaliyah/persona.json"
+body_color = Color(0.7, 0.12, 0.15, 1)
+accent_color = Color(0.3, 0.9, 0.45, 1)
+emissive = 0.2
+move_speed = 4.5
+follow_distance = 2.5

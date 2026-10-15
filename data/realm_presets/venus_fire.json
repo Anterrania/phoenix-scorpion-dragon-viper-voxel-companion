@@ -1,0 +1,34 @@
+{
+  "name": "Venus Firecaster Caldera",
+  "biome": "venus_fire",
+  "palette": {
+    "sky": "#3a0a05",
+    "ground": "#5a2a1a",
+    "accent": "#ff5a1a",
+    "fog": "#a03010"
+  },
+  "noise": {
+    "seed": 606,
+    "frequency": 0.015,
+    "octaves": 5,
+    "height_scale": 36,
+    "base_height": 2
+  },
+  "structures": [
+    {
+      "type": "fire_altar",
+      "count": 8,
+      "material": 9
+    },
+    {
+      "type": "pillar",
+      "count": 6,
+      "material": 13
+    }
+  ],
+  "ambience": {
+    "fog_density": 0.08,
+    "particles": "embers",
+    "light_energy": 2.2
+  }
+}

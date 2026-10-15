@@ -34,8 +34,7 @@ jobs:
           mkdir -p "$tdir" /tmp/t && unzip -q Godot_v${GODOT_TAG}_export_templates.tpz -d /tmp/t && mv /tmp/t/templates/* "$tdir"/
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: "17" }
-      - uses: android-actions/setup-android@v3
-      - run: sdkmanager "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+      - run: echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV" && yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "build-tools;34.0.0" "platforms;android-34"
       - name: Debug keystore + editor settings
         run: |
           keytool -genkeypair -keystore "$RUNNER_TEMP/debug.keystore" -storepass android \

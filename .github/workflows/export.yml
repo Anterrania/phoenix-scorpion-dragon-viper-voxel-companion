@@ -63,10 +63,10 @@ jobs:
         with: { distribution: temurin, java-version: "17" }
       - name: Set up Android SDK
         if: matrix.preset == 'Android'
-        uses: android-actions/setup-android@v3   # community action (not GitHub-owned); widely used
+        run: echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV"   # preinstalled on ubuntu-latest
       - name: Install SDK packages
         if: matrix.preset == 'Android'
-        run: sdkmanager "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "build-tools;34.0.0" "platforms;android-34"
       - name: Generate debug keystore
         if: matrix.preset == 'Android'
         run: |

@@ -1,0 +1,12 @@
+# Batch 22 — skipped
+532b851da2421699455d8be471addd5b3cdbf937fd317f39e50a11fbc4ce8c50.png
+  reason: PNG container duplicate of Omni-Worker (batch_21/06_scdi_omni_worker_universal_android_assistant.jpg)
+9eb58ce3d514c926950748dc824115d68859ac9f0d9fddf0627cf8e6af73f5fd.png
+  reason: PNG container duplicate of Phoenix God regalia (kept JPG as 01_monarch_phoenix_god_regalia_crystal_hall.jpg)
+d15aee7aa1d8990b62bf683759f9a267cd4a9655884923eb935e02a40accf7a6.png
+  reason: PNG container duplicate of phoenix wing throne scene (kept JPG as 02_phoenix_wing_throne_throne_room_scene.jpg)
+
+# Checked / kept:
+# 08972d55…jpg — Monarch Phoenix God regalia (crystal hall, gold '8' floor seal)
+# c8625e11…jpg — phoenix_wing_throne + throne room scene
+# bb7ae5a5…jpg — Anterranian Capitol landmark (prints PHOENIX GOD / ANTERRANIAN MONORCH [sic MONARCH])

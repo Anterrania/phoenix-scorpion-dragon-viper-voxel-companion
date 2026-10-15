@@ -1,0 +1,8 @@
+# Batch 26 — skipped duplicates
+# Source dir: agent attachments (t16ua95)
+
+8bfd9a0cf729b51ccd68bac3cc9fada37a596b2af50e5b69c42030fbe91fec5c.png
+  -> PNG container near-duplicate of kept JPG
+    assets/concept_art/batch_26/05_great_sigil_crowned_dragon_phoenix_flames.jpg
+    (source afe7c7aae854d37e3c55ee6f70ca8f72220dbb6a91c68004ff139e388c92744b.jpg)
+  Reason: same crowned dragon-phoenix rising from gold flames in rune circle; keep JPG only.

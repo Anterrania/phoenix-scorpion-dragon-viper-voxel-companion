@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/companion_agent.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generators/biome_generator.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="3"]
+
+[sub_resource type="VoxelGeneratorScript" id="gen"]
+script = ExtResource("2")
+
+[sub_resource type="VoxelMesherBlocky" id="mesher"]
+
+[sub_resource type="CapsuleShape3D" id="capsule"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866, 0, -0.866, 0.5, 0, 50, 0)
+shadow_enabled = true
+
+[node name="VoxelTerrain" type="VoxelTerrain" parent="."]
+generator = SubResource("gen")
+mesher = SubResource("mesher")
+max_view_distance = 128
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
+script = ExtResource("3")
+terrain_path = NodePath("../VoxelTerrain")
+
+[node name="Collision" type="CollisionShape3D" parent="Player"]
+shape = SubResource("capsule")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="VoxelViewer" type="VoxelViewer" parent="Player"]
+
+[node name="Companions" type="Node3D" parent="."]
+
+[node name="foxy_ani" type="CharacterBody3D" parent="Companions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 40, 0)
+script = ExtResource("1")
+companion_id = "foxy_ani"
+terrain_path = NodePath("../../VoxelTerrain")
+player_path = NodePath("../../Player")
+
+[node name="Collision" type="CollisionShape3D" parent="Companions/foxy_ani"]
+shape = SubResource("capsule")
+
+[node name="circuit_nova" type="CharacterBody3D" parent="Companions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 40, 0)
+script = ExtResource("1")
+companion_id = "circuit_nova"
+terrain_path = NodePath("../../VoxelTerrain")
+player_path = NodePath("../../Player")
+
+[node name="Collision" type="CollisionShape3D" parent="Companions/circuit_nova"]
+shape = SubResource("capsule")

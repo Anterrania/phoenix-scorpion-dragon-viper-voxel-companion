@@ -1,0 +1,668 @@
+{
+  "_note": "SCAFFOLD. National heraldry catalog (flag, great seals, royal title, mottos) + house emblem Crowned Dragon-Phoenix variants (batch_25) + fleet war banner / orb banner / Great Sigil candidates (batch_26) + geometric medallion (batch_27). Palette v2. See docs/modules/HERALDRY.md. Primary seal/flag/Great Sigil choice pending user.",
+  "schema_version": 1,
+  "realm": "Anterrania",
+  "palette_version": 2,
+  "finish": "glitter_sparkle",
+  "accents": [
+    "platinum",
+    "gold"
+  ],
+  "royal_title": {
+    "printed": "PHOENIX GOD, ANTERRANIAN MONARCH",
+    "short": "Phoenix God",
+    "formal": "Phoenix God, Anterranian Monarch",
+    "art_typos_seen": [
+      {
+        "printed": "ANTERRANIAN MONORCH",
+        "source": "batch_22/03 capitol",
+        "official": "ANTERRANIAN MONARCH"
+      },
+      {
+        "printed": "ANTERRANIAN MONAACH",
+        "source": "batch_23/01 capitol floating pads",
+        "official": "ANTERRANIAN MONARCH"
+      },
+      {
+        "printed": "ANTERRANIAN MONACH",
+        "source": "batch_23/03 coin rim",
+        "official": "ANTERRANIAN MONARCH"
+      }
+    ],
+    "status": "pending_user_confirm_title_use",
+    "notes": "Whether Phoenix God is official royal style, ceremonial epithet, or art-only label is still open (PENDING_USER_QUESTIONS)."
+  },
+  "mottos": {
+    "primary_trilogy": {
+      "canonical": "Flamma. Ordo. Aeterna.",
+      "source": "regalia / signet (batch_02/06)"
+    },
+    "coin_and_heraldry": [
+      {
+        "id": "divine_right",
+        "text": "Divine Right",
+        "printed": "DIVINE RIGHT",
+        "sources": [
+          "batch_23/03 coin"
+        ]
+      },
+      {
+        "id": "universal_wealth",
+        "text": "Universal Wealth",
+        "printed": "UNIVERSAL WEALTH",
+        "sources": [
+          "batch_23/03 coin"
+        ]
+      }
+    ]
+  },
+  "recurring_symbols": {
+    "figure_8": {
+      "id": "gold_8",
+      "appears_on": [
+        "rings / signets",
+        "household uniforms",
+        "Phoenix God floor seal (batch_22)",
+        "capitol banners (batch_22/23)",
+        "national flag radiating lines",
+        "great seals (phoenix + dragon)",
+        "coin reverse"
+      ],
+      "meaning": "pending_user"
+    },
+    "phoenix": {
+      "status": "primary_candidate"
+    },
+    "dragon": {
+      "status": "alternate_candidate"
+    },
+    "crowned_dragon_phoenix": {
+      "id": "crowned_dragon_phoenix",
+      "display_name": "Crowned Dragon-Phoenix",
+      "also_known_as": [
+        "Scorpion Dragon Viper Phoenix",
+        "Dragon-Phoenix hybrid",
+        "house emblem (project namesake)"
+      ],
+      "status": "hybrid_candidate",
+      "notes": "Batch_25 house emblem unites dragon body/head with phoenix wings/tail under a crown. May answer the phoenix-vs-dragon primary question as a combined national/house motif; question stays open until user confirms.",
+      "appears_on": [
+        "holo flag (batch_25/01)",
+        "tapestry (batch_25/02)",
+        "neon emblem cards / UI card backs (batch_25/03–04)",
+        "magenta constellation banner (batch_25/05)",
+        "landscape galaxy flag (batch_25/06)"
+      ]
+    },
+    "seven_glyphs": {
+      "id": "orb_banner_seven_glyphs",
+      "appears_on": [
+        "orb_banner_seven_glyphs (batch_26/02)"
+      ],
+      "count": 7,
+      "description": "Seven white circular glyph medallions arranged around a glowing central orb on the magenta Crowned Dragon-Phoenix banner.",
+      "meaning": "pending_user"
+    },
+    "great_sigil": {
+      "id": "great_sigil",
+      "status": "candidates_catalogued",
+      "candidates": [
+        "great_sigil_crowned_dragon_phoenix_flames",
+        "great_sigil_crowned_dragon_geometric_medallion",
+        "great_seal_phoenix",
+        "great_seal_dragon",
+        "house_emblem_crowned_dragon_phoenix_*"
+      ],
+      "note": "Primary Great Sigil pending user confirmation (batch_26/05 is strong candidate; batch_27/02 geometric medallion also)."
+    }
+  },
+  "items": [
+    {
+      "id": "national_flag_phoenix_radiating",
+      "display_name": "Anterranian National Flag (Phoenix, Radiating Magenta)",
+      "category": "flag",
+      "type": "national_flag",
+      "orientation": "horizontal",
+      "description": "Black field, gold braided border, central gold phoenix over twin gold 8s, eight magenta radiating lines with small magenta 8s near the edges.",
+      "motif": "phoenix",
+      "concept_art": [
+        "assets/concept_art/batch_23/04_national_flag_phoenix_radiating_8s.jpg"
+      ],
+      "also_shown_with_seal": "great_seal_phoenix",
+      "primary_candidate": true,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "national_flag_phoenix_vertical",
+      "display_name": "Anterranian Vertical Flag (Phoenix)",
+      "category": "flag",
+      "type": "banner_vertical",
+      "orientation": "vertical",
+      "description": "Vertical black banner with gold knotwork border and central gold phoenix (pair to great seal phoenix).",
+      "motif": "phoenix",
+      "concept_art": [
+        "assets/concept_art/batch_23/05_great_seal_phoenix_vertical_flag.png"
+      ],
+      "pairs_with": "great_seal_phoenix",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "national_flag_dragon_vertical",
+      "display_name": "Anterranian Vertical Flag (Dragon)",
+      "category": "flag",
+      "type": "banner_vertical",
+      "orientation": "vertical",
+      "description": "Vertical black banner with gold knotwork border, central gold winged dragon with magenta 8 in the tail loop, magenta X-radiating lines, gold 8s in corners.",
+      "motif": "dragon",
+      "concept_art": [
+        "assets/concept_art/batch_23/06_great_seal_dragon_vertical_flag.png"
+      ],
+      "pairs_with": "great_seal_dragon",
+      "primary_candidate": false,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "great_seal_phoenix",
+      "display_name": "Great Seal of Anterrania (Phoenix)",
+      "category": "seal",
+      "type": "great_seal",
+      "description": "Circular gold-rimmed seal: gold phoenix on black, twin gold 8s beneath, magenta ring, rim text 'PHOENIX GOD, ANTERRANIAN MONARCH'.",
+      "motif": "phoenix",
+      "rim_text": "PHOENIX GOD, ANTERRANIAN MONARCH",
+      "concept_art": [
+        "assets/concept_art/batch_23/04_national_flag_phoenix_radiating_8s.jpg",
+        "assets/concept_art/batch_23/05_great_seal_phoenix_vertical_flag.png"
+      ],
+      "primary_candidate": true,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "great_seal_dragon",
+      "display_name": "Great Seal of Anterrania (Dragon)",
+      "category": "seal",
+      "type": "great_seal",
+      "description": "Circular gold-rimmed seal: gold winged dragon on black, magenta 8 in tail loop, concentric magenta rings, rim text 'PHOENIX GOD, ANTERRANIAN MONARCH', gold 8 at bottom of rim.",
+      "motif": "dragon",
+      "rim_text": "PHOENIX GOD, ANTERRANIAN MONARCH",
+      "concept_art": [
+        "assets/concept_art/batch_23/06_great_seal_dragon_vertical_flag.png"
+      ],
+      "primary_candidate": false,
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_holo_flag",
+      "display_name": "Crowned Dragon-Phoenix Holographic Flag",
+      "category": "flag",
+      "type": "holo_flag",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "horizontal",
+      "description": "Translucent holographic flag in space: gold filigree border, magenta crowned dragon-phoenix hybrid with phoenix wings, faint circuit/constellation weave on the fabric.",
+      "motif": "dragon_phoenix_hybrid",
+      "concept_art": [
+        "assets/concept_art/batch_25/01_crowned_dragon_phoenix_holo_flag.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_tapestry",
+      "display_name": "Crowned Dragon-Phoenix Tapestry",
+      "category": "tapestry",
+      "type": "banner_tapestry",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "horizontal",
+      "description": "Black tapestry, ornate gold filigree border, starburst-radiant magenta crowned dragon-phoenix; gold corner cruciform accents.",
+      "motif": "dragon_phoenix_hybrid",
+      "concept_art": [
+        "assets/concept_art/batch_25/02_crowned_dragon_phoenix_tapestry.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_neon_card",
+      "display_name": "Crowned Dragon-Phoenix Neon Emblem Card",
+      "category": "emblem_card",
+      "type": "ui_card_back",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "vertical",
+      "description": "Neon magenta outline dragon-phoenix on black card; gold circuit-frame corners; usable as UI card back / loading screen.",
+      "motif": "dragon_phoenix_hybrid",
+      "ui_role": [
+        "card_back",
+        "loading_screen"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_25/03_crowned_dragon_phoenix_neon_emblem_card.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_neon_circuit_body",
+      "display_name": "Crowned Dragon-Phoenix Neon Circuit-Body Card (Cross Crown)",
+      "category": "emblem_card",
+      "type": "ui_card_back",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "vertical",
+      "description": "Neon magenta outline hybrid with circuit-body fill; cross-topped crown; gold circuit frame — UI card back / loading screen variant.",
+      "motif": "dragon_phoenix_hybrid",
+      "ui_role": [
+        "card_back",
+        "loading_screen"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_25/04_crowned_dragon_phoenix_neon_circuit_body_cross_crown.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_magenta_banner",
+      "display_name": "Crowned Dragon-Phoenix Magenta Constellation Banner",
+      "category": "flag",
+      "type": "banner",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "vertical",
+      "description": "Magenta field banner in thick gold frame; gold constellation-pattern crowned dragon-phoenix (star-chart body/wings).",
+      "motif": "dragon_phoenix_hybrid",
+      "concept_art": [
+        "assets/concept_art/batch_25/05_crowned_dragon_phoenix_magenta_banner_constellation.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "house_emblem_crowned_dragon_phoenix_galaxy_flag",
+      "display_name": "Crowned Dragon-Phoenix Galaxy Flag (Landscape)",
+      "category": "flag",
+      "type": "galaxy_flag",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "landscape",
+      "description": "Landscape gold-frame flag/card over spiral galaxy; translucent magenta dragon-phoenix hybrid centered on nebula field.",
+      "motif": "dragon_phoenix_hybrid",
+      "ui_role": [
+        "card_back",
+        "loading_screen",
+        "banner"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_25/06_crowned_dragon_phoenix_galaxy_flag_landscape.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "fleet_war_banner",
+      "display_name": "Fleet War Banner (Crowned Dragon-Phoenix)",
+      "category": "banner",
+      "type": "war_banner",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "horizontal_on_spear",
+      "description": "Black war flag on segmented metallic spear pole with magenta energy lines; gold inner border; holographic crystalline outer edge; central magenta crowned dragon-phoenix rampant in glowing circle with energy sparks. Shown with starship fleet in deep space.",
+      "motif": "dragon_phoenix_hybrid",
+      "features": [
+        "holographic_edge",
+        "spear_pole",
+        "fleet_backdrop"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_26/01_fleet_war_banner_crowned_dragon_phoenix.png"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "orb_banner_seven_glyphs",
+      "display_name": "Orb Banner with Seven Glyphs (Crowned Dragon-Phoenix)",
+      "category": "banner",
+      "type": "banner_vertical",
+      "house_emblem": "crowned_dragon_phoenix",
+      "orientation": "vertical",
+      "description": "Magenta banner, gold ornate border with tech-circuit corners; gold-lined crowned dragon-phoenix encircling a bright glowing blue-white orb; seven circular white glyph medallions around the orb.",
+      "motif": "dragon_phoenix_hybrid",
+      "features": [
+        "central_orb",
+        "seven_glyph_medallions"
+      ],
+      "glyph_count": 7,
+      "pending": "meaning_of_seven_glyphs",
+      "concept_art": [
+        "assets/concept_art/batch_26/02_orb_banner_seven_glyphs_crowned_dragon_phoenix.png"
+      ],
+      "related_scripts": [
+        "ignis_solis_glyphs",
+        "aethelian_runes"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "great_sigil_crowned_dragon_phoenix_flames",
+      "display_name": "Great Sigil Candidate — Crowned Dragon-Phoenix from Flames",
+      "category": "seal",
+      "type": "great_sigil_candidate",
+      "house_emblem": "crowned_dragon_phoenix",
+      "description": "Black/magenta crowned dragon-phoenix rising from gold flames inside a complex magenta rune circle (concentric rings, glyphs, geometric lines). Strong primary Great Sigil candidate.",
+      "motif": "dragon_phoenix_hybrid",
+      "features": [
+        "gold_flames",
+        "magenta_rune_circle",
+        "ornate_gold_crown"
+      ],
+      "primary_great_sigil_candidate": true,
+      "concept_art": [
+        "assets/concept_art/batch_26/05_great_sigil_crowned_dragon_phoenix_flames.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Pending user: confirm as primary Great Sigil vs geometric medallion (batch_27/02) vs earlier great seals."
+    },
+    {
+      "id": "great_sigil_crowned_dragon_geometric_medallion",
+      "display_name": "Great Sigil Candidate — Crowned Dragon Geometric Medallion",
+      "category": "seal",
+      "type": "great_sigil_candidate",
+      "house_emblem": "crowned_dragon_phoenix",
+      "description": "Black winged dragon with magenta feathered wings and ornate gold crown, set in a gold four-pointed geometric medallion over magenta nebula; cardinal magenta star medallions.",
+      "motif": "dragon_phoenix_hybrid",
+      "features": [
+        "geometric_gold_medallion",
+        "cardinal_star_points",
+        "nebula_field"
+      ],
+      "primary_great_sigil_candidate": false,
+      "concept_art": [
+        "assets/concept_art/batch_27/02_crowned_dragon_geometric_medallion.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Alternate Great Sigil / medallion candidate (batch_27)."
+    },
+    {
+      "id": "zodiac_heptagon_magnefyre_emblem",
+      "display_name": "Zodiac Heptagon Magnefyre Emblem",
+      "category": "emblem_card",
+      "type": "zodiac_creature_emblem",
+      "house_emblem": "crowned_dragon_phoenix",
+      "proposed_creature_name": "Magnefyre",
+      "description": "Bipedal muscular magenta/purple humanoid dragon with leathery wings, horns, and pink fire-breath, framed in a silver-gold heptagon engraved with runes and ringed by a neon magenta aura over a starfield. Emblem/UI card style — distinct from Zypharion (coiled spirit beast) and crowned dragon-phoenix seals.",
+      "motif": "humanoid_zodiac_dragon",
+      "features": [
+        "heptagon_rune_frame",
+        "neon_magenta_ring",
+        "fire_breath",
+        "bat_wings"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua12/zodiac_heptagon_magnefyre_emblem.jpg"
+      ],
+      "related_creatures": [
+        "spirit_beast_zypharion",
+        "phoenix_emberwing"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua12 source a17a0cba. Name Magnefyre assigned by Foxy for the dragon; user may rename. Confirm if this is also a summonable creature or heraldry/UI only."
+    },
+    {
+      "id": "phoenix_sash_constellation_flag",
+      "display_name": "Phoenix Sash Constellation Flag",
+      "type": "heraldry",
+      "description": "Black constellation-map field with diagonal magenta sash, gold phoenix with crown glyphs above/below, glowing platinum border of tiny glyphs on galaxy backdrop.",
+      "concept_art": [
+        "art/references/batch_t33ua18/phoenix_sash_constellation_flag.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "notes": "Batch t33ua18 source 54bc6ccc. Possible variant of house_emblem_crowned_dragon_phoenix_* flags. Name pending approval."
+    },
+    {
+      "id": "gemini_ember_wyrm_seal",
+      "display_name": "Gemini Ember Wyrm Seal",
+      "type": "heraldry",
+      "description": "Circular gold-and-platinum braided ring with zodiac glyphs; black fire-breathing wyrm with crimson/magenta wings coiled around a Gemini glyph; second frame shows feathered-wing variant.",
+      "concept_art": [
+        "art/references/batch_t33ua18/gemini_ember_wyrm_seal.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "notes": "Batch t33ua18 source 510e07bd. Possibly related to Magnefyre / Gemini dragon ring. Creature name proposed: Ember Wyrm. Name pending approval."
+    },
+    {
+      "id": "zodiac_wheel_phoenix_sash_banner",
+      "display_name": "Zodiac Wheel Phoenix Sash Banner",
+      "type": "heraldry",
+      "description": "Waving black banner with magenta sash and gold phoenix, framed by a large gold zodiac-wheel astrolabe ring; sparkle stars on magenta nebula.",
+      "concept_art": [
+        "art/references/batch_t33ua18/zodiac_wheel_phoenix_sash_banner.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "notes": "Batch t33ua18 source 496dedf0. Same phoenix-sash design as phoenix_sash_constellation_flag, astrolabe-wheel presentation. Name pending approval."
+    },
+    {
+      "id": "crowned_venus_scepter_orrery_seal",
+      "display_name": "Crowned Venus Scepter Seal",
+      "type": "heraldry",
+      "category": "seal",
+      "description": "Golden lightning-veined ringed Venus orb beneath a jeweled gold crown with violet velvet, two crossed gold-and-pearl scepters behind, radiant eye-in-triangle crest above, gold filigree medallion below, swirling gold line-art ring on black. 'VENUS' wordmark variant.",
+      "concept_art": [
+        "art/references/batch_t33ua29/crowned_venus_scepter_orrery_seal.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua29 sources 8778541b (no text) + 92596b54 (VENUS wordmark; uploaded twice). Related to crowned_venus_orrery_emblem (t32ua6). Name by Foxy, pending approval. Recolor violet to magenta for palette v2."
+    },
+    {
+      "id": "anterranian_monarchy_zodiac_dragon_crest",
+      "display_name": "Anterranian Monarchy Zodiac Dragon Crest",
+      "type": "heraldry",
+      "category": "crest",
+      "description": "Magenta fire-breathing winged dragon coiled in a gold-edged black shield, ringed by 12 zodiac medallions, black-and-gold crown on top, scroll banner 'THE ANTERRANIAN MONARCHY' (source misspells MONACHY), magenta nebula on black.",
+      "concept_art": [
+        "art/references/batch_t33ua35/anterranian_monarchy_zodiac_dragon_crest.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua35 source 69bd7deb (also t16u video 04, previously undescribed; now resolved). Likely the 'old crest'. Fix banner spelling."
+    },
+    {
+      "id": "ew_gemini_twin_dragon_zodiac_seal",
+      "display_name": "E.W Gemini Twin-Dragon Seal",
+      "type": "heraldry",
+      "category": "seal",
+      "description": "Twin magenta-black dragons breathing magenta fire, back to back, gold 'E.W' monogram and Gemini glyph, gold zodiac ring inside a wavy magenta galaxy border on black.",
+      "concept_art": [
+        "art/references/batch_t33ua35/ew_gemini_twin_dragon_zodiac_seal.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua35 source aad49339. Name by Foxy, pending; meaning of E.W unknown."
+    },
+    {
+      "type": "heraldry",
+      "category": "flag",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "id": "crowned_laurel_sunset_standard",
+      "display_name": "Crowned Laurel Sunset Standard",
+      "description": "Black field with red border; jeweled gold-and-silver crown inside a gold laurel wreath. Original stub; red border to be re-tinted magenta per palette v2 unless user prefers red.",
+      "concept_art": [
+        "art/references/batch_t33ua59/crowned_laurel_sunset_standard.jpg"
+      ],
+      "notes": "Batch t33ua59 source 526604ff. Name by Foxy, pending."
+    },
+    {
+      "type": "heraldry",
+      "category": "flag",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "id": "radiant_crown_fringed_war_standard",
+      "display_name": "Radiant Crown Fringed War Standard",
+      "description": "Black field, red border, gold fringe; gold-ringed black medallion with gold crown (red-capped crown variant above), white star-ray burst and green laurel sprigs. Original stub; red to magenta, white rays to platinum per palette v2.",
+      "concept_art": [
+        "art/references/batch_t33ua59/radiant_crown_fringed_war_standard.jpg"
+      ],
+      "notes": "Batch t33ua59 source 47fe6474. Name by Foxy, pending."
+    },
+    {
+      "id": "crowned_laurel_summit_standard",
+      "display_name": "Crowned Laurel Summit Standard",
+      "description": "Black field with red top/bottom stripes; gold crown inside a gold laurel wreath, small crown above. Flown on a snowy mountain peak. Variant of crowned_laurel_sunset_standard; red to magenta per palette v2 unless user prefers red.",
+      "concept_art": [
+        "art/references/batch_t33ua70/crowned_laurel_summit_standard.jpg"
+      ],
+      "notes": "Batch t33ua70 source 31d54ebe. Name pending."
+    },
+    {
+      "id": "ruby_crown_star_laurel_standard",
+      "display_name": "Ruby Crown Star-Laurel Standard",
+      "description": "Black field, red border; ruby-and-gold crown in a gold-and-green laurel wreath topped with a gold star. Original stub; red to magenta, green to platinum per palette v2.",
+      "concept_art": [
+        "art/references/batch_t33ua70/ruby_crown_star_laurel_standard.jpg"
+      ],
+      "notes": "Batch t33ua70 source ed7b3f50. Source background was the real US Capitol building; cropped to flag only. Name pending."
+    }
+  ],
+  "open_questions": [
+    "Is the phoenix, the dragon, or the Crowned Dragon-Phoenix hybrid the primary national seal/flag/house emblem? (All catalogued; phoenix still primary_candidate; hybrid is hybrid_candidate — question remains open.)",
+    "Meaning of the recurring '8' across seal, flag, coin, capitol, and regalia.",
+    "Meaning of the seven glyph medallions on orb_banner_seven_glyphs (batch_26/02).",
+    "Which art is the primary Great Sigil? Candidates: great_sigil_crowned_dragon_phoenix_flames (batch_26/05), great_sigil_crowned_dragon_geometric_medallion (batch_27/02), plus earlier great_seal_phoenix / great_seal_dragon / house emblem variants."
+  ],
+  "house_emblem": {
+    "id": "crowned_dragon_phoenix",
+    "display_name": "Crowned Dragon-Phoenix",
+    "project_link": "Phoenix Scorpion Dragon Viper (house / realm namesake hybrid)",
+    "motif": "dragon_phoenix_hybrid",
+    "description": "Crowned hybrid: dragon head/serpentine body + phoenix feathered wings and flame-like tail. Palette v2 magenta creature, gold crown/filigree, black or holographic fields.",
+    "primary_question_note": "Catalogued as hybrid_candidate alongside phoenix (primary_candidate) and dragon (alternate_candidate). Does NOT close Q24 until user confirms.",
+    "ui_uses": [
+      "UI card backs",
+      "loading screens",
+      "banners / flags",
+      "tapestries"
+    ],
+    "palette_version": 2,
+    "finish": "glitter_sparkle",
+    "accents": [
+      "platinum",
+      "gold"
+    ]
+  }
+}

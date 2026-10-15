@@ -1,0 +1,229 @@
+{
+  "_note": "SCAFFOLD. Drivable vehicles; see docs/modules/PHYSICS_RPG.md. Physics values are placeholders.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "royal_suv",
+      "display_name": "Royal Vehicle (SUV)",
+      "owner": "player (Anterranian Monarch)",
+      "type": "ground",
+      "node": "VehicleBody3D",
+      "seats": 5,
+      "description": "Black SUV with gold filigree, magenta underglow, and an orb emblem.",
+      "physics": {
+        "mass_kg": 2400,
+        "engine_force": 0,
+        "brake": 0,
+        "max_steer_deg": 30,
+        "wheels": 4
+      },
+      "fx": [
+        "magenta_underglow",
+        "emblem_emissive"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/04_royal_vehicle_black_suv_gold_filigree.png",
+        "assets/concept_art/batch_13/06_royal_suv_cosmic_hover_variant.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "variants": [
+        {
+          "id": "ground_filigree",
+          "label": "Ground filigree (batch_04)",
+          "concept_art": "assets/concept_art/batch_04_royal_assets/04_royal_vehicle_black_suv_gold_filigree.png"
+        },
+        {
+          "id": "cosmic_hover",
+          "label": "Cosmic hover (batch_13)",
+          "concept_art": "assets/concept_art/batch_13/06_royal_suv_cosmic_hover_variant.jpg",
+          "notes": "Same black SUV + gold filigree + magenta glow family; adds hover rings under wheels, constellation windshield etching, floating platform presentation. Catalogued as variant of royal_suv, not a new vehicle id. Confirmed again by t33ua0 uploads 0409d216/fb4251ca (deduped)."
+        }
+      ],
+      "notes": "batch_13/06 kept as cosmic_hover variant of royal_suv (same vehicle family as batch_04). t33ua0: videos 0409d216 + fb4251ca are repeats of cosmic_hover variant \u2014 no new frames kept."
+    },
+    {
+      "id": "royal_flagship_starfighter",
+      "display_name": "Royal Flagship Starfighter",
+      "owner": "player (Anterranian Monarch)",
+      "type": "space",
+      "node": "VehicleBody3D",
+      "seats": 2,
+      "description": "Black/magenta starfighter with gold filigree, phoenix wing decals, and magenta energy aura. Royal flagship fighter for star-map travel between realms.",
+      "physics": {
+        "mass_kg": 1800,
+        "thrust": 0,
+        "max_speed": 0,
+        "atmosphere_capable": true,
+        "space_capable": true
+      },
+      "fx": [
+        "magenta_energy_aura",
+        "phoenix_decal_emissive",
+        "gold_filigree_glitter"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_15/03_royal_flagship_starfighter_phoenix_filigree.png"
+      ],
+      "star_map_module": "docs/modules/STAR_MAP.md",
+      "star_map_role": "flagship_fighter",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    },
+    {
+      "id": "scdi_abyssal_submarine",
+      "display_name": "SCDI Abyssal Submarine",
+      "owner": "order_of_the_trident",
+      "also_fits": [
+        "player (Anterranian Monarch)",
+        "royal_navy"
+      ],
+      "type": "underwater",
+      "node": "VehicleBody3D",
+      "seats": 4,
+      "program": "scdi",
+      "scdi_program": true,
+      "guild": "order_of_the_trident",
+      "description": "Dark multi-prop submarine seen with the Abyssal Sovereign underwater suit (batch_20/05). Stub only \u2014 silhouette from concept art; no detailed stats yet. Linked to Order of the Trident navy/sea role.",
+      "physics": {
+        "mass_kg": 0,
+        "thrust": 0,
+        "max_speed": 0,
+        "submersible": true,
+        "atmosphere_capable": false,
+        "space_capable": false
+      },
+      "fx": [
+        "magenta_running_lights",
+        "gold_filigree_glitter"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_20/05_scdi_abyssal_sovereign_underwater_suit.png"
+      ],
+      "paired_armor": "scdi_abyssal_sovereign_suit",
+      "related_to": "project_aegis_guard_triton_coast_guard",
+      "royal_orders_doc": "docs/modules/ROYAL_ORDERS.md",
+      "defense_projects_doc": "docs/modules/DEFENSE_PROJECTS.md",
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Background vehicle in Abyssal Sovereign card art. Game-only virtual stub."
+    },
+    {
+      "id": "scdi_bastion_tank",
+      "display_name": "SCDI Bastion Tank (placeholder)",
+      "owner": "player (Anterranian Monarch)",
+      "type": "ground_armor",
+      "node": "VehicleBody3D",
+      "seats": 3,
+      "description": "Heavy multi-tread / multi-wheel SCDI tank with magenta glowing ports. Appears in vehicles/troopers overview and weapons/ordnance overview. Full-size pending.",
+      "concept_art": [
+        "art/references/batch_t32u_galleries/01_overview_scdi_vehicles_troopers_armor_weapons_oct8.png",
+        "art/references/batch_t32u_galleries/02_overview_scdi_weapons_ordnance_mechs_vehicles.png"
+      ],
+      "program": "scdi",
+      "scdi_program": true,
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Stub from gallery overview t32u; needs full-size image. Distinct from royal_suv."
+    },
+    {
+      "id": "scdi_sky_liner",
+      "display_name": "SCDI Sky Liner",
+      "owner": "player (Anterranian Monarch)",
+      "type": "air",
+      "node": "VehicleBody3D",
+      "seats": 200,
+      "description": "Luxury white cruise-liner hull on a flying carrier platform; fighter escorts, vapor trails, red waterline. Transit (hex deck) and combat-carrier (wing decks under fire) presentations.",
+      "program": "scdi",
+      "scdi_program": true,
+      "fx": [
+        "vapor_wake",
+        "escort_fighters",
+        "deck_lights"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua0/scdi_sky_liner_transit_escort.jpg",
+        "art/references/batch_t33ua0/scdi_sky_liner_combat_carrier.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "variants": [
+        {
+          "id": "transit_escort",
+          "label": "Transit escort (t33ua0)",
+          "concept_art": "art/references/batch_t33ua0/scdi_sky_liner_transit_escort.jpg",
+          "notes": "Source 43faa3c8. Peaceful high-altitude cruise over tropical coast; hex dark platform, fighter wing."
+        },
+        {
+          "id": "combat_carrier",
+          "label": "Combat carrier (t33ua0)",
+          "concept_art": "art/references/batch_t33ua0/scdi_sky_liner_combat_carrier.jpg",
+          "notes": "Source a05590ef. Same liner family under missile fire; smoke, wing flight decks, dogfight."
+        }
+      ],
+      "notes": "Batch t33ua0. Name/SCDI assignment pending user confirm."
+    },
+    {
+      "id": "scdi_arrowhead_sky_flagship",
+      "display_name": "SCDI Arrowhead Sky Flagship",
+      "owner": "player (Anterranian Monarch)",
+      "type": "air",
+      "node": "VehicleBody3D",
+      "seats": 80,
+      "description": "Colossal arrowhead aerial warship with tiered circular bridge towers, wood-tone decking, pink-orange vertical thrusters; leads a mixed sky fleet over island seas.",
+      "program": "scdi",
+      "scdi_program": true,
+      "fx": [
+        "pink_thruster_beams",
+        "contrails",
+        "fleet_escort"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua0/scdi_arrowhead_sky_flagship.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua0 source dbb9ec9a. Fleet backdrop is environment, not separate vehicle ids."
+    }
+  ]
+}

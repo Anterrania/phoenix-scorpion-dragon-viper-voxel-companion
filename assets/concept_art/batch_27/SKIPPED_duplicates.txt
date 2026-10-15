@@ -1,0 +1,14 @@
+# Batch 27 — skipped duplicates
+# Source dir: agent attachments (t16ua101)
+
+d27e5ddeb172aacafdbd6e7d1c528f15ebe2bbfe825cc77afd3a8a268db5eaa3.png
+  -> PNG container near-duplicate of kept JPG
+    assets/concept_art/batch_27/01_ignis_solis_glyphs_flame_sun_phoenix.jpg
+
+e58aebce92a12b298f66803b353478136db279f869352c42bee51715c33e8a19.png
+  -> PNG container near-duplicate of kept JPG
+    assets/concept_art/batch_27/02_crowned_dragon_geometric_medallion.jpg
+
+21d64ca23b5e5f41d510cb9a2d2102dac3a5461d7a7c2e0db4f51be7db665252.png
+  -> PNG container near-duplicate of kept JPG
+    assets/concept_art/batch_27/03_aethelian_rune_mark_bat_winged_dragon.jpg

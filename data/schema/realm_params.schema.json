@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "realm_params.schema.json",
+  "title": "Realm parameters",
+  "type": "object",
+  "required": [
+    "name",
+    "biome",
+    "palette",
+    "noise",
+    "structures"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "biome": {
+      "enum": [
+        "alaskan_tundra",
+        "alaskan_boreal",
+        "alaskan_glacier",
+        "cosmic",
+        "cyberpunk",
+        "venus_fire"
+      ]
+    },
+    "palette": {
+      "type": "object",
+      "required": [
+        "sky",
+        "ground",
+        "accent",
+        "fog"
+      ],
+      "properties": {
+        "sky": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "ground": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "accent": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "fog": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        }
+      }
+    },
+    "noise": {
+      "type": "object",
+      "required": [
+        "seed",
+        "frequency",
+        "octaves",
+        "height_scale",
+        "base_height"
+      ],
+      "properties": {
+        "seed": {
+          "type": "integer"
+        },
+        "frequency": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 0.1
+        },
+        "octaves": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "height_scale": {
+          "type": "number",
+          "minimum": 4,
+          "maximum": 128
+        },
+        "base_height": {
+          "type": "number",
+          "minimum": -32,
+          "maximum": 64
+        }
+      }
+    },
+    "structures": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "count"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "tower",
+              "hut",
+              "arch",
+              "pillar",
+              "wall",
+              "fire_altar"
+            ]
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 50
+          },
+          "material": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 15
+          }
+        }
+      }
+    },
+    "ambience": {
+      "type": "object",
+      "properties": {
+        "fog_density": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "particles": {
+          "type": "string"
+        },
+        "light_energy": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 4
+        }
+      }
+    }
+  }
+}

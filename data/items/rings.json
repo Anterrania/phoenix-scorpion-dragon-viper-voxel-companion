@@ -1,0 +1,144 @@
+{
+  "_note": "SCAFFOLD. Equippable ring-slot items (split from regalia.json for jewelry catalog). Cosmetic/gameplay only, never real-money. Inscriptions that would identify real people are replaced with placeholders.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "moonstone_phoenix_title_ring",
+      "display_name": "Moonstone Phoenix Title Ring",
+      "slot": "ring",
+      "rarity": "legendary",
+      "description": "Wide gold signet-style ring with purple glitter enamel face, central moonstone under a crescent, raised magenta phoenix relief, gold stars and crescents. Band carries a placeholder title inscription (source art named a real public figure \u2014 that name is NOT stored in game data).",
+      "inscription_placeholder": {
+        "side_panel": "[DEDICATEE PLACEHOLDER \u2014 awaiting user]",
+        "band_curve": "[TITLE LINE PLACEHOLDER \u2014 awaiting user]",
+        "note": "Source concept art engraved a real public figure's full name plus title string. Game data uses placeholders only. Do not depict real people without consent."
+      },
+      "motifs": [
+        "moonstone",
+        "crescent",
+        "phoenix",
+        "stars"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_28/04_moonstone_phoenix_title_ring.jpg"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
+      "status": "stub",
+      "open_questions": [
+        "Who is this ring for? (Game cannot depict real people without consent.)"
+      ],
+      "privacy_policy": "no_real_person_names_in_game_data",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Image stored for art reference. Real-person name from source art intentionally omitted from all game JSON/docs."
+    },
+    {
+      "id": "phoenix_twin_eagle_cosmic_ring",
+      "display_name": "Phoenix Twin-Eagle Cosmic Ring",
+      "slot": "ring",
+      "rarity": "legendary",
+      "description": "Dark silver cocktail ring: large faceted magenta center stone, twin sculpted phoenix/eagle heads and gold-tipped wings wrapping the setting; band with magenta nebula inlay and gold zodiac glyphs on the rim.",
+      "motifs": [
+        "phoenix",
+        "eagle",
+        "magenta_gem",
+        "zodiac",
+        "nebula"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua0/phoenix_twin_eagle_cosmic_ring.jpg"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua0 source 0c01c411. Distinct from moonstone_phoenix_title_ring and magenta oval halo ring. Name pending approval."
+    },
+    {
+      "id": "gemini_dragon_galaxy_ring",
+      "display_name": "Gemini Dragon Galaxy Ring",
+      "slot": "ring",
+      "rarity": "legendary",
+      "description": "Wide dark-silver cocktail ring with gold constellation filigree; large oval magenta gem holding a spiral galaxy; gold dragon head atop the setting with Gemini (\u2161) glyph on the brow. Cosmic nebula presentation.",
+      "motifs": [
+        "gemini",
+        "dragon",
+        "galaxy_gem",
+        "constellation",
+        "zodiac"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua12/gemini_dragon_galaxy_ring.jpg"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua12 source a8913f93. Distinct from phoenix_twin_eagle_cosmic_ring (dragon+Gemini vs twin eagle). Name pending approval."
+    },
+    {
+      "id": "zodiac_quadragon_galaxy_ring",
+      "display_name": "Zodiac Quad-Dragon Galaxy Ring",
+      "slot": "ring",
+      "rarity": "legendary",
+      "description": "Dark band ring with four golden dragon-head claws gripping a hemispherical magenta galaxy cabochon; side panel with glowing Gemini glyph. Shown worn with black constellation-etched finger plates (link to zodiac_astrolabe_gauntlets).",
+      "motifs": [
+        "gemini",
+        "dragon",
+        "galaxy_cabochon",
+        "zodiac",
+        "gauntlet_pair"
+      ],
+      "concept_art": [
+        "art/references/batch_t33ua12/zodiac_quadragon_galaxy_ring.jpg"
+      ],
+      "related": [
+        "zodiac_astrolabe_gauntlets"
+      ],
+      "stats": {
+        "fire_affinity": 0,
+        "order_affinity": 0
+      },
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false,
+      "notes": "Batch t33ua12 source 1d42ae78. Finger armor in frame treated as same family as zodiac_astrolabe_gauntlets (confirm). Name pending approval.",
+      "open_questions": [
+        "Are the constellation finger plates part of zodiac_astrolabe_gauntlets, or a separate finger-armor piece?"
+      ]
+    }
+  ]
+}

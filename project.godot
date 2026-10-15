@@ -1,0 +1,38 @@
+; Engine configuration file. Godot 4.3+
+config_version=5
+
+[application]
+config/name="Phoenix Scorpion Dragon Viper AI Voxel Companion"
+config/description="Android voxel world with in-game AI companions that build realms."
+run/main_scene="res://scenes/main_world.tscn"
+config/features=PackedStringArray("4.3", "Mobile")
+
+[autoload]
+Settings="*res://scripts/autoload/settings.gd"
+AgentBrain="*res://scripts/autoload/agent_brain.gd"
+RealmBuilder="*res://scripts/autoload/realm_builder.gd"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/handheld/orientation=4
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[input_devices]
+pointing/emulate_touch_from_mouse=true
+
+[input]
+move_forward={"deadzone":0.5,"events":[Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)]}
+move_back={"deadzone":0.5,"events":[Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)]}
+move_left={"deadzone":0.5,"events":[Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)]}
+move_right={"deadzone":0.5,"events":[Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)]}
+jump={"deadzone":0.5,"events":[Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)]}
+
+[rendering]
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
+textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/msaa_3d=1
+lights_and_shadows/directional_shadow/size.mobile=2048
+environment/defaults/default_clear_color=Color(0.05, 0.03, 0.1, 1)

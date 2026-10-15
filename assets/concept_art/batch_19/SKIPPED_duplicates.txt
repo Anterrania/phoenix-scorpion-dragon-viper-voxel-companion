@@ -1,0 +1,10 @@
+# Batch 19 — skipped
+015a68f28cef2fa16eaadea8ee04e3f07c4bb8178d48e24d84377930341386cf.png
+  reason: PNG container duplicate of Royal Aegis mech (kept JPG as 05_scdi_royal_aegis_mech.jpg)
+
+# Checked:
+# 76280626… ivory gown vs batch_18/01 white coronation gown — distinct MD5 (aa1c3b31 vs e908553e); kept as ivory/magenta-sash variant
+# 0a6b8ceb… Project Crusader — new
+# 5b20793c… Project Aegis-Guard — new
+# a15bd1b8… SCDI Dominion Shotgun — new (art prints SHOTGUAN)
+# b482f111… SCDI Royal Aegis mech — new (JPG kept)

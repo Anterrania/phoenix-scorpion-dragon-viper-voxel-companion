@@ -1,0 +1,34 @@
+{
+  "name": "Saturn Ring Cosmos",
+  "biome": "cosmic",
+  "palette": {
+    "sky": "#05030f",
+    "ground": "#2a1a4a",
+    "accent": "#b48cff",
+    "fog": "#1a1030"
+  },
+  "noise": {
+    "seed": 404,
+    "frequency": 0.02,
+    "octaves": 4,
+    "height_scale": 40,
+    "base_height": 10
+  },
+  "structures": [
+    {
+      "type": "pillar",
+      "count": 12,
+      "material": 11
+    },
+    {
+      "type": "arch",
+      "count": 4,
+      "material": 8
+    }
+  ],
+  "ambience": {
+    "fog_density": 0.0,
+    "particles": "starfield",
+    "light_energy": 0.6
+  }
+}

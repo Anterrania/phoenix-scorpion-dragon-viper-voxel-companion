@@ -1,0 +1,8 @@
+# Batch t16u_spirit_essence — skipped duplicates / near-duplicates
+# Source: agent attachments (t16u spiritual essence / zanpakuto upload)
+
+c77b483e5b26c964294524b129bffd5ea2f991b64fda27e861858d84c6469980.jpg
+  -> Near-duplicate of kept primary
+    art/references/batch_t16u_spirit_essence/01_zypharion_spirit_beast_celestial_ruin_sanctum.jpg
+    (source a82fbf8a…jpg; same 1500x1007 dims; mean abs pixel diff ~3.8; distinct MD5)
+    Kept larger a82fbf8a file as canonical full art.

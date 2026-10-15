@@ -1,0 +1,5 @@
+# Batch 11 — skipped duplicates
+d6431348c5b67703a3d24046fc0b5ba32b2197f0988216c94087e35ed550dc79.png
+  reason: same feather-mantle envoy design as batch_10/06_vesper_trail_alaskan_biome_tribal_envoy.jpg
+          (source e0b7971d343bbe44fdc67deae76f9cb2c902d5b16e63a3e632988e8f76d0d449.jpg).
+          Different container (PNG vs JPG) but identical concept; not kept as a variant.

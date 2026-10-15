@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" width="600" height="760">
+<defs><radialGradient id="bg"><stop offset="0" stop-color="#3a0a35"/><stop offset="1" stop-color="#050008"/></radialGradient>
+<linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ffe9a0"/><stop offset="1" stop-color="#b8860b"/></linearGradient>
+<radialGradient id="orb"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#f0c8ff"/><stop offset="1" stop-color="#e6007e" stop-opacity=".2"/></radialGradient></defs>
+<rect width="600" height="760" fill="url(#bg)"/>
+<g fill="#fff" opacity=".8"><circle cx="60" cy="80" r="1.5"/><circle cx="520" cy="60" r="2"/><circle cx="480" cy="300" r="1.2"/><circle cx="100" cy="420" r="1.6"/><circle cx="300" cy="40" r="1.4"/><circle cx="550" cy="520" r="1.5"/></g>
+<circle cx="300" cy="110" r="38" fill="#e5e4e2"/><circle cx="315" cy="100" r="34" fill="#3a0a35"/>
+<path d="M300 170 C150 120 60 200 40 330 C120 270 190 260 240 300Z" fill="#e6007e" stroke="url(#g)" stroke-width="4"/>
+<path d="M300 170 C450 120 540 200 560 330 C480 270 410 260 360 300Z" fill="#e6007e" stroke="url(#g)" stroke-width="4"/>
+<path d="M190 210 L120 300 M230 205 L170 310 M410 210 L480 300 M370 205 L430 310" stroke="#ffd700" stroke-width="3"/>
+<path d="M300 200 L420 240 L420 420 C420 520 360 580 300 620 C240 580 180 520 180 420 L180 240Z" fill="#0a0a0a" stroke="url(#g)" stroke-width="8"/>
+<path d="M300 210 L300 610 M185 400 L415 400" stroke="#e5e4e2" stroke-width="3"/>
+<path d="M300 260 C250 270 250 330 300 340 C350 350 350 410 300 420 C250 430 255 490 300 500 C330 507 345 540 320 560" fill="none" stroke="#e6007e" stroke-width="12" stroke-linecap="round"/>
+<circle cx="300" cy="255" r="12" fill="url(#g)"/>
+<text x="240" y="330" font-family="serif" font-size="34" fill="url(#g)">E</text><text x="342" y="330" font-family="serif" font-size="34" fill="url(#g)">W</text>
+<g font-size="22" fill="#e5e4e2" font-family="serif"><text x="215" y="470">♈︎</text><text x="365" y="470">♊︎</text><text x="230" y="540">♌︎</text><text x="350" y="540">♓︎</text></g>
+<circle cx="110" cy="460" r="42" fill="url(#orb)"/><circle cx="490" cy="460" r="42" fill="url(#orb)"/>
+<path d="M95 470 l15 -30 l15 30Z M475 470 l15 -30 l15 30Z" fill="#ffd700"/>
+<path d="M240 200 l15 -40 l20 25 l25 -40 l25 40 l20 -25 l15 40Z" fill="url(#g)" stroke="#e5e4e2" stroke-width="2"/>
+<path d="M90 640 Q300 700 510 640 L500 690 Q300 750 100 690Z" fill="#e6007e" stroke="url(#g)" stroke-width="4"/>
+<text x="300" y="690" text-anchor="middle" font-family="serif" font-size="34" fill="#ffd700" letter-spacing="4">ANTERRANIA</text>
+<text x="300" y="635" text-anchor="middle" font-family="serif" font-size="18" fill="#e5e4e2" font-style="italic">Flamma. Ordo. Aeterna.</text>
+</svg>

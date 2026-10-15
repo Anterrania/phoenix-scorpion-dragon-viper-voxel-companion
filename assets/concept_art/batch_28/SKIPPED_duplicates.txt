@@ -1,0 +1,2 @@
+Skipped PNG/JPG duplicate pairs (kept PNG):
+- b62c09565149210119f16a74d7fef3c2d18f58e794cdc49384de41c59ff67655.jpg (JPG near-dup of 05_foxy_white_ermine_ballgown_magenta_gems_black_cape.png / 67a8775e…png)

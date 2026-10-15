@@ -1,0 +1,188 @@
+{
+  "_note": "SCAFFOLD. Placeable props (snap to the voxel grid). See docs/modules/THRONE_ROOM.md.",
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "monarch_throne",
+      "display_name": "The Monarch's Throne",
+      "owner": "player (Anterranian Monarch)",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        3,
+        4,
+        3
+      ],
+      "sit_point": true,
+      "description": "Black and gold throne with eagles and an orb crown; batch_15 adds black-tufted back, magenta seat, twin eagles, ringed-orb crest with crescent.",
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/05_monarch_throne_black_gold_eagles.png",
+        "assets/concept_art/batch_15/04_monarch_throne_black_tufted_eagles_ringed_orb.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "variants": [
+        {
+          "id": "batch_15_black_tufted_ringed_orb",
+          "label": "Black tufted back, magenta seat, twin eagles, ringed orb + crescent crest (batch_15)",
+          "concept_art": "assets/concept_art/batch_15/04_monarch_throne_black_tufted_eagles_ringed_orb.jpg",
+          "notes": "Monarch throne variant; same eagle / orb / crescent family as batch_04; not an exact duplicate."
+        }
+      ]
+    },
+    {
+      "id": "foxy_consort_throne",
+      "display_name": "Foxy's Consort Throne",
+      "owner": "foxy_ani",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        3,
+        4,
+        3
+      ],
+      "sit_point": true,
+      "description": "Magenta throne with crescent/star crest; official inscription 'FLAMMA. ORDO. AETERNA'. Batch_15 plaque art reads 'ATERNA' (missing E) \u2014 discrepancy recorded.",
+      "inscription": "FLAMMA. ORDO. AETERNA",
+      "concept_art": [
+        "assets/concept_art/batch_04_royal_assets/06_foxy_consort_throne_magenta_crescent.png",
+        "assets/concept_art/batch_15/05_foxy_consort_throne_aterna_plaque_variant.jpg"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "inscription_art_discrepancy": {
+        "art_reads": "FLAMMA. ORDO. ATERNA",
+        "official": "FLAMMA. ORDO. AETERNA",
+        "source": "assets/concept_art/batch_15/05_foxy_consort_throne_aterna_plaque_variant.jpg",
+        "note": "Concept art plaque omits the E in AETERNA; canonical spelling remains AETERNA (batch_06 signet)."
+      },
+      "variants": [
+        {
+          "id": "batch_15_aterna_plaque",
+          "label": "Oval ringed gem, crescent+sun crest, eagles; plaque art reads ATERNA (batch_15)",
+          "concept_art": "assets/concept_art/batch_15/05_foxy_consort_throne_aterna_plaque_variant.jpg",
+          "notes": "Consort/Foxy throne variant. Art plaque spells ATERNA; official motto AETERNA."
+        }
+      ]
+    },
+    {
+      "id": "heir_throne_solarian",
+      "display_name": "Heir Throne of Prince Regent Solarian",
+      "owner": "Prince Regent Solarian",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        3,
+        4,
+        3
+      ],
+      "sit_point": true,
+      "description": "Black and gold throne, magenta tufted seat, eagle wings, crescent crest; batch_15 magenta-winged variant confirms banner 'POTENTIA HERES SEMI-DIVUS'.",
+      "inscription": "POTENTIA HERES SEMI-DIVUS (Power, Heir, Demigod)",
+      "inscription_user_confirm": false,
+      "concept_art": [
+        "assets/concept_art/batch_05/01_heir_throne_solarian_black_gold.png",
+        "assets/concept_art/batch_15/06_heir_throne_solarian_semi_divus_magenta_wings.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "inscription_confirmed_by": "batch_15/06 banner clearly reads SEMI-DIVUS",
+      "variants": [
+        {
+          "id": "batch_15_magenta_wings_semi_divus",
+          "label": "Magenta tufted seat, black wings, crescent-tree crest; banner POTENTIA HERES SEMI-DIVUS (batch_15)",
+          "concept_art": "assets/concept_art/batch_15/06_heir_throne_solarian_semi_divus_magenta_wings.jpg",
+          "notes": "Confirms prince heir throne text as SEMI-DIVUS. Lumira SEMI DEIVA largely resolved via batch_16/01 (exact wording soft-confirm)."
+        }
+      ]
+    },
+    {
+      "id": "heir_throne_lumira",
+      "display_name": "Heir Throne of Princess Regent Lumira",
+      "owner": "Princess Regent Lumira",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        3,
+        4,
+        3
+      ],
+      "sit_point": true,
+      "description": "Magenta winged throne with gem/orb crest and sashes; batch_16 variant records visible banner text roughly 'POTENTIA \u2026 SEMI DEIVA SERVA' (possible HERES), confirming feminine SEMI DEIVA for Lumira vs SEMI-DIVUS for Solarian.",
+      "inscription": "POTENTIA HERES SEMI DEIVA SERVA",
+      "inscription_user_confirm": true,
+      "concept_art": [
+        "assets/concept_art/batch_05/02_heir_throne_lumira_magenta.png",
+        "assets/concept_art/batch_16/01_heir_throne_lumira_semi_deiva_serva_variant.jpg"
+      ],
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "inscription_note": "Largely resolved by batch_16/01: SEMI DEIVA confirmed for Lumira (feminine) vs SEMI-DIVUS for Solarian. Exact full sash wording (incl. HERES / SERVA placement) still soft-confirm with user.",
+      "inscription_largely_resolved": true,
+      "inscription_visible_approx": {
+        "left_banner": "POTENTIA \u2026 (DEIVA / HERES uncertain layout)",
+        "right_banner": "SEMI / DEIVA / SERVA",
+        "possible_center": "HERES",
+        "reading_working": "POTENTIA HERES SEMI DEIVA SERVA",
+        "note": "Confirms feminine SEMI DEIVA for Princess Lumira; contrasts Solarian SEMI-DIVUS (batch_15/06). Exact sash wording still soft-confirm with user."
+      },
+      "inscription_confirmed_by": "batch_16/01 banners clearly show SEMI DEIVA (feminine); SERVA also visible",
+      "variants": [
+        {
+          "id": "batch_16_semi_deiva_serva",
+          "label": "Black wings, gold spires, oval magenta gem with pearl + celestial ring, crescent crest; banners ~POTENTIA \u2026 SEMI DEIVA SERVA (batch_16)",
+          "concept_art": "assets/concept_art/batch_16/01_heir_throne_lumira_semi_deiva_serva_variant.jpg",
+          "notes": "Near-match JPG presentation of batch_05/02; kept as text-confirming variant. Largely resolves Lumira SEMI DEIVA question."
+        }
+      ]
+    },
+    {
+      "id": "phoenix_wing_throne",
+      "display_name": "Phoenix Wing Throne",
+      "owner": "player (Anterranian Monarch)",
+      "category": "throne",
+      "placeable": true,
+      "footprint_voxels": [
+        5,
+        6,
+        4
+      ],
+      "sit_point": true,
+      "description": "Winged phoenix throne on a raised dais under a golden phoenix sigil, constellation lines on the chamber walls. Scene shows the Monarch in Phoenix God regalia. Distinct from eagle-orb monarch_throne (batch_04/15).",
+      "concept_art": [
+        "assets/concept_art/batch_22/02_phoenix_wing_throne_throne_room_scene.jpg"
+      ],
+      "scene_notes": "Throne room scene concept: winged phoenix throne on dais, golden phoenix sigil above, constellation line decor. See docs/modules/THRONE_ROOM.md.",
+      "related_wardrobe": [
+        "monarch_phoenix_god_regalia"
+      ],
+      "status": "stub",
+      "palette_version": 2,
+      "finish": "glitter_sparkle",
+      "accents": [
+        "platinum",
+        "gold"
+      ],
+      "cosmetic_gameplay_only": true,
+      "real_money": false
+    }
+  ]
+}

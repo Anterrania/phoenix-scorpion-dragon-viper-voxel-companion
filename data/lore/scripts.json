@@ -1,0 +1,94 @@
+{
+  "_note": "SCAFFOLD. In-game writing systems / glyph sets for Anterrania. Diegetic lore only. Palette v2. See docs/modules/HERALDRY.md.",
+  "schema_version": 1,
+  "realm": "Anterrania",
+  "palette_version": 2,
+  "writing_systems": [
+    {
+      "id": "ignis_solis_glyphs",
+      "display_name": "Ignis Solis Glyphs",
+      "kind": "glyph_circle_script",
+      "printed_title": "IGNIS SOLIS GLYPHS",
+      "printed_subtitle": "ANTERRANIAN MONCACHY",
+      "printed_subtitle_official": "ANTERRANIAN MONARCHY",
+      "art_typos_seen": [
+        {
+          "printed": "ANTERRANIAN MONCACHY",
+          "source": "batch_27/01",
+          "official": "ANTERRANIAN MONARCHY"
+        }
+      ],
+      "description": "Flame-sun phoenix rune circle: central magenta flame-sun phoenix figure inside gold double ring filled with a ring of distinct Ignis Solis glyphs (~32 on the concept art).",
+      "central_motif": "flame_sun_phoenix",
+      "typical_use": [
+        "ritual_inscriptions",
+        "order_seals",
+        "throne_room_floor",
+        "quest_scrolls"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_27/01_ignis_solis_glyphs_flame_sun_phoenix.jpg"
+      ],
+      "related_heraldry": [
+        "great_sigil_crowned_dragon_phoenix_flames",
+        "orb_banner_seven_glyphs"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "notes": "In-game writing system. Glyph meanings / alphabet mapping pending lore pass. Art subtitle typo MONCACHY -> MONARCHY."
+    },
+    {
+      "id": "aethelian_runes",
+      "display_name": "Aethelian Runes",
+      "kind": "rune_circle_script",
+      "printed_title": "AETEHLIAN RUNE MARK",
+      "printed_title_official": "AETHELIAN RUNE MARK",
+      "printed_subtitle": "ANTERRANIAN MONORARTY",
+      "printed_subtitle_official": "ANTERRANIAN MONARCHY",
+      "art_typos_seen": [
+        {
+          "printed": "AETEHLIAN",
+          "source": "batch_27/03",
+          "official": "AETHELIAN"
+        },
+        {
+          "printed": "ANTERRANIAN MONORARTY",
+          "source": "batch_27/03",
+          "official": "ANTERRANIAN MONARCHY"
+        }
+      ],
+      "description": "Bat-winged crowned dragon rune circle: black/magenta crowned dragon in concentric gold rings with angular rune band and four cardinal glyph medallions. Linked to Aethel economy naming.",
+      "central_motif": "bat_winged_crowned_dragon",
+      "typical_use": [
+        "currency_rims",
+        "aethel_validation_marks",
+        "access_key_engravings",
+        "citadel_inscriptions"
+      ],
+      "concept_art": [
+        "assets/concept_art/batch_27/03_aethelian_rune_mark_bat_winged_dragon.jpg"
+      ],
+      "related_currency": [
+        "aethel_coin",
+        "aethel_sigil",
+        "aethel_stasis",
+        "aethel_ascendant",
+        "aethel_key"
+      ],
+      "related_structures": [
+        "aethel_citadel"
+      ],
+      "related_heraldry": [
+        "great_sigil_crowned_dragon_geometric_medallion",
+        "orb_banner_seven_glyphs"
+      ],
+      "status": "stub",
+      "cosmetic_gameplay_only": true,
+      "notes": "In-game writing system. Art prints AETEHLIAN and MONORARTY; official AETHELIAN / MONARCHY. Relation of seven orb-banner glyphs to this set pending user."
+    }
+  ],
+  "open_questions": [
+    "Do the seven glyphs on orb_banner_seven_glyphs belong to Ignis Solis, Aethelian Runes, or a third set?",
+    "Full alphabet / cipher mapping for both systems (lore pass)."
+  ]
+}

@@ -1,0 +1,10 @@
+# Batch 17 — skipped
+140d8d66f823c2a80e95f25c52d19a7c051566f2b2659da6fbea76a9cd502630.jpg
+  reason: exact duplicate of batch_16/02_monarch_royal_jeans_baroque_rhinestone_variant.jpg (already catalogued)
+
+# Checked against batch_05 royal jeans (03–06) and batch_16/02 — no exact content matches among the four kept JPGs.
+# Kept mapping:
+a03b4652… → 01_monarch_royal_jeans_ruby_buckle_heeled_boots.jpg (Monarch)
+c2967b08… → 02_foxy_royal_jeans_oval_buckle_stiletto_booties.jpg (Foxy)
+a643ddae… → 03_foxy_royal_jeans_square_gem_stripe_stiletto_booties.jpg (Foxy variant)
+ff01da63… → 04_foxy_royal_jeans_h_crest_gold_cuff_booties.jpg (Foxy/royal house; links batch_06 H-crest band)

@@ -1,0 +1,38 @@
+{
+  "name": "Celestial Ruin Sanctum",
+  "biome": "cosmic_ruin",
+  "id": "celestial_ruin_sanctum",
+  "description": "Moonlit cosmic ruin of temples and arches under a magenta–teal nebula. Home realm concept for Zypharion, the Monarch's zanpakuto-style spirit essence. Angels and glowing orb spirits among dark stone columns; glitter-scale palette.",
+  "linked_creature": "spirit_beast_zypharion",
+  "concept_art": [
+    "art/references/batch_t16u_spirit_essence/01_zypharion_spirit_beast_celestial_ruin_sanctum.jpg"
+  ],
+  "palette": {
+    "sky": "#1a0a2e",
+    "ground": "#0A080D",
+    "accent": "#C2187A",
+    "trim": "#D4AF37",
+    "fog": "#2a1040"
+  },
+  "noise": {
+    "seed": 1616,
+    "frequency": 0.018,
+    "octaves": 5,
+    "height_scale": 48,
+    "base_height": 12
+  },
+  "structures": [
+    { "type": "temple_ruin", "count": 8, "material": 8 },
+    { "type": "arch", "count": 10, "material": 8 },
+    { "type": "pillar", "count": 20, "material": 11 }
+  ],
+  "ambience": {
+    "fog_density": 0.05,
+    "particles": "starfield_orbs",
+    "light_energy": 0.7,
+    "moon": true
+  },
+  "palette_version": 2,
+  "finish": "glitter_sparkle",
+  "status": "stub"
+}

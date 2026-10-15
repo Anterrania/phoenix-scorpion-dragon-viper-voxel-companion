@@ -94,13 +94,13 @@ func _raycast() -> VoxelRaycastResult:
 	return _vt.raycast(camera.global_position, -camera.global_basis.z, reach)
 
 func dig() -> void:
-	var hit := _raycast()
+	var hit: VoxelRaycastResult = _raycast()
 	if hit == null: return
 	_vt.mode = VoxelTool.MODE_REMOVE
 	_vt.do_point(hit.position)
 
 func place() -> void:
-	var hit := _raycast()
+	var hit: VoxelRaycastResult = _raycast()
 	if hit == null: return
 	if Vector3i(global_position.floor()) == hit.previous_position: return
 	_vt.mode = VoxelTool.MODE_ADD

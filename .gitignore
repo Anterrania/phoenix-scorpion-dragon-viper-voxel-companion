@@ -1,1 +1,6 @@
 x_post_drafts.md
+
+.godot/
+build/
+addons/zylann.voxel/
+*.translation

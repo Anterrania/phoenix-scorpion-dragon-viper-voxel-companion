@@ -23,12 +23,13 @@ func item(id: String) -> Dictionary:
 		if it["id"] == id: return it
 	return {}
 
-func visible_items_for(target: String, mature_ok := false) -> Array:
+func visible_items_for(target: String, mature_ok := false, owner_override := false) -> Array:
 	var out: Array = []
 	for it in items:
 		if bool(it.get("mature", false)) and not mature_ok: continue
 		var f := str(it.get("for", "any"))
-		if f == "any" or f == target or (f == "player" and target == "player"):
+		var owner_ok := f == "owner" and target == "player" and (owner_override or Profile.is_owner())
+		if f == "any" or f == target or owner_ok:
 			out.append(it)
 	return out
 

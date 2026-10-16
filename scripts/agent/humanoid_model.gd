@@ -116,7 +116,7 @@ static func build(style: Dictionary) -> Node3D:
 	var chrome := look == "chrome"
 	var phoenix := look == "phoenix" or style.has("hair_streaks")
 	var pants: Color = style.get("pants", outfit)
-	var masc := phoenix or bool(style.get("masculine", false))
+	var masc := bool(style.get("masculine", phoenix))
 	var skin_m := _skin_mat(skin, float(style.get("skin_metal", 0.9 if chrome else 0.0)))
 	var leather := _mat(outfit, 0.0, 0.1 if not chrome else 0.85, 0.32)
 	var pants_m := _mat(pants, style.get("pants_glow", 0.0), 0.15, 0.35)

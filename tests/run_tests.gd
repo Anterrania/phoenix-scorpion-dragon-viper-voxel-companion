@@ -255,7 +255,8 @@ func _v05_tests() -> void:
 	check(all.size() > safe.size(), "mature items filtered when gate is off")
 	for it in safe: check(not bool(it.get("mature", false)), "no mature item visible: " + it["id"])
 	check(not Settings.mature_enabled(), "mature cosmetics off by default")
-	check(Inventory.visible_items_for("player", false).size() >= 4, "player has outfits")
+	check(Inventory.visible_items_for("player", false, true).size() >= 4, "owner has outfits")
+	check(Inventory.visible_items_for("player", false, false).size() >= 2, "guests get shared outfits")
 	Inventory.equip("test_target", "chrome_star_circuit")
 	var st: Dictionary = Inventory.styled("test_target", {"outfit": Color.RED})
 	check(st["outfit"] == Color("#c9cbd6"), "equipping overrides outfit color")
@@ -278,7 +279,7 @@ func _v05_tests() -> void:
 	add_child(ui)
 	for k in ["menu", "wardrobe", "chat", "travel", "settings", "input"]:
 		check(ui.panels.has(k), "UI panel: " + k)
-	check(ui.panels["menu"]["root"].visible, "main menu shown on start")
+	check(ui.panels["avatar"]["root"].visible if not Profile.has_profile() else ui.panels["menu"]["root"].visible, "first launch opens avatar creator, else main menu")
 	ui.show_panel("wardrobe")
 	check(ui.panels["wardrobe"]["root"].visible and not ui.panels["menu"]["root"].visible, "panel switching")
 	ui.show_panel("")
@@ -324,3 +325,21 @@ func _v05_tests() -> void:
 	radio.queue_free()
 	check(ProjectSettings.get_setting("audio/general/text_to_speech", false), "TTS enabled in project")
 	check(load("res://scripts/agent/companion_agent.gd").new().has_method("set_follow"), "follow/free-roam toggle")
+	# Profiles & avatar creator
+	check(not Profile.is_owner() or Profile.has_profile(), "new device starts as guest")
+	var saved_role = Profile.data.get("role", null)
+	Profile.data["role"] = "guest"
+	check(Profile.preset_avatar("sovereign").is_empty(), "Sovereign preset locked for guests")
+	check(not Profile.default_avatar().has("hair_streaks") and Profile.default_avatar().get("skin", "") != "#8a5636", "default avatar is not Phoenix's look")
+	check(not Profile.try_owner_unlock("wrong-code"), "wrong owner code rejected")
+	Profile.data["role"] = "owner"
+	check(Profile.preset_avatar("sovereign").has("hair_streaks"), "owner gets Sovereign preset")
+	if saved_role == null: Profile.data.erase("role")
+	else: Profile.data["role"] = saved_role
+	var st2: Dictionary = Profile.to_style({"body": 1, "skin": "#3a2416", "hair": "#ff2fd0", "hair_streaks": ["#2ad0ff"], "facial_hair": "None", "crown": true, "hair_style": 1})
+	check(st2["masculine"] == false and st2["curly"] and st2["crown"] and not st2.has("beard") and st2["hair_streaks"].size() == 3, "avatar options map to model style")
+	var m: Node3D = HumanoidModel.build(st2)
+	check(m.get_child_count() > 0, "custom avatar builds")
+	m.free()
+	check(Profile.options.get("skin", []).size() >= 6 and Profile.options.get("presets", []).size() >= 3, "avatar options loaded")
+	check(FileAccess.file_exists("res://docs/HOW_IT_SHOULD_WORK.md"), "HOW_IT_SHOULD_WORK doc")

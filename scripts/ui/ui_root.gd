@@ -29,8 +29,10 @@ func _ready() -> void:
 	panels["travel"] = _build_travel()
 	panels["settings"] = _build_settings()
 	panels["input"] = _build_input()
+	panels["avatar"] = _build_avatar()
 	AgentBrain.reply_ready.connect(_on_reply)
-	show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", true)) else "")
+	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
+	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", true)) else "")
 
 # ---------- helpers ----------
 func _style(bg: Color, border := MAG, radius := 18) -> StyleBoxFlat:
@@ -106,6 +108,7 @@ func show_panel(n: String) -> void:
 	for k in panels:
 		panels[k]["root"].visible = k == n
 	if n == "wardrobe": _refresh_wardrobe()
+	if n == "avatar": _refresh_avatar()
 	if n == "chat" and chat_target == null: _pick_chat(_companions().front() if not _companions().is_empty() else null)
 
 func is_open() -> bool:
@@ -131,7 +134,7 @@ func _build_menu() -> Dictionary:
 	var p := _panel("Phoenix Scorpion Dragon Viper · v0.5")
 	var b: VBoxContainer = p["body"]
 	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 28, MAG))
-	for row in [["▶ Play", "" ], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Travel to Landmarks", "travel"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
+	for row in [["▶ Play", "" ], ["🧑 My Avatar & Profile", "avatar"], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Travel to Landmarks", "travel"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
 		var target: String = row[1]
 		b.add_child(btn(row[0], func(): show_panel(target)))
 	b.add_child(label("Everything gold-starred (★ YOUR INPUT HERE) is a placeholder waiting for your decision.", 24, GOLD))
@@ -379,3 +382,114 @@ func _build_input() -> Dictionary:
 			for it in s["items"]:
 				b.add_child(label("☐ " + str(it), 26))
 	return p
+
+# ---------- avatar creator (first launch, per device) ----------
+var av := {}
+var av_name: LineEdit
+var av_list: VBoxContainer
+var av_preview: Node3D
+
+func _build_avatar() -> Dictionary:
+	var p := _panel("Create Your Avatar")
+	var b: VBoxContainer = p["body"]
+	b.add_child(label("Everyone builds their own look. Saved on this phone only.", 24, MAG))
+	av_name = LineEdit.new()
+	av_name.placeholder_text = "Your name"
+	av_name.custom_minimum_size = Vector2(0, 76)
+	av_name.add_theme_font_size_override("font_size", FS)
+	b.add_child(av_name)
+	av_list = VBoxContainer.new()
+	b.add_child(av_list)
+	return p
+
+func _cycle(key: String, opts: Array) -> void:
+	var i := opts.find(av.get(key, opts[0]))
+	av[key] = opts[(i + 1) % opts.size()]
+	_preview()
+	_refresh_avatar(false)
+
+func _preview() -> void:
+	if player and player.has_method("refresh_avatar"):
+		Profile.data["avatar"] = av.duplicate(true)  # live preview without saving
+		player.refresh_avatar()
+
+func _refresh_avatar(reload := true) -> void:
+	if reload:
+		av = Profile.avatar().duplicate(true)
+		av_name.text = Profile.data.get("name", "")
+	for c in av_list.get_children(): c.queue_free()
+	var O: Dictionary = Profile.options
+	var presets := HBoxContainer.new()
+	for pr in O.get("presets", []):
+		if bool(pr.get("owner_only", false)) and not Profile.is_owner(): continue
+		var pid: String = pr["id"]
+		presets.add_child(btn("Preset: " + str(pr["name"]), func():
+			av = Profile.preset_avatar(pid)
+			_preview()
+			_refresh_avatar(false)))
+	av_list.add_child(presets)
+	var body_names: Array = O.get("body", ["Masculine", "Feminine"])
+	av_list.add_child(btn("Body type: " + str(body_names[int(av.get("body", 0)) % body_names.size()]), func():
+		av["body"] = (int(av.get("body", 0)) + 1) % body_names.size()
+		_preview()
+		_refresh_avatar(false)))
+	var styles: Array = O.get("hair_style", ["Straight", "Curly"])
+	av_list.add_child(btn("Hair style: " + str(styles[int(av.get("hair_style", 0)) % styles.size()]), func():
+		av["hair_style"] = (int(av.get("hair_style", 0)) + 1) % styles.size()
+		_preview()
+		_refresh_avatar(false)))
+	for row in [["skin", "Skin tone"], ["hair", "Hair color"], ["eyes", "Eyes"], ["facial_hair", "Facial hair"], ["outfit", "Jacket / outfit"], ["top", "Top"], ["pants", "Pants"], ["accent", "Glow accent"], ["trim", "Metal trim (palette)"]]:
+		var key: String = row[0]
+		var opts: Array = O.get(key, [])
+		if opts.is_empty(): continue
+		var h := HBoxContainer.new()
+		var sw := ColorRect.new()
+		sw.custom_minimum_size = Vector2(70, 70)
+		var cur := str(av.get(key, opts[0]))
+		sw.color = Color(cur) if cur.begins_with("#") else Color(0.2, 0.2, 0.2)
+		h.add_child(sw)
+		var bt := btn("%s ▶ %s" % [row[1], cur if not cur.begins_with("#") else "next"], func(): _cycle(key, opts))
+		bt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		h.add_child(bt)
+		av_list.add_child(h)
+	av_list.add_child(label("Hair streaks (tap to add/remove, multi-color)", 26, GOLD))
+	var sh := HBoxContainer.new()
+	for c in O.get("streaks", []):
+		var col: String = c
+		var on: bool = (av.get("hair_streaks", []) as Array).has(col)
+		var sb := btn("✔" if on else " ", func():
+			var arr: Array = av.get("hair_streaks", [])
+			if arr.has(col): arr.erase(col)
+			else: arr.append(col)
+			if arr.is_empty(): av.erase("hair_streaks")
+			else: av["hair_streaks"] = arr
+			_preview()
+			_refresh_avatar(false), 84)
+		sb.add_theme_stylebox_override("normal", _style(Color(col), GOLD if on else MAG))
+		sh.add_child(sb)
+	av_list.add_child(sh)
+	var acc := HBoxContainer.new()
+	for a in O.get("accessories", []):
+		var k: String = a
+		acc.add_child(btn(("✔ " if bool(av.get(k, false)) else "") + k.capitalize(), func():
+			av[k] = not bool(av.get(k, false))
+			_preview()
+			_refresh_avatar(false)))
+	av_list.add_child(acc)
+	av_list.add_child(btn("💾 Save my avatar & play", func():
+		Profile.save_profile(av_name.text, av)
+		show_panel("")))
+	av_list.add_child(label("Profile: %s · role: %s" % [Profile.display_name(), Profile.role().to_upper()], 24))
+	if not Profile.is_owner():
+		var oh := HBoxContainer.new()
+		var code := LineEdit.new()
+		code.placeholder_text = "Owner code (world owner only)"
+		code.secret = true
+		code.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		code.custom_minimum_size = Vector2(0, 72)
+		code.add_theme_font_size_override("font_size", 26)
+		oh.add_child(code)
+		oh.add_child(btn("Unlock", func():
+			if Profile.try_owner_unlock(code.text): _refresh_avatar(false), 170))
+		av_list.add_child(oh)
+	av_list.add_child(input_tag("YOUR INPUT HERE: more hair styles, body sliders, tattoos, wings?"))

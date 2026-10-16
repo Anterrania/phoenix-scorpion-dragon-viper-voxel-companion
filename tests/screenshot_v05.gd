@@ -7,6 +7,9 @@ func _initialize():
 	root.add_child(s)
 	await create_timer(3.0).timeout
 	var ui = s.get_node("UI")
+	ui.show_panel("avatar")
+	await create_timer(2.0).timeout
+	_shot("avatar_creator")
 	ui.show_panel("")
 	var p: Node3D = s.get_node("Player")
 	var wc = s.get_node("WorldContent")

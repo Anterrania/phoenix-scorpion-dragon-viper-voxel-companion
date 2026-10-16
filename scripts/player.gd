@@ -22,8 +22,13 @@ static func load_avatar_style(path: String) -> Dictionary:
 	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	var out := {"look": "royal"}
 	if d is Dictionary:
-		for k in ["skin", "hair", "eyes", "outfit", "accent", "trim"]:
+		for k in ["skin", "hair", "eyes", "outfit", "accent", "trim", "beard", "jacket", "top", "pants"]:
 			if d.has(k): out[k] = Color(str(d[k]))
+		if d.get("hair_streaks", []) is Array and not d["hair_streaks"].is_empty():
+			var arr: Array = []
+			for c in d["hair_streaks"]: arr.append(Color(str(c)))
+			out["hair_streaks"] = arr
+		out["crown"] = bool(d.get("crown", false))
 		out["look"] = str(d.get("look", "royal"))
 		out["glow"] = float(d.get("glow", 1.5))
 		out["third_person"] = str(d.get("default_camera", "third_person")) == "third_person"

@@ -9,6 +9,10 @@ This is a plain-language guide. It covers **what's real now** and **what's plann
 
 ## Your avatar
 - First launch opens **Create Your Avatar**. Choose a name, body type, skin tone, hair color and style, multi-color streaks, eyes, facial hair, jacket, top, pants, glow accent, metal trim, and a crown, chains or horns.
+- **DNA blend:** pick 2–3 parent looks (Ember, Frost, Nova, Titan, Sylph), slide how much of each you want, then fine-tune height, build, shoulders, head, jaw, legs and arms.
+- **Attachments (like Second Life):** add a halo, crown, wings, cape or scepter to attachment points (head, back, hands…). **Alpha masks** hide body parts under clothing.
+- **Your own 3D items:** put a `.glb` file in the phone's Download folder and tap **Import .glb wearable**. It attaches to your avatar and goes into the review queue. Newer Android versions may block apps from reading Download directly; if so, a file picker is coming next.
+- **Export avatar file:** saves your whole look (colors, DNA, attachments) as one file you can share or back up.
 - You can change it anytime: **MENU › My Avatar & Profile**. Your clothes go in the **BAG** (wardrobe).
 
 ## Companions
@@ -20,6 +24,9 @@ This is a plain-language guide. It covers **what's real now** and **what's plann
 ## Realms & landmarks
 - There are three realms: Alaskan Aurora Tundra (spawn), Venus Fire Wastes, and Cosmic Glitter Expanse. Each has its own trees, rocks, crystals, lava vents, obsidian spires or floating islands.
 - There are seven placeholder landmarks with gold **YOUR INPUT HERE** signs. Visit them with **MENU › Travel**.
+
+## Creator Market (planned; data model ready)
+- Creators upload .glb wearables and set permissions (copy / modify / transfer, like Second Life) and a price in **Aethel Coin**. Items are reviewed before they can be sold. 18+ items only show to people who turned on the age gate. A vendor near spawn shows where the shop will be.
 
 ## Building (planned v0.6)
 - Place and save blocks, shapes and smooth-voxel builds on your land. Companions help build.

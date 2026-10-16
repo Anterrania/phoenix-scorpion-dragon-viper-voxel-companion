@@ -476,6 +476,7 @@ func _refresh_avatar(reload := true) -> void:
 			_preview()
 			_refresh_avatar(false)))
 	av_list.add_child(acc)
+	_dna_section()
 	av_list.add_child(btn("💾 Save my avatar & play", func():
 		Profile.save_profile(av_name.text, av)
 		show_panel("")))
@@ -493,3 +494,99 @@ func _refresh_avatar(reload := true) -> void:
 			if Profile.try_owner_unlock(code.text): _refresh_avatar(false), 170))
 		av_list.add_child(oh)
 	av_list.add_child(input_tag("YOUR INPUT HERE: more hair styles, body sliders, tattoos, wings?"))
+
+# ---------- DNA blend, sliders, attachments, .glb import ----------
+func _dna_section() -> void:
+	var P := AvatarDNA.parents()
+	var ids: Array = P.keys()
+	if ids.is_empty(): return
+	var dna: Dictionary = av.get("dna", {"parents": [ids[0], ids[1]], "weights": [0.5, 0.5], "sliders": {}})
+	av["dna"] = dna
+	av_list.add_child(label("DNA blend — pick parent looks and mix them", 28, GOLD))
+	for i in 3:
+		var idx := i
+		var cur: String = str(dna["parents"][i]) if i < dna["parents"].size() else "(none)"
+		var h := HBoxContainer.new()
+		h.add_child(btn("Parent %d: %s" % [i + 1, P.get(cur, {}).get("name", cur)], func():
+			var arr: Array = dna["parents"]
+			var opts: Array = ids + (["(none)"] if idx == 2 else [])
+			var nxt: String = opts[(opts.find(cur) + 1) % opts.size()]
+			if idx < arr.size():
+				if nxt == "(none)": arr.resize(2); (dna["weights"] as Array).resize(2)
+				else: arr[idx] = nxt
+			else:
+				arr.append(nxt); dna["weights"].append(0.33)
+			_preview(); _refresh_avatar(false), 380))
+		if i < dna["parents"].size():
+			h.add_child(_slider(float(dna["weights"][i]), 0.0, 1.0, func(v): dna["weights"][idx] = v; _preview()))
+		av_list.add_child(h)
+	av_list.add_child(label("Fine-tune", 26, GOLD))
+	for sname in AvatarDNA.SLIDERS:
+		var sn: String = sname
+		var h := HBoxContainer.new()
+		var l := label(sn.capitalize(), 24)
+		l.custom_minimum_size = Vector2(240, 0)
+		h.add_child(l)
+		h.add_child(_slider(float(dna["sliders"].get(sn, 0.0)), -1.0, 1.0, func(v): dna["sliders"][sn] = v; _preview()))
+		av_list.add_child(h)
+	av_list.add_child(label("Attachments (SL-style points)", 28, GOLD))
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(AvatarDNA.DNA_PATH))
+	var atts: Array = av.get("attachments", [])
+	var row := HFlowContainer.new()
+	for a in (d.get("builtin_attachments", []) if d is Dictionary else []):
+		var aid: String = a["id"]
+		var pt: String = a["point"]
+		var on := atts.any(func(x): return x.get("id", "") == aid)
+		row.add_child(btn(("✔ " if on else "") + "%s (%s)" % [a["name"], pt], func():
+			var arr: Array = av.get("attachments", [])
+			var f := arr.filter(func(x): return x.get("id", "") == aid)
+			if f.is_empty(): arr.append({"id": aid, "point": pt, "source": "builtin"})
+			else: arr.erase(f[0])
+			av["attachments"] = arr
+			_preview(); _refresh_avatar(false)))
+	av_list.add_child(row)
+	var masks := HFlowContainer.new()
+	masks.add_child(label("Alpha masks:", 24))
+	for mk in AvatarDNA.MASKS:
+		var m: String = mk
+		var am: Array = av.get("alpha_masks", [])
+		masks.add_child(btn(("✔ " if am.has(m) else "") + m, func():
+			var arr: Array = av.get("alpha_masks", [])
+			if arr.has(m): arr.erase(m)
+			else: arr.append(m)
+			av["alpha_masks"] = arr
+			_preview(); _refresh_avatar(false)))
+	av_list.add_child(masks)
+	av_list.add_child(btn("📦 Import .glb wearable (from app imports / Download folder)", _import_glb))
+	av_list.add_child(btn("📤 Export avatar file (avatar DNA + attachments)", func():
+		var f := FileAccess.open("user://my_avatar.anterrania.json", FileAccess.WRITE)
+		if f: f.store_string(JSON.stringify(AvatarDNA.export_avatar(av, av_name.text), "  "))
+		av_list.add_child(label("Saved user://my_avatar.anterrania.json", 22, GOLD))))
+
+func _slider(v: float, lo: float, hi: float, cb: Callable) -> HSlider:
+	var s := HSlider.new()
+	s.min_value = lo; s.max_value = hi; s.step = 0.05; s.value = v
+	s.custom_minimum_size = Vector2(320, 60)
+	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	s.value_changed.connect(cb)
+	return s
+
+func _import_glb() -> void:
+	var found := ""
+	for dir in ["user://imports", "/storage/emulated/0/Download", OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)]:
+		if dir == "" or not DirAccess.dir_exists_absolute(dir): continue
+		for f in DirAccess.get_files_at(dir):
+			if f.get_extension().to_lower() == "glb": found = dir.path_join(f); break
+		if found != "": break
+	if found == "":
+		av_list.add_child(label("No .glb found. Put one in the phone's Download folder (or user://imports) and try again.", 22, Color(1, 0.6, 0.6)))
+		return
+	var item := Marketplace.import_glb(found, found.get_file().get_basename(), Profile.display_name(), "head", {"copy": true, "modify": true, "transfer": false}, 0, false)
+	if item.has("error"):
+		av_list.add_child(label("Import failed: " + str(item["error"]), 22, Color(1, 0.6, 0.6)))
+		return
+	var arr: Array = av.get("attachments", [])
+	arr.append({"id": item["id"], "point": "head", "source": "glb", "path": item["asset"]["path"]})
+	av["attachments"] = arr
+	_preview()
+	_refresh_avatar(false)

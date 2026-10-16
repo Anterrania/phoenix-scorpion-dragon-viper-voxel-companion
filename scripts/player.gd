@@ -56,6 +56,7 @@ func refresh_avatar() -> void:
 		remove_child(avatar)
 		avatar.queue_free()
 	avatar = HumanoidModel.build(Inventory.styled("player", Profile.to_style(Profile.avatar())))
+	AvatarDNA.apply_all(avatar, Profile.avatar())  # DNA morphs, alpha masks, attachments
 	avatar.name = "Avatar"
 	avatar.position.y = -0.85
 	avatar.visible = third_person

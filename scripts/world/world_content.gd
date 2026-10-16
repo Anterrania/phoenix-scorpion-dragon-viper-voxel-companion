@@ -73,6 +73,10 @@ func _place_radio() -> void:
 	add_child(radio)
 	radio.global_position = Vector3(-6, ground(-6, -10), -10)
 	radio.setup(player)
+	var v := VendorStub.new()
+	add_child(v)
+	v.global_position = Vector3(6, ground(6, -10), -10)
+	v.setup()
 
 func landmark_by_id(id: String) -> Dictionary:
 	for l in landmarks:

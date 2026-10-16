@@ -44,6 +44,15 @@ Stack: Godot 4.7, Zylann Voxel Tools (smooth Transvoxel + VoxelLodTerrain), mobi
 - Wardrobe & Satchel (data-driven, with the 18+ gate), main menu, settings, and companion chat (offline canned replies, plus a live-AI config hook).
 - Companion text-to-speech, push-to-talk stub, Phoenix Radio (parcel music), and Follow/Free-roam autonomous companions with a memory log.
 
+## Avatars: DNA blend + SL-style customization
+- **Now (0.5):** each phone gets its own avatar from the first-launch creator, with owner and guest roles. The **DNA blend** is our own system, not Star Citizen code. You pick 2–3 parent archetypes (Ember, Frost, Nova, Titan, Sylph), mix them with weight sliders, then fine-tune height, build, shoulders, head, jaw, leg and arm. Morphs drive scale weights on the base model's parts. **Attachment points** are head, hair, face, chest, back, hips, both hands and both feet. Built-in attachments are a halo, crown, wings, cape and scepter. **Alpha masks** hide head, arms, legs, feet or hands. **Runtime .glb import** attaches a user mesh. **Portable avatar file:** `anterrania.avatar.v1` JSON with colors, DNA, sliders, masks and attachments.
+- **0.6:** a skinned glTF base body with real blend shapes, so DNA weights drive morph targets. Swappable mesh hair, clothing and body parts with rigging to our skeleton. **Layered textures** (skin → tattoo → underwear → shirt → jacket) composited into one atlas per avatar.
+- **0.7:** face DNA (eyes, nose, mouth, brows), body-fit sliders for mesh clothing, and an outfit/folder system.
+
+## Creator marketplace (UGC)
+- **Data model now:** `data/marketplace/schema.json`. Items have a creator id, kind, glTF asset with sha256, attach point, alpha masks, SL-style **copy/modify/transfer** next-owner permissions, a price in **Aethel Coin**, a mature flag, and a moderation state (pending/approved/rejected). `Marketplace` (local) imports a .glb into a moderation queue, lists only approved items, hides mature items unless the buyer enabled the gate, and buys from a local Aethel wallet. An in-world **Creator Market vendor** stub stands near spawn.
+- **Server (0.8+):** accounts, server-verified creator ids, upload limits (triangle and texture budgets), virus and format checks, human plus automated moderation and a report flow, escrow and payouts, revenue share, and a ban on real-person likenesses and copyrighted or trademarked uploads.
+
 ## Voice chat
 - **Now (0.5):** companions speak replies via `DisplayServer.tts_speak` (one voice per companion, Settings toggle). There's also a 🎤 push-to-talk button that emits `push_to_talk(active)` (stub only, no mic permission yet).
 - **0.6:** speech-to-text through an Android STT plugin (on-device `SpeechRecognizer`) sends text to `ChatUI._send()`. Optional cloud TTS voices are matched to each persona.

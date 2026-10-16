@@ -1,0 +1,17 @@
+{
+  "_note": "v0.5 DNA parents (ORIGINAL archetypes, not real people). Blend 2-3 with weights, then tune sliders -1..1. YOUR INPUT HERE: more parents.",
+  "parents": {
+    "ember":   {"name": "Ember",   "morphs": {"height": 0.3,  "build": 0.4,  "shoulders": 0.5,  "head_size": 0.0,  "jaw": 0.6,  "leg_length": 0.2,  "arm_length": 0.1}},
+    "frost":   {"name": "Frost",   "morphs": {"height": 0.6,  "build": -0.3, "shoulders": -0.1, "head_size": -0.2, "jaw": -0.3, "leg_length": 0.5,  "arm_length": 0.3}},
+    "nova":    {"name": "Nova",    "morphs": {"height": -0.3, "build": -0.1, "shoulders": -0.4, "head_size": 0.3,  "jaw": -0.5, "leg_length": -0.2, "arm_length": -0.1}},
+    "titan":   {"name": "Titan",   "morphs": {"height": 0.8,  "build": 0.9,  "shoulders": 0.9,  "head_size": 0.1,  "jaw": 0.8,  "leg_length": 0.3,  "arm_length": 0.4}},
+    "sylph":   {"name": "Sylph",   "morphs": {"height": 0.1,  "build": -0.7, "shoulders": -0.6, "head_size": 0.1,  "jaw": -0.7, "leg_length": 0.6,  "arm_length": 0.2}}
+  },
+  "builtin_attachments": [
+    {"id": "halo", "name": "Golden Halo", "point": "head"},
+    {"id": "platinum_crown", "name": "Platinum Crown", "point": "head"},
+    {"id": "dragon_wings", "name": "Dragon Wings", "point": "back"},
+    {"id": "magenta_cape", "name": "Magenta Cape", "point": "back"},
+    {"id": "scepter", "name": "Orb Scepter", "point": "hand_r"}
+  ]
+}

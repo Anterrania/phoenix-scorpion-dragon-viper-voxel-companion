@@ -8,6 +8,12 @@ extends CharacterBody3D
 @export var touch_look_sensitivity := 0.008
 @export var joystick_radius := 120.0
 
+signal health_changed(hp: float)
+const MAX_HEALTH := 100.0
+const PUSH_FORCE := 6.0
+var health := MAX_HEALTH
+var surface := 0  # SurfacePhysics.Surface
+
 @export var avatar_path := "res://data/player_avatar.json"
 
 @onready var head: Node3D = $Head
@@ -35,6 +41,9 @@ static func load_avatar_style(path: String) -> Dictionary:
 	return out
 
 func _ready() -> void:
+	floor_max_angle = deg_to_rad(50.0)
+	floor_snap_length = 0.6
+	floor_constant_speed = true
 	var st := load_avatar_style(avatar_path)
 	avatar = HumanoidModel.build(st)
 	avatar.name = "Avatar"
@@ -53,6 +62,9 @@ func toggle_camera() -> void:
 func _process(delta: float) -> void:
 	_anim_t += delta
 	HumanoidModel.animate(avatar, _anim_t, clampf(Vector2(velocity.x, velocity.z).length() / speed, 0.0, 1.0))
+	if health < MAX_HEALTH and surface != SurfacePhysics.Surface.LAVA:
+		health = minf(health + delta * 4.0, MAX_HEALTH)
+		health_changed.emit(health)
 	if global_position.y < -80.0:  # fell through unloaded terrain
 		global_position = Vector3(global_position.x, 45, global_position.z)
 		velocity = Vector3.ZERO
@@ -104,6 +116,35 @@ func _physics_process(delta: float) -> void:
 	if _touch_move != Vector2.ZERO:
 		input = _touch_move
 	var dir := (transform.basis * Vector3(input.x, 0, input.y)).normalized()
-	velocity.x = dir.x * speed if dir else move_toward(velocity.x, 0, speed)
-	velocity.z = dir.z * speed if dir else move_toward(velocity.z, 0, speed)
+	velocity = SurfacePhysics.steer(velocity, dir * speed, surface, delta)
+	var r := SurfacePhysics.apply(_gen(), global_position, velocity, delta)
+	surface = r.surface
+	velocity = r.velocity
+	global_position = r.position
+	if r.damage > 0.0: take_damage(r.damage)
 	move_and_slide()
+	push_bodies(self, PUSH_FORCE)
+
+## v0.4: shove RigidBody props we walk into.
+static func push_bodies(body: CharacterBody3D, force: float) -> void:
+	for i in body.get_slide_collision_count():
+		var c := body.get_slide_collision(i)
+		var rb := c.get_collider() as RigidBody3D
+		if rb:
+			rb.freeze = false
+			var n := -c.get_normal()
+			n.y = 0.0
+			rb.apply_central_impulse(n.normalized() * force / maxf(rb.mass, 1.0) * 4.0)
+
+func take_damage(amount: float) -> void:
+	health = maxf(health - amount, 0.0)
+	health_changed.emit(health)
+	if health <= 0.0:  # respawn at the start, full health
+		health = MAX_HEALTH
+		global_position = Vector3(0, (_gen().height_f(0, 0) if _gen() else 40.0) + 2.0, 0)
+		velocity = Vector3.ZERO
+		health_changed.emit(health)
+
+func _gen():
+	var w := get_parent()
+	return w.generator if w and "generator" in w else null

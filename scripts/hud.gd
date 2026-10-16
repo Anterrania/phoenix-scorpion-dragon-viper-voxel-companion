@@ -15,6 +15,18 @@ func _ready() -> void:
 	var gfx := _button("Graphics", "GFX\n" + Settings.QUALITY_NAMES[Settings.quality()], Vector2(-190, -470))
 	gfx.add_theme_font_size_override("font_size", 24)
 	gfx.pressed.connect(func(): gfx.text = "GFX\n" + Settings.QUALITY_NAMES[Settings.cycle_quality()])
+	var hp := ProgressBar.new()
+	hp.name = "Health"
+	hp.max_value = 100.0
+	hp.value = 100.0
+	hp.show_percentage = false
+	hp.offset_left = 24; hp.offset_top = 24; hp.offset_right = 324; hp.offset_bottom = 46
+	var fill := StyleBoxFlat.new(); fill.bg_color = Color(1, 0.18, 0.82)
+	hp.add_theme_stylebox_override("fill", fill)
+	hp.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(hp)
+	if player and player.has_signal("health_changed"):
+		player.health_changed.connect(func(v: float): hp.value = v)
 	var hint := Label.new()
 	hint.name = "MoveHint"
 	hint.text = "◯ drag left side to move · drag right side to look"

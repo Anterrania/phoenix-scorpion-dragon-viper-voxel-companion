@@ -3,6 +3,7 @@ extends CharacterBody3D
 ## Idle wander / follow behavior + tool implementations called by AgentBrain.
 
 signal said(text: String)
+const PlayerScript := preload("res://scripts/player.gd")
 
 @export var config: CompanionConfig
 @export var player_path: NodePath
@@ -32,6 +33,9 @@ func _ready() -> void:
 	var p: Variant = JSON.parse_string(FileAccess.get_file_as_string(config.persona_path))
 	persona = p if p is Dictionary else {}
 	companion_id = persona.get("id", name)
+	add_to_group("companions")
+	floor_max_angle = deg_to_rad(50.0)
+	floor_snap_length = 0.6
 	_apply_look()
 	AgentBrain.register_agent(self)
 	AgentBrain.reply_ready.connect(_on_reply)
@@ -151,7 +155,25 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, config.move_speed)
 		if player:
 			_face(player.global_position, delta)
+	# v0.4: separation steering - never overlap other companions or the player.
+	var sep := SurfacePhysics.separation(global_position, neighbour_positions())
+	velocity.x += sep.x
+	velocity.z += sep.z
+	var gen = world.generator if world and "generator" in world else null
+	var r := SurfacePhysics.apply(gen, global_position, velocity, delta)
+	if r.surface == SurfacePhysics.Surface.LAVA and following and player:
+		r.velocity = Vector3(0, r.velocity.y, 0) + (player.global_position - global_position).normalized() * 6.0
+	velocity = r.velocity
+	global_position = r.position
 	move_and_slide()
+	PlayerScript.push_bodies(self, 3.0)
+
+func neighbour_positions() -> Array:
+	var out: Array = []
+	if player: out.append(player.global_position)
+	for a in get_tree().get_nodes_in_group("companions"):
+		if a != self: out.append(a.global_position)
+	return out
 
 ## Smoothly yaw toward a point (models face -Z like Godot's look_at).
 func _face(p: Vector3, delta: float) -> void:

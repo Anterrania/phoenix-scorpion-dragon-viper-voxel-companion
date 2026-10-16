@@ -73,10 +73,29 @@ func _place_radio() -> void:
 	add_child(radio)
 	radio.global_position = Vector3(-6, ground(-6, -10), -10)
 	radio.setup(player)
+	_place_combat_and_pen()
 	var v := VendorStub.new()
 	add_child(v)
 	v.global_position = Vector3(6, ground(6, -10), -10)
 	v.setup()
+
+var arena: CombatZone
+var pen: WyrmPen
+func _place_combat_and_pen() -> void:
+	var site := find_site(1, 2.6)
+	arena = CombatZone.new()
+	add_child(arena)
+	arena.global_position = Vector3(site.x, ground(site.x, site.y), site.y)
+	arena.setup(arena.global_position, 26.0)
+	landmarks.append({"id": "ember_arena", "name": "Ember Arena (combat zone)", "biome": 1, "position": arena.global_position, "node": arena, "input": ["Which creatures and rewards?", "PvP allowed?"]})
+	for i in 3:
+		var c := CinderStalker.new()
+		add_child(c)
+		c.setup(arena.global_position + Vector3(randf_range(-10, 10), 0, randf_range(-10, 10)), 24.0, player, generator)
+	pen = WyrmPen.new()
+	add_child(pen)
+	pen.global_position = Vector3(14, ground(14, 6), 6)
+	pen.setup(generator)
 
 func landmark_by_id(id: String) -> Dictionary:
 	for l in landmarks:

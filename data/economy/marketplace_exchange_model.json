@@ -1,0 +1,19 @@
+{
+  "_note": "ROADMAP DATA MODEL (server phase 0.8+). Local stub only: 'List on Marketplace' from the Satchel writes to user://ugc/listings.json.",
+  "marketplace": {
+    "listing": {"id": "string", "item_ref": "inventory item / UGC id", "merchant_id": "avatar id", "title": "string", "category": "Apparel|Avatar|Attachments|Breedables|Buildings|Vehicles|Audio|Scripts/Tools|Home & Garden|Other", "keywords": ["string"], "price_aethel": "int", "permissions": {"copy": "bool", "modify": "bool", "transfer": "bool"}, "demo_item_ref": "optional free demo (no-transfer, temp)", "mature": "bool", "status": "draft|active|unlisted|removed", "stock": "unlimited|int"},
+    "review": {"listing_id": "string", "buyer_id": "verified purchaser", "stars": "1-5", "text": "string", "merchant_reply": "string"},
+    "merchant_outbox": "server-side store of items to deliver; listing pulls from it (like SL Merchant Outbox)",
+    "delivery": "on purchase, a copy is put into the buyer's Satchel 'Received Items' folder; redelivery from purchase history",
+    "search": "full-text over title/keywords + filters (category, price, rating, mature gate)",
+    "surfaces": ["web store (browser)", "in-app store panel", "in-world vendors"]
+  },
+  "exchange": {
+    "name": "Aethel Exchange (AEX)",
+    "order": {"id": "string", "user_id": "string", "side": "buy|sell", "type": "market|limit", "amount_aec": "int", "limit_rate": "AEC per 1 USD (limit only)", "status": "open|partial|filled|cancelled", "created": "ISO"},
+    "matching": "price-time priority order book; market orders take best available rate",
+    "chart": "OHLC rate history (1h/1d/1w)",
+    "fees": "small % per trade (YOUR INPUT HERE)",
+    "compliance": "REAL-MONEY EXCHANGE REQUIRES LEGAL/COMPLIANCE REVIEW BEFORE LAUNCH: money-transmitter licensing (US FinCEN MSB + state licenses), KYC/AML, sanctions screening, tax reporting, app-store payment rules. Until then AEC stays a closed in-game currency (earn/buy only, no cash-out)."
+  }
+}

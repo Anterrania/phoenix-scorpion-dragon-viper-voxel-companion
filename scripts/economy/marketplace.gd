@@ -71,3 +71,17 @@ static func buy(item: Dictionary, buyer_id: String) -> String:
 	if balance() < price: return "not enough Aethel Coin"
 	_save(WALLET, {"aethel": balance() - price})
 	return ""
+
+## v0.6 stub: list a Satchel item locally ("List on Marketplace"). Server delivery later.
+const LISTINGS := "user://ugc/listings.json"
+static func list_inventory_item(item: Dictionary, merchant: String, price: int) -> Dictionary:
+	var l := {"id": "lst_%d" % Time.get_ticks_usec(), "item_ref": item.get("id", ""), "title": item.get("name", ""),
+		"merchant_id": merchant, "category": "Other", "price_aethel": maxi(price, 0), "status": "draft (server needed)",
+		"permissions": {"copy": true, "modify": false, "transfer": false}}
+	var all: Array = _load(LISTINGS, [])
+	all.append(l)
+	_save(LISTINGS, all)
+	return l
+
+static func listings() -> Array:
+	return _load(LISTINGS, [])

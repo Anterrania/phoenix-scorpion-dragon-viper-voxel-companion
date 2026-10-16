@@ -32,6 +32,8 @@ func _ready() -> void:
 	panels["avatar"] = _build_avatar()
 	panels["map"] = _build_map()
 	panels["music"] = _build_music()
+	panels["rp"] = _build_rp()
+	panels["wyrm"] = _build_wyrm()
 	AgentBrain.reply_ready.connect(_on_reply)
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", true)) else "")
@@ -111,6 +113,8 @@ func show_panel(n: String) -> void:
 		panels[k]["root"].visible = k == n
 	if n == "wardrobe": _refresh_wardrobe()
 	if n == "avatar": _refresh_avatar()
+	if n == "rp": _refresh_rp()
+	if n == "wyrm": _refresh_wyrm()
 	if n == "chat" and chat_target == null: _pick_chat(_companions().front() if not _companions().is_empty() else null)
 
 func is_open() -> bool:
@@ -130,6 +134,7 @@ func _topbar() -> void:
 	h.add_child(btn("👜 BAG", func(): show_panel("wardrobe"), 170))
 	h.add_child(btn("💬 TALK", func(): show_panel("chat"), 170))
 	h.add_child(btn("◎ MAP", func(): show_panel("map"), 170))
+	h.add_child(btn("🎭 RP", func(): show_panel("rp"), 150))
 	add_child(h)
 
 # ---------- main menu ----------
@@ -137,7 +142,7 @@ func _build_menu() -> Dictionary:
 	var p := _panel("Phoenix Scorpion Dragon Viper · v0.5")
 	var b: VBoxContainer = p["body"]
 	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 28, MAG))
-	for row in [["▶ Play", "" ], ["🧑 My Avatar & Profile", "avatar"], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Teleport: Landmarks", "travel"], ["◎ World Map (tap to teleport)", "map"], ["♪ Music (SoundCloud)", "music"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
+	for row in [["▶ Play", "" ], ["🧑 My Avatar & Profile", "avatar"], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Teleport: Landmarks", "travel"], ["◎ World Map (tap to teleport)", "map"], ["🎭 Roleplay: sheet, titler, poses", "rp"], ["🐉 Wyrmlings (breedables)", "wyrm"], ["♪ Music (SoundCloud)", "music"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
 		var target: String = row[1]
 		b.add_child(btn(row[0], func(): show_panel(target)))
 	b.add_child(label("Everything gold-starred (★ YOUR INPUT HERE) is a placeholder waiting for your decision.", 24, GOLD))
@@ -185,7 +190,15 @@ func _refresh_wardrobe() -> void:
 	wardrobe_list.add_child(input_tag("YOUR INPUT HERE: who wears which catalog outfit? Which pieces next?"))
 	wardrobe_list.add_child(label("Satchel", 32, GOLD))
 	for s in Inventory.satchel:
-		wardrobe_list.add_child(label("• %s ×%d — %s" % [s["name"], int(s.get("count", 1)), s.get("desc", "")], 26))
+		var it: Dictionary = s
+		var r := HBoxContainer.new()
+		var l := label("• %s ×%d — %s" % [it["name"], int(it.get("count", 1)), it.get("desc", "")], 24)
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		r.add_child(l)
+		r.add_child(btn("List on Marketplace", func():
+			Marketplace.list_inventory_item(it, Profile.display_name(), 10)
+			wardrobe_list.add_child(label("Draft listing saved: %s (store opens with the server)." % it["name"], 22, GOLD)), 300))
+		wardrobe_list.add_child(r)
 
 # ---------- chat ----------
 func _build_chat() -> Dictionary:
@@ -217,6 +230,11 @@ func _build_chat() -> Dictionary:
 	modes.add_child(follow_btn)
 	modes.add_child(btn("All follow", func(): _all_follow(true), 190))
 	modes.add_child(btn("All roam", func(): _all_follow(false), 190))
+	var icb := btn("IC", func(): pass, 120)
+	icb.pressed.connect(func():
+		chat_ic = not chat_ic
+		icb.text = "IC" if chat_ic else "OOC")
+	modes.add_child(icb)
 	b.add_child(modes)
 	var row := HBoxContainer.new()
 	var ptt := btn("🎤 Hold", func(): pass, 150)
@@ -265,11 +283,14 @@ func _pick_chat(c: Node) -> void:
 	if c and chat_log:
 		chat_log.append_text("[color=#ffd04a]— talking to %s (%s) —[/color]\n" % [c.persona.get("name", c.name), "live AI" if Settings.live_ai() else "offline replies"])
 
+var chat_ic := true
 func _send(t: String) -> void:
 	if t.strip_edges() == "" or chat_target == null: return
-	chat_log.append_text("[b]You:[/b] %s\n" % t)
+	var f := RoleplayProfile.format_chat(Profile.display_name(), t, chat_ic)
+	chat_log.append_text(f["text"] + "\n")
 	chat_input.clear()
-	chat_target.talk(t)
+	if f.get("emote", false) and player and player.has_method("set_pose"): player.set_pose("wave", 2.0)
+	if f["to_companion"]: chat_target.talk(t)
 
 func _on_reply(id: String, text: String) -> void:
 	if chat_target and chat_target.companion_id == id and chat_log:
@@ -689,3 +710,96 @@ func _build_music() -> Dictionary:
 		b.add_child(le)
 	b.add_child(label("Without API keys, songs play in the SoundCloud app; the radio keeps a royalty-free track in-world.", 22))
 	return p
+
+# ---------- roleplay: character sheet, titler, poses ----------
+var rp_box: VBoxContainer
+func _build_rp() -> Dictionary:
+	var p := _panel("🎭 Character Sheet & Titler")
+	rp_box = p["body"]
+	return p
+
+func _refresh_rp() -> void:
+	for c in rp_box.get_children(): c.queue_free()
+	var d := RoleplayProfile.sheet()
+	rp_box.add_child(label("Name: " + Profile.display_name() + "   (change in My Avatar)", 26, GOLD))
+	for f in ["title", "species", "faction", "bio"]:
+		var key: String = f
+		rp_box.add_child(label(key.capitalize() + (" (floats above you)" if key == "title" else ""), 24))
+		var le := LineEdit.new()
+		le.text = str(d[key])
+		le.custom_minimum_size = Vector2(0, 68)
+		le.add_theme_font_size_override("font_size", 26)
+		le.text_changed.connect(func(t): d[key] = t)
+		rp_box.add_child(le)
+	var st := btn("Status: " + str(d["status"]), func(): pass)
+	st.pressed.connect(func():
+		d["status"] = {"IC": "OOC", "OOC": "AFK", "AFK": "IC"}.get(d["status"], "IC")
+		st.text = "Status: " + str(d["status"]))
+	rp_box.add_child(st)
+	rp_box.add_child(btn("💾 Save sheet & update titler", func():
+		RoleplayProfile.save_sheet(d)
+		if player and player.has_method("refresh_titler"): player.refresh_titler()
+		show_panel("")))
+	rp_box.add_child(label("Poses & emotes", 28, GOLD))
+	var row := HBoxContainer.new()
+	for po in ["wave", "bow", "sit", "dance"]:
+		var pp: String = po
+		row.add_child(btn(pp.capitalize(), func():
+			if player: player.set_pose(pp, 6.0)
+			show_panel("")))
+	rp_box.add_child(row)
+	rp_box.add_child(label("Tip: in TALK, tap IC/OOC to switch; start with /me for an emote (e.g. /me bows to the court).", 22))
+
+# ---------- breedables: Ember Wyrmlings ----------
+var wyrm_box: VBoxContainer
+var wyrm_pick: Array = []
+func _build_wyrm() -> Dictionary:
+	var p := _panel("🐉 Ember Wyrmlings")
+	wyrm_box = p["body"]
+	return p
+
+func _pen():
+	var wc = world.get_node_or_null("WorldContent") if world else null
+	return wc.pen if wc else null
+
+func _refresh_wyrm() -> void:
+	for c in wyrm_box.get_children(): c.queue_free()
+	var pen = _pen()
+	if pen == null: return
+	wyrm_box.add_child(label("Tap two wyrmlings to select, feed them, then Breed. Offspring inherit color, horn and wings.", 22, MAG))
+	for w in pen.list:
+		var ww: Dictionary = w
+		var sel := wyrm_pick.has(ww["id"])
+		var row := HBoxContainer.new()
+		var sw := ColorRect.new(); sw.custom_minimum_size = Vector2(60, 60)
+		sw.color = Color(Wyrmlings.COLORS[Wyrmlings.expressed(ww, "color")])
+		row.add_child(sw)
+		var info := "%s%s · Gen %d · %s · %s, %s horn, %s wings · hunger %d%%" % ["✔ " if sel else "", ww["name"], int(ww["generation"]), Wyrmlings.rarity(ww),
+			Wyrmlings.expressed(ww, "color"), Wyrmlings.expressed(ww, "horn"), Wyrmlings.expressed(ww, "wing"), int(float(ww["hunger"]) * 100)]
+		var b := btn(info, func():
+			if wyrm_pick.has(ww["id"]): wyrm_pick.erase(ww["id"])
+			else:
+				wyrm_pick.append(ww["id"])
+				if wyrm_pick.size() > 2: wyrm_pick.pop_front()
+			_refresh_wyrm())
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.add_theme_font_size_override("font_size", 22)
+		row.add_child(b)
+		row.add_child(btn("🍖 Feed", func():
+			Wyrmlings.feed(ww); pen.save(); _refresh_wyrm(), 150))
+		wyrm_box.add_child(row)
+	wyrm_box.add_child(btn("💞 Breed selected pair", func():
+		if wyrm_pick.size() < 2:
+			wyrm_box.add_child(label("Select two wyrmlings first.", 22, Color(1, 0.6, 0.6))); return
+		var a: Dictionary = pen.list.filter(func(x): return x["id"] == wyrm_pick[0])[0]
+		var b2: Dictionary = pen.list.filter(func(x): return x["id"] == wyrm_pick[1])[0]
+		var now := Time.get_unix_time_from_system()
+		var why := Wyrmlings.can_breed(a, b2, now)
+		if why != "":
+			wyrm_box.add_child(label(why, 22, Color(1, 0.6, 0.6))); return
+		var baby := Wyrmlings.breed(a, b2, now)
+		pen.list.append(baby); pen.save(); pen.rebuild()
+		wyrm_pick.clear()
+		_refresh_wyrm()
+		wyrm_box.add_child(label("A new wyrmling hatched: %s (Gen %d, %s)!" % [baby["name"], baby["generation"], Wyrmlings.rarity(baby)], 26, GOLD))))
+	wyrm_box.add_child(input_tag("YOUR INPUT HERE: more traits, names, selling for Aethel Coin?"))

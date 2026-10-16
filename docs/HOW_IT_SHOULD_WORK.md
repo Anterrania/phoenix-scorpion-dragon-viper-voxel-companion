@@ -69,6 +69,22 @@ This is a plain-language guide. It covers **what's real now** and **what's plann
 - **MENU › Music › ▶ Play on SoundCloud** opens the SoundCloud app. Anyone can paste **their own** SoundCloud link there.
 - Playing SoundCloud songs *inside* the game needs a SoundCloud Artist Pro API key; otherwise they play in the SoundCloud app.
 
+## v0.6 playable: combat, roleplay, breedables
+- **Combat ✔:** the **Ember Arena** in Venus is the only damage-enabled zone (red ring and sign); everywhere else is safe, and the HUD shows ⚔/🛡. You have health plus a regenerating shield. **⚔ swipe** (melee) and **🔥 fire bolt** (magic) buttons. Three **Cinder Stalkers** (original creatures) patrol, chase and bite, then respawn 15 s after defeat. If you die, you respawn at spawn with full health and shield.
+- **Roleplay ✔:** a floating **RP titler** (name, title, faction, IC/OOC/AFK), a **character sheet** (🎭 RP), an **IC/OOC** switch in TALK, **/me** emotes, and poses (wave, bow, sit, dance).
+- **Breedables ✔:** **Ember Wyrmlings** live in the Wyrmling Nest near spawn. Genes: color, horn and wing, two alleles each, with dominance and a 2% mutation chance; rarity and generation come from those. Feed them, then breed a fed pair (with a cooldown) to hatch an offspring that inherits traits. Saved on the phone.
+
+## Marketplace (web + in-app, like the SL Marketplace) — server phase 0.8+
+- Listings with categories, search, filters, reviews from verified buyers, free demo items, stock, and the mature gate.
+- **Delivery to inventory:** purchases land in the Satchel's "Received Items", with redelivery from purchase history. A **merchant outbox** holds items for sale.
+- **List from inventory:** long-press or tap **List on Marketplace** on a Satchel item. **v0.6 stub ✔:** this saves a local draft listing (`user://ugc/listings.json`).
+- One catalog shows up in three places: web store, in-app store panel, and in-world vendors.
+- Data model: `data/economy/marketplace_exchange_model.json`.
+
+## Aethel Exchange (like the classic LindeX) — server phase 0.8+
+- Buy/sell order book for AEC between users, with market and limit orders, price-time matching, a rate chart (1h/1d/1w) and a small trade fee.
+- **⚠ Compliance:** a real-money exchange needs legal and compliance review before launch. That covers money-transmitter licensing (FinCEN MSB plus state licenses in the US), KYC/AML, sanctions, tax reporting and app-store payment rules. Until then AEC is a closed in-game currency with no cash-out.
+
 ## Combat, roleplay & breedables (planned)
 - **Combat:** only on land where the owner turned damage on (spawn and landmarks stay safe). Melee, fire magic and ranged, with shields, respawn, creatures to fight, and optional RP dice meters.
 - **Roleplay:** titlers, character sheets, IC/OOC chat, /me emotes, poses, factions (groups), and RP regions with rules.

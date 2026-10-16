@@ -1,0 +1,27 @@
+{
+  "_note": "v0.5 placeholder landmark sites. Each is a simple ORIGINAL structure (no real buildings copied) with a 'YOUR INPUT HERE' sign. Edit names/biomes/offsets here; world_content.gd places them.",
+  "schema_version": 1,
+  "landmarks": [
+    {"id": "crystal_wyvern_sanctum", "name": "Crystal Wyvern Sanctum", "biome": 0, "near_spawn": [34, -46], "structure": "sanctum",
+     "lore": "batch_t35ua0: platinum/violet crystal winged dragon statue under aurora",
+     "input": ["Who guards the sanctum?", "Should the crystal dragon join the Unity Crest?", "What happens here (quests, ceremonies, dragon riding)?"]},
+    {"id": "starlit_geothermal_lagoon", "name": "Starlit Geothermal Lagoon", "biome": 0, "near_spawn": [-42, -30], "structure": "lagoon",
+     "lore": "batch_t33u: milky-way sky over a glowing blue hot-spring lagoon on black lava rock",
+     "input": ["Hangout spot, healing pool, or party venue?", "Which companions hang out here?"]},
+    {"id": "moonlit_wyvern_rink", "name": "Moonlit Wyvern Rink", "biome": 0, "near_spawn": [8, 58], "structure": "rink",
+     "lore": "batch_t35ua5: moonlit ice rink, wyvern face-off and wings-up finale emotes",
+     "input": ["Skating mini-game, dance stage, or arena?", "Which song plays here?"]},
+    {"id": "stormcrown_capitol", "name": "Stormcrown Capitol", "biome": 1, "structure": "capitol",
+     "lore": "batch_t33ua53: gold-domed capitol, lightning spires, molten dais (original design, not the US Capitol)",
+     "input": ["Seat of government: who sits in council?", "Viper Vanguard guards here - what is Viper?", "Flags to fly (official ones?)"]},
+    {"id": "obsidian_chandelier_throne_hall", "name": "Obsidian Chandelier Throne Hall", "biome": 1, "structure": "throne_hall",
+     "lore": "ART_BIBLE: coffered gold ceiling, black crystal chandelier, magenta candles, gothic arches",
+     "input": ["Your throne room? Which throne design goes here?", "Who stands at court?"]},
+    {"id": "gods_palace", "name": "God's Palace", "biome": 2, "structure": "palace",
+     "lore": "batch_t33ua47: gold-domed palace on a floating base",
+     "input": ["Is this your home base / spawn point?", "Floating in Cosmic, or above Venus lava storms like the art?"]},
+    {"id": "aethel_citadel", "name": "Aethel Citadel", "biome": 2, "structure": "citadel",
+     "lore": "batch_26/04: orbital fortress (name assigned by Foxy)",
+     "input": ["Approve or rename 'Aethel Citadel'", "Military base, bank (Aethel currency), or starport?"]}
+  ]
+}

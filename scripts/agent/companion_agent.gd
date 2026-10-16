@@ -21,6 +21,13 @@ var _bubble: Label3D
 var _bubble_time := 0.0
 var _greet_cooldown := 0.0
 var _was_near := false
+var life: CompanionLife
+
+## v0.5: Follow me (true) / Free roam (false). Free roam runs CompanionLife goals.
+func set_follow(on: bool) -> void:
+	following = on
+	_target = null
+	show_bubble("Right behind you!" if on else "I'll go explore. Call me back anytime.")
 const BUBBLE_SECONDS := 7.0
 
 @onready var player: Node3D = get_node_or_null(player_path)
@@ -38,6 +45,9 @@ func _ready() -> void:
 	floor_snap_length = 0.6
 	_apply_look()
 	AgentBrain.register_agent(self)
+	life = CompanionLife.new(self)
+	add_child(life)
+	life.did.connect(func(t): if not following: show_bubble("I " + t + "."))
 	AgentBrain.reply_ready.connect(_on_reply)
 
 func _exit_tree() -> void:
@@ -46,9 +56,8 @@ func _exit_tree() -> void:
 func _apply_look() -> void:
 	var box := get_node_or_null("Body")
 	if box: box.queue_free()
-	model = HumanoidModel.build(config.style())
-	add_child(model)
-	model.position.y = -0.85  # capsule centre -> feet
+	refresh_look()
+	Inventory.equipped_changed.connect(func(t): if t == companion_id: refresh_look())
 	var label := get_node_or_null("NameLabel") as Label3D
 	if label:
 		label.text = persona.get("display_name", persona.get("name", name))
@@ -71,6 +80,13 @@ func _apply_look() -> void:
 	_bubble.visible = false
 	add_child(_bubble)
 	get_tree().create_timer(1.5 + randf() * 2.5).timeout.connect(func(): show_bubble(greeting()))
+
+## v0.5: rebuild the model with wardrobe overrides (Inventory autoload).
+func refresh_look() -> void:
+	if model: model.queue_free()
+	model = HumanoidModel.build(Inventory.styled(companion_id, config.style()))
+	add_child(model)
+	model.position.y = -0.85  # capsule centre -> feet
 
 ## Greeting from persona.json (starter_message), falling back to name + role.
 func greeting() -> String:
@@ -119,8 +135,12 @@ func _on_reply(id: String, text: String) -> void:
 
 ## Voice hook: replace with TTS (DisplayServer.tts_speak or a cloud TTS).
 func speak(text: String) -> void:
-	if DisplayServer.tts_get_voices().size() > 0 and persona.get("voice", {}).get("tts_enabled", false):
-		DisplayServer.tts_speak(text, DisplayServer.tts_get_voices()[0]["id"])
+	if not bool(Settings.get_value("voice", "tts_enabled", true)): return
+	var voices := DisplayServer.tts_get_voices()
+	if voices.is_empty(): return
+	# Pick a voice per companion so they don't all sound the same.
+	var v: Dictionary = voices[abs(hash(companion_id)) % voices.size()]
+	DisplayServer.tts_speak(text, v["id"], 60, float(persona.get("voice", {}).get("pitch", 1.0)), 1.0)
 
 func get_player_position() -> Vector3:
 	return player.global_position if player else Vector3.ZERO
@@ -129,7 +149,7 @@ func _physics_process(delta: float) -> void:
 	if config == null: return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	if player and (global_position.y < -64.0 or global_position.distance_to(player.global_position) > 48.0):
+	if player and (global_position.y < -64.0 or (following and global_position.distance_to(player.global_position) > 48.0)):
 		global_position = slot_position() + Vector3.UP * 2.0  # catch-up teleport
 		velocity = Vector3.ZERO
 	var goal: Variant = _target
@@ -153,7 +173,7 @@ func _physics_process(delta: float) -> void:
 	if not moving:
 		velocity.x = move_toward(velocity.x, 0, config.move_speed)
 		velocity.z = move_toward(velocity.z, 0, config.move_speed)
-		if player:
+		if player and following:
 			_face(player.global_position, delta)
 	# v0.4: separation steering - never overlap other companions or the player.
 	var sep := SurfacePhysics.separation(global_position, neighbour_positions())

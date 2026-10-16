@@ -1,0 +1,21 @@
+{
+  "_note": "v0.5 avatar creator options (everyone makes their own avatar). 'owner_only' presets need the owner unlock. Add options here (YOUR INPUT HERE).",
+  "body": ["Masculine", "Feminine"],
+  "skin": ["#f3d3bf", "#e0b08c", "#c58a5c", "#8a5636", "#5c3a22", "#3a2416", "#b8c4dc"],
+  "hair": ["#1a1018", "#4a2a18", "#c89a5a", "#f0e2b0", "#e8e4f0", "#c0182a", "#ff2fd0", "#7b2bb8", "#2a5adc"],
+  "hair_style": ["Straight", "Curly"],
+  "streaks": ["#ff2fd0", "#8a3fd0", "#e8e4f0", "#d8a640", "#2ad0ff", "#ff6a2a"],
+  "eyes": ["#5a3a1a", "#c07a22", "#2a6a3a", "#2a5adc", "#7a7a8a", "#ff2fd0", "#33ff66"],
+  "facial_hair": ["None", "#0b0808", "#4a2a18", "#c89a5a", "#e8e4f0"],
+  "outfit": ["#0a0809", "#ece8f2", "#b0177f", "#1a2a5a", "#2a1a10", "#c9cbd6"],
+  "top": ["#7b2bb8", "#ff2fd0", "#0a0809", "#f2bd3a", "#e8e4f0", "#2ad0ff"],
+  "pants": ["#0b0a0c", "#1a2a5a", "#4a4458", "#ece8f2", "#7b2bb8"],
+  "accent": ["#ff2fd0", "#2ad0ff", "#33ff66", "#ff6a2a", "#f2bd3a"],
+  "trim": ["#f2bd3a", "#e8e4f0", "#c0c0c8", "#ff2fd0"],
+  "accessories": ["crown", "chains", "horns"],
+  "presets": [
+    {"id": "wanderer", "name": "Wanderer", "owner_only": false, "avatar": {"body": 0, "skin": "#c58a5c", "hair": "#4a2a18", "eyes": "#2a6a3a", "outfit": "#2a1a10", "top": "#e8e4f0", "pants": "#4a4458", "accent": "#2ad0ff", "trim": "#c0c0c8"}},
+    {"id": "starlight", "name": "Starlight", "owner_only": false, "avatar": {"body": 1, "skin": "#f3d3bf", "hair": "#e8e4f0", "hair_streaks": ["#ff2fd0", "#2ad0ff"], "eyes": "#2a5adc", "outfit": "#1a2a5a", "top": "#2ad0ff", "pants": "#1a2a5a", "accent": "#ff2fd0", "trim": "#e8e4f0"}},
+    {"id": "sovereign", "name": "Sovereign (owner)", "owner_only": true, "from": "res://data/player_avatar.json"}
+  ]
+}

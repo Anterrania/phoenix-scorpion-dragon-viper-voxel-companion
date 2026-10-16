@@ -46,6 +46,7 @@ func _ready() -> void:
 		if "config" in c and c is Node3D: _place_on_ground(c)
 	_update_biome(true)
 	_spawn_props()
+	_spawn_content()
 
 const PropsScript := preload("res://scripts/physics/physics_props.gd")
 func _spawn_props() -> void:
@@ -53,6 +54,13 @@ func _spawn_props() -> void:
 	props.name = "PhysicsProps"
 	add_child(props)
 	props.setup(generator, Vector3(0, 0, -8))
+
+const ContentScript := preload("res://scripts/world/world_content.gd")
+func _spawn_content() -> void:
+	var wc := ContentScript.new()
+	wc.name = "WorldContent"
+	add_child(wc)
+	wc.setup(generator, player)
 
 static func build_smooth_mesher():
 	var m = ClassDB.instantiate("VoxelMesherTransvoxel")

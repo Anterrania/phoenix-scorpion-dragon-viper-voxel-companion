@@ -44,12 +44,23 @@ func _ready() -> void:
 	floor_max_angle = deg_to_rad(50.0)
 	floor_snap_length = 0.6
 	floor_constant_speed = true
-	var st := load_avatar_style(avatar_path)
-	avatar = HumanoidModel.build(st)
+	var st := Profile.to_style(Profile.avatar())
+	refresh_avatar()
+	Profile.changed.connect(refresh_avatar)
+	Inventory.equipped_changed.connect(func(t): if t == "player": refresh_avatar())
+	set_third_person(st.get("third_person", true))
+
+## v0.5: rebuild the avatar with wardrobe overrides.
+func refresh_avatar() -> void:
+	if avatar:
+		remove_child(avatar)
+		avatar.queue_free()
+	avatar = HumanoidModel.build(Inventory.styled("player", Profile.to_style(Profile.avatar())))
+	AvatarDNA.apply_all(avatar, Profile.avatar())  # DNA morphs, alpha masks, attachments
 	avatar.name = "Avatar"
 	avatar.position.y = -0.85
+	avatar.visible = third_person
 	add_child(avatar)
-	set_third_person(st.get("third_person", true))
 
 func set_third_person(on: bool) -> void:
 	third_person = on

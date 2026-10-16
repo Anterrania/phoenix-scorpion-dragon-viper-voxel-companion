@@ -76,7 +76,8 @@ func _process(delta: float) -> void:
 	elif not chasing:
 		_pick_wp()
 	elif _cool <= 0.0 and player.has_method("take_combat_damage"):
-		player.take_combat_damage(BITE)
+		if player.take_combat_damage(BITE) and player.has_method("apply_knockback"):
+			player.apply_knockback(player.global_position - global_position, 7.0)
 		_cool = 1.2
 	if generator:
 		global_position.y = maxf(generator.height_f(global_position.x, global_position.z), generator.LAVA_LEVEL)

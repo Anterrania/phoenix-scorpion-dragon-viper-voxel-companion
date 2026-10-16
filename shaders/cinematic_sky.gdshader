@@ -6,11 +6,26 @@ uniform vec3 top_color : source_color = vec3(0.05, 0.09, 0.25);
 uniform vec3 horizon_color : source_color = vec3(0.42, 0.56, 0.78);
 uniform vec3 ground_color : source_color = vec3(0.1, 0.1, 0.12);
 uniform float star_strength = 0.6;
+// v0.8 procedural clouds
+uniform float cloud_cover = 0.45;
+uniform float cloud_speed = 0.006;
+uniform vec3 cloud_color : source_color = vec3(1.0, 0.97, 0.95);
+uniform int cloud_octaves = 4;
 uniform vec3 planet_dir = vec3(-0.35, 0.5, -0.8);
 uniform vec3 planet_color : source_color = vec3(0.75, 0.42, 0.85);
 uniform vec3 moon1_dir = vec3(0.5, 0.45, -0.6);
 uniform vec3 moon2_dir = vec3(0.2, 0.62, 0.75);
 
+float h2(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float vnoise(vec2 p) {
+	vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);
+	return mix(mix(h2(i), h2(i + vec2(1, 0)), f.x), mix(h2(i + vec2(0, 1)), h2(i + vec2(1, 1)), f.x), f.y);
+}
+float fbm(vec2 p, int oct) {
+	float a = 0.5, s = 0.0;
+	for (int i = 0; i < 6; i++) { if (i >= oct) break; s += a * vnoise(p); p = p * 2.03 + 7.1; a *= 0.5; }
+	return s;
+}
 float hash(vec3 p) { return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453); }
 
 vec3 body(vec3 dir, vec3 c, float radius, vec3 col, vec3 sun, out float mask) {
@@ -60,6 +75,14 @@ void sky() {
 		col = mix(col, mo1, m1);
 		float m2; vec3 mo2 = body(dir, moon2_dir, 0.028, vec3(1.0, 0.75, 0.45), sun, m2);
 		col = mix(col, mo2, m2);
+		// v0.8 clouds: planar projection, sun-lit edges, fade to horizon
+		vec2 cuv = dir.xz / (up + 0.12) * 1.6 + vec2(TIME * cloud_speed, TIME * cloud_speed * 0.4);
+		float cn = fbm(cuv, cloud_octaves);
+		float cm = smoothstep(1.0 - cloud_cover, 1.0 - cloud_cover + 0.3, cn) * smoothstep(0.0, 0.18, up);
+		float silver = pow(max(dot(dir, sun), 0.0), 6.0);
+		vec3 cc = mix(cloud_color * (0.55 + 0.45 * LIGHT0_ENERGY), LIGHT0_COLOR * 1.6, silver * (1.0 - cm) * 0.8);
+		cc = mix(cc, horizon_color, 0.25);
+		col = mix(col, cc, cm * 0.9);
 		// sun disk
 		col += LIGHT0_COLOR * smoothstep(0.9995, 0.9999, dot(dir, sun)) * 20.0;
 	} else {

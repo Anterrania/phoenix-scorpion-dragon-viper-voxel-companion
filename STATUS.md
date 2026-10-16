@@ -216,3 +216,11 @@
 - Wardrobe variants: `monarch_white_regalia` (white tunic + white ermine cape + orb-ring staff); `monarch_white_formal_suit` (white tuxedo + black ermine cape); `foxy_ivory_gown_burgundy_cape` (ermine + rune platform)
 - Palette v2; not pushed (waiting on GitHub sign-in)
 
+
+## v0.8.0 (versionCode 10) - graphics + physics
+- Terrain: procedural detail normal maps (triplanar, 2 scales), macro variation, AO
+- Sky: procedural fbm clouds with sun-lit silver edges; per-biome cover
+- Water: Gerstner waves (Cosmic water, slow lava swell), fresnel sky reflection, crest glow; SSR/SSAO on High
+- GPU particles: snow (Alaska), embers + ash (Venus), star dust (Cosmic), footstep dust, fire-bolt trail + impact, dragon-wing sparkle; wind gusts; counts scale with GFX
+- Physics: acceleration/decel + air control, coyote time, jump buffer, floor snapping, swimming, ragdoll-lite knockback, prop mass/friction/damping
+- Vala "better world" code: not found on box, repo, Drive search, or Gmail (Drive Takeout .tgz archives could not be opened)

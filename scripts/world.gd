@@ -38,6 +38,7 @@ func _ready() -> void:
 	terrain.generate_collisions = true
 	terrain.collision_lod_count = 1
 	terrain.lod_distance = 48.0
+	_spawn_weather()
 	apply_quality(Settings.quality())
 	Settings.quality_changed.connect(apply_quality)
 	RealmBuilder.realm_ready.connect(apply_realm)
@@ -47,6 +48,13 @@ func _ready() -> void:
 	_update_biome(true)
 	_spawn_props()
 	_spawn_content()
+
+const WeatherScript := preload("res://scripts/fx/weather_fx.gd")
+func _spawn_weather() -> void:
+	weather = WeatherScript.new()
+	weather.name = "WeatherFX"
+	add_child(weather)
+	weather.setup(player, generator)
 
 const PropsScript := preload("res://scripts/physics/physics_props.gd")
 func _spawn_props() -> void:
@@ -97,6 +105,40 @@ func _setup_materials() -> void:
 		sea.material_override = sm
 		sea.position.y = generator.LAVA_LEVEL
 		sea.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		# v0.8 near-field wave plane (subdivided) on top of the flat far plane
+		waves = MeshInstance3D.new()
+		waves.name = "WaveSea"
+		waves.material_override = sm
+		waves.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		add_child(waves)
+		waves.position.y = generator.LAVA_LEVEL + 0.02
+		sea.position.y = generator.LAVA_LEVEL - 0.15
+	terrain_mat.set_shader_parameter("detail_normal", detail_normal_tex())
+
+## v0.8 procedural detail normal map (no texture files): seamless noise baked as a normal map.
+static func detail_normal_tex(size := 256) -> NoiseTexture2D:
+	var nt := NoiseTexture2D.new()
+	var fn := FastNoiseLite.new()
+	fn.noise_type = FastNoiseLite.TYPE_CELLULAR
+	fn.frequency = 0.035
+	fn.fractal_type = FastNoiseLite.FRACTAL_FBM
+	fn.fractal_octaves = 3
+	nt.noise = fn
+	nt.seamless = true
+	nt.as_normal_map = true
+	nt.bump_strength = 6.0
+	nt.width = size; nt.height = size
+	nt.generate_mipmaps = true
+	return nt
+
+var waves: MeshInstance3D
+var weather: Node3D
+const WAVE_SUBDIV := [48, 120, 220]
+func _wave_mesh(level: int) -> PlaneMesh:
+	var pm := PlaneMesh.new()
+	pm.size = Vector2(700, 700)
+	pm.subdivide_width = WAVE_SUBDIV[level]; pm.subdivide_depth = WAVE_SUBDIV[level]
+	return pm
 
 func _setup_environment() -> void:
 	var e: Environment = env.environment
@@ -144,6 +186,15 @@ func apply_quality(level: int) -> void:
 		var cam := player.get_node_or_null("Head/Camera3D") as Camera3D
 		if cam: cam.far = float(q["far"])
 	env.environment.glow_enabled = bool(q["glow"])
+	# v0.8 quality scaling for new effects
+	if sky_mat: sky_mat.set_shader_parameter("cloud_octaves", [2, 3, 5][level])
+	if terrain_mat:
+		terrain_mat.set_shader_parameter("normal_strength", [0.6, 1.0, 1.2][level])
+	if waves:
+		waves.mesh = _wave_mesh(level)
+		(waves.material_override as ShaderMaterial).set_shader_parameter("wave_quality", 0.0 if level == 0 else 1.0)
+	env.environment.ssr_enabled = level == 2  # screen-space reflections on High only
+	env.environment.ssao_enabled = level == 2
 	sun.shadow_enabled = bool(q["shadows"])
 	var vp := get_viewport()
 	if vp:
@@ -162,6 +213,9 @@ func _process(delta: float) -> void:
 	if sea and player:
 		sea.global_position.x = snappedf(player.global_position.x, 64.0)
 		sea.global_position.z = snappedf(player.global_position.z, 64.0)
+	if waves and player:
+		waves.global_position.x = snappedf(player.global_position.x, 8.0)
+		waves.global_position.z = snappedf(player.global_position.z, 8.0)
 	_env_tick(delta)
 	_check -= delta
 	if _check <= 0.0:
@@ -215,6 +269,8 @@ func _update_biome(force: bool) -> void:
 	tw.tween_property(env.environment, "fog_light_color", Color(a[3]), dur)
 	tw.tween_property(sun, "light_color", Color(a[4]), dur)
 	tw.tween_property(sun, "light_energy", float(a[5]), dur)
+	if waves: (waves.material_override as ShaderMaterial).set_shader_parameter("sky_reflect", Color(a[1]))
+	if sky_mat: sky_mat.set_shader_parameter("cloud_cover", [0.5, 0.65, 0.25][b])
 
 ## Realm presets / LLM realms restyle ambience; terrain stays the biome generator.
 func apply_realm(p: Dictionary) -> void:

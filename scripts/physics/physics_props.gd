@@ -9,9 +9,10 @@ var generator
 var props: Array[RigidBody3D] = []
 
 const KINDS := {
-	"crate":   {"mass": 8.0,  "color": Color("#2b1a10"), "trim": Color("#ffc23a"), "emit": 0.0},
-	"rock":    {"mass": 30.0, "color": Color("#4a4458"), "trim": Color("#c9c3d8"), "emit": 0.0},
-	"crystal": {"mass": 4.0,  "color": Color("#ff2fd2"), "trim": Color("#e6e6f0"), "emit": 2.0},
+	# v0.8: real-ish masses (kg), friction, bounce and damping per material
+	"crate":   {"mass": 25.0, "friction": 0.75, "bounce": 0.05, "damp": 0.25, "color": Color("#2b1a10"), "trim": Color("#ffc23a"), "emit": 0.0},
+	"rock":    {"mass": 120.0, "friction": 0.95, "bounce": 0.02, "damp": 0.4, "color": Color("#4a4458"), "trim": Color("#c9c3d8"), "emit": 0.0},
+	"crystal": {"mass": 6.0,  "friction": 0.25, "bounce": 0.35, "damp": 0.1, "color": Color("#ff2fd2"), "trim": Color("#e6e6f0"), "emit": 2.0},
 }
 
 func setup(gen, center: Vector3) -> void:
@@ -33,8 +34,12 @@ func make_prop(kind: String, pos: Vector3) -> RigidBody3D:
 	rb.continuous_cd = true
 	rb.set_meta("kind", kind)
 	var pm := PhysicsMaterial.new()
-	pm.friction = 0.8 if kind != "crystal" else 0.3
-	pm.bounce = 0.1
+	pm.friction = k.friction
+	pm.bounce = k.bounce
+	pm.rough = kind == "rock"
+	rb.linear_damp = k.damp
+	rb.angular_damp = k.damp * 2.0
+	rb.can_sleep = true
 	rb.physics_material_override = pm
 	var col := CollisionShape3D.new()
 	var mi := MeshInstance3D.new()

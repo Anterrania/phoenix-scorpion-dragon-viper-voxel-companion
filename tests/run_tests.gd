@@ -32,6 +32,7 @@ func _ready() -> void:
 	_v03_tests()
 	_v04_tests()
 	await _v05_tests()
+	_v08_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -288,7 +289,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=9") and ep.contains("0.7.0"), "versionCode 9 / 0.7.0")
+	check(ep.contains("version/code=10") and ep.contains("0.8.0"), "versionCode 10 / 0.8.0")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))
@@ -541,3 +542,44 @@ func _v05_tests() -> void:
 	cf.build()
 	check(cf.tiles.size() == 36, "club dance floor")
 	cf.free()
+
+# ---------- v0.8 graphics + physics ----------
+func _v08_tests() -> void:
+	var M = MovementModel
+	var v: Vector3 = M.horizontal(Vector3.ZERO, Vector3(6, 0, 0), true, 0.1)
+	check(v.x > 0.0 and v.x < 6.0, "v0.8 ground acceleration is gradual")
+	var a: Vector3 = M.horizontal(Vector3.ZERO, Vector3(6, 0, 0), false, 0.1)
+	check(a.x < v.x, "v0.8 air control weaker than ground")
+	var st := {"coyote": 0.0, "buffer": 0.0}
+	M.jump_tick(st, true, false, 0.016)
+	check(M.jump_tick(st, false, true, 0.05), "v0.8 coyote time allows late jump")
+	var st2 := {"coyote": 0.0, "buffer": 0.0}
+	M.jump_tick(st2, true, false, 0.016)
+	M.jump_tick(st2, false, false, 0.2)
+	check(not M.jump_tick(st2, false, true, 0.016), "v0.8 coyote expires")
+	var st3 := {"coyote": 0.0, "buffer": 0.0}
+	M.jump_tick(st3, false, true, 0.016)
+	check(M.jump_tick(st3, true, false, 0.05), "v0.8 jump buffer fires on landing")
+	check(M.swim(Vector3.ZERO, Vector3.ZERO, true, 0.5).y > 0.0, "v0.8 swim up")
+	check(M.swim(Vector3(0, -8, 0), Vector3.ZERO, false, 0.5).y > -8.0, "v0.8 water slows sinking")
+	var k := Vector3(10, 0, 0)
+	for i in 120: k = M.decay_knock(k, 1.0 / 60.0)
+	check(k == Vector3.ZERO, "v0.8 knockback decays to rest")
+	check(absf(M.tilt_for(Vector3(0, 0, 100)).x) <= M.TILT_MAX + 0.001, "v0.8 ragdoll lean clamped")
+	for kind in ["snow", "embers", "ash", "lava_sparks", "star_dust", "footstep_dust", "bolt_trail", "bolt_impact", "wing_sparkle"]:
+		var p: GPUParticles3D = ParticleFX.make(kind, 1)
+		check(p != null and p.process_material != null and p.draw_pass_1 != null, "v0.8 particles build: " + kind)
+		if p: p.free()
+	check(ParticleFX.amount(900, 0) < ParticleFX.amount(900, 2), "v0.8 particle count scales with GFX")
+	check(ParticleFX.biome_effects(0).has("snow") and ParticleFX.biome_effects(1).has("embers") and ParticleFX.biome_effects(2).has("star_dust"), "v0.8 biome weather mapping")
+	check(ParticleFX.wind_at(1.0) != ParticleFX.wind_at(20.0), "v0.8 wind gusts vary")
+	var W = load("res://scripts/world.gd")
+	var dn: NoiseTexture2D = W.detail_normal_tex(32)
+	check(dn.as_normal_map, "v0.8 procedural detail normal map")
+	for sh in ["res://shaders/terrain_triplanar.gdshader", "res://shaders/lava_sea.gdshader", "res://shaders/cinematic_sky.gdshader"]:
+		var shader: Shader = load(sh)
+		check(shader != null and shader.code.length() > 100, "v0.8 shader loads: " + sh)
+	check((load("res://shaders/cinematic_sky.gdshader") as Shader).code.contains("cloud_cover"), "v0.8 sky clouds")
+	check((load("res://shaders/lava_sea.gdshader") as Shader).code.contains("gerstner"), "v0.8 water waves")
+	var props = load("res://scripts/physics/physics_props.gd")
+	check(props.KINDS["rock"]["mass"] > props.KINDS["crate"]["mass"] and props.KINDS["crystal"]["friction"] < props.KINDS["rock"]["friction"], "v0.8 prop mass/friction")

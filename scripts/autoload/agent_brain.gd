@@ -83,8 +83,12 @@ func chat(id: String, player_text: String) -> void:
 	if agent == null:
 		request_failed.emit(id, "unknown companion")
 		return
-	if not Settings.has_api_key():
-		reply_ready.emit(id, "(Set an LLM endpoint and API key in Settings to talk to me.)")
+	if not Settings.live_ai():
+		# v0.5 offline mode: canned replies from persona.json (game_lines / canned_replies).
+		var r := CannedReplies.reply(agent.persona, player_text, agent.life.recap() if "life" in agent and agent.life else "")
+		_memory[id]["history"].append({"role": "user", "content": player_text})
+		_memory[id]["history"].append({"role": "assistant", "content": r})
+		reply_ready.emit(id, r)
 		return
 	var persona: Dictionary = agent.persona
 	var mem: Dictionary = _memory[id]

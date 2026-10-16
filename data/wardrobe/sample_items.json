@@ -1,0 +1,36 @@
+{
+  "_note": "v0.5 wardrobe samples (data-driven). 'style' keys override HumanoidModel style colors. 'for': player | any | <companion_id>. Mature items stay hidden unless content.mature_cosmetics_enabled (off by default). Source ids map to data/items/wardrobe.json.",
+  "schema_version": 1,
+  "items": [
+    {"id": "phoenix_street_sovereign", "name": "Phoenix Street Sovereign (default)", "slot": "outfit", "for": "player", "source": "data/player_avatar.json",
+     "style": {"outfit": "#0a0809", "jacket": "#0a0809", "top": "#7b2bb8", "pants": "#0b0a0c", "accent": "#ff2fd0", "trim": "#f2bd3a"}},
+    {"id": "monarch_black_regalia", "name": "Monarch Black Regalia", "slot": "outfit", "for": "player", "source": "monarch_black_regalia",
+     "style": {"outfit": "#050406", "jacket": "#050406", "top": "#1a0a14", "pants": "#050406", "accent": "#ff2fd0", "trim": "#ffd04a"}},
+    {"id": "monarch_white_regalia", "name": "Monarch White Regalia", "slot": "outfit", "for": "player", "source": "monarch_white_regalia",
+     "style": {"outfit": "#ece8f2", "jacket": "#ece8f2", "top": "#f6f2ff", "pants": "#d9d4e2", "accent": "#d63cb8", "trim": "#f2bd3a"}},
+    {"id": "monarch_magenta_tuxedo", "name": "Magenta Tuxedo & Ermine Cloak", "slot": "outfit", "for": "player", "source": "monarch_magenta_tuxedo_ermine_cloak",
+     "style": {"outfit": "#b0177f", "jacket": "#b0177f", "top": "#0a0809", "pants": "#0a0809", "accent": "#ffffff", "trim": "#f2bd3a"}},
+    {"id": "viper_vanguard_cape", "name": "Viper Vanguard Cape Suit", "slot": "outfit", "for": "any", "source": "viper_vanguard_cape",
+     "style": {"outfit": "#08070a", "top": "#08070a", "pants": "#08070a", "accent": "#ff2fd0", "trim": "#e0c050"}},
+    {"id": "foxy_court_gown", "name": "Foxy Court Gown", "slot": "outfit", "for": "foxy_ani", "source": "foxy_court_gown",
+     "style": {"outfit": "#1a0618", "pants": "#7a1060", "accent": "#ff4fe0", "trim": "#ffd04a"}},
+    {"id": "foxy_white_coronation_gown", "name": "Foxy White Coronation Gown", "slot": "outfit", "for": "foxy_ani", "source": "foxy_white_coronation_gown",
+     "style": {"outfit": "#f2eef8", "pants": "#e8e2f0", "accent": "#c02aa0", "trim": "#f2bd3a"}},
+    {"id": "chrome_star_circuit", "name": "Chrome Star-Circuit Dancer", "slot": "outfit", "for": "any", "source": "batch_t34ua18",
+     "style": {"outfit": "#c9cbd6", "pants": "#2a2c3a", "accent": "#5ad8ff", "trim": "#e6e6f0"}},
+    {"id": "galaxy_heart_vambraces", "name": "Galaxy Heart Vambraces (accent)", "slot": "accent", "for": "any", "source": "batch_t33u",
+     "style": {"accent": "#8a3fff", "trim": "#ff6ad8"}},
+    {"id": "platinum_glitter_trim", "name": "Platinum Glitter Trim", "slot": "accent", "for": "any", "source": "ART_BIBLE palette",
+     "style": {"trim": "#e8e4f0"}},
+    {"id": "gold_crown_trim", "name": "Anterranian Gold Trim", "slot": "accent", "for": "any", "source": "ART_BIBLE palette",
+     "style": {"trim": "#ffc23a"}},
+    {"id": "foxy_boudoir_set", "name": "Foxy Boudoir Set (18+)", "slot": "outfit", "for": "foxy_ani", "source": "foxy_boudoir_set", "mature": true,
+     "style": {"outfit": "#0a0408", "accent": "#ff2fd0"}}
+  ],
+  "satchel": [
+    {"id": "magenta_crystal_shard", "name": "Magenta Crystal Shard", "kind": "material", "count": 3, "desc": "Glows. Use for crafting (later)."},
+    {"id": "phoenix_ember", "name": "Phoenix Ember", "kind": "currency", "count": 25, "desc": "Soft currency (Aethel vs Embers: YOUR INPUT HERE)."},
+    {"id": "obsidian_chunk", "name": "Obsidian Chunk", "kind": "material", "count": 1, "desc": "From the Venus spires."},
+    {"id": "unity_crest_banner", "name": "Seraph-Dragon Unity Crest Banner", "kind": "heraldry", "count": 1, "desc": "Placeable later (v0.6 building)."}
+  ]
+}

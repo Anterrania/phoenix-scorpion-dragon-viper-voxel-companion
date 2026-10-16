@@ -31,6 +31,7 @@ func _ready() -> void:
 	_v02_tests()
 	_v03_tests()
 	_v04_tests()
+	_v05_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -210,3 +211,116 @@ func _v04_tests() -> void:
 	add_child(hud)
 	check(hud.get_node_or_null("Health") is ProgressBar, "HUD health bar")
 	hud.queue_free()
+
+# ---------- v0.5 world content, wardrobe, chat, menu ----------
+func _v05_tests() -> void:
+	var g = load("res://scripts/generators/smooth_terrain_generator.gd").new(1337)
+	var L: Array = load("res://scripts/world/world_content.gd").load_landmarks()
+	check(L.size() >= 5, "at least 5 landmarks (%d)" % L.size())
+	var names := []
+	for l in L: names.append(l["name"])
+	for want in ["God's Palace", "Stormcrown Capitol", "Crystal Wyvern Sanctum", "Starlit Geothermal Lagoon", "Obsidian Chandelier Throne Hall"]:
+		check(names.has(want), "landmark present: " + want)
+	var rng := RandomNumberGenerator.new()
+	for kind in ["sanctum", "lagoon", "rink", "capitol", "throne_hall", "palace", "citadel"]:
+		var n: Node3D = LandmarkBuilder.build(kind, rng)
+		check(n.get_child_count() > 3 and _no_boxes(n), "landmark structure smooth & built: " + kind)
+		n.free()
+	var made := {"rock": PropKit.rock(rng), "crystal_cluster": PropKit.crystal_cluster(rng), "spruce": PropKit.spruce(rng), "shrub": PropKit.shrub(rng), "lava_vent": PropKit.lava_vent(rng), "obsidian_spire": PropKit.obsidian_spire(rng), "floating_island": PropKit.floating_island(rng)}
+	for f in made:
+		var n: Node3D = made[f]
+		check(n.get_child_count() > 0 and _no_boxes(n), "smooth prop: " + f)
+		n.free()
+	var s: Node3D = PropKit.make_sign("Test", "")
+	check(s.get_node("Text").text.contains("YOUR INPUT HERE"), "signs say YOUR INPUT HERE")
+	s.free()
+	var player := Node3D.new()
+	add_child(player)
+	var wc = load("res://scripts/world/world_content.gd").new()
+	add_child(wc)
+	wc.setup(g, player)
+	check(wc.landmarks.size() == L.size(), "all landmarks placed")
+	for l in wc.landmarks:
+		var p: Vector3 = l["position"]
+		check(g.biome_at(p.x, p.z) == l["biome"] or l["biome"] == 0, "%s sits in its realm" % l["name"])
+		check(p.y >= g.LAVA_LEVEL, "%s above lava" % l["name"])
+	check(wc.prop_count() > 40, "biome props streamed around player (%d)" % wc.prop_count())
+	player.global_position = Vector3(5000, 0, 5000)
+	wc._stream(false)
+	check(wc._cells.size() == 49, "prop cells stream with the player")
+	wc.queue_free(); player.queue_free()
+	# Wardrobe
+	var all: Array = Inventory.visible_items_for("foxy_ani", true)
+	var safe: Array = Inventory.visible_items_for("foxy_ani", false)
+	check(all.size() > safe.size(), "mature items filtered when gate is off")
+	for it in safe: check(not bool(it.get("mature", false)), "no mature item visible: " + it["id"])
+	check(not Settings.mature_enabled(), "mature cosmetics off by default")
+	check(Inventory.visible_items_for("player", false).size() >= 4, "player has outfits")
+	Inventory.equip("test_target", "chrome_star_circuit")
+	var st: Dictionary = Inventory.styled("test_target", {"outfit": Color.RED})
+	check(st["outfit"] == Color("#c9cbd6"), "equipping overrides outfit color")
+	Inventory.equip("test_target", "chrome_star_circuit")
+	check(not Inventory.is_equipped("test_target", "chrome_star_circuit"), "tap again unequips")
+	Inventory.equip("test_target", "foxy_boudoir_set")
+	check(not Inventory.is_equipped("test_target", "foxy_boudoir_set"), "cannot equip mature item while gated")
+	Inventory.equipped.erase("test_target")
+	# Chat
+	var persona: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://companions/foxy_ani/persona.json"))
+	check(CannedReplies.reply(persona, "hi there").length() > 0, "canned reply to greeting")
+	check(CannedReplies.reply(persona, "who are you").contains("Foxy"), "canned reply uses persona name")
+	check(CannedReplies.reply(persona, "zzqx").length() > 0, "canned fallback")
+	check(not Settings.live_ai(), "live AI off by default (config hook)")
+	# Menu / UI
+	var scene: Node = load("res://scenes/main_world.tscn").instantiate()
+	check(scene.get_node_or_null("UI") != null and scene.get_node_or_null("ChatUI") == null, "main scene uses new UI root")
+	scene.free()
+	var ui = load("res://scripts/ui/ui_root.gd").new()
+	add_child(ui)
+	for k in ["menu", "wardrobe", "chat", "travel", "settings", "input"]:
+		check(ui.panels.has(k), "UI panel: " + k)
+	check(ui.panels["menu"]["root"].visible, "main menu shown on start")
+	ui.show_panel("wardrobe")
+	check(ui.panels["wardrobe"]["root"].visible and not ui.panels["menu"]["root"].visible, "panel switching")
+	ui.show_panel("")
+	check(not ui.is_open(), "close all panels")
+	ui.queue_free()
+	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
+	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
+	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
+	check(ep.contains("version/code=5") and ep.contains("0.5.0"), "versionCode 5 / 0.5.0")
+	# Autonomous companions
+	var dummy := Node3D.new()
+	dummy.set_script(load("res://tests/fake_agent.gd"))
+	add_child(dummy)
+	var life := CompanionLife.new(dummy)
+	dummy.add_child(life)
+	life.energy = 0.1
+	check(life.choose_goal(0.5) == "rest", "tired companion rests")
+	life.energy = 1.0
+	life.gathered = {"crystal shard": 3}
+	check(life.choose_goal(0.0) == "build", "companion with materials builds")
+	life._finish("gather")
+	life._finish("explore")
+	check(life.log_entries.size() == 2 and life.recap().contains("gathered"), "memory log + recap")
+	var cairn: Node3D = life.build_cairn()
+	check(cairn != null and _no_boxes(cairn), "companion builds a smooth cairn")
+	dummy.following = true
+	life.goal = ""
+	life._process(1.0)
+	check(life.goal == "", "no autonomy while following")
+	dummy.following = false
+	life._process(1.0)
+	check(life.goal != "", "free roam picks a goal")
+	check(CannedReplies.reply(persona, "what did you do?", life.recap()) == life.recap(), "companion recites log in chat")
+	dummy.queue_free()
+	# Voice / music
+	check(bool(Settings.get_value("voice", "tts_enabled", false)), "TTS on by default")
+	check(MusicRadio.station_url().begins_with("https://"), "default radio station")
+	var radio := MusicRadio.new()
+	add_child(radio)
+	radio.setup(null)
+	radio._on_done(HTTPRequest.RESULT_CANT_CONNECT, 0, PackedStringArray(), PackedByteArray())
+	check(radio.status == "offline" and radio.label.text.contains("YOUR INPUT HERE"), "radio handles offline + input slot")
+	radio.queue_free()
+	check(ProjectSettings.get_setting("audio/general/text_to_speech", false), "TTS enabled in project")
+	check(load("res://scripts/agent/companion_agent.gd").new().has_method("set_follow"), "follow/free-roam toggle")

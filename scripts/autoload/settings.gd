@@ -13,7 +13,14 @@ const DEFAULTS := {
 		"model": "grok-4",
 		"api_key": "",
 		"timeout_sec": 45.0,
+		# v0.5: "canned" = offline persona replies (default); "live" = call the endpoint above.
+		"mode": "canned",
 	},
+	"content": {"mature_cosmetics_enabled": false, "age_confirmed": false},
+	"ui": {"show_menu_on_start": true},
+	"voice": {"tts_enabled": true, "push_to_talk": false},
+	# Royalty-free default (Kevin MacLeod, incompetech.com, CC BY 4.0). YOUR INPUT HERE: your station URL.
+	"music": {"enabled": true, "volume_db": -12.0, "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3", "user_url": ""},
 	"sync": {"endpoint": ""},
 	"hotreload": {"allow_user_overrides": true},
 	"graphics": {"quality": 1},  # 0 Low, 1 Medium, 2 High
@@ -57,6 +64,13 @@ func get_value(section: String, key: String, fallback: Variant = null) -> Varian
 func set_value(section: String, key: String, value: Variant) -> void:
 	cfg.set_value(section, key, value)
 	cfg.save(PATH)
+
+func mature_enabled() -> bool:
+	return bool(get_value("content", "mature_cosmetics_enabled", false)) and bool(get_value("content", "age_confirmed", false))
+
+## Live AI only when the user picked "live" AND entered a key (config hook for later).
+func live_ai() -> bool:
+	return str(get_value("llm", "mode", "canned")) == "live" and has_api_key()
 
 func has_api_key() -> bool:
 	return str(get_value("llm", "api_key", "")).strip_edges() != ""

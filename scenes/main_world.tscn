@@ -6,7 +6,7 @@
 [ext_resource type="Resource" path="res://resources/characters/foxy_ani.tres" id="4"]
 [ext_resource type="Resource" path="res://resources/characters/circuit_nova.tres" id="5"]
 [ext_resource type="Resource" path="res://resources/characters/aaliyah.tres" id="6"]
-[ext_resource type="Script" path="res://scripts/chat_ui.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/ui/ui_root.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="8"]
 
 [sub_resource type="Environment" id="env"]
@@ -51,32 +51,11 @@ config = ExtResource("6")
 player_path = NodePath("../Player")
 world_path = NodePath("..")
 
-[node name="ChatUI" type="CanvasLayer" parent="."]
-script = ExtResource("7")
-companion_path = NodePath("../FoxyAni")
-
-[node name="Panel" type="PanelContainer" parent="ChatUI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -380.0
-offset_top = 12.0
-offset_right = -12.0
-grow_horizontal = 0
-
-[node name="VBox" type="VBoxContainer" parent="ChatUI/Panel"]
-layout_mode = 2
-
-[node name="Log" type="RichTextLabel" parent="ChatUI/Panel/VBox"]
-custom_minimum_size = Vector2(360, 120)
-layout_mode = 2
-bbcode_enabled = true
-scroll_following = true
-
-[node name="Input" type="LineEdit" parent="ChatUI/Panel/VBox"]
-layout_mode = 2
-placeholder_text = "Talk to your companion..."
-
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("8")
 player_path = NodePath("../Player")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("7")
+player_path = NodePath("../Player")
+world_path = NodePath("..")

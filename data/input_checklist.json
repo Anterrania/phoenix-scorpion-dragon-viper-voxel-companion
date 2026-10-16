@@ -1,0 +1,10 @@
+{
+  "_note": "Shown in-game under MENU > Where to give input. Mirrors docs/WHERE_TO_GIVE_INPUT.md.",
+  "sections": [
+    {"title": "Landmarks", "items": ["Approve each landmark name and which realm it sits in", "Say what each place is FOR (home, quests, parties, government)", "Which landmark is your home / spawn point?"]},
+    {"title": "Companions", "items": ["Which companions walk with you by default (now: Foxy, Circuit Nova, Aaliyah)", "What each one should say: greetings, catchphrases, jokes", "Turn on live AI chat? (needs an API key in Settings)"]},
+    {"title": "Wardrobe", "items": ["Who wears each catalog outfit", "Your default outfit", "More colors or outfit pieces to add first"]},
+    {"title": "Realms", "items": ["Keep 3 realms (Alaska / Venus / Cosmic) or add more?", "How far apart should they be? Teleport gates?", "Day/night, weather, music per realm"]},
+    {"title": "Names & Heraldry", "items": ["Approve Foxy-assigned names", "Primary crest: phoenix, dragon, or the Unity Crest?", "Fix MONACHY -> MONARCHY on the art?"]}
+  ]
+}

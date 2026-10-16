@@ -8,10 +8,15 @@ run/main_scene="res://scenes/main_world.tscn"
 config/icon="res://icon.svg"
 config/features=PackedStringArray("4.7", "Mobile")
 
+[audio]
+
+general/text_to_speech=true
+
 [autoload]
 Settings="*res://scripts/autoload/settings.gd"
 AgentBrain="*res://scripts/autoload/agent_brain.gd"
 RealmBuilder="*res://scripts/autoload/realm_builder.gd"
+Inventory="*res://scripts/autoload/inventory.gd"
 
 [display]
 window/size/viewport_width=1280

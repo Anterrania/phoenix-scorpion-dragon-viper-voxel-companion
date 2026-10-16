@@ -17,7 +17,13 @@ func _initialize():
 	ui.teleport(l["position"] + Vector3(0, 0, 22))
 	await create_timer(16.0).timeout
 	_shot("world")
-	ui.show_panel("wardrobe")
+	p.set_flying(true)
+	p.fly_vertical = 1.0
+	await create_timer(3.0).timeout
+	p.fly_vertical = 0.0
+	await create_timer(3.0).timeout
+	_shot("flying")
+	ui.show_panel("map")
 	await create_timer(2.0).timeout
-	_shot("wardrobe")
+	_shot("map")
 	quit()

@@ -30,6 +30,7 @@ func _ready() -> void:
 	panels["settings"] = _build_settings()
 	panels["input"] = _build_input()
 	panels["avatar"] = _build_avatar()
+	panels["map"] = _build_map()
 	AgentBrain.reply_ready.connect(_on_reply)
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", true)) else "")
@@ -127,6 +128,7 @@ func _topbar() -> void:
 	h.add_child(btn("☰ MENU", func(): show_panel("menu"), 170))
 	h.add_child(btn("👜 BAG", func(): show_panel("wardrobe"), 170))
 	h.add_child(btn("💬 TALK", func(): show_panel("chat"), 170))
+	h.add_child(btn("◎ MAP", func(): show_panel("map"), 170))
 	add_child(h)
 
 # ---------- main menu ----------
@@ -134,7 +136,7 @@ func _build_menu() -> Dictionary:
 	var p := _panel("Phoenix Scorpion Dragon Viper · v0.5")
 	var b: VBoxContainer = p["body"]
 	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 28, MAG))
-	for row in [["▶ Play", "" ], ["🧑 My Avatar & Profile", "avatar"], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Travel to Landmarks", "travel"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
+	for row in [["▶ Play", "" ], ["🧑 My Avatar & Profile", "avatar"], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Teleport: Landmarks", "travel"], ["◎ World Map (tap to teleport)", "map"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
 		var target: String = row[1]
 		b.add_child(btn(row[0], func(): show_panel(target)))
 	b.add_child(label("Everything gold-starred (★ YOUR INPUT HERE) is a placeholder waiting for your decision.", 24, GOLD))
@@ -590,3 +592,62 @@ func _import_glb() -> void:
 	av["attachments"] = arr
 	_preview()
 	_refresh_avatar(false)
+
+# ---------- world map: tap anywhere to teleport (SL-style map TP) ----------
+const MAP_HALF := 1500.0  # metres shown each side of the origin
+var map_rect: TextureRect
+
+func _build_map() -> Dictionary:
+	var p := _panel("World Map — tap to teleport")
+	var b: VBoxContainer = p["body"]
+	b.add_child(label("Alaska = blue/white · Venus = orange · Cosmic = purple · ◆ landmarks", 22, GOLD))
+	map_rect = TextureRect.new()
+	map_rect.custom_minimum_size = Vector2(520, 520)
+	map_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	map_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	map_rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	map_rect.mouse_filter = Control.MOUSE_FILTER_STOP
+	map_rect.gui_input.connect(_map_input)
+	b.add_child(map_rect)
+	call_deferred("_draw_map")
+	return p
+
+static func map_to_world(uv: Vector2) -> Vector2:
+	return (uv * 2.0 - Vector2.ONE) * MAP_HALF
+
+static func world_to_map(xz: Vector2) -> Vector2:
+	return (xz / MAP_HALF + Vector2.ONE) * 0.5
+
+func _draw_map() -> void:
+	var g = world.generator if world and "generator" in world else null
+	if g == null: return
+	var n := 160
+	var img := Image.create(n, n, false, Image.FORMAT_RGB8)
+	var cols := [Color("#a8c4e0"), Color("#d4602a"), Color("#5a2a9a")]
+	for y in n:
+		for x in n:
+			var w := map_to_world(Vector2(x + 0.5, y + 0.5) / n)
+			var h: float = g.height_f(w.x, w.y)
+			var c: Color = cols[g.biome_at(w.x, w.y)]
+			if h < g.LAVA_LEVEL: c = c.darkened(0.5)
+			img.set_pixel(x, y, c.lightened(clampf(h / 120.0, 0.0, 0.3)))
+	var wc = world.get_node_or_null("WorldContent")
+	if wc:
+		for l in wc.landmarks:
+			var lp: Vector3 = l["position"]
+			var m := world_to_map(Vector2(lp.x, lp.z)) * n
+			for d in [Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+				var px: Vector2i = Vector2i(m) + d
+				if px.x >= 0 and px.y >= 0 and px.x < n and px.y < n: img.set_pixelv(px, Color("#ffd04a"))
+	map_rect.texture = ImageTexture.create_from_image(img)
+
+func _map_input(e: InputEvent) -> void:
+	var pressed: bool = (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed)
+	if not pressed: return
+	var r := map_rect.size
+	var side := minf(r.x, r.y)
+	var off := (r - Vector2(side, side)) * 0.5
+	var uv := ((e.position as Vector2) - off) / side
+	if uv.x < 0 or uv.y < 0 or uv.x > 1 or uv.y > 1: return
+	var w := map_to_world(uv)
+	teleport(Vector3(w.x, 0, w.y))

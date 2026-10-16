@@ -47,7 +47,9 @@ static func build(style: Dictionary) -> Node3D:
 	var look: String = style.get("look", "classic")
 	var glow: float = style.get("glow", 1.0)
 	var chrome := look == "chrome"
-	var skin_m := _mat(skin, 0.0, 0.9 if chrome else 0.0)
+	var pants: Color = style.get("pants", outfit)
+	var skin_m := _mat(skin, 0.15 if style.get("skin_metal", 0.0) > 0.0 else 0.0, style.get("skin_metal", 0.9 if chrome else 0.0))
+	var pants_m := _mat(pants, style.get("pants_glow", 0.0), 0.5 if style.get("pants_glow", 0.0) > 0.0 else 0.0)
 	var outfit_m := _mat(outfit, 0.0, 0.8 if chrome else 0.0)
 	var accent_m := _mat(accent, glow)
 	var trim_m := _mat(trim, 0.6, 0.9)
@@ -77,8 +79,18 @@ static func build(style: Dictionary) -> Node3D:
 	# Torso arms/legs
 	_limb(torso, "ArmL", Vector3(-0.3, 0.55, 0), 0.55, 0.12, outfit_m, skin_m)
 	_limb(torso, "ArmR", Vector3(0.3, 0.55, 0), 0.55, 0.12, outfit_m, skin_m)
-	_limb(hips, "LegL", Vector3(-0.12, 0, 0), 0.82, 0.15, outfit_m, trim_m)
-	_limb(hips, "LegR", Vector3(0.12, 0, 0), 0.82, 0.15, outfit_m, trim_m)
+	_limb(hips, "LegL", Vector3(-0.12, 0, 0), 0.82, 0.15, pants_m, trim_m)
+	_limb(hips, "LegR", Vector3(0.12, 0, 0), 0.82, 0.15, pants_m, trim_m)
+	if style.get("horns", false):
+		_box(head, "HornL", Vector3(0.04, 0.12, 0.04), Vector3(-0.1, 0.42, -0.04), trim_m).rotation.z = 0.35
+		_box(head, "HornR", Vector3(0.04, 0.12, 0.04), Vector3(0.1, 0.42, -0.04), trim_m).rotation.z = -0.35
+	if style.get("curly", false):  # big voluminous curls
+		for i in 14:
+			var a := TAU * i / 14.0
+			_box(head, "Curl%d" % i, Vector3(0.13, 0.13, 0.13), Vector3(cos(a) * 0.2, 0.3 + sin(i * 1.7) * 0.08, sin(a) * 0.2 + 0.03), hair_m)
+	if style.get("chains", false):  # gold chain accents
+		_box(torso, "ChainA", Vector3(0.5, 0.025, 0.29), Vector3(0, 0.0, 0), trim_m).rotation.z = 0.12
+		_box(torso, "ChainB", Vector3(0.3, 0.025, 0.27), Vector3(0, 0.52, -0.01), trim_m)
 	match look:
 		"fire":  # Foxy: long magenta-violet hair + ember flame crown
 			_box(head, "HairSideL", Vector3(0.07, 0.45, 0.3), Vector3(-0.18, 0.05, 0.03), hair_m)

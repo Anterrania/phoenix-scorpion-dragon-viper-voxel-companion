@@ -47,7 +47,7 @@ func _apply_look() -> void:
 	model.position.y = -0.85  # capsule centre -> feet
 	var label := get_node_or_null("NameLabel") as Label3D
 	if label:
-		label.text = persona.get("name", name)
+		label.text = persona.get("display_name", persona.get("name", name))
 		label.position.y = 1.35
 		label.modulate = config.accent_color.lightened(0.3)
 		label.outline_size = 10

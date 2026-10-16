@@ -5,14 +5,18 @@
 [resource]
 script = ExtResource("1")
 persona_path = "res://companions/foxy_ani/persona.json"
-body_color = Color(0.07, 0.05, 0.09, 1)
-accent_color = Color(1, 0.35, 0.1, 1)
+body_color = Color(0.06, 0.06, 0.1, 1)
+accent_color = Color(0.3, 0.55, 1, 1)
 emissive = 0.6
 move_speed = 4.5
 follow_distance = 1.2
 look = "fire"
-hair_color = Color(0.72, 0.16, 0.78, 1)
-eye_color = Color(0.2, 1, 0.45, 1)
-skin_color = Color(0.97, 0.82, 0.74, 1)
+hair_color = Color(0.45, 0.3, 0.95, 1)
+eye_color = Color(0.35, 0.7, 1, 1)
+skin_color = Color(0.62, 0.7, 0.85, 1)
 trim_color = Color(1, 0.76, 0.23, 1)
 slot_offset = Vector3(-2.6, 0, -3)
+skin_metal = 0.7
+pants_color = Color(0.5, 0.2, 0.75, 1)
+pants_glow = 0.6
+chains = true

@@ -41,6 +41,9 @@ static func load_avatar_style(path: String) -> Dictionary:
 	return out
 
 func _ready() -> void:
+	floor_snap_length = MovementModel.SNAP_LENGTH
+	floor_max_angle = deg_to_rad(50.0)
+	floor_constant_speed = true
 	floor_max_angle = deg_to_rad(50.0)
 	floor_snap_length = 0.6
 	floor_constant_speed = true
@@ -83,6 +86,17 @@ func _process(delta: float) -> void:
 	if global_position.y < -80.0:  # fell through unloaded terrain
 		global_position = Vector3(global_position.x, 45, global_position.z)
 		velocity = Vector3.ZERO
+## v0.8 controller state
+var swimming := false
+var knock := Vector3.ZERO
+var _jump_state := {"coyote": 0.0, "buffer": 0.0}
+var _jump_queued := false
+func queue_jump() -> void: _jump_queued = true
+## Push the player (creature hits, lava, explosions). Ragdoll-lite lean + slide.
+func apply_knockback(from_dir: Vector3, force: float) -> void:
+	var d := from_dir; d.y = 0.0
+	knock += d.normalized() * force + Vector3.UP * force * 0.15
+	velocity.y = maxf(velocity.y, force * 0.25)
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _touch_move := Vector2.ZERO
 var _joy_index := -1
@@ -163,20 +177,43 @@ func _physics_process(delta: float) -> void:
 		var cb := camera.global_transform.basis if camera else transform.basis
 		_fly_step(delta, (cb * Vector3(fi.x, 0, fi.y)).normalized() if fi != Vector2.ZERO else Vector3.ZERO)
 		return
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-	elif Input.is_action_just_pressed("jump"):
-		velocity.y = jump_velocity
 	var input := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	if _touch_move != Vector2.ZERO:
 		input = _touch_move
 	var dir := (transform.basis * Vector3(input.x, 0, input.y)).normalized()
-	velocity = SurfacePhysics.steer(velocity, dir * speed, surface, delta)
-	var r := SurfacePhysics.apply(_gen(), global_position, velocity, delta)
+	var on_floor := is_on_floor()
+	var jump_pressed := Input.is_action_just_pressed("jump") or _jump_queued
+	_jump_queued = false
+	# v0.8 swimming in starlight water: feet below sea level in Cosmic
+	var g = _gen()
+	swimming = g != null and surface == SurfacePhysics.Surface.WATER and global_position.y - 0.85 < float(g.LAVA_LEVEL) - 0.4
+	if swimming:
+		var cb := camera.global_transform.basis if camera else transform.basis
+		velocity = MovementModel.swim(velocity, cb * Vector3(input.x, 0, input.y), Input.is_action_pressed("jump") or jump_pressed, delta)
+	else:
+		if not on_floor:
+			velocity.y -= gravity * delta
+		if MovementModel.jump_tick(_jump_state, on_floor, jump_pressed, delta):
+			velocity.y = jump_velocity
+			floor_snap_length = 0.0  # don't snap back down on takeoff
+		elif on_floor:
+			floor_snap_length = MovementModel.SNAP_LENGTH
+		if surface == SurfacePhysics.Surface.ICE:
+			velocity = SurfacePhysics.steer(velocity, dir * speed, surface, delta)
+		else:
+			velocity = MovementModel.horizontal(velocity, dir * speed * (0.55 if surface == SurfacePhysics.Surface.WATER else 1.0), on_floor, delta)
+	var r := SurfacePhysics.apply(g, global_position, velocity, delta)
 	surface = r.surface
 	velocity = r.velocity
 	global_position = r.position
 	if r.damage > 0.0: take_damage(r.damage)
+	# v0.8 ragdoll-lite knockback: impulse added on top, decays, avatar leans
+	velocity += knock * delta * 8.0
+	knock = MovementModel.decay_knock(knock, delta)
+	if avatar:
+		var t := MovementModel.tilt_for(global_transform.basis.inverse() * knock)
+		avatar.rotation.x = lerpf(avatar.rotation.x, t.x, clampf(delta * 10.0, 0.0, 1.0))
+		avatar.rotation.z = lerpf(avatar.rotation.z, t.y, clampf(delta * 10.0, 0.0, 1.0))
 	move_and_slide()
 	push_bodies(self, PUSH_FORCE)
 
@@ -189,7 +226,7 @@ static func push_bodies(body: CharacterBody3D, force: float) -> void:
 			rb.freeze = false
 			var n := -c.get_normal()
 			n.y = 0.0
-			rb.apply_central_impulse(n.normalized() * force / maxf(rb.mass, 1.0) * 4.0)
+			rb.apply_central_impulse(n.normalized() * force * 0.25 * minf(rb.mass, 40.0))  # v0.8: heavy props resist
 
 # ---------- v0.6 combat ----------
 signal shield_changed(v: float)

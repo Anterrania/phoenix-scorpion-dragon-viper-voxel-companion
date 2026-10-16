@@ -8,6 +8,10 @@ uniform sampler2D biome_map : filter_linear, repeat_disable;
 uniform sampler2D detail : filter_linear_mipmap, repeat_enable;
 uniform float map_half = 4096.0;
 uniform float glitter = 1.0;
+// v0.8 procedural detail normal map (NoiseTexture2D as_normal_map), triplanar-sampled at two scales
+uniform sampler2D detail_normal : hint_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_strength = 1.0;
+uniform float macro_variation = 1.0;
 
 varying vec3 wpos;
 varying vec3 wnrm;
@@ -71,6 +75,16 @@ void fragment() {
 	vec3 gcol = vec3(0.9, 0.95, 1.0) * alaska + vec3(1.0, 0.75, 0.25) * venus + mix(vec3(1.0, 0.2, 0.8), vec3(0.3, 0.9, 1.0), d3) * cosmic;
 	EMISSION = v_emit * venus + gcol * g * glitter * 2.5;
 	// cheap micro-normal from detail noise
-	NORMAL_MAP = normalize(vec3(d3 - 0.5, d2 - 0.5, 1.6)) * 0.5 + 0.5;
-	NORMAL_MAP_DEPTH = 0.6;
+	vec3 w3 = pow(abs(n), vec3(4.0)); w3 /= (w3.x + w3.y + w3.z);
+	vec3 nm1 = texture(detail_normal, wpos.yz * 0.25).rgb * w3.x + texture(detail_normal, wpos.xz * 0.25).rgb * w3.y + texture(detail_normal, wpos.xy * 0.25).rgb * w3.z;
+	vec3 nm2 = texture(detail_normal, wpos.xz * 1.1).rgb;
+	float near = smoothstep(60.0, 10.0, length(wpos - CAMERA_POSITION_WORLD));
+	NORMAL_MAP = normalize(mix(nm1, nm2, 0.35 * near) * 2.0 - 1.0) * 0.5 + 0.5;
+	// snow/ice smoother, rock & basalt rougher normals
+	NORMAL_MAP_DEPTH = normal_strength * mix(1.4, 0.5, snow_w * alaska) * (0.6 + 0.4 * near);
+	// macro albedo variation breaks up tiling at distance
+	ALBEDO *= mix(1.0, 0.85 + 0.3 * texture(detail, wpos.xz * 0.004).r, macro_variation);
+	// ambient occlusion from crevices
+	AO = mix(1.0, smoothstep(0.2, 0.7, d2), 0.5);
+	AO_LIGHT_AFFECT = 0.4;
 }

@@ -95,6 +95,9 @@ static func builtin(id: String) -> Node3D:
 		"dragon_wings":
 			for s in [-1.0, 1.0]:
 				K.part(n, K.cone(0.0, 0.35, 1.1, 3), K.mat("#2a0a24", 0.6, 0.4, 0.3), Vector3(s * 0.45, 0.15, 0.05), Vector3(1, 1, 0.08), Vector3(0, 0, -s * 1.0))
+			var sp := ParticleFX.make("wing_sparkle", Settings.quality())  # v0.8 glitter trail
+			sp.position = Vector3(0, 0.2, 0.05)
+			n.add_child(sp)
 		"magenta_cape":
 			K.part(n, K.cone(0.22, 0.4, 1.0, 12), K.mat("#b0177f", 0.2, 0.2, 0.5), Vector3(0, -0.45, 0.05), Vector3(1, 1, 0.15))
 		"scepter":

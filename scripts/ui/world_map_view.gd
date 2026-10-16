@@ -12,6 +12,12 @@ var _moved := false
 var _touches := {}
 var _pinch_d := 0.0
 
+## v0.9 declutter: region names only when zoomed in; landmark names at medium zoom.
+const REGION_NAME_MPP := 2.5
+const LANDMARK_NAME_MPP := 5.0
+func show_region_names() -> bool: return mpp < REGION_NAME_MPP
+func show_landmark_names() -> bool: return mpp < LANDMARK_NAME_MPP
+
 func w2s(xz: Vector2) -> Vector2:
 	return size * 0.5 + (xz - center) / mpp
 
@@ -80,7 +86,7 @@ func _draw() -> void:
 	while z0 <= br.y:
 		draw_line(Vector2(0, w2s(Vector2(0, z0)).y), Vector2(size.x, w2s(Vector2(0, z0)).y), Color(1, 1, 1, 0.18), 1.0)
 		z0 += R
-	if mpp < 8.0:
+	if show_region_names():
 		var gx := floorf(tl.x / R) * R
 		while gx <= br.x:
 			var gz := floorf(tl.y / R) * R
@@ -97,9 +103,9 @@ func _draw() -> void:
 			var p: Vector3 = l["position"]
 			var m := w2s(Vector2(p.x, p.z))
 			draw_colored_polygon(PackedVector2Array([m + Vector2(0, -10), m + Vector2(10, 0), m + Vector2(0, 10), m + Vector2(-10, 0)]), Color("#ffd04a"))
-			draw_string(font, m + Vector2(13, 6), str(l["name"]), HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("#ffe9a8"))
+			if show_landmark_names(): draw_string(font, m + Vector2(13, 6), str(l["name"]), HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("#ffe9a8"))
 	if player:
 		var me := w2s(Vector2(player.global_position.x, player.global_position.z))
 		draw_circle(me, 10.0, Color(1, 0.18, 0.82))
 		draw_arc(me, 16.0, 0, TAU, 24, Color.WHITE, 3.0)
-		draw_string(font, me + Vector2(18, -12), "YOU ARE HERE", HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color.WHITE)
+		draw_string(font, me + Vector2(18, -12), "YOU", HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color.WHITE)

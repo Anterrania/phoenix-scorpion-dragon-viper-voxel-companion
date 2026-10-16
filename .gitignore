@@ -4,3 +4,4 @@ x_post_drafts.md
 build/
 addons/zylann.voxel/
 *.translation
+config/*.local.cfg

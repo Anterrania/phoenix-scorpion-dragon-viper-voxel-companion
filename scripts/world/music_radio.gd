@@ -55,7 +55,12 @@ var sc_note := ""
 
 ## SoundCloud first (v0.5.2); in-world fallback track keeps the parcel music going.
 func start() -> void:
-	var u := SoundCloudSource.active_url()
+	var pm := parcel_music()
+	if pm != "":
+		if SoundCloudSource.is_soundcloud_url(pm): sc.fetch_info(pm)
+		else:
+			tune(pm); return
+	var u := pm if pm != "" else SoundCloudSource.active_url()
 	if u != "":
 		sc.fetch_info(u)
 		if SoundCloudSource.has_api_credentials() and str(SoundCloudSource.config().get("playback_mode", "auto")) == "auto":
@@ -103,8 +108,31 @@ func _on_done(result: int, code: int, _h: PackedStringArray, body: PackedByteArr
 	status = "playing"
 	_update_label()
 
-func _process(_d: float) -> void:
-	if player == null or audio == null or not audio.playing: return
-	var d := global_position.distance_to(player.global_position)
+## v0.9: music plays EVERYWHERE by default (owner's SoundCloud, else the fallback stream),
+## unless the user mutes it or the parcel sets its own music URL. Choice is saved.
+static func target_volume(dist: float, rad: float) -> float:
 	var base := float(Settings.get_value("music", "volume_db", -12.0))
-	audio.volume_db = -80.0 if d > radius else lerpf(base, base - 18.0, d / radius)
+	if bool(Settings.get_value("music", "muted", false)) or not bool(Settings.get_value("music", "enabled", true)): return -80.0
+	if bool(Settings.get_value("music", "everywhere", true)): return base
+	return -80.0 if dist > rad else lerpf(base, base - 18.0, dist / rad)
+
+static func set_muted(on: bool) -> void:
+	Settings.set_value("music", "muted", on)
+
+func parcel_music() -> String:
+	if player == null: return ""
+	var region := MapData.region_name(player.global_position)
+	return str(Estate.parcel_get(region, Estate.parcel_id(player.global_position), "music_url")).strip_edges()
+
+var _parcel_url := ""
+var _pm_check := 0.0
+func _process(d: float) -> void:
+	_pm_check -= d
+	if _pm_check <= 0.0 and player:
+		_pm_check = 2.0
+		var pm := parcel_music()
+		if pm != _parcel_url:
+			_parcel_url = pm
+			if bool(Settings.get_value("music", "enabled", true)): start()
+	if player == null or audio == null or not audio.playing: return
+	audio.volume_db = target_volume(global_position.distance_to(player.global_position), radius)

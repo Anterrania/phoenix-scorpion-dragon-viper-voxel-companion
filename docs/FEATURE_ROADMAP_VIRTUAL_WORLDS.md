@@ -1,0 +1,50 @@
+# Feature Roadmap — Virtual-World Features (original designs)
+
+These are **original** features for the Phoenix Scorpion Dragon Viper world. They are *inspired by
+ideas* proven in OpenSimulator, Aurora-Sim, Second Life, Avination, OpenLife Grid, OSgrid, Dual Universe
+and Star Citizen.
+
+**Clean-room rule.** We copy no code, assets, art, UI, names of proprietary systems, or protocol docs
+that aren't public from any of them. Second Life, Dual Universe and Star Citizen are proprietary,
+so we take ideas only. OpenSimulator (and its Aurora-Sim fork) is BSD-licensed. Later we *may* write an
+optional interop bridge (LLSD/LLUDP or the Hypergrid protocol) from the public specs, keeping BSD notices,
+but none of that code goes in the game client. Avination, OpenLife and OSgrid are grids run on OpenSim,
+and we take only design ideas from them.
+
+Stack: Godot 4.7, Zylann Voxel Tools (smooth Transvoxel + VoxelLodTerrain), mobile renderer, Android first.
+
+| # | Feature (our name) | Inspired by | Godot implementation | Phase |
+|---|---|---|---|---|
+| 1 | **Physics & collision** (done in v0.4) | all | CharacterBody3D + voxel collision, RigidBody props, SurfacePhysics (ice/lava/water) | 0.4 ✅ |
+| 2 | **Sovereign Wardrobe** (avatar customization, outfits, attachments) | SL/OpenSim appearance, SC character creator | `HumanoidModel` parts → data-driven `data/wardrobe/*.json`; BoneAttachment3D slots; later glTF skinned bodies + blendshapes | 0.5 |
+| 3 | **Satchel inventory** (items, folders, give/receive) | SL/OpenSim inventory | `Inventory` autoload, Resource-based `ItemDef`, saved to `user://inventory.json`; drag-and-drop UI | 0.5 |
+| 4 | **Companion voice & chat** (local chat, whisper/shout radius, voice) | SL local chat + voice | Existing ChatUI + AgentBrain (LLM); radius-based chat bus; Android STT plugin + DisplayServer TTS / cloud TTS | 0.5–0.6 |
+| 5 | **Forge-Prims** (in-world building with primitives: box/sphere/cylinder/torus, link sets, scale/rotate gizmos) | SL/OpenSim prims | `Construct` node holding CSG/MeshInstance parts + collision; gizmo tool; serialize to JSON "construct files" | 0.6 |
+| 6 | **Voxel Construct building** (sculpt and paint terrain or free-floating constructs, SDF brush) | Dual Universe voxel building | VoxelTool `do_sphere/do_box` on the terrain (already used by companion tools) + separate `VoxelTerrain` for movable constructs; undo stack | 0.6 |
+| 7 | **Rune Scripting** (behaviors on objects: touch, timer, collide events) | LSL / OSSL | Sandboxed mini-language or Godot `Expression` with a whitelisted API; event signals on Construct; *no* LSL compatibility layer | 0.7 |
+| 8 | **Realm Parcels** (land claims, owner/permissions, ban lists, parcel music/ambience) | SL/OpenSim parcels, DU territory tiles | Grid of parcel Resources over the heightfield; Area3D per parcel; permissions checked before build tools | 0.7 |
+| 9 | **Realm Grid** (regions as tiles, region crossing, map) | OpenSim/OSgrid regions | World partitioned into 512 m regions with seeds; streaming handoff; minimap from baked biome map | 0.8 |
+| 10 | **Multiplayer Realm Servers** | OpenSim servers, SC servers | Godot high-level multiplayer (ENet/WebSocket), dedicated headless server build, authoritative physics; MultiplayerSynchronizer for avatars/props | 0.9 |
+| 11 | **Gatewalk** (Hypergrid-style teleport between realms/servers, avatar + inventory travel with you) | OpenSim Hypergrid | Signed realm-address URLs `anterrania://host/realm`, portal Area3D, server handoff token; optional HG bridge later (BSD, public spec) | 1.0 |
+| 12 | **Gatherings** (events calendar, stages, dance/emote sync, concerts using our songs) | SL events | Event Resource + in-world board; AnimationPlayer emotes synced via multiplayer; music streams per parcel | 0.9 |
+| 13 | **Aethel economy** (Aethel Coin, marketplace, vendor constructs, rentals) | SL/OpenSim economies, DU markets | Server-authoritative ledger (game-only currency, no real-money cash-out); vendors are scripted Constructs | 1.0 |
+| 14 | **Starships** (constructs with thrusters, seats, interiors you can walk in) | Star Citizen, DU | Construct + RigidBody3D with thruster forces; interior uses local physics space (moving-frame CharacterBody) | 1.1 |
+| 15 | **Planetary flight & atmosphere** | Star Citizen, DU | Spherical planets: VoxelLodTerrain with spherical SDF generator, radial gravity (Area3D gravity point), atmospheric drag/heat shader | 1.2 |
+| 16 | **Seamless Skyfall** (space-to-surface with no loading screen) | Star Citizen, DU | Floating origin (re-center world), double-precision Godot build or origin shifting, LOD planets → terrain streaming | 1.3 |
+| 17 | **Star map & system travel** (quantum-style jump between moons/planets) | Star Citizen | Solar-system scene graph, jump-drive timed travel, the ringed planet/moons from the v0.3 sky become real bodies | 1.3 |
+| 18 | **Creator tools** (import user glTF meshes and textures, with moderation) | SL mesh upload | Runtime GLTFDocument import, size/poly limits, age-gated mature flag (existing `content.mature_cosmetics_enabled`) | 1.0 |
+
+## Phase order
+1. **0.4** Physics & collision (this release).
+2. **0.5** Wardrobe, inventory, real companion chat in-game (synced personas).
+3. **0.6** Building: Forge-Prims + voxel constructs, save/load.
+4. **0.7** Rune Scripting + Realm Parcels.
+5. **0.8** Realm Grid and region streaming.
+6. **0.9** Multiplayer servers + Gatherings.
+7. **1.0** Gatewalk teleport, Aethel economy, creator imports.
+8. **1.1–1.3** Ships, planetary flight, seamless space-to-surface, star map.
+
+## Mobile notes
+Motorola-class phones: keep physics bodies under ~60 active, use collision LOD 0 only near the player,
+and sleep idle RigidBodies. Server-side simulation is needed for big multiplayer realms.
+Star Citizen-level fidelity is a direction we aim toward, not something a phone can fully match.

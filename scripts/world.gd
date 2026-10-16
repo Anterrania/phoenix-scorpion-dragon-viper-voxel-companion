@@ -45,6 +45,14 @@ func _ready() -> void:
 	for c in get_children():
 		if "config" in c and c is Node3D: _place_on_ground(c)
 	_update_biome(true)
+	_spawn_props()
+
+const PropsScript := preload("res://scripts/physics/physics_props.gd")
+func _spawn_props() -> void:
+	var props := PropsScript.new()
+	props.name = "PhysicsProps"
+	add_child(props)
+	props.setup(generator, Vector3(0, 0, -8))
 
 static func build_smooth_mesher():
 	var m = ClassDB.instantiate("VoxelMesherTransvoxel")

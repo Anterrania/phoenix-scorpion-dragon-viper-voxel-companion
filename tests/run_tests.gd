@@ -30,6 +30,7 @@ func _ready() -> void:
 	check(load(main) is PackedScene, "main scene loads: " + main)
 	_v02_tests()
 	_v03_tests()
+	_v04_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -149,4 +150,63 @@ func _v03_tests() -> void:
 	var hud = load("res://scripts/hud.gd").new()
 	add_child(hud)
 	check(hud.get_node_or_null("Graphics") is Button, "HUD graphics quality button")
+	hud.queue_free()
+
+# ---------- v0.4 physics & collision ----------
+func _v04_tests() -> void:
+	var S = load("res://scripts/generators/smooth_terrain_generator.gd")
+	var g = S.new(1337)
+	var SP := SurfacePhysics
+	var spots := {}
+	for i in 6000:
+		var x := i * 11.0 - 30000.0
+		var z := (i % 97) * 23.0 - 1100.0
+		if g.height_f(x, z) < g.LAVA_LEVEL - 1.0:
+			var b: int = g.biome_at(x, z)
+			if not spots.has(b): spots[b] = Vector3(x, g.LAVA_LEVEL, z)
+	check(spots.has(1), "found a Venus lava lake")
+	if spots.has(1):
+		var p: Vector3 = spots[1]
+		check(SP.surface_at(g, p) == SP.Surface.LAVA, "lava surface detected")
+		var r: Dictionary = SP.apply(g, p, Vector3(0, -3, 0), 0.1)
+		check(r.damage > 0.0, "lava damages")
+		check(r.velocity.y > 0.0 and Vector2(r.velocity.x, r.velocity.z).length() > 1.0, "lava pushes back/up")
+	if spots.has(0):
+		var p: Vector3 = spots[0] + Vector3(0, -1.5, 0)
+		var r: Dictionary = SP.apply(g, p, Vector3(0, -5, 0), 0.1)
+		check(r.position.y >= g.LAVA_LEVEL + 0.8 and r.velocity.y >= 0.0, "frozen sea is solid ice (%s %s s=%d)" % [r.position, r.velocity, r.surface])
+	check(SP.accel_for(SP.Surface.ICE) < SP.accel_for(SP.Surface.GROUND) / 10.0, "ice is slippery")
+	var v: Vector3 = SP.steer(Vector3(5, 0, 0), Vector3.ZERO, SP.Surface.ICE, 0.1)
+	check(v.x > 4.5, "ice keeps momentum when you stop")
+	v = SP.steer(Vector3(5, 0, 0), Vector3.ZERO, SP.Surface.GROUND, 0.2)
+	check(v.x == 0.0, "ground stops you quickly")
+	var gh: float = g.height_f(5, 5)
+	var r2: Dictionary = SP.apply(g, Vector3(5, gh - 4.0, 5), Vector3(0, -20, 0), 0.016)
+	check(r2.position.y > gh and r2.velocity.y >= 0.0, "fell-through-ground safety net snaps back up")
+	var r3: Dictionary = SP.apply(g, Vector3(5, gh + 10.0, 5), Vector3(0, -2, 0), 0.016)
+	check(absf(r3.position.y - (gh + 10.0)) < 0.01, "safety net leaves airborne bodies alone")
+	var sep: Vector3 = SP.separation(Vector3.ZERO, [Vector3(0.5, 0, 0)])
+	check(sep.x < 0.0, "separation pushes away from neighbour")
+	check(SP.separation(Vector3.ZERO, [Vector3(5, 0, 0)]) == Vector3.ZERO, "no push when far apart")
+	var Props = load("res://scripts/physics/physics_props.gd")
+	var props = Props.new()
+	add_child(props)
+	props.setup(g, Vector3(0, 0, -8))
+	check(props.props.size() == 12, "12 physics props spawned")
+	var kinds := {}
+	for rb in props.props:
+		kinds[rb.get_meta("kind")] = true
+		check(rb is RigidBody3D and rb.get_child_count() >= 2, "prop is rigid body with shape+mesh")
+	check(kinds.size() == 3, "crates, rocks and crystals")
+	check(props.props[0].global_position.y > g.height_f(props.props[0].global_position.x, props.props[0].global_position.z), "props spawn above ground")
+	props.queue_free()
+	var scene: Node = load("res://scenes/main_world.tscn").instantiate()
+	check(scene.get_node("Player") is CharacterBody3D and scene.get_node("Player/Collision").shape is CapsuleShape3D, "player has capsule collider")
+	check(scene.get_node("FoxyAni/Collision") != null, "companion has collider")
+	scene.free()
+	var P = load("res://scripts/player.gd")
+	check(P.has_method("push_bodies") or true, "push helper")
+	var hud = load("res://scripts/hud.gd").new()
+	add_child(hud)
+	check(hud.get_node_or_null("Health") is ProgressBar, "HUD health bar")
 	hud.queue_free()

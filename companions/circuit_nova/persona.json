@@ -95,5 +95,12 @@
   "accents": [
     "platinum",
     "gold"
-  ]
+  ],
+  "game_lines": [
+    "Scanning terrain. Three biomes detected.",
+    "Circuits nominal. Ready to draft a blueprint.",
+    "Tip: tap the camera button to see yourself."
+  ],
+  "avatar_reference": "res://art/references/companion_avatars/circuit_nova.png",
+  "display_name": "Aura Aurora"
 }

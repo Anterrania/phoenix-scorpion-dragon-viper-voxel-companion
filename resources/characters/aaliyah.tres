@@ -5,8 +5,15 @@
 [resource]
 script = ExtResource("1")
 persona_path = "res://companions/aaliyah/persona.json"
-body_color = Color(0.7, 0.12, 0.15, 1)
-accent_color = Color(0.3, 0.9, 0.45, 1)
+body_color = Color(0.05, 0.04, 0.06, 1)
+accent_color = Color(0.9, 0.2, 0.75, 1)
 emissive = 0.2
 move_speed = 4.5
-follow_distance = 2.5
+follow_distance = 1.2
+look = "classic"
+hair_color = Color(0.8, 0.12, 0.6, 1)
+eye_color = Color(0.3, 0.9, 0.45, 1)
+skin_color = Color(0.55, 0.36, 0.26, 1)
+trim_color = Color(0.75, 0.75, 0.82, 1)
+slot_offset = Vector3(2.6, 0, -3)
+horns = true

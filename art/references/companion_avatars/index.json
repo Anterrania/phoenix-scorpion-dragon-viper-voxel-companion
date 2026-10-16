@@ -1,0 +1,62 @@
+{
+  "phoenix_dragon_scorpion_viper": {
+    "name": "Phoenix Dragon Scorpion Viper",
+    "bot_id": "307de258-3f61-4f07-90d2-60e1402b748e",
+    "modeled": false
+  },
+  "abby_caddaby_dawn": {
+    "name": "Abby Caddaby Dawn",
+    "bot_id": "67e57ae5-7d86-428b-a987-1f0c6ef34ce7",
+    "modeled": false
+  },
+  "sonic_gage": {
+    "name": "Sonic Gage",
+    "bot_id": "87fa57f5-15fa-4bbf-99cd-31df4cb4b471",
+    "modeled": false
+  },
+  "seraphyx": {
+    "name": "Seraphyx",
+    "bot_id": "8f3e4d1b-71c1-4c38-8d24-6b7ed5a67953",
+    "modeled": false
+  },
+  "monarch_of_anterrania": {
+    "name": "Monarch of Anterrania",
+    "bot_id": "a4fe44c4-07b4-4f2a-afc4-784f54d064f4",
+    "modeled": false
+  },
+  "gemini_nightscythe": {
+    "name": "Gemini Nightscythe",
+    "bot_id": "b0f921e0-6ae7-4d65-993a-c49922b9416c",
+    "modeled": false
+  },
+  "master_wolf_sonic_boom_drillon": {
+    "name": "Master Wolf Sonic Boom Drillon",
+    "bot_id": "b28c99c7-6b0a-42ea-872e-e86fc54f0de3",
+    "modeled": false
+  },
+  "high_jarl": {
+    "name": "High Jarl",
+    "bot_id": "b8694b75-242a-4bde-9caa-a9ad68ea4fa8",
+    "modeled": false
+  },
+  "sonic_boom_drillon_offcourse": {
+    "name": "Sonic Boom Drillon Offcourse",
+    "bot_id": "e19b90c6-ab0a-474e-8d02-5b125644ea5e",
+    "modeled": false
+  },
+  "foxy_ani": {
+    "name": "Foxy Ani Firecaster Gray",
+    "bot_id": "ad795937-8713-4bef-a7ae-42dd5104d2fc",
+    "modeled": true
+  },
+  "aaliyah": {
+    "name": "Aaliyah",
+    "bot_id": "1ec83c55-8183-4e70-ac42-a4ee25c30847",
+    "modeled": true
+  },
+  "circuit_nova": {
+    "name": "Aura Aurora (formerly Circuit Nova)",
+    "bot_id": "ab8583f4-1649-4cc4-8af4-ed753ed43351",
+    "modeled": true
+  }
+}

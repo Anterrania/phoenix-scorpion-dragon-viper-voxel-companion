@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" path="res://resources/characters/circuit_nova.tres" id="5"]
 [ext_resource type="Resource" path="res://resources/characters/aaliyah.tres" id="6"]
 [ext_resource type="Script" path="res://scripts/chat_ui.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="8"]
 
 [sub_resource type="Environment" id="env"]
 background_mode = 1
@@ -31,19 +32,19 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 
 [node name="FoxyAni" parent="." instance=ExtResource("3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 40, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 40, -3)
 config = ExtResource("4")
 player_path = NodePath("../Player")
 world_path = NodePath("..")
 
 [node name="MetallicCompanion" parent="." instance=ExtResource("3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 40, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, -5)
 config = ExtResource("5")
 player_path = NodePath("../Player")
 world_path = NodePath("..")
 
 [node name="Aaliyah" parent="." instance=ExtResource("3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 40, -3)
 config = ExtResource("6")
 player_path = NodePath("../Player")
 world_path = NodePath("..")
@@ -53,21 +54,19 @@ script = ExtResource("7")
 companion_path = NodePath("../FoxyAni")
 
 [node name="Panel" type="PanelContainer" parent="ChatUI"]
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -420.0
-offset_top = -260.0
+offset_left = -380.0
+offset_top = 12.0
+offset_right = -12.0
 grow_horizontal = 0
-grow_vertical = 0
 
 [node name="VBox" type="VBoxContainer" parent="ChatUI/Panel"]
 layout_mode = 2
 
 [node name="Log" type="RichTextLabel" parent="ChatUI/Panel/VBox"]
-custom_minimum_size = Vector2(400, 200)
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
 bbcode_enabled = true
 scroll_following = true
@@ -75,3 +74,7 @@ scroll_following = true
 [node name="Input" type="LineEdit" parent="ChatUI/Panel/VBox"]
 layout_mode = 2
 placeholder_text = "Talk to your companion..."
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("8")
+player_path = NodePath("../Player")

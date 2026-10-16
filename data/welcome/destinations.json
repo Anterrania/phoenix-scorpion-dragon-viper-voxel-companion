@@ -1,0 +1,12 @@
+{"_note": "Destination Guide. target = landmark id from world content, or 'welcome'/'club'/'nest'/'spawn'.",
+ "categories": ["Featured", "Chill", "Music & Nightlife", "Adventure", "Creatures"],
+ "destinations": [
+  {"name": "Welcome Island", "category": "Featured", "target": "welcome", "blurb": "Tutorial and orientation."},
+  {"name": "Starlit Geothermal Lagoon", "category": "Chill", "target": "starlit_geothermal_lagoon", "blurb": "Glowing hot springs under the milky way."},
+  {"name": "Crystal Wyvern Sanctum", "category": "Featured", "target": "crystal_wyvern_sanctum", "blurb": "Crystal dragon statue under the aurora."},
+  {"name": "Radio Club (Phoenix Radio)", "category": "Music & Nightlife", "target": "club", "blurb": "Dance floor beside Phoenix Radio."},
+  {"name": "Moonlit Wyvern Rink", "category": "Chill", "target": "moonlit_wyvern_rink", "blurb": "Moonlit ice rink."},
+  {"name": "Ember Arena", "category": "Adventure", "target": "ember_arena", "blurb": "Combat zone. Cinder Stalkers roam."},
+  {"name": "Wyrmling Nest", "category": "Creatures", "target": "nest", "blurb": "Hatch and raise wyrmlings."},
+  {"name": "Spawn Point", "category": "Featured", "target": "spawn", "blurb": "Alaskan Aurora Tundra."}
+ ]}

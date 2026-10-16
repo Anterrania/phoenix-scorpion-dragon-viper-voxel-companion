@@ -27,6 +27,16 @@ This is a plain-language guide. It covers **what's real now** and **what's plann
 | Marketplace / vendors | **Creator Market** with SL-style perms + vendor | data model + stub |
 | Bots / NPCs | **Autonomous AI companions** (free roam, memory) | ✔ basic |
 
+## Screen layout (v0.7, Firestorm-style)
+- **Top status bar:** realm · region · coordinates · Aethel Coin · in-game time.
+- **Minimap (top right):** you (white arrow), companions (magenta), creatures (red), landmarks (gold), combat zones (red ring). Use +/− to zoom, and tap it to open the big map.
+- **☀ ENV:** sky presets (Sunrise, Midday, Sunset, Midnight, Venus Storm, Cosmic), Day/Night cycle (a 24-minute day), or Region default.
+- **◉ NEAR:** list of who's nearby, sorted by distance. Tap one to go to them.
+- **Menus:** drag anywhere to scroll (it keeps gliding when you let go). Settings has tabs, and the avatar creator has fold-out sections.
+
+## How the server will work (later)
+The grid is built like **Aurora-Sim/OpenSim**: central grid services (login, assets, inventory, avatars, regions, presence, groups, money, land) plus region servers, with Hypergrid to link other grids. See `docs/ARCHITECTURE_AURORA_MODEL.md`.
+
 ## Getting around
 - **Fly:** tap **FLY**, then hold ▲ / ▼ to go up or down. Let go and you hover in place. Tap **LAND** to walk again.
 - **Teleport:** **MENU › Teleport: Landmarks** lists every landmark. **◎ MAP** lets you tap anywhere on the map to teleport there (your companions come along).
@@ -105,3 +115,9 @@ This is a plain-language guide. It covers **what's real now** and **what's plann
 
 ## Where to give your input
 - Gold ★ YOUR INPUT HERE tags in the game, plus `docs/WHERE_TO_GIVE_INPUT.md`.
+
+## Welcome Island, helpers and destinations (v0.7)
+- On first launch you spawn on **Welcome Island**, a floating orientation island at (640, 90, 640). It has a ring of 10 tutorial stations: move/look, fly, teleport, menus, minimap/map, chat IC/OOC, wardrobe/avatar, building, combat zone rules, getting help. MENU › Welcome Island lets you skip it or come back. Station text lives in `data/welcome/welcome_island.json`.
+- **Welcome Guide** and **Help Desk** are original guide bots. They answer FAQs from `data/welcome/help_faq.json` (keyword match) and point you to the matching station. Ask them in MENU › Help.
+- The **Destination Guide** (MENU › Destinations) groups places by category with one-tap teleport (`destinations.json`). It includes an **Events board** (`events.json`) with sample events.
+- **Radio Club**: an animated light-up dance floor next to Phoenix Radio.

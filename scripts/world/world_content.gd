@@ -78,7 +78,18 @@ func _place_radio() -> void:
 	add_child(v)
 	v.global_position = Vector3(6, ground(6, -10), -10)
 	v.setup()
+	club = ClubFloor.new()
+	add_child(club)
+	club.global_position = Vector3(-20, ground(-20, -18), -18)
+	club.build()
+	landmarks.append({"id": "club", "name": "Radio Club (dance floor)", "biome": 0, "position": club.global_position, "node": club, "input": ["Which DJs and genres?"]})
+	welcome = WelcomeIsland.new()
+	add_child(welcome)
+	welcome.build()
+	landmarks.append({"id": "welcome", "name": "Welcome Island", "biome": 0, "position": welcome.global_position, "node": welcome, "input": ["More tutorial stations?"]})
 
+var club: ClubFloor
+var welcome: WelcomeIsland
 var arena: CombatZone
 var pen: WyrmPen
 func _place_combat_and_pen() -> void:
@@ -96,6 +107,7 @@ func _place_combat_and_pen() -> void:
 	add_child(pen)
 	pen.global_position = Vector3(14, ground(14, 6), 6)
 	pen.setup(generator)
+	landmarks.append({"id": "nest", "name": "Wyrmling Nest", "biome": 0, "position": pen.global_position, "node": pen, "input": ["Nest decorations?"]})
 
 func landmark_by_id(id: String) -> Dictionary:
 	for l in landmarks:

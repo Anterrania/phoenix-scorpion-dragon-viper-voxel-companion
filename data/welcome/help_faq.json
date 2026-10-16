@@ -1,0 +1,127 @@
+{
+ "_note": "FAQ answered by the guide bots. keywords = lowercase words; first match wins. Edit freely.",
+ "bots": [
+  {
+   "id": "welcome_guide",
+   "name": "Welcome Guide",
+   "color": "#ffd04a",
+   "greeting": "Welcome, traveler! Follow the glowing path and I'll show you around."
+  },
+  {
+   "id": "help_desk",
+   "name": "Help Desk",
+   "color": "#5ad8ff",
+   "greeting": "Help Desk here. Ask me anything about the realm."
+  }
+ ],
+ "faq": [
+  {
+   "keywords": [
+    "dance",
+    "club",
+    "music",
+    "dj",
+    "party"
+   ],
+   "answer": "The Radio Club dance floor is next to Phoenix Radio. Check Destinations \u203a Events for DJ nights.",
+   "point": ""
+  },
+  {
+   "keywords": [
+    "fly",
+    "flying"
+   ],
+   "answer": "Tap FLY or press F. Use Up/Down to change height.",
+   "point": "fly"
+  },
+  {
+   "keywords": [
+    "teleport",
+    "tp",
+    "travel",
+    "go"
+   ],
+   "answer": "MENU \u203a Teleport or Destinations, or tap a spot on the World Map.",
+   "point": "teleport"
+  },
+  {
+   "keywords": [
+    "map",
+    "minimap",
+    "lost",
+    "where"
+   ],
+   "answer": "Tap the minimap (top-right) for the World Map. \u25ce Me recenters it.",
+   "point": "map"
+  },
+  {
+   "keywords": [
+    "chat",
+    "ooc",
+    "ic",
+    "talk"
+   ],
+   "answer": "Talk opens chat. IC is in character; use (( )) for OOC.",
+   "point": "chat"
+  },
+  {
+   "keywords": [
+    "avatar",
+    "hair",
+    "outfit",
+    "wardrobe",
+    "clothes"
+   ],
+   "answer": "Avatar changes your look; Wardrobe swaps outfits and attachments.",
+   "point": "avatar"
+  },
+  {
+   "keywords": [
+    "build",
+    "block",
+    "dig"
+   ],
+   "answer": "Ask a companion in Talk to build or dig where you're looking.",
+   "point": "build"
+  },
+  {
+   "keywords": [
+    "combat",
+    "fight",
+    "pvp",
+    "damage",
+    "arena"
+   ],
+   "answer": "Combat only happens inside combat zones like Ember Arena.",
+   "point": "combat"
+  },
+  {
+   "keywords": [
+    "event",
+    "events"
+   ],
+   "answer": "MENU \u203a Destinations \u203a Events lists what's on.",
+   "point": ""
+  },
+  {
+   "keywords": [
+    "aec",
+    "money",
+    "balance",
+    "buy"
+   ],
+   "answer": "AEC is the in-game currency (game-only). Your balance is in the top status bar.",
+   "point": ""
+  },
+  {
+   "keywords": [
+    "skip",
+    "leave",
+    "exit"
+   ],
+   "answer": "Tap 'Skip tutorial' in the Welcome panel. You can return later from MENU \u203a Welcome Island.",
+   "point": ""
+  }
+ ],
+ "fallback": "I'm not sure yet. Try words like fly, map, teleport, chat, combat, club or events."
+}

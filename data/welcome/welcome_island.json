@@ -1,0 +1,14 @@
+{"_note": "v0.7 Welcome Island tutorial stations (original design). Edit text/order freely.",
+ "origin": [640, 90, 640],
+ "stations": [
+  {"id": "move", "title": "1 · Move & Look", "text": "Left stick or WASD to walk. Drag the right side of the screen to look around."},
+  {"id": "fly", "title": "2 · Fly", "text": "Tap FLY (or press F). Up/Down buttons climb and dive. Tap again to land."},
+  {"id": "teleport", "title": "3 · Teleport", "text": "MENU › Teleport lists landmarks. One tap and you are there."},
+  {"id": "menus", "title": "4 · Menus", "text": "MENU opens the tile grid. Drag lists to scroll, tap ✕ to close."},
+  {"id": "map", "title": "5 · Minimap & World Map", "text": "Minimap is top-right. Tap it for the World Map. Pinch to zoom, tap to teleport."},
+  {"id": "chat", "title": "6 · Chat · IC / OOC", "text": "Talk opens chat. IC = in character. Wrap OOC text in (( double brackets ))."},
+  {"id": "avatar", "title": "7 · Wardrobe & Avatar", "text": "Avatar edits your look and DNA. Wardrobe swaps outfits and attachments."},
+  {"id": "build", "title": "8 · Building", "text": "Companions can place and dig blocks. Ask them in Talk: 'build here'."},
+  {"id": "combat", "title": "9 · Combat Zone Rules", "text": "Damage only happens inside red-ringed combat zones such as Ember Arena. Everywhere else is safe."},
+  {"id": "help", "title": "10 · Getting Help", "text": "Ask the Welcome Guide or the Help Desk any time. MENU › Help works anywhere."}
+ ]}

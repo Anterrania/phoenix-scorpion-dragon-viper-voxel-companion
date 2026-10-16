@@ -162,13 +162,46 @@ func _process(delta: float) -> void:
 	if sea and player:
 		sea.global_position.x = snappedf(player.global_position.x, 64.0)
 		sea.global_position.z = snappedf(player.global_position.z, 64.0)
+	_env_tick(delta)
 	_check -= delta
 	if _check <= 0.0:
 		_check = 1.0
 		_update_biome(false)
 
+# ---------- v0.7 environment: region default / preset / day-night cycle ----------
+var env_mode := "region"   # "region" | "cycle" | preset name
+var hour := 10.0
+
+func set_env_mode(m: String) -> void:
+	env_mode = m
+	if m == "region":
+		sun.rotation_degrees.x = -28.0
+		env.environment.ambient_light_energy = 1.0
+		_update_biome(true)
+	elif m != "cycle": apply_env(EnvPresets.PRESETS[m], 2.0)
+
+func apply_env(a: Array, dur: float) -> void:
+	var tw := create_tween().set_parallel(true)
+	for pair in [["top_color", a[0]], ["horizon_color", a[1]], ["ground_color", a[2]]]:
+		var from: Color = sky_mat.get_shader_parameter(pair[0]) if sky_mat.get_shader_parameter(pair[0]) is Color else Color(pair[1])
+		if dur <= 0.05: sky_mat.set_shader_parameter(pair[0], Color(pair[1]))
+		else: tw.tween_method(func(c: Color): sky_mat.set_shader_parameter(pair[0], c), from, Color(pair[1]), dur)
+	sky_mat.set_shader_parameter("star_strength", float(a[7]))
+	env.environment.fog_light_color = Color(a[3])
+	sun.light_color = Color(a[4])
+	sun.light_energy = float(a[5])
+	sun.rotation_degrees.x = float(a[6])
+	env.environment.ambient_light_energy = float(a[8])
+	if dur <= 0.05: tw.kill()
+
+func _env_tick(delta: float) -> void:
+	hour = fposmod(hour + delta * 24.0 / EnvPresets.DAY_SECONDS, 24.0)
+	if env_mode == "cycle":
+		apply_env(EnvPresets.cycle_values(hour), 0.0)
+
 func _update_biome(force: bool) -> void:
 	if generator == null or player == null: return
+	if env_mode != "region": return
 	var b: int = generator.biome_at(player.global_position.x, player.global_position.z)
 	if b == current_biome and not force: return
 	current_biome = b

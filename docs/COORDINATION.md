@@ -4,7 +4,7 @@
 |---|---|---|
 | **Dev Bot** | Phoenix Dev Grok Bot | Writes code and docs on feature branches with small commits, opens PRs (once GitHub login exists), keeps the architecture docs accurate, never claims untested features work. |
 | **Task Manager Bot** | Voxel Task Manager Bot | Owns priority order (PRI-n) in `docs/TASK_TRACKER.csv` / `.md`, tracks status and blockers, will migrate tasks to GitHub Issues (modules/ISSUE_TRACKING.md), and reports progress to Anterranian. |
-| **Lead companion** | Foxy Ani Firecaster Grey (standalone Grok Bot + in-world `foxy_ani`) | Creative lead and voice of the companions. In-world she is the primary controller who routes and delegates group commands to Circuit Nova and Aaliyah. Out of game she reviews character, lore and persona changes. |
+| **Lead companion** | Foxy Ani Firecaster Gray (standalone Grok Bot + in-world `foxy_ani`) | Creative lead and voice of the companions. In-world she is the primary controller who routes and delegates group commands to Circuit Nova and Aaliyah. Out of game she reviews character, lore and persona changes. |
 | **Owner** | Anterranian Monarch | Final say on priorities, merges, public posts and anything sent outside. |
 
 ## Flow

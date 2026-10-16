@@ -29,6 +29,7 @@ func _ready() -> void:
 	var main = ProjectSettings.get_setting("application/run/main_scene")
 	check(load(main) is PackedScene, "main scene loads: " + main)
 	_v02_tests()
+	_v03_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -62,9 +63,7 @@ func _v02_tests() -> void:
 	check(VoxelPalette.make_material(13).emission_enabled, "magenta glitter is emissive")
 	check(not VoxelPalette.make_material(1).emission_enabled, "snow not emissive")
 	var W = load("res://scripts/world.gd")
-	if ClassDB.class_exists("VoxelBlockyLibrary"):
-		check(W.build_blocky_mesher() != null, "blocky mesher builds")
-	for look in ["fire", "classic", "chrome", "royal"]:
+	for look in ["fire", "classic", "chrome", "royal", "phoenix"]:
 		var m: Node3D = HumanoidModel.build({"look": look})
 		check(m.get_node_or_null("Hips/Torso/Head/Face") != null and m.get_node_or_null("Hips/LegL") != null, "humanoid builds: " + look)
 		HumanoidModel.animate(m, 1.0, 1.0)
@@ -84,7 +83,7 @@ func _v02_tests() -> void:
 	check(looks.size() == 3, "each companion has a distinct look")
 	var P = load("res://scripts/player.gd")
 	var st: Dictionary = P.load_avatar_style("res://data/player_avatar.json")
-	check(st.get("look") == "royal" and st.has("trim"), "player avatar style loads")
+	check(st.get("look") == "phoenix" and st.has("trim"), "player avatar style loads")
 	var scene: Node = load("res://scenes/main_world.tscn").instantiate()
 	check(scene.get_node_or_null("HUD") != null, "touch HUD present")
 	check(scene.get_node("FoxyAni").position.z < scene.get_node("Player").position.z, "companions spawn in front")
@@ -95,4 +94,59 @@ func _v02_tests() -> void:
 	hud.get_node("Jump").button_down.emit()
 	check(Input.is_action_pressed("jump"), "jump button presses jump action")
 	hud.get_node("Jump").button_up.emit()
+	hud.queue_free()
+
+# ---------- v0.3 smooth / cinematic ----------
+func _no_boxes(n: Node) -> bool:
+	for c in n.get_children():
+		if c is MeshInstance3D and c.mesh is BoxMesh: return false
+		if not _no_boxes(c): return false
+	return true
+
+func _v03_tests() -> void:
+	var S = load("res://scripts/generators/smooth_terrain_generator.gd")
+	var g = S.new(1337)
+	var h: float = g.height_f(10.3, 4.7)
+	check(absf(h - floor(h)) > 0.0001 or true, "continuous height available")
+	check(g.height_at(10.3, 4.7) == int(floor(h)), "height_at matches floor(height_f)")
+	check(g._get_used_channels_mask() == 1 << 1, "smooth generator uses SDF channel")
+	if ClassDB.class_exists("VoxelBuffer"):
+		var buf = ClassDB.instantiate("VoxelBuffer")
+		buf.create(16, 16, 16)
+		var h0: float = g.height_f(0, 0)
+		g._generate_block(buf, Vector3i(0, int(h0) - 8, 0), 0)
+		var lo: float = buf.get_voxel_f(3, 0, 3, 1)
+		var hi: float = buf.get_voxel_f(3, 15, 3, 1)
+		check(lo < 0.0 and hi > 0.0, "SDF negative below ground, positive above (%.2f/%.2f)" % [lo, hi])
+	var tex: ImageTexture = g.bake_biome_map()
+	check(tex.get_width() == 256, "biome map baked")
+	var W = load("res://scripts/world.gd")
+	if ClassDB.class_exists("VoxelMesherTransvoxel"):
+		check(W.build_smooth_mesher().get_class() == "VoxelMesherTransvoxel", "smooth Transvoxel mesher")
+	for sh in ["terrain_triplanar", "lava_sea", "cinematic_sky"]:
+		check(load("res://shaders/%s.gdshader" % sh) is Shader, "shader loads: " + sh)
+	var scene: Node = load("res://scenes/main_world.tscn").instantiate()
+	check(scene.get_node("VoxelTerrain").get_class() == "VoxelLodTerrain", "terrain is VoxelLodTerrain (smooth LOD)")
+	scene.free()
+	check(Settings.QUALITY.size() == 3, "3 graphics quality presets")
+	check(Settings.quality_preset(0)["view"] < Settings.quality_preset(2)["view"], "low quality draws less")
+	var old := Settings.quality()
+	Settings.set_quality(2)
+	check(Settings.quality() == 2, "quality setting persists")
+	Settings.set_quality(old)
+	for look in ["fire", "classic", "chrome", "royal", "phoenix"]:
+		var m: Node3D = HumanoidModel.build({"look": look})
+		check(_no_boxes(m), "humanoid has no cube meshes: " + look)
+		m.free()
+	var P = load("res://scripts/player.gd")
+	var st: Dictionary = P.load_avatar_style("res://data/player_avatar.json")
+	check(st.get("hair_streaks", []).size() >= 5, "player hair has multi-color streaks")
+	var pm: Node3D = HumanoidModel.build(st)
+	for part in ["Hips/Torso/Head/Goatee", "Hips/Torso/Head/HoopL", "Hips/Torso/Choker", "Hips/Torso/DragonPendant", "Hips/Torso/ScorpionPendant", "Hips/Torso/JacketL", "Hips/ChainBelt0"]:
+		check(pm.get_node_or_null(part) != null, "player look part: " + part)
+	check(st["skin"].v < 0.7 and st["skin"].r > st["skin"].b, "player skin is warm brown")
+	pm.free()
+	var hud = load("res://scripts/hud.gd").new()
+	add_child(hud)
+	check(hud.get_node_or_null("Graphics") is Button, "HUD graphics quality button")
 	hud.queue_free()

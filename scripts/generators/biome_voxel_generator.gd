@@ -39,6 +39,10 @@ func biome_at(x: float, z: float) -> int:
 	return Biome.ALASKA
 
 func height_at(x: float, z: float) -> int:
+	return int(floor(height_f(x, z)))
+
+## Continuous surface height (used by the v0.3 smooth SDF terrain).
+func height_f(x: float, z: float) -> float:
 	var v := biome_value(x, z)
 	var n := _height.get_noise_2d(x, z)
 	var d := _detail.get_noise_2d(x, z)
@@ -50,7 +54,7 @@ func height_at(x: float, z: float) -> int:
 		h = lerpf(alaska, venus, smoothstep(-0.15, -0.55, v))
 	else:
 		h = lerpf(alaska, cosmic, smoothstep(0.15, 0.55, v))
-	return int(floor(h))
+	return h
 
 static func _hash(x: int, z: int) -> int:
 	var h := (x * 73856093) ^ (z * 19349663)

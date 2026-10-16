@@ -17,7 +17,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
-far = 300.0
+far = 1600.0
 
 [node name="VoxelViewer" type="VoxelViewer" parent="."]
 view_distance = 128

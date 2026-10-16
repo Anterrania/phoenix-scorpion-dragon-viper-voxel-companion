@@ -16,7 +16,32 @@ const DEFAULTS := {
 	},
 	"sync": {"endpoint": ""},
 	"hotreload": {"allow_user_overrides": true},
+	"graphics": {"quality": 1},  # 0 Low, 1 Medium, 2 High
 }
+
+signal quality_changed(level: int)
+const QUALITY_NAMES := ["LOW", "MED", "HIGH"]
+## Per-level presets: terrain view distance (m), LOD levels, camera far, render scale,
+## glow, sun shadows, MSAA.
+const QUALITY := [
+	{"view": 256, "lods": 4, "far": 900.0, "scale": 0.7, "glow": false, "shadows": false, "msaa": 0},
+	{"view": 512, "lods": 5, "far": 1600.0, "scale": 0.85, "glow": true, "shadows": false, "msaa": 0},
+	{"view": 1024, "lods": 6, "far": 3000.0, "scale": 1.0, "glow": true, "shadows": true, "msaa": 1},
+]
+
+func quality() -> int:
+	return clampi(int(get_value("graphics", "quality", 1)), 0, 2)
+
+func quality_preset(level: int = -1) -> Dictionary:
+	return QUALITY[quality() if level < 0 else clampi(level, 0, 2)]
+
+func set_quality(level: int) -> void:
+	set_value("graphics", "quality", clampi(level, 0, 2))
+	quality_changed.emit(quality())
+
+func cycle_quality() -> int:
+	set_quality((quality() + 1) % 3)
+	return quality()
 
 func _ready() -> void:
 	if cfg.load(PATH) != OK:

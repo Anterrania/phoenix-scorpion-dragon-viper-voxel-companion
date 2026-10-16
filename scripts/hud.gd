@@ -12,6 +12,9 @@ func _ready() -> void:
 	jump.button_up.connect(func(): Input.action_release("jump"))
 	var cam := _button("CameraToggle", "VIEW", Vector2(-190, -330))
 	cam.pressed.connect(func(): if player and player.has_method("toggle_camera"): player.toggle_camera())
+	var gfx := _button("Graphics", "GFX\n" + Settings.QUALITY_NAMES[Settings.quality()], Vector2(-190, -470))
+	gfx.add_theme_font_size_override("font_size", 24)
+	gfx.pressed.connect(func(): gfx.text = "GFX\n" + Settings.QUALITY_NAMES[Settings.cycle_quality()])
 	var hint := Label.new()
 	hint.name = "MoveHint"
 	hint.text = "◯ drag left side to move · drag right side to look"

@@ -26,4 +26,7 @@ func _initialize():
 	ui.show_panel("map")
 	await create_timer(2.0).timeout
 	_shot("map")
+	ui.show_panel("music")
+	await create_timer(1.0).timeout
+	_shot("music")
 	quit()

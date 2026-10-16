@@ -1,0 +1,26 @@
+{
+  "_note": "ROADMAP DATA STUBS (not active in v0.5.2). Values are placeholders - YOUR INPUT HERE.",
+  "combat": {
+    "enabled_by_land_flag": "land.permissions.damage (SL damage-enabled land); off = safe zone",
+    "safe_zones_default": ["spawn", "all landmarks", "Starlit Geothermal Lagoon"],
+    "styles": ["melee", "fire_magic", "ranged"],
+    "stats": {"health": 100, "shield": 50, "shield_regen_per_s": 5, "respawn": "nearest owned home or landmark"},
+    "pve_creatures": ["frost wyrmling (Alaska)", "magma crawler (Venus)", "void wisp (Cosmic)"],
+    "rp_combat_meter": {"dice": "d20 + stat", "opt_in": true, "turn_based_option": true}
+  },
+  "roleplay": {
+    "titler": {"lines": 3, "colors": "palette", "shows": ["name", "title", "faction", "status IC/OOC"]},
+    "character_sheet": ["name", "species", "faction", "bio", "stats", "inventory link"],
+    "chat_channels": {"IC": "local say/emote, in character", "OOC": "(( )) out of character", "whisper": 10, "say": 20, "shout": 100},
+    "emotes_poses": ["/me actions", "pose stands", "couples poses (consent prompt)", "dance emotes"],
+    "factions": "built on land groups (roles, ranks, deeded RP sims)",
+    "rp_sims": "region flag 'rp_rules' + covenant + required titler"
+  },
+  "breedables": {
+    "genetics": {"traits": ["coat", "eyes", "wings", "glow", "size"], "inheritance": "two alleles per trait, dominant/recessive, rare mutation 1%"},
+    "care": {"hunger_decay_per_day": 10, "food_item": "Aether Feed (AEC)", "neglect": "goes dormant, never dies"},
+    "breeding": {"cooldown_days": 3, "requires_ownership_or_permission": true},
+    "ownership_trading": "inventory items with transfer perms, priced in Aethel Coin via the Creator Market",
+    "creator_tools": "third-party trait packs + meshes uploaded as UGC (upload fees apply, moderation queue)"
+  }
+}

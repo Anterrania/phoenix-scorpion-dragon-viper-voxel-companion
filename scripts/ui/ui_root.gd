@@ -31,6 +31,7 @@ func _ready() -> void:
 	panels["input"] = _build_input()
 	panels["avatar"] = _build_avatar()
 	panels["map"] = _build_map()
+	panels["music"] = _build_music()
 	AgentBrain.reply_ready.connect(_on_reply)
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", true)) else "")
@@ -136,7 +137,7 @@ func _build_menu() -> Dictionary:
 	var p := _panel("Phoenix Scorpion Dragon Viper · v0.5")
 	var b: VBoxContainer = p["body"]
 	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 28, MAG))
-	for row in [["▶ Play", "" ], ["🧑 My Avatar & Profile", "avatar"], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Teleport: Landmarks", "travel"], ["◎ World Map (tap to teleport)", "map"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
+	for row in [["▶ Play", "" ], ["🧑 My Avatar & Profile", "avatar"], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Teleport: Landmarks", "travel"], ["◎ World Map (tap to teleport)", "map"], ["♪ Music (SoundCloud)", "music"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
 		var target: String = row[1]
 		b.add_child(btn(row[0], func(): show_panel(target)))
 	b.add_child(label("Everything gold-starred (★ YOUR INPUT HERE) is a placeholder waiting for your decision.", 24, GOLD))
@@ -651,3 +652,40 @@ func _map_input(e: InputEvent) -> void:
 	if uv.x < 0 or uv.y < 0 or uv.x > 1 or uv.y > 1: return
 	var w := map_to_world(uv)
 	teleport(Vector3(w.x, 0, w.y))
+
+# ---------- music: SoundCloud ----------
+func _radio():
+	var wc = world.get_node_or_null("WorldContent") if world else null
+	return wc.radio if wc else null
+
+func _build_music() -> Dictionary:
+	var p := _panel("♪ Music — SoundCloud")
+	var b: VBoxContainer = p["body"]
+	b.add_child(label("Phoenix Radio streams from SoundCloud. Default = the owner's SoundCloud. Put your own SoundCloud profile/playlist link below.", 24, MAG))
+	b.add_child(btn("▶ Play on SoundCloud (opens SoundCloud app)", func():
+		var r = _radio()
+		if r == null or not r.play_on_soundcloud():
+			b.add_child(label("No SoundCloud link yet - add one below (owner default: YOUR INPUT HERE).", 22, Color(1, 0.6, 0.6)))))
+	b.add_child(label("Your SoundCloud URL", 26, GOLD))
+	var u := LineEdit.new()
+	u.text = str(Settings.get_value("music", "soundcloud_url", ""))
+	u.placeholder_text = "https://soundcloud.com/your-name  (blank = owner's default)"
+	u.custom_minimum_size = Vector2(0, 72)
+	u.add_theme_font_size_override("font_size", 24)
+	u.text_submitted.connect(func(t):
+		Settings.set_value("music", "soundcloud_url", t.strip_edges())
+		var r = _radio()
+		if r: r.start())
+	b.add_child(u)
+	b.add_child(label("In-game playback (optional): SoundCloud API Client ID / Secret (Artist Pro). Stored only on this phone.", 22))
+	for k in [["sc_client_id", false], ["sc_client_secret", true]]:
+		var le := LineEdit.new()
+		le.placeholder_text = k[0]
+		le.secret = k[1]
+		le.text = str(Settings.get_value("music", k[0], ""))
+		le.custom_minimum_size = Vector2(0, 64)
+		var key: String = k[0]
+		le.text_changed.connect(func(t): Settings.set_value("music", key, t.strip_edges()))
+		b.add_child(le)
+	b.add_child(label("Without API keys, songs play in the SoundCloud app; the radio keeps a royalty-free track in-world.", 22))
+	return p

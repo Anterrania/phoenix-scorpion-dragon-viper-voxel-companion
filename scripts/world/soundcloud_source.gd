@@ -76,13 +76,22 @@ func resolve_stream(u: String) -> void:
 			tracks = lst.get("collection", []) if lst.has("collection") else []
 		if tracks.is_empty():
 			failed.emit("no streamable tracks"); return
-		track = tracks[randi() % tracks.size()]
-	if str(track.get("access", "playable")) == "blocked":
-		failed.emit("track blocked off-platform"); return
+		tracks.shuffle()
+		for t in tracks:  # skip missing / blocked / HLS-only tracks
+			var mp3 := await _track_mp3(t, h)
+			if mp3 != "":
+				stream_ready.emit(mp3)
+				return
+		failed.emit("no tracks streamable in-game - use Play on SoundCloud")
+		return
+	var one := await _track_mp3(track, h)
+	if one == "": failed.emit("track not streamable in-game - opening SoundCloud app instead")
+	else: stream_ready.emit(one)
+
+func _track_mp3(track: Dictionary, h: Array) -> String:
+	if str(track.get("access", "playable")) == "blocked" or not bool(track.get("streamable", true)): return ""
 	var streams := await _http_get(API + "/tracks/%s/streams" % str(track.get("id")), h)
-	var mp3 := pick_mp3(streams)
-	if mp3 == "": failed.emit("only HLS/AAC streams - opening SoundCloud app instead")
-	else: stream_ready.emit(mp3)
+	return pick_mp3(streams)
 
 static func pick_mp3(streams: Dictionary) -> String:
 	for k in ["http_mp3_128_url", "preview_mp3_128_url"]:

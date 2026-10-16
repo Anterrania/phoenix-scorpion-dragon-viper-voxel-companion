@@ -106,7 +106,7 @@ Stack: Godot 4.7, Zylann Voxel Tools (smooth Transvoxel + VoxelLodTerrain), mobi
 - **Trading and creators:** pets are inventory items with transfer permissions, sold in the Creator Market. Third-party creators upload trait packs and meshes as UGC (upload fees and moderation apply).
 
 ## Music: SoundCloud (v0.5.2)
-- **Source:** Phoenix Radio uses SoundCloud. The owner's default is `data/music.json` → `default_soundcloud_url` (currently **YOUR INPUT HERE**). Players can set their own SoundCloud URL in **MENU › Music**.
+- **Source:** Phoenix Radio uses SoundCloud. The owner's default is `data/music.json` → `default_soundcloud_url` = **Anterranian Monarch** (`https://soundcloud.com/anterrania`). Players can set their own SoundCloud URL in **MENU › Music**.
 - **Works now, no key:** the radio shows the track or profile title through SoundCloud's public oEmbed. **▶ Play on SoundCloud** opens the SoundCloud app (or web player) on the phone, which follows SoundCloud's terms and attribution. In-world, a royalty-free fallback track keeps the parcel music going.
 - **In-game streaming (optional):** needs SoundCloud API credentials, which require an **Artist Pro** subscription. The flow is client-credentials token → resolve → `/tracks/:id/streams` → progressive MP3 played in-world. Limits: many tracks only offer HLS/AAC, and some are blocked off-platform by the creator; those fall back to the SoundCloud app. Godot can't play HLS/AAC without a plugin.
 - **Keys:** the client secret must never ship inside a public APK. For now it can only be typed into Settings on the owner's own phone. Later, a small proxy server holds it.

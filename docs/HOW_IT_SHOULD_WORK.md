@@ -65,7 +65,7 @@ This is a plain-language guide. It covers **what's real now** and **what's plann
 - Place and save blocks, shapes and smooth-voxel builds on your land. Companions help build.
 
 ## Music (SoundCloud)
-- Phoenix Radio near spawn uses **SoundCloud**. By default it plays Phoenix's own SoundCloud music once he adds his link (`data/music.json`, `default_soundcloud_url`).
+- Phoenix Radio near spawn uses **SoundCloud**. By default it plays Phoenix's own SoundCloud music (Anterranian Monarch, set in `data/music.json`).
 - **MENU › Music › ▶ Play on SoundCloud** opens the SoundCloud app. Anyone can paste **their own** SoundCloud link there.
 - Playing SoundCloud songs *inside* the game needs a SoundCloud Artist Pro API key; otherwise they play in the SoundCloud app.
 

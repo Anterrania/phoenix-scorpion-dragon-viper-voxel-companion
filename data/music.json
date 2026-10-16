@@ -1,8 +1,9 @@
 {
-  "_note": "Phoenix Radio music config. SoundCloud is the streaming source. Owner: replace YOUR INPUT HERE with your SoundCloud profile or playlist URL (e.g. https://soundcloud.com/<you> or https://soundcloud.com/<you>/sets/<playlist>). Players can override in Settings.",
-  "default_soundcloud_url": "YOUR INPUT HERE",
+  "_note": "Phoenix Radio music config. SoundCloud is the streaming source. Owner default = Anterranian Monarch (resolved from on.soundcloud.com/XcsWK8t1x8QXMkNGXN). Players can override in Settings.",
+  "default_soundcloud_url": "https://soundcloud.com/anterrania",
   "fallback_track_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3",
   "fallback_credit": "\"Local Forecast - Elevator\" Kevin MacLeod (incompetech.com), CC BY 4.0",
   "playback_mode": "auto",
-  "_playback_modes": "auto = in-app API stream if credentials are set, otherwise open SoundCloud app/web player; external = always open SoundCloud app; fallback = royalty-free track only"
+  "_playback_modes": "auto = in-app API stream if credentials are set, otherwise open SoundCloud app/web player; external = always open SoundCloud app; fallback = royalty-free track only",
+  "default_soundcloud_name": "Anterranian Monarch"
 }

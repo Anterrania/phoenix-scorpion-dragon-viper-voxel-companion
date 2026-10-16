@@ -321,7 +321,7 @@ func _v05_tests() -> void:
 	add_child(radio)
 	radio.setup(null)
 	radio._on_done(HTTPRequest.RESULT_CANT_CONNECT, 0, PackedStringArray(), PackedByteArray())
-	check(radio.status == "offline" and radio.label.text.contains("YOUR INPUT HERE"), "radio handles offline + input slot")
+	check(radio.status == "offline" and radio.label.text.contains("SoundCloud"), "radio handles offline + shows SoundCloud")
 	radio.queue_free()
 	check(ProjectSettings.get_setting("audio/general/text_to_speech", false), "TTS enabled in project")
 	check(load("res://scripts/agent/companion_agent.gd").new().has_method("set_follow"), "follow/free-roam toggle")
@@ -398,7 +398,8 @@ func _v05_tests() -> void:
 	check(UIS.map_to_world(Vector2(0.5, 0.5)) == Vector2.ZERO, "map centre is spawn")
 	# v0.5.2 SoundCloud + stubs
 	var mc: Dictionary = SoundCloudSource.config()
-	check(mc.get("default_soundcloud_url", "") == "YOUR INPUT HERE", "owner SoundCloud default is a clear placeholder")
+	check(mc.get("default_soundcloud_url", "") == "https://soundcloud.com/anterrania", "owner SoundCloud default = Anterranian Monarch")
+	check(SoundCloudSource.active_url() != "", "radio has a SoundCloud source by default")
 	check(SoundCloudSource.is_soundcloud_url("https://soundcloud.com/someone") and not SoundCloudSource.is_soundcloud_url("YOUR INPUT HERE"), "SoundCloud URL validation")
 	check(SoundCloudSource.active_url() == "" or SoundCloudSource.is_soundcloud_url(SoundCloudSource.active_url()), "placeholder never used as URL")
 	check(not SoundCloudSource.open_external("YOUR INPUT HERE"), "no external open without a URL")

@@ -1,0 +1,27 @@
+{
+  "_note": "v0.5.1 DATA MODEL ONLY (no server yet). Prices in Aethel Coin (AEC) are placeholders - YOUR INPUT HERE.",
+  "currency": {"code": "AEC", "name": "Aethel Coin", "sl_equivalent": "L$"},
+  "upload_fees": {"mesh": 10, "texture": 10, "sound": 10, "animation": 10, "voxel_build_snapshot": 0,
+    "notes": "Charged at upload, like SL's L$10. Covers storage + moderation. Free for the owner/admin."},
+  "land_tiers": [
+    {"tier": "parcel",      "size": "16-4096 m2 inside a region", "buy_price": 500,       "monthly_tier_fee": 50},
+    {"tier": "region",      "size": "256x256 m island",           "buy_price": 50000,     "monthly_tier_fee": 2500},
+    {"tier": "homestead",   "size": "256x256 m, low prim/voxel budget", "buy_price": 20000, "monthly_tier_fee": 900},
+    {"tier": "planet",      "size": "whole procedural planet (many regions)", "buy_price": 5000000, "monthly_tier_fee": 100000},
+    {"tier": "star_system", "size": "star + planets + moons + stations", "buy_price": 50000000, "monthly_tier_fee": 750000}
+  ],
+  "land_object": {
+    "id": "string", "tier": "parcel|region|homestead|planet|star_system", "parent_id": "containing land id",
+    "bounds": "AABB or planet/system id", "owner": {"type": "avatar|group", "id": "string"},
+    "estate_id": "string (estate = set of regions/planets under one estate owner)",
+    "permissions": {"build": "owner|group|anyone", "object_entry": "bool", "run_scripts": "owner|group|anyone",
+      "fly": "bool", "push": "bool", "damage": "bool", "access": "public|group|allowlist", "banlist": ["avatar ids"]},
+    "media": {"music_url": "string", "media_url": "string"},
+    "landing_point": "Vector3", "for_sale": {"price": "int", "to": "anyone|avatar id"},
+    "rental": {"enabled": "bool", "weekly_price": "int", "renter": "avatar id"},
+    "voxel_budget": "int (SL land impact equivalent)"
+  },
+  "group": {"id": "string", "name": "string", "founder": "avatar id", "roles": [{"name": "Owners|Officers|Members", "abilities": ["deed_land", "build", "return_objects", "invite", "eject"]}],
+    "land_deeded": ["land ids"], "fee_to_join": "int", "tier_contribution": "per-member AEC"},
+  "estate_tools": ["set covenant", "estate managers", "allow/ban lists", "region restart", "terrain edit lock", "sun/sky per region", "teleport routing / landing point"]
+}

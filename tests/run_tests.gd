@@ -288,7 +288,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=5") and ep.contains("0.5.0"), "versionCode 5 / 0.5.0")
+	check(ep.contains("version/code=6") and ep.contains("0.5.1"), "versionCode 6 / 0.5.1")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))
@@ -378,3 +378,21 @@ func _v05_tests() -> void:
 	check(Marketplace.import_glb("res://icon.svg", "x", "t", "head", {"copy": true}, 0, false).has("error"), "rejects non-glb")
 	am.free()
 	DirAccess.remove_absolute("user://ugc/catalog.json")
+	# v0.5.1 flying + map teleport
+	var pl: CharacterBody3D = load("res://scenes/player.tscn").instantiate()
+	add_child(pl)
+	pl.global_position = Vector3(0, 50, 0)
+	pl.set_flying(true)
+	pl.fly_vertical = 0.0
+	for i in 60: pl._fly_step(1.0 / 60.0, Vector3.ZERO)
+	check(absf(pl.velocity.y) < 1.0 and pl.global_position.y > 45.0, "flying hovers (no gravity)")
+	pl.fly_vertical = 1.0
+	var y0: float = pl.global_position.y
+	for i in 60: pl._fly_step(1.0 / 60.0, Vector3.ZERO)
+	check(pl.global_position.y > y0 + 2.0, "fly up rises")
+	pl.toggle_fly()
+	check(not pl.flying, "land toggles fly off")
+	pl.queue_free()
+	var UIS = load("res://scripts/ui/ui_root.gd")
+	check(UIS.world_to_map(UIS.map_to_world(Vector2(0.25, 0.8))).distance_to(Vector2(0.25, 0.8)) < 0.001, "map <-> world coords")
+	check(UIS.map_to_world(Vector2(0.5, 0.5)) == Vector2.ZERO, "map centre is spawn")

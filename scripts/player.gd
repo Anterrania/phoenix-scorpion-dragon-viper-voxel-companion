@@ -118,7 +118,46 @@ func _look(d: Vector2) -> void:
 	head.rotate_x(-d.y)
 	head.rotation.x = clamp(head.rotation.x, -1.45, 1.45)
 
+## v0.5.1 Second Life-style flying: toggle, up/down, hover in place when idle.
+signal flying_changed(on: bool)
+const FLY_SPEED := 14.0
+const FLY_VERTICAL := 8.0
+const FLY_CEILING := 600.0
+var flying := false
+var fly_vertical := 0.0   # -1 down .. 1 up (HUD buttons / keys)
+
+func set_flying(on: bool) -> void:
+	flying = on
+	velocity.y = 2.0 if on else velocity.y
+	flying_changed.emit(on)
+
+func toggle_fly() -> void:
+	set_flying(not flying)
+
+func _fly_step(delta: float, dir: Vector3) -> void:
+	var v := fly_vertical
+	if Input.is_physical_key_pressed(KEY_E): v = 1.0
+	if Input.is_physical_key_pressed(KEY_C): v = -1.0
+	var target := dir * FLY_SPEED + Vector3.UP * v * FLY_VERTICAL
+	velocity = velocity.lerp(target, clampf(delta * 4.0, 0.0, 1.0))  # smooth, hovers at 0
+	if global_position.y > FLY_CEILING and velocity.y > 0.0: velocity.y = 0.0
+	var g = _gen()
+	if g:
+		var floor_y: float = maxf(g.height_f(global_position.x, global_position.z), g.LAVA_LEVEL) + 1.0
+		if global_position.y < floor_y:
+			global_position.y = floor_y
+			velocity.y = maxf(velocity.y, 0.0)
+	var col := move_and_collide(velocity * delta)
+	if col: velocity = velocity.slide(col.get_normal())
+
 func _physics_process(delta: float) -> void:
+	if flying:
+		var fi := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+		if _touch_move != Vector2.ZERO: fi = _touch_move
+		# Fly toward where the camera looks (pitch included), like SL.
+		var cb := camera.global_transform.basis if camera else transform.basis
+		_fly_step(delta, (cb * Vector3(fi.x, 0, fi.y)).normalized() if fi != Vector2.ZERO else Vector3.ZERO)
+		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	elif Input.is_action_just_pressed("jump"):

@@ -15,6 +15,21 @@ func _ready() -> void:
 	var gfx := _button("Graphics", "GFX\n" + Settings.QUALITY_NAMES[Settings.quality()], Vector2(-190, -470))
 	gfx.add_theme_font_size_override("font_size", 24)
 	gfx.pressed.connect(func(): gfx.text = "GFX\n" + Settings.QUALITY_NAMES[Settings.cycle_quality()])
+	# v0.5.1 flying: FLY toggle + hold UP / DOWN (shown only while flying).
+	var fly := _button("Fly", "FLY", Vector2(-350, -190))
+	var up := _button("FlyUp", "▲", Vector2(-350, -470))
+	var down := _button("FlyDown", "▼", Vector2(-350, -330))
+	for b in [up, down]: b.visible = false
+	fly.pressed.connect(func(): if player and player.has_method("toggle_fly"): player.toggle_fly())
+	up.button_down.connect(func(): if player: player.fly_vertical = 1.0)
+	up.button_up.connect(func(): if player: player.fly_vertical = 0.0)
+	down.button_down.connect(func(): if player: player.fly_vertical = -1.0)
+	down.button_up.connect(func(): if player: player.fly_vertical = 0.0)
+	if player and player.has_signal("flying_changed"):
+		player.flying_changed.connect(func(on: bool):
+			fly.text = "LAND" if on else "FLY"
+			up.visible = on
+			down.visible = on)
 	var hp := ProgressBar.new()
 	hp.name = "Health"
 	hp.max_value = 100.0

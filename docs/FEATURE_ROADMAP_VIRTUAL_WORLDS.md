@@ -53,6 +53,40 @@ Stack: Godot 4.7, Zylann Voxel Tools (smooth Transvoxel + VoxelLodTerrain), mobi
 - **Data model now:** `data/marketplace/schema.json`. Items have a creator id, kind, glTF asset with sha256, attach point, alpha masks, SL-style **copy/modify/transfer** next-owner permissions, a price in **Aethel Coin**, a mature flag, and a moderation state (pending/approved/rejected). `Marketplace` (local) imports a .glb into a moderation queue, lists only approved items, hides mature items unless the buyer enabled the gate, and buys from a local Aethel wallet. An in-world **Creator Market vendor** stub stands near spawn.
 - **Server (0.8+):** accounts, server-verified creator ids, upload limits (triangle and texture budgets), virus and format checks, human plus automated moderation and a report flow, escrow and payouts, revenue share, and a ban on real-person likenesses and copyrighted or trademarked uploads.
 
+## Second Life concepts mapped to our game
+| Second Life | Phoenix Voxel (our version) | Status |
+|---|---|---|
+| Prims (boxes/spheres you build with) | **Voxels** (smooth Transvoxel + block voxels) and Forge-Prim shapes | v0.6 building |
+| Mesh uploads | **.glb uploads** (attachments, clothing, props) | local import ✔, store later |
+| Region (256 m sim) | **Region / island** (256×256 m) | data model |
+| Parcel | **Parcel** inside a region, with its own permissions and music | data model |
+| Estate / private island | **Estate**: regions → **whole planets → star systems** | data model |
+| L$ (Linden dollars) | **Aethel Coin (AEC)** | local wallet ✔ |
+| Upload fee (L$10) | **AEC upload fee** for mesh / texture / sound | data model |
+| Tier / land fees | **Monthly AEC tier fee** for each land tier | data model |
+| Groups (land deeding, roles) | **Groups** with roles and deeded land | data model |
+| Inventory | **Satchel** (BAG) | ✔ basic |
+| Appearance / shapes / alphas | **Avatar creator + DNA blend + alpha masks** | ✔ |
+| Attachments (HUD/head/hands…) | **Attachment points** | ✔ |
+| Landmarks | **Landmarks** with signs + Teleport list | ✔ |
+| Teleport / map TP | **MENU › Teleport** and **◎ MAP** tap-to-teleport | ✔ |
+| Fly (Page Up/Down) | **FLY** button + ▲/▼ (keys E/C on PC) | ✔ |
+| Parcel music / media | **Phoenix Radio** (user station URL) | ✔ basic |
+| Local chat / IM / voice | **TALK** panel, companion voice (TTS), push-to-talk stub | partial |
+| Marketplace / vendors | **Creator Market** with SL-style perms + vendor | data model + stub |
+| Bots / NPCs | **Autonomous AI companions** (free roam, memory) | ✔ basic |
+
+## Movement: fly & teleport
+- **v0.5.1 ✔:** SL-style flight (toggle, up/down, hover, ceiling at 600 m, follows camera pitch, collides with structures). Teleport by landmark list or by tapping the world map.
+- **Next:** teleport to friends, home location, landing points per parcel, and flight limits per parcel (no-fly land).
+
+## Land economy & upload fees (data model: `data/economy/land_and_fees.json`)
+- **Upload fees** in AEC for mesh, texture, sound and animation. Free for the owner/admin.
+- **Land tiers:** parcel → region/island → homestead → **planet** → **star system** (and beyond: sectors/galaxies). Each tier has a buy price, a monthly tier fee and a voxel budget (like land impact).
+- **Ownership:** an avatar or group owns land. Groups have roles and abilities and receive deeded land. Rentals, for-sale settings, covenants, estate managers, allow/ban lists, and landing points.
+- **Parcel permissions:** build, object entry, scripts, fly, push, damage, access, and media/music URL.
+- **Server needed:** land and money need an authoritative server (0.8+). Today it's data model only.
+
 ## Voice chat
 - **Now (0.5):** companions speak replies via `DisplayServer.tts_speak` (one voice per companion, Settings toggle). There's also a 🎤 push-to-talk button that emits `push_to_talk(active)` (stub only, no mic permission yet).
 - **0.6:** speech-to-text through an Android STT plugin (on-device `SpeechRecognizer`) sends text to `ChatUI._send()`. Optional cloud TTS voices are matched to each persona.

@@ -87,6 +87,31 @@ Stack: Godot 4.7, Zylann Voxel Tools (smooth Transvoxel + VoxelLodTerrain), mobi
 - **Parcel permissions:** build, object entry, scripts, fly, push, damage, access, and media/music URL.
 - **Server needed:** land and money need an authoritative server (0.8+). Today it's data model only.
 
+## Combat (opt-in, like SL damage-enabled land)
+- **Rules:** combat is only on where the land's `damage` permission is on. Spawn, landmarks and the Lagoon are safe zones by default.
+- **Styles:** melee, fire magic and ranged, with health plus regenerating shields. Respawn at home or the nearest landmark.
+- **PvE creatures:** frost wyrmling (Alaska), magma crawler (Venus), void wisp (Cosmic).
+- **RP combat meter:** opt-in d20 + stat dice, with a turn-based option for roleplay fights.
+- Today: lava damage, a health bar and respawn already exist (v0.4). Everything else is in the stub data in `data/gameplay_stubs.json`.
+
+## Roleplay
+- RP titlers (name, title, faction, IC/OOC status) and character sheets.
+- **IC/OOC channels** with whisper/say/shout at 10/20/100 m.
+- /me emotes, pose stands, and couples poses that ask for consent first.
+- Factions are built on land groups. RP sims are regions with a covenant and a required titler.
+
+## Breedables
+- **Genetics:** two alleles per trait (coat, eyes, wings, glow, size) with a rare mutation chance.
+- **Care and breeding:** feeding with Aether Feed bought in Aethel Coin. Neglected pets go dormant and never die. Breeding has a cooldown and needs ownership or permission.
+- **Trading and creators:** pets are inventory items with transfer permissions, sold in the Creator Market. Third-party creators upload trait packs and meshes as UGC (upload fees and moderation apply).
+
+## Music: SoundCloud (v0.5.2)
+- **Source:** Phoenix Radio uses SoundCloud. The owner's default is `data/music.json` → `default_soundcloud_url` = **Anterranian Monarch** (`https://soundcloud.com/anterrania`). Players can set their own SoundCloud URL in **MENU › Music**.
+- **Works now, no key:** the radio shows the track or profile title through SoundCloud's public oEmbed. **▶ Play on SoundCloud** opens the SoundCloud app (or web player) on the phone, which follows SoundCloud's terms and attribution. In-world, a royalty-free fallback track keeps the parcel music going.
+- **In-game streaming (optional):** needs SoundCloud API credentials, which require an **Artist Pro** subscription. The flow is client-credentials token → resolve → `/tracks/:id/streams` → progressive MP3 played in-world. Limits: many tracks only offer HLS/AAC, and some are blocked off-platform by the creator; those fall back to the SoundCloud app. Godot can't play HLS/AAC without a plugin.
+- **Keys:** the client secret must never ship inside a public APK. For now it can only be typed into Settings on the owner's own phone. Later, a small proxy server holds it.
+- **Later:** an embedded WebView with the SoundCloud Widget API (needs an Android WebView plugin), and per-parcel SoundCloud playlists.
+
 ## Voice chat
 - **Now (0.5):** companions speak replies via `DisplayServer.tts_speak` (one voice per companion, Settings toggle). There's also a 🎤 push-to-talk button that emits `push_to_talk(active)` (stub only, no mic permission yet).
 - **0.6:** speech-to-text through an Android STT plugin (on-device `SpeechRecognizer`) sends text to `ChatUI._send()`. Optional cloud TTS voices are matched to each persona.

@@ -64,6 +64,16 @@ This is a plain-language guide. It covers **what's real now** and **what's plann
 ## Building (planned v0.6)
 - Place and save blocks, shapes and smooth-voxel builds on your land. Companions help build.
 
+## Music (SoundCloud)
+- Phoenix Radio near spawn uses **SoundCloud**. By default it plays Phoenix's own SoundCloud music (Anterranian Monarch, set in `data/music.json`).
+- **MENU › Music › ▶ Play on SoundCloud** opens the SoundCloud app. Anyone can paste **their own** SoundCloud link there.
+- Playing SoundCloud songs *inside* the game needs a SoundCloud Artist Pro API key; otherwise they play in the SoundCloud app.
+
+## Combat, roleplay & breedables (planned)
+- **Combat:** only on land where the owner turned damage on (spawn and landmarks stay safe). Melee, fire magic and ranged, with shields, respawn, creatures to fight, and optional RP dice meters.
+- **Roleplay:** titlers, character sheets, IC/OOC chat, /me emotes, poses, factions (groups), and RP regions with rules.
+- **Breedables:** pets with genetics. Feed them, breed them, and trade them for Aethel Coin. Creators can make new traits.
+
 ## Music & voice
 - **Phoenix Radio** near spawn plays music while you stand near it, like Second Life parcel music. Put your own station link (MP3/OGG) in Settings. Live endless radio streams are planned next.
 - Planned: talk to companions by voice, and voice chat with other players nearby.

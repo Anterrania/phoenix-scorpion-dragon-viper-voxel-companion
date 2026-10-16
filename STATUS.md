@@ -224,3 +224,14 @@
 - GPU particles: snow (Alaska), embers + ash (Venus), star dust (Cosmic), footstep dust, fire-bolt trail + impact, dragon-wing sparkle; wind gusts; counts scale with GFX
 - Physics: acceleration/decel + air control, coyote time, jump buffer, floor snapping, swimming, ragdoll-lite knockback, prop mass/friction/damping
 - Vala "better world" code: not found on box, repo, Drive search, or Gmail (Drive Takeout .tgz archives could not be opened)
+
+## v0.9.0 (versionCode 11) - phone-first
+- Portrait-first (720x1280 design), auto-rotate allowed; compact menus (2 columns portrait), icon top bar
+- Always-visible EXIT + BG (background) buttons; Android back = close panel / background
+- Floating text hidden by default (Settings toggle); map shows region names only zoomed in
+- Owner SoundCloud plays everywhere by default; mute button saved; parcel music URL overrides
+- Region/Estate panel: land texture (region/parcel), water height, fixed sun/hour, access + allowed list, terraform rights, fly/build/damage, parcel music/media URL (saved in user://estate.cfg)
+- Land tools: raise/lower/flatten/smooth/noise/revert with brush size + strength
+- Shaders: water foam/fresnel/sun glint, flowing emissive lava, frost + sparkly snow, sub-biomes (moss meadows, ash dunes)
+- AvatarAppearance (OpenSim/Aurora wearables, layers, attach points, visual params -> DNA slots): docs/AVATAR_STRUCTURE.md
+- Live chat: key from Settings or gitignored config/llm_default.local.cfg; clear CHAT OFFLINE banner + persona fallback

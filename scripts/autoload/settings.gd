@@ -17,10 +17,10 @@ const DEFAULTS := {
 		"mode": "canned",
 	},
 	"content": {"mature_cosmetics_enabled": false, "age_confirmed": false},
-	"ui": {"show_menu_on_start": true},
+	"ui": {"show_menu_on_start": false, "show_labels": false, "compact": true},
 	"voice": {"tts_enabled": true, "push_to_talk": false},
 	# Royalty-free default (Kevin MacLeod, incompetech.com, CC BY 4.0). YOUR INPUT HERE: your station URL.
-	"music": {"enabled": true, "volume_db": -12.0, "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3", "user_url": "", "soundcloud_url": "", "sc_client_id": "", "sc_client_secret": ""},
+	"music": {"enabled": true, "volume_db": -12.0, "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3", "user_url": "", "soundcloud_url": "", "everywhere": true, "muted": false, "sc_client_id": "", "sc_client_secret": ""},
 	"sync": {"endpoint": ""},
 	"hotreload": {"allow_user_overrides": true},
 	"graphics": {"quality": 1},  # 0 Low, 1 Medium, 2 High
@@ -70,7 +70,38 @@ func mature_enabled() -> bool:
 
 ## Live AI only when the user picked "live" AND entered a key (config hook for later).
 func live_ai() -> bool:
-	return str(get_value("llm", "mode", "canned")) == "live" and has_api_key()
+	return (str(get_value("llm", "mode", "canned")) == "live" or (build_default_key() != "" and not cfg.has_section_key("llm", "mode_set"))) and has_api_key()
 
 func has_api_key() -> bool:
-	return str(get_value("llm", "api_key", "")).strip_edges() != ""
+	return api_key() != ""
+
+
+# ---------- v0.9 live chat ----------
+## Optional build-time default key: res://config/llm_default.local.cfg ([llm] api_key=...).
+## That file is gitignored, so no secret is ever committed. User settings always win.
+const BUILD_DEFAULT := "res://config/llm_default.local.cfg"
+
+static func build_default_key() -> String:
+	if not FileAccess.file_exists(BUILD_DEFAULT): return ""
+	var c := ConfigFile.new()
+	if c.load(BUILD_DEFAULT) != OK: return ""
+	return str(c.get_value("llm", "api_key", "")).strip_edges()
+
+func api_key() -> String:
+	var k := str(get_value("llm", "api_key", "")).strip_edges()
+	return k if k != "" else build_default_key()
+
+## "live" | "offline_no_key" | "offline_mode" | "offline_error"
+var last_chat_error := ""
+func chat_status() -> String:
+	if api_key() == "": return "offline_no_key"
+	if str(get_value("llm", "mode", "canned")) != "live": return "offline_mode"
+	if last_chat_error != "": return "offline_error"
+	return "live"
+
+static func chat_status_text(st: String) -> String:
+	match st:
+		"live": return "● LIVE CHAT online"
+		"offline_no_key": return "○ CHAT OFFLINE: no API key. Add it in Settings › Companion AI (stays on this phone)."
+		"offline_mode": return "○ CHAT OFFLINE: AI mode is set to offline replies (Settings)."
+		_: return "○ CHAT OFFLINE: could not reach the AI service. Offline replies until it's back."

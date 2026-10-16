@@ -84,11 +84,7 @@ func chat(id: String, player_text: String) -> void:
 		request_failed.emit(id, "unknown companion")
 		return
 	if not Settings.live_ai():
-		# v0.5 offline mode: canned replies from persona.json (game_lines / canned_replies).
-		var r := CannedReplies.reply(agent.persona, player_text, agent.life.recap() if "life" in agent and agent.life else "")
-		_memory[id]["history"].append({"role": "user", "content": player_text})
-		_memory[id]["history"].append({"role": "assistant", "content": r})
-		reply_ready.emit(id, r)
+		_offline_reply(id, player_text)
 		return
 	var persona: Dictionary = agent.persona
 	var mem: Dictionary = _memory[id]
@@ -108,7 +104,7 @@ func chat(id: String, player_text: String) -> void:
 	http.timeout = float(Settings.get_value("llm", "timeout_sec", 45.0))
 	add_child(http)
 	http.request_completed.connect(_on_chat_done.bind(id, http))
-	var headers := ["Content-Type: application/json", "Authorization: Bearer %s" % Settings.get_value("llm", "api_key")]
+	var headers := ["Content-Type: application/json", "Authorization: Bearer %s" % Settings.api_key()]
 	var err := http.request(str(Settings.get_value("llm", "endpoint")), headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 	if err != OK:
 		http.queue_free()
@@ -123,8 +119,11 @@ func _system_prompt(persona: Dictionary, mem: Dictionary, agent: Node) -> String
 func _on_chat_done(result: int, code: int, _h: PackedStringArray, raw: PackedByteArray, id: String, http: HTTPRequest) -> void:
 	http.queue_free()
 	if result != HTTPRequest.RESULT_SUCCESS or code >= 400:
-		request_failed.emit(id, "LLM error result=%d code=%d" % [result, code])
+		Settings.last_chat_error = "LLM error result=%d code=%d" % [result, code]
+		request_failed.emit(id, Settings.last_chat_error)
+		_offline_reply(id)
 		return
+	Settings.last_chat_error = ""
 	var data: Variant = JSON.parse_string(raw.get_string_from_utf8())
 	if not (data is Dictionary) or data.get("choices", []).is_empty():
 		request_failed.emit(id, "bad LLM response")
@@ -179,3 +178,17 @@ func _tool_specs(names: Array) -> Array:
 			var s: Dictionary = TOOL_SCHEMAS[n]
 			out.append({"type": "function", "function": {"name": n, "description": s["description"], "parameters": {"type": "object", "properties": s["properties"], "required": s["required"]}}})
 	return out
+
+
+## v0.9: canned persona reply used whenever live chat is offline (no key, mode, or error).
+func _offline_reply(id: String, player_text := "") -> void:
+	var agent: Node = _agents.get(id)
+	if agent == null: return
+	if player_text == "":
+		var h: Array = _memory[id]["history"]
+		player_text = str(h.back().get("content", "")) if not h.is_empty() else ""
+	var r := CannedReplies.reply(agent.persona, player_text, agent.life.recap() if "life" in agent and agent.life else "")
+	if not (_memory[id]["history"].size() > 0 and _memory[id]["history"].back().get("content") == player_text):
+		_memory[id]["history"].append({"role": "user", "content": player_text})
+	_memory[id]["history"].append({"role": "assistant", "content": r})
+	reply_ready.emit(id, r)

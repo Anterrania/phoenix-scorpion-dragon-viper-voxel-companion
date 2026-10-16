@@ -16,7 +16,7 @@ var target_row: HBoxContainer
 
 const MAG := Color(1, 0.18, 0.82)
 const GOLD := Color(1, 0.82, 0.29)
-const FS := 30
+const FS := 24  # v0.9 compact menus (tap targets stay >= 80 px)
 
 func _ready() -> void:
 	layer = 10
@@ -40,10 +40,46 @@ func _ready() -> void:
 	panels["welcome"] = _build_welcome()
 	panels["help"] = _build_help()
 	panels["dest"] = _build_dest()
+	panels["estate"] = _build_estate()
+	panels["land"] = _build_land()
+	get_viewport().size_changed.connect(_layout)
+	_layout()
+	AgentBrain.request_failed.connect(func(_id, _e): _update_chat_status())
+	var lt := Timer.new(); lt.wait_time = 2.0; lt.autostart = true; add_child(lt)
+	lt.timeout.connect(func(): FloatingText.apply(get_tree()))
+	call_deferred("_apply_labels")
 	if not bool(Settings.get_value("welcome", "done", false)): call_deferred("go_welcome", false)
 	AgentBrain.reply_ready.connect(_on_reply)
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
-	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", true)) else "")
+	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", false)) else "")
+
+func _apply_labels() -> void:
+	FloatingText.apply(get_tree())
+
+# ---------- v0.9 portrait-first layout ----------
+var menu_grid: GridContainer
+var land_cursor: MeshInstance3D
+func portrait() -> bool:
+	return AppControl.is_portrait(get_viewport())
+
+func _layout() -> void:
+	var por := portrait()
+	for k in panels:
+		var pc: PanelContainer = panels[k].get("pc")
+		if pc == null: continue
+		var m := 12.0 if por else 80.0
+		pc.offset_left = m; pc.offset_right = -m
+		pc.offset_top = 40.0; pc.offset_bottom = -12.0
+		if panels[k].get("land", false): pc.offset_top = get_viewport().get_visible_rect().size.y * (0.52 if por else 0.35)
+	if menu_grid: menu_grid.columns = 2 if por else 4
+
+## Android back gesture: close the open panel, otherwise send the app to the background.
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		if is_open(): show_panel("")
+		else: AppControl.to_background(get_tree())
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN or what == NOTIFICATION_APPLICATION_RESUMED:
+		if get_tree().paused: AppControl.resume(get_tree())
 
 # ---------- helpers ----------
 func _style(bg: Color, border := MAG, radius := 18) -> StyleBoxFlat:
@@ -59,7 +95,7 @@ func btn(text: String, cb: Callable, min_w := 0.0) -> Button:
 	var b := Button.new()
 	b.text = text
 	b.focus_mode = Control.FOCUS_NONE
-	b.custom_minimum_size = Vector2(min_w, 96)
+	b.custom_minimum_size = Vector2(min_w, 80)
 	b.add_theme_font_size_override("font_size", FS)
 	b.add_theme_stylebox_override("normal", _style(Color(0.08, 0.03, 0.1, 0.9)))
 	b.add_theme_stylebox_override("hover", _style(Color(0.16, 0.05, 0.18, 0.95)))
@@ -91,17 +127,17 @@ func _panel(title: String) -> Dictionary:
 	root.add_child(dim)
 	var pc := PanelContainer.new()
 	pc.set_anchors_preset(Control.PRESET_FULL_RECT)
-	pc.offset_left = 60; pc.offset_right = -60; pc.offset_top = 30; pc.offset_bottom = -30
+	pc.offset_left = 12; pc.offset_right = -12; pc.offset_top = 40; pc.offset_bottom = -12
 	pc.add_theme_stylebox_override("panel", _style(Color(0.05, 0.02, 0.07, 0.95), MAG, 26))
 	root.add_child(pc)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 12)
 	pc.add_child(v)
 	var head := HBoxContainer.new()
-	var t := label(title, 44, GOLD)
+	var t := label(title, 32, GOLD)
 	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(t)
-	head.add_child(btn("✕ Close", func(): show_panel(""), 200))
+	head.add_child(btn("✕", func(): show_panel(""), 96))
 	v.add_child(head)
 	var sc := KineticScroll.new()
 	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -112,7 +148,7 @@ func _panel(title: String) -> Dictionary:
 	sc.add_child(body)
 	add_child(root)
 	root.visible = false
-	return {"root": root, "body": body, "box": v, "scroll": sc}
+	return {"root": root, "body": body, "box": v, "scroll": sc, "pc": pc}
 
 func show_panel(n: String) -> void:
 	for k in panels:
@@ -123,6 +159,9 @@ func show_panel(n: String) -> void:
 	if n == "radar": _refresh_radar()
 	if n == "map" and map_view and player: map_view.focus(Vector2(player.global_position.x, player.global_position.z))
 	if n == "wyrm": _refresh_wyrm()
+	if n == "chat": _update_chat_status()
+	if n == "estate": _refresh_estate()
+	if land_cursor: land_cursor.visible = n == "land"
 	if n == "chat" and chat_target == null: _pick_chat(_companions().front() if not _companions().is_empty() else null)
 
 func is_open() -> bool:
@@ -136,29 +175,58 @@ func _companions() -> Array:
 func _topbar() -> void:
 	var h := HBoxContainer.new()
 	h.name = "TopBar"
-	h.position = Vector2(24, 58)
-	h.add_theme_constant_override("separation", 10)
-	h.add_child(btn("☰ MENU", func(): show_panel("menu"), 170))
-	h.add_child(btn("👜 BAG", func(): show_panel("wardrobe"), 170))
-	h.add_child(btn("💬 TALK", func(): show_panel("chat"), 170))
-	h.add_child(btn("◎ MAP", func(): show_panel("map"), 170))
-	h.add_child(btn("🎭 RP", func(): show_panel("rp"), 150))
+	h.position = Vector2(12, 52)
+	h.add_theme_constant_override("separation", 8)
+	for pair in [["☰", "menu"], ["💬", "chat"], ["◎", "map"], ["⛰", "land"], ["👜", "wardrobe"]]:
+		var tgt: String = pair[1]
+		var b := btn(pair[0], func(): show_panel(tgt), 68)
+		b.add_theme_font_size_override("font_size", 34)
+		h.add_child(b)
+	var mute := btn("♪" if not bool(Settings.get_value("music", "muted", false)) else "🔇", func(): pass, 68)
+	mute.name = "Mute"
+	mute.add_theme_font_size_override("font_size", 34)
+	mute.pressed.connect(func():
+		var m := not bool(Settings.get_value("music", "muted", false))
+		MusicRadio.set_muted(m)
+		mute.text = "🔇" if m else "♪")
+	h.add_child(mute)
 	add_child(h)
+	# Exit + Background: always on screen, top-right under the minimap, big targets.
+	var sys := HBoxContainer.new()
+	sys.name = "SystemButtons"
+	sys.anchor_left = 1.0; sys.anchor_right = 1.0
+	sys.offset_left = -Minimap.SIZE - 16; sys.offset_right = -16
+	sys.offset_top = 52 + Minimap.SIZE + 8
+	sys.alignment = BoxContainer.ALIGNMENT_END
+	sys.add_theme_constant_override("separation", 8)
+	var bg := btn("⤓ BG", func(): AppControl.to_background(get_tree()), 108)
+	bg.name = "Background"
+	var ex := btn("✕ EXIT", func(): AppControl.exit_app(get_tree()), 108)
+	ex.name = "Exit"
+	ex.add_theme_stylebox_override("normal", _style(Color(0.25, 0.02, 0.08, 0.9), GOLD))
+	for x in [bg, ex]:
+		x.add_theme_font_size_override("font_size", 22)
+		sys.add_child(x)
+	add_child(sys)
 
 # ---------- main menu ----------
 func _build_menu() -> Dictionary:
-	var p := _panel("Phoenix Scorpion Dragon Viper · v0.7")
+	var p := _panel("Phoenix · v0.9")
 	var b: VBoxContainer = p["body"]
 	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 26, MAG))
 	var grid := GridContainer.new()
-	grid.columns = 3
+	menu_grid = grid
+	grid.columns = 2
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⚙ Settings", "settings"], ["★ Your input", "input"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
-		var t := btn(row[0], func(): show_panel(target))
-		t.custom_minimum_size = Vector2(0, 120)
+		var t := btn(row[0], func():
+			if target == "_bg": AppControl.to_background(get_tree())
+			elif target == "_exit": AppControl.exit_app(get_tree())
+			else: show_panel(target))
+		t.custom_minimum_size = Vector2(0, 96)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		grid.add_child(t)
 	b.add_child(grid)
@@ -221,6 +289,9 @@ func _refresh_wardrobe() -> void:
 func _build_chat() -> Dictionary:
 	var p := _panel("Talk to Companions")
 	var b: VBoxContainer = p["body"]
+	chat_status = label("", 22, GOLD)
+	chat_status.name = "ChatStatus"
+	b.add_child(chat_status)
 	var who := HBoxContainer.new()
 	who.name = "Who"
 	b.add_child(who)
@@ -233,12 +304,12 @@ func _build_chat() -> Dictionary:
 	chat_log.add_theme_font_size_override("normal_font_size", 28)
 	chat_log.add_theme_font_size_override("bold_font_size", 28)
 	b.add_child(chat_log)
-	var quick := HBoxContainer.new()
+	var quick := HFlowContainer.new()
 	for q in ["Hi!", "Who are you?", "Where should we go?", "Outfit?"]:
 		var qq: String = q
 		quick.add_child(btn(qq, func(): _send(qq)))
 	b.add_child(quick)
-	var modes := HBoxContainer.new()
+	var modes := HFlowContainer.new()
 	follow_btn = btn("Mode: Follow me", func():
 		if chat_target:
 			chat_target.set_follow(not chat_target.following)
@@ -298,9 +369,15 @@ func _pick_chat(c: Node) -> void:
 	chat_target = c
 	_update_follow()
 	if c and chat_log:
-		chat_log.append_text("[color=#ffd04a]— talking to %s (%s) —[/color]\n" % [c.persona.get("name", c.name), "live AI" if Settings.live_ai() else "offline replies"])
+		chat_log.append_text("[color=#ffd04a]— talking to %s (%s) —[/color]\n" % [c.persona.get("name", c.name), "live AI" if Settings.chat_status() == "live" else "chat offline: persona replies"])
 
 var chat_ic := true
+var chat_status: Label
+func _update_chat_status() -> void:
+	if chat_status == null: return
+	var st := Settings.chat_status()
+	chat_status.text = Settings.chat_status_text(st)
+	chat_status.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if st == "live" else Color(1, 0.55, 0.55))
 func _send(t: String) -> void:
 	if t.strip_edges() == "" or chat_target == null: return
 	var f := RoleplayProfile.format_chat(Profile.display_name(), t, chat_ic)
@@ -356,12 +433,20 @@ func _build_settings() -> Dictionary:
 	menu_start.button_pressed = bool(Settings.get_value("ui", "show_menu_on_start", true))
 	menu_start.toggled.connect(func(on): Settings.set_value("ui", "show_menu_on_start", on))
 	b.add_child(menu_start)
+	var lab := CheckButton.new()
+	lab.text = "Show floating names & labels"
+	lab.add_theme_font_size_override("font_size", FS)
+	lab.button_pressed = FloatingText.enabled()
+	lab.toggled.connect(func(on): FloatingText.set_enabled(on, get_tree()))
+	b.add_child(lab)
 	b.add_child(label("Companion AI", 32, GOLD))
 	var mode := btn("", func(): pass)
 	var upd := func(): mode.text = "AI mode: " + ("LIVE (uses API key)" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "OFFLINE canned replies")
 	upd.call()
 	mode.pressed.connect(func():
 		Settings.set_value("llm", "mode", "canned" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "live")
+		Settings.set_value("llm", "mode_set", true)
+		Settings.last_chat_error = ""
 		upd.call())
 	b.add_child(mode)
 	for f in [["endpoint", "LLM endpoint (OpenAI-compatible)", false], ["model", "Model", false], ["api_key", "API key (stored only on this phone)", true]]:
@@ -734,13 +819,14 @@ var minimap: Minimap
 func _status_and_minimap() -> void:
 	var bar := PanelContainer.new()
 	bar.name = "StatusBar"
-	bar.anchor_left = 0.5; bar.anchor_right = 0.5
-	bar.offset_left = -60; bar.offset_right = 380; bar.offset_top = 4; bar.offset_bottom = 44
+	bar.anchor_left = 0.0; bar.anchor_right = 1.0
+	bar.offset_left = 340; bar.offset_right = -8; bar.offset_top = 2; bar.offset_bottom = 40
 	var sb := _style(Color(0.04, 0.02, 0.06, 0.75), Color(1, 0.18, 0.82, 0.6), 12)
 	sb.set_content_margin_all(6)
 	bar.add_theme_stylebox_override("panel", sb)
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	status_label = label("", 20, Color(1, 0.95, 0.85))
+	status_label = label("", 18, Color(1, 0.95, 0.85))
+	status_label.clip_text = true
 	status_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	bar.add_child(status_label)
 	add_child(bar)
@@ -750,20 +836,9 @@ func _status_and_minimap() -> void:
 	minimap.player = player
 	minimap.anchor_left = 1.0; minimap.anchor_right = 1.0
 	minimap.offset_left = -Minimap.SIZE - 16; minimap.offset_right = -16
-	minimap.offset_top = 50; minimap.offset_bottom = 50 + Minimap.SIZE
+	minimap.offset_top = 52; minimap.offset_bottom = 52 + Minimap.SIZE
 	minimap.open_map.connect(func(): show_panel("map"))
 	add_child(minimap)
-	var row := VBoxContainer.new()  # left of the minimap so it never covers HUD buttons
-	row.anchor_left = 1.0; row.anchor_right = 1.0
-	row.offset_left = -Minimap.SIZE - 16 - 122; row.offset_top = 50; row.offset_right = -Minimap.SIZE - 24
-	row.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	for pair in [["☀ ENV", "env"], ["◉ NEAR", "radar"]]:
-		var tgt: String = pair[1]
-		var hb := btn(pair[0], func(): show_panel(tgt), 112)
-		hb.add_theme_font_size_override("font_size", 22)
-		hb.custom_minimum_size = Vector2(112, 72)
-		row.add_child(hb)
-	add_child(row)
 	var tm := Timer.new(); tm.wait_time = 0.5; tm.autostart = true; add_child(tm)
 	tm.timeout.connect(update_status)
 
@@ -772,7 +847,7 @@ func status_text() -> String:
 	var g = world.generator if world and "generator" in world else null
 	var realm: String = MapData.REALMS[g.biome_at(player.global_position.x, player.global_position.z)] if g else "?"
 	var hr: float = world.hour if world and "hour" in world else 12.0
-	return "%s · %s (%d, %d) · AEC %d · %s" % [realm, MapData.region_name(player.global_position), int(player.global_position.x), int(player.global_position.z), Marketplace.balance(), EnvPresets.clock_text(hr)]
+	return "%s · %s · %s" % [MapData.region_name(player.global_position), realm.split(" ")[0], EnvPresets.clock_text(hr)]
 
 func update_status() -> void:
 	if status_label: status_label.text = status_text()
@@ -785,6 +860,14 @@ func _radio():
 func _build_music() -> Dictionary:
 	var p := _panel("♪ Music — SoundCloud")
 	var b: VBoxContainer = p["body"]
+	for opt in [["muted", "Mute music"], ["everywhere", "Play everywhere (not just near the radio)"]]:
+		var cb := CheckButton.new()
+		var k: String = opt[0]
+		cb.text = opt[1]
+		cb.add_theme_font_size_override("font_size", FS)
+		cb.button_pressed = bool(Settings.get_value("music", k, k == "everywhere"))
+		cb.toggled.connect(func(on): Settings.set_value("music", k, on))
+		b.add_child(cb)
 	b.add_child(label("Phoenix Radio streams from SoundCloud. Default = the owner's SoundCloud. Put your own SoundCloud profile/playlist link below.", 24, MAG))
 	b.add_child(btn("▶ Play on SoundCloud (opens SoundCloud app)", func():
 		var r = _radio()
@@ -1053,3 +1136,161 @@ func _build_dest() -> Dictionary:
 		var w: String = e["where"]
 		b.add_child(btn("%s\n%s · host: %s\n%s  →  go" % [e["title"], e["when"], e["host"], e["desc"]], func(): goto_target(w)))
 	return p
+
+# ---------- v0.9 Region / Estate (SL/OpenSim "Region/Estate" + "About Land") ----------
+var estate_box: VBoxContainer
+var estate_scope := "region"  # "region" | "parcel"
+func _build_estate() -> Dictionary:
+	var p := _panel("🏛 Region / Estate")
+	estate_box = p["body"]
+	return p
+
+func _est_region() -> String:
+	return world.current_region() if world and world.has_method("current_region") else "Spawn"
+
+func _est_get(key: String) -> Variant:
+	var r := _est_region()
+	return Estate.parcel_get(r, Estate.parcel_id(player.global_position), key) if estate_scope == "parcel" and player else Estate.region_get(r, key)
+
+func _est_set(key: String, v: Variant) -> void:
+	var r := _est_region()
+	if estate_scope == "parcel" and player: Estate.parcel_set(r, Estate.parcel_id(player.global_position), key, v)
+	else: Estate.region_set(r, key, v)
+	if world and world.has_method("apply_estate"): world.apply_estate()
+
+func _cycle_btn(title: String, key: String, opts: Array) -> Button:
+	var b := btn("", func(): pass)
+	var upd := func(): b.text = "%s: %s" % [title, str(_est_get(key)).replace("_", " ")]
+	upd.call()
+	b.pressed.connect(func():
+		var i := opts.find(str(_est_get(key)))
+		_est_set(key, opts[(i + 1) % opts.size()])
+		upd.call())
+	return b
+
+func _check(title: String, key: String) -> CheckButton:
+	var c := CheckButton.new()
+	c.text = title
+	c.add_theme_font_size_override("font_size", FS)
+	c.button_pressed = bool(_est_get(key))
+	c.toggled.connect(func(on): _est_set(key, on))
+	return c
+
+func _refresh_estate() -> void:
+	if estate_box == null: return
+	for c in estate_box.get_children(): c.queue_free()
+	var b := estate_box
+	var r := _est_region()
+	b.add_child(label("Region: %s   ·   Parcel %s" % [r, Estate.parcel_id(player.global_position) if player else "?"], 22, MAG))
+	var sc := btn("Editing: " + ("THIS PARCEL (overrides region)" if estate_scope == "parcel" else "WHOLE REGION"), func():
+		estate_scope = "parcel" if estate_scope == "region" else "region"
+		_refresh_estate())
+	b.add_child(sc)
+	b.add_child(label("Ground", 26, GOLD))
+	b.add_child(_cycle_btn("Land texture", "land_texture", Estate.LAND_TEXTURES))
+	b.add_child(label("Water height: %.1f m" % float(_est_get("water_height")), 22))
+	b.add_child(_slider(float(_est_get("water_height")), -20.0, 20.0, func(v): _est_set("water_height", v)))
+	b.add_child(label("Sun & time", 26, GOLD))
+	b.add_child(_check("Fixed sun (no day cycle)", "sun_fixed"))
+	b.add_child(label("Sun hour (fixed sun)", 22))
+	b.add_child(_slider(float(_est_get("sun_hour")), 0.0, 24.0, func(v): _est_set("sun_hour", v)))
+	b.add_child(label("Access", 26, GOLD))
+	b.add_child(_cycle_btn("Who can enter", "access", Estate.ACCESS))
+	b.add_child(_cycle_btn("Who can terraform", "terraform", Estate.TERRAFORM))
+	b.add_child(_check("Allow flying", "allow_fly"))
+	b.add_child(_check("Allow building", "allow_build"))
+	b.add_child(_check("Damage (combat) on", "allow_damage"))
+	b.add_child(label("Allowed avatars (comma separated)", 22))
+	var al := LineEdit.new()
+	al.custom_minimum_size = Vector2(0, 68)
+	al.add_theme_font_size_override("font_size", 22)
+	al.text = ", ".join(PackedStringArray(_est_get("allowed")))
+	al.text_submitted.connect(func(t): _est_set("allowed", Array(t.split(",", false)).map(func(x): return x.strip_edges())))
+	b.add_child(al)
+	b.add_child(label("Media & music", 26, GOLD))
+	for f in [["music_url", "Parcel music URL (SoundCloud or MP3; blank = owner's SoundCloud)"], ["media_url", "Parcel media URL (video/web, future)"]]:
+		b.add_child(label(f[1], 22))
+		var le := LineEdit.new()
+		le.custom_minimum_size = Vector2(0, 68)
+		le.add_theme_font_size_override("font_size", 22)
+		le.text = str(_est_get(f[0]))
+		var k: String = f[0]
+		le.text_submitted.connect(func(t): _est_set(k, t.strip_edges()))
+		le.focus_exited.connect(func(): _est_set(k, le.text.strip_edges()))
+		b.add_child(le)
+	b.add_child(label("Saved on this phone. Grid sync comes with the region server.", 20))
+
+# ---------- v0.9 Land tools (viewer "Edit Terrain": raise/lower/flatten/smooth/noise/revert) ----------
+var land_op := "raise"
+var land_size := 4.0
+var land_strength := 0.5
+var land_info: Label
+func _build_land() -> Dictionary:
+	var p := _panel("⛰ Land Tools")
+	var b: VBoxContainer = p["body"]
+	# keep the world visible behind: land panel is a bottom sheet
+	(p["root"].get_child(0) as ColorRect).color = Color(0, 0, 0, 0)
+	p["root"].mouse_filter = Control.MOUSE_FILTER_IGNORE
+	(p["root"].get_child(0) as ColorRect).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p["land"] = true
+	var grid := GridContainer.new()
+	grid.columns = 3
+	for op in Terraform.OPS:
+		var o: String = op
+		var t := btn("%s %s" % [Terraform.ICONS[o], o.capitalize()], func():
+			land_op = o
+			_land_info())
+		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		grid.add_child(t)
+	b.add_child(grid)
+	b.add_child(label("Brush size", 22))
+	b.add_child(_slider(land_size, Terraform.MIN_SIZE, Terraform.MAX_SIZE, func(v): land_size = v; _land_info()))
+	b.add_child(label("Strength", 22))
+	b.add_child(_slider(land_strength, 0.05, 1.0, func(v): land_strength = v; _land_info()))
+	var go := btn("APPLY (hold to keep sculpting)", func(): pass)
+	go.custom_minimum_size = Vector2(0, 110)
+	var rep := Timer.new(); rep.wait_time = 0.15; add_child(rep)
+	rep.timeout.connect(land_apply)
+	go.button_down.connect(func(): land_apply(); rep.start())
+	go.button_up.connect(rep.stop)
+	b.add_child(go)
+	land_info = label("", 22, MAG)
+	b.add_child(land_info)
+	_land_info()
+	land_cursor = MeshInstance3D.new()
+	var sm := SphereMesh.new(); sm.radius = 1.0; sm.height = 2.0
+	land_cursor.mesh = sm
+	var m := StandardMaterial3D.new()
+	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	m.albedo_color = Color(1, 0.18, 0.82, 0.18)
+	m.emission_enabled = true; m.emission = Color(1, 0.18, 0.82); m.emission_energy_multiplier = 0.6
+	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	land_cursor.material_override = m
+	land_cursor.visible = false
+	if world: world.call_deferred("add_child", land_cursor)
+	return p
+
+func _land_info() -> void:
+	if land_info: land_info.text = "%s · size %.1f m · strength %d%% · brush sits in front of you" % [land_op.capitalize(), land_size, int(land_strength * 100)]
+
+func land_target() -> Vector3:
+	if player == null: return Vector3.ZERO
+	var f := -player.global_transform.basis.z
+	f.y = 0
+	f = f.normalized() if f.length() > 0.01 else Vector3.FORWARD
+	var p := player.global_position + f * (land_size + 3.0)
+	var g = world.generator if world and "generator" in world else null
+	if g: p.y = g.height_f(p.x, p.z)
+	return p
+
+func land_apply() -> int:
+	if world == null or not world.has_method("terraform"): return 0
+	if not Estate.can_terraform(_est_region(), true):
+		if land_info: land_info.text = "Terraform not allowed in this region."
+		return 0
+	return world.terraform(land_op, land_target(), land_size, land_strength)
+
+func _process(_d: float) -> void:
+	if land_cursor and land_cursor.visible:
+		land_cursor.global_position = land_target()
+		land_cursor.scale = Vector3.ONE * land_size

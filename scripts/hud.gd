@@ -7,18 +7,19 @@ var player: Node
 
 func _ready() -> void:
 	player = get_node_or_null(player_path)
-	var jump := _button("Jump", "JUMP", Vector2(-190, -190))
+	var jump := _button("Jump", "JUMP", Vector2(-150, -140))
 	jump.button_down.connect(func(): Input.action_press("jump"))
 	jump.button_up.connect(func(): Input.action_release("jump"))
-	var cam := _button("CameraToggle", "VIEW", Vector2(-190, -330))
+	var cam := _button("CameraToggle", "VIEW", Vector2(-150, -270))
 	cam.pressed.connect(func(): if player and player.has_method("toggle_camera"): player.toggle_camera())
-	var gfx := _button("Graphics", "GFX\n" + Settings.QUALITY_NAMES[Settings.quality()], Vector2(-190, -470))
+	var gfx := _button("Graphics", "GFX\n" + Settings.QUALITY_NAMES[Settings.quality()], Vector2(-150, -400))
 	gfx.add_theme_font_size_override("font_size", 24)
-	gfx.pressed.connect(func(): gfx.text = "GFX\n" + Settings.QUALITY_NAMES[Settings.cycle_quality()])
+	gfx.pressed.connect(func(): Settings.cycle_quality())
+	Settings.quality_changed.connect(func(l: int): gfx.text = "GFX\n" + Settings.QUALITY_NAMES[l])
 	# v0.5.1 flying: FLY toggle + hold UP / DOWN (shown only while flying).
-	var fly := _button("Fly", "FLY", Vector2(-350, -190))
-	var up := _button("FlyUp", "▲", Vector2(-350, -470))
-	var down := _button("FlyDown", "▼", Vector2(-350, -330))
+	var fly := _button("Fly", "FLY", Vector2(-290, -140))
+	var up := _button("FlyUp", "▲", Vector2(-290, -400))
+	var down := _button("FlyDown", "▼", Vector2(-290, -270))
 	for b in [up, down]: b.visible = false
 	fly.pressed.connect(func(): if player and player.has_method("toggle_fly"): player.toggle_fly())
 	up.button_down.connect(func(): if player: player.fly_vertical = 1.0)
@@ -31,9 +32,9 @@ func _ready() -> void:
 			up.visible = on
 			down.visible = on)
 	# v0.6 combat buttons + shield bar
-	var swipe := _button("Swipe", "⚔", Vector2(-510, -190))
+	var swipe := _button("Swipe", "⚔", Vector2(-430, -140))
 	swipe.pressed.connect(func(): if player and player.has_method("melee_swipe"): player.melee_swipe())
-	var bolt := _button("Bolt", "🔥", Vector2(-510, -330))
+	var bolt := _button("Bolt", "🔥", Vector2(-430, -270))
 	bolt.pressed.connect(func(): if player and player.has_method("fire_bolt"): player.fire_bolt())
 	var sh := ProgressBar.new()
 	sh.name = "Shield"
@@ -49,7 +50,7 @@ func _ready() -> void:
 		player.shield_changed.connect(func(v: float): sh.value = v)
 	var zone := Label.new()
 	zone.name = "ZoneLabel"
-	zone.offset_left = 340; zone.offset_top = 6
+	zone.offset_left = 24; zone.offset_top = 50
 	zone.add_theme_font_size_override("font_size", 24)
 	zone.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(zone)
@@ -73,7 +74,7 @@ func _ready() -> void:
 		player.health_changed.connect(func(v: float): hp.value = v)
 	var hint := Label.new()
 	hint.name = "MoveHint"
-	hint.text = "◯ drag left side to move · drag right side to look"
+	hint.text = "drag left: move · drag right: look"
 	hint.anchor_top = 1.0
 	hint.anchor_bottom = 1.0
 	hint.offset_left = 24
@@ -93,9 +94,9 @@ func _button(n: String, t: String, off: Vector2) -> Button:
 	b.anchor_bottom = 1.0
 	b.offset_left = off.x
 	b.offset_top = off.y
-	b.offset_right = off.x + 150
-	b.offset_bottom = off.y + 120
-	b.add_theme_font_size_override("font_size", 30)
+	b.offset_right = off.x + 130
+	b.offset_bottom = off.y + 110
+	b.add_theme_font_size_override("font_size", 26)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(0.06, 0.03, 0.08, 0.55)
 	sb.border_color = Color(1, 0.18, 0.82)

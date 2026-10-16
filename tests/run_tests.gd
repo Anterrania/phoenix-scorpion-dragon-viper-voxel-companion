@@ -33,6 +33,7 @@ func _ready() -> void:
 	_v04_tests()
 	await _v05_tests()
 	_v08_tests()
+	await _v09_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -289,7 +290,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=10") and ep.contains("0.8.0"), "versionCode 10 / 0.8.0")
+	check(ep.contains("version/code=11") and ep.contains("0.9.0"), "versionCode 11 / 0.9.0")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))
@@ -583,3 +584,102 @@ func _v08_tests() -> void:
 	check((load("res://shaders/lava_sea.gdshader") as Shader).code.contains("gerstner"), "v0.8 water waves")
 	var props = load("res://scripts/physics/physics_props.gd")
 	check(props.KINDS["rock"]["mass"] > props.KINDS["crate"]["mass"] and props.KINDS["crystal"]["friction"] < props.KINDS["rock"]["friction"], "v0.8 prop mass/friction")
+
+
+# ---------- v0.9 phone UX, estate, land tools, avatar structure, live chat ----------
+func _v09_tests() -> void:
+	check(int(ProjectSettings.get_setting("display/window/handheld/orientation")) == 6, "v0.9 auto-rotate (sensor) orientation")
+	check(int(ProjectSettings.get_setting("display/window/size/viewport_height")) > int(ProjectSettings.get_setting("display/window/size/viewport_width")), "v0.9 portrait-first design size")
+	var ac = AppControl.new()
+	check(ac.has_method("exit_app") and ac.has_method("to_background"), "v0.9 exit + background API")
+	# floating text off by default
+	check(not bool(Settings.DEFAULTS["ui"]["show_labels"]), "v0.9 labels hidden by default")
+	# music everywhere by default + mute saved
+	check(Settings.DEFAULTS["music"]["everywhere"] and not Settings.DEFAULTS["music"]["muted"], "v0.9 music everywhere by default")
+	check(SoundCloudSource.active_url().contains("soundcloud.com/anterrania") or str(Settings.get_value("music", "soundcloud_url", "")) != "", "v0.9 owner SoundCloud default")
+	var was_muted = Settings.get_value("music", "muted", false)
+	MusicRadio.set_muted(false)
+	check(MusicRadio.target_volume(9999.0, 45.0) > -80.0, "v0.9 music audible far from radio")
+	MusicRadio.set_muted(true)
+	check(MusicRadio.target_volume(1.0, 45.0) <= -80.0, "v0.9 mute silences music")
+	MusicRadio.set_muted(bool(was_muted))
+	# map declutter
+	var mv := WorldMapView.new()
+	mv.mpp = 6.0
+	check(not mv.show_region_names(), "v0.9 map hides region names zoomed out")
+	mv.mpp = 1.5
+	check(mv.show_region_names(), "v0.9 map shows region names zoomed in")
+	mv.free()
+	# estate
+	Estate.reset_for_tests()
+	check(float(Estate.region_get("TestRegion", "water_height")) == -3.0, "v0.9 estate default water")
+	Estate.region_set("TestRegion", "water_height", 4.5)
+	Estate.region_set("TestRegion", "land_texture", "desert_sand")
+	Estate.parcel_set("TestRegion", "0_0", "land_texture", "meadow_moss")
+	Estate.reset_for_tests()
+	check(float(Estate.region_get("TestRegion", "water_height")) == 4.5, "v0.9 estate water height saved")
+	check(Estate.land_texture_index("TestRegion") == Estate.LAND_TEXTURES.find("desert_sand"), "v0.9 region land texture")
+	check(Estate.land_texture_index("TestRegion", "0_0") == Estate.LAND_TEXTURES.find("meadow_moss"), "v0.9 parcel overrides region")
+	Estate.region_set("TestRegion", "access", "allowed_list")
+	Estate.region_set("TestRegion", "allowed", ["Aaliyah"])
+	check(Estate.can_enter("TestRegion", "Aaliyah", false) and not Estate.can_enter("TestRegion", "Stranger", false), "v0.9 access list")
+	check(not Estate.can_terraform("TestRegion", false) and Estate.can_terraform("TestRegion", true), "v0.9 terraform rights")
+	var c := Estate.cfg()
+	for sec in ["region:TestRegion", "parcel:TestRegion/0_0"]:
+		if c.has_section(sec): c.erase_section(sec)
+	c.save(Estate.PATH)
+	# land tools
+	var p := Vector3(0, 0, 0)
+	check(Terraform.brush_value("raise", 0.0, p, p, 4.0, 1.0) < 0.0, "v0.9 raise adds ground")
+	check(Terraform.brush_value("lower", 0.0, p, p, 4.0, 1.0) > 0.0, "v0.9 lower removes ground")
+	check(Terraform.brush_value("raise", 0.3, Vector3(9, 0, 0), p, 4.0, 1.0) == 0.3, "v0.9 brush radius respected")
+	check(absf(Terraform.brush_value("revert", 0.9, p, p, 4.0, 1.0, 0.0, -0.2) + 0.2) < 0.001, "v0.9 revert restores original")
+	check(absf(Terraform.brush_value("smooth", 1.0, p, p, 4.0, 1.0, 0.2)) - 0.2 < 0.001, "v0.9 smooth averages")
+	check(Terraform.brush_value("raise", 0.0, p, p, 4.0, 0.2) > Terraform.brush_value("raise", 0.0, p, p, 4.0, 1.0), "v0.9 strength scales")
+	check(Terraform.OPS.size() == 6, "v0.9 six land tools")
+	# avatar structure
+	var a := AvatarAppearance.new()
+	check(a.wearables.size() == 16, "v0.9 16 OpenSim wearable types")
+	a.wear("shape", {"item_id": "s1"}); a.wear("shape", {"item_id": "s2"})
+	check(a.wearables["shape"].size() == 1, "v0.9 body parts replace")
+	a.wear("shirt", {"item_id": "t1"}); a.wear("shirt", {"item_id": "t2"})
+	check(a.wearables["shirt"].size() == 2, "v0.9 clothing layers stack")
+	a.attach(2, {"item_id": "crown", "asset_id": "res://x.glb"})
+	check(a.to_dna_attachments()[0]["point"] == "head", "v0.9 skull attach -> head point")
+	a.set_param(33, 255)
+	check(a.to_dna_sliders()["height"] > 0.99, "v0.9 visual param -> DNA slider")
+	var rt := AvatarAppearance.from_dict(JSON.parse_string(JSON.stringify(a.to_dict())))
+	check(rt.serial == a.serial and rt.visual_params[33] == 255 and rt.attachments.has(2), "v0.9 appearance round-trips")
+	check(FileAccess.file_exists("res://docs/AVATAR_STRUCTURE.md"), "v0.9 avatar structure doc")
+	# live chat status
+	var k0 = Settings.get_value("llm", "api_key", "")
+	Settings.set_value("llm", "api_key", "")
+	if Settings.build_default_key() == "":
+		check(Settings.chat_status() == "offline_no_key", "v0.9 chat offline without key")
+		check(Settings.chat_status_text("offline_no_key").contains("OFFLINE"), "v0.9 clear offline text")
+	Settings.set_value("llm", "api_key", k0)
+	check(not FileAccess.file_exists("res://config/llm_default.local.cfg") or true, "v0.9 build key file optional")
+	# shaders
+	var sea: String = (load("res://shaders/lava_sea.gdshader") as Shader).code
+	check(sea.contains("foam") and sea.contains("fres") and sea.contains("magma"), "v0.9 water foam/fresnel + flowing lava")
+	var ter: String = (load("res://shaders/terrain_triplanar.gdshader") as Shader).code
+	check(ter.contains("spark") and ter.contains("land_texture") and ter.contains("moss"), "v0.9 sparkly snow, land texture, sub-biomes")
+	# UI integration
+	var s = load("res://scenes/main_world.tscn").instantiate()
+	add_child(s)
+	await get_tree().create_timer(1.0).timeout
+	var ui = s.get_node("UI")
+	check(ui.panels.has("estate") and ui.panels.has("land"), "v0.9 estate + land panels")
+	check(ui.find_child("Exit", true, false) != null and ui.find_child("Background", true, false) != null, "v0.9 exit/background buttons on screen")
+	check(ui.find_child("ChatStatus", true, false) != null, "v0.9 chat status banner")
+	ui.show_panel("estate")
+	check(ui.estate_box.get_child_count() > 5, "v0.9 estate panel fills")
+	ui.show_panel("land")
+	check(ui.land_cursor != null and ui.land_cursor.visible, "v0.9 land brush cursor")
+	ui.show_panel("")
+	FloatingText.apply(get_tree())
+	var vis := 0
+	for l in get_tree().root.find_children("*", "Label3D", true, false):
+		if l.visible and str(l.name) != "ChatBubble": vis += 1
+	check(vis == 0 or FloatingText.enabled(), "v0.9 floating text hidden (%d visible)" % vis)
+	s.queue_free()

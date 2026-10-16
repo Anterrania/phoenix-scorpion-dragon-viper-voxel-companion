@@ -24,6 +24,7 @@ var current_biome := -1
 var sky_mat: ShaderMaterial
 var terrain_mat: ShaderMaterial
 var _check := 0.0
+var _estate_key := ""
 
 func _ready() -> void:
 	generator = SmoothGen.new(1337)
@@ -221,6 +222,10 @@ func _process(delta: float) -> void:
 	if _check <= 0.0:
 		_check = 1.0
 		_update_biome(false)
+		var key := current_region() + "/" + (Estate.parcel_id(player.global_position) if player else "")
+		if key != _estate_key:
+			_estate_key = key
+			apply_estate()
 
 # ---------- v0.7 environment: region default / preset / day-night cycle ----------
 var env_mode := "region"   # "region" | "cycle" | preset name
@@ -250,6 +255,7 @@ func apply_env(a: Array, dur: float) -> void:
 
 func _env_tick(delta: float) -> void:
 	hour = fposmod(hour + delta * 24.0 / EnvPresets.DAY_SECONDS, 24.0)
+	if env_mode == "fixed": return
 	if env_mode == "cycle":
 		apply_env(EnvPresets.cycle_values(hour), 0.0)
 
@@ -282,3 +288,32 @@ func apply_realm(p: Dictionary) -> void:
 
 func get_voxel_tool():
 	return terrain.get_voxel_tool() if terrain else null
+
+# ---------- v0.9 estate / region controls ----------
+var water_height := 0.0
+func current_region() -> String:
+	return MapData.region_name(player.global_position) if player else "Spawn"
+
+## Applies the saved Region/Estate settings for the region the player is in.
+func apply_estate(region := "") -> void:
+	if region == "": region = current_region()
+	var parcel := Estate.parcel_id(player.global_position) if player else ""
+	if terrain_mat: terrain_mat.set_shader_parameter("land_texture", Estate.land_texture_index(region, parcel))
+	set_water_height(float(Estate.region_get(region, "water_height")))
+	if bool(Estate.region_get(region, "sun_fixed")):
+		env_mode = "fixed"
+		hour = float(Estate.region_get(region, "sun_hour"))
+		apply_env(EnvPresets.cycle_values(hour), 1.0)
+	elif env_mode == "fixed":
+		set_env_mode("region")
+
+func set_water_height(h: float) -> void:
+	water_height = h
+	if sea: sea.position.y = h - 0.15
+	if waves: waves.position.y = h + 0.02
+
+func terraform(op: String, at: Vector3, size: float, strength: float) -> int:
+	var vt = get_voxel_tool()
+	if vt == null: return 0
+	var g = generator
+	return Terraform.apply(vt, op, at, size, strength, func(p: Vector3): return clampf((p.y - g.height_f(p.x, p.z)) / 4.0, -1.0, 1.0))

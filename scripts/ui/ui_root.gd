@@ -23,6 +23,7 @@ func _ready() -> void:
 	player = get_node_or_null(player_path)
 	world = get_node_or_null(world_path)
 	_topbar()
+	_status_and_minimap()
 	panels["menu"] = _build_menu()
 	panels["wardrobe"] = _build_wardrobe()
 	panels["chat"] = _build_chat()
@@ -33,6 +34,8 @@ func _ready() -> void:
 	panels["map"] = _build_map()
 	panels["music"] = _build_music()
 	panels["rp"] = _build_rp()
+	panels["env"] = _build_env()
+	panels["radar"] = _build_radar()
 	panels["wyrm"] = _build_wyrm()
 	AgentBrain.reply_ready.connect(_on_reply)
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
@@ -52,7 +55,7 @@ func btn(text: String, cb: Callable, min_w := 0.0) -> Button:
 	var b := Button.new()
 	b.text = text
 	b.focus_mode = Control.FOCUS_NONE
-	b.custom_minimum_size = Vector2(min_w, 84)
+	b.custom_minimum_size = Vector2(min_w, 96)
 	b.add_theme_font_size_override("font_size", FS)
 	b.add_theme_stylebox_override("normal", _style(Color(0.08, 0.03, 0.1, 0.9)))
 	b.add_theme_stylebox_override("hover", _style(Color(0.16, 0.05, 0.18, 0.95)))
@@ -96,9 +99,8 @@ func _panel(title: String) -> Dictionary:
 	head.add_child(t)
 	head.add_child(btn("✕ Close", func(): show_panel(""), 200))
 	v.add_child(head)
-	var sc := ScrollContainer.new()
+	var sc := KineticScroll.new()
 	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	v.add_child(sc)
 	var body := VBoxContainer.new()
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -106,7 +108,7 @@ func _panel(title: String) -> Dictionary:
 	sc.add_child(body)
 	add_child(root)
 	root.visible = false
-	return {"root": root, "body": body, "box": v}
+	return {"root": root, "body": body, "box": v, "scroll": sc}
 
 func show_panel(n: String) -> void:
 	for k in panels:
@@ -114,6 +116,8 @@ func show_panel(n: String) -> void:
 	if n == "wardrobe": _refresh_wardrobe()
 	if n == "avatar": _refresh_avatar()
 	if n == "rp": _refresh_rp()
+	if n == "radar": _refresh_radar()
+	if n == "map" and map_view and player: map_view.focus(Vector2(player.global_position.x, player.global_position.z))
 	if n == "wyrm": _refresh_wyrm()
 	if n == "chat" and chat_target == null: _pick_chat(_companions().front() if not _companions().is_empty() else null)
 
@@ -139,13 +143,22 @@ func _topbar() -> void:
 
 # ---------- main menu ----------
 func _build_menu() -> Dictionary:
-	var p := _panel("Phoenix Scorpion Dragon Viper · v0.5")
+	var p := _panel("Phoenix Scorpion Dragon Viper · v0.7")
 	var b: VBoxContainer = p["body"]
-	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 28, MAG))
-	for row in [["▶ Play", "" ], ["🧑 My Avatar & Profile", "avatar"], ["👜 Wardrobe & Satchel", "wardrobe"], ["💬 Talk to Companions", "chat"], ["🧭 Teleport: Landmarks", "travel"], ["◎ World Map (tap to teleport)", "map"], ["🎭 Roleplay: sheet, titler, poses", "rp"], ["🐉 Wyrmlings (breedables)", "wyrm"], ["♪ Music (SoundCloud)", "music"], ["⚙ Settings", "settings"], ["★ Where to give input", "input"]]:
+	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 26, MAG))
+	var grid := GridContainer.new()
+	grid.columns = 3
+	grid.add_theme_constant_override("h_separation", 12)
+	grid.add_theme_constant_override("v_separation", 12)
+	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["⚙ Settings", "settings"], ["★ Your input", "input"]]:
 		var target: String = row[1]
-		b.add_child(btn(row[0], func(): show_panel(target)))
-	b.add_child(label("Everything gold-starred (★ YOUR INPUT HERE) is a placeholder waiting for your decision.", 24, GOLD))
+		var t := btn(row[0], func(): show_panel(target))
+		t.custom_minimum_size = Vector2(0, 120)
+		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		grid.add_child(t)
+	b.add_child(grid)
+	b.add_child(label("Gold ★ YOUR INPUT HERE tags mark placeholders waiting for your decision.", 22, GOLD))
 	return p
 
 # ---------- wardrobe ----------
@@ -392,6 +405,7 @@ func _build_settings() -> Dictionary:
 	mat.toggled.connect(func(on): Settings.set_value("content", "mature_cosmetics_enabled", on))
 	b.add_child(mat)
 	b.add_child(input_tag("YOUR INPUT HERE: music volume, controls layout, language - tell Foxy what settings you want."))
+	tabify(b, "Display", ["Companion AI", "Voice & Music", "Content"])
 	return p
 
 # ---------- where to give input ----------
@@ -441,7 +455,8 @@ func _refresh_avatar(reload := true) -> void:
 	if reload:
 		av = Profile.avatar().duplicate(true)
 		av_name.text = Profile.data.get("name", "")
-	for c in av_list.get_children(): c.queue_free()
+	for c in av_list.get_children():
+		av_list.remove_child(c); c.queue_free()
 	var O: Dictionary = Profile.options
 	var presets := HBoxContainer.new()
 	for pr in O.get("presets", []):
@@ -518,6 +533,7 @@ func _refresh_avatar(reload := true) -> void:
 			if Profile.try_owner_unlock(code.text): _refresh_avatar(false), 170))
 		av_list.add_child(oh)
 	av_list.add_child(input_tag("YOUR INPUT HERE: more hair styles, body sliders, tattoos, wings?"))
+	collapse_sections(av_list, ["Hair streaks", "DNA blend", "Fine-tune", "Attachments"])
 
 # ---------- DNA blend, sliders, attachments, .glb import ----------
 func _dna_section() -> void:
@@ -615,64 +631,142 @@ func _import_glb() -> void:
 	_preview()
 	_refresh_avatar(false)
 
-# ---------- world map: tap anywhere to teleport (SL-style map TP) ----------
-const MAP_HALF := 1500.0  # metres shown each side of the origin
-var map_rect: TextureRect
+# ---------- v0.7 full-screen world map ----------
+var map_view: WorldMapView
+var map_search: LineEdit
+var map_results: HBoxContainer
 
 func _build_map() -> Dictionary:
-	var p := _panel("World Map — tap to teleport")
-	var b: VBoxContainer = p["body"]
-	b.add_child(label("Alaska = blue/white · Venus = orange · Cosmic = purple · ◆ landmarks", 22, GOLD))
-	map_rect = TextureRect.new()
-	map_rect.custom_minimum_size = Vector2(520, 520)
-	map_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	map_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	map_rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	map_rect.mouse_filter = Control.MOUSE_FILTER_STOP
-	map_rect.gui_input.connect(_map_input)
-	b.add_child(map_rect)
-	call_deferred("_draw_map")
+	var p := _panel("World Map")
+	var box: VBoxContainer = p["box"]
+	p["scroll"].visible = false   # the map itself pans; no list scrolling here
+	var tools := HBoxContainer.new()
+	map_search = LineEdit.new()
+	map_search.placeholder_text = "Search landmarks…"
+	map_search.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	map_search.custom_minimum_size = Vector2(0, 72)
+	map_search.add_theme_font_size_override("font_size", 26)
+	map_search.text_changed.connect(func(_t): _map_search_results())
+	tools.add_child(map_search)
+	tools.add_child(btn("+", func(): map_view.zoom_by(0.7), 90))
+	tools.add_child(btn("−", func(): map_view.zoom_by(1.4), 90))
+	tools.add_child(btn("◎ Me", func(): map_view.focus(Vector2(player.global_position.x, player.global_position.z)), 130))
+	box.add_child(tools)
+	map_results = HBoxContainer.new()
+	box.add_child(map_results)
+	map_view = WorldMapView.new()
+	map_view.world = world
+	map_view.player = player
+	map_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	map_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	map_view.clip_contents = true
+	map_view.teleport_requested.connect(func(xz: Vector2): teleport(Vector3(xz.x, 0, xz.y)))
+	box.add_child(map_view)
+	box.add_child(label("Drag to pan · pinch or +/− to zoom · tap to teleport · grid = 256 m regions", 20, GOLD))
 	return p
 
+func _map_search_results() -> void:
+	for c in map_results.get_children(): c.queue_free()
+	var q := map_search.text.strip_edges().to_lower()
+	var wc = world.get_node_or_null("WorldContent") if world else null
+	if q == "" or wc == null: return
+	for l in wc.landmarks:
+		if str(l["name"]).to_lower().contains(q):
+			var pos: Vector3 = l["position"]
+			map_results.add_child(btn(str(l["name"]), func(): map_view.focus(Vector2(pos.x, pos.z)), 0))
+
 static func map_to_world(uv: Vector2) -> Vector2:
-	return (uv * 2.0 - Vector2.ONE) * MAP_HALF
+	return MapData.uv_to_world(uv)
 
 static func world_to_map(xz: Vector2) -> Vector2:
-	return (xz / MAP_HALF + Vector2.ONE) * 0.5
+	return MapData.world_to_uv(xz)
 
-func _draw_map() -> void:
+# ---------- v0.7 environment panel ----------
+func _build_env() -> Dictionary:
+	var p := _panel("☀ Environment")
+	var b: VBoxContainer = p["body"]
+	b.add_child(label("Pick a sky. Region default follows the realm you're in; Day/Night runs a 24-minute day.", 22, MAG))
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 10)
+	grid.add_theme_constant_override("v_separation", 10)
+	for m in ["Region default", "Day/Night cycle"] + EnvPresets.PRESETS.keys():
+		var mode: String = {"Region default": "region", "Day/Night cycle": "cycle"}.get(m, m)
+		var bt := btn(m, func():
+			if world and world.has_method("set_env_mode"): world.set_env_mode(mode)
+			show_panel(""))
+		bt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		grid.add_child(bt)
+	b.add_child(grid)
+	return p
+
+# ---------- v0.7 nearby radar ----------
+var radar_box: VBoxContainer
+func _build_radar() -> Dictionary:
+	var p := _panel("📡 Nearby (radar)")
+	radar_box = p["body"]
+	return p
+
+func radar_entries() -> Array:
+	var out: Array = []
+	if player == null: return out
+	for c in _companions():
+		out.append({"name": str(c.persona.get("name", c.name)), "kind": "Companion", "node": c, "dist": c.global_position.distance_to(player.global_position)})
+	for c in get_tree().get_nodes_in_group("creatures"):
+		if c.alive(): out.append({"name": "Cinder Stalker", "kind": "Creature", "node": c, "dist": c.global_position.distance_to(player.global_position)})
+	out.sort_custom(func(a, b): return a["dist"] < b["dist"])
+	return out
+
+func _refresh_radar() -> void:
+	for c in radar_box.get_children(): c.queue_free()
+	radar_box.add_child(label("Other players will appear here when multiplayer arrives.", 22, MAG))
+	for e in radar_entries():
+		var n: Node3D = e["node"]
+		radar_box.add_child(btn("%s  ·  %s  ·  %d m  →  go" % [e["name"], e["kind"], int(e["dist"])], func(): teleport(n.global_position + Vector3(3, 0, 3))))
+
+# ---------- v0.7 status bar + minimap ----------
+var status_label: Label
+var minimap: Minimap
+func _status_and_minimap() -> void:
+	var bar := PanelContainer.new()
+	bar.name = "StatusBar"
+	bar.anchor_left = 0.5; bar.anchor_right = 0.5
+	bar.offset_left = -60; bar.offset_right = 380; bar.offset_top = 4; bar.offset_bottom = 44
+	var sb := _style(Color(0.04, 0.02, 0.06, 0.75), Color(1, 0.18, 0.82, 0.6), 12)
+	sb.set_content_margin_all(6)
+	bar.add_theme_stylebox_override("panel", sb)
+	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	status_label = label("", 20, Color(1, 0.95, 0.85))
+	status_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	bar.add_child(status_label)
+	add_child(bar)
+	minimap = Minimap.new()
+	minimap.name = "Minimap"
+	minimap.world = world
+	minimap.player = player
+	minimap.anchor_left = 1.0; minimap.anchor_right = 1.0
+	minimap.offset_left = -Minimap.SIZE - 16; minimap.offset_right = -16
+	minimap.offset_top = 50; minimap.offset_bottom = 50 + Minimap.SIZE
+	minimap.open_map.connect(func(): show_panel("map"))
+	add_child(minimap)
+	var row := VBoxContainer.new()  # left of the minimap so it never covers HUD buttons
+	row.anchor_left = 1.0; row.anchor_right = 1.0
+	row.offset_left = -Minimap.SIZE - 16 - 122; row.offset_top = 50
+	row.add_child(btn("☀ ENV", func(): show_panel("env"), 112))
+	row.add_child(btn("◉ NEAR", func(): show_panel("radar"), 112))
+	add_child(row)
+	var tm := Timer.new(); tm.wait_time = 0.5; tm.autostart = true; add_child(tm)
+	tm.timeout.connect(update_status)
+
+func status_text() -> String:
+	if player == null: return ""
 	var g = world.generator if world and "generator" in world else null
-	if g == null: return
-	var n := 160
-	var img := Image.create(n, n, false, Image.FORMAT_RGB8)
-	var cols := [Color("#a8c4e0"), Color("#d4602a"), Color("#5a2a9a")]
-	for y in n:
-		for x in n:
-			var w := map_to_world(Vector2(x + 0.5, y + 0.5) / n)
-			var h: float = g.height_f(w.x, w.y)
-			var c: Color = cols[g.biome_at(w.x, w.y)]
-			if h < g.LAVA_LEVEL: c = c.darkened(0.5)
-			img.set_pixel(x, y, c.lightened(clampf(h / 120.0, 0.0, 0.3)))
-	var wc = world.get_node_or_null("WorldContent")
-	if wc:
-		for l in wc.landmarks:
-			var lp: Vector3 = l["position"]
-			var m := world_to_map(Vector2(lp.x, lp.z)) * n
-			for d in [Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
-				var px: Vector2i = Vector2i(m) + d
-				if px.x >= 0 and px.y >= 0 and px.x < n and px.y < n: img.set_pixelv(px, Color("#ffd04a"))
-	map_rect.texture = ImageTexture.create_from_image(img)
+	var realm: String = MapData.REALMS[g.biome_at(player.global_position.x, player.global_position.z)] if g else "?"
+	var hr: float = world.hour if world and "hour" in world else 12.0
+	return "%s · %s (%d, %d) · AEC %d · %s" % [realm, MapData.region_name(player.global_position), int(player.global_position.x), int(player.global_position.z), Marketplace.balance(), EnvPresets.clock_text(hr)]
 
-func _map_input(e: InputEvent) -> void:
-	var pressed: bool = (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed)
-	if not pressed: return
-	var r := map_rect.size
-	var side := minf(r.x, r.y)
-	var off := (r - Vector2(side, side)) * 0.5
-	var uv := ((e.position as Vector2) - off) / side
-	if uv.x < 0 or uv.y < 0 or uv.x > 1 or uv.y > 1: return
-	var w := map_to_world(uv)
-	teleport(Vector3(w.x, 0, w.y))
+func update_status() -> void:
+	if status_label: status_label.text = status_text()
 
 # ---------- music: SoundCloud ----------
 func _radio():
@@ -803,3 +897,63 @@ func _refresh_wyrm() -> void:
 		_refresh_wyrm()
 		wyrm_box.add_child(label("A new wyrmling hatched: %s (Gen %d, %s)!" % [baby["name"], baby["generation"], Wyrmlings.rarity(baby)], 26, GOLD))))
 	wyrm_box.add_child(input_tag("YOUR INPUT HERE: more traits, names, selling for Aethel Coin?"))
+
+# ---------- v0.7 tabs + collapsible sections ----------
+## Split a body's children into tabs at header labels; tab buttons on top.
+func tabify(body: VBoxContainer, first: String, headers: Array) -> Dictionary:
+	var groups := {first: VBoxContainer.new()}
+	var order := [first]
+	var cur: VBoxContainer = groups[first]
+	for c in body.get_children():
+		body.remove_child(c)
+		if c is Label and headers.has(c.text):
+			cur = VBoxContainer.new()
+			groups[c.text] = cur
+			order.append(c.text)
+			c.queue_free()
+			continue
+		cur.add_child(c)
+	var bar := HBoxContainer.new()
+	bar.name = "Tabs"
+	body.add_child(bar)
+	for k in order:
+		var key: String = k
+		var g: VBoxContainer = groups[key]
+		g.add_theme_constant_override("separation", 10)
+		body.add_child(g)
+		g.visible = key == first
+		var tb := btn(key, func():
+			for o in groups: groups[o].visible = o == key, 0)
+		tb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		bar.add_child(tb)
+	return groups
+
+## Make header labels tappable to collapse/expand the controls after them.
+var open_sections := {}
+func collapse_sections(body: VBoxContainer, headers: Array, start_closed := true) -> int:
+	var made := 0
+	var kids := body.get_children()
+	var i := 0
+	while i < kids.size():
+		var c: Node = kids[i]
+		if c is Label and headers.any(func(h): return c.text.begins_with(h)):
+			var sec := VBoxContainer.new()
+			var title: String = c.text
+			var idx := c.get_index()
+			var j := i + 1
+			while j < kids.size() and not (kids[j] is Label and headers.any(func(h): return kids[j].text.begins_with(h))) and not (kids[j] is Button and kids[j].text.begins_with("💾")):
+				body.remove_child(kids[j]); sec.add_child(kids[j]); j += 1
+			sec.visible = bool(open_sections.get(title, not start_closed))
+			var hb := btn(("▼ " if sec.visible else "▶ ") + title, func(): pass)
+			hb.pressed.connect(func():
+				sec.visible = not sec.visible
+				open_sections[title] = sec.visible
+				hb.text = ("▼ " if sec.visible else "▶ ") + title)
+			body.remove_child(c); c.queue_free()
+			body.add_child(hb); body.move_child(hb, idx)
+			body.add_child(sec); body.move_child(sec, idx + 1)
+			made += 1
+			i = j
+		else:
+			i += 1
+	return made

@@ -145,6 +145,12 @@ Stack: Godot 4.7, Zylann Voxel Tools (smooth Transvoxel + VoxelLodTerrain), mobi
 - **0.7:** daily schedules, relationships, and per-companion homes at landmarks. Live-AI planning (LLM picks goals; tools: move_to, build_realm, spawn_structure).
 - **Server (0.8+):** persistent world simulation on a headless Godot server. Companions keep travelling, building and gathering while the player is offline. The player gets a "while you were away" recap on login. Memory syncs with the Grok Bot personas.
 
+## Server architecture (Aurora-Sim / OpenSim model)
+See `docs/ARCHITECTURE_AURORA_MODEL.md`. It maps the grid services (Login, Account, Asset, Inventory, Avatar, Grid, Presence, Groups, Economy, Land/Estate, Search, Media, Marketplace, Exchange), region servers and the Hypergrid gateway onto our components. Phase names: **0.8 Grid Core → 0.9 Economy & Land → 1.0 Living Grid → 1.x Hypergrid & Meshing**. Every "server phase 0.8+" item in this roadmap belongs to one of those phases.
+
+## v0.7 (shipped)
+Firestorm-inspired UI: touch-drag scrolling with momentum, scrollbars, bigger tap targets, tabbed Settings, collapsible avatar sections, a grid main menu, a corner minimap, a full-screen pan/pinch world map with region grid, search and tap-to-teleport, windlight-style environment presets with a day/night cycle, a nearby radar, and a top status bar.
+
 ## Phase order
 1. **0.4** Physics & collision (this release).
 2. **0.5** Wardrobe, inventory, real companion chat in-game (synced personas).

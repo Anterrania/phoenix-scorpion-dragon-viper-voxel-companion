@@ -27,6 +27,16 @@ This is a plain-language guide. It covers **what's real now** and **what's plann
 | Marketplace / vendors | **Creator Market** with SL-style perms + vendor | data model + stub |
 | Bots / NPCs | **Autonomous AI companions** (free roam, memory) | ✔ basic |
 
+## Screen layout (v0.7, Firestorm-style)
+- **Top status bar:** realm · region · coordinates · Aethel Coin · in-game time.
+- **Minimap (top right):** you (white arrow), companions (magenta), creatures (red), landmarks (gold), combat zones (red ring). Use +/− to zoom, and tap it to open the big map.
+- **☀ ENV:** sky presets (Sunrise, Midday, Sunset, Midnight, Venus Storm, Cosmic), Day/Night cycle (a 24-minute day), or Region default.
+- **◉ NEAR:** list of who's nearby, sorted by distance. Tap one to go to them.
+- **Menus:** drag anywhere to scroll (it keeps gliding when you let go). Settings has tabs, and the avatar creator has fold-out sections.
+
+## How the server will work (later)
+The grid is built like **Aurora-Sim/OpenSim**: central grid services (login, assets, inventory, avatars, regions, presence, groups, money, land) plus region servers, with Hypergrid to link other grids. See `docs/ARCHITECTURE_AURORA_MODEL.md`.
+
 ## Getting around
 - **Fly:** tap **FLY**, then hold ▲ / ▼ to go up or down. Let go and you hover in place. Tap **LAND** to walk again.
 - **Teleport:** **MENU › Teleport: Landmarks** lists every landmark. **◎ MAP** lets you tap anywhere on the map to teleport there (your companions come along).

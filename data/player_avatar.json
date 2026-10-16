@@ -1,0 +1,13 @@
+{
+  "_note": "Placeholder Anterranian sovereign avatar. Edit these colors/look to restyle once the user describes their look.",
+  "title": "Anterranian Sovereign",
+  "look": "royal",
+  "skin": "#e9c3a6",
+  "hair": "#1a1020",
+  "eyes": "#ff2fd0",
+  "outfit": "#0d0a12",
+  "accent": "#ff2fd0",
+  "trim": "#ffc23a",
+  "glow": 1.6,
+  "default_camera": "third_person"
+}

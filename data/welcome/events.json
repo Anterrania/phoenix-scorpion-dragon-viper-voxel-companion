@@ -1,0 +1,6 @@
+{"_note": "Sample events board. Edit freely; times are display text only.",
+ "events": [
+  {"title": "DJ Night: Aurora Bass", "when": "Fri 9 PM PT", "where": "club", "host": "Phoenix Radio", "desc": "Dance floor lights up, SoundCloud set on Phoenix Radio."},
+  {"title": "RP Meetup: Tales of the Unity Crest", "when": "Sat 6 PM PT", "where": "crystal_wyvern_sanctum", "host": "Roleplay circle", "desc": "Open IC scene. OOC in (( ))."},
+  {"title": "Ember Arena Tournament", "when": "Sun 4 PM PT", "where": "ember_arena", "host": "Arena masters", "desc": "Cinder Stalker gauntlet, best time wins."}
+ ]}

@@ -22,4 +22,19 @@ func _initialize():
 	ui.show_panel("settings")
 	await create_timer(0.5).timeout
 	_shot("settings_tabs")
+	ui.show_panel("")
+	ui.go_welcome(false)
+	await create_timer(4.0).timeout
+	_shot("welcome_island")
+	ui.show_panel("dest")
+	await create_timer(0.5).timeout
+	_shot("destinations")
+	ui.show_panel("help")
+	ui.ask_help("how do I fly?")
+	await create_timer(0.5).timeout
+	_shot("help_bot")
+	ui.goto_target("club")
+	ui.show_panel("")
+	await create_timer(4.0).timeout
+	_shot("club")
 	quit()

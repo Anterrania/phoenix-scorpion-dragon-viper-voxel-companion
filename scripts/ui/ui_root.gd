@@ -37,6 +37,10 @@ func _ready() -> void:
 	panels["env"] = _build_env()
 	panels["radar"] = _build_radar()
 	panels["wyrm"] = _build_wyrm()
+	panels["welcome"] = _build_welcome()
+	panels["help"] = _build_help()
+	panels["dest"] = _build_dest()
+	if not bool(Settings.get_value("welcome", "done", false)): call_deferred("go_welcome", false)
 	AgentBrain.reply_ready.connect(_on_reply)
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", true)) else "")
@@ -151,7 +155,7 @@ func _build_menu() -> Dictionary:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["⚙ Settings", "settings"], ["★ Your input", "input"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⚙ Settings", "settings"], ["★ Your input", "input"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func(): show_panel(target))
 		t.custom_minimum_size = Vector2(0, 120)
@@ -325,11 +329,11 @@ func _fill_travel(b: VBoxContainer) -> void:
 		b.add_child(btn("%s  ·  %s" % [l["name"], realm], func(): teleport(pos + Vector3(0, 0, 20))))
 		b.add_child(input_tag("YOUR INPUT HERE: " + " / ".join(PackedStringArray(l["input"]))))
 
-func teleport(p: Vector3) -> void:
+func teleport(p: Vector3, exact := false) -> void:
 	if player == null: return
 	var g = world.generator if world and "generator" in world else null
 	var y := p.y
-	if g: y = maxf(g.height_f(p.x, p.z), g.LAVA_LEVEL) + 3.0
+	if g and not exact: y = maxf(g.height_f(p.x, p.z), g.LAVA_LEVEL) + 3.0
 	player.global_position = Vector3(p.x, y, p.z)
 	if "velocity" in player: player.velocity = Vector3.ZERO
 	for c in _companions():
@@ -751,9 +755,14 @@ func _status_and_minimap() -> void:
 	add_child(minimap)
 	var row := VBoxContainer.new()  # left of the minimap so it never covers HUD buttons
 	row.anchor_left = 1.0; row.anchor_right = 1.0
-	row.offset_left = -Minimap.SIZE - 16 - 122; row.offset_top = 50
-	row.add_child(btn("☀ ENV", func(): show_panel("env"), 112))
-	row.add_child(btn("◉ NEAR", func(): show_panel("radar"), 112))
+	row.offset_left = -Minimap.SIZE - 16 - 122; row.offset_top = 50; row.offset_right = -Minimap.SIZE - 24
+	row.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	for pair in [["☀ ENV", "env"], ["◉ NEAR", "radar"]]:
+		var tgt: String = pair[1]
+		var hb := btn(pair[0], func(): show_panel(tgt), 112)
+		hb.add_theme_font_size_override("font_size", 22)
+		hb.custom_minimum_size = Vector2(112, 72)
+		row.add_child(hb)
 	add_child(row)
 	var tm := Timer.new(); tm.wait_time = 0.5; tm.autostart = true; add_child(tm)
 	tm.timeout.connect(update_status)
@@ -957,3 +966,90 @@ func collapse_sections(body: VBoxContainer, headers: Array, start_closed := true
 		else:
 			i += 1
 	return made
+
+# ---------- v0.7 Welcome Island, guide bots, destinations ----------
+var welcome_box: VBoxContainer
+var help_out: Label
+var help_in: LineEdit
+func go_welcome(open_panel := true) -> void:
+	teleport(WelcomeIsland.spawn_point(), true)
+	if open_panel: show_panel("welcome")
+
+func _build_welcome() -> Dictionary:
+	var p := _panel("🏝 Welcome Island")
+	var b: VBoxContainer = p["body"]
+	b.add_child(label("Walk the glowing ring of stations. Each one teaches a basic skill.", 24, GOLD))
+	b.add_child(btn("🏝 Go to / Return to Welcome Island", func(): go_welcome(false)))
+	b.add_child(btn("⏭ Skip tutorial (go to main world)", skip_welcome))
+	for st in WelcomeIsland.load_json(WelcomeIsland.DATA).get("stations", []):
+		var id: String = st["id"]
+		b.add_child(btn("%s\n%s" % [st["title"], st["text"]], func(): _goto_station(id)))
+	return p
+
+func skip_welcome() -> void:
+	Settings.set_value("welcome", "done", true)
+	teleport(Vector3(0, 0, 0))
+
+func _goto_station(id: String) -> void:
+	var wc: Node = world.get_node_or_null("WorldContent") if world else null
+	if wc and wc.welcome and wc.welcome.station_pos.has(id):
+		var sp: Vector3 = wc.welcome.station_pos[id]
+		teleport(sp + (WelcomeIsland.origin() - sp).normalized() * 3.0 + Vector3(0, 2, 0), true)
+
+func _build_help() -> Dictionary:
+	var p := _panel("❓ Help: Welcome Guide & Help Desk")
+	var b: VBoxContainer = p["body"]
+	for bot in WelcomeIsland.load_json(WelcomeIsland.FAQ).get("bots", []):
+		b.add_child(label("%s: %s" % [bot["name"], bot["greeting"]], 24, Color(str(bot["color"]))))
+	help_in = LineEdit.new()
+	help_in.placeholder_text = "Ask a question (e.g. how do I fly?)"
+	help_in.custom_minimum_size = Vector2(0, 96)
+	help_in.add_theme_font_size_override("font_size", 28)
+	help_in.text_submitted.connect(func(t): ask_help(t))
+	b.add_child(help_in)
+	b.add_child(btn("Ask", func(): ask_help(help_in.text)))
+	help_out = label("", 26)
+	help_out.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	b.add_child(help_out)
+	for q in ["How do I fly?", "Where is the map?", "Combat rules?", "Where can I dance?", "Any events?"]:
+		var qq: String = q
+		b.add_child(btn(q, func(): ask_help(qq)))
+	return p
+
+var help_point := ""
+func ask_help(q: String) -> String:
+	var r := WelcomeIsland.answer(q)
+	help_point = r["point"]
+	if help_out: help_out.text = "Guide: " + str(r["answer"]) + ("\n(Station: %s. Open Welcome Island to go there.)" % help_point if help_point != "" else "")
+	return r["answer"]
+
+func resolve_target(t: String) -> Vector3:
+	if t == "welcome": return WelcomeIsland.spawn_point()
+	if t == "spawn": return Vector3.ZERO
+	var wc: Node = world.get_node_or_null("WorldContent") if world else null
+	if wc:
+		var l: Dictionary = wc.landmark_by_id(t)
+		if not l.is_empty(): return l["position"] + Vector3(0, 0, 14)
+	return Vector3.ZERO
+
+func goto_target(t: String) -> void:
+	if t == "welcome": go_welcome(false)
+	else: teleport(resolve_target(t))
+
+func _build_dest() -> Dictionary:
+	var p := _panel("🗺 Destination Guide")
+	var b: VBoxContainer = p["body"]
+	var d := WelcomeIsland.load_json("res://data/welcome/destinations.json")
+	for cat in d.get("categories", []):
+		var sec := VBoxContainer.new()
+		sec.name = str(cat)
+		b.add_child(label("▸ " + str(cat), 30, GOLD))
+		for x in d.get("destinations", []):
+			if x["category"] != cat: continue
+			var t: String = x["target"]
+			b.add_child(btn("%s  ·  %s  →  go" % [x["name"], x["blurb"]], func(): goto_target(t)))
+	b.add_child(label("📅 Events board", 34, MAG))
+	for e in WelcomeIsland.load_json("res://data/welcome/events.json").get("events", []):
+		var w: String = e["where"]
+		b.add_child(btn("%s\n%s · host: %s\n%s  →  go" % [e["title"], e["when"], e["host"], e["desc"]], func(): goto_target(w)))
+	return p

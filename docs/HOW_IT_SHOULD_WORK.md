@@ -115,3 +115,9 @@ The grid is built like **Aurora-Sim/OpenSim**: central grid services (login, ass
 
 ## Where to give your input
 - Gold ★ YOUR INPUT HERE tags in the game, plus `docs/WHERE_TO_GIVE_INPUT.md`.
+
+## Welcome Island, helpers and destinations (v0.7)
+- On first launch you spawn on **Welcome Island**, a floating orientation island at (640, 90, 640). It has a ring of 10 tutorial stations: move/look, fly, teleport, menus, minimap/map, chat IC/OOC, wardrobe/avatar, building, combat zone rules, getting help. MENU › Welcome Island lets you skip it or come back. Station text lives in `data/welcome/welcome_island.json`.
+- **Welcome Guide** and **Help Desk** are original guide bots. They answer FAQs from `data/welcome/help_faq.json` (keyword match) and point you to the matching station. Ask them in MENU › Help.
+- The **Destination Guide** (MENU › Destinations) groups places by category with one-tap teleport (`destinations.json`). It includes an **Events board** (`events.json`) with sample events.
+- **Radio Club**: an animated light-up dance floor next to Phoenix Radio.

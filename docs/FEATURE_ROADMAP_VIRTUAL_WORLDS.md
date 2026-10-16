@@ -112,6 +112,22 @@ Stack: Godot 4.7, Zylann Voxel Tools (smooth Transvoxel + VoxelLodTerrain), mobi
 - **Keys:** the client secret must never ship inside a public APK. For now it can only be typed into Settings on the owner's own phone. Later, a small proxy server holds it.
 - **Later:** an embedded WebView with the SoundCloud Widget API (needs an Android WebView plugin), and per-parcel SoundCloud playlists.
 
+## v0.6 playable: combat, roleplay, breedables
+- **Combat ✔:** the **Ember Arena** in Venus is the only damage-enabled zone (red ring and sign); everywhere else is safe, and the HUD shows ⚔/🛡. You have health plus a regenerating shield. **⚔ swipe** (melee) and **🔥 fire bolt** (magic) buttons. Three **Cinder Stalkers** (original creatures) patrol, chase and bite, then respawn 15 s after defeat. If you die, you respawn at spawn with full health and shield.
+- **Roleplay ✔:** a floating **RP titler** (name, title, faction, IC/OOC/AFK), a **character sheet** (🎭 RP), an **IC/OOC** switch in TALK, **/me** emotes, and poses (wave, bow, sit, dance).
+- **Breedables ✔:** **Ember Wyrmlings** live in the Wyrmling Nest near spawn. Genes: color, horn and wing, two alleles each, with dominance and a 2% mutation chance; rarity and generation come from those. Feed them, then breed a fed pair (with a cooldown) to hatch an offspring that inherits traits. Saved on the phone.
+
+## Marketplace (web + in-app, like the SL Marketplace) — server phase 0.8+
+- Listings with categories, search, filters, reviews from verified buyers, free demo items, stock, and the mature gate.
+- **Delivery to inventory:** purchases land in the Satchel's "Received Items", with redelivery from purchase history. A **merchant outbox** holds items for sale.
+- **List from inventory:** long-press or tap **List on Marketplace** on a Satchel item. **v0.6 stub ✔:** this saves a local draft listing (`user://ugc/listings.json`).
+- One catalog shows up in three places: web store, in-app store panel, and in-world vendors.
+- Data model: `data/economy/marketplace_exchange_model.json`.
+
+## Aethel Exchange (like the classic LindeX) — server phase 0.8+
+- Buy/sell order book for AEC between users, with market and limit orders, price-time matching, a rate chart (1h/1d/1w) and a small trade fee.
+- **⚠ Compliance:** a real-money exchange needs legal and compliance review before launch. That covers money-transmitter licensing (FinCEN MSB plus state licenses in the US), KYC/AML, sanctions, tax reporting and app-store payment rules. Until then AEC is a closed in-game currency with no cash-out.
+
 ## Voice chat
 - **Now (0.5):** companions speak replies via `DisplayServer.tts_speak` (one voice per companion, Settings toggle). There's also a 🎤 push-to-talk button that emits `push_to_talk(active)` (stub only, no mic permission yet).
 - **0.6:** speech-to-text through an Android STT plugin (on-device `SpeechRecognizer`) sends text to `ChatUI._send()`. Optional cloud TTS voices are matched to each persona.

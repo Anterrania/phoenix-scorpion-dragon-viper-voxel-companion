@@ -30,6 +30,35 @@ func _ready() -> void:
 			fly.text = "LAND" if on else "FLY"
 			up.visible = on
 			down.visible = on)
+	# v0.6 combat buttons + shield bar
+	var swipe := _button("Swipe", "⚔", Vector2(-510, -190))
+	swipe.pressed.connect(func(): if player and player.has_method("melee_swipe"): player.melee_swipe())
+	var bolt := _button("Bolt", "🔥", Vector2(-510, -330))
+	bolt.pressed.connect(func(): if player and player.has_method("fire_bolt"): player.fire_bolt())
+	var sh := ProgressBar.new()
+	sh.name = "Shield"
+	sh.max_value = 50.0
+	sh.value = 50.0
+	sh.show_percentage = false
+	sh.offset_left = 24; sh.offset_top = 6; sh.offset_right = 324; sh.offset_bottom = 20
+	var sfill := StyleBoxFlat.new(); sfill.bg_color = Color(0.35, 0.8, 1.0)
+	sh.add_theme_stylebox_override("fill", sfill)
+	sh.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(sh)
+	if player and player.has_signal("shield_changed"):
+		player.shield_changed.connect(func(v: float): sh.value = v)
+	var zone := Label.new()
+	zone.name = "ZoneLabel"
+	zone.offset_left = 340; zone.offset_top = 6
+	zone.add_theme_font_size_override("font_size", 24)
+	zone.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(zone)
+	var tm := Timer.new(); tm.wait_time = 0.5; tm.autostart = true; add_child(tm)
+	tm.timeout.connect(func():
+		if player:
+			var on := CombatZone.is_damage_enabled(player.global_position)
+			zone.text = "⚔ COMBAT ZONE (damage on)" if on else "Safe zone"
+			zone.modulate = Color(1, 0.3, 0.3) if on else Color(0.6, 1, 0.7))
 	var hp := ProgressBar.new()
 	hp.name = "Health"
 	hp.max_value = 100.0

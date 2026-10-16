@@ -47,6 +47,8 @@ func _ready() -> void:
 	var st := Profile.to_style(Profile.avatar())
 	refresh_avatar()
 	Profile.changed.connect(refresh_avatar)
+	Profile.changed.connect(refresh_titler)
+	refresh_titler.call_deferred()
 	Inventory.equipped_changed.connect(func(t): if t == "player": refresh_avatar())
 	set_third_person(st.get("third_person", true))
 
@@ -66,6 +68,7 @@ func set_third_person(on: bool) -> void:
 	third_person = on
 	camera.position = TP_CAM if on else FP_CAM
 	if avatar: avatar.visible = on
+	if titler: titler.visible = on and titler.text != ""
 
 func toggle_camera() -> void:
 	set_third_person(not third_person)
@@ -73,6 +76,7 @@ func toggle_camera() -> void:
 func _process(delta: float) -> void:
 	_anim_t += delta
 	HumanoidModel.animate(avatar, _anim_t, clampf(Vector2(velocity.x, velocity.z).length() / speed, 0.0, 1.0))
+	_pose_tick(delta)
 	if health < MAX_HEALTH and surface != SurfacePhysics.Surface.LAVA:
 		health = minf(health + delta * 4.0, MAX_HEALTH)
 		health_changed.emit(health)
@@ -151,6 +155,7 @@ func _fly_step(delta: float, dir: Vector3) -> void:
 	if col: velocity = velocity.slide(col.get_normal())
 
 func _physics_process(delta: float) -> void:
+	_combat_tick(delta)
 	if flying:
 		var fi := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		if _touch_move != Vector2.ZERO: fi = _touch_move
@@ -186,11 +191,113 @@ static func push_bodies(body: CharacterBody3D, force: float) -> void:
 			n.y = 0.0
 			rb.apply_central_impulse(n.normalized() * force / maxf(rb.mass, 1.0) * 4.0)
 
+# ---------- v0.6 combat ----------
+signal shield_changed(v: float)
+const MAX_SHIELD := 50.0
+const SHIELD_REGEN := 5.0
+const MELEE_DAMAGE := 12.0
+const MELEE_RANGE := 2.8
+var shield := MAX_SHIELD
+var _shield_delay := 0.0
+var _melee_cd := 0.0
+var _bolt_cd := 0.0
+
+## Creature/PvP damage: only on damage-enabled land; shield absorbs first.
+func take_combat_damage(amount: float) -> bool:
+	if not CombatZone.is_damage_enabled(global_position): return false
+	_shield_delay = 3.0
+	var absorbed := minf(shield, amount)
+	shield -= absorbed
+	shield_changed.emit(shield)
+	if amount - absorbed > 0.0: take_damage(amount - absorbed)
+	return true
+
+func melee_swipe() -> int:
+	if _melee_cd > 0.0: return 0
+	_melee_cd = 0.5
+	set_pose("swipe", 0.35)
+	var fwd := -global_transform.basis.z
+	var hits := 0
+	for c in get_tree().get_nodes_in_group("creatures"):
+		var to: Vector3 = c.global_position - global_position
+		if c.alive() and to.length() < MELEE_RANGE and fwd.dot(to.normalized()) > 0.3:
+			c.hit(MELEE_DAMAGE); hits += 1
+	return hits
+
+func fire_bolt() -> Node3D:
+	if _bolt_cd > 0.0: return null
+	_bolt_cd = 0.8
+	set_pose("cast", 0.4)
+	var dir := -camera.global_transform.basis.z if camera else -global_transform.basis.z
+	var b := FireBolt.new(dir)
+	get_parent().add_child(b)
+	b.global_position = global_position + Vector3(0, 0.6, 0) + dir * 1.0
+	return b
+
+func _combat_tick(delta: float) -> void:
+	_melee_cd -= delta; _bolt_cd -= delta; _shield_delay -= delta
+	if _shield_delay <= 0.0 and shield < MAX_SHIELD:
+		shield = minf(MAX_SHIELD, shield + SHIELD_REGEN * delta)
+		shield_changed.emit(shield)
+
+# ---------- v0.6 roleplay: poses + titler ----------
+const POSES := ["wave", "bow", "sit", "dance"]
+var pose := ""
+var _pose_t := 0.0
+var titler: Label3D
+
+func set_pose(p: String, dur := 4.0) -> void:
+	pose = p
+	_pose_t = dur
+
+func _pose_tick(delta: float) -> void:
+	if pose == "" or avatar == null: return
+	_pose_t -= delta
+	if _pose_t <= 0.0:
+		pose = ""
+		return
+	var t := Time.get_ticks_msec() / 1000.0
+	var torso := avatar.get_node_or_null("Hips/Torso") as Node3D
+	var arm_r := avatar.get_node_or_null("Hips/Torso/ArmR") as Node3D
+	var arm_l := avatar.get_node_or_null("Hips/Torso/ArmL") as Node3D
+	match pose:
+		"wave": if arm_r: arm_r.rotation = Vector3(0, 0, 2.6 + sin(t * 10.0) * 0.4)
+		"bow": if torso: torso.rotation.x = -0.8
+		"sit":
+			avatar.position.y = -1.3
+			for leg in ["Hips/LegL", "Hips/LegR"]:
+				var n := avatar.get_node_or_null(leg) as Node3D
+				if n: n.rotation.x = 1.5
+		"dance":
+			avatar.rotation.y = sin(t * 4.0) * 0.6
+			if arm_r: arm_r.rotation.z = 2.4 + sin(t * 8.0) * 0.5
+			if arm_l: arm_l.rotation.z = -2.4 - sin(t * 8.0) * 0.5
+		"swipe": if arm_r: arm_r.rotation = Vector3(-1.4, 0, 0.6 + _pose_t * 4.0)
+		"cast": if arm_r: arm_r.rotation.x = -1.6
+	if _pose_t <= delta + 0.001:
+		avatar.position.y = -0.85
+		avatar.rotation.y = 0.0
+
+func refresh_titler() -> void:
+	if titler == null:
+		titler = Label3D.new()
+		titler.name = "Titler"
+		titler.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		titler.position.y = 1.45
+		titler.pixel_size = 0.004
+		titler.font_size = 40
+		titler.outline_size = 12
+		titler.modulate = Color("#ffd04a")
+		add_child(titler)
+	titler.text = RoleplayProfile.titler_text()
+	titler.visible = third_person and titler.text != ""
+
 func take_damage(amount: float) -> void:
 	health = maxf(health - amount, 0.0)
 	health_changed.emit(health)
 	if health <= 0.0:  # respawn at the start, full health
 		health = MAX_HEALTH
+		shield = MAX_SHIELD
 		global_position = Vector3(0, (_gen().height_f(0, 0) if _gen() else 40.0) + 2.0, 0)
 		velocity = Vector3.ZERO
 		health_changed.emit(health)

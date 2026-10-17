@@ -19,3 +19,4 @@ Apply: `git apply patches/viewer_parity_hud_hooks.patch`. Verified with `git app
 - `estate_panel_admin_gate.patch` (`scripts/ui/ui_root.gd`): the Region/Estate panel saves through `AdminGate.estate_set(...)`, so only the unlocked owner or an estate manager can change region/parcel settings; others get the "Owner unlock needed." toast.
 Both pass `git apply --check` on main, and the full suite passes (0 failures) with both applied.
 Damage needs no patch: `CombatZone.is_damage_enabled` (used by player, HUD and Cinder Stalker) now asks `LandGate.damage_enabled`.
+- `player_fly_estate_rule.after_viewer.patch`: the same change for a `scripts/player.gd` that already has `viewer_parity_hud_hooks.patch` (both edit `set_flying`). Apply order: `git apply patches/viewer_parity_hud_hooks.patch patches/player_fly_estate_rule.after_viewer.patch`. Verified on main after #29/#30: suite 1463 passing, 0 failures with these two plus `estate_panel_admin_gate.patch` applied.

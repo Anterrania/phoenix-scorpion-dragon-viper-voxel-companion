@@ -991,8 +991,27 @@ func _v12_tests() -> void:
 
 
 func _v12_tier_tests() -> void:
-	# owner companion tier seeding is deferred to the audited owner-gated setter (fix/audit-gates)
-	check(Tiers.assigned_tier("foxy_ani") == "resident" and Tiers.assigned_tier("bot:someone_else") == "resident", "v12 companions not seeded at boot (Resident default)")
+	var root := "user://test_v12_tiers_%d" % Time.get_ticks_usec()
+	OwnerVault.reset_for_tests(root.path_join("security"), 1000)
+	SecureFile.reset_for_tests()
+	Tiers.reset_for_tests(root.path_join("social"))
+	Settings.set_value(CompanionTiers.FLAG_SECTION, CompanionTiers.FLAG_KEY, false)
+	check(Tiers.assigned_tier("foxy_ani") == "resident", "v12 companions Resident before seeding")
+	Tiers.owner_override = false
+	check(Tiers.set_role("foxy_ani", "builder") != "" and Tiers.assigned_tier("foxy_ani") == "resident", "v12 set_role refused while owner locked, nothing changed")
+	var errs := CompanionTiers.seed_once(true)   # caller claims owner but the gate says locked
+	check(errs.size() == 3 and not CompanionTiers.seeded() and Tiers.assigned_tier("aaliyah") == "resident", "v12 locked seeding errors, no flag, no change")
+	check(CompanionTiers.seed_once(false).is_empty() and not CompanionTiers.seeded(), "v12 no seeding when not owner")
+	Tiers.owner_override = true
+	check(CompanionTiers.seed_once(true).is_empty() and CompanionTiers.seeded(), "v12 first owner unlock seeds once")
+	check(Tiers.assigned_tier("foxy_ani") == "staff" and Tiers.assigned_tier("aaliyah") == "staff" and Tiers.assigned_tier("circuit_nova") == "staff", "v12 owner companions Builder/Staff")
+	check(Tiers.assigned_tier("bot:someone_else") == "resident", "v12 other companions stay Resident")
+	Tiers.set_role("aaliyah", "creator")
+	CompanionTiers.seed_once(true)
+	check(Tiers.assigned_tier("aaliyah") == "creator", "v12 seeding does not repeat")
+	Tiers.owner_override = null
+	Settings.set_value(CompanionTiers.FLAG_SECTION, CompanionTiers.FLAG_KEY, false)
+	Tiers.reset_for_tests("user://social"); OwnerVault.reset_for_tests("user://security", CryptoBox.DEFAULT_ITERATIONS); SecureFile.reset_for_tests()
 
 func _v12_power_tests() -> void:
 	var ps = get_node_or_null("/root/PowerSaver")

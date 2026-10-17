@@ -1,0 +1,15 @@
+{
+  "_note": "SBX-24 crafting recipes (our own). Inputs use voxel material ids from VoxelPalette as 'voxel:<id>' or crafted item ids. station: '' (hands), workbench, forge, infuser. skill/level gate + xp from SkillByUse.",
+  "materials": {"voxel:1": "snow", "voxel:2": "ice", "voxel:3": "moss", "voxel:4": "granite", "voxel:5": "basalt", "voxel:6": "lava", "voxel:10": "gold", "voxel:12": "platinum", "voxel:13": "glitter crystal", "voxel:15": "aurora crystal"},
+  "recipes": {
+    "beacon": {"inputs": {"voxel:1": 4, "voxel:15": 1}, "output": {"beacon": 1}, "station": "", "skill": "crafting", "level": 1, "xp": 10, "seconds": 5},
+    "stone_brick": {"inputs": {"voxel:4": 2}, "output": {"stone_brick": 4}, "station": "workbench", "skill": "crafting", "level": 1, "xp": 4, "seconds": 3},
+    "obsidian_blade": {"inputs": {"voxel:5": 3, "voxel:6": 1}, "output": {"obsidian_blade": 1}, "station": "forge", "skill": "crafting", "level": 15, "xp": 30, "seconds": 20},
+    "gilded_frame": {"inputs": {"voxel:10": 2, "stone_brick": 4}, "output": {"gilded_frame": 1}, "station": "workbench", "skill": "crafting", "level": 8, "xp": 18, "seconds": 10},
+    "glitter_lamp": {"inputs": {"voxel:13": 2, "voxel:12": 1}, "output": {"glitter_lamp": 1}, "station": "workbench", "skill": "crafting", "level": 5, "xp": 12, "seconds": 8}
+  },
+  "infusions": {
+    "frostbite": {"inputs": {"voxel:2": 3, "voxel:15": 1}, "applies_to": ["obsidian_blade"], "power": 10, "level": 20},
+    "radiance": {"inputs": {"voxel:13": 2}, "applies_to": ["glitter_lamp", "gilded_frame"], "power": 5, "level": 10}
+  }
+}

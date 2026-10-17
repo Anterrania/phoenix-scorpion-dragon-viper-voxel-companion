@@ -49,6 +49,7 @@ func _ready() -> void:
 	await load("res://tests/admin_tests.gd").run_scene(self)
 	load("res://tests/security_tests.gd").run(self)
 	load("res://tests/wiki_tests.gd").run(self)
+	load("res://tests/sim_tests.gd").run(self); load("res://tests/sim_tests.gd").run_docs(self)
 	await load("res://tests/security_tests.gd").run_ui(self)
 	load("res://tests/social_tests.gd").run(self); load("res://tests/social_tests.gd").run_docs(self); await load("res://tests/social_tests.gd").run_ui(self)
 	load("res://tests/audit_tests.gd").run(self)

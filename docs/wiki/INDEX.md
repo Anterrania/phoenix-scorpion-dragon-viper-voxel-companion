@@ -37,6 +37,9 @@ Short pages. Tap one.
 - [Economy Metrics](economy-metrics.md) · planned
 - [Community](community.md) · partial
 - [Tiers](tiers.md) · built
+- [Landmarks, Home & Teleport History](landmarks-teleport.md) · built
+- [Interop (OpenSim, Aurora, WhiteCore, OSgrid)](interop.md) · partial
+- [How Your Saves Are Protected](encryption.md) · built
 
 - [FAQ](../FAQ.md)
 

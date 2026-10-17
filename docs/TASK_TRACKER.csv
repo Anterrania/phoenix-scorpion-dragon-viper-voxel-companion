@@ -60,3 +60,10 @@ SOCIAL-5,"Roadmap: events (merge with events board), polls, forums, blogs",todo,
 SOCIAL-6,"Roadmap: photo/video albums + in-world snapshots (media store, upload review)",todo,P2
 SOCIAL-7,"Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED)",todo,P2
 SOCIAL-8,"Roadmap: grid Social service + multi-device identity, points/reputation",todo,P3
+VWGAP-1,"Virtual-world feature gap checklist (Aurora-Sim, WhiteCore, OpenSim, OSgrid, SL, Avination, OpenLife Grid) - docs/VIRTUAL_WORLD_FEATURE_GAP.md",done,P1
+VWGAP-2,"Landmarks + Set Home + teleport history (Landmarks store, viper:// addresses) and SL/OpenSim estate flags + covenant (optional, backward compatible)",done,P1
+VWGAP-3,"Interop: OAR terrain/summary + IAR notecard import (TarGz, OpenSimArchive, InteropImport), Admin > Interop page, docs/modules/INTEROP.md",done,P1
+VWGAP-4,"Encryption write-up docs/ENCRYPTION.md + fixes F1 (unlock_with_dek key check), F2 (atomic replace), F7 (migration targets)",done,P0
+VWGAP-5,"Apply an imported OAR heightmap to a region (voxel generator hook + land permission); enforce allow_fly/damage/push/scripts flags (Foxy for client paths)",todo,P1
+VWGAP-6,"Encryption next: PXE2 with associated data (path + counter, fixes F3), PBKDF2 600k / Argon2id for new slots, Android Keystore slot",todo,P1
+VWGAP-7,"Interop next: JPEG 2000 -> PNG converter, LSL subset runner, Viper archive export, Sceneflip-style scene slots (OLG idea)",todo,P2

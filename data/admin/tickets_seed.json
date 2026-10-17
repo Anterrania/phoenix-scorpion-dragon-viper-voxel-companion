@@ -730,5 +730,89 @@
   "milestone": "SOCIAL-8",
   "owner": "",
   "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 62,
+  "type": "task",
+  "summary": "Virtual-world feature gap checklist (Aurora-Sim, WhiteCore, OpenSim, OSgrid, SL, Avination, OpenLife Grid) - docs/VIRTUAL_WORLD_FEATURE_GAP.md",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VWGAP-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 63,
+  "type": "task",
+  "summary": "Landmarks + Set Home + teleport history (Landmarks store, viper:// addresses) and SL/OpenSim estate flags + covenant (optional, backward compatible)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VWGAP-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 64,
+  "type": "task",
+  "summary": "Interop: OAR terrain/summary + IAR notecard import (TarGz, OpenSimArchive, InteropImport), Admin > Interop page, docs/modules/INTEROP.md",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VWGAP-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 65,
+  "type": "task",
+  "summary": "Encryption write-up docs/ENCRYPTION.md + fixes F1 (unlock_with_dek key check), F2 (atomic replace), F7 (migration targets)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "VWGAP-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 66,
+  "type": "task",
+  "summary": "Apply an imported OAR heightmap to a region (voxel generator hook + land permission); enforce allow_fly/damage/push/scripts flags (Foxy for client paths)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VWGAP-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 67,
+  "type": "task",
+  "summary": "Encryption next: PXE2 with associated data (path + counter, fixes F3), PBKDF2 600k / Argon2id for new slots, Android Keystore slot",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VWGAP-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 68,
+  "type": "task",
+  "summary": "Interop next: JPEG 2000 -> PNG converter, LSL subset runner, Viper archive export, Sceneflip-style scene slots (OLG idea)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "VWGAP-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
  }
 ]

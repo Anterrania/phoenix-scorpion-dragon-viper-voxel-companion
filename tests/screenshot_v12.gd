@@ -52,6 +52,8 @@ func _initialize():
 	var pl = s.get_node("Player")
 	pl.set_physics_process(false)
 	pl.set_third_person(true)
+	pl.global_position += Vector3(0, 0, 0)
+	for c in s.get_tree().get_nodes_in_group("companions"): c.visible = false
 	await _frame(s, "player", pl.avatar, pl)
 	for cl in root.find_children("*", "CanvasLayer", true, false): cl.visible = true
 	if isolated:  # proposals/history only in a throwaway user:// so the box app data stays clean
@@ -59,4 +61,6 @@ func _initialize():
 		var core = EveCore.for_companion("foxy_ani"); core.log_chat("user", "build me a fire altar"); core.log_chat("assistant", "Rising from the flame, love.")
 		core.propose_update("Brighter Venus lava glow")
 		ui.show_panel("proposals"); await create_timer(0.5).timeout; _shot("proposals_panel")
+		ui.show_panel("")
+		CommunityScreen.open(ui); await create_timer(1.0).timeout; _shot("community_admin")
 	quit()

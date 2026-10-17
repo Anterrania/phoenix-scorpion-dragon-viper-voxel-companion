@@ -146,7 +146,7 @@ static func build(style: Dictionary) -> Node3D:
 	elif aura == "circuit_glow":
 		var l := OmniLight3D.new(); l.name = "CircuitLight"; l.light_color = style.get("accent", Color(0.2, 0.7, 1)); l.light_energy = 0.35; l.omni_range = 1.6
 		l.position.y = 1.2; root.add_child(l)
-	root.set_meta("realistic", true)
+	root.set_meta("realistic", true); root.set_meta("eye_y", body.get_meta("eye_y", 1.55))
 	return root
 
 static func skeleton(model: Node3D) -> Skeleton3D:

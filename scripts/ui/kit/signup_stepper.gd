@@ -18,7 +18,7 @@ var _press_x := 0.0
 var burst: CPUParticles2D
 
 func _init() -> void:
-	add_theme_constant_override("separation", PhoenixTokens.SPACE[5])
+	add_theme_constant_override("separation", PhoenixTokens.space(5))
 	var rc := CenterContainer.new(); add_child(rc)
 	ring = RING.instantiate(); ring.custom_minimum_size = Vector2(160, 160); rc.add_child(ring)
 	_q = Label.new(); _q.theme_type_variation = &"TitleLabel"; _q.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -84,7 +84,7 @@ func _collect() -> void:
 
 func _field(key: String, ph: String) -> LineEdit:
 	var e := LineEdit.new(); e.placeholder_text = ph; e.text = str(data.get(key, "")); e.custom_minimum_size.y = 64
-	e.max_length = 24; e.add_theme_font_size_override("font_size", PhoenixTokens.TYPE.headline)
+	e.max_length = 24; e.add_theme_font_size_override("font_size", PhoenixTokens.fs("headline"))
 	e.text_submitted.connect(func(_t): next())
 	_inputs[key] = e
 	return e

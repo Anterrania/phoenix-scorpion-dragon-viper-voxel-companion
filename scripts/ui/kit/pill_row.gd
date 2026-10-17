@@ -31,22 +31,22 @@ func _ready() -> void:
 	sb.content_margin_left = 10; sb.content_margin_right = 16; sb.content_margin_top = 8; sb.content_margin_bottom = 8
 	sb.anti_aliasing = true
 	add_theme_stylebox_override("panel", sb)
-	var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.SPACE[4]); h.mouse_filter = Control.MOUSE_FILTER_PASS
+	var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.space(4)); h.mouse_filter = Control.MOUSE_FILTER_PASS
 	add_child(h)
 	var av := _Avatar.new(); av.text = avatar_text; av.col = avatar_color; h.add_child(av)
 	var v := VBoxContainer.new(); v.size_flags_horizontal = Control.SIZE_EXPAND_FILL; v.alignment = BoxContainer.ALIGNMENT_CENTER
 	v.mouse_filter = Control.MOUSE_FILTER_PASS
 	var l := Label.new(); l.text = primary; l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	l.add_theme_font_size_override("font_size", PhoenixTokens.TYPE.body); v.add_child(l)
+	l.add_theme_font_size_override("font_size", PhoenixTokens.fs("body")); v.add_child(l)
 	if secondary != "":
 		var s := Label.new(); s.text = secondary; s.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		s.add_theme_font_size_override("font_size", PhoenixTokens.TYPE.micro); s.add_theme_color_override("font_color", PhoenixTokens.PLATINUM_DIM)
+		s.add_theme_font_size_override("font_size", PhoenixTokens.fs("micro")); s.add_theme_color_override("font_color", PhoenixTokens.PLATINUM_DIM)
 		v.add_child(s)
 	h.add_child(v)
 	if chip != "": h.add_child(_chip(chip, chip_color))
 	_actions_box = HBoxContainer.new(); _actions_box.visible = false; _actions_box.add_theme_constant_override("separation", 8)
 	for a in actions:
-		var b := Button.new(); b.text = str(a[1]); b.custom_minimum_size = Vector2(96, PhoenixTokens.TAP_MIN)
+		var b := Button.new(); b.text = str(a[1]); b.custom_minimum_size = Vector2(96, PhoenixTokens.tap())
 		var id := str(a[0])
 		b.pressed.connect(func(): hide_actions(); action.emit(id))
 		_actions_box.add_child(b)
@@ -58,7 +58,7 @@ static func _chip(t: String, c: Color) -> PanelContainer:
 	sb.set_corner_radius_all(PhoenixTokens.RADIUS.pill); sb.content_margin_left = 12; sb.content_margin_right = 12
 	sb.content_margin_top = 4; sb.content_margin_bottom = 4
 	p.add_theme_stylebox_override("panel", sb); p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var l := Label.new(); l.text = t.to_upper(); l.add_theme_font_size_override("font_size", PhoenixTokens.TYPE.micro)
+	var l := Label.new(); l.text = t.to_upper(); l.add_theme_font_size_override("font_size", PhoenixTokens.fs("micro"))
 	l.add_theme_color_override("font_color", c); p.add_child(l)
 	return p
 

@@ -42,17 +42,21 @@ func _ready() -> void:
 	var bg := ColorRect.new(); bg.color = PhoenixTokens.VOID; bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
 	var m := MarginContainer.new(); m.set_anchors_preset(Control.PRESET_FULL_RECT)
-	for s in ["left", "right"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.SPACE[5])
-	m.add_theme_constant_override("margin_top", PhoenixTokens.SPACE[6]); m.add_theme_constant_override("margin_bottom", PhoenixTokens.SPACE[5])
+	for s in ["left", "right"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.space(5))
+	m.add_theme_constant_override("margin_top", PhoenixTokens.space(6)); m.add_theme_constant_override("margin_bottom", PhoenixTokens.space(5))
 	add_child(m)
-	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.SPACE[4]); m.add_child(v)
+	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.space(4)); m.add_child(v)
 	var head := HBoxContainer.new()
 	var title := Label.new(); title.text = "Viper OS"; title.theme_type_variation = &"TitleLabel"
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL; head.add_child(title)
 	var close := Button.new(); close.text = "✕"; close.name = "Close"
-	close.custom_minimum_size = Vector2(PhoenixTokens.TAP_MIN, PhoenixTokens.TAP_MIN)
+	close.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap())
 	close.pressed.connect(func(): closed.emit(); queue_free())
-	head.add_child(close); v.add_child(head)
+	var gear := Button.new(); gear.text = "⚙"; gear.name = "Settings"   # Settings: Display, Device, Voice, Broadcast
+	gear.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap())
+	gear.pressed.connect(func(): SettingsScreen.open_in(self))
+	head.add_child(gear); head.add_child(close); v.add_child(head)
+	DisplaySettings.attach_responsive(m)
 	pages = SwipePages.new(); pages.size_flags_vertical = Control.SIZE_EXPAND_FILL; v.add_child(pages)
 	_build_home(); _build_tickets(); _build_wiki(); _build_timeline(); _build_profile()
 	pages.page_changed.connect(func(_i): refresh())
@@ -62,7 +66,7 @@ func _page(n: String) -> VBoxContainer:
 	var sc := ScrollContainer.new(); sc.name = n
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	var b := VBoxContainer.new(); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	b.add_theme_constant_override("separation", PhoenixTokens.SPACE[4])
+	b.add_theme_constant_override("separation", PhoenixTokens.space(4))
 	sc.add_child(b); pages.add_page(n, sc)
 	return b
 
@@ -106,19 +110,19 @@ func _refresh_home() -> void:
 	var tot := maxi(1, s["total"])
 	var tc := ViperKit.card("Tickets"); home.add_child(tc)
 	var row := HFlowContainer.new(); row.alignment = FlowContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("h_separation", PhoenixTokens.SPACE[5]); tc.body().add_child(row)
+	row.add_theme_constant_override("h_separation", PhoenixTokens.space(5)); tc.body().add_child(row)
 	var open: int = s["total"] - int(s["tickets"].get("closed", 0))
 	row.add_child(ViperKit.ring(float(open) / tot, "open", str(open)))
 	row.add_child(ViperKit.ring(float(s["tickets"].get("accepted", 0)) / tot, "accepted", str(s["tickets"].get("accepted", 0))))
 	row.add_child(ViperKit.ring(float(s["tickets"].get("closed", 0)) / tot, "closed", str(s["tickets"].get("closed", 0))))
 	var bc := ViperKit.card("Companions"); home.add_child(bc)
 	var row2 := HFlowContainer.new(); row2.alignment = FlowContainer.ALIGNMENT_CENTER
-	row2.add_theme_constant_override("h_separation", PhoenixTokens.SPACE[5]); bc.body().add_child(row2)
+	row2.add_theme_constant_override("h_separation", PhoenixTokens.space(5)); bc.body().add_child(row2)
 	row2.add_child(ViperKit.ring(minf(1.0, s["pending_proposals"] / 10.0), "proposals", str(s["pending_proposals"])))
 	for cid in s["needs"]: row2.add_child(ViperKit.ring(s["needs"][cid], str(cid).split("_")[0], "", 120, true))
 	var sc := ViperKit.card("Security"); home.add_child(sc)
 	var row3 := HFlowContainer.new(); row3.alignment = FlowContainer.ALIGNMENT_CENTER
-	row3.add_theme_constant_override("h_separation", PhoenixTokens.SPACE[5]); sc.body().add_child(row3)
+	row3.add_theme_constant_override("h_separation", PhoenixTokens.space(5)); sc.body().add_child(row3)
 	var chain := ViperAdminData.revisions().verify_chain()
 	row3.add_child(ViperKit.ring(1.0 if chain["ok"] else 0.0, "audit " + ("verified" if chain["ok"] else "broken"), "✓" if chain["ok"] else "✗"))
 	row3.add_child(ViperKit.ring(float(OwnerVault.seconds_left()) / maxf(1.0, OwnerVault.lock_minutes() * 60.0), "owner", "open" if OwnerVault.is_unlocked() else "locked"))
@@ -159,8 +163,8 @@ func _build_tickets() -> void:
 	b.add_child(ticket_filter)
 	ticket_list = PagedList.new(); b.add_child(ticket_list)
 	ticket_detail = VBoxContainer.new(); ticket_detail.visible = false
-	ticket_detail.add_theme_constant_override("separation", PhoenixTokens.SPACE[4]); b.add_child(ticket_detail)
-	var back := Button.new(); back.text = "‹ Tickets"; back.custom_minimum_size.y = PhoenixTokens.TAP_MIN
+	ticket_detail.add_theme_constant_override("separation", PhoenixTokens.space(4)); b.add_child(ticket_detail)
+	var back := Button.new(); back.text = "‹ Tickets"; back.custom_minimum_size.y = PhoenixTokens.tap()
 	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	back.pressed.connect(func(): current_ticket = 0; _refresh_tickets())
 	ticket_detail.add_child(back)
@@ -228,7 +232,7 @@ func _show_ticket() -> void:
 	ticket_view.text = s
 	for to in TicketStore.WORKFLOW.get(t["status"], []):
 		var dest: String = to
-		var b := Button.new(); b.text = "→ " + dest.capitalize(); b.custom_minimum_size.y = PhoenixTokens.TAP_MIN
+		var b := Button.new(); b.text = "→ " + dest.capitalize(); b.custom_minimum_size.y = PhoenixTokens.tap()
 		b.pressed.connect(func(): do_transition(current_ticket, dest))
 		ticket_actions.add_child(b)
 
@@ -240,8 +244,8 @@ func _build_wiki() -> void:
 	b.add_child(wiki_filter)
 	wiki_list = PagedList.new(); b.add_child(wiki_list)
 	wiki_detail = VBoxContainer.new(); wiki_detail.visible = false
-	wiki_detail.add_theme_constant_override("separation", PhoenixTokens.SPACE[4]); b.add_child(wiki_detail)
-	var back := Button.new(); back.text = "‹ Wiki"; back.custom_minimum_size.y = PhoenixTokens.TAP_MIN
+	wiki_detail.add_theme_constant_override("separation", PhoenixTokens.space(4)); b.add_child(wiki_detail)
+	var back := Button.new(); back.text = "‹ Wiki"; back.custom_minimum_size.y = PhoenixTokens.tap()
 	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	back.pressed.connect(func(): current_page = ""; _refresh_wiki())
 	wiki_detail.add_child(back)

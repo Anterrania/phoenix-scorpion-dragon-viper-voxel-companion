@@ -84,7 +84,7 @@ func _apply_look() -> void:
 ## v0.5: rebuild the model with wardrobe overrides (Inventory autoload).
 func refresh_look() -> void:
 	if model: model.queue_free()
-	model = HumanoidModel.build(Inventory.styled(companion_id, config.style()))
+	model = HumanoidModel.build(Inventory.styled(companion_id, CompanionDNA.apply(persona, config.style())))
 	add_child(model)
 	model.position.y = -0.85  # capsule centre -> feet
 
@@ -135,12 +135,7 @@ func _on_reply(id: String, text: String) -> void:
 
 ## Voice hook: replace with TTS (DisplayServer.tts_speak or a cloud TTS).
 func speak(text: String) -> void:
-	if not bool(Settings.get_value("voice", "tts_enabled", true)): return
-	var voices := DisplayServer.tts_get_voices()
-	if voices.is_empty(): return
-	# Pick a voice per companion so they don't all sound the same.
-	var v: Dictionary = voices[abs(hash(companion_id)) % voices.size()]
-	DisplayServer.tts_speak(text, v["id"], 60, float(persona.get("voice", {}).get("pitch", 1.0)), 1.0)
+	CompanionVoice.speak(companion_id, persona, text)
 
 func get_player_position() -> Vector3:
 	return player.global_position if player else Vector3.ZERO

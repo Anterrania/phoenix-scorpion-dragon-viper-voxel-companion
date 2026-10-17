@@ -65,5 +65,12 @@
   "npc_unit_id": "scdi_omni_worker_unit",
   "scdi_program": true,
   "scdi_suit_series_index": 14,
-  "notes": "Worker unit template (not a uniquely named court companion). batch_21 card 14 catalogs the unit type in data/npcs.json; this persona remains the spawnable template."
+  "notes": "Worker unit template (not a uniquely named court companion). batch_21 card 14 catalogs the unit type in data/npcs.json; this persona remains the spawnable template.",
+  "voice": {
+    "profile": "OmniWorker_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

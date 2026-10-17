@@ -82,5 +82,12 @@
   "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
   "signature_wardrobe": [
     "morning_star_dawnbreaker_set"
-  ]
+  ],
+  "voice": {
+    "profile": "MorningStar_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

@@ -32,9 +32,21 @@
     }
   },
   "tools": {
-    "shared": ["remember", "emote"],
-    "world_only": ["place_voxel", "carve_area", "spawn_structure", "follow", "move_to", "emote"],
-    "chat": ["remember"]
+    "shared": [
+      "remember",
+      "emote"
+    ],
+    "world_only": [
+      "place_voxel",
+      "carve_area",
+      "spawn_structure",
+      "follow",
+      "move_to",
+      "emote"
+    ],
+    "chat": [
+      "remember"
+    ]
   },
   "grok_bot": {
     "standalone": true,
@@ -48,5 +60,15 @@
   },
   "palette_version": 2,
   "finish": "glitter_sparkle",
-  "accents": ["platinum", "gold"]
+  "accents": [
+    "platinum",
+    "gold"
+  ],
+  "voice": {
+    "profile": "AzuraStellaris_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

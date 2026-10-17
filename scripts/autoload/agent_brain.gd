@@ -26,6 +26,8 @@ func _ready() -> void:
 	reply_ready.connect(func(cid: String, t: String):
 		if t != "": EveCore.for_companion(cid, _agents[cid].persona if _agents.has(cid) else {}).log_chat("assistant", t))
 	DirAccess.make_dir_recursive_absolute(MEMORY_DIR)
+	var lt := Timer.new(); lt.name = "LearnTimer"; lt.wait_time = LEARN_INTERVAL_SEC; lt.autostart = true; add_child(lt)
+	lt.timeout.connect(learn_all)
 	var t := Timer.new()
 	t.wait_time = 10.0
 	t.autostart = true
@@ -100,6 +102,8 @@ func chat(id: String, player_text: String) -> void:
 		request_failed.emit(id, "unknown companion")
 		return
 	EveCore.for_companion(id, agent.persona).log_chat("user", player_text)
+	_learn_signals(id, player_text)
+	if Settings.live_ai() and brains.has(id): brains[id].memory.log_episode("chat", {"text": player_text})
 	if not Settings.live_ai():
 		_offline_reply(id, player_text)
 		return
@@ -249,6 +253,7 @@ func _brain_reply(id: String, player_text: String) -> String:
 	var hit := brain.best({"type": "chat", "text": player_text},
 		{"affinity": int(_memory[id].get("relationship", {}).get("affinity", 0)), "player": str(Settings.get_value("profile", "name", "friend"))})
 	if hit.is_empty(): return ""
+	last_cell[id] = str(hit.get("cell_id", ""))
 	var a: Dictionary = hit["action"]
 	match a.get("type"):
 		"say": return str(a.get("text", ""))
@@ -258,6 +263,54 @@ func _brain_reply(id: String, player_text: String) -> String:
 		"delegate": group_task(str(a.get("command", "")), player_text); return ""
 	return ""
 
+
+# ---------- v0.10 self-learning (feeds BrainCore episodes; BrainLearner does the learning) ----------
+const LEARN_INTERVAL_SEC := 120.0
+var last_cell := {}       # id -> last brain cell that answered (for feedback)
+var last_learn := {}      # id -> last BrainLearner report
+static var _TAUGHT := RegEx.create_from_string("(?i)^\\s*when i say ['\"]?(.+?)['\"]?\\s*,?\\s*(?:you\\s+)?(?:say|reply|answer)\\s+['\"]?(.+?)['\"]?\\s*$")
+const GOOD_WORDS := ["good job", "nice", "perfect", "love it", "thank you", "thanks", "yes!"]
+const BAD_WORDS := ["no that", "don't do that", "stop that", "wrong", "not that"]
+
+## Turn player chat into learner episodes: "when I say X, reply Y" -> taught; praise/scolding -> feedback on last cell.
+func _learn_signals(id: String, text: String) -> void:
+	var brain: BrainCore = brains.get(id)
+	if brain == null: return
+	var m := _TAUGHT.search(text)
+	if m: brain.memory.log_episode("taught", {"when": m.get_string(1), "reply": m.get_string(2)})
+	var lc := str(last_cell.get(id, ""))
+	if lc == "": return
+	var tl := text.to_lower()
+	for w in GOOD_WORDS:
+		if tl.contains(w): brain.memory.log_episode("feedback", {"cell_id": lc, "reward": 1.0}); return
+	for w in BAD_WORDS:
+		if tl.contains(w): brain.memory.log_episode("feedback", {"cell_id": lc, "reward": -1.0}); return
+
+## Run BrainLearner for one companion. Proposals land in BrainCore pending (owner approves in MENU > Proposals).
+func learn_now(id: String) -> Dictionary:
+	var brain: BrainCore = brains.get(id)
+	if brain == null: return {}
+	var r := BrainLearner.learn(brain, 200, false, true)  # via_owner: lands in MENU > Proposals
+	last_learn[id] = r
+	for pid in r.get("proposed", []):
+		EveCore.for_companion(id, brain.persona)._log("Cell Proposed", "Brain", "PendingApproval", str(pid))
+	return r
+
+func learn_all() -> void:
+	for id in brains: learn_now(id)
+
+## Companion's own building choice: highest-weight enabled cell (learned or seed) whose action is a
+## spawn_structure tool, or an event "free_build" cell. Returns structure name or "".
+func build_choice(id: String) -> String:
+	var brain: BrainCore = brains.get(id)
+	if brain == null: return ""
+	var best_w := -1.0
+	var out := ""
+	for c in brain.cells.values():
+		var a: Dictionary = c.get("action", {})
+		if c.get("enabled", true) and a.get("type") == "tool" and a.get("name") == "spawn_structure" and float(c.get("weight", 0)) > best_w:
+			best_w = float(c.get("weight", 0)); out = str(a.get("args", {}).get("name", ""))
+	return out
 ## Mirror owner decisions from EveCore (MENU > Proposals) into the brains; approved cells go live.
 func sync_owner_decisions() -> int:
 	var n := BrainCore.sync_owner_decisions(EveCore.proposals())

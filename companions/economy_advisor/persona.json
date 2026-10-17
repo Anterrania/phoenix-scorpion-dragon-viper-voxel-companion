@@ -64,5 +64,12 @@
   ],
   "concept_art": [
     "assets/concept_art/batch_14/03_ledger_vale_chancellor_officer_coat.jpg"
-  ]
+  ],
+  "voice": {
+    "profile": "EconomyAdvisor_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

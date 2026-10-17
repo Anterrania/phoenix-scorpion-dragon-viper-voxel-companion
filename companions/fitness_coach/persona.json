@@ -55,5 +55,12 @@
   "accents": [
     "platinum",
     "gold"
-  ]
+  ],
+  "voice": {
+    "profile": "FitnessCoach_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

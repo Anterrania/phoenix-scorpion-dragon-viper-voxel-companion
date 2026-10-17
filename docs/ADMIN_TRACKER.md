@@ -29,7 +29,7 @@ Root: `ViperAdminData.root` = `user://viper` (tests use a throwaway `user://test
 
 ## Privacy
 - Sign-up stores name, handle, avatar preset, voice and realm in `user://viper/signup.json`, and mirrors the name and avatar into the `Profile` autoload. It never asks for email or phone. Text that looks sensitive (email, card number, "password") is rejected by the same `BrainMemory` filter used for companion memory.
-- The owner role stays in Settings (hashed code). The admin screen does not grant it.
+- The owner role is the `Profile` role plus an unlocked `OwnerVault` session (PIN, PR #23). The admin screen does not grant it. Brain-cell reverts from the Timeline need that unlocked owner session (audit 2026-10-17).
 
 ## Visual references (inspiration only, nothing copied, no images in the repo)
 - Karen Sori interview on the graphic design of *The Circle* (red/white corporate system, interface elements leaving the rectangle): https://www.pushing-pixels.org/2017/09/20/graphic-design-of-the-circle-interview-with-karen-sori.html
@@ -44,5 +44,6 @@ The takeaway for Phoenix Glass: concentric rings and soft round shapes for statu
 ## Limits
 - There is no multi-user sync or merge. Revisions are per device. A grid-side tracker belongs to the Aurora-model grid services (ARCHITECTURE_AURORA_MODEL.md).
 - The diff is line-based LCS, capped at about 500×500 lines.
+- Switching tabs rebuilds only the tab being shown (audit 2026-10-17; it used to rebuild all five).
 - `SwipePages` follows the finger 1:1 and snaps. Reduced-motion handling is not wired to a setting yet.
 - Glass budget: the Home tab shows 4 GlassCards, over the §5 limit of 3 visible glass surfaces. On a phone only about 3 fit on screen at once, but it still needs a perf check on device.

@@ -1,0 +1,130 @@
+diff --git a/assets/characters/mh_eye.png.import b/assets/characters/mh_eye.png.import
+index 67c4bb0..043319a 100644
+--- a/assets/characters/mh_eye.png.import
++++ b/assets/characters/mh_eye.png.import
+@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/mh_eye.png-68c93f04fa01500b380210ba430bfcfa.c
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_afro_diffuse.png.import b/assets/characters/mh_female_afro_diffuse.png.import
+index aa3b551..34dc692 100644
+--- a/assets/characters/mh_female_afro_diffuse.png.import
++++ b/assets/characters/mh_female_afro_diffuse.png.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_afro_diffuse.png-35ed117c2c29e3e4d9
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_brown_eye.png.import b/assets/characters/mh_female_brown_eye.png.import
+index 7da9a4f..453272b 100644
+--- a/assets/characters/mh_female_brown_eye.png.import
++++ b/assets/characters/mh_female_brown_eye.png.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_brown_eye.png-59438cd4cf8527ae78288
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_eyebrow001.png.import b/assets/characters/mh_female_eyebrow001.png.import
+index 78e2b2b..4612574 100644
+--- a/assets/characters/mh_female_eyebrow001.png.import
++++ b/assets/characters/mh_female_eyebrow001.png.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_eyebrow001.png-94e4884a7b59df1cd815
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_eyelashes01.png.import b/assets/characters/mh_female_eyelashes01.png.import
+index 327daac..9f79b49 100644
+--- a/assets/characters/mh_female_eyelashes01.png.import
++++ b/assets/characters/mh_female_eyelashes01.png.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_eyelashes01.png-0ba3b73f4d6aecdd4e7
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_female_sportsuit01_diffuse.png.import b/assets/characters/mh_female_female_sportsuit01_diffuse.png.import
+index 7999f26..b9bc914 100644
+--- a/assets/characters/mh_female_female_sportsuit01_diffuse.png.import
++++ b/assets/characters/mh_female_female_sportsuit01_diffuse.png.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_female_sportsuit01_diffuse.png-3446
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_female_sportsuit01_normal.jpg.import b/assets/characters/mh_female_female_sportsuit01_normal.jpg.import
+index abba91b..fcd64d3 100644
+--- a/assets/characters/mh_female_female_sportsuit01_normal.jpg.import
++++ b/assets/characters/mh_female_female_sportsuit01_normal.jpg.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_female_sportsuit01_normal.jpg-c7251
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_long01_diffuse.png.import b/assets/characters/mh_female_long01_diffuse.png.import
+index 81886a9..bdc9f50 100644
+--- a/assets/characters/mh_female_long01_diffuse.png.import
++++ b/assets/characters/mh_female_long01_diffuse.png.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_long01_diffuse.png-6c281a78f5ef4bf5
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_shoes02_diffuse.png.import b/assets/characters/mh_female_shoes02_diffuse.png.import
+index 2988f1b..ac6a3ac 100644
+--- a/assets/characters/mh_female_shoes02_diffuse.png.import
++++ b/assets/characters/mh_female_shoes02_diffuse.png.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_shoes02_diffuse.png-2a359ae840b94da
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0
+diff --git a/assets/characters/mh_female_young_lightskinned_female_diffuse.png.import b/assets/characters/mh_female_young_lightskinned_female_diffuse.png.import
+index de6419d..f85d1ae 100644
+--- a/assets/characters/mh_female_young_lightskinned_female_diffuse.png.import
++++ b/assets/characters/mh_female_young_lightskinned_female_diffuse.png.import
+@@ -18,7 +18,7 @@ dest_files=["res://.godot/imported/mh_female_young_lightskinned_female_diffuse.p
+ 
+ [params]
+ 
+-compress/mode=0
++compress/mode=2
+ compress/high_quality=false
+ compress/lossy_quality=0.7
+ compress/uastc_level=0

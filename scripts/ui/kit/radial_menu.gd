@@ -24,7 +24,13 @@ func _gui_input(e: InputEvent) -> void:
 		for i in items.size():
 			if open and e.position.distance_to(_item_pos(i)) < button_radius:
 				_hover = i; item_selected.emit(items[i]); accept_event(); return
-func _process(_d: float) -> void: queue_redraw()
+## perf (2026-10-17 audit): redraw only while opening/closing, on hover change or resize (was every frame).
+var _drawn: Array = []
+func _draw_key() -> Array: return [_t, _hover, size, items.size(), open]
+func _process(_d: float) -> void:
+	var k := _draw_key()
+	if k != _drawn: _drawn = k; queue_redraw()
+func needs_redraw() -> bool: return _draw_key() != _drawn
 func _draw() -> void:
 	var c := size / 2.0
 	var f := get_theme_default_font()

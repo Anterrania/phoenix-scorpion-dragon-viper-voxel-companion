@@ -110,6 +110,8 @@ func _finish(g: String) -> void:
 			var bp: Vector3 = agent.global_position - agent.global_basis.z * 3.0
 			if choice != "" and AgentBrain.dispatch_tool(agent.companion_id, "spawn_structure", {"name": choice, "x": bp.x, "y": bp.y, "z": bp.z}).get("ok", false):
 				log_action("built a %s in %s (my own choice)" % [choice.replace("_", " "), biome])
+			elif "companion_id" in agent and LandGate.companion_tool_error(agent.companion_id, "spawn_structure", {}, bp) != "":
+				log_action("wanted to build in %s, but this land doesn't allow it" % biome)   # audit 2026-10-17
 			else:
 				build_cairn()
 				log_action("built a little crystal cairn in %s" % biome)

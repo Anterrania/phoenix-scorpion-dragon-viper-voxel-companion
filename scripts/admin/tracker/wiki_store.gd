@@ -44,6 +44,7 @@ func get_text(n: String) -> String: return str(pages.get(n, {}).get("text", ""))
 
 ## Save a page edit. Returns the new revision, or 0 if invalid / unchanged.
 func save_page(n: String, text: String, author := "local", message := "") -> int:
+	if not AdminGate.ok(): return 0   # AUDIT-2: owner session only
 	if not valid_name(n) or text.length() > MAX_TEXT: return 0
 	var before: Variant = pages[n]["text"] if pages.has(n) else null
 	if before == text: return 0

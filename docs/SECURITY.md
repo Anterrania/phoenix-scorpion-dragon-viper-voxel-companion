@@ -49,3 +49,4 @@ Security › **■ STOP ALL COMPANIONS** (one tap, anyone, persisted) pauses com
 - This is a local device protection, not an account system. Multiplayer needs server-side auth (Aurora-model grid).
 - An attacker who can run code inside the unlocked app can read the key from memory.
 - PBKDF2 is weaker against GPUs than Argon2. A 6-digit PIN alone is guessable offline by someone who has the files, so a passphrase is better for long-term secrets.
+- Full encryption write-up, review findings and fixes: [ENCRYPTION.md](ENCRYPTION.md).

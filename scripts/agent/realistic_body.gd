@@ -38,8 +38,19 @@ static func player_style(st: Dictionary) -> Dictionary:
 static func available() -> bool:
 	return ResourceLoader.exists(FEMALE)
 
-static func _tex_of(mi: MeshInstance3D) -> Texture2D:
-	var m := mi.mesh.surface_get_material(0)
+## v0.12: one shared texture set for every body (assets/characters/tex/, deduplicated; the GLB
+## imports discard their embedded copies), picked by MakeHuman asset name from the mesh name.
+const TEX_DIR := "res://assets/characters/tex/"
+static func _tex_of(mi: MeshInstance3D, male := false) -> Texture2D:
+	var n := String(mi.name)
+	if n == "Human":
+		return load(TEX_DIR + ("young_darkskinned_male_diffuse.png" if male else "young_lightskinned_female_diffuse.png"))
+	var a := n.trim_prefix("Human_").trim_prefix("Human.").to_lower()
+	if a.contains("low-poly") or a.contains("low_poly"): return load(EYE_TEX)
+	if a.begins_with("afro"): a = "afro"
+	for c in [TEX_DIR + a + "_diffuse.png", TEX_DIR + a + ".png"]:
+		if ResourceLoader.exists(c): return load(c)
+	var m := mi.mesh.surface_get_material(0) if mi.mesh else null
 	return m.albedo_texture if m is BaseMaterial3D else null
 
 static func _sm(sh: Shader, tex: Texture2D) -> ShaderMaterial:
@@ -67,7 +78,7 @@ static func build(style: Dictionary) -> Node3D:
 	body.set_meta("eye_y", eye_y)
 	for mi in body.find_children("*", "MeshInstance3D", true, false):
 		var n: String = mi.name.to_lower()
-		var tex := _tex_of(mi)
+		var tex := _tex_of(mi, glb_for(style) == MALE or str(style.get("body_id", "")) == "phoenix_player")
 		var mat: Material
 		if n == "human":
 			var s := _sm(SKIN, tex)

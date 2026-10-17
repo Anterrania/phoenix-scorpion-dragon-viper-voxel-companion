@@ -67,4 +67,8 @@ func _initialize():
 		CommunityScreen.open(ui); await create_timer(1.0).timeout; _shot("community_admin")
 		for cs in root.find_children("*", "CanvasLayer", true, false): if cs.name.to_lower().contains("community"): cs.queue_free()
 		ui.open_admin(); await create_timer(1.0).timeout; _shot("admin_carousel_menu")
+		var ls = LandSafetyScreen.open(ui)
+		for i in LandSafetyScreen.TABS.size():
+			ls.pages.go(i); await create_timer(0.6).timeout
+			_shot("land_safety_%s" % String(LandSafetyScreen.TABS[i]).to_lower())
 	quit()

@@ -26,6 +26,11 @@ func _ready() -> void:
 	reply_ready.connect(func(cid: String, t: String):
 		if t != "": EveCore.for_companion(cid, _agents[cid].persona if _agents.has(cid) else {}).log_chat("assistant", t))
 	DirAccess.make_dir_recursive_absolute(MEMORY_DIR)
+	var t := Timer.new()
+	t.wait_time = 10.0
+	t.autostart = true
+	t.timeout.connect(sync_owner_decisions)
+	add_child(t)
 
 # ---------- registration ----------
 func register_agent(agent: Node) -> void:
@@ -252,3 +257,10 @@ func _brain_reply(id: String, player_text: String) -> String:
 		"tool": dispatch_tool(id, str(a.get("name", "")), a.get("args", {})); return ""
 		"delegate": group_task(str(a.get("command", "")), player_text); return ""
 	return ""
+
+## Mirror owner decisions from EveCore (MENU > Proposals) into the brains; approved cells go live.
+func sync_owner_decisions() -> int:
+	var n := BrainCore.sync_owner_decisions(EveCore.proposals())
+	if n > 0:
+		for b in brains.values(): b.reload()
+	return n

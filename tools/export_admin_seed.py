@@ -36,14 +36,16 @@ def repo_log():
 
 def wiki_seed():
     pages = {}
-    for d in ["docs", os.path.join("docs", "modules")]:
+    for d in ["docs", os.path.join("docs", "modules"), os.path.join("docs", "wiki")]:
         full = os.path.join(ROOT, d)
         if not os.path.isdir(full): continue
         for fn in sorted(os.listdir(full)):
             if fn.endswith(".md"):
                 with open(os.path.join(full, fn), encoding="utf-8", errors="replace") as f:
                     text = f.read()
-                pages[wiki_name(fn)] = {"text": text[:MAX_PAGE], "source": f"{d}/{fn}", "truncated": len(text) > MAX_PAGE}
+                name = wiki_name(fn)
+                if name in pages: name += "Guide"   # docs/wiki page shares a name with a design doc
+                pages[name] = {"text": text[:MAX_PAGE], "source": f"{d}/{fn}", "truncated": len(text) > MAX_PAGE}
     pages.setdefault("WikiStart", {"text": "= Viper OS Wiki =\n\nStart here. Pages: " + ", ".join(sorted(pages)) + "\n", "source": "generated", "truncated": False})
     return pages
 

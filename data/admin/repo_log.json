@@ -1,39 +1,63 @@
 [
  {
-  "sha": "047a6c6",
+  "sha": "6d121c8",
   "author": "Anterrania",
-  "date": "2026-10-17T12:02:48-07:00",
-  "subject": "tests + docs: 92 admin/kit checks (revisions, workflow, wiki links, brain bridge, repo log, swipe/paging/toast/hold, stepper, admin scene flows), screenshot_admin.gd; docs/ADMIN_TRACKER.md (+ Circle r"
+  "date": "2026-10-17T12:21:32-07:00",
+  "subject": "Merge main (#22 wiki + FAQ) into owner-security"
  },
  {
-  "sha": "bdb0e0f",
+  "sha": "e4c6a38",
   "author": "Anterrania",
-  "date": "2026-10-17T12:02:48-07:00",
-  "subject": "admin: Viper OS admin screen on phoenix_glass.tres - Home rings/graph/report, Tickets pill rows + detail, Wiki pages + edit/history, Timeline commits+revisions with hold-to-revert, Profile sign-up ste"
+  "date": "2026-10-17T12:21:12-07:00",
+  "subject": "tests + docs: 93 security checks (PBKDF2 vectors, seal/open/tamper, legacy code -> set PIN -> lossless migration with encrypted backup of all saves incl. avatar + music prefs, locked/unlock/autolock/b"
  },
  {
-  "sha": "78e1eb7",
+  "sha": "af0a742",
   "author": "Anterrania",
-  "date": "2026-10-17T12:02:48-07:00",
-  "subject": "ui kit: build UI_DESIGN_LANGUAGE §8 specs on Phoenix Glass - SwipePages (<=5 pill tabs, 30%/600px/s swipe), SegmentedPills, PillRow admin-table row (avatar ring, one chip, swipe-left actions), PagedLi"
+  "date": "2026-10-17T12:21:12-07:00",
+  "subject": "UI: Security panel (lock state, auto-lock 5-120 min, change PIN, retire old code, e-stop, audit-chain verify, encrypted backup export); ViperRadial launcher on Foxy's RadialMenu (Admin 12 o'clock -> d"
  },
  {
-  "sha": "af8b09b",
+  "sha": "ce540a1",
   "author": "Anterrania",
-  "date": "2026-10-17T12:02:48-07:00",
-  "subject": "tracker: SVN-style RevisionStore (r1,r2.. log/diff/content_at/revert-as-new-rev), Trac TicketStore (default workflow, resolutions, comments linking rN, seeded from TASK_TRACKER.csv), WikiStore (CamelC"
+  "date": "2026-10-17T12:21:12-07:00",
+  "subject": "owner gate + encrypted saves: Profile.is_owner() = owner role AND unlocked session (EveCore.owner_ok/decide/EveBrainCell.unlock follow; cosmetics use is_owner_device); legacy code opens session + offe"
  },
  {
-  "sha": "c7d118f",
+  "sha": "200754b",
   "author": "Anterrania",
-  "date": "2026-10-17T11:42:59-07:00",
-  "subject": "Remove stray uid"
+  "date": "2026-10-17T12:21:11-07:00",
+  "subject": "security core: CryptoBox (PBKDF2-HMAC-SHA256 via Crypto.hmac_digest, AES-256-CBC + HMAC-SHA256 encrypt-then-MAC sealed boxes), OwnerVault (key slots for PIN/passphrase + legacy 'phoenix-' owner code, "
  },
  {
-  "sha": "0c3093b",
-  "author": "Anterrania",
-  "date": "2026-10-17T11:42:54-07:00",
-  "subject": "UI design language (Phoenix Glass): doc, theme, glass shader, ring stat, radial menu, glass card, line graph, demo + tests"
+  "sha": "42f98cc",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T12:16:59-07:00",
+  "subject": "Merge pull request #20 from Anterrania/feature/viper-admin-tracker"
+ },
+ {
+  "sha": "215045a",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T12:06:49-07:00",
+  "subject": "Merge pull request #21 from Anterrania/feature/physical-form-vision"
+ },
+ {
+  "sha": "a33e4a1",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T12:01:24-07:00",
+  "subject": "Merge pull request #19 from Anterrania/feature/v0.11-realistic-companions"
+ },
+ {
+  "sha": "e055f3e",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T11:51:19-07:00",
+  "subject": "Merge pull request #17 from Anterrania/feature/ui-design-language"
+ },
+ {
+  "sha": "d14710b",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T11:49:37-07:00",
+  "subject": "Merge pull request #18 from Anterrania/feature/v0.10-companions"
  },
  {
   "sha": "6a49fdf",

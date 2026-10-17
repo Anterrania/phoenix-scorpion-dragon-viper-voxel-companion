@@ -9,7 +9,8 @@ extends RefCounted
 const PATTERN_MIN := 3
 const STOPWORDS := ["the", "a", "an", "and", "you", "me", "please", "can", "could", "now", "here", "there", "it", "to", "of", "i", "my", "for", "make", "let", "lets", "get", "put", "want", "just", "some", "this", "that", "with", "what", "your", "are", "yes", "okay"]
 
-static func learn(brain: BrainCore, last_n := 200, auto_apply_low_risk := false) -> Dictionary:
+## via_owner = true: proposals go to the owner's EveCore queue (MENU > Proposals) instead of the local pending/ folder.
+static func learn(brain: BrainCore, last_n := 200, auto_apply_low_risk := false, via_owner := false) -> Dictionary:
 	var report := {"reinforced": 0, "proposed": [], "skipped": []}
 	var eps := brain.memory.episodes(last_n)
 	var last_chat := ""
@@ -27,7 +28,8 @@ static func learn(brain: BrainCore, last_n := 200, auto_apply_low_risk := false)
 				if brain.cells.has(id): continue
 				var cell := BrainCell.make(id, brain.companion_id, {"type": "chat_keyword", "any": [when]},
 					{"type": "say", "text": reply}, 0.7, "self_proposed", "player taught a reply")
-				_push(report, id, brain.propose(cell, "player taught: when '%s'" % when, auto_apply_low_risk))
+				var why := "player taught: when '%s'" % when
+				_push(report, id, brain.propose_to_owner(cell, why) if via_owner else brain.propose(cell, why, auto_apply_low_risk))
 			"chat":
 				last_chat = str(e.get("text", "")).to_lower()
 			"tool":
@@ -45,7 +47,8 @@ static func learn(brain: BrainCore, last_n := 200, auto_apply_low_risk := false)
 		var cell := BrainCell.make(id, brain.companion_id, {"type": "chat_keyword", "any": [parts[0]]},
 			{"type": "tool", "name": parts[1], "args": pairs[k]["args"] if pairs[k]["args"] is Dictionary else {}},
 			0.5, "self_proposed", "seen '%s' -> %s %d times" % [parts[0], parts[1], pairs[k]["count"]])
-		_push(report, id, brain.propose(cell, cell["provenance"]["reason"]))
+		var reason: String = cell["provenance"]["reason"]
+		_push(report, id, brain.propose_to_owner(cell, reason) if via_owner else brain.propose(cell, reason))
 	return report
 
 static func _push(report: Dictionary, id: String, r: Dictionary) -> void:

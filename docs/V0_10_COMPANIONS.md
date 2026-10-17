@@ -12,7 +12,7 @@ Each persona's `voice` block holds profile, pitch, rate, locale and cloud_voice_
 
 ## Self-learning (BrainCore + BrainLearner; no second learner)
 - Chat goes through EveCore into BrainCore episodes: `chat` in live and offline mode, `taught` for "when I say X, reply Y", and `feedback` for praise or "no, not that" aimed at the last cell that fired. Tool use is logged by AgentBrain.
-- `AgentBrain.learn_all()` runs `BrainLearner.learn()` every 120 s. Its proposals stay pending.
+- `AgentBrain.learn_all()` runs `BrainLearner.learn(..., via_owner=true)` every 120 s, so its proposals land in the owner queue (MENU › Proposals). AgentBrain then syncs owner decisions every 10 s, and approved cells go live.
 - Learned and approved cells answer chat through `_brain_reply`. When roaming, a companion builds with the highest-weight `spawn_structure` cell, which for Foxy is the seed `free_build_fire_altar`. Without one, it falls back to a cairn.
 - MENU › Proposals shows the Eve proposals and BrainCore's pending cells (Approve and Reject), plus learned cells with versions (Roll back). Only the owner can do these, and each decision is logged to the companion's Eve history.
 

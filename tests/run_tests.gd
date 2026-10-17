@@ -39,6 +39,7 @@ func _ready() -> void:
 	BrainCore.adapter_root = BrainCore.DEFAULT_ROOT
 	load("res://tests/brain_tests.gd").run(self)
 	load("res://tests/brain_tests.gd").run_eve_adapter(self)
+	load("res://tests/brain_tests.gd").run_owner_flow(self)
 	load("res://tests/brain_tests.gd").run_agent_brain(self)
 	_v10_tests()
 	_v10_music_tests()
@@ -298,7 +299,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=11") and ep.contains("0.9.0"), "versionCode 11 / 0.9.0")
+	check(ep.contains("version/code=12") and ep.contains("0.10.0"), "versionCode 12 / 0.10.0")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))
@@ -808,6 +809,8 @@ func _v10_tests() -> void:
 	# self-learning via BrainCore + BrainLearner (no second learner)
 	var root := "user://brains_test_v10"
 	_rm_tree(root)
+	var old_ar = BrainCore.adapter_root
+	BrainCore.adapter_root = root
 	var b := BrainCore.new("foxy_ani", fx, root)
 	AgentBrain.brains["foxy_ani"] = b
 	check(AgentBrain.build_choice("foxy_ani") == "fire_altar", "v10 foxy own build choice from cell")
@@ -815,19 +818,24 @@ func _v10_tests() -> void:
 	var eps := b.memory.episodes(10)
 	check(not eps.is_empty() and eps.back().get("kind") == "taught", "v10 taught episode logged")
 	var rep := AgentBrain.learn_now("foxy_ani")
-	check(rep.get("proposed", []).size() >= 1 and not b.pending().is_empty(), "v10 BrainLearner proposes pending cell")
-	var ui = load("res://scripts/ui/ui_root.gd").new()
-	var cell_id := str(b.pending()[0]["id"])
+	var ops: Array = EveCore.proposals(true)
+	check(rep.get("proposed", []).size() >= 1 and ops.size() >= 1, "v10 BrainLearner proposes to owner queue (Proposals panel)")
+	var cell_id := "taught_sparkle"
 	EveCore.owner_override = false
-	check(not ui.brain_decide("foxy_ani", cell_id, true), "v10 non-owner cannot approve brain cell")
+	check(not EveCore.decide(str(ops.back()["id"]), true), "v10 non-owner cannot approve learned cell")
 	EveCore.owner_override = true
-	check(ui.brain_decide("foxy_ani", cell_id, true) and b.cells.has(cell_id), "v10 owner approves learned cell")
+	check(EveCore.decide(str(ops.back()["id"]), true) and AgentBrain.sync_owner_decisions() > 0 and b.cells.has(cell_id), "v10 owner approves learned cell -> live")
+	var ui = load("res://scripts/ui/ui_root.gd").new()
+	var pc := BrainCell.make("taught_glow", "foxy_ani", {"type": "chat_keyword", "any": ["glow"]}, {"type": "say", "text": "Glow on."}, 0.6, "self_proposed", "test")
+	b.propose(pc, "test")
+	check(ui.brain_decide("foxy_ani", "taught_glow", true) and b.cells.has("taught_glow"), "v10 local pending cell approve (panel)")
 	check(AgentBrain._brain_reply("foxy_ani", "sparkle") == "Embers rise!", "v10 learned cell shapes dialogue")
 	AgentBrain._learn_signals("foxy_ani", "thanks, perfect")
 	check(b.memory.episodes(5).back().get("kind") == "feedback", "v10 praise -> feedback episode")
 	check(ui.brain_rollback("foxy_ani", cell_id), "v10 owner rolls back learned cell")
 	ui.free()
 	AgentBrain.brains.erase("foxy_ani")
+	BrainCore.adapter_root = old_ar
 	EveCore.owner_override = null; EveCore.save_dir = "user://eve"; EveCore.reset_cache()
 	check(BrainCell.validate(JSON.parse_string(FileAccess.get_file_as_string("res://companions/foxy_ani/brain/free_build_fire_altar.cell.json")), BrainCore.flatten_tools(fx["tools"])) == "", "v10 free_build cell valid")
 	check(AgentBrain.get_node_or_null("LearnTimer") is Timer, "v10 periodic learner timer")

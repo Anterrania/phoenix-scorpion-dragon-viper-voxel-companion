@@ -28,6 +28,11 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(MEMORY_DIR)
 	var lt := Timer.new(); lt.name = "LearnTimer"; lt.wait_time = LEARN_INTERVAL_SEC; lt.autostart = true; add_child(lt)
 	lt.timeout.connect(learn_all)
+	var t := Timer.new()
+	t.wait_time = 10.0
+	t.autostart = true
+	t.timeout.connect(sync_owner_decisions)
+	add_child(t)
 
 # ---------- registration ----------
 func register_agent(agent: Node) -> void:
@@ -285,7 +290,7 @@ func _learn_signals(id: String, text: String) -> void:
 func learn_now(id: String) -> Dictionary:
 	var brain: BrainCore = brains.get(id)
 	if brain == null: return {}
-	var r := BrainLearner.learn(brain, 200, false)
+	var r := BrainLearner.learn(brain, 200, false, true)  # via_owner: lands in MENU > Proposals
 	last_learn[id] = r
 	for pid in r.get("proposed", []):
 		EveCore.for_companion(id, brain.persona)._log("Cell Proposed", "Brain", "PendingApproval", str(pid))
@@ -306,3 +311,9 @@ func build_choice(id: String) -> String:
 		if c.get("enabled", true) and a.get("type") == "tool" and a.get("name") == "spawn_structure" and float(c.get("weight", 0)) > best_w:
 			best_w = float(c.get("weight", 0)); out = str(a.get("args", {}).get("name", ""))
 	return out
+## Mirror owner decisions from EveCore (MENU > Proposals) into the brains; approved cells go live.
+func sync_owner_decisions() -> int:
+	var n := BrainCore.sync_owner_decisions(EveCore.proposals())
+	if n > 0:
+		for b in brains.values(): b.reload()
+	return n

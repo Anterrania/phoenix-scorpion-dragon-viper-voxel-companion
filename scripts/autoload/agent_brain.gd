@@ -173,6 +173,8 @@ func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
 		res["error"] = "e-stop engaged: tools paused"
 	elif agent == null or tool not in BrainCore.flatten_tools(agent.persona.get("tools", [])):
 		res["error"] = "tool not allowed for this companion"
+	elif _land_error(id, tool, args, agent) != "":
+		res["error"] = _land_error(id, tool, args, agent)   # audit 2026-10-17: Tiers.can(id, build|land, parcel)
 	elif tool == "remember":
 		remember_fact(id, str(args.get("fact", "")))
 		res = {"ok": true}
@@ -188,6 +190,11 @@ func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
 		res["error"] = "unknown tool"
 	tool_executed.emit(id, tool, res)
 	return res
+
+## World-changing tools need Tiers.can(companion, "build"|"land", parcel) (LandGate.TOOL_ACTIONS).
+func _land_error(id: String, tool: String, args: Dictionary, agent: Node) -> String:
+	var at: Variant = agent.get("global_position")
+	return LandGate.companion_tool_error(id, tool, args, at if at is Vector3 else Vector3.ZERO)
 
 const TOOL_SCHEMAS := {
 	"place_voxel": {"description": "Place one voxel at absolute world coords.", "properties": {"x": {"type": "integer"}, "y": {"type": "integer"}, "z": {"type": "integer"}, "material": {"type": "integer", "description": "voxel type id 0-15, 0 = air"}}, "required": ["x", "y", "z", "material"]},

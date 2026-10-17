@@ -866,12 +866,60 @@
  {
   "id": 73,
   "type": "task",
-  "summary": "Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(\"self\", \"admin\"); cache admin Home revision history per head",
-  "status": "new",
-  "resolution": "",
+  "summary": "Gate admin writes (ticket create/transition/update/comment, wiki save, revision revert, role saves, Region/Estate saves) with AdminGate.ok() = Tiers.can(\"self\", \"admin\"); reads stay open (fix/audit-ga",
+  "status": "closed",
+  "resolution": "fixed",
   "priority": "P1",
   "component": "general",
   "milestone": "AUDIT-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 74,
+  "type": "task",
+  "summary": "Estate allow_fly / allow_damage enforced: LandGate.can_fly + CombatZone.is_damage_enabled -> LandGate.damage_enabled (explicit Estate value wins, else arena rings); player/HUD wiring in patches/player",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "AUDIT-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 75,
+  "type": "task",
+  "summary": "Companion world tools (place_voxel, carve_area, spawn_structure -> build; build_realm -> land) go through Tiers.can(companion_id, action, parcel) in AgentBrain.dispatch_tool; CompanionLife cairn fallb",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "AUDIT-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 76,
+  "type": "task",
+  "summary": "Tiers.set_role(member, role): owner-gated role setter (aliases builder/premium/manager) with an audit revision role/<member> in the Viper Admin timeline; Community role editor uses it. For Foxy's v0.1",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "AUDIT-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 77,
+  "type": "task",
+  "summary": "Cache admin Home revision history per revision head (split from AUDIT-2)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "AUDIT-6",
   "owner": "",
   "source": "docs/TASK_TRACKER.csv"
  }

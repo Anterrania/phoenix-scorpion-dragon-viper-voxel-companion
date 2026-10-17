@@ -45,8 +45,10 @@ func _ready() -> void:
 	_v10_tests()
 	_v10_music_tests()
 	_v11_tests()
+	Tiers.owner_override = true   # AUDIT-2: admin writes need the owner session (gate_tests covers the refusal)
 	load("res://tests/admin_tests.gd").run(self)
 	await load("res://tests/admin_tests.gd").run_scene(self)
+	Tiers.owner_override = null
 	load("res://tests/security_tests.gd").run(self)
 	load("res://tests/wiki_tests.gd").run(self)
 	await load("res://tests/security_tests.gd").run_ui(self)
@@ -54,6 +56,8 @@ func _ready() -> void:
 	load("res://tests/audit_tests.gd").run(self)
 	await load("res://tests/audit_tests.gd").run_scene(self)
 	await load("res://tests/kit_calm_tests.gd").run_scene(self)
+	load("res://tests/gate_tests.gd").run(self)
+	await load("res://tests/gate_tests.gd").run_scene(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

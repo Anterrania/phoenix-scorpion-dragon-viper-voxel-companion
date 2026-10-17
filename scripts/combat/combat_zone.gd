@@ -7,7 +7,12 @@ static var zones: Array = []   # [{center: Vector3, radius: float}]
 var center := Vector3.ZERO
 var radius := 30.0
 
+## Damage is on where the Estate says so (allow_damage), else inside an arena ring (LandGate).
 static func is_damage_enabled(p: Vector3) -> bool:
+	return LandGate.damage_enabled(p)
+
+## Inside one of the built-in arena rings (the default when the Estate doesn't set allow_damage).
+static func in_arena(p: Vector3) -> bool:
 	for z in zones:
 		var c: Vector3 = z["center"]
 		if Vector2(p.x - c.x, p.z - c.z).length() <= float(z["radius"]): return true

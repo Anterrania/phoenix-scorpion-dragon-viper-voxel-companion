@@ -634,5 +634,101 @@
   "milestone": "WIKI-6",
   "owner": "",
   "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 54,
+  "type": "task",
+  "summary": "Social layer (clean-room Dolphin-style concepts): profiles + picks, friends/followers/blocks, messages + offline queue, groups (roles, notices, land), feed, companion post approval, notifications, rep",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SOCIAL-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 55,
+  "type": "task",
+  "summary": "Tiers: Guest/Resident/Creator/Staff/Estate Manager/Owner + permission matrix, Tiers.can(actor, action, target) with estate access/terraform, owner-only role editor (scripts/security/tiers.gd)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SOCIAL-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 56,
+  "type": "task",
+  "summary": "Admin > Community screen: Overview, Reports, Approvals, Groups, Roles (scripts/admin/community_screen.gd)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SOCIAL-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 57,
+  "type": "task",
+  "summary": "Foxy in-world side: profile card on avatar tap, group tags, IM toasts, snapshot button, companion feed posts, build tools call Tiers.can(actor, 'build', parcel)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SOCIAL-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 58,
+  "type": "task",
+  "summary": "Roadmap: events (merge with events board), polls, forums, blogs",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SOCIAL-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 59,
+  "type": "task",
+  "summary": "Roadmap: photo/video albums + in-world snapshots (media store, upload review)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SOCIAL-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 60,
+  "type": "task",
+  "summary": "Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SOCIAL-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 61,
+  "type": "task",
+  "summary": "Roadmap: grid Social service + multi-device identity, points/reputation",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SOCIAL-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
  }
 ]

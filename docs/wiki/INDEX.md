@@ -35,6 +35,8 @@ Short pages. Tap one.
 - [Owner Lock](owner-lock.md) · built
 - [Aethel Coin Exchange](aethel-coin-exchange.md) · partial
 - [Economy Metrics](economy-metrics.md) · planned
+- [Community](community.md) · partial
+- [Tiers](tiers.md) · built
 
 - [FAQ](../FAQ.md)
 

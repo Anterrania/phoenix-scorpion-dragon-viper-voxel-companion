@@ -16,7 +16,13 @@ func set_value(v: float) -> void:
 	if is_inside_tree() and not Engine.is_editor_hint():
 		create_tween().tween_property(self, "_shown", value, PhoenixTokens.MOTION.slow).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	else: _shown = value
-func _process(_d: float) -> void: queue_redraw()
+## perf (2026-10-17 audit): redraw only while the ring animates or after a change (was every frame).
+var _drawn: Array = []
+func _draw_key() -> Array: return [_shown, caption, display_text, ring_width, color_a, color_b, size]
+func _process(_d: float) -> void:
+	var k := _draw_key()
+	if k != _drawn: _drawn = k; queue_redraw()
+func needs_redraw() -> bool: return _draw_key() != _drawn
 func _draw() -> void:
 	var c := size / 2.0
 	var r := minf(size.x, size.y) / 2.0 - ring_width
@@ -37,5 +43,5 @@ func _draw() -> void:
 	var fs := int(r * 0.55)
 	var w := f.get_string_size(txt, HORIZONTAL_ALIGNMENT_CENTER, -1, fs).x
 	draw_string(f, c + Vector2(-w / 2.0, fs * 0.3), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, PhoenixTokens.PLATINUM)
-	var cw := f.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, PhoenixTokens.TYPE.micro).x
-	draw_string(f, c + Vector2(-cw / 2.0, fs * 0.3 + 22), caption.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, PhoenixTokens.TYPE.micro, PhoenixTokens.PLATINUM_DIM)
+	var cw := f.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, PhoenixTokens.fs("micro")).x
+	draw_string(f, c + Vector2(-cw / 2.0, fs * 0.3 + 22), caption.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, PhoenixTokens.fs("micro"), PhoenixTokens.PLATINUM_DIM)

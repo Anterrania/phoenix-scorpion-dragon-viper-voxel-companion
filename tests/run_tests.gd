@@ -39,6 +39,7 @@ func _ready() -> void:
 	BrainCore.adapter_root = BrainCore.DEFAULT_ROOT
 	load("res://tests/brain_tests.gd").run(self)
 	load("res://tests/brain_tests.gd").run_eve_adapter(self)
+	load("res://tests/brain_tests.gd").run_owner_flow(self)
 	load("res://tests/brain_tests.gd").run_agent_brain(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)

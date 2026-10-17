@@ -189,3 +189,88 @@ static func run_eve_adapter(t: Node) -> void:
 static func ab_has_npc_path(t: Node) -> bool:
 	var ab: Node = t.get_node_or_null("/root/AgentBrain")
 	return ab != null and ab.has_method("npc_speak")
+
+## BrainLearner + owner queue, simulating the phone flow:
+## chat -> learner -> EveCore.propose_update (owner queue) -> non-owner tries -> owner decides -> sync -> cell live.
+static func run_owner_flow(t: Node) -> void:
+	var root := "user://test_owner_flow_%d" % Time.get_ticks_usec()
+	var prev_root := BrainCore.adapter_root
+	BrainCore.adapter_root = root
+	EveCore.save_dir = root + "_eve"
+	EveCore.reset_cache()
+	EveCore.owner_override = true
+	var persona: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://companions/aaliyah/persona.json"))
+
+	# --- learner unit cases (local pending/ queue) ---
+	var b := BrainCore.new("aaliyah", persona, root)
+	b.memory.log_episode("taught", {"when": "sunrise", "reply": "Good morning, {player}!"})
+	var r1 := BrainLearner.learn(b)
+	t.check(r1["proposed"].size() == 1 and r1["proposed"][0]["id"] == "taught_sunrise" and b.pending()[0]["action"]["type"] == "say", "learner: taught reply -> say proposal")
+	t.check(not BrainLearner.learn(b)["proposed"].map(func(p): return p["id"]).has("taught_sunrise") or b.pending().size() == 1, "learner: re-learning does not duplicate pending")
+	for i in 2:
+		b.memory.log_episode("chat", {"text": "open the cellar"})
+		b.memory.log_episode("tool", {"name": "carve_area", "ok": true, "args": {"radius": 2}})
+	t.check(BrainLearner.learn(b)["proposed"].filter(func(p): return p["id"].begins_with("auto_cellar")).is_empty(), "learner: 2 successes is below threshold")
+	b.memory.log_episode("chat", {"text": "open the cellar"})
+	b.memory.log_episode("tool", {"name": "carve_area", "ok": true, "args": {"radius": 2}})
+	b.memory.log_episode("chat", {"text": "open the cellar"})
+	b.memory.log_episode("tool", {"name": "carve_area", "ok": false, "args": {}})
+	var r3 := BrainLearner.learn(b)
+	var tool_ids: Array = r3["proposed"].map(func(p): return p["id"])
+	t.check("auto_cellar_carve_area" in tool_ids, "learner: 3 keyword->tool successes -> tool proposal (failures ignored)")
+	var tc: Array = b.pending().filter(func(c): return c["id"] == "auto_cellar_carve_area")
+	t.check(tc.size() == 1 and tc[0]["action"]["type"] == "tool" and tc[0]["requires_approval"], "learner: tool proposal is pending + requires approval")
+	var rb := BrainCore.new("tutor", {}, root + "_rl")
+	for i in 10:
+		rb.memory.log_episode("taught", {"when": "word%d" % i, "reply": "reply %d" % i})
+	var rr := BrainLearner.learn(rb)
+	t.check(rr["proposed"].size() == BrainCore.MAX_PROPOSALS_PER_HOUR and rr["skipped"].any(func(s): return s["error"].begins_with("rate limit")), "learner: proposal rate limit caps learning (%d proposed)" % rr["proposed"].size())
+
+	# --- phone flow: approve path ---
+	var phone := BrainCore.new("aaliyah", persona, root)
+	phone.memory.log_episode("chat", {"text": "aaliyah, when I say goodnight say sweet dreams"})
+	phone.memory.log_episode("taught", {"when": "goodnight", "reply": "Sweet dreams, {player}."})
+	var rep := BrainLearner.learn(phone, 200, false, true)
+	var gn: Array = rep["proposed"].filter(func(p): return p["id"] == "taught_goodnight")
+	t.check(gn.size() == 1 and gn[0]["status"] == "pending_owner", "owner flow: learner sends cell to owner queue")
+	var eve_pending := EveCore.proposals(true).filter(func(p): return "taught_goodnight" in str(p["description"]))
+	t.check(eve_pending.size() == 1, "owner flow: proposal visible in EveCore MENU > Proposals queue")
+	var pid: String = eve_pending[0]["id"]
+	var ops := BrainCore.owner_proposals("aaliyah", true).filter(func(p): return p["id"] == pid)
+	t.check(ops.size() == 1 and ops[0]["kind"] == "cell" and ops[0]["cell"]["id"] == "taught_goodnight", "owner flow: owner_proposals carries the cell")
+	t.check(phone.best({"type": "chat", "text": "goodnight"}).get("cell_id", "") != "taught_goodnight", "owner flow: cell NOT active before approval")
+	t.check(not phone.propose_to_owner(ops[0]["cell"], "again").get("ok"), "owner flow: same cell can't be queued twice")
+	EveCore.owner_override = false
+	t.check(not EveCore.decide(pid, true), "owner flow: non-owner cannot approve")
+	t.check(BrainCore.sync_owner_decisions(EveCore.proposals()) == 0, "owner flow: nothing to sync after non-owner attempt")
+	EveCore.owner_override = true
+	t.check(EveCore.decide(pid, true), "owner flow: owner approves via EveCore.decide")
+	t.check(BrainCore.sync_owner_decisions(EveCore.proposals()) == 1, "owner flow: sync mirrors 1 decision")
+	var done: Array = BrainCore.owner_proposals("aaliyah").filter(func(p): return p["id"] == pid)
+	t.check(done[0]["state"] == "Approved" and done[0].get("activated") == true, "owner flow: record Approved + activated")
+	phone.reload()
+	var hit := phone.best({"type": "chat", "text": "goodnight aaliyah"}, {"player": "Phoenix"})
+	t.check(hit.get("cell_id") == "taught_goodnight" and hit["action"]["text"] == "Sweet dreams, Phoenix.", "owner flow: approved cell is active after sync")
+	t.check(phone.cells["taught_goodnight"]["provenance"].get("owner_proposal") == pid and phone.versions("taught_goodnight").size() == 1, "owner flow: provenance + version recorded")
+	t.check(BrainCore.sync_owner_decisions(EveCore.proposals()) == 0, "owner flow: sync is idempotent")
+
+	# --- reject path ---
+	var bad := BrainCell.make("dig_on_hello", "aaliyah", {"type": "chat_keyword", "any": ["hello"]}, {"type": "tool", "name": "carve_area", "args": {"radius": 2}}, 0.5, "self_proposed")
+	var pr := phone.propose_to_owner(bad, "testing reject")
+	t.check(pr.get("status") == "pending_owner", "owner flow: high-risk tool cell queued for owner")
+	t.check(EveCore.decide(str(pr["id"]), false), "owner flow: owner rejects")
+	BrainCore.sync_owner_decisions(EveCore.proposals())
+	phone.reload()
+	var rj: Array = BrainCore.owner_proposals("aaliyah").filter(func(p): return p["id"] == pr["id"])
+	t.check(rj[0]["state"] == "Rejected" and not rj[0].has("activated") and not phone.cells.has("dig_on_hello"), "owner flow: rejected cell never activates")
+	t.check(not phone.propose_to_owner(BrainCell.make("x_bad", "aaliyah", {"type": "chat_keyword", "any": ["x"]}, {"type": "tool", "name": "format_disk", "args": {}}, 0.5, "self_proposed")).get("ok"), "owner flow: non-whitelisted tool can't even be queued")
+
+	# --- AgentBrain timer hook ---
+	var ab: Node = t.get_node_or_null("/root/AgentBrain")
+	t.check(ab != null and ab.has_method("sync_owner_decisions") and ab.sync_owner_decisions() == 0, "owner flow: AgentBrain.sync_owner_decisions hook")
+
+	EveCore.owner_override = null
+	EveCore.save_dir = "user://eve"
+	EveCore.reset_cache()
+	BrainCore.adapter_root = prev_root
+	for d in [root, root + "_eve", root + "_rl"]: _rm_tree(d)

@@ -1,6 +1,6 @@
 # Community Platform (Dolphin-style concepts)
 
-> **Planned module, not implemented. No live servers or services exist.** Phase: 9+.
+> **Superseded by [SOCIAL.md](SOCIAL.md)** (partly built: profiles, friends, messages, groups, feed, moderation, tiers). No live servers or services exist.
 
 Concepts inspired by community/social-network platforms like Boonex Dolphin (profiles, groups, events, forums, media). Original implementation; no Dolphin code. Hosting platform still to be chosen.
 - **Profiles:** player handle, avatar, showcased realms and companions (private by default).

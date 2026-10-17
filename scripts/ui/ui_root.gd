@@ -222,11 +222,12 @@ func _build_menu() -> Dictionary:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🛡 Viper Admin", "_admin"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
 			elif target == "_exit": AppControl.exit_app(get_tree())
+			elif target == "_admin": open_admin()
 			else: show_panel(target))
 		t.custom_minimum_size = Vector2(0, 96)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -234,6 +235,14 @@ func _build_menu() -> Dictionary:
 	b.add_child(grid)
 	b.add_child(label("Gold ★ YOUR INPUT HERE tags mark placeholders waiting for your decision.", 22, GOLD))
 	return p
+
+## Viper OS admin overlay (tickets / wiki / revisions / reports / local profile). Local-only.
+func open_admin() -> Control:
+	var existing := get_node_or_null("AdminScreen")
+	if existing: return existing
+	var a: Control = load("res://scenes/admin/admin_screen.tscn").instantiate()
+	add_child(a)
+	return a
 
 # ---------- wardrobe ----------
 func _build_wardrobe() -> Dictionary:

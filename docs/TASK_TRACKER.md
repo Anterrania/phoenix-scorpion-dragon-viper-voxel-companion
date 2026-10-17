@@ -38,3 +38,14 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | 0.11 | 0 | Planned modules: data/backup, assets, issue tracking, community, admin tools | ✅ |
 | 0.12 | 0 | COORDINATION.md (Dev Bot / Task Manager / Foxy Ani) | ✅ |
 | S.1 | side | Music video concept (idea doc) | ✅ |
+| 5.3 | 5 | Viper OS admin: tickets / wiki / SVN-style revisions / repo timeline (`docs/ADMIN_TRACKER.md`) | ✅ headless-tested |
+| 5.4 | 5 | Kit components from UI_DESIGN_LANGUAGE §8: SwipePages, SegmentedPills, PillRow, PagedList, RingTimeline, Toast, HoldButton, SignupStepper | ✅ headless-tested |
+| 5.5 | 5 | Local sign-up stepper (name → avatar → voice → realm) | ✅ headless-tested |
+| 5.6 | 5 | §9 holographic nameplates + ember aura; §10 minimap/compass/HUD restyle | ⏳ after v0.10 |
+| 5.7 | 5 | Admin perf check on device (glass budget, 60 fps) | ⏳ needs APK |
+| V.1 | Viper | Integrate the user's Universe / MeshSystem / DNA Vala/C# code (not on the box yet; first once provided) | ⏳ blocked: source needed |
+| V.2 | Viper | 3D OS shell (desktop-in-world, windows as glass panels) | 🧊 |
+| V.3 | Viper | Server meshing across region servers (after Aurora-model grid G-phases) | 🧊 |
+| V.4 | Viper | Interplanetary travel (star map + seamless realm transitions) | 🧊 |
+| V.5 | Viper | Planetary destruction / large-scale voxel events | 🧊 |
+

@@ -45,6 +45,8 @@ func _ready() -> void:
 	_v10_tests()
 	_v10_music_tests()
 	_v11_tests()
+	load("res://tests/admin_tests.gd").run(self)
+	await load("res://tests/admin_tests.gd").run_scene(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

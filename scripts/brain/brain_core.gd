@@ -203,6 +203,14 @@ func reject(cell_id: String) -> bool:
 	return true
 
 # ---------- versioning / rollback ----------
+## Optional global revision hook (ViperAdminData wires this to RevisionStore so brain cells share the
+## r1, r2, ... sequence with tickets and wiki). Signature: (companion_id, cell_id, before, after, note).
+static var on_commit: Callable
+
+func _notify_commit(cell_id: String, before: Variant, after: Variant, note: String) -> void:
+	if on_commit.is_valid():
+		on_commit.call(companion_id, cell_id, before.duplicate(true) if before is Dictionary else before, after.duplicate(true) if after is Dictionary else after, note)
+
 func _commit_cell(c: Dictionary, note: String) -> void:
 	var id: String = c["id"]
 	var prev: Variant = cells.get(id)
@@ -213,6 +221,7 @@ func _commit_cell(c: Dictionary, note: String) -> void:
 	c["version"] = n
 	_write_json(_dir("versions").path_join("%s.v%d.json" % [id, n]), c)
 	_write_json(_dir("cells").path_join(id + ".cell.json"), c)
+	_notify_commit(id, prev, c, note)
 	cells[id] = c
 	_audit("commit", id, note)
 
@@ -229,13 +238,17 @@ func rollback(cell_id: String) -> bool:
 	var vs := versions(cell_id)
 	if vs.is_empty(): return false
 	var cur: int = vs.back()
+	var before_rb: Variant = cells.get(cell_id)
+	var after_rb: Variant = null
 	DirAccess.remove_absolute(_dir("versions").path_join("%s.v%d.json" % [cell_id, cur]))
 	var learned := _dir("cells").path_join(cell_id + ".cell.json")
 	if vs.size() >= 2:
 		var prev: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(_dir("versions").path_join("%s.v%d.json" % [cell_id, vs[-2]])))
 		_write_json(learned, prev)
+		after_rb = prev
 	elif FileAccess.file_exists(learned):
 		DirAccess.remove_absolute(learned)
+	_notify_commit(cell_id, before_rb, after_rb, "rollback v%d" % cur)
 	_audit("rollback", cell_id, "v%d removed" % cur)
 	reload()
 	return true

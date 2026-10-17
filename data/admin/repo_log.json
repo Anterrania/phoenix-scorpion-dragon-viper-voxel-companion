@@ -1,0 +1,164 @@
+[
+ {
+  "sha": "047a6c6",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:02:48-07:00",
+  "subject": "tests + docs: 92 admin/kit checks (revisions, workflow, wiki links, brain bridge, repo log, swipe/paging/toast/hold, stepper, admin scene flows), screenshot_admin.gd; docs/ADMIN_TRACKER.md (+ Circle r"
+ },
+ {
+  "sha": "bdb0e0f",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:02:48-07:00",
+  "subject": "admin: Viper OS admin screen on phoenix_glass.tres - Home rings/graph/report, Tickets pill rows + detail, Wiki pages + edit/history, Timeline commits+revisions with hold-to-revert, Profile sign-up ste"
+ },
+ {
+  "sha": "78e1eb7",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:02:48-07:00",
+  "subject": "ui kit: build UI_DESIGN_LANGUAGE §8 specs on Phoenix Glass - SwipePages (<=5 pill tabs, 30%/600px/s swipe), SegmentedPills, PillRow admin-table row (avatar ring, one chip, swipe-left actions), PagedLi"
+ },
+ {
+  "sha": "af8b09b",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:02:48-07:00",
+  "subject": "tracker: SVN-style RevisionStore (r1,r2.. log/diff/content_at/revert-as-new-rev), Trac TicketStore (default workflow, resolutions, comments linking rN, seeded from TASK_TRACKER.csv), WikiStore (CamelC"
+ },
+ {
+  "sha": "c7d118f",
+  "author": "Anterrania",
+  "date": "2026-10-17T11:42:59-07:00",
+  "subject": "Remove stray uid"
+ },
+ {
+  "sha": "0c3093b",
+  "author": "Anterrania",
+  "date": "2026-10-17T11:42:54-07:00",
+  "subject": "UI design language (Phoenix Glass): doc, theme, glass shader, ring stat, radial menu, glass card, line graph, demo + tests"
+ },
+ {
+  "sha": "6a49fdf",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T11:35:27-07:00",
+  "subject": "Merge pull request #16 from Anterrania/feature/brain-owner-flow"
+ },
+ {
+  "sha": "94c3f56",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T11:29:45-07:00",
+  "subject": "Merge pull request #15 from Anterrania/feature/brain-core"
+ },
+ {
+  "sha": "0c12750",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T11:24:17-07:00",
+  "subject": "Merge pull request #14 from Anterrania/feature/eve-core-v2"
+ },
+ {
+  "sha": "ba9b774",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T11:05:37-07:00",
+  "subject": "Merge pull request #13 from Anterrania/feature/eve-core"
+ },
+ {
+  "sha": "9171712",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T13:06:07-07:00",
+  "subject": "Merge pull request #12 from Anterrania/feature/v0.9-phone"
+ },
+ {
+  "sha": "c9fa435",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T12:46:02-07:00",
+  "subject": "Merge pull request #11 from Anterrania/feature/v0.8-fx"
+ },
+ {
+  "sha": "41d5544",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T12:20:48-07:00",
+  "subject": "Merge pull request #10 from Anterrania/feature/v0.7-ui"
+ },
+ {
+  "sha": "8a77d98",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T10:56:05-07:00",
+  "subject": "Merge pull request #9 from Anterrania/feature/v0.6-gameplay"
+ },
+ {
+  "sha": "a8b9b96",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T10:39:55-07:00",
+  "subject": "Merge pull request #8 from Anterrania/feature/v0.5.2-soundcloud"
+ },
+ {
+  "sha": "92f4b60",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T10:31:55-07:00",
+  "subject": "Merge pull request #7 from Anterrania/feature/v0.5.1-fly"
+ },
+ {
+  "sha": "5be488f",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T10:27:29-07:00",
+  "subject": "Merge pull request #6 from Anterrania/feature/v0.5-world"
+ },
+ {
+  "sha": "a482bcd",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T09:54:31-07:00",
+  "subject": "Merge pull request #5 from Anterrania/feature/v0.4-physics"
+ },
+ {
+  "sha": "1b3d564",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T09:30:32-07:00",
+  "subject": "Merge pull request #4 from Anterrania/feature/v0.3-realistic"
+ },
+ {
+  "sha": "36ec965",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-16T09:18:39-07:00",
+  "subject": "Merge pull request #3 from Anterrania/feature/v0.2-visuals"
+ },
+ {
+  "sha": "e55077f",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-14T20:29:06-07:00",
+  "subject": "Merge pull request #2 from Anterrania/feature/android-build"
+ },
+ {
+  "sha": "975327f",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-14T20:17:06-07:00",
+  "subject": "Merge pull request #1 from Anterrania/merge/scaffold-into-main"
+ },
+ {
+  "sha": "05d5fe1",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-13T11:01:56-07:00",
+  "subject": "Update README with current progress: dual 3D/Grok bots live, Godot scaffold in progress, expanded systems planned, Foxy as primary controller"
+ },
+ {
+  "sha": "8bd453b",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-13T08:46:37-07:00",
+  "subject": "Add tech stack and next implementation steps"
+ },
+ {
+  "sha": "6431e8a",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-13T08:46:18-07:00",
+  "subject": "Add character inheritance blueprint from media"
+ },
+ {
+  "sha": "34562c8",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-13T08:46:10-07:00",
+  "subject": "Full blueprint and vision for Phoenix Scorpion Dragon Viper AI Voxel Companion"
+ },
+ {
+  "sha": "fbbdfd5",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-13T08:45:10-07:00",
+  "subject": "Initial commit"
+ }
+]

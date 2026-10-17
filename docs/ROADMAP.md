@@ -37,5 +37,14 @@ Needs, relationships (opt-in romance), usable objects, particles/VFX polish, bal
 ## Phase 9: Online extras (all optional and opt-in)
 Cloud AI providers (Grok, Gemini, Azure/Copilot route, Meta Llama), standalone-bot brain sync, social hooks with user-approved posting, Smartbot-style automation and in-world scripting.
 
+## Viper OS (long-term, after Phase 9)
+Viper OS is the umbrella for the admin, tracker and later the in-world operating system. The first step already exists: the local admin (`docs/ADMIN_TRACKER.md`), with tickets, wiki, r-numbered revisions shared with brain cells, a repo timeline and local sign-up.
+- **V0 (first, once the code is provided):** integrate the user's own Universe / MeshSystem / DNA code (Vala/C#). It is **not on the box or in the repo yet**. The cleaned `core/vala/AnterranianEveCore.vala` is the only Vala here so far.
+- **V1 3D OS shell:** the admin and companion panels become glass windows in the world (§9/§10 of UI_DESIGN_LANGUAGE).
+- **V2 Server meshing:** split regions dynamically across simulators, building on the Aurora-model grid (ARCHITECTURE_AURORA_MODEL.md, phases G0–G7).
+- **V3 Interplanetary travel:** the star map plus seamless realm transitions (streaming VoxelLodTerrain planets).
+- **V4 Planetary destruction:** large-scale voxel events, server-authoritative, with region rollback via snapshots.
+All V-phases are future research. None of them exists yet.
+
 ## Release track
 Signed release APK/AAB, privacy policy (AI + social data), Play Store listing. Any needed legal/business structure gets coordinated with the Business Setup and Law bots.

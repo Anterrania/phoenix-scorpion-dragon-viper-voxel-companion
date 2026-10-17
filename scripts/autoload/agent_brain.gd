@@ -23,7 +23,6 @@ var brains := {}    # id -> BrainCore
 var bus := BrainBus.new()
 
 func _ready() -> void:
-	Profile.changed.connect(func(): CompanionTiers.seed())  # v0.12 owner companions -> Builder/Staff
 	reply_ready.connect(func(cid: String, t: String):
 		if t != "": EveCore.for_companion(cid, _agents[cid].persona if _agents.has(cid) else {}).log_chat("assistant", t))
 	DirAccess.make_dir_recursive_absolute(MEMORY_DIR)

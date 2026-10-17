@@ -84,9 +84,13 @@ func _apply_look() -> void:
 ## v0.5: rebuild the model with wardrobe overrides (Inventory autoload).
 func refresh_look() -> void:
 	if model: model.queue_free()
-	model = HumanoidModel.build(Inventory.styled(companion_id, CompanionDNA.apply(persona, config.style())))
+	var st := Inventory.styled(companion_id, CompanionDNA.apply(persona, config.style()))
+	# v0.11: realistic CC0 MakeHuman body; primitive HumanoidModel only if the asset is missing.
+	model = RealisticBody.build(st) if RealisticBody.available() else HumanoidModel.build(st)
+	if not RealisticBody.available(): push_warning("RealisticBody asset missing; using primitive fallback")
 	add_child(model)
 	model.position.y = -0.85  # capsule centre -> feet
+	SoftParticle.sanitize(model)
 
 ## Greeting from persona.json (starter_message), falling back to name + role.
 func greeting() -> String:
@@ -111,7 +115,8 @@ func slot_position() -> Vector3:
 func _process(delta: float) -> void:
 	_anim_t += delta
 	var sp := Vector2(velocity.x, velocity.z).length() / maxf(config.move_speed, 0.1) if config else 0.0
-	HumanoidModel.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
+	if model.has_meta("realistic"): RealisticBody.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
+	else: HumanoidModel.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
 	if _bubble_time > 0.0:
 		_bubble_time -= delta
 		if _bubble_time <= 0.0: _bubble.visible = false

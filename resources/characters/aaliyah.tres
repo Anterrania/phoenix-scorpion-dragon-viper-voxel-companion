@@ -16,4 +16,3 @@ eye_color = Color(0.3, 0.9, 0.45, 1)
 skin_color = Color(0.55, 0.36, 0.26, 1)
 trim_color = Color(0.75, 0.75, 0.82, 1)
 slot_offset = Vector3(2.6, 0, -3)
-horns = true

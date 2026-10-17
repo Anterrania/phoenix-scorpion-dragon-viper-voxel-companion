@@ -215,7 +215,7 @@ func _topbar() -> void:
 
 # ---------- main menu ----------
 func _build_menu() -> Dictionary:
-	var p := _panel("Phoenix · v0.10")
+	var p := _panel("Phoenix · v0.11")
 	var b: VBoxContainer = p["body"]
 	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 26, MAG))
 	var grid := GridContainer.new()

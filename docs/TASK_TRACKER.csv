@@ -31,3 +31,18 @@ PRI-5,Future systems notes: Seed-style relationship/mood/DNA; star map; Sims nee
 PRI-6,Android export pipeline research,done,P1
 PRI-7,Social posting hooks design (no direct connectors yet),done,P2
 PRI-0,Push feature/godot-voxel-scaffold + open PR,blocked,P0
+M5,Viper OS admin tracker/wiki/revisions,done_headless,P1
+M5,Phoenix Glass kit components (UI design language section 8),done_headless,P1
+M5,Local sign-up stepper,done_headless,P2
+VIPER-1,Security: owner PIN login (PBKDF2) + session owner gate + AES-encrypted saves + hash-chained audit + Security panel kill switch (docs/SECURITY.md) (PR #23),done_headless,P0
+VIPER-2,Approval gate: owner-approved learning (PR #16 merged on main) - extend to tool execution and preset hot-reload,in_progress,P0
+VIPER-3,APK v0.10 (companion looks/voices + owner-approved self-learning + History) and v0.11 (realistic MakeHuman companions + soft particles) shipped,done,P0
+VIPER-4,Merge PR #20: Viper admin + in-app Trac tickets / wiki / SVN-style revisions (merged 42f98cc),done,P0
+VIPER-5,UI kit (Phoenix Glass / Circle-inspired admin) - on-device review vs UI_DESIGN_LANGUAGE,in_progress,P1
+VIPER-6,AI body design vision: docs/PHYSICAL_FORM_VISION.md (Foxy) with Anterrania AI Body Design bot,in_progress,P2
+VIPER-7,Quantum lattice notes: docs/modules/QUANTUM_LATTICE.md (concept only; speculative pending Phoenix original design),done,P3
+VIPER-8,Roadmap: grid/server meshing + interplanetary travel (3D OS shell / planetary destruction later),todo,P3
+VIPER-9,Integrate Universe/MeshSystem/DNA/quantum-lattice once Phoenix provides original code,blocked,P2
+FLOW,Automated flow: routine commits and merges proceed without waiting for user; weekly Monday review re-prioritizes,active,P0
+VIPER-10,FAQ page (in-app wiki + docs),todo,P1
+VIPER-11,"Full wiki expansion: page per system, companion, realm, and module",todo,P1

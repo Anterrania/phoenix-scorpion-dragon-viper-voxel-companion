@@ -160,13 +160,10 @@ func import_portable(d: Dictionary) -> int:
 func _path() -> String: return save_dir.path_join(companion_id + ".json")
 
 func save() -> void:
-	DirAccess.make_dir_recursive_absolute(save_dir)
-	var f := FileAccess.open(_path(), FileAccess.WRITE)
-	if f: f.store_string(JSON.stringify({"hash": core_cell.memory_hash, "voice": voice_profile, "log": core_cell.memory_log.duplicate(true)}))
+	SecureFile.write_text(_path(), JSON.stringify({"hash": core_cell.memory_hash, "voice": voice_profile, "log": core_cell.memory_log.duplicate(true)}))
 
 func _load() -> void:
-	if not FileAccess.file_exists(_path()): return
-	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(_path()))
+	var d: Variant = SecureFile.read_json(_path())
 	if d is Dictionary and d.get("log") is Array: core_cell.memory_log = d["log"]
 
 # ---------------- registry + owner queue ----------------
@@ -182,14 +179,17 @@ static func _load_proposals() -> void:
 	if _proposals_loaded: return
 	_proposals_loaded = true
 	var p := save_dir.path_join("proposals.json")
-	if FileAccess.file_exists(p):
-		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(p))
-		if d is Array: _proposals = d
+	var d: Variant = SecureFile.read_json(p)
+	if d is Array: _proposals = d
 
 static func _save_proposals() -> void:
-	DirAccess.make_dir_recursive_absolute(save_dir)
-	var f := FileAccess.open(save_dir.path_join("proposals.json"), FileAccess.WRITE)
-	if f: f.store_string(JSON.stringify(_proposals))
+	SecureFile.write_text(save_dir.path_join("proposals.json"), JSON.stringify(_proposals))
+
+## Drop cached cores/proposals so they reload (called when encrypted storage becomes readable).
+static func reload_all() -> void:
+	_cores.clear()
+	_proposals_loaded = false
+	_proposals = []
 
 static func proposals(pending_only := false) -> Array:
 	_load_proposals()

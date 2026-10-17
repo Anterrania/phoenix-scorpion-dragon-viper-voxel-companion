@@ -147,6 +147,7 @@ func reinforce(cell_id: String, reward: float) -> bool:
 ## Companion proposes a new/edited cell. Returns {ok, status: "pending"|"applied", error}.
 ## Low-risk (say/emote/remember) may auto-apply only if auto_apply_low_risk = true (default false).
 func propose(cell: Dictionary, reason := "", auto_apply_low_risk := false) -> Dictionary:
+	if AutonomyGuard.paused(): return {"ok": false, "error": "e-stop engaged: self-learning paused"}
 	if not _rate_ok(): return {"ok": false, "error": "rate limit: max %d proposals/hour" % MAX_PROPOSALS_PER_HOUR}
 	cell = cell.duplicate(true)
 	cell["companion"] = companion_id
@@ -203,6 +204,14 @@ func reject(cell_id: String) -> bool:
 	return true
 
 # ---------- versioning / rollback ----------
+## Optional global revision hook (ViperAdminData wires this to RevisionStore so brain cells share the
+## r1, r2, ... sequence with tickets and wiki). Signature: (companion_id, cell_id, before, after, note).
+static var on_commit: Callable
+
+func _notify_commit(cell_id: String, before: Variant, after: Variant, note: String) -> void:
+	if on_commit.is_valid():
+		on_commit.call(companion_id, cell_id, before.duplicate(true) if before is Dictionary else before, after.duplicate(true) if after is Dictionary else after, note)
+
 func _commit_cell(c: Dictionary, note: String) -> void:
 	var id: String = c["id"]
 	var prev: Variant = cells.get(id)
@@ -213,6 +222,7 @@ func _commit_cell(c: Dictionary, note: String) -> void:
 	c["version"] = n
 	_write_json(_dir("versions").path_join("%s.v%d.json" % [id, n]), c)
 	_write_json(_dir("cells").path_join(id + ".cell.json"), c)
+	_notify_commit(id, prev, c, note)
 	cells[id] = c
 	_audit("commit", id, note)
 
@@ -229,13 +239,17 @@ func rollback(cell_id: String) -> bool:
 	var vs := versions(cell_id)
 	if vs.is_empty(): return false
 	var cur: int = vs.back()
+	var before_rb: Variant = cells.get(cell_id)
+	var after_rb: Variant = null
 	DirAccess.remove_absolute(_dir("versions").path_join("%s.v%d.json" % [cell_id, cur]))
 	var learned := _dir("cells").path_join(cell_id + ".cell.json")
 	if vs.size() >= 2:
 		var prev: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(_dir("versions").path_join("%s.v%d.json" % [cell_id, vs[-2]])))
 		_write_json(learned, prev)
+		after_rb = prev
 	elif FileAccess.file_exists(learned):
 		DirAccess.remove_absolute(learned)
+	_notify_commit(cell_id, before_rb, after_rb, "rollback v%d" % cur)
 	_audit("rollback", cell_id, "v%d removed" % cur)
 	reload()
 	return true
@@ -381,6 +395,7 @@ static func _activate_owner_cell(cid: String, cell: Dictionary, pid: String) -> 
 ## Goes through EveCore.propose_update so it shows in the owner's queue; the cell is attached to the
 ## mirrored proposal and only becomes active after EveCore.decide(approved) + sync_owner_decisions().
 func propose_to_owner(cell: Dictionary, reason := "") -> Dictionary:
+	if AutonomyGuard.paused(): return {"ok": false, "error": "e-stop engaged: self-learning paused"}
 	if not _rate_ok(): return {"ok": false, "error": "rate limit: max %d proposals/hour" % MAX_PROPOSALS_PER_HOUR}
 	for op in owner_proposals(companion_id, true):
 		if op.get("cell") is Dictionary and op["cell"].get("id") == cell.get("id"):

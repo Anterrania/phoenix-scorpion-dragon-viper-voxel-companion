@@ -14,3 +14,6 @@ Use **GitHub Issues + Projects** as the tracker (no self-hosted Jira/Trac server
 ## Trac-style wiki concept (plan)
 - The wiki is `docs/` in the repo (or GitHub Wiki later). Each page cross-links tickets as `PRI-n` and commits by short SHA, Trac-style.
 - Each roadmap milestone gets a `docs/ROADMAP.md` section linking its tickets. No Trac server exists.
+
+## In-app tracker (implemented)
+An in-app Trac-style tracker now exists: tickets, a wiki and r-numbered revisions, all local on the device. See [../ADMIN_TRACKER.md](../ADMIN_TRACKER.md). GitHub Issues stay the dev-team tracker. The in-app one is seeded from `TASK_TRACKER.csv` and `docs/` at build time.

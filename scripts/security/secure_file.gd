@@ -78,6 +78,13 @@ static func write_text(path: String, text: String) -> bool:
 	if w == null: return false
 	w.store_buffer(CryptoBox.seal(k["enc"], k["mac"], text.to_utf8_buffer()))
 	w.close()
+	return replace_file(tmp, path)
+
+## Atomic replace (finding F2, docs/ENCRYPTION.md): rename over the old file first (POSIX rename and
+## Godot's Windows MoveFileEx both replace atomically), so a crash never leaves NO file. Only if the
+## platform refuses do we fall back to remove + rename.
+static func replace_file(tmp: String, path: String) -> bool:
+	if DirAccess.rename_absolute(tmp, path) == OK: return true
 	DirAccess.remove_absolute(path)
 	return DirAccess.rename_absolute(tmp, path) == OK
 

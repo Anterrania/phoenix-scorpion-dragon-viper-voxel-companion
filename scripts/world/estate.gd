@@ -23,6 +23,35 @@ const REGION_DEFAULTS := {
 	"allow_build": true,
 	"media_url": "",
 	"music_url": "",
+	# v0.13 optional SL / OpenSim-compatible flags (docs/VIRTUAL_WORLD_FEATURE_GAP.md). Older
+	# estate.cfg files have none of these keys and simply read the defaults below (= SL defaults).
+	"allow_push": true,          # SL PARCEL_FLAG_RESTRICT_PUSHOBJECT (inverted) / OpenSim RestrictPushing
+	"allow_scripts": true,       # SL PARCEL_FLAG_ALLOW_SCRIPTS / OpenSim DisableScripts (inverted)
+	"allow_group_scripts": true, # SL PARCEL_FLAG_ALLOW_GROUP_SCRIPTS
+	"allow_landmark": true,      # SL PARCEL_FLAG_ALLOW_LANDMARK (Landmarks.save_here checks it)
+	"allow_set_home": true,      # SL "Allow Set Home" (Landmarks.set_home checks it)
+	"allow_object_entry": true,  # SL PARCEL_FLAG_ALLOW_ALL_OBJECT_ENTRY
+	"allow_voice": true,         # SL parcel "Allow voice chat"
+	"local_sound_only": false,   # SL PARCEL_FLAG_LOCAL_SOUND_ONLY
+	"show_in_search": true,      # SL "Show place in search" / OpenSim BlockShowInSearch (inverted)
+	"allow_land_resell": false,  # OpenSim/SL estate AllowLandResell
+	"allow_join_divide": false,  # OpenSim/SL estate AllowLandJoinDivide
+	"sandbox": false,            # OpenSim Sandbox (objects auto-return)
+	"physics_enabled": true,     # OpenSim DisablePhysics (inverted)
+	"maturity": "general",       # SL General / Moderate / Adult
+	"agent_limit": 40,           # SL/OpenSim AgentLimit
+	"covenant": "",              # estate covenant text (SL/OpenSim Covenant notecard), see set_covenant()
+	"covenant_changed": 0,       # unix time, like OpenSim CovenantChangedDateTime
+}
+const MATURITY := ["general", "moderate", "adult"]
+const COVENANT_MAX := 4000
+## Our flag -> [SL PARCEL_FLAG_* bit, inverted?]. Values from wiki.secondlife.com/wiki/LlGetParcelFlags.
+## Only used for import/export summaries (OAR landdata Flags), never sent to SL.
+const SL_PARCEL_BITS := {
+	"allow_fly": [0x1, false], "allow_scripts": [0x2, false], "allow_landmark": [0x8, false],
+	"allow_damage": [0x20, false], "allow_build": [0x40, false], "local_sound_only": [0x8000, false],
+	"allow_push": [0x200000, true], "allow_group_scripts": [0x2000000, false],
+	"allow_object_entry": [0x8000000, false],
 }
 static var _cfg: ConfigFile
 
@@ -72,6 +101,40 @@ static func can_enter(region: String, avatar: String, is_owner: bool) -> bool:
 		"owner_only": return false
 		"allowed_list", "group_only": return avatar in region_get(region, "allowed")
 	return true
+
+## SL-style PARCEL_FLAG_* bit field for a region/parcel (export summaries, LSL-like llGetParcelFlags).
+static func sl_parcel_flags(region: String, parcel := "") -> int:
+	var f := 0
+	for k in SL_PARCEL_BITS:
+		var on := bool(parcel_get(region, parcel, k) if parcel != "" else region_get(region, k))
+		if on != bool(SL_PARCEL_BITS[k][1]): f |= int(SL_PARCEL_BITS[k][0])
+	return f
+
+## Inverse of sl_parcel_flags: OAR landdata Flags -> our flag dict (for import previews).
+static func flags_from_sl(bits: int) -> Dictionary:
+	var out := {}
+	for k in SL_PARCEL_BITS:
+		var set_ := (bits & int(SL_PARCEL_BITS[k][0])) != 0
+		out[k] = set_ != bool(SL_PARCEL_BITS[k][1])
+	return out
+
+static func covenant(region: String) -> String: return str(region_get(region, "covenant"))
+
+## Estate covenant (rules text shown before buying/renting land). Estate managers + unlocked owner.
+## Returns "" on success or an error.
+static func set_covenant(region: String, text: String, actor: Variant = "self") -> String:
+	if not Tiers.can(actor, "land", region): return "Only estate managers or the owner can edit the covenant."
+	var sec := "region:" + region
+	var prev := {}
+	for k in ["covenant", "covenant_changed"]:
+		if cfg().has_section_key(sec, k): prev[k] = cfg().get_value(sec, k)
+	cfg().set_value(sec, "covenant", text.strip_edges().left(COVENANT_MAX))
+	cfg().set_value(sec, "covenant_changed", int(Time.get_unix_time_from_system()))
+	if SecureFile.write_text(PATH, cfg().encode_to_text()): return ""
+	for k in ["covenant", "covenant_changed"]:   # roll back the in-memory change
+		if prev.has(k): cfg().set_value(sec, k, prev[k])
+		else: cfg().erase_section_key(sec, k)
+	return "Saves are sealed. Unlock first."
 
 static func reset_for_tests() -> void:
 	_cfg = null  # reload from disk on next access

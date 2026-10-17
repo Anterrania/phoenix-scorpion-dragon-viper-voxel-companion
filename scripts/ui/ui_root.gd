@@ -226,7 +226,7 @@ func _build_menu() -> Dictionary:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
@@ -234,6 +234,7 @@ func _build_menu() -> Dictionary:
 			elif target == "_admin": open_admin()
 			elif target == "_community": CommunityScreen.open(self)
 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
+			elif target == "_interop": InteropScreen.open(self)
 			else: show_panel(target))
 		t.custom_minimum_size = Vector2(0, 96)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -448,12 +449,39 @@ func _build_travel() -> Dictionary:
 func _fill_travel(b: VBoxContainer) -> void:
 	var wc: Node = world.get_node_or_null("WorldContent") if world else null
 	b.add_child(btn("🏠 Spawn (Alaskan Aurora Tundra)", func(): teleport(Vector3(0, 0, 0))))
+	_fill_my_landmarks(b)
 	if wc == null: return
 	for l in wc.landmarks:
 		var pos: Vector3 = l["position"]
 		var realm: String = ["Alaska", "Venus", "Cosmic"][int(l["biome"])]
 		b.add_child(btn("%s  ·  %s" % [l["name"], realm], func(): teleport(pos + Vector3(0, 0, 20))))
 		b.add_child(input_tag("YOUR INPUT HERE: " + " / ".join(PackedStringArray(l["input"]))))
+
+## v0.13 personal landmarks, Set Home and teleport history (Landmarks store, SL-style).
+func _fill_my_landmarks(b: VBoxContainer) -> void:
+	var r := _est_region()
+	if Landmarks.has_home():
+		var hm := Landmarks.home()
+		b.add_child(btn("⌂ Go home  ·  %s" % hm["region"], func(): teleport(Landmarks.to_vec(hm), true)))
+	b.add_child(btn("📍 Save landmark here", func():
+		var res := Landmarks.save_here("", r, player.global_position) if player else {"ok": false, "error": "No player."}
+		_toast_or_warn(res["ok"], "Landmark saved.", str(res.get("error", "")))
+		show_panel("")))
+	b.add_child(btn("⌂ Set home to here", func():
+		var e := Landmarks.set_home(r, player.global_position) if player else "No player."
+		_toast_or_warn(e == "", "Home set.", e)
+		show_panel("")))
+	for l in Landmarks.list().slice(-8):
+		var lv := Landmarks.to_vec(l)
+		b.add_child(btn("📍 %s  ·  %s" % [l["name"], l["region"]], func(): teleport(lv, true)))
+	var hist := Landmarks.history(5)
+	if not hist.is_empty(): b.add_child(label("Teleport history", 22, GOLD))
+	for h in hist:
+		var hv := Landmarks.to_vec(h)
+		b.add_child(btn("↺ %s  (%d, %d)" % [h["region"], roundi(hv.x), roundi(hv.z)], func(): teleport(hv, true)))
+
+func _toast_or_warn(ok: bool, good: String, bad: String) -> void:
+	Toast.show_toast(self, good if ok else bad, "ok" if ok else "warn")
 
 func teleport(p: Vector3, exact := false) -> void:
 	if player == null: return
@@ -463,6 +491,7 @@ func teleport(p: Vector3, exact := false) -> void:
 	player.global_position = Vector3(p.x, y, p.z)
 	ModerationLists.on_teleport("self")   # temporary derenders come back after a teleport (VIEWER-3)
 	if "velocity" in player: player.velocity = Vector3.ZERO
+	Landmarks.record_teleport(_est_region(), player.global_position)   # SL-style teleport history
 	for c in _companions():
 		c.global_position = player.global_position + Vector3(randf_range(-3, 3), 1.0, randf_range(-3, 3))
 	show_panel("")
@@ -1272,6 +1301,22 @@ func _refresh_estate() -> void:
 	b.add_child(_check("Allow flying", "allow_fly"))
 	b.add_child(_check("Allow building", "allow_build"))
 	b.add_child(_check("Damage (combat) on", "allow_damage"))
+	b.add_child(_check("Allow push", "allow_push"))
+	b.add_child(_check("Allow landmarks", "allow_landmark"))
+	b.add_child(_check("Allow Set Home", "allow_set_home"))
+	b.add_child(_check("Show in search", "show_in_search"))
+	b.add_child(_cycle_btn("Maturity", "maturity", Estate.MATURITY))
+	b.add_child(label("Covenant (estate rules)", 22))
+	var cv := TextEdit.new()
+	cv.custom_minimum_size = Vector2(0, 160)
+	cv.add_theme_font_size_override("font_size", 22)
+	cv.text = Estate.covenant(r)
+	cv.editable = Tiers.can(Tiers.SELF, "land", r)
+	cv.focus_exited.connect(func():
+		if cv.editable and cv.text != Estate.covenant(r):
+			var e := Estate.set_covenant(r, cv.text)
+			if e != "": Toast.show_toast(self, e, "warn"))
+	b.add_child(cv)
 	b.add_child(label("Allowed avatars (comma separated)", 22))
 	var al := LineEdit.new()
 	al.custom_minimum_size = Vector2(0, 68)

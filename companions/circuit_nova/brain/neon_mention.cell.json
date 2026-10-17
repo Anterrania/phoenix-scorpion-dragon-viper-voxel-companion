@@ -1,0 +1,29 @@
+{
+  "schema": "phoenix.brain_cell/1",
+  "id": "neon_mention",
+  "companion": "circuit_nova",
+  "trigger": {
+    "type": "chat_keyword",
+    "any": [
+      "neon",
+      "cyber",
+      "circuit"
+    ]
+  },
+  "condition": {
+    "all": []
+  },
+  "action": {
+    "type": "say",
+    "text": "Neon is my favorite building material. Want a cyber arch?"
+  },
+  "weight": 0.5,
+  "version": 1,
+  "enabled": true,
+  "provenance": {
+    "source": "seed",
+    "author": "dev_bot",
+    "created_at": "2026-10-17T00:00:00",
+    "reason": ""
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "phoenix.brain_cell/1",
+  "id": "greet",
+  "companion": "foxy_ani",
+  "trigger": {
+    "type": "chat_keyword",
+    "any": [
+      "hello",
+      "hi",
+      "hey"
+    ]
+  },
+  "condition": {
+    "all": []
+  },
+  "action": {
+    "type": "say",
+    "text": "Hey {player}! Ready to set something on fire (creatively)? Rise from the flame."
+  },
+  "weight": 0.6,
+  "version": 1,
+  "enabled": true,
+  "provenance": {
+    "source": "seed",
+    "author": "dev_bot",
+    "created_at": "2026-10-17T00:00:00",
+    "reason": "greeting"
+  }
+}

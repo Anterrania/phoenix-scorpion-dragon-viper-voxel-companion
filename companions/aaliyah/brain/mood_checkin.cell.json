@@ -1,0 +1,29 @@
+{
+  "schema": "phoenix.brain_cell/1",
+  "id": "mood_checkin",
+  "companion": "aaliyah",
+  "trigger": {
+    "type": "chat_keyword",
+    "any": [
+      "sad",
+      "tired",
+      "stressed"
+    ]
+  },
+  "condition": {
+    "all": []
+  },
+  "action": {
+    "type": "say",
+    "text": "Come sit on the velvet couch with me. Want to talk about it?"
+  },
+  "weight": 0.7,
+  "version": 1,
+  "enabled": true,
+  "provenance": {
+    "source": "seed",
+    "author": "dev_bot",
+    "created_at": "2026-10-17T00:00:00",
+    "reason": ""
+  }
+}

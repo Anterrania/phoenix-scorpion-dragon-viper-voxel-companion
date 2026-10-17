@@ -130,3 +130,17 @@ New message types for later: `body_state` (battery, pose, safety flags), `body_s
 [^robotshop]: RobotShop Community, "G1 EDU vs Booster K1": https://community.robotshop.com/blog/show/choosing-an-educational-humanoid-platform-g1-edu-vs-booster-k1
 [^g1]: Unitree, G1: https://www.unitree.com/g1/
 [^availability]: RobotMatchup, "Which humanoid robots can you actually buy?": https://robotmatchup.com/humanoid-robot-availability
+
+## Companion body design concepts
+
+Materials, structure, actuators, sensors, power and thermal are in [`companion-bodies/initial_concepts.md`](companion-bodies/initial_concepts.md) (repo copy of `/workspace/companion-bodies/initial_concepts.md`).
+
+### Price note (as reported Oct 2026, verify before buying)
+
+| Item | Price |
+|---|---|
+| NVIDIA Jetson Orin Nano Super | $399 |
+| NVIDIA Jetson Thor dev kit | $5,499 |
+| Reachy Mini | $399 Lite / $499 Wireless |
+
+These replace the older estimates above where they differ.

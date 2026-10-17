@@ -38,5 +38,7 @@ static func apply(persona: Dictionary, base := {}) -> Dictionary:
 		s["hair_gradient"] = hs
 	for k in ["skin_metal", "look", "aura", "freckles", "chains", "horns", "curly", "hair_length"]:
 		if d.has(k): s[k] = d[k]
+	if d.has("outfit_look"): s["outfit_look"] = d["outfit_look"]
+	s["body_id"] = str(persona.get("id", ""))
 	s["dna"] = true
 	return s

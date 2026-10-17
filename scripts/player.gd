@@ -60,7 +60,8 @@ func refresh_avatar() -> void:
 	if avatar:
 		remove_child(avatar)
 		avatar.queue_free()
-	avatar = HumanoidModel.build(Inventory.styled("player", Profile.to_style(Profile.avatar())))
+	var pst: Dictionary = Inventory.styled("player", Profile.to_style(Profile.avatar()))
+	avatar = RealisticBody.build(RealisticBody.player_style(pst)) if RealisticBody.available() else HumanoidModel.build(pst)
 	AvatarDNA.apply_all(avatar, Profile.avatar())  # DNA morphs, alpha masks, attachments
 	avatar.name = "Avatar"
 	avatar.position.y = -0.85
@@ -78,7 +79,9 @@ func toggle_camera() -> void:
 
 func _process(delta: float) -> void:
 	_anim_t += delta
-	HumanoidModel.animate(avatar, _anim_t, clampf(Vector2(velocity.x, velocity.z).length() / speed, 0.0, 1.0))
+	var sp01 := clampf(Vector2(velocity.x, velocity.z).length() / speed, 0.0, 1.0)
+	if avatar.has_meta("realistic"): RealisticBody.animate(avatar, _anim_t, sp01)
+	else: HumanoidModel.animate(avatar, _anim_t, sp01)
 	_pose_tick(delta)
 	if health < MAX_HEALTH and surface != SurfacePhysics.Surface.LAVA:
 		health = minf(health + delta * 4.0, MAX_HEALTH)

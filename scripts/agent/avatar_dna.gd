@@ -22,6 +22,19 @@ const POINTS := {
 	"foot_l": ["Hips/LegL/Shin", Vector3(0, -0.42, 0)],
 	"foot_r": ["Hips/LegR/Shin", Vector3(0, -0.42, 0)],
 }
+## v0.12: same attach points on the rigged MakeHuman body (bone, offset in model units, +Z = front).
+const POINTS_RIG := {
+	"head": ["head", Vector3(0, 0.2, 0)],
+	"hair": ["head", Vector3(0, 0.15, -0.01)],
+	"face": ["head", Vector3(0, 0.08, 0.11)],
+	"chest": ["spine_03", Vector3(0, 0.1, 0.13)],
+	"back": ["spine_03", Vector3(0, 0.1, -0.14)],
+	"hips": ["pelvis", Vector3.ZERO],
+	"hand_l": ["hand_l", Vector3.ZERO],
+	"hand_r": ["hand_r", Vector3.ZERO],
+	"foot_l": ["foot_l", Vector3.ZERO],
+	"foot_r": ["foot_r", Vector3.ZERO],
+}
 ## alpha mask -> parts hidden (so mesh clothing/body parts can replace them)
 const MASKS := {
 	"head": ["Hips/Torso/Head"],
@@ -58,6 +71,8 @@ static func resolve(dna: Dictionary) -> Dictionary:
 	return m
 
 static func apply_morphs(model: Node3D, m: Dictionary) -> void:
+	if model.has_meta("realistic"):
+		apply_morphs_rig(model, m); return
 	var h := 1.0 + 0.12 * float(m.get("height", 0.0))
 	var b := 1.0 + 0.18 * float(m.get("build", 0.0))
 	model.scale = Vector3(b, h, b)
@@ -74,7 +89,33 @@ static func apply_morphs(model: Node3D, m: Dictionary) -> void:
 		var n := model.get_node_or_null(arm) as Node3D
 		if n: n.scale.y = 1.0 + 0.1 * float(m.get("arm_length", 0.0))
 
+## v0.12: sliders on the rigged body: bone pose scales + the "jaw" blend shape.
+static func apply_morphs_rig(model: Node3D, m: Dictionary) -> void:
+	var h := 1.0 + 0.12 * float(m.get("height", 0.0))
+	var b := 1.0 + 0.18 * float(m.get("build", 0.0))
+	model.scale = Vector3(b, h, b)
+	var sk := RealisticBody.skeleton(model)
+	if sk == null: return
+	var sc := {
+		"spine_03": Vector3(1.0 + 0.15 * float(m.get("shoulders", 0.0)), 1, 1),
+		"head": Vector3.ONE * (1.0 + 0.15 * float(m.get("head_size", 0.0))),
+	}
+	var leg := 1.0 + 0.12 * float(m.get("leg_length", 0.0))
+	var arm := 1.0 + 0.1 * float(m.get("arm_length", 0.0))
+	for side in ["l", "r"]:
+		sc["thigh_" + side] = Vector3(1, leg, 1); sc["calf_" + side] = Vector3(1, leg, 1)
+		sc["upperarm_" + side] = Vector3(1, arm, 1); sc["lowerarm_" + side] = Vector3(1, arm, 1)
+	for bn in sc:
+		var i := sk.find_bone(bn)
+		if i >= 0: sk.set_bone_pose_scale(i, sc[bn])
+	var jaw := float(m.get("jaw", 0.0))
+	for mi in model.find_children("*", "MeshInstance3D", true, false):
+		var k: int = (mi as MeshInstance3D).find_blend_shape_by_name("jaw") if (mi as MeshInstance3D).mesh else -1
+		if k >= 0: (mi as MeshInstance3D).set_blend_shape_value(k, maxf(jaw, 0.0))
+	if leg != 1.0: model.set_meta("leg_scale", leg)
+
 static func apply_masks(model: Node3D, masks: Array) -> void:
+	if model.has_meta("realistic"): return  # rigged body: clothing already deletes hidden skin at export
 	for mk in masks:
 		for p in MASKS.get(str(mk), []):
 			var n := model.get_node_or_null(p) as Node3D
@@ -120,10 +161,15 @@ static func load_glb(path: String) -> Node3D:
 ## Attach list: [{"id": "...", "point": "head", "source": "builtin"|"glb", "path": "...", "scale": 1.0}]
 static func attach_all(model: Node3D, attachments: Array) -> int:
 	var count := 0
+	var sk: Skeleton3D = RealisticBody.skeleton(model) if model.has_meta("realistic") else null
 	for a in attachments:
-		var pt: Array = POINTS.get(str(a.get("point", "")), [])
+		var pt: Array = (POINTS_RIG if sk else POINTS).get(str(a.get("point", "")), [])
 		if pt.is_empty(): continue
-		var host := model.get_node_or_null(pt[0]) as Node3D
+		var host: Node3D
+		if sk:
+			if sk.find_bone(pt[0]) < 0: continue
+			host = RealisticBody.attach_point(sk, pt[0], Vector3.ZERO)
+		else: host = model.get_node_or_null(pt[0]) as Node3D
 		if host == null: continue
 		var node: Node3D = load_glb(str(a.get("path", ""))) if str(a.get("source", "builtin")) == "glb" else builtin(str(a.get("id", "")))
 		if node == null: continue

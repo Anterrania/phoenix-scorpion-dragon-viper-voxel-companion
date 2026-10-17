@@ -45,6 +45,7 @@ func _ready() -> void:
 	_v10_tests()
 	_v10_music_tests()
 	_v11_tests()
+	_v12_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -301,7 +302,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=13") and ep.contains("0.11.0"), "versionCode 13 / 0.11.0")
+	check(ep.contains("version/code=14") and ep.contains("0.12.0"), "versionCode 14 / 0.12.0")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))
@@ -922,3 +923,51 @@ func _v11_tests() -> void:
 		var mat = p.draw_pass_1.material if p.draw_pass_1 else null
 		check(mat is BaseMaterial3D and mat.albedo_texture != null and mat.billboard_mode == BaseMaterial3D.BILLBOARD_PARTICLES, "v11 soft billboard particle: " + k)
 		p.free()
+
+func _v12_tests() -> void:
+	# face blend shapes (MPFB expression units) on every character body
+	for id in ["foxy_ani", "aaliyah", "circuit_nova", "default_female", "phoenix_player"]:
+		var g: Node3D = load("res://assets/characters/%s.glb" % id).instantiate()
+		var f := FaceDriver.for_model(g)
+		var ok := f.has_face()
+		if ok:
+			for s in ["eyeBlinkLeft", "eyeBlinkRight", "mouthSmile", "browInnerUp", "jawOpen", "viseme_aa", "viseme_O", "viseme_PP", "jaw"]:
+				ok = ok and f.mesh.find_blend_shape_by_name(s) >= 0
+		check(ok, "v12 face blend shapes on " + id)
+		g.free()
+	var m := RealisticBody.build(CompanionDNA.apply(_persona("foxy_ani"), {}))
+	var fd := FaceDriver.for_model(m)
+	fd.say("hello mama", 1.0)
+	check(fd.is_talking(), "v12 talk driver starts on speech")
+	var talked := false
+	for i in 20:
+		fd.update(0.05)
+		talked = talked or float(fd.channels()["jawOpen"]) > 0.05
+	check(talked, "v12 talk driver opens jaw")
+	var blinked := false
+	for i in 200:
+		fd.update(0.05)
+		blinked = blinked or float(fd.channels()["eyeBlinkLeft"]) > 0.5
+	check(blinked, "v12 blink driver")
+	check(float(fd.channels()["mouthSmile"]) > 0.0, "v12 resting smile channel")
+	for i in 400: fd.update(0.05)
+	check(not fd.is_talking(), "v12 talk stops")
+	check(float(m.get_meta("eye_y", 0.0)) > 1.2 and float(m.get_meta("eye_y", 0.0)) < 1.8, "v12 eye height measured for face bands")
+	m.free()
+	# player on the MakeHuman male base; sliders + attachments target bones/blend shapes
+	var old_save := {"skin": "#8a5a3c", "hair": "#120c12"}  # minimal pre-v0.12 save, no new keys
+	var pst := RealisticBody.player_style(Profile.to_style(old_save))
+	check(pst["body_id"] == "phoenix_player" and pst["player_jewelry"] and not old_save.has("body_id"), "v12 player defaults without touching the save")
+	var pm := RealisticBody.build(pst)
+	check(pm.has_meta("realistic") and pm.find_child("DragonPendant", true, false) != null and pm.find_child("Choker", true, false) != null, "v12 player jewelry on bones")
+	AvatarDNA.apply_morphs(pm, {"height": 1.0, "leg_length": 1.0, "head_size": 1.0, "jaw": 1.0, "shoulders": 0.5})
+	var psk := RealisticBody.skeleton(pm)
+	check(pm.scale.y > 1.05 and psk.get_bone_pose_scale(psk.find_bone("thigh_l")).y > 1.05 and psk.get_bone_pose_scale(psk.find_bone("head")).x > 1.05, "v12 DNA sliders drive bones")
+	var jaw_ok := false
+	for mi in pm.find_children("*", "MeshInstance3D", true, false):
+		var k: int = mi.find_blend_shape_by_name("jaw") if mi.mesh else -1
+		if k >= 0: jaw_ok = mi.get_blend_shape_value(k) > 0.9
+	check(jaw_ok, "v12 jaw slider drives blend shape")
+	check(AvatarDNA.attach_all(pm, [{"id": "halo", "point": "head"}, {"id": "scepter", "point": "hand_r"}]) == 2, "v12 attachments on rig bones")
+	pm.free()
+	check(FileAccess.get_file_as_string("res://docs/PHYSICAL_FORM_VISION.md").contains("companion-bodies/initial_concepts.md") and FileAccess.file_exists("res://docs/companion-bodies/initial_concepts.md"), "v12 physical form doc links body concepts")

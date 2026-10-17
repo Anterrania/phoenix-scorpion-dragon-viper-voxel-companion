@@ -112,10 +112,15 @@ func slot_position() -> Vector3:
 	if player == null: return global_position
 	return player.global_position + player.global_transform.basis * config.slot_offset
 
+var face: FaceDriver
+
 func _process(delta: float) -> void:
 	_anim_t += delta
 	var sp := Vector2(velocity.x, velocity.z).length() / maxf(config.move_speed, 0.1) if config else 0.0
-	if model.has_meta("realistic"): RealisticBody.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
+	if model.has_meta("realistic"):
+		RealisticBody.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
+		if face == null or face.mesh == null or not is_instance_valid(face.mesh): face = FaceDriver.for_model(model)
+		face.update(delta)
 	else: HumanoidModel.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
 	if _bubble_time > 0.0:
 		_bubble_time -= delta
@@ -141,6 +146,7 @@ func _on_reply(id: String, text: String) -> void:
 ## Voice hook: replace with TTS (DisplayServer.tts_speak or a cloud TTS).
 func speak(text: String) -> void:
 	CompanionVoice.speak(companion_id, persona, text)
+	if face: face.say(text, float(CompanionVoice.profile(persona).get("rate", 1.0)))
 
 func get_player_position() -> Vector3:
 	return player.global_position if player else Vector3.ZERO

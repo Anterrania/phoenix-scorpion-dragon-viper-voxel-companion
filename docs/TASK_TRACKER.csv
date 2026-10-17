@@ -46,9 +46,9 @@ VIPER-9,Integrate Universe/MeshSystem/DNA/quantum-lattice once Phoenix provides 
 FLOW,Automated flow: routine commits and merges proceed without waiting for user; weekly Monday review re-prioritizes,active,P0
 VIPER-10,FAQ page (in-app wiki + docs),todo,P1
 VIPER-11,"Full wiki expansion: page per system, companion, realm, and module",todo,P1
-WIKI-1,"VIPER-11 sub: Worlds/regions wiki page (docs/wiki/worlds-regions.md; links welcome-island, map-minimap)",todo,P1
-WIKI-2,"VIPER-11 sub: Region status + GDP-style economy metrics page (docs/wiki/economy-metrics.md) - concept/planned only, no invented numbers",todo,P1
-WIKI-3,"VIPER-11 sub: Interactions wiki page (docs/wiki/interactions.md; links companions, combat-rp-breedables)",todo,P1
-WIKI-4,"VIPER-11 sub: Popular places wiki page (docs/wiki/popular-places.md)",todo,P2
-WIKI-5,"VIPER-11 sub: Aethel Coin Lindex-style exchange ties page (docs/wiki/aethel-coin-exchange.md; extends economy.md)",todo,P1
-WIKI-6,"VIPER-11 sub: How-to guides page (docs/wiki/how-to.md; links getting-started, controls, land-estate-tools)",todo,P1
+WIKI-1,"VIPER-11 sub: Worlds/regions wiki page (docs/wiki/worlds-regions.md; links welcome-island, map-minimap)",done,P1
+WIKI-2,"VIPER-11 sub: Region status + GDP-style economy metrics page (docs/wiki/economy-metrics.md) - concept/planned only, no invented numbers",done,P1
+WIKI-3,"VIPER-11 sub: Interactions wiki page (docs/wiki/interactions.md; links companions, combat-rp-breedables)",done,P1
+WIKI-4,"VIPER-11 sub: Popular places wiki page (docs/wiki/popular-places.md)",done,P2
+WIKI-5,"VIPER-11 sub: Aethel Coin Lindex-style exchange ties page (docs/wiki/aethel-coin-exchange.md; extends economy.md)",done,P1
+WIKI-6,"VIPER-11 sub: How-to guides page (docs/wiki/how-to.md; links getting-started, controls, land-estate-tools)",done,P1

@@ -107,6 +107,20 @@ Yes, in the Region / Estate panel. It's enforced once the server exists.
 **Is Aethel Coin real money?**
 No. It's game-only for now. Cash-out and the exchange need legal review first.
 
+## Worlds, places & money
+
+**What worlds are there?**
+Three realms: Alaskan Aurora Tundra, Venus Fire Wastes, Cosmic Glitter Expanse. See [Worlds & Regions](wiki/worlds-regions.md).
+
+**Where are the popular places and events?**
+**MENU › 🗺 Destinations** and its **📅 Events board**. See [Popular Places](wiki/popular-places.md).
+
+**Can I trade Aethel Coin?**
+Not yet. The exchange is partly built and needs legal review before going live. See [Aethel Coin Exchange](wiki/aethel-coin-exchange.md).
+
+**How do I lock owner mode?**
+Radial › **Security** › **Lock now**. See [Owner Lock](wiki/owner-lock.md).
+
 ## Troubleshooting
 
 **The download stalls.**

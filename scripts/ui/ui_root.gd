@@ -1105,6 +1105,7 @@ var help_point := ""
 func ask_help(q: String) -> String:
 	var r := WelcomeIsland.answer(q)
 	help_point = r["point"]
+	EveCore.npc_say("Welcome Guide", str(r["answer"]))
 	if help_out: help_out.text = "Guide: " + str(r["answer"]) + ("\n(Station: %s. Open Welcome Island to go there.)" % help_point if help_point != "" else "")
 	return r["answer"]
 

@@ -721,6 +721,21 @@ func _eve_tests() -> void:
 	check(EveCore.for_companion("foxy_ani").entries().size() == n, "eve: memory persists to user://")
 	check(EveCore.proposals()[0]["state"] == "Approved", "eve: queue persists")
 	check(not EveCore.BrainAdapter.available() or EveCore.BrainAdapter.forwarded > 0, "eve: BrainCore adapter fallback ok")
+	# v2
+	var c := EveCore.EveBrainCell.new("t")
+	c.unlock(); c.lock_cell()
+	check(not c.is_authenticated(), "eve v2: lock_cell locks")
+	c.unlock(); c.lock()
+	check(not c.is_authenticated(), "eve v2: lock alias")
+	c.unlock(); c.store_memory("e")
+	check(c.memory_log.back()["location"] == "Core", "eve v2: default location Core")
+	check(foxy.npc_speak("hi", "Default", "Foxy"), "eve v2: npc_speak logs")
+	var ne: Dictionary = foxy.entries().back()
+	check(ne["event"] == "Foxy spoke" and ne["location"] == "Game_World" and ne["state"] == "Active" and ne["voice"] == "Eve" and ne.has("fire_theme"), "eve v2: npc_speak fields, Eve + fire")
+	check(EveCore.npc_say("Welcome Guide", "Tap MENU", "") and EveCore.for_companion("phoenix").entries().back()["event"] == "Welcome Guide spoke", "eve v2: guide -> owner core")
+	check(EveCore.for_companion("phoenix").entries().back()["voice"] == "Phoenix_Default_Voice", "eve v2: guide default voice")
+	EveCore.npc_say("Tutor", "lesson", "", "tutor")
+	check(EveCore.for_companion("tutor").entries().back()["event"] == "Tutor spoke", "eve v2: npc -> own companion core")
 	EveCore.owner_override = null
 	EveCore.save_dir = "user://eve"
 	EveCore.reset_cache()

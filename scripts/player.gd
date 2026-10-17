@@ -147,8 +147,12 @@ const FLY_CEILING := 600.0
 var flying := false
 var fly_vertical := 0.0   # -1 down .. 1 up (HUD buttons / keys)
 
+signal fly_refused   # audit 2026-10-17: the land here doesn't allow flying (HUD can toast)
+
 func set_flying(on: bool) -> void:
 	if on and Restrictions.is_restricted(Tiers.actor_id("self"), "fly"): return   # opt-in restriction (VIEWER-4)
+	if on and not LandGate.can_fly(Tiers.SELF, global_position):
+		fly_refused.emit(); return
 	flying = on
 	velocity.y = 2.0 if on else velocity.y
 	flying_changed.emit(on)
@@ -174,6 +178,9 @@ func _fly_step(delta: float, dir: Vector3) -> void:
 
 func _physics_process(delta: float) -> void:
 	_combat_tick(delta)
+	if flying and Engine.get_physics_frames() % 15 == 0 and not LandGate.can_fly(Tiers.SELF, global_position):
+		set_flying(false)   # flew into a no-fly parcel: land gently (checked 4x/s at 60 Hz)
+		fly_refused.emit()
 	if flying:
 		var fi := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		if _touch_move != Vector2.ZERO: fi = _touch_move

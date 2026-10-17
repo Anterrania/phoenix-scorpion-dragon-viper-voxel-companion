@@ -53,16 +53,19 @@ func _mem_path(id: String) -> String:
 
 func load_memory(id: String) -> Dictionary:
 	var empty := {"schema_version": 1, "companion_id": id, "facts": [], "history": [], "relationship": {"affinity": 0}, "built_structures": [], "updated_at": ""}
-	if not FileAccess.file_exists(_mem_path(id)):
+	if not SecureFile.exists(_mem_path(id)):
 		return empty
-	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(_mem_path(id)))
+	var parsed: Variant = SecureFile.read_json(_mem_path(id))
 	return parsed if parsed is Dictionary else empty
+
+## Re-read chat memory from disk (encrypted saves just became readable after the owner unlock).
+func reload_brains() -> void:
+	for id in _memory.keys(): _memory[id] = load_memory(id)
 
 func save_memory(id: String) -> void:
 	var m: Dictionary = _memory.get(id, {})
 	m["updated_at"] = Time.get_datetime_string_from_system(true)
-	var f := FileAccess.open(_mem_path(id), FileAccess.WRITE)
-	f.store_string(JSON.stringify(m, "\t"))
+	SecureFile.write_text(_mem_path(id), JSON.stringify(m, "\t"))
 
 func remember_fact(id: String, fact: String) -> void:
 	var facts: Array = _memory[id]["facts"]
@@ -166,7 +169,9 @@ func _on_chat_done(result: int, code: int, _h: PackedStringArray, raw: PackedByt
 func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
 	var agent: Node = _agents.get(id)
 	var res := {"ok": false}
-	if agent == null or tool not in BrainCore.flatten_tools(agent.persona.get("tools", [])):
+	if AutonomyGuard.paused():
+		res["error"] = "e-stop engaged: tools paused"
+	elif agent == null or tool not in BrainCore.flatten_tools(agent.persona.get("tools", [])):
 		res["error"] = "tool not allowed for this companion"
 	elif tool == "remember":
 		remember_fact(id, str(args.get("fact", "")))
@@ -290,6 +295,7 @@ func _learn_signals(id: String, text: String) -> void:
 func learn_now(id: String) -> Dictionary:
 	var brain: BrainCore = brains.get(id)
 	if brain == null: return {}
+	if AutonomyGuard.paused(): return {"paused": true, "proposed": []}
 	var r := BrainLearner.learn(brain, 200, false, true)  # via_owner: lands in MENU > Proposals
 	last_learn[id] = r
 	for pid in r.get("proposed", []):

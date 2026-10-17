@@ -147,6 +147,7 @@ func reinforce(cell_id: String, reward: float) -> bool:
 ## Companion proposes a new/edited cell. Returns {ok, status: "pending"|"applied", error}.
 ## Low-risk (say/emote/remember) may auto-apply only if auto_apply_low_risk = true (default false).
 func propose(cell: Dictionary, reason := "", auto_apply_low_risk := false) -> Dictionary:
+	if AutonomyGuard.paused(): return {"ok": false, "error": "e-stop engaged: self-learning paused"}
 	if not _rate_ok(): return {"ok": false, "error": "rate limit: max %d proposals/hour" % MAX_PROPOSALS_PER_HOUR}
 	cell = cell.duplicate(true)
 	cell["companion"] = companion_id
@@ -394,6 +395,7 @@ static func _activate_owner_cell(cid: String, cell: Dictionary, pid: String) -> 
 ## Goes through EveCore.propose_update so it shows in the owner's queue; the cell is attached to the
 ## mirrored proposal and only becomes active after EveCore.decide(approved) + sync_owner_decisions().
 func propose_to_owner(cell: Dictionary, reason := "") -> Dictionary:
+	if AutonomyGuard.paused(): return {"ok": false, "error": "e-stop engaged: self-learning paused"}
 	if not _rate_ok(): return {"ok": false, "error": "rate limit: max %d proposals/hour" % MAX_PROPOSALS_PER_HOUR}
 	for op in owner_proposals(companion_id, true):
 		if op.get("cell") is Dictionary and op["cell"].get("id") == cell.get("id"):

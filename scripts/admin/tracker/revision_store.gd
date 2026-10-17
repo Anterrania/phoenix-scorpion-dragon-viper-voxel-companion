@@ -5,21 +5,28 @@ extends RefCounted
 ## before/after snapshots (JSON-able), so log / diff / revert work uniformly.
 ## Files: <root>/revisions.jsonl (append-only log) + <root>/head.json ({"rev": N}).
 ## Reverting never rewrites history: it commits a NEW revision whose content is the old "before".
+## Tamper-evident "lattice" chain: every record carries prev = SHA-256 of the previous record's exact
+## stored line (genesis = 64 zeros); head.json keeps the hash of the last line, so edits, deletions,
+## reordering or truncation are all detected by verify_chain(). Files are encrypted via SecureFile
+## once an OwnerVault exists.
 
 const KINDS := ["ticket", "wiki", "brain_cell", "world", "profile"]
 const MAX_SNAPSHOT := 32000
 
 var root: String
 var _head := 0
+const GENESIS := "0000000000000000000000000000000000000000000000000000000000000000"
+var _head_hash := GENESIS
+var _lines = null   # cached raw lines (Array[String])
 var _appliers := {}   # kind -> Array[Callable(path, content) -> bool], newest last; used by revert()
 
 func _init(p_root := "user://viper") -> void:
 	root = p_root
 	DirAccess.make_dir_recursive_absolute(root)
-	var hp := root.path_join("head.json")
-	if FileAccess.file_exists(hp):
-		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(hp))
-		if d is Dictionary: _head = int(d.get("rev", 0))
+	var d: Variant = SecureFile.read_json(root.path_join("head.json"))
+	if d is Dictionary:
+		_head = int(d.get("rev", 0))
+		_head_hash = str(d.get("hash", GENESIS))
 
 func head() -> int: return _head
 
@@ -46,23 +53,52 @@ func _applier(kind: String) -> Callable:
 func commit(kind: String, path: String, before: Variant, after: Variant, message := "", author := "local") -> int:
 	if kind not in KINDS or path == "" or path.length() > 200: return 0
 	if JSON.stringify(after).length() > MAX_SNAPSHOT or JSON.stringify(before).length() > MAX_SNAPSHOT: return 0
+	var lines := _raw_lines()
 	_head += 1
 	var rec := {"rev": _head, "t": local_iso(), "kind": kind, "path": path,
-		"author": author.left(64), "message": message.left(300), "before": before, "after": after}
-	var lp := root.path_join("revisions.jsonl")
-	var f := FileAccess.open(lp, FileAccess.READ_WRITE if FileAccess.file_exists(lp) else FileAccess.WRITE)
-	f.seek_end()
-	f.store_line(JSON.stringify(rec))
-	f.close()
-	var h := FileAccess.open(root.path_join("head.json"), FileAccess.WRITE)
-	h.store_string(JSON.stringify({"rev": _head}))
+		"author": author.left(64), "message": message.left(300), "before": before, "after": after,
+		"prev": CryptoBox.sha256_hex(lines.back()) if not lines.is_empty() else GENESIS}
+	var line := JSON.stringify(rec)
+	lines.append(line)
+	if not SecureFile.write_text(root.path_join("revisions.jsonl"), "\n".join(lines) + "\n"):
+		lines.pop_back(); _head -= 1
+		return 0
+	_head_hash = CryptoBox.sha256_hex(line)
+	SecureFile.write_json(root.path_join("head.json"), {"rev": _head, "hash": _head_hash})
 	return _head
+
+func _raw_lines() -> Array:
+	if _lines == null:
+		_lines = Array(SecureFile.read_text(root.path_join("revisions.jsonl")).split("\n", false))
+	return _lines
+
+## Walk the lattice chain. {ok, count, legacy (unchained old records), broken_at (rev or 0), reason}
+func verify_chain() -> Dictionary:
+	_lines = null
+	var lines := _raw_lines()
+	var prev_hash := GENESIS
+	var legacy := 0
+	var chained := false
+	for i in lines.size():
+		var d: Variant = JSON.parse_string(lines[i])
+		if not (d is Dictionary): return {"ok": false, "count": i, "legacy": legacy, "broken_at": i + 1, "reason": "unreadable line %d" % (i + 1)}
+		if not d.has("prev"):
+			if chained: return {"ok": false, "count": i, "legacy": legacy, "broken_at": int(d.get("rev", i + 1)), "reason": "unchained record after chain start"}
+			legacy += 1
+		else:
+			var expect := prev_hash if (chained or i == 0) else CryptoBox.sha256_hex(lines[i - 1])
+			if str(d["prev"]) != expect:
+				return {"ok": false, "count": i, "legacy": legacy, "broken_at": int(d.get("rev", i + 1)), "reason": "hash mismatch before r%d" % int(d.get("rev", i + 1))}
+			chained = true
+		prev_hash = CryptoBox.sha256_hex(lines[i])
+	var last := prev_hash if not lines.is_empty() else GENESIS
+	if last != _head_hash and not (legacy == lines.size() and _head_hash == GENESIS):
+		return {"ok": false, "count": lines.size(), "legacy": legacy, "broken_at": _head, "reason": "head hash mismatch (truncated or edited tail)"}
+	return {"ok": true, "count": lines.size(), "legacy": legacy, "broken_at": 0, "reason": "", "head_hash": last}
 
 func _all() -> Array:
 	var out: Array = []
-	var lp := root.path_join("revisions.jsonl")
-	if not FileAccess.file_exists(lp): return out
-	for line in FileAccess.get_file_as_string(lp).split("\n", false):
+	for line in _raw_lines():
 		var d: Variant = JSON.parse_string(line)
 		if d is Dictionary: out.append(d)
 	return out

@@ -2,7 +2,7 @@
 
 > **Status:** implemented in GDScript and headless-tested with Godot 4.7.2 (`tests/admin_tests.gd`: 92 checks). Everything is **local only**: no accounts, no servers, no network. Built on Foxy's Phoenix Glass kit (PR #17); see [UI_DESIGN_LANGUAGE.md](UI_DESIGN_LANGUAGE.md) §8.
 
-Open it from the main menu with **🛡 Viper Admin** (`UIRoot.open_admin()`), or load `scenes/admin/admin_screen.tscn` directly.
+Open it from the radial launcher (**12 o'clock ◎ Admin**) or MENU › 🛡 Viper Admin (`UIRoot.open_admin()`). Security (lock, PIN, e-stop, audit, backup) is at **2 o'clock 🛡** on the radial. All routes are in [SECURITY.md](SECURITY.md#access-paths-where-to-find-each-screen).
 
 ## Screens (portrait 720×1280, five swipeable tabs)
 | Tab | What it shows | Kit pieces used (§8) |

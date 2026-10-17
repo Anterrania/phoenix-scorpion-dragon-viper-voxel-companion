@@ -55,7 +55,7 @@ func _initialize():
 	await _frame(s, "player", pl.avatar, pl)
 	for cl in root.find_children("*", "CanvasLayer", true, false): cl.visible = true
 	if isolated:  # proposals/history only in a throwaway user:// so the box app data stays clean
-		var p = root.get_node("Profile"); p.data["role"] = "owner"
+		var p = root.get_node("Profile"); p.owner_code_hash = p.code_hash("phoenix-shot-only"); p.try_owner_unlock("phoenix-shot-only")  # test hash, throwaway user://
 		var core = EveCore.for_companion("foxy_ani"); core.log_chat("user", "build me a fire altar"); core.log_chat("assistant", "Rising from the flame, love.")
 		core.propose_update("Brighter Venus lava glow")
 		ui.show_panel("proposals"); await create_timer(0.5).timeout; _shot("proposals_panel")

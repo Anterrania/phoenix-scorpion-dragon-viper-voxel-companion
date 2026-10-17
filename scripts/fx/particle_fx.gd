@@ -15,20 +15,13 @@ static func wind_at(t: float) -> Vector3:
 	return Vector3(cos(t * 0.05), 0, sin(t * 0.05)) * 2.2 * g
 
 static func _quad(size: float, col: Color, emit: float, additive := true) -> QuadMesh:
+	# v0.11: soft round radial texture, billboarded, unshaded; additive for glows. Brightness
+	# from emit is folded into the color (HDR albedo) since unshaded materials ignore emission.
 	var q := QuadMesh.new()
 	q.size = Vector2(size, size)
-	var m := StandardMaterial3D.new()
-	m.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
-	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	if additive: m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
-	m.vertex_color_use_as_albedo = true
-	m.albedo_color = col
-	m.albedo_texture = _dot()
-	if emit > 0.0:
-		m.emission_enabled = true
-		m.emission = col
-		m.emission_energy_multiplier = emit
+	var m: StandardMaterial3D = SoftParticle.material(additive).duplicate()
+	var boost := 1.0 + minf(emit, 6.0) * 0.25 if additive else 1.0
+	m.albedo_color = Color(col.r * boost, col.g * boost, col.b * boost, col.a)
 	q.material = m
 	return q
 

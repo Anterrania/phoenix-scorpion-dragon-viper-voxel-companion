@@ -311,10 +311,7 @@ static func _build_dna_extras(root: Node3D, head: Node3D, torso: Node3D, style: 
 			var g := Gradient.new(); g.set_color(0, Color(1, 0.85, 0.3)); g.set_color(1, Color(1, 0.15, 0.6, 0))
 			var gt := GradientTexture1D.new(); gt.gradient = g; pm.color_ramp = gt
 			p.process_material = pm
-			var qm := QuadMesh.new(); qm.size = Vector2(0.04, 0.04)
-			var em: StandardMaterial3D = _mat(Color(1, 0.6, 0.2), 4.0).duplicate(); em.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED; em.vertex_color_use_as_albedo = true
-			em.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA; qm.material = em
-			p.draw_pass_1 = qm
+			p.draw_pass_1 = SoftParticle.quad(0.04, true)
 			aura.add_child(p)
 		"circuit_glow":
 			var cm := _mat(accent, 3.0, 0.2, 0.2)

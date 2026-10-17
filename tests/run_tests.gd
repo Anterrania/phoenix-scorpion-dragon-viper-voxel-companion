@@ -44,6 +44,7 @@ func _ready() -> void:
 	_ui_kit_tests()
 	_v10_tests()
 	_v10_music_tests()
+	_v11_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -300,7 +301,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=12") and ep.contains("0.10.0"), "versionCode 12 / 0.10.0")
+	check(ep.contains("version/code=13") and ep.contains("0.11.0"), "versionCode 13 / 0.11.0")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))
@@ -877,3 +878,47 @@ func _rm_tree(d: String) -> void:
 	for f in DirAccess.get_files_at(d): DirAccess.remove_absolute(d.path_join(f))
 	for s in DirAccess.get_directories_at(d): _rm_tree(d.path_join(s))
 	DirAccess.remove_absolute(d)
+
+
+# ---------- v0.11 realistic companions + soft particles ----------
+func _v11_tests() -> void:
+	check(RealisticBody.available(), "v11 CC0 MakeHuman body asset present")
+	check(FileAccess.file_exists("res://art/LICENSES.md") and FileAccess.get_file_as_string("res://art/LICENSES.md").contains("CC0"), "v11 license recorded")
+	var fx := CompanionDNA.apply(_persona("foxy_ani"), {})
+	var m := RealisticBody.build(fx)
+	var sk := RealisticBody.skeleton(m)
+	check(sk != null and sk.get_bone_count() >= 50 and sk.find_bone("head") >= 0, "v11 rigged skeleton with head bone")
+	var meshes := {}
+	for mi in m.find_children("*", "MeshInstance3D", true, false): meshes[mi.name.to_lower()] = mi
+	check(meshes.has("human") and meshes["human"].material_override is ShaderMaterial and meshes["human"].material_override.shader.resource_path.ends_with("skin.gdshader"), "v11 skin shader on body")
+	check(meshes.has("human_long01") and meshes["human_long01"].visible and not meshes["human_afro01"].visible, "v11 foxy long hair cards")
+	var hm: ShaderMaterial = meshes["human_long01"].material_override
+	var rc: Color = hm.get_shader_parameter("root_color"); var tc: Color = hm.get_shader_parameter("tip_color")
+	check(rc.b > rc.r and rc.b > 0.8 and tc.r > 0.9 and tc.r > tc.g, "v11 foxy hair purple -> magenta gradient")
+	check(meshes["human_low-poly"].material_override.shader.resource_path.ends_with("eye.gdshader"), "v11 eye shader")
+	var em: GPUParticles3D = m.get_node_or_null("Aura/Embers")
+	check(em != null and em.amount <= 20 and (em.draw_pass_1.material as BaseMaterial3D).albedo_texture != null, "v11 subtle textured embers")
+	check(SoftParticle.sanitize(m) == 0, "v11 no untextured particle quads on Foxy")
+	m.free()
+	var cn := RealisticBody.build(CompanionDNA.apply(_persona("circuit_nova"), {}))
+	var cnb: MeshInstance3D = cn.find_children("Human", "MeshInstance3D", true, false)[0]
+	check(float(cnb.material_override.get_shader_parameter("circuit")) > 0.0 and float(cnb.material_override.get_shader_parameter("metal")) > 0.3, "v11 nova chrome + circuit emission")
+	var afro: MeshInstance3D = cn.find_children("Human_afro01", "MeshInstance3D", true, false)[0]
+	check(afro.visible, "v11 nova curly hair")
+	cn.free()
+	var aa := CompanionDNA.apply(_persona("aaliyah"), {})
+	check(not aa.get("horns", false), "v11 aaliyah no horns")
+	var am := RealisticBody.build(aa)
+	var ab: MeshInstance3D = am.find_children("Human", "MeshInstance3D", true, false)[0]
+	check(float(ab.material_override.get_shader_parameter("freckles")) > 0.0, "v11 aaliyah freckles")
+	RealisticBody.animate(am, 1.0, 1.0)
+	am.free()
+	var bad := Node3D.new(); var gp := GPUParticles3D.new(); var q := QuadMesh.new(); gp.draw_pass_1 = q; bad.add_child(gp)
+	check(SoftParticle.sanitize(bad) == 1 and (gp.draw_pass_1.material as BaseMaterial3D).albedo_texture != null, "v11 sanitize fixes untextured quad")
+	bad.free()
+	for k in ["snow", "embers", "footstep_dust", "star_dust", "bolt_trail", "wing_sparkle"]:
+		var p := ParticleFX.make(k, 2)
+		if p == null: continue
+		var mat = p.draw_pass_1.material if p.draw_pass_1 else null
+		check(mat is BaseMaterial3D and mat.albedo_texture != null and mat.billboard_mode == BaseMaterial3D.BILLBOARD_PARTICLES, "v11 soft billboard particle: " + k)
+		p.free()

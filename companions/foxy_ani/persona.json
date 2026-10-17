@@ -225,10 +225,10 @@
     "skin": "#9fb4dc",
     "skin_metal": 0.7,
     "hair": [
-      "#7a3cff",
-      "#a23cf0",
-      "#d23ce0",
-      "#ff3cc8"
+      "#6a2cff",
+      "#9b30ff",
+      "#d02ce8",
+      "#ff2fc0"
     ],
     "hair_length": "long",
     "eyes": "#36ff7a",

@@ -122,6 +122,7 @@
     "accent": "#d0202a",
     "trim": "#c0c0cc",
     "look": "classic",
-    "freckles": true
+    "freckles": true,
+    "horns": false
   }
 }

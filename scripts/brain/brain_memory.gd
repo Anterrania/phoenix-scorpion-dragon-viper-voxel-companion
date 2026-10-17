@@ -52,8 +52,7 @@ func fact_texts() -> PackedStringArray:
 func _read(file: String) -> Array:
 	var p := dir.path_join(file)
 	var out: Array = []
-	if not FileAccess.file_exists(p): return out
-	for line in FileAccess.get_file_as_string(p).split("\n", false):
+	for line in SecureFile.read_text(p).split("\n", false):   # encrypted once an OwnerVault exists
 		var d: Variant = JSON.parse_string(line)
 		if d is Dictionary: out.append(d)
 	return out
@@ -63,5 +62,6 @@ func _append(file: String, rec: Dictionary, cap: int) -> void:
 	var rows := _read(file)
 	rows.append(rec)
 	if rows.size() > cap: rows = rows.slice(-cap)
-	var f := FileAccess.open(p, FileAccess.WRITE)
-	for r in rows: f.store_line(JSON.stringify(r))
+	var lines := PackedStringArray()
+	for r in rows: lines.append(JSON.stringify(r))
+	SecureFile.write_text(p, "\n".join(lines) + "\n")

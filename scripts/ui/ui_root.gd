@@ -44,6 +44,7 @@ func _ready() -> void:
 	panels["land"] = _build_land()
 	panels["proposals"] = _build_proposals()
 	panels["history"] = _build_history()
+	_viper_radial()
 	get_viewport().size_changed.connect(_layout)
 	_layout()
 	AgentBrain.request_failed.connect(func(_id, _e): _update_chat_status())
@@ -52,6 +53,7 @@ func _ready() -> void:
 	call_deferred("_apply_labels")
 	if not bool(Settings.get_value("welcome", "done", false)): call_deferred("go_welcome", false)
 	AgentBrain.reply_ready.connect(_on_reply)
+	if OwnerVault.has_vault() and not OwnerVault.storage_ready(): call_deferred("open_unlock_prompt")
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", false)) else "")
 
@@ -238,12 +240,44 @@ func _build_menu() -> Dictionary:
 	b.add_child(label("Gold ★ YOUR INPUT HERE tags mark placeholders waiting for your decision.", 22, GOLD))
 	return p
 
+## Radial launcher (right edge, vertically centred). Admin 12 o'clock -> dashboard,
+## Security 2 o'clock -> lock/audit panel, then Chat, Map, Proposals, Menu.
+var radial: ViperRadial
+func _viper_radial() -> void:
+	radial = ViperRadial.new()
+	radial.name = "ViperRadial"
+	add_child(radial)
+	var vp := get_viewport().get_visible_rect().size
+	radial._anchor_center = Vector2(vp.x - 76, vp.y * 0.55)
+	radial._resize()
+	radial.item_selected.connect(_on_radial)
+
+func _on_radial(id: String) -> void:
+	radial.open = false
+	if id == "Admin": open_admin()
+	elif id == "Security": open_security()
+	else: show_panel({"Chat": "chat", "Map": "map", "Proposals": "proposals", "Menu": "menu"}.get(id, ""))
+
+func open_security() -> SecurityScreen:
+	var existing := get_node_or_null("SecurityScreen")
+	if existing: return existing
+	var s: SecurityScreen = load("res://scenes/admin/security_screen.tscn").instantiate()
+	add_child(s)
+	return s
+
+## App start with encrypted saves: big PIN pad, or continue as guest (memories stay sealed).
+func open_unlock_prompt() -> void:
+	var s := open_security()
+	var pad := s.open_pad("unlock")
+	pad.prompt.text = "Welcome back. Enter your PIN to open your companions' memories."
+
 ## Viper OS admin overlay (tickets / wiki / revisions / reports / local profile). Local-only.
 func open_admin() -> Control:
 	var existing := get_node_or_null("AdminScreen")
 	if existing: return existing
 	var a: Control = load("res://scenes/admin/admin_screen.tscn").instantiate()
 	add_child(a)
+	if a.get("pages"): a.pages.go(0)   # dashboard
 	return a
 
 # ---------- wardrobe ----------
@@ -568,7 +602,7 @@ func _refresh_avatar(reload := true) -> void:
 	var O: Dictionary = Profile.options
 	var presets := HBoxContainer.new()
 	for pr in O.get("presets", []):
-		if bool(pr.get("owner_only", false)) and not Profile.is_owner(): continue
+		if bool(pr.get("owner_only", false)) and not Profile.is_owner_device(): continue
 		var pid: String = pr["id"]
 		presets.add_child(btn("Preset: " + str(pr["name"]), func():
 			av = Profile.preset_avatar(pid)
@@ -638,7 +672,9 @@ func _refresh_avatar(reload := true) -> void:
 		code.add_theme_font_size_override("font_size", 26)
 		oh.add_child(code)
 		oh.add_child(btn("Unlock", func():
-			if Profile.try_owner_unlock(code.text): _refresh_avatar(false), 170))
+			if Profile.try_owner_unlock(code.text):
+				_refresh_avatar(false)
+				if OwnerVault.needs_pin_setup(): open_security().open_pad("setup"), 170))
 		av_list.add_child(oh)
 	av_list.add_child(input_tag("YOUR INPUT HERE: more hair styles, body sliders, tattoos, wings?"))
 	collapse_sections(av_list, ["Hair streaks", "DNA blend", "Fine-tune", "Attachments"])

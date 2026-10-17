@@ -29,15 +29,17 @@ static var _cfg: ConfigFile
 static func cfg() -> ConfigFile:
 	if _cfg == null:
 		_cfg = ConfigFile.new()
-		_cfg.load(PATH)
+		_cfg.parse(SecureFile.read_text(PATH))   # encrypted once an OwnerVault exists
 	return _cfg
+
+static func reload() -> void: _cfg = null
 
 static func region_get(region: String, key: String) -> Variant:
 	return cfg().get_value("region:" + region, key, REGION_DEFAULTS.get(key))
 
 static func region_set(region: String, key: String, v: Variant) -> void:
 	cfg().set_value("region:" + region, key, v)
-	cfg().save(PATH)
+	SecureFile.write_text(PATH, cfg().encode_to_text())
 
 static func parcel_get(region: String, parcel: String, key: String) -> Variant:
 	var sec := "parcel:%s/%s" % [region, parcel]
@@ -46,7 +48,7 @@ static func parcel_get(region: String, parcel: String, key: String) -> Variant:
 
 static func parcel_set(region: String, parcel: String, key: String, v: Variant) -> void:
 	cfg().set_value("parcel:%s/%s" % [region, parcel], key, v)
-	cfg().save(PATH)
+	SecureFile.write_text(PATH, cfg().encode_to_text())
 
 ## Parcels are a 64 m grid inside each region (like SL's 4 m land grid, but bigger).
 static func parcel_id(pos: Vector3) -> String:

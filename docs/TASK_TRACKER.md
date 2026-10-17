@@ -48,4 +48,4 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | V.3 | Viper | Server meshing across region servers (after Aurora-model grid G-phases) | 🧊 |
 | V.4 | Viper | Interplanetary travel (star map + seamless realm transitions) | 🧊 |
 | V.5 | Viper | Planetary destruction / large-scale voxel events | 🧊 |
-
+| 5.8 | 5 | Owner PIN/passphrase (PBKDF2), session gate + 30-min auto-lock, encrypted saves + migration, audit hash chain, e-stop, Security panel, radial launcher (`docs/SECURITY.md`) | ✅ headless-tested, needs device test |

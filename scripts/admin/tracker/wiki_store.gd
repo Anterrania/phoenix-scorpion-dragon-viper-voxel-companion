@@ -15,9 +15,8 @@ var pages := {}   # name -> {text, rev, source}
 func _init(p_revs: RevisionStore, seed_if_empty := true) -> void:
 	revs = p_revs
 	path = revs.root.path_join("wiki.json")
-	if FileAccess.file_exists(path):
-		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
-		if d is Dictionary: pages = d
+	var d: Variant = SecureFile.read_json(path)
+	if d is Dictionary: pages = d
 	revs.register_applier("wiki", _apply)
 	if pages.is_empty() and seed_if_empty: seed_from_res()
 
@@ -36,8 +35,7 @@ func seed_from_res() -> int:
 	return pages.size()
 
 func _save() -> void:
-	var f := FileAccess.open(path, FileAccess.WRITE)
-	f.store_string(JSON.stringify(pages))
+	SecureFile.write_json(path, pages)
 
 func names() -> Array:
 	var k := pages.keys(); k.sort(); return k

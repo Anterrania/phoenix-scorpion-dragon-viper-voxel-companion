@@ -12,12 +12,20 @@ const OPTIONS_PATH := "res://data/avatar_options.json"
 const OWNER_CODE_SHA256 := "8ae5a77088495aa98e24931de8e55e51b027353c4d1f2026651c964df6d996eb"
 var data := {}
 var options := {}
+var owner_code_hash := OWNER_CODE_SHA256   # tests swap in a known hash
 
 func _ready() -> void:
 	var o: Variant = JSON.parse_string(FileAccess.get_file_as_string(OPTIONS_PATH))
 	options = o if o is Dictionary else {}
 	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(PATH)) if FileAccess.file_exists(PATH) else null
 	data = d if d is Dictionary else {}
+	# when encrypted saves become readable (first unlock this launch), drop stale caches
+	OwnerVault.on_storage_ready.append(func():
+		EveCore.reload_all()
+		Estate.reload()
+		ViperAdminData.reset()
+		var ab := get_node_or_null("/root/AgentBrain")
+		if ab and ab.has_method("reload_brains"): ab.reload_brains())
 
 func has_profile() -> bool:
 	return data.has("avatar") and str(data.get("name", "")) != ""
@@ -25,8 +33,20 @@ func has_profile() -> bool:
 func role() -> String:
 	return str(data.get("role", "guest"))
 
+## Owner powers need BOTH the owner role on this device AND an unlocked owner session
+## (OwnerVault: PIN/passphrase or the legacy owner code, auto-lock after inactivity).
 func is_owner() -> bool:
+	return role() == "owner" and OwnerVault.is_unlocked()
+
+## The device belongs to the owner (role), whether or not the session is unlocked right now.
+func is_owner_device() -> bool:
 	return role() == "owner"
+
+func _exit_tree() -> void:
+	OwnerVault.on_storage_ready.clear()   # static Callables must not outlive this node at shutdown
+
+func _input(e: InputEvent) -> void:
+	if e is InputEventKey or e is InputEventMouseButton or e is InputEventScreenTouch: OwnerVault.touch()
 
 func display_name() -> String:
 	return str(data.get("name", "Traveler"))
@@ -34,12 +54,22 @@ func display_name() -> String:
 static func code_hash(code: String) -> String:
 	return code.strip_edges().to_lower().sha256_text()
 
+## Unlock the owner session.
+## - Vault exists: PIN, passphrase or the legacy owner code (kept as its own key slot) via OwnerVault.
+## - No vault yet (phones from before v0.12): the legacy owner code (hash match) opens an owner
+##   session; the UI then offers the set-PIN step (OwnerVault.needs_pin_setup()).
 func try_owner_unlock(code: String) -> bool:
-	if code_hash(code) == OWNER_CODE_SHA256:
+	var ok := false
+	if OwnerVault.has_vault():
+		ok = OwnerVault.unlock(code) == ""
+	elif code_hash(code) == owner_code_hash:
+		OwnerVault.start_legacy_session(code.strip_edges())
+		ok = true
+	if ok and role() != "owner":
 		data["role"] = "owner"
 		save()
-		return true
-	return false
+	elif ok: changed.emit()
+	return ok
 
 func default_avatar() -> Dictionary:
 	return preset_avatar("wanderer")
@@ -47,7 +77,7 @@ func default_avatar() -> Dictionary:
 func preset_avatar(id: String) -> Dictionary:
 	for p in options.get("presets", []):
 		if p["id"] == id:
-			if bool(p.get("owner_only", false)) and not is_owner(): return {}
+			if bool(p.get("owner_only", false)) and not is_owner_device(): return {}   # cosmetic: survives auto-lock
 			if p.has("from"):
 				var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(p["from"]))
 				if d is Dictionary:

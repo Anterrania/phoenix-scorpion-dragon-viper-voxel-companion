@@ -47,6 +47,8 @@ func _ready() -> void:
 	_v11_tests()
 	load("res://tests/admin_tests.gd").run(self)
 	await load("res://tests/admin_tests.gd").run_scene(self)
+	load("res://tests/security_tests.gd").run(self)
+	await load("res://tests/security_tests.gd").run_ui(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

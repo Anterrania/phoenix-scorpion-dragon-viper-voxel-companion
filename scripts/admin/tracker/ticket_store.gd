@@ -28,8 +28,7 @@ func _init(p_revs: RevisionStore, seed_if_empty := true) -> void:
 
 func _load() -> void:
 	tickets.clear()
-	if not FileAccess.file_exists(path): return
-	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	var d: Variant = SecureFile.read_json(path)
 	if d is Array:
 		for t in d: tickets[int(t["id"])] = t
 
@@ -37,8 +36,7 @@ func _save() -> void:
 	var arr: Array = []
 	var ids := tickets.keys(); ids.sort()
 	for id in ids: arr.append(tickets[id])
-	var f := FileAccess.open(path, FileAccess.WRITE)
-	f.store_string(JSON.stringify(arr, "\t"))
+	SecureFile.write_json(path, arr, "\t")
 
 func seed_from_res() -> int:
 	if not FileAccess.file_exists(SEED_PATH): return 0

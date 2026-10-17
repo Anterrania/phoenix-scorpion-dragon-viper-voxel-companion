@@ -21,7 +21,7 @@ func _init(a: Node3D) -> void:
 	name = "Life"
 
 func free_roam() -> bool:
-	return not agent.following
+	return not agent.following and not AutonomyGuard.paused()   # e-stop pauses autonomy
 
 func log_action(t: String) -> void:
 	log_entries.append(t)

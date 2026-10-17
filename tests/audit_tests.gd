@@ -45,6 +45,16 @@ static func run(t: Node) -> void:
 		t.check(src.begins_with("# INACTIVE (2026-10-17):") and src.to_lower().contains("re-enable"), "audit: INACTIVE header + re-enable note: " + p.get_file())
 	t.check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/main_world.tscn", "audit: main scene unchanged")
 
+	# --- bug: a static `reload()` on a class_name is shadowed by Script.reload() (Estate.reload on unlock) ---
+	var c := ConfigFile.new(); c.set_value("region:audit", "water_height", 9.0)
+	Estate._cfg = c
+	Estate.reload_data()
+	t.check(Estate._cfg == null, "audit: Estate.reload_data() drops the cached config")
+	t.check(not FileAccess.get_file_as_string("res://scripts/world/estate.gd").contains("static func reload()"), "audit: Estate has no static reload() (would be Script.reload)")
+	t.check(FileAccess.get_file_as_string("res://scripts/autoload/profile.gd").contains("Estate.reload_data()"), "audit: Profile unlock hook calls Estate.reload_data()")
+	var bad := _shadowing_statics()
+	t.check(bad.is_empty(), "audit: no class_name static func shadows a built-in Script/Object method %s" % [bad])
+
 	# --- coverage: Lindex-style order book (scaffold) had no test ---
 	var ex2 := CurrencyExchange.new()
 	ex2.place_order("a", "buy", 10, 105); ex2.place_order("b", "sell", 4, 100); ex2.place_order("c", "sell", 10, 110)
@@ -87,3 +97,30 @@ static func run_scene(t: Node) -> void:
 	t.check(not (is_instance_valid(home_first) and home_first.get_parent() == a.home), "audit: Home rebuilt when shown again (never stale)")
 	a.queue_free()
 	ViperAdminData.reset()
+
+## Static funcs on class_name scripts that share a name with a method of Script/GDScript/Resource/Object.
+## Calling them as ClassName.method() runs the built-in instead (found with Estate.reload, 2026-10-17).
+const BUILTIN := ["reload", "can_instantiate", "get_base_script", "get_global_name", "get_instance_base_type",
+	"get_property_default_value", "get_script_constant_map", "get_script_method_list", "get_script_property_list",
+	"get_script_signal_list", "get_source_code", "has_script_signal", "has_source_code", "instance_has", "is_abstract",
+	"is_tool", "set_source_code", "new", "duplicate", "emit_changed", "get_rid", "take_over_path", "reset_state",
+	"get_path", "set_path", "get_name", "get", "set", "call", "callv", "connect", "disconnect", "free", "get_class",
+	"is_class", "notification", "to_string", "get_meta", "set_meta", "has_meta", "has_method", "has_signal",
+	"emit_signal", "get_property_list", "get_method_list", "get_signal_list", "get_script", "set_script",
+	"get_instance_id", "call_deferred", "set_deferred", "tr", "tr_n"]
+static func _shadowing_statics() -> Array:
+	var out: Array = []
+	var files: Array = []
+	_walk("res://scripts", files)
+	var re := RegEx.create_from_string("(?m)^static func (\\w+)")
+	for f in files:
+		var src := FileAccess.get_file_as_string(f)
+		if not src.contains("\nclass_name ") and not src.begins_with("class_name "): continue
+		for m in re.search_all(src):
+			if m.get_string(1) in BUILTIN: out.append("%s:%s" % [f.get_file(), m.get_string(1)])
+	return out
+
+static func _walk(dir: String, out: Array) -> void:
+	for f in DirAccess.get_files_at(dir):
+		if f.ends_with(".gd"): out.append(dir.path_join(f))
+	for d in DirAccess.get_directories_at(dir): _walk(dir.path_join(d), out)

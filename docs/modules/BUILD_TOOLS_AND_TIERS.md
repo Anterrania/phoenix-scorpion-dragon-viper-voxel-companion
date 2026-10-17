@@ -2,7 +2,7 @@
 
 > **Status:** design spec, 2026-10-17. Most of this is **Planned**. Each section marks what is **Built** (in the code on `main` today), **Partial**, or **Planned**. Currency features are marked **LEGAL REVIEW REQUIRED**.
 >
-> **Who builds what.** Foxy (UI lead) implements the **build engine and the build-tool HUD after v0.12 merges**. Roles and tiers (`scripts/security/tiers.gd`, `Tiers.can`, the role editor) are being built on `feature/social-dolphin`, which is not on origin yet. The Dev Bot (this doc) owns the spec, admin, security, wiki, tickets, the ads and rental carousels, the events board, land info panels and the tier editor screen. Full split: [§9 Ownership](#9-ownership).
+> **Who builds what.** Foxy (UI lead) implements the **build engine and the build-tool HUD after v0.12 merges**. Roles and tiers are **built**: `scripts/security/tiers.gd` (`Tiers.can`, PR #26, merged as `1a07535`) is the source of truth, with the owner-only role editor in Admin › Community › Roles and the wiki page `docs/wiki/tiers.md`. The Dev Bot (this doc) owns the spec, admin, security, wiki, tickets, the ads and rental carousels, the events board, land info panels and the tier editor screen. Full split: [§9 Ownership](#9-ownership).
 
 ## 1. Goals
 - Second Life / Firestorm-class build tools, rebuilt for voxels on a phone: one-handed, big targets, no tiny gizmo handles.
@@ -18,16 +18,16 @@
 | Tool allow-list per companion (`persona.json` tools) + e-stop (`AutonomyGuard.paused()` blocks every tool) | `scripts/autoload/agent_brain.gd` | **Built** |
 | Build log: every companion build and owner terraform goes to Eve Core (`log_build`) and the revision timeline (`ViperAdminData.record_world_edit`, summaries only) | `scripts/ai/eve_core.gd`, `scripts/admin/tracker/viper_admin_data.gd` | **Built** |
 | Realm presets (whole-realm generation) | `scripts/autoload/realm_builder.gd`, `data/realm_presets/` | **Built** |
-| Estate: region + 64 m parcel settings (access lists, terraform rights, fly/build/damage switches, media/music URL), encrypted save | `scripts/world/estate.gd` | **Partial**: saved, but `allow_build` / `allow_fly` / `allow_damage` are never read, and the land panel passes `true` as "is owner" to `can_terraform` (fix proposed in `patches/land_tools_terraform_owner_check.patch`) |
+| Estate: region + 64 m parcel settings (access lists, terraform rights, fly/build/damage switches, media/music URL), encrypted save | `scripts/world/estate.gd` | **Partial**: `Tiers.can(…, "build", parcel)` now reads `allow_build`, `terraform`, access lists and bans, but the terraform brush and companion tools don't call `Tiers.can` yet; `allow_fly` / `allow_damage` are still never read; the land panel passes `true` as "is owner" to `can_terraform` (fix proposed in `patches/land_tools_terraform_owner_check.patch`) |
 | 16-material voxel palette with glitter emission | `scripts/generators/voxel_palette.gd` | **Partial**: tested, not used at runtime. The build engine's material picker should use it. |
 | Procedural props + placeholder landmarks | `scripts/world/prop_kit.gd`, `landmark_builder.gd` | **Built** (placeholders) |
 | Land tiers, upload fees (placeholder AEC prices) | `data/economy/land_and_fees.json` | **Data only** |
 | Order book (Lindex-style), ledger | `scripts/economy/currency_exchange.gd`, `ledger.gd` | **Scaffold**, not in the UI. LEGAL REVIEW REQUIRED. |
 | Select / move / rotate / scale, linking, properties panel, undo stack, permission overlay, blueprints, copy/paste | none | **Planned** (this doc) |
-| Roles & tiers, `Tiers.can` | `feature/social-dolphin` (in progress) | **Planned** on `main` |
+| Roles & tiers, `Tiers.can`, owner-only role editor | `scripts/security/tiers.gd`, `scripts/admin/community_screen.gd` (PR #26) | **Built** (not yet called by any build path) |
 
 ## 3. Build engine (Foxy implements, after v0.12)
-Every action below calls **`Tiers.can(actor, "build", parcel)`** first (or the more specific key from §5: `carve`, `paint`, `upload`). A `false` result shows a toast ("You can't build here") and does nothing. The engine never edits voxels directly from UI code; it goes through one `BuildOp` path so permissions, undo, logging and the e-stop are always applied.
+Every action below calls **`Tiers.can(actor, "build", parcel)`** first (`upload` for uploads; the proposed `carve` / `paint` keys in §5 once `tiers.gd` adds them). A `false` result shows a toast ("You can't build here") and does nothing. The engine never edits voxels directly from UI code; it goes through one `BuildOp` path so permissions, undo, logging and the e-stop are always applied.
 
 ### 3.1 Operations
 | Op | What it does | Notes |
@@ -56,39 +56,45 @@ A toggle that tints parcels on the ground: soft **OK** green where you may build
 
 ### 3.6 Bot & companion build API (BrainCore / AgentBrain tools)
 - Keep the existing tools (`place_voxel`, `carve_area`, `spawn_structure`, `build_realm`) and add `paint_area`, `place_blueprint(name, x, y, z, rot)`, `copy_region`, `undo_last`.
-- Each tool call goes `AgentBrain.dispatch_tool` → allow-list check → e-stop check → **`Tiers.can(companion_actor, key, parcel)`** → `BuildOp`. Bots use the **Builder/Staff** role.
+- Each tool call goes `AgentBrain.dispatch_tool` → allow-list check → e-stop check → **`Tiers.can(companion_id, "build", parcel)`** → `BuildOp`. Bots that build for the owner get the **Builder/Staff** tier from the owner (see §4 note).
 - Rate limit per bot (for example 12 tool calls per turn, the current `MAX_TOOLS_PER_TURN`, plus a voxel budget per minute per parcel).
 - Learned build habits stay **data-only brain cells** that need owner approval (`BrainLearner` → Proposals). A bot can never grant itself a role or a parcel right.
 - Every bot build is logged (`EveCore.log_build` + a revision) and can be undone by the owner or an estate manager.
 
-## 4. Roles (from `Tiers`, built on `feature/social-dolphin`)
-Roles, lowest to highest: **Guest, Resident, Premium/Creator, Builder/Staff, Estate Manager, Owner**.
-- Default role is **Guest**. Bots and employees use **Builder/Staff**.
-- **Owner** also needs an unlocked owner session (`Profile.is_owner()`, which is `role == owner` and `OwnerVault.is_unlocked()`).
-- Role changes are **owner-only**, made in the admin tier editor (Dev Bot owns that screen).
-- Roles are saved through the encrypted save path (`SecureFile`).
+## 4. Roles (`scripts/security/tiers.gd`, built in PR #26)
+`Tiers` is the source of truth; this section only summarises it. Tiers, lowest to highest: **Guest** (`guest`), **Resident** (`resident`), **Premium/Creator** (`creator`), **Builder/Staff** (`staff`, bots and employees), **Estate Manager** (`estate_manager`), **Owner** (`owner`).
+- The default tier is **Guest**. A device with a saved profile is Resident.
+- **Owner** also needs an unlocked owner session (`Profile.is_owner()`); a locked owner counts as Guest.
+- Role changes are **owner-only** (`Tiers.set_tier`, Admin › Community › Roles). Nobody can be made Owner; `admin` and `roles` are owner-only actions.
+- Roles and matrix overrides are saved to `user://social/roles.json` through `SecureFile` (encrypted once an OwnerVault exists).
+- With the e-stop on (`AutonomyGuard.paused()`), bots can only `browse`.
+- **Note for the build engine:** `Tiers.assigned_tier` gives companions **Resident** by default. Resident can build only where the parcel's terraform rule is `everyone`, or `group` with membership/allow-list. For bots to build on owner-only land, the owner assigns them **Builder/Staff** in the role editor (or a `bot:` id gets Staff). This is deliberate: bots never raise their own tier.
 
-API every caller uses (stable, documented by the Tiers PR):
+Stable API every build caller uses:
 ```gdscript
-Tiers.can(actor, action: String, parcel = null) -> bool
+Tiers.can(actor, action: String, target = null) -> bool
+# actor: "self", a member id, or {"id": ..., "tier": ...} (a Dictionary may only lower the tier)
+# target for build/land/enter: {"region": r, "parcel": p}, "region/parcel" or "region"
 ```
-It combines the role with `Estate` parcel access (`can_enter`, access lists, bans), terraform rights and the parcel's `allow_build` switch.
+For `build`, `land` and `enter` it combines the tier with Estate bans, access lists, group land, `allow_build` and the terraform rule (`Tiers._land_ok`).
 
-## 5. What each role can do (proposal; final table lives in `tiers.gd`)
-| Permission key | Guest | Resident | Premium/Creator | Builder/Staff | Estate Manager | Owner |
-|---|---|---|---|---|---|---|
-| `build` (place/carve/paint/copy/paste) | sandbox only | own or rented parcel | own/rented + group parcels | anywhere the estate allows staff | their estate | everywhere |
-| `carve` terrain (Terraform brush) | no | own parcel, if region terraform ≠ owner_only | same | estate-allowed | their estate | everywhere |
-| `paint` | sandbox | own/rented | own/rented/group | estate-allowed | their estate | everywhere |
-| `upload` (mesh/texture/sound) | no | no | yes (fee, LEGAL REVIEW REQUIRED) | yes (free) | yes | yes |
-| `land_buy` | no | yes (LEGAL REVIEW REQUIRED) | yes | no (staff build, they don't own) | no | yes |
-| `land_rent` | no | yes | yes | no | manages rentals | yes |
-| `marketplace` (sell) | no | yes | yes | no | yes | yes |
-| `advertise` (book an ad slot) | no | no | yes | no | approves slots on their estate | yes |
-| `host_event` | no | yes (own parcel) | yes | yes | yes | yes |
-| `admin` (admin screen writes, tier editor) | no | no | no | tickets/wiki only | estate tools only | everything |
+## 5. What each tier can do
+Built action keys in `Tiers.ACTIONS` that matter here, with the default matrix (each tier has everything of the tiers below it):
+| Key | Lowest tier | Notes |
+|---|---|---|
+| `enter` | Guest | plus parcel access rules |
+| `build` | Resident | plus `allow_build` + terraform rule; Staff and up may build on owner-only land |
+| `event_create` | Premium/Creator | hosting events (events board) |
+| `classified` | Premium/Creator | classifieds tied to ad slots (SOCIAL-7) |
+| `upload` | Premium/Creator | mesh/texture/sound; fees LEGAL REVIEW REQUIRED |
+| `marketplace` | Premium/Creator | selling; AEC pricing LEGAL REVIEW REQUIRED |
+| `moderate` | Builder/Staff | moderation queue |
+| `land` | Estate Manager | region/estate settings and land |
+| `admin`, `roles` | Owner only | admin writes, role editor |
 
-A **sandbox** is a public build area that auto-cleans (like SL sandboxes); planned per region.
+**Proposed new keys** (to add to `tiers.gd` in its own PR, owner of `tiers.gd` decides): `carve` (terrain brush, separate from voxel `build`), `paint`, `land_rent`, `advertise` (book an ad slot; `classified` may cover it), `blueprint_place` for bots. Until then the build engine uses `build` for place/carve/paint/copy/paste/blueprints, exactly as Foxy's spec says: every action calls `Tiers.can(actor, "build", parcel)`.
+
+A **sandbox** is a public build area (terraform rule `everyone`) that auto-cleans, like SL sandboxes; planned per region.
 
 ## 6. Land, rentals, ads, events
 ### 6.1 Rentals (Planned; LEGAL REVIEW REQUIRED for any AEC price)
@@ -96,17 +102,17 @@ A **sandbox** is a public build area that auto-cleans (like SL sandboxes); plann
 - **Region rental**: a whole region, estate manager rights delegated for the period.
 - **Time-based**: hourly/daily slots for events and shops.
 - Rental object: `{parcel_ids, renter, start, end, price_aec, auto_renew, voxel_budget}` stored with the estate (`user://estate.cfg` today; grid service later). When a rental ends, builds are returned to the renter's inventory as a blueprint, never deleted.
-- `Tiers.can(renter, "build", parcel)` returns true only between `start` and `end`.
+- Planned: `Tiers.can(renter, "build", parcel)` returns true only between `start` and `end` (needs rental data in `Tiers._land_ok`).
 
 ### 6.2 Advertising slots (Planned)
 - **Billboards**: fixed in-world frames on parcels (the 7 landmark placeholder frames are candidates).
 - **In-world carousels**: a 3D glass frame that shows one ad card at a time with the kit carousel behaviour (§7).
-- Booking needs `advertise`; an estate manager or the owner approves each ad before it shows. No tracking, no third-party ad networks.
+- Booking needs `classified` today (or a future `advertise` key); an estate manager or the owner approves each ad before it shows. No tracking, no third-party ad networks.
 - Ad card: image (webp, ≤ 512 px, ETC2/ASTC on device), title ≤ 40 chars, one link target (a parcel, event or marketplace item, not a web URL by default).
 
 ### 6.3 Events board (Planned)
 - A list of events (title, host, parcel, start/end in the viewer's local time, category, capacity).
-- Hosts need `host_event`. Events link to their parcel ("Teleport" button) and show in the land info panel.
+- Hosts need `event_create`. Events link to their parcel ("Teleport" button) and show in the land info panel.
 - Shown as a glass carousel of upcoming events on the admin Home and in the world map.
 
 ### 6.4 Land info panel (Partial)
@@ -124,6 +130,7 @@ Reuse the kit; do not invent new styles:
 - At most **one accent glow** per screen.
 - The **ember** accent only on Foxy-related items.
 - Tap targets **≥ 80 px**. Labels **≥ 16 sp** (Phoenix has eye strain).
+- **Sizing:** Phoenix wants **Compact** as the default (smallest usable text and icons) with a **Large** toggle. The scale variables are being added to `phoenix_tokens.gd` on `feature/phone-display-media`; build-tool UI must read sizes from those tokens, never fixed numbers. The 80 px / 16 sp floors above apply to the Large setting and to anything Phoenix taps often; Compact must still meet platform minimums (48 dp tap targets).
 - Premium and restrained: generous spacing, few glass layers (≤ 3), no flashing, no confetti, no campy effects.
 
 **Build HUD (Foxy's, spec only):** bottom-third layout; the operation is a radial menu (Place, Carve, Paint, Select, Move, Copy/Paste, Undo), the brush size is a ring dial, materials are a carousel of palette swatches, the gizmo has three big drag rings (not thin arrows), and the properties panel is a bottom sheet. The permissions overlay toggle sits next to the brush dial.
@@ -140,16 +147,16 @@ All of this is **Planned** and offline-first; nothing needs a server to run.
 | Build engine (place, carve, paint, select, move/rotate/scale, copy/paste, blueprints, undo) | **Foxy**, after v0.12 | Every op calls `Tiers.can(actor, "build", parcel)` |
 | Build-tool HUD (gizmo, brush, blueprint picker), land-tools sheet, main HUD, minimap | **Foxy** | Dev Bot sends patches under `patches/` instead of editing |
 | Companion History, Proposals and voice panels | **Foxy** | |
-| `tiers.gd`, `Tiers.can`, role persistence | social worker, `feature/social-dolphin` | Dev Bot does not create `tiers.gd` |
-| Admin, security, wiki, tickets, tier editor screen | **Dev Bot** | |
+| `tiers.gd`, `Tiers.can`, role persistence, Community › Roles editor | social worker (PR #26, merged) | Dev Bot does not edit `tiers.gd`; new keys go through its owner |
+| Admin, security, wiki, tickets | **Dev Bot** | |
 | Ads and rental carousels, events board, land info panels | **Dev Bot** | Built on the kit carousel |
 | Kit carousel + glass menu component, calm-premium theme pass | **Dev Bot** (handed over by Foxy) | |
 
 ## 10. Phased plan (small PRs)
 Tracker rows BUILD-1 … BUILD-10 in `docs/TASK_TRACKER.csv`.
 1. **BUILD-1** (Dev Bot): kit `glass_carousel.tscn` + glass menu, calm-premium tokens, admin Home on the carousel. Tests for snap, dots, opt-in auto-advance, pause on touch.
-2. **BUILD-2** (social worker): `Tiers` + `Tiers.can` + role persistence + tests. Dev Bot reviews the API against this doc.
-3. **BUILD-3** (Dev Bot): admin tier editor (owner-only), wiki page `docs/wiki/roles-tiers.md` with real status.
+2. **BUILD-2** ✅ (PR #26): `Tiers` + `Tiers.can` + role persistence + tests.
+3. **BUILD-3** ✅ (PR #26): owner-only role editor (Admin › Community › Roles) + `docs/wiki/tiers.md`.
 4. **BUILD-4** (Foxy, after v0.12): `BuildOp` core: place / carve / paint with undo stack, Tiers check, e-stop, log + revision. Headless tests on a VoxelTool stub.
 5. **BUILD-5** (Foxy): build HUD: radial ops, brush ring dial, material carousel (VoxelPalette), snap/grid.
 6. **BUILD-6** (Foxy): select + move/rotate/scale gizmo, copy/paste, blueprints JSON.

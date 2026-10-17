@@ -638,7 +638,103 @@
  {
   "id": 54,
   "type": "task",
-  "summary": "Admin/codebase audit 2026-10-17 (docs/AUDIT_2026-10-17.md): brain-cell revert owner gate, tracker CSV import fix, export filters, INACTIVE legacy prototype, kit redraw + admin tab perf",
+  "summary": "Social layer (clean-room Dolphin-style concepts): profiles + picks, friends/followers/blocks, messages + offline queue, groups (roles, notices, land), feed, companion post approval, notifications, rep",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SOCIAL-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 55,
+  "type": "task",
+  "summary": "Tiers: Guest/Resident/Creator/Staff/Estate Manager/Owner + permission matrix, Tiers.can(actor, action, target) with estate access/terraform, owner-only role editor (scripts/security/tiers.gd)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SOCIAL-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 56,
+  "type": "task",
+  "summary": "Admin > Community screen: Overview, Reports, Approvals, Groups, Roles (scripts/admin/community_screen.gd)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SOCIAL-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 57,
+  "type": "task",
+  "summary": "Foxy in-world side: profile card on avatar tap, group tags, IM toasts, snapshot button, companion feed posts, build tools call Tiers.can(actor, 'build', parcel)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SOCIAL-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 58,
+  "type": "task",
+  "summary": "Roadmap: events (merge with events board), polls, forums, blogs",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SOCIAL-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 59,
+  "type": "task",
+  "summary": "Roadmap: photo/video albums + in-world snapshots (media store, upload review)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SOCIAL-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 60,
+  "type": "task",
+  "summary": "Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SOCIAL-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 61,
+  "type": "task",
+  "summary": "Roadmap: grid Social service + multi-device identity, points/reputation",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SOCIAL-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 62,
+  "type": "task",
+  "summary": "Admin/codebase audit 2026-10-17 (docs/AUDIT_2026-10-17.md): brain-cell revert owner gate, Estate.reload -> reload_data (Script.reload shadowing), tracker CSV import fix, export filters, INACTIVE legac",
   "status": "closed",
   "resolution": "fixed",
   "priority": "P1",
@@ -648,7 +744,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 55,
+  "id": 63,
   "type": "task",
   "summary": "Kit glass_carousel.tscn + glass menu + calm-premium tokens/theme; admin Home on the carousel (docs/modules/BUILD_TOOLS_AND_TIERS.md §7)",
   "status": "new",
@@ -660,11 +756,11 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 56,
+  "id": 64,
   "type": "task",
-  "summary": "Roles/tiers: Tiers.can(actor, action, parcel) + role persistence (SecureFile) + tests - social worker, feature/social-dolphin",
-  "status": "accepted",
-  "resolution": "",
+  "summary": "Roles/tiers: Tiers.can(actor, action, target) + role persistence + tests (scripts/security/tiers.gd, PR #26; see SOCIAL-2)",
+  "status": "closed",
+  "resolution": "fixed",
   "priority": "P0",
   "component": "general",
   "milestone": "BUILD-2",
@@ -672,11 +768,11 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 57,
+  "id": 65,
   "type": "task",
-  "summary": "Admin tier editor (owner-only role changes) + docs/wiki/roles-tiers.md",
-  "status": "new",
-  "resolution": "",
+  "summary": "Admin tier editor (owner-only role changes): Admin > Community > Roles + docs/wiki/tiers.md (PR #26; see SOCIAL-3)",
+  "status": "closed",
+  "resolution": "fixed",
   "priority": "P1",
   "component": "general",
   "milestone": "BUILD-3",
@@ -684,7 +780,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 58,
+  "id": 66,
   "type": "task",
   "summary": "Build engine core BuildOp: place/carve/paint + undo + Tiers.can + e-stop + log (Foxy, after v0.12)",
   "status": "new",
@@ -696,7 +792,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 59,
+  "id": 67,
   "type": "task",
   "summary": "Build HUD: radial ops, brush ring dial, VoxelPalette material carousel, snap/grid (Foxy, after v0.12)",
   "status": "new",
@@ -708,7 +804,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 60,
+  "id": 68,
   "type": "task",
   "summary": "Select + move/rotate/scale gizmo, copy/paste, blueprints JSON (Foxy, after v0.12)",
   "status": "new",
@@ -720,7 +816,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 61,
+  "id": 69,
   "type": "task",
   "summary": "Enforce estate allow_build + terraform rights via Tiers.can; permissions overlay data (replaces patches/land_tools_terraform_owner_check.patch)",
   "status": "new",
@@ -732,7 +828,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 62,
+  "id": 70,
   "type": "task",
   "summary": "Companion build API v2: paint_area, place_blueprint, undo_last via Tiers.can (Builder/Staff), rate limits",
   "status": "new",
@@ -744,7 +840,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 63,
+  "id": 71,
   "type": "task",
   "summary": "Land info panel + events board + rental records (placeholder AEC; LEGAL REVIEW REQUIRED)",
   "status": "new",
@@ -756,7 +852,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 64,
+  "id": 72,
   "type": "task",
   "summary": "Ad slots: billboard + in-world carousel, owner/estate approval queue in admin",
   "status": "new",
@@ -764,6 +860,18 @@
   "priority": "P3",
   "component": "general",
   "milestone": "BUILD-10",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 73,
+  "type": "task",
+  "summary": "Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(\"self\", \"admin\"); cache admin Home revision history per head",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "AUDIT-2",
   "owner": "",
   "source": "docs/TASK_TRACKER.csv"
  }

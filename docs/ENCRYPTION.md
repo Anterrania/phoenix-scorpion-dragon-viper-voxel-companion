@@ -91,7 +91,7 @@ Brute-force backoff: 5 free tries, then 30 s doubling up to 1 h, persisted in `v
 | F8 | Keys aren't zeroed in RAM on lock | inherent to GDScript | documented |
 | – | Per-file IVs: a fresh 16-byte CSPRNG IV per seal. CBC IV reuse odds are negligible. Using one DEK for all files is fine at this volume | ok | no change |
 | – | Padding is checked after a successful MAC, and only the last byte is examined. That's safe because the MAC gates it | ok | no change |
-Side note found while testing: a `static func reload()` on a `class_name` script can collide with `Script.reload()` and silently reset static paths. The new stores use `reload_data()`.
+Side note: a `static func reload()` on a `class_name` script collides with `Script.reload()` and silently resets static paths (found independently by the 2026-10-17 audit for `Estate`). The new stores use `reload_data()`.
 
 ## 10. Recommended improvements (in order)
 1. **Android Keystore / StrongBox** through an Android plugin (v2): a non-exportable AES key with `setUserAuthenticationRequired`, used to wrap the DEK as a `biometric` slot (`BiometricHook` already describes this), plus a device-bound slot that makes offline PIN guessing useless off the phone.

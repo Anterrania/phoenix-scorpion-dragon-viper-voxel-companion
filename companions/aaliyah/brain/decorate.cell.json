@@ -1,0 +1,29 @@
+{
+  "schema": "phoenix.brain_cell/1",
+  "id": "decorate",
+  "companion": "aaliyah",
+  "trigger": {
+    "type": "chat_keyword",
+    "any": [
+      "decorate",
+      "cozy",
+      "home"
+    ]
+  },
+  "condition": {
+    "all": []
+  },
+  "action": {
+    "type": "say",
+    "text": "Let's make the lounge warmer: candles, soft light, and that purple couch."
+  },
+  "weight": 0.5,
+  "version": 1,
+  "enabled": true,
+  "provenance": {
+    "source": "seed",
+    "author": "dev_bot",
+    "created_at": "2026-10-17T00:00:00",
+    "reason": ""
+  }
+}

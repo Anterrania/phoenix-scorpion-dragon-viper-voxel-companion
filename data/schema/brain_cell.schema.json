@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phoenix.brain_cell/1",
+  "title": "Phoenix brain cell",
+  "description": "One data-only behavior rule for a companion. Usable by the in-game BrainCore and by standalone Grok Bots as memory/instructions. Never executable code.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "trigger",
+    "action",
+    "weight",
+    "provenance"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "schema": {
+      "const": "phoenix.brain_cell/1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]{2,48}$"
+    },
+    "companion": {
+      "type": "string"
+    },
+    "trigger": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "chat_keyword",
+            "event",
+            "need_below",
+            "always"
+          ]
+        },
+        "any": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "minItems": 1,
+          "maxItems": 16
+        },
+        "name": {
+          "type": "string"
+        },
+        "need": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "minProperties": 1,
+            "maxProperties": 1,
+            "propertyNames": {
+              "enum": [
+                "affinity_gte",
+                "affinity_lte",
+                "fact_contains",
+                "mood_is",
+                "is_lead",
+                "time_of_day"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "say",
+            "emote",
+            "remember",
+            "tool",
+            "delegate"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "name": {
+          "type": "string"
+        },
+        "fact": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "args": {
+          "type": "object"
+        },
+        "to": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        }
+      }
+    },
+    "weight": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "requires_approval": {
+      "type": "boolean"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source"
+      ],
+      "properties": {
+        "source": {
+          "enum": [
+            "seed",
+            "user",
+            "self_proposed",
+            "import"
+          ]
+        },
+        "author": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "approved_at": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 200
+        }
+      }
+    }
+  }
+}

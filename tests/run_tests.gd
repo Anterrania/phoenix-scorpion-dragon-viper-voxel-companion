@@ -34,7 +34,12 @@ func _ready() -> void:
 	await _v05_tests()
 	_v08_tests()
 	await _v09_tests()
+	BrainCore.adapter_root = "user://brains_test_adapter"  # keep Eve forwarding out of real user://brains
 	_eve_tests()
+	BrainCore.adapter_root = BrainCore.DEFAULT_ROOT
+	load("res://tests/brain_tests.gd").run(self)
+	load("res://tests/brain_tests.gd").run_eve_adapter(self)
+	load("res://tests/brain_tests.gd").run_agent_brain(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

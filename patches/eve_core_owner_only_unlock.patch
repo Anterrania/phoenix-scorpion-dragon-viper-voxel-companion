@@ -1,0 +1,17 @@
+diff --git a/scripts/ai/eve_core.gd b/scripts/ai/eve_core.gd
+index 58c98c0..01235f7 100644
+--- a/scripts/ai/eve_core.gd
++++ b/scripts/ai/eve_core.gd
+@@ -43,7 +43,11 @@ class EveBrainCell:
+ 		last_update_time = e["timestamp"]
+ 		return true
+ 
+-	func unlock() -> void: _locked = false
++	## Owner action only: refuses unless EveCore.owner_ok() (Profile.is_owner() or test override).
++	func unlock() -> bool:
++		if not EveCore.owner_ok(): return false
++		_locked = false
++		return true
+ 	func lock_cell() -> void: _locked = true
+ 	func lock() -> void: lock_cell()  # v1 name, kept as alias
+ 	func is_authenticated() -> bool: return not _locked

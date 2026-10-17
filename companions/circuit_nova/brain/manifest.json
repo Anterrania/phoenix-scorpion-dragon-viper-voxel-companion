@@ -1,0 +1,13 @@
+{
+  "schema": "phoenix.brain_manifest/1",
+  "companion": "circuit_nova",
+  "cell_schema": "phoenix.brain_cell/1",
+  "memory": {
+    "facts": "user://brains/circuit_nova/memory/facts.jsonl",
+    "episodes": "user://brains/circuit_nova/memory/episodes.jsonl"
+  },
+  "learned_cells": "user://brains/circuit_nova/cells/",
+  "pending": "user://brains/circuit_nova/pending/",
+  "versions": "user://brains/circuit_nova/versions/",
+  "notes": "Seed cells are read-only. Learned cells override seed cells by id. Data only: no executable code."
+}

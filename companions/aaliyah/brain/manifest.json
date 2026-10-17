@@ -1,0 +1,13 @@
+{
+  "schema": "phoenix.brain_manifest/1",
+  "companion": "aaliyah",
+  "cell_schema": "phoenix.brain_cell/1",
+  "memory": {
+    "facts": "user://brains/aaliyah/memory/facts.jsonl",
+    "episodes": "user://brains/aaliyah/memory/episodes.jsonl"
+  },
+  "learned_cells": "user://brains/aaliyah/cells/",
+  "pending": "user://brains/aaliyah/pending/",
+  "versions": "user://brains/aaliyah/versions/",
+  "notes": "Seed cells are read-only. Learned cells override seed cells by id. Data only: no executable code."
+}

@@ -1,9 +1,9 @@
 [
  {
-  "sha": "8e48c2d",
-  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
-  "date": "2026-10-17T13:03:53-07:00",
-  "subject": "Merge pull request #27 from Anterrania/chore/admin-audit-polish"
+  "sha": "1b0b3f5",
+  "author": "Anterrania",
+  "date": "2026-10-17T13:17:28-07:00",
+  "subject": "feat(viewer): viewer parity (VIEWER-1..8) - ParcelTools (About Land + Region/Estate), ModerationLists (mute/block/derender), opt-in Restrictions API, MENU > Land & Safety screen, VIEWER_PARITY.md + RE"
  },
  {
   "sha": "1a07535",

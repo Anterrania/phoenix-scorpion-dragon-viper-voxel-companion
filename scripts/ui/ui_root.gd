@@ -226,13 +226,14 @@ func _build_menu() -> Dictionary:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
 			elif target == "_exit": AppControl.exit_app(get_tree())
 			elif target == "_admin": open_admin()
 			elif target == "_community": CommunityScreen.open(self)
+			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
 			else: show_panel(target))
 		t.custom_minimum_size = Vector2(0, 96)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -460,6 +461,7 @@ func teleport(p: Vector3, exact := false) -> void:
 	var y := p.y
 	if g and not exact: y = maxf(g.height_f(p.x, p.z), g.LAVA_LEVEL) + 3.0
 	player.global_position = Vector3(p.x, y, p.z)
+	ModerationLists.on_teleport("self")   # temporary derenders come back after a teleport (VIEWER-3)
 	if "velocity" in player: player.velocity = Vector3.ZERO
 	for c in _companions():
 		c.global_position = player.global_position + Vector3(randf_range(-3, 3), 1.0, randf_range(-3, 3))

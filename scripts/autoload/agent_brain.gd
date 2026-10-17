@@ -19,6 +19,8 @@ var _agents := {}   # id -> CompanionAgent
 var _memory := {}   # id -> Dictionary (memory_export.json schema)
 
 func _ready() -> void:
+	reply_ready.connect(func(cid: String, t: String):
+		if t != "": EveCore.for_companion(cid, _agents[cid].persona if _agents.has(cid) else {}).log_chat("assistant", t))
 	DirAccess.make_dir_recursive_absolute(MEMORY_DIR)
 
 # ---------- registration ----------
@@ -83,6 +85,7 @@ func chat(id: String, player_text: String) -> void:
 	if agent == null:
 		request_failed.emit(id, "unknown companion")
 		return
+	EveCore.for_companion(id, agent.persona).log_chat("user", player_text)
 	if not Settings.live_ai():
 		_offline_reply(id, player_text)
 		return
@@ -155,6 +158,7 @@ func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
 		if res.get("ok") and tool in ["spawn_structure", "carve_area", "place_voxel"]:
 			_memory[id]["built_structures"].append({"tool": tool, "args": args})
 			_memory[id]["built_structures"] = _memory[id]["built_structures"].slice(-200)
+			EveCore.for_companion(id, agent.persona).log_build(tool, args)
 	else:
 		res["error"] = "unknown tool"
 	tool_executed.emit(id, tool, res)

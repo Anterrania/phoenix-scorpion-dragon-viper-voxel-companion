@@ -34,6 +34,7 @@ func _ready() -> void:
 	await _v05_tests()
 	_v08_tests()
 	await _v09_tests()
+	_eve_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -683,3 +684,43 @@ func _v09_tests() -> void:
 		if l.visible and str(l.name) != "ChatBubble": vis += 1
 	check(vis == 0 or FloatingText.enabled(), "v0.9 floating text hidden (%d visible)" % vis)
 	s.queue_free()
+
+
+# ---------- Eve Core (Vala port) ----------
+func _eve_tests() -> void:
+	EveCore.save_dir = "user://eve_test"
+	for f in DirAccess.get_files_at("user://eve_test") if DirAccess.dir_exists_absolute("user://eve_test") else []:
+		DirAccess.remove_absolute("user://eve_test/" + f)
+	EveCore.reset_cache()
+	EveCore.owner_override = false
+	var locked := EveCore.for_companion("foxy_ani")
+	check(not locked.core_cell.is_authenticated(), "eve: cell locked for non-owner")
+	check(not locked.create_music("x"), "eve: locked cell refuses memory")
+	EveCore.owner_override = true
+	var foxy := EveCore.for_companion("foxy_ani")
+	check(foxy.core_cell.is_authenticated(), "eve: owner unlocks cell")
+	check(foxy.core_cell.memory_hash == "ANTERRANIAN-BRAIN-foxy_ani", "eve: hash is plain id string")
+	check(foxy.voice_profile == "Eve", "eve: foxy voice is Eve")
+	check(foxy.create_music("ember anthem", "Default"), "eve: music logs")
+	var e: Dictionary = foxy.entries().back()
+	for k in ["event", "location", "state", "voice", "content", "timestamp"]: check(e.has(k), "eve: entry has " + k)
+	check(e["voice"] == "Eve" and e["fire_theme"] == ["phoenix", "ember", "Venus"], "eve: default voice -> Eve + fire_theme")
+	foxy.create_duet("duet")
+	check(foxy.entries().back()["voice"] == "Eve + Phoenix_Companion_Voice", "eve: duet voices")
+	var tutor := EveCore.for_companion("tutor")
+	tutor.output_audio("hi", "")
+	check(tutor.entries().back()["voice"] == "Phoenix_Default_Voice" and not tutor.entries().back().has("fire_theme"), "eve: fallback Phoenix_Default_Voice, no fire tag")
+	var pr: Dictionary = foxy.propose_update("brighter lava")
+	check(EveCore.proposals(true).size() == 1 and pr["state"] == "PendingApproval", "eve: proposal queued pending")
+	EveCore.owner_override = false
+	check(not EveCore.decide(pr["id"], true), "eve: non-owner cannot approve")
+	EveCore.owner_override = true
+	check(EveCore.decide(pr["id"], true) and EveCore.proposals(true).is_empty(), "eve: owner approves")
+	var n := foxy.entries().size()
+	EveCore.reset_cache()
+	check(EveCore.for_companion("foxy_ani").entries().size() == n, "eve: memory persists to user://")
+	check(EveCore.proposals()[0]["state"] == "Approved", "eve: queue persists")
+	check(not EveCore.BrainAdapter.available() or EveCore.BrainAdapter.forwarded > 0, "eve: BrainCore adapter fallback ok")
+	EveCore.owner_override = null
+	EveCore.save_dir = "user://eve"
+	EveCore.reset_cache()

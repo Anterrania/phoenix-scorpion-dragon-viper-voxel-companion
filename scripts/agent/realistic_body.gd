@@ -60,9 +60,10 @@ static func build(style: Dictionary) -> Node3D:
 	var curly := bool(style.get("curly", false))
 	var aura := str(style.get("aura", ""))
 	var eye_y := 1.55
-	for e in body.find_children("*low-poly*", "MeshInstance3D", true, false):
-		var em := (e as MeshInstance3D).mesh
-		if em: eye_y = em.get_aabb().get_center().y
+	for e in body.find_children("*", "MeshInstance3D", true, false):
+		var en: String = e.name.to_lower()
+		if (en.contains("low-poly") or en.contains("low_poly")) and (e as MeshInstance3D).mesh:
+			eye_y = (e as MeshInstance3D).mesh.get_aabb().get_center().y
 	body.set_meta("eye_y", eye_y)
 	for mi in body.find_children("*", "MeshInstance3D", true, false):
 		var n: String = mi.name.to_lower()

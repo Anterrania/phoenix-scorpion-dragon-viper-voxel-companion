@@ -896,7 +896,7 @@ func _v11_tests() -> void:
 	var meshes := {}
 	for mi in m.find_children("*", "MeshInstance3D", true, false): meshes[mi.name.to_lower()] = mi
 	check(meshes.has("human") and meshes["human"].material_override is ShaderMaterial and meshes["human"].material_override.shader.resource_path.ends_with("skin.gdshader"), "v11 skin shader on body")
-	check(meshes.has("human_long01") and meshes["human_long01"].visible and not meshes["human_afro01"].visible, "v11 foxy long hair cards")
+	check(meshes.has("human_long01") and meshes["human_long01"].visible and (not meshes.has("human_afro01") or not meshes["human_afro01"].visible), "v11 foxy long hair cards")
 	var hm: ShaderMaterial = meshes["human_long01"].material_override
 	var rc: Color = hm.get_shader_parameter("root_color"); var tc: Color = hm.get_shader_parameter("tip_color")
 	check(rc.b > rc.r and rc.b > 0.8 and tc.r > 0.9 and tc.r > tc.g, "v11 foxy hair purple -> magenta gradient")

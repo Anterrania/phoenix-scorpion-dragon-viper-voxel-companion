@@ -120,6 +120,23 @@ static func run_agent_brain(t: Node) -> void:
 	ab._memory[fake.companion_id] = ab.load_memory(fake.companion_id)
 	var r: Dictionary = ab.dispatch_tool(fake.companion_id, "remember", {"fact": "brain test fact"})
 	t.check(r.get("ok", false), "brain: AgentBrain accepts v3 persona tool dict (remember)")
+	# integration: register real persona -> brain + bus wired, brain cell answers offline chat
+	var lead := Node3D.new()
+	lead.set_script(gs)
+	lead.companion_id = "foxy_ani"
+	lead.persona = fake.persona
+	t.add_child(lead)
+	var prev_agent: Variant = ab._agents.get("foxy_ani")
+	var prev_brain: Variant = ab.brains.get("foxy_ani")
+	ab.register_agent(lead)
+	t.check(ab.get_brain("foxy_ani") != null, "brain: AgentBrain builds a BrainCore on register")
+	t.check("Rise from the flame" in ab._brain_reply("foxy_ani", "hello foxy"), "brain: offline chat answered by brain cell")
+	var gr: Array = ab.group_task("plan", "plan a tower")
+	t.check(gr.size() >= 1 and gr[0].get("to") == "foxy_ani" and gr[0].get("ok"), "brain: AgentBrain.group_task routes via lead")
+	ab.unregister_agent(lead)
+	if prev_agent != null: ab._agents["foxy_ani"] = prev_agent
+	if prev_brain != null: ab.brains["foxy_ani"] = prev_brain
+	lead.queue_free()
 	ab._agents.erase(fake.companion_id)
 	ab._memory.erase(fake.companion_id)
 	DirAccess.remove_absolute(ab._mem_path(fake.companion_id))

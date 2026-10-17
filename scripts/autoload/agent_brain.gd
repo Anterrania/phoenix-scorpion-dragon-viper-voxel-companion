@@ -17,6 +17,10 @@ const WORLD_TOOLS := ["place_voxel", "carve_area", "spawn_structure", "follow", 
 
 var _agents := {}   # id -> CompanionAgent
 var _memory := {}   # id -> Dictionary (memory_export.json schema)
+## Brain cells (scripts/brain): data-only rules + memory + approval-gated self-update per companion.
+var brains := {}    # id -> BrainCore
+## Coordination bus: group tasks go to the lead (Foxy Ani) who delegates to members.
+var bus := BrainBus.new()
 
 func _ready() -> void:
 	reply_ready.connect(func(cid: String, t: String):
@@ -27,9 +31,14 @@ func _ready() -> void:
 func register_agent(agent: Node) -> void:
 	_agents[agent.companion_id] = agent
 	_memory[agent.companion_id] = load_memory(agent.companion_id)
+	var persona: Variant = agent.get("persona")
+	if persona is Dictionary and not persona.is_empty():
+		brains[agent.companion_id] = BrainCore.new(agent.companion_id, persona)
+		bus.register(agent.companion_id, _on_bus_message.bind(agent.companion_id), persona.get("abilities", []))
 
 func unregister_agent(agent: Node) -> void:
 	_agents.erase(agent.companion_id)
+	bus.unregister(agent.companion_id)
 
 # ---------- memory ----------
 func _mem_path(id: String) -> String:
@@ -155,6 +164,8 @@ func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
 		res = {"ok": true}
 	elif agent.has_method("tool_" + tool):
 		res = agent.call("tool_" + tool, args)
+		if brains.has(id):
+			brains[id].memory.log_episode("tool", {"name": tool, "ok": bool(res.get("ok")), "args": args})
 		if res.get("ok") and tool in ["spawn_structure", "carve_area", "place_voxel"]:
 			_memory[id]["built_structures"].append({"tool": tool, "args": args})
 			_memory[id]["built_structures"] = _memory[id]["built_structures"].slice(-200)
@@ -191,8 +202,53 @@ func _offline_reply(id: String, player_text := "") -> void:
 	if player_text == "":
 		var h: Array = _memory[id]["history"]
 		player_text = str(h.back().get("content", "")) if not h.is_empty() else ""
-	var r := CannedReplies.reply(agent.persona, player_text, agent.life.recap() if "life" in agent and agent.life else "")
+	var r := _brain_reply(id, player_text)
+	if r == "":
+		r = CannedReplies.reply(agent.persona, player_text, agent.life.recap() if "life" in agent and agent.life else "")
 	if not (_memory[id]["history"].size() > 0 and _memory[id]["history"].back().get("content") == player_text):
 		_memory[id]["history"].append({"role": "user", "content": player_text})
 	_memory[id]["history"].append({"role": "assistant", "content": r})
 	reply_ready.emit(id, r)
+
+
+# ---------- brain cells + coordination (v0.10) ----------
+func get_brain(id: String) -> BrainCore:
+	return brains.get(id)
+
+## Player/UI: ask the whole group to do something. Routed through the lead companion.
+func group_task(command: String, text := "") -> Array:
+	return bus.post_group_task({"command": command, "text": text, "from": "player"})
+
+## Bus handler: a delegated command becomes a normal permission-checked tool call.
+func _on_bus_message(msg: Dictionary, id: String) -> Dictionary:
+	var agent: Node = _agents.get(id)
+	if agent == null: return {"ok": false, "error": "agent gone"}
+	var p: Vector3 = agent.global_position - agent.global_basis.z * 3.0
+	var r: Dictionary
+	match str(msg.get("command", "")):
+		"follow": r = dispatch_tool(id, "follow", {"enabled": true})
+		"stay": r = dispatch_tool(id, "follow", {"enabled": false})
+		"build": r = dispatch_tool(id, "spawn_structure", {"name": "pillar", "x": p.x, "y": p.y, "z": p.z})
+		"dig": r = dispatch_tool(id, "carve_area", {"x": p.x, "y": p.y - 1.0, "z": p.z, "radius": 2.0})
+		"dance": r = dispatch_tool(id, "emote", {"name": "dance"})
+		_: r = {"ok": true, "note": "acknowledged"}
+	if brains.has(id):
+		brains[id].memory.log_episode("delegated", {"from": str(msg.get("from", "")), "command": str(msg.get("command", "")), "ok": bool(r.get("ok"))})
+	return r
+
+## Offline: let a matching brain cell answer before canned replies. Returns "" if no cell fired.
+func _brain_reply(id: String, player_text: String) -> String:
+	var brain: BrainCore = brains.get(id)
+	if brain == null or player_text == "": return ""
+	brain.memory.log_episode("chat", {"text": player_text})
+	var hit := brain.best({"type": "chat", "text": player_text},
+		{"affinity": int(_memory[id].get("relationship", {}).get("affinity", 0)), "player": str(Settings.get_value("profile", "name", "friend"))})
+	if hit.is_empty(): return ""
+	var a: Dictionary = hit["action"]
+	match a.get("type"):
+		"say": return str(a.get("text", ""))
+		"emote": dispatch_tool(id, "emote", {"name": a.get("name", "dance")}); return "*%s*" % a.get("name", "")
+		"remember": remember_fact(id, str(a.get("fact", ""))); return ""
+		"tool": dispatch_tool(id, str(a.get("name", "")), a.get("args", {})); return ""
+		"delegate": group_task(str(a.get("command", "")), player_text); return ""
+	return ""

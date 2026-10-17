@@ -31,8 +31,36 @@ static func is_soundcloud_url(u: String) -> bool:
 static func active_url() -> String:
 	var u := str(Settings.get_value("music", "soundcloud_url", "")).strip_edges()
 	if is_soundcloud_url(u): return u
+	var t := current_track()
+	if is_soundcloud_url(str(t.get("url", ""))): return str(t["url"])
 	var d := str(config().get("default_soundcloud_url", "")).strip_edges()
 	return d if is_soundcloud_url(d) else ""
+
+## v0.10 owner default playlist (cosmic series). Explicit titles are filtered out defensively.
+static func is_explicit(title: String) -> bool:
+	var tl := title.to_lower()
+	for w in config().get("explicit_title_terms", []):
+		if tl.contains(str(w)): return true
+	return false
+
+static func playlist() -> Array:
+	return config().get("default_playlist", []).filter(func(t): return t is Dictionary and not is_explicit(str(t.get("title", ""))) and not is_explicit(str(t.get("url", "")).replace("-", " ")))
+
+static func current_track() -> Dictionary:
+	var pl := playlist()
+	if pl.is_empty(): return {}
+	return pl[posmod(int(Settings.get_value("music", "playlist_index", 0)), pl.size())]
+
+static func step_track(delta: int) -> Dictionary:
+	var pl := playlist()
+	if pl.is_empty(): return {}
+	Settings.set_value("music", "playlist_index", posmod(int(Settings.get_value("music", "playlist_index", 0)) + delta, pl.size()))
+	return current_track()
+
+## Title for the UI: user's own link, else the playlist track title.
+static func now_title() -> String:
+	if is_soundcloud_url(str(Settings.get_value("music", "soundcloud_url", ""))): return "Your SoundCloud link"
+	return str(current_track().get("title", ""))
 
 static func has_api_credentials() -> bool:
 	return str(Settings.get_value("music", "sc_client_id", "")) != "" and str(Settings.get_value("music", "sc_client_secret", "")) != ""

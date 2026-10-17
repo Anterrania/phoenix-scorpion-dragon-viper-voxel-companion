@@ -81,5 +81,12 @@
   "batch": "t31u",
   "companion_group": "t31u_ai_bodies",
   "content_rating": "general",
-  "hidden_by_default": false
+  "hidden_by_default": false,
+  "voice": {
+    "profile": "KaelvrinAuremont_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

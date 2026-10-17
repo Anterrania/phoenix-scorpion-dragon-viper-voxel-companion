@@ -43,7 +43,11 @@ class EveBrainCell:
 		last_update_time = e["timestamp"]
 		return true
 
-	func unlock() -> void: _locked = false
+	## Owner action only: refuses unless EveCore.owner_ok() (Profile.is_owner() or test override).
+	func unlock() -> bool:
+		if not EveCore.owner_ok(): return false
+		_locked = false
+		return true
 	func lock_cell() -> void: _locked = true
 	func lock() -> void: lock_cell()  # v1 name, kept as alias
 	func is_authenticated() -> bool: return not _locked
@@ -125,12 +129,40 @@ func propose_update(desc: String) -> Dictionary:
 
 func entries() -> Array: return core_cell.memory_log
 
+## v0.10 History: case-insensitive search over event/content/voice/location.
+func search(q := "") -> Array:
+	var ql := q.strip_edges().to_lower()
+	if ql == "": return core_cell.memory_log
+	return core_cell.memory_log.filter(func(e): return ("%s %s %s %s" % [e.get("event", ""), e.get("content", ""), e.get("voice", ""), e.get("location", "")]).to_lower().contains(ql))
+
+## Portable bundle: eve log + persona voice/dna + BrainCore export (when present).
+func export_portable(persona := {}) -> Dictionary:
+	var d := {"format": "anterrania-eve-portable-1", "companion": companion_id, "hash": core_cell.memory_hash,
+		"voice": voice_profile, "log": core_cell.memory_log.duplicate(true)}
+	if not persona.is_empty(): d["persona"] = {"voice": persona.get("voice", {}), "avatar_dna": persona.get("avatar_dna", {})}
+	var b = BrainAdapter.brain_for(companion_id, persona)
+	if b and b.has_method("export_portable"): d["brain"] = b.export_portable()
+	return d
+
+## Merge an imported bundle (dedup by timestamp+event+content). Owner only (cell must be unlocked).
+func import_portable(d: Dictionary) -> int:
+	if not core_cell.is_authenticated() or not (d.get("log") is Array): return 0
+	var seen := {}
+	for e in core_cell.memory_log: seen["%s|%s|%s" % [e.get("timestamp"), e.get("event"), e.get("content")]] = true
+	var n := 0
+	for e in d["log"]:
+		if e is Dictionary and not seen.has("%s|%s|%s" % [e.get("timestamp"), e.get("event"), e.get("content")]):
+			core_cell.memory_log.append(e); n += 1
+	core_cell.memory_log.sort_custom(func(a, b): return float(a.get("timestamp", 0)) < float(b.get("timestamp", 0)))
+	save()
+	return n
+
 func _path() -> String: return save_dir.path_join(companion_id + ".json")
 
 func save() -> void:
 	DirAccess.make_dir_recursive_absolute(save_dir)
 	var f := FileAccess.open(_path(), FileAccess.WRITE)
-	if f: f.store_string(JSON.stringify({"hash": core_cell.memory_hash, "voice": voice_profile, "log": core_cell.memory_log}))
+	if f: f.store_string(JSON.stringify({"hash": core_cell.memory_hash, "voice": voice_profile, "log": core_cell.memory_log.duplicate(true)}))
 
 func _load() -> void:
 	if not FileAccess.file_exists(_path()): return
@@ -188,6 +220,11 @@ class BrainAdapter:
 			if c["class"] == "BrainCore": return load(c["path"])
 		return null
 	static func available() -> bool: return _brain() != null
+	## Live BrainCore instance for a companion (owned by AgentBrain), or null.
+	static func brain_for(id: String, _persona := {}):
+		var ml := Engine.get_main_loop()
+		var ab: Node = ml.root.get_node_or_null("AgentBrain") if ml is SceneTree else null
+		return ab.get_brain(id) if ab and ab.has_method("get_brain") else null
 	static func forward_memory(id: String, entry: Dictionary) -> void:
 		var b = _brain()
 		if b and b.has_method("store_entry"): b.store_entry(id, entry); forwarded += 1

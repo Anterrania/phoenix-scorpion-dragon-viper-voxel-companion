@@ -82,5 +82,12 @@
   "companion_group": "t31u_ai_bodies",
   "content_rating": "mature",
   "hidden_by_default": true,
-  "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)"
+  "requires_setting": "content.mature_cosmetics_enabled (age-gated, off by default)",
+  "voice": {
+    "profile": "VesperaNoctelle_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

@@ -88,7 +88,7 @@ func tune(u: String) -> void:
 
 func _update_label() -> void:
 	if label:
-		var sc_line := ("SoundCloud: " + now_playing) if now_playing != "" else ("SoundCloud: " + ("tap MENU › Music to play" if SoundCloudSource.active_url() != "" else "★ YOUR INPUT HERE: SoundCloud URL"))
+		var sc_line := ("SoundCloud: " + now_playing) if now_playing != "" else ("SoundCloud: ♪ " + SoundCloudSource.now_title() + (" (fallback audio playing)" if status != "loading" else "")) if SoundCloudSource.now_title() != "" else ("SoundCloud: " + ("tap MENU › Music to play" if SoundCloudSource.active_url() != "" else "★ YOUR INPUT HERE: SoundCloud URL"))
 		label.text = "♪ Phoenix Radio (%s)\n%s" % [status, sc_line]
 
 static func stream_from_bytes(bytes: PackedByteArray, u: String) -> AudioStream:

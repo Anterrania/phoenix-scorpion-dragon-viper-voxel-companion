@@ -42,6 +42,8 @@ func _ready() -> void:
 	load("res://tests/brain_tests.gd").run_owner_flow(self)
 	load("res://tests/brain_tests.gd").run_agent_brain(self)
 	_ui_kit_tests()
+	_v10_tests()
+	_v10_music_tests()
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -298,7 +300,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=11") and ep.contains("0.9.0"), "versionCode 11 / 0.9.0")
+	check(ep.contains("version/code=12") and ep.contains("0.10.0"), "versionCode 12 / 0.10.0")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))
@@ -764,3 +766,114 @@ func _ui_kit_tests() -> void:
 	check(m.items.size() >= 4 and m.items.size() <= 8, "radial menu has 4-8 items")
 	check(m.button_radius * 2.0 >= PhoenixTokens.TAP_MIN, "radial items meet tap minimum")
 	m.free()
+
+# ---------- v0.10 companions ----------
+func _persona(id: String) -> Dictionary:
+	return JSON.parse_string(FileAccess.get_file_as_string("res://companions/%s/persona.json" % id))
+
+func _v10_tests() -> void:
+	var fx := _persona("foxy_ani")
+	var st := CompanionDNA.apply(fx, {})
+	check(st["hair_gradient"].size() >= 3 and st["hair_gradient"][0].b > st["hair_gradient"][0].r and st["hair_gradient"].back().r > 0.9, "v10 foxy hair purple->magenta")
+	check(st["eyes"].g > st["eyes"].b and st["eyes"].g > 0.8, "v10 foxy green eyes")
+	var m: Node3D = HumanoidModel.build(st)
+	check(m.get_node_or_null("Aura/Embers") is GPUParticles3D and m.get_node_or_null("Aura/AuraLight") != null, "v10 foxy phoenix aura + embers")
+	check(m.get_node_or_null("Hips/Torso/Head/Strand0/Tip") != null, "v10 hair gradient tips")
+	m.free()
+	var aa := CompanionDNA.apply(_persona("aaliyah"), {})
+	check(aa["hair"].r > 0.5 and aa["hair"].b < 0.2, "v10 aaliyah red hair")
+	m = HumanoidModel.build(aa)
+	check(m.get_node_or_null("Hips/Torso/Head/Freckle0") != null, "v10 aaliyah freckles")
+	m.free()
+	var cn := CompanionDNA.apply(_persona("circuit_nova"), {})
+	m = HumanoidModel.build(cn)
+	check(cn["skin_metal"] > 0.5 and m.get_node_or_null("Hips/Torso/CircuitV0") != null and m.get_node_or_null("CircuitLight") != null, "v10 circuit nova chrome + blue circuit glow")
+	m.free()
+	var dd := CompanionDNA.apply(_persona("tutor"), {})
+	m = HumanoidModel.build(dd)
+	check(m.get_node_or_null("Hips/Torso/Head/Face") != null and dd.has("hair_gradient"), "v10 default DNA builds humanoid")
+	m.free()
+	check(CompanionDNA.default_dna("x") == CompanionDNA.default_dna("x"), "v10 default DNA deterministic")
+	# voice
+	for d in DirAccess.get_directories_at("res://companions"):
+		var pp := _persona(d)
+		check(pp.get("voice") is Dictionary and str(pp["voice"].get("profile", "")) != "", "v10 voice profile: " + d)
+	var vp := CompanionVoice.profile(fx)
+	check(vp["profile"] == "Eve" and vp["locale"] == "en-CA", "v10 foxy voice Eve en-CA")
+	check(CompanionVoice.profile(_persona("circuit_nova"))["pitch"] > 1.1, "v10 per-companion pitch")
+	var was := CompanionVoice.muted()
+	CompanionVoice.set_muted(true)
+	check(CompanionVoice.speak("foxy_ani", fx, "hi") == "muted", "v10 mute toggle silences TTS")
+	CompanionVoice.set_muted(false)
+	Settings.set_value("voice", "cloud_endpoint", "https://example.invalid")
+	var got := []
+	CompanionVoice.cloud_hook = func(p, t): got.append([p["profile"], t])
+	check(CompanionVoice.speak("foxy_ani", fx, "rise") == "cloud" and got[0][0] == "Eve", "v10 cloud voice hook")
+	Settings.set_value("voice", "cloud_endpoint", "")
+	CompanionVoice.cloud_hook = Callable()
+	CompanionVoice.set_muted(was)
+	# history
+	EveCore.save_dir = "user://eve_test10"
+	if DirAccess.dir_exists_absolute("user://eve_test10"):
+		for f in DirAccess.get_files_at("user://eve_test10"): DirAccess.remove_absolute("user://eve_test10/" + f)
+	EveCore.reset_cache(); EveCore.owner_override = true
+	var core := EveCore.for_companion("foxy_ani", fx)
+	core.log_chat("user", "build a lava tower"); core.log_chat("assistant", "Rising now")
+	check(core.search("lava").size() == 1 and core.search("").size() == 2, "v10 history search")
+	var bundle := core.export_portable(fx)
+	check(bundle["log"].size() == 2 and bundle["persona"]["voice"]["profile"] == "Eve", "v10 export_portable bundle")
+	core.core_cell.memory_log.clear()
+	check(core.import_portable(bundle) == 2 and core.import_portable(bundle) == 0, "v10 import dedups")
+	# self-learning via BrainCore + BrainLearner (no second learner)
+	var root := "user://brains_test_v10"
+	_rm_tree(root)
+	var old_ar = BrainCore.adapter_root
+	BrainCore.adapter_root = root
+	var b := BrainCore.new("foxy_ani", fx, root)
+	AgentBrain.brains["foxy_ani"] = b
+	check(AgentBrain.build_choice("foxy_ani") == "fire_altar", "v10 foxy own build choice from cell")
+	AgentBrain._learn_signals("foxy_ani", "when I say sparkle, reply Embers rise!")
+	var eps := b.memory.episodes(10)
+	check(not eps.is_empty() and eps.back().get("kind") == "taught", "v10 taught episode logged")
+	var rep := AgentBrain.learn_now("foxy_ani")
+	var ops: Array = EveCore.proposals(true)
+	check(rep.get("proposed", []).size() >= 1 and ops.size() >= 1, "v10 BrainLearner proposes to owner queue (Proposals panel)")
+	var cell_id := "taught_sparkle"
+	EveCore.owner_override = false
+	check(not EveCore.decide(str(ops.back()["id"]), true), "v10 non-owner cannot approve learned cell")
+	EveCore.owner_override = true
+	check(EveCore.decide(str(ops.back()["id"]), true) and AgentBrain.sync_owner_decisions() > 0 and b.cells.has(cell_id), "v10 owner approves learned cell -> live")
+	var ui = load("res://scripts/ui/ui_root.gd").new()
+	var pc := BrainCell.make("taught_glow", "foxy_ani", {"type": "chat_keyword", "any": ["glow"]}, {"type": "say", "text": "Glow on."}, 0.6, "self_proposed", "test")
+	b.propose(pc, "test")
+	check(ui.brain_decide("foxy_ani", "taught_glow", true) and b.cells.has("taught_glow"), "v10 local pending cell approve (panel)")
+	check(AgentBrain._brain_reply("foxy_ani", "sparkle") == "Embers rise!", "v10 learned cell shapes dialogue")
+	AgentBrain._learn_signals("foxy_ani", "thanks, perfect")
+	check(b.memory.episodes(5).back().get("kind") == "feedback", "v10 praise -> feedback episode")
+	check(ui.brain_rollback("foxy_ani", cell_id), "v10 owner rolls back learned cell")
+	ui.free()
+	AgentBrain.brains.erase("foxy_ani")
+	BrainCore.adapter_root = old_ar
+	EveCore.owner_override = null; EveCore.save_dir = "user://eve"; EveCore.reset_cache()
+	check(BrainCell.validate(JSON.parse_string(FileAccess.get_file_as_string("res://companions/foxy_ani/brain/free_build_fire_altar.cell.json")), BrainCore.flatten_tools(fx["tools"])) == "", "v10 free_build cell valid")
+	check(AgentBrain.get_node_or_null("LearnTimer") is Timer, "v10 periodic learner timer")
+
+func _v10_music_tests() -> void:
+	var pl := SoundCloudSource.playlist()
+	var titles := pl.map(func(t): return t["title"])
+	check(titles == ["Celestial Convergence", "Dragon of the Cosmos", "God's Palace", "Venusian Dreams", "Throne Room"], "v10 cosmic default playlist")
+	for t in pl: check(SoundCloudSource.is_soundcloud_url(t["url"]) and not SoundCloudSource.is_explicit(t["title"]), "v10 track ok: " + t["title"])
+	check(SoundCloudSource.is_explicit("Silent Night") and SoundCloudSource.is_explicit("krakker jacked") and SoundCloudSource.is_explicit("Bitch Nigga v2"), "v10 explicit filter")
+	var old_u = Settings.get_value("music", "soundcloud_url", ""); var old_i = Settings.get_value("music", "playlist_index", 0)
+	Settings.set_value("music", "soundcloud_url", ""); Settings.set_value("music", "playlist_index", 0)
+	check(SoundCloudSource.now_title() == "Celestial Convergence" and SoundCloudSource.active_url().ends_with("celestial-convergence"), "v10 now title + url")
+	SoundCloudSource.step_track(1)
+	check(SoundCloudSource.now_title() == "Dragon of the Cosmos", "v10 next track")
+	Settings.set_value("music", "soundcloud_url", old_u); Settings.set_value("music", "playlist_index", old_i)
+	check(str(SoundCloudSource.config().get("fallback_track_url", "")) != "", "v10 fallback audio kept")
+
+func _rm_tree(d: String) -> void:
+	if not DirAccess.dir_exists_absolute(d): return
+	for f in DirAccess.get_files_at(d): DirAccess.remove_absolute(d.path_join(f))
+	for s in DirAccess.get_directories_at(d): _rm_tree(d.path_join(s))
+	DirAccess.remove_absolute(d)

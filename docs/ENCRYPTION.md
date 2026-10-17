@@ -11,7 +11,7 @@
 | Tickets, wiki, revisions, sign-up | `viper/*.json`, `viper/*.jsonl` | yes |
 | Estate / region / parcel settings, covenant | `estate.cfg` | yes |
 | Social (profiles, friends, messages, groups), tier roles | `social/*.json` | yes (now also migrated, fix F7) |
-| Landmarks, home, teleport history | `world/landmarks.json` | yes (new store, SecureFile) |
+| Landmarks, home, teleport history; parcel object registry (ParcelTools) | `world/*.json` | yes (SecureFile; migrated, fix F7) |
 | OAR/IAR import log, heightmaps, notecards | `interop/**.json` | yes (new store, SecureFile) |
 | Backups | `backups/*.pxb` | yes, the whole archive is one sealed box |
 | Profile (name, avatar, **role**) | `profile.json` | **no**, needed before unlock for the guest UI |

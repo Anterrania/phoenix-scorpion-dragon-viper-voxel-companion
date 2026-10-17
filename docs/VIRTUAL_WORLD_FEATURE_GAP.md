@@ -1,6 +1,6 @@
 # Virtual-world feature gap: Viper OS vs Aurora-Sim, WhiteCore, OpenSim, OSgrid, Second Life, Avination, OpenLife Grid
 
-> Status: research + checklist, 2026-10-17. Ticket VWGAP-1. Companion docs: [modules/INTEROP.md](modules/INTEROP.md) (how to be cross-compatible), [ENCRYPTION.md](ENCRYPTION.md), [ARCHITECTURE_AURORA_MODEL.md](ARCHITECTURE_AURORA_MODEL.md).
+> Status: research + checklist, 2026-10-17. Ticket VWGAP-1. About Land / Region-Estate floater parity (names, timed bans, landing point, object returns, estate managers) lives in [modules/VIEWER_PARITY.md](modules/VIEWER_PARITY.md) (`ParcelTools`); this page adds the flags, covenant, landmarks and archives. Companion docs: [modules/INTEROP.md](modules/INTEROP.md) (how to be cross-compatible), [ENCRYPTION.md](ENCRYPTION.md), [ARCHITECTURE_AURORA_MODEL.md](ARCHITECTURE_AURORA_MODEL.md).
 > Marks: **have** = in code and tested headless · **partial** = data model or UI exists but not the whole feature · **missing** = nothing in code. Priority P0 (next) … P3 (someday). "Cross-compat" says how far we can honestly match the reference system.
 
 ## Sources (verified)
@@ -26,7 +26,7 @@
 | Push, scripts, landmark, set-home, object entry, voice, local sound, show-in-search, maturity, agent limit, sandbox, resell, join/divide | SL + OpenSim RegionSettings | **new** optional keys in `Estate.REGION_DEFAULTS` (old saves read SL defaults) | partial (stored + UI toggles; landmark/set-home enforced by `Landmarks`) | P1 | bit mapping both ways (`flags_from_sl`) |
 | Estate covenant | SL/OpenSim Covenant + CovenantChangedDateTime | **new** `Estate.set_covenant` (estate managers + owner), text box in Region/Estate | have | – | text only |
 | Estate managers | SL/OpenSim | `Tiers` tier `estate_manager` | have | – | – |
-| Land sale, auctions | SL land sale; Aurora `World/Auction` | – | missing | P2 | concept (legal review for money) |
+| Land sale, auctions | SL land sale; Aurora `World/Auction` | `ParcelTools` sale listing (price INACTIVE, PR #30); no auctions | partial | P2 | concept (legal review for money) |
 | Rentals / tier (monthly land fee) | SL tier; grids rent regions | – (ad/rental carousels planned in BUILD_TOOLS_AND_TIERS) | missing | P2 | concept |
 | Telehub / spawn point | OpenSim estate telehub | Welcome Island spawn | partial | P3 | – |
 | Region restart, visitor log, banned viewers | Aurora `Restart`, `VisitorLogger`, `BannedViewersModule` | – | missing | P3 | server phase |

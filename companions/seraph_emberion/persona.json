@@ -20,7 +20,11 @@
   "home_biome": "cosmic",
   "guild": "seraphic_vanguard",
   "related_companion": "seraph_halcyon",
-  "related_companions": ["seraph_halcyon", "seraph_caelum", "circuit_nova"],
+  "related_companions": [
+    "seraph_halcyon",
+    "seraph_caelum",
+    "circuit_nova"
+  ],
   "related_companion_note": "Not a duplicate of Seraph Halcyon (silver healer), Seraph Caelum (hooded captain), or Circuit Nova (engineering AI). Emberion is the grey phoenix-armored android Vanguard look.",
   "memory": {
     "store_path": "user://memory/seraph_emberion.json",
@@ -33,9 +37,21 @@
     }
   },
   "tools": {
-    "shared": ["remember", "emote"],
-    "world_only": ["place_voxel", "carve_area", "spawn_structure", "follow", "move_to", "emote"],
-    "chat": ["remember"]
+    "shared": [
+      "remember",
+      "emote"
+    ],
+    "world_only": [
+      "place_voxel",
+      "carve_area",
+      "spawn_structure",
+      "follow",
+      "move_to",
+      "emote"
+    ],
+    "chat": [
+      "remember"
+    ]
   },
   "grok_bot": {
     "standalone": true,
@@ -49,5 +65,15 @@
   },
   "palette_version": 2,
   "finish": "glitter_sparkle",
-  "accents": ["platinum", "gold"]
+  "accents": [
+    "platinum",
+    "gold"
+  ],
+  "voice": {
+    "profile": "SeraphEmberion_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

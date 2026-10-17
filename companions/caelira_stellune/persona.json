@@ -81,5 +81,12 @@
     "caelira_stellune_dark_blue_gown"
   ],
   "batch": "t25u",
-  "companion_group": "starlit_calyx"
+  "companion_group": "starlit_calyx",
+  "voice": {
+    "profile": "CaeliraStellune_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

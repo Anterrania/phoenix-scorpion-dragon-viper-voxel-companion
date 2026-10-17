@@ -61,5 +61,12 @@
     "gold"
   ],
   "star_map_pair": "azura_stellaris",
-  "star_map_pair_note": "Paired with Azura Stellaris (navigator): Celestia keeps constellation lore and realm naming; Azura plots live routes and bearings (batch_13)."
+  "star_map_pair_note": "Paired with Azura Stellaris (navigator): Celestia keeps constellation lore and realm naming; Azura plots live routes and bearings (batch_13).",
+  "voice": {
+    "profile": "CelestiaNyx_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

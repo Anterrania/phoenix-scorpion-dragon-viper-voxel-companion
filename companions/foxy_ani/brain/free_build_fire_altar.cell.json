@@ -1,0 +1,28 @@
+{
+  "schema": "phoenix.brain_cell/1",
+  "id": "free_build_fire_altar",
+  "companion": "foxy_ani",
+  "trigger": {
+    "type": "event",
+    "name": "free_build"
+  },
+  "condition": {
+    "all": []
+  },
+  "action": {
+    "type": "tool",
+    "name": "spawn_structure",
+    "args": {
+      "name": "fire_altar"
+    }
+  },
+  "weight": 0.55,
+  "version": 1,
+  "enabled": true,
+  "provenance": {
+    "source": "seed",
+    "author": "foxy",
+    "created_at": "2026-10-17T00:00:00",
+    "reason": "Foxy's own default building choice when roaming (v0.10)"
+  }
+}

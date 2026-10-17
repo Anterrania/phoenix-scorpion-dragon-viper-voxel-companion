@@ -43,6 +43,7 @@ func _ready() -> void:
 	panels["estate"] = _build_estate()
 	panels["land"] = _build_land()
 	panels["proposals"] = _build_proposals()
+	panels["history"] = _build_history()
 	get_viewport().size_changed.connect(_layout)
 	_layout()
 	AgentBrain.request_failed.connect(func(_id, _e): _update_chat_status())
@@ -163,6 +164,7 @@ func show_panel(n: String) -> void:
 	if n == "chat": _update_chat_status()
 	if n == "estate": _refresh_estate()
 	if n == "proposals": _refresh_proposals()
+	if n == "history": _refresh_history()
 	if land_cursor: land_cursor.visible = n == "land"
 	if n == "chat" and chat_target == null: _pick_chat(_companions().front() if not _companions().is_empty() else null)
 
@@ -213,7 +215,7 @@ func _topbar() -> void:
 
 # ---------- main menu ----------
 func _build_menu() -> Dictionary:
-	var p := _panel("Phoenix · v0.9")
+	var p := _panel("Phoenix · v0.10")
 	var b: VBoxContainer = p["body"]
 	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 26, MAG))
 	var grid := GridContainer.new()
@@ -222,7 +224,7 @@ func _build_menu() -> Dictionary:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
@@ -435,6 +437,12 @@ func _build_settings() -> Dictionary:
 	menu_start.button_pressed = bool(Settings.get_value("ui", "show_menu_on_start", true))
 	menu_start.toggled.connect(func(on): Settings.set_value("ui", "show_menu_on_start", on))
 	b.add_child(menu_start)
+	var vm := CheckButton.new()
+	vm.text = "Companion voices (TTS)"
+	vm.add_theme_font_size_override("font_size", FS)
+	vm.button_pressed = not CompanionVoice.muted()
+	vm.toggled.connect(func(on): CompanionVoice.set_muted(not on))
+	b.add_child(vm)
 	var lab := CheckButton.new()
 	lab.text = "Show floating names & labels"
 	lab.add_theme_font_size_override("font_size", FS)
@@ -870,6 +878,19 @@ func _build_music() -> Dictionary:
 		cb.button_pressed = bool(Settings.get_value("music", k, k == "everywhere"))
 		cb.toggled.connect(func(on): Settings.set_value("music", k, on))
 		b.add_child(cb)
+	var now := label("♪ Now: " + SoundCloudSource.now_title(), 28, GOLD)
+	now.name = "NowTitle"
+	b.add_child(now)
+	var nav := HBoxContainer.new()
+	for d in [[-1, "⏮ Prev"], [1, "Next ⏭"]]:
+		var dd: int = d[0]
+		nav.add_child(btn(d[1], func():
+			SoundCloudSource.step_track(dd)
+			now.text = "♪ Now: " + SoundCloudSource.now_title()
+			var r = _radio()
+			if r: r.start(), 160))
+	b.add_child(nav)
+	b.add_child(label(str(SoundCloudSource.config().get("default_playlist_name", "")), 20))
 	b.add_child(label("Phoenix Radio streams from SoundCloud. Default = the owner's SoundCloud. Put your own SoundCloud profile/playlist link below.", 24, MAG))
 	b.add_child(btn("▶ Play on SoundCloud (opens SoundCloud app)", func():
 		var r = _radio()
@@ -1323,6 +1344,104 @@ func _refresh_proposals() -> void:
 		if pr["state"] == "PendingApproval":
 			var row := HBoxContainer.new()
 			var pid: String = pr["id"]
-			row.add_child(btn("✔ Approve", func(): EveCore.decide(pid, true); _refresh_proposals(), 160))
-			row.add_child(btn("✖ Reject", func(): EveCore.decide(pid, false); _refresh_proposals(), 160))
+			row.add_child(btn("✔ Approve", func(): EveCore.decide(pid, true); BrainCore.sync_owner_decisions(EveCore.proposals()); _refresh_proposals(), 160))
+			row.add_child(btn("✖ Reject", func(): EveCore.decide(pid, false); BrainCore.sync_owner_decisions(EveCore.proposals()); _refresh_proposals(), 160))
 			proposals_list.add_child(row)
+	_refresh_brain_proposals()
+
+## v0.10: BrainCore learned-cell proposals (from BrainLearner) + rollback of learned cells. Owner only.
+func brain_decide(id: String, cell_id: String, approve: bool) -> bool:
+	var b: BrainCore = AgentBrain.get_brain(id)
+	if b == null or not EveCore.owner_ok(): return false
+	var ok: bool = b.approve(cell_id).get("ok", false) if approve else b.reject(cell_id)
+	if ok: EveCore.for_companion(id, b.persona)._log("Cell " + ("Approved" if approve else "Rejected"), "Brain", "Approved" if approve else "Rejected", cell_id)
+	return ok
+
+func brain_rollback(id: String, cell_id: String) -> bool:
+	var b: BrainCore = AgentBrain.get_brain(id)
+	if b == null or not EveCore.owner_ok(): return false
+	var ok := b.rollback(cell_id)
+	if ok: EveCore.for_companion(id, b.persona)._log("Cell Rolled Back", "Brain", "Active", cell_id)
+	return ok
+
+func _refresh_brain_proposals() -> void:
+	proposals_list.add_child(label("— Learned brain cells —", 22, GOLD))
+	for id in AgentBrain.brains:
+		var b: BrainCore = AgentBrain.brains[id]
+		var cid: String = id
+		for c in b.pending():
+			var cell_id := str(c.get("id", ""))
+			proposals_list.add_child(label("%s learned: %s → %s (%s)" % [cid, JSON.stringify(c.get("trigger", {})).left(60), JSON.stringify(c.get("action", {})).left(60), c.get("provenance", {}).get("reason", "")], 20))
+			var row := HBoxContainer.new()
+			row.add_child(btn("✔ Approve", func(): brain_decide(cid, cell_id, true); _refresh_proposals(), 160))
+			row.add_child(btn("✖ Reject", func(): brain_decide(cid, cell_id, false); _refresh_proposals(), 160))
+			proposals_list.add_child(row)
+		for cell_id in b.cells:
+			if b.versions(cell_id).is_empty(): continue
+			var ccid: String = cell_id
+			var row2 := HBoxContainer.new()
+			row2.add_child(label("%s · %s v%d w%.2f" % [cid, ccid, b.versions(ccid).back(), float(b.cells[ccid].get("weight", 0))], 20))
+			row2.add_child(btn("↶ Roll back", func(): brain_rollback(cid, ccid); _refresh_proposals(), 160))
+			proposals_list.add_child(row2)
+
+
+# ---------- v0.10 History (per-companion memory timeline) ----------
+var history_target := "foxy_ani"
+var history_query := ""
+var history_row: HBoxContainer
+var history_list: VBoxContainer
+var history_status: Label
+func _build_history() -> Dictionary:
+	var p := _panel("History")
+	var b: VBoxContainer = p["body"]
+	history_row = HBoxContainer.new(); b.add_child(history_row)
+	var search := LineEdit.new()
+	search.placeholder_text = "Search memories…"
+	search.add_theme_font_size_override("font_size", FS)
+	search.text_changed.connect(func(t): history_query = t; _refresh_history())
+	b.add_child(search)
+	var io := HBoxContainer.new()
+	io.add_child(btn("⤒ Export", func(): _history_io(true), 160))
+	io.add_child(btn("⤓ Import", func(): _history_io(false), 160))
+	b.add_child(io)
+	history_status = label("", 20, GOLD); b.add_child(history_status)
+	history_list = VBoxContainer.new(); b.add_child(history_list)
+	return p
+
+static func history_export_path(id: String) -> String:
+	return "user://exports/%s_portable.json" % id
+
+func _persona_of(id: String) -> Dictionary:
+	for c in _companions():
+		if c.companion_id == id: return c.persona
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://companions/%s/persona.json" % id)) if FileAccess.file_exists("res://companions/%s/persona.json" % id) else null
+	return d if d is Dictionary else {}
+
+func _history_io(export: bool) -> void:
+	var core := EveCore.for_companion(history_target, _persona_of(history_target))
+	var path := history_export_path(history_target)
+	if export:
+		DirAccess.make_dir_recursive_absolute("user://exports")
+		var f := FileAccess.open(path, FileAccess.WRITE)
+		if f: f.store_string(JSON.stringify(core.export_portable(_persona_of(history_target)), "  "))
+		history_status.text = "Exported to " + ProjectSettings.globalize_path(path)
+	else:
+		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path)) if FileAccess.file_exists(path) else null
+		history_status.text = ("Imported %d entries" % core.import_portable(d)) if d is Dictionary else "No export file at " + path
+	_refresh_history()
+
+func _refresh_history() -> void:
+	if history_list == null: return
+	for c in history_row.get_children(): c.queue_free()
+	for c in history_list.get_children(): c.queue_free()
+	var ids: Array = [EveCore.OWNER_ID]
+	for c in _companions(): ids.append(c.companion_id)
+	if not ids.has(history_target): history_target = ids[0]
+	for id in ids:
+		var cid: String = id
+		history_row.add_child(btn(("● " if cid == history_target else "") + cid.split("_")[0].capitalize(), func(): history_target = cid; _refresh_history(), 120))
+	var es: Array = EveCore.for_companion(history_target, _persona_of(history_target)).search(history_query)
+	if es.is_empty(): history_list.add_child(label("No memories yet." if EveCore.owner_ok() else "Locked: enter the owner code to view memories.", FS))
+	for i in range(es.size() - 1, maxi(-1, es.size() - 61), -1):
+		var e: Dictionary = es[i]
+		history_list.add_child(label("%s  %s · %s\n%s" % [Time.get_datetime_string_from_unix_time(int(e.get("timestamp", 0)), true), e.get("event", ""), e.get("voice", ""), str(e.get("content", "")).left(160)], 20))

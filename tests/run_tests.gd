@@ -42,6 +42,8 @@ func _ready() -> void:
 	load("res://tests/brain_tests.gd").run_owner_flow(self)
 	load("res://tests/brain_tests.gd").run_agent_brain(self)
 	_ui_kit_tests()
+	load("res://tests/admin_tests.gd").run(self)
+	await load("res://tests/admin_tests.gd").run_scene(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

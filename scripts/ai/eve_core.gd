@@ -33,7 +33,7 @@ class EveBrainCell:
 		id = cell_id
 		memory_hash = "ANTERRANIAN-BRAIN-" + cell_id  # plain id string, not an NFT
 
-	func store_memory(event: String, location: String, state := "Active", content := "", voice := DEFAULT_VOICE, extra := {}) -> bool:
+	func store_memory(event: String, location := "Core", state := "Active", content := "", voice := DEFAULT_VOICE, extra := {}) -> bool:
 		if _locked: return false
 		var e := {"event": event, "location": location, "state": state, "voice": voice,
 			"content": content, "timestamp": Time.get_unix_time_from_system()}
@@ -44,7 +44,8 @@ class EveBrainCell:
 		return true
 
 	func unlock() -> void: _locked = false
-	func lock() -> void: _locked = true
+	func lock_cell() -> void: _locked = true
+	func lock() -> void: lock_cell()  # v1 name, kept as alias
 	func is_authenticated() -> bool: return not _locked
 
 # ---------------- core ----------------
@@ -100,6 +101,13 @@ func create_duet(prompt: String, v1 := "", v2 := COMPANION_VOICE) -> bool:
 func output_audio(content: String, voice := "", mode := "Both") -> bool:
 	return _log("Audio Output", "Audio_Core", "Active", content, voice, {"output_mode": mode})
 func output_video(content: String, voice := "") -> bool: return _log("Video Output", "Visual_Core", "Active", content, voice)
+## v2: NPC / guide-bot speech. "" or "Default" voice falls back like the other methods.
+func npc_speak(dialogue: String, voice := DEFAULT_VOICE, npc_name := "NPC") -> bool:
+	return _log(npc_name + " spoke", "Game_World", "Active", dialogue, voice, {"npc": npc_name})
+## Routes NPC speech to that NPC's companion core if one exists (persona folder), else the owner core.
+static func npc_say(npc_name: String, dialogue: String, voice := "", npc_id := "") -> bool:
+	var cid := npc_id if npc_id != "" and FileAccess.file_exists("res://companions/%s/persona.json" % npc_id) else OWNER_ID
+	return for_companion(cid).npc_speak(dialogue, voice, npc_name)
 # in-app hooks
 func log_chat(role: String, text: String) -> bool: return _log("Chat", "Chat_Core", "Active", text, "", {"role": role})
 func log_build(tool: String, args: Dictionary) -> bool: return _log("Build", "World_Core", "Active", tool + " " + JSON.stringify(args), "", {"tool": tool})

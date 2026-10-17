@@ -11,6 +11,11 @@ Source: `docs/vala_reference/AnterranianEveCore.vala`. Port: `scripts/ai/eve_cor
 - **Fire theme:** Foxy's entries carry `fire_theme: ["phoenix","ember","Venus"]`.
 - Media methods (`generate_image/video`, `create_music`, `create_duet`, `output_audio/video`) only log requests. They don't generate anything.
 
+## v2 changes (docs/vala_reference/AnterranianEveCore_v2.vala)
+- `EveBrainCell.lock_cell()`; `lock()` is kept as an alias.
+- `store_memory` location defaults to `"Core"`.
+- `npc_speak(dialogue, voice="Phoenix_Default_Voice", npc_name="NPC")` logs `"<npc_name> spoke"` @ `Game_World`, `Active`. `EveCore.npc_say(name, text, voice, npc_id)` routes to the NPC's companion core when `companions/<npc_id>/persona.json` exists, else the owner core. Wired: Welcome Island guide answers (MENU › Help) → owner core.
+
 ## Owner approval queue
 `propose_update(desc)` logs a `PendingApproval` entry and adds it to `user://eve/proposals.json`. It stays pending until Phoenix taps Approve or Reject in **MENU › 📜 Proposals**. `EveCore.decide()` refuses anyone who isn't the owner.
 
@@ -20,7 +25,7 @@ Source: `docs/vala_reference/AnterranianEveCore.vala`. Port: `scripts/ai/eve_cor
 - Music: every `MusicRadio.tune()` (owner core).
 
 ## BrainCore adapter
-`EveCore.BrainAdapter` forwards every entry and proposal to a global `BrainCore` class when one exists, through `store_entry(id, entry)` and `queue_proposal(p)`. `feature/brain-core` was not on origin at port time, so local `user://eve` storage is the fallback and is always written. Rename these two calls to match BrainCore's API once that branch lands.
+`EveCore.BrainAdapter` forwards every entry and proposal to a global `BrainCore` class when one exists, through `store_entry(id, entry)` and `queue_proposal(p)`. `feature/brain-core` was not on origin at port time, so local `user://eve` storage is the fallback and is always written. These two names are confirmed by the dev bot as the BrainCore API.
 
 ## Tests
 `_eve_tests()` in `tests/run_tests.gd`: lock, owner unlock, plain hash, voice fallback, fire tag, duet, proposal gate, persistence.

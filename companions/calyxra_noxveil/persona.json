@@ -81,5 +81,12 @@
     "calyxra_noxveil_burgundy_leaf_robe"
   ],
   "batch": "t25u",
-  "companion_group": "starlit_calyx"
+  "companion_group": "starlit_calyx",
+  "voice": {
+    "profile": "CalyxraNoxveil_Voice",
+    "pitch": 1.0,
+    "rate": 1.0,
+    "tts_enabled": true,
+    "cloud_voice_id": ""
+  }
 }

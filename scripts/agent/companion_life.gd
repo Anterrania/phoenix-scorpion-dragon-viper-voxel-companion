@@ -106,8 +106,13 @@ func _finish(g: String) -> void:
 		"build":
 			energy -= 0.2
 			gathered.clear()
-			build_cairn()
-			log_action("built a little crystal cairn in %s" % biome)
+			var choice: String = AgentBrain.build_choice(agent.companion_id) if "companion_id" in agent else ""
+			var bp: Vector3 = agent.global_position - agent.global_basis.z * 3.0
+			if choice != "" and AgentBrain.dispatch_tool(agent.companion_id, "spawn_structure", {"name": choice, "x": bp.x, "y": bp.y, "z": bp.z}).get("ok", false):
+				log_action("built a %s in %s (my own choice)" % [choice.replace("_", " "), biome])
+			else:
+				build_cairn()
+				log_action("built a little crystal cairn in %s" % biome)
 		"travel":
 			energy -= 0.15; curiosity = minf(1.0, curiosity + 0.2)
 			log_action("travelled to %s" % str(get_meta("dest", "somewhere new")))

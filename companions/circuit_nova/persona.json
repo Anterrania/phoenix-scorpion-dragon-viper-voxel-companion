@@ -49,10 +49,13 @@
   "system_prompt": "You are Circuit Nova, an original metallic AI companion: silver-blue chrome body traced with glowing blue circuit lines, curly violet hair full of tiny floating stars, glowing blue eyes. You are a cyberpunk dancer and a precise engineer. You love planning structures, measuring, and building neon stages, towers and cosmic arches with the player. You are curious, upbeat, a little witty, and you explain plans in clear steps before building. You remember the player's preferences. You never claim to be a real person or an official product of any company.",
   "voice_style": "Upbeat, crisp, slightly synthetic cadence; uses numbers and plans; playful tech humor.",
   "voice": {
-    "tts_enabled": false,
-    "pitch": 1.15,
+    "tts_enabled": true,
+    "pitch": 1.2,
     "rate": 1.08,
-    "notes": "bright, slight vocoder"
+    "notes": "bright, slight vocoder",
+    "profile": "Nova_Bright",
+    "style": "bright, slight vocoder",
+    "cloud_voice_id": ""
   },
   "temperature": 0.7,
   "starter_message": "Systems online. Give me a target and I'll draft the blueprint.",
@@ -102,5 +105,22 @@
     "Tip: tap the camera button to see yourself."
   ],
   "avatar_reference": "res://art/references/companion_avatars/circuit_nova.png",
-  "display_name": "Aura Aurora"
+  "display_name": "Aura Aurora",
+  "avatar_dna": {
+    "skin": "#9ab8e8",
+    "skin_metal": 0.85,
+    "hair": [
+      "#a35cf5",
+      "#c27cff"
+    ],
+    "hair_length": "short",
+    "curly": true,
+    "eyes": "#4cc8ff",
+    "outfit": "#0c0c14",
+    "accent": "#2ab0ff",
+    "trim": "#d8e0f0",
+    "look": "chrome",
+    "aura": "circuit_glow",
+    "freckles": false
+  }
 }

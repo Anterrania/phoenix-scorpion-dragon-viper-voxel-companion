@@ -1,5 +1,29 @@
 [
  {
+  "sha": "047a6c6",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:02:48-07:00",
+  "subject": "tests + docs: 92 admin/kit checks (revisions, workflow, wiki links, brain bridge, repo log, swipe/paging/toast/hold, stepper, admin scene flows), screenshot_admin.gd; docs/ADMIN_TRACKER.md (+ Circle r"
+ },
+ {
+  "sha": "bdb0e0f",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:02:48-07:00",
+  "subject": "admin: Viper OS admin screen on phoenix_glass.tres - Home rings/graph/report, Tickets pill rows + detail, Wiki pages + edit/history, Timeline commits+revisions with hold-to-revert, Profile sign-up ste"
+ },
+ {
+  "sha": "78e1eb7",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:02:48-07:00",
+  "subject": "ui kit: build UI_DESIGN_LANGUAGE §8 specs on Phoenix Glass - SwipePages (<=5 pill tabs, 30%/600px/s swipe), SegmentedPills, PillRow admin-table row (avatar ring, one chip, swipe-left actions), PagedLi"
+ },
+ {
+  "sha": "af8b09b",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:02:48-07:00",
+  "subject": "tracker: SVN-style RevisionStore (r1,r2.. log/diff/content_at/revert-as-new-rev), Trac TicketStore (default workflow, resolutions, comments linking rN, seeded from TASK_TRACKER.csv), WikiStore (CamelC"
+ },
+ {
   "sha": "c7d118f",
   "author": "Anterrania",
   "date": "2026-10-17T11:42:59-07:00",

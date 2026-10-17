@@ -164,9 +164,10 @@ static func build(style: Dictionary) -> Node3D:
 		_mi(head, "Ear" + nm, _sphere(0.022, 8), Vector3(0.1 * side, 0.13, 0.0), skin_m, Vector3(0.5, 1.0, 0.8))
 	_mi(head, "Lips", _capsule(0.011, 0.045, 6), Vector3(0, 0.068, -0.103), _mat(skin.darkened(0.25), 0.0, 0.0, 0.4)).rotation.z = PI / 2
 	# Hair: scalp cap + flowing strands (smooth capsules, streak colors)
-	var streaks: Array = style.get("hair_streaks", [hair])
+	var streaks: Array = style.get("hair_streaks", style.get("hair_gradient", [hair]))
+	var grad: Array = style.get("hair_gradient", [])
 	_mi(head, "HairTop", _sphere(0.125, 16), Vector3(0, 0.16, 0.012), hair_m, Vector3(0.95, 0.95, 1.0))
-	var long := look in ["fire", "classic", "phoenix"] or phoenix
+	var long := (look in ["fire", "classic", "phoenix"] or phoenix) if not style.has("hair_length") else str(style["hair_length"]) == "long"
 	var strands := 26 if long else 12
 	for i in strands:
 		var a := lerpf(-2.3, 2.3, float(i) / float(strands - 1))  # around sides/back
@@ -174,6 +175,9 @@ static func build(style: Dictionary) -> Node3D:
 		var col: Color = streaks[i % streaks.size()]
 		var st := _mi(head, "Strand%d" % i, _capsule(0.03, length, 8), Vector3(sin(a) * 0.11, 0.15 - length * 0.38, cos(a) * 0.1 + 0.015), _hair_mat(col, 0.15 if phoenix else 0.0))
 		st.rotation = Vector3(-cos(a) * 0.18 + 0.05 * sin(i * 1.7), 0, sin(a) * 0.22 + 0.06 * cos(i * 3.1))
+		if grad.size() > 1 and not phoenix:  # v0.10 DNA gradient: tip takes the far end of the gradient
+			var tip := _mi(st, "Tip", _capsule(0.026, length * 0.5, 8), Vector3(0, -length * 0.42, 0.005), _hair_mat(grad[mini(grad.size() - 1, 1 + i % (grad.size() - 1))], 0.25))
+			tip.rotation.z = 0.12 * sin(i * 1.9)
 		if phoenix:  # wild wavy: second offset layer
 			var w := _mi(st, "Wave", _capsule(0.022, length * 0.6, 6), Vector3(0.02 * sin(i), -length * 0.35, 0.01), st.material_override)
 			w.rotation.z = 0.25 * sin(i * 1.3)
@@ -201,6 +205,7 @@ static func build(style: Dictionary) -> Node3D:
 			_mi(torso, "Chain%d" % i, _torus(0.1 + i * 0.022, 0.006), Vector3(0, 0.6 - i * 0.04, -0.03 - i * 0.012), gold_m, Vector3(1, 1, 0.8)).rotation.x = 1.2
 	if phoenix:
 		_build_phoenix_extras(head, torso, hips, style, gold_m, leather, accent_m, trim)
+	_build_dna_extras(root, head, torso, style, skin, accent)
 	match look:
 		"fire":
 			for i in 3:
@@ -281,3 +286,39 @@ static func animate(model: Node3D, t: float, speed01: float) -> void:
 	lr.rotation.x = swing
 	ll.get_node("Shin").rotation.x = maxf(sin(ph + 1.2), 0.0) * 0.9 * speed01
 	lr.get_node("Shin").rotation.x = maxf(sin(ph + PI + 1.2), 0.0) * 0.9 * speed01
+
+
+## v0.10 DNA extras: freckles, phoenix fire aura + embers, circuit glow lines.
+static func _build_dna_extras(root: Node3D, head: Node3D, torso: Node3D, style: Dictionary, skin: Color, accent: Color) -> void:
+	if style.get("freckles", false):
+		var fm := _mat(skin.darkened(0.35), 0.0, 0.0, 0.7)
+		for i in 14:
+			var side := -1.0 if i % 2 == 0 else 1.0
+			var k := i / 2
+			_mi(head, "Freckle%d" % i, _sphere(0.0045, 4), Vector3(side * (0.025 + 0.009 * (k % 4)), 0.125 - 0.007 * (k % 3), -0.108 + 0.004 * (k % 4)), fm)
+	match str(style.get("aura", "")):
+		"phoenix_fire":
+			var aura := Node3D.new(); aura.name = "Aura"; root.add_child(aura)
+			var l := OmniLight3D.new(); l.name = "AuraLight"; l.light_color = Color(1, 0.45, 0.15); l.light_energy = 1.4; l.omni_range = 3.0
+			l.position.y = 1.1; aura.add_child(l)
+			var ring := _mi(aura, "AuraRing", _torus(0.42, 0.02), Vector3(0, 0.05, 0), _mat(Color(1, 0.4, 0.1, 1), 3.0))
+			ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			var p := GPUParticles3D.new(); p.name = "Embers"; p.amount = 48; p.lifetime = 1.6; p.position.y = 0.9
+			var pm := ParticleProcessMaterial.new()
+			pm.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE; pm.emission_sphere_radius = 0.45
+			pm.direction = Vector3.UP; pm.spread = 25.0; pm.initial_velocity_min = 0.3; pm.initial_velocity_max = 0.9
+			pm.gravity = Vector3(0, 0.6, 0); pm.scale_min = 0.5; pm.scale_max = 1.2
+			var g := Gradient.new(); g.set_color(0, Color(1, 0.85, 0.3)); g.set_color(1, Color(1, 0.15, 0.6, 0))
+			var gt := GradientTexture1D.new(); gt.gradient = g; pm.color_ramp = gt
+			p.process_material = pm
+			p.draw_pass_1 = SoftParticle.quad(0.04, true)
+			aura.add_child(p)
+		"circuit_glow":
+			var cm := _mat(accent, 3.0, 0.2, 0.2)
+			for i in 6:
+				_mi(torso, "CircuitV%d" % i, _capsule(0.005, 0.3, 4), Vector3(-0.12 + 0.048 * i, 0.32, -0.1 + 0.01 * absf(i - 2.5)), cm)
+			for nm in ["ArmL", "ArmR"]:
+				var arm := torso.get_node_or_null(nm)
+				if arm: _mi(arm, "CircuitArm", _capsule(0.006, 0.4, 4), Vector3(0, -0.25, -0.045), cm)
+			var l2 := OmniLight3D.new(); l2.name = "CircuitLight"; l2.light_color = accent; l2.light_energy = 0.8; l2.omni_range = 2.0
+			l2.position.y = 1.2; root.add_child(l2)

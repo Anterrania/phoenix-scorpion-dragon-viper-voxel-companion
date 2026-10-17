@@ -5,5 +5,53 @@
   "fallback_credit": "\"Local Forecast - Elevator\" Kevin MacLeod (incompetech.com), CC BY 4.0",
   "playback_mode": "auto",
   "_playback_modes": "auto = in-app API stream if credentials are set, otherwise open SoundCloud app/web player; external = always open SoundCloud app; fallback = royalty-free track only",
-  "default_soundcloud_name": "Anterranian Monarch"
+  "default_soundcloud_name": "Anterranian Monarch",
+  "default_playlist_name": "Anterranian Monarch: Cosmic Series",
+  "default_playlist": [
+    {
+      "title": "Celestial Convergence",
+      "url": "https://soundcloud.com/anterrania/celestial-convergence",
+      "duration": "00:03:18",
+      "date": "2025-12-26",
+      "catalog_id": "M0944"
+    },
+    {
+      "title": "Dragon of the Cosmos",
+      "url": "https://soundcloud.com/anterrania/dragon-of-the-cosmos",
+      "duration": "00:03:13",
+      "date": "2025-12-26",
+      "catalog_id": "M0946"
+    },
+    {
+      "title": "God's Palace",
+      "url": "https://soundcloud.com/anterrania/gods-palace",
+      "duration": "00:03:24",
+      "date": "2025-12-26",
+      "catalog_id": "M0955"
+    },
+    {
+      "title": "Venusian Dreams",
+      "url": "https://soundcloud.com/anterrania/venusian-dreams",
+      "duration": "00:03:11",
+      "date": "2025-12-26",
+      "catalog_id": "M0957"
+    },
+    {
+      "title": "Throne Room",
+      "url": "https://soundcloud.com/anterrania/throne-room",
+      "duration": "00:04:21",
+      "date": "2025-12-27",
+      "catalog_id": "M0930"
+    }
+  ],
+  "_playlist_note": "Owner default playlist (from /workspace/media-catalog/catalog.csv). Explicit-titled tracks are never in the default; explicit_title_terms is a safety filter.",
+  "explicit_title_terms": [
+    "fuck",
+    "nigga",
+    "nigger",
+    "bitch",
+    "shit",
+    "krakker",
+    "silent night"
+  ]
 }

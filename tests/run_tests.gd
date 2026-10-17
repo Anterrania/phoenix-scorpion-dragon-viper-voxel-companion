@@ -36,6 +36,7 @@ func _ready() -> void:
 	await _v09_tests()
 	_eve_tests()
 	load("res://tests/brain_tests.gd").run(self)
+	load("res://tests/brain_tests.gd").run_agent_brain(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

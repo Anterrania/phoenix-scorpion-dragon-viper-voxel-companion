@@ -100,7 +100,7 @@ func chat(id: String, player_text: String) -> void:
 	var body := {
 		"model": Settings.get_value("llm", "model"),
 		"messages": messages,
-		"tools": _tool_specs(persona.get("tools", [])),
+		"tools": _tool_specs(BrainCore.flatten_tools(persona.get("tools", []))),
 		"temperature": persona.get("temperature", 0.8),
 	}
 	var http := HTTPRequest.new()
@@ -148,7 +148,7 @@ func _on_chat_done(result: int, code: int, _h: PackedStringArray, raw: PackedByt
 func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
 	var agent: Node = _agents.get(id)
 	var res := {"ok": false}
-	if agent == null or tool not in agent.persona.get("tools", []):
+	if agent == null or tool not in BrainCore.flatten_tools(agent.persona.get("tools", [])):
 		res["error"] = "tool not allowed for this companion"
 	elif tool == "remember":
 		remember_fact(id, str(args.get("fact", "")))

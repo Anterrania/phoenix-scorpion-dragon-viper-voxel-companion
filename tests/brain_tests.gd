@@ -102,3 +102,25 @@ static func run(t: Node) -> void:
 	var ex := foxy.export_portable()
 	t.check(ex["schema"] == "phoenix.brain_export/1" and ex["cells"].size() >= 5 and "Never execute" in ex["usage"], "brain: portable export for Grok Bots")
 	_rm_tree(root)
+
+## AgentBrain regression: v3 personas store tools as {shared, world_only, chat}; dispatch must accept them.
+static func run_agent_brain(t: Node) -> void:
+	var ab: Node = t.get_node_or_null("/root/AgentBrain")
+	if ab == null:
+		t.check(false, "brain: AgentBrain autoload present"); return
+	var gs := GDScript.new()
+	gs.source_code = "extends Node3D\nvar companion_id := \"\"\nvar persona := {}\n"
+	gs.reload()
+	var fake := Node3D.new()
+	fake.set_script(gs)
+	fake.companion_id = "brain_test_agent"
+	fake.persona = JSON.parse_string(FileAccess.get_file_as_string("res://companions/foxy_ani/persona.json"))
+	t.add_child(fake)
+	ab._agents[fake.companion_id] = fake
+	ab._memory[fake.companion_id] = ab.load_memory(fake.companion_id)
+	var r: Dictionary = ab.dispatch_tool(fake.companion_id, "remember", {"fact": "brain test fact"})
+	t.check(r.get("ok", false), "brain: AgentBrain accepts v3 persona tool dict (remember)")
+	ab._agents.erase(fake.companion_id)
+	ab._memory.erase(fake.companion_id)
+	DirAccess.remove_absolute(ab._mem_path(fake.companion_id))
+	fake.queue_free()

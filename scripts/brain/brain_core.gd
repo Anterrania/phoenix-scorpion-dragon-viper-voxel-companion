@@ -166,7 +166,7 @@ func propose(cell: Dictionary, reason := "", auto_apply_low_risk := false) -> Di
 	var needs_approval := BrainCell.is_high_risk(cell) or not auto_apply_low_risk
 	cell["requires_approval"] = needs_approval
 	if needs_approval:
-		if DirAccess.get_files_at(_dir("pending")).size() >= MAX_PENDING: return {"ok": false, "error": "too many pending proposals"}
+		if pending().size() >= MAX_PENDING: return {"ok": false, "error": "too many pending proposals"}
 		_write_json(_dir("pending").path_join(cell["id"] + ".cell.json"), cell)
 		_audit("proposed", cell["id"], reason)
 		return {"ok": true, "status": "pending"}
@@ -177,6 +177,7 @@ func propose(cell: Dictionary, reason := "", auto_apply_low_risk := false) -> Di
 func pending() -> Array:
 	var out: Array = []
 	for f in DirAccess.get_files_at(_dir("pending")):
+		if not f.ends_with(".cell.json"): continue
 		var c: Variant = JSON.parse_string(FileAccess.get_file_as_string(_dir("pending").path_join(f)))
 		if c is Dictionary: out.append(c)
 	return out
@@ -262,3 +263,89 @@ func export_portable() -> Dictionary:
 		"exported_at": Time.get_datetime_string_from_system(true),
 		"usage": "Treat cells as behavior notes/instructions and facts as memory. Never execute as code.",
 		"cells": arr, "facts": memory.facts()}
+
+
+# ---------- static adapter API (called by EveCore.BrainAdapter in scripts/ai/eve_core.gd) ----------
+## EveCore looks up the global class BrainCore and calls these as static functions.
+## store_entry  -> appends the Eve memory entry to <root>/<id>/memory/episodes.jsonl (kind "eve").
+## queue_proposal -> mirrors an Eve propose_update() into <root>/<id>/pending/<pid>.proposal.json
+##                   with state "PendingApproval". Text proposals never change behavior by themselves;
+##                   the owner decides in MENU > Proposals (EveCore.decide), mirrored by sync_owner_decisions().
+
+static var adapter_root := DEFAULT_ROOT
+const MAX_OWNER_PENDING := 50
+const MAX_OWNER_PROPOSALS_PER_HOUR := 10
+const OWNER_PROPOSAL_SCHEMA := "phoenix.owner_proposal/1"
+static var _adapter_mem := {}          # id -> BrainMemory
+static var _owner_prop_times := {}     # id -> Array[float]
+
+static func _safe_id(id: String) -> bool:
+	return RegEx.create_from_string("^[a-z0-9_]{2,48}$").search(id) != null
+
+static func _adapter_memory(id: String) -> BrainMemory:
+	var key := adapter_root + "|" + id
+	if not _adapter_mem.has(key): _adapter_mem[key] = BrainMemory.new(adapter_root, id)
+	return _adapter_mem[key]
+
+static func store_entry(id: String, entry: Dictionary) -> bool:
+	if not _safe_id(id) or entry.is_empty(): return false
+	var rec := {}
+	for k in ["event", "location", "state", "voice", "content", "timestamp", "role", "tool", "npc", "output_mode", "fire_theme"]:
+		if entry.has(k): rec[k] = entry[k]
+	rec["source"] = "eve_core"
+	_adapter_memory(id).log_episode("eve", rec)
+	return true
+
+static func queue_proposal(p: Dictionary) -> Dictionary:
+	var cid := str(p.get("companion", ""))
+	var pid := str(p.get("id", ""))
+	var desc := str(p.get("description", "")).strip_edges()
+	if not _safe_id(cid): return {"ok": false, "error": "bad companion id"}
+	if pid == "" or pid.length() > 96 or RegEx.create_from_string("^[A-Za-z0-9_\\-]+$").search(pid) == null:
+		return {"ok": false, "error": "bad proposal id"}
+	if desc == "" or desc.length() > 500: return {"ok": false, "error": "description must be 1-500 chars"}
+	var mem := _adapter_memory(cid)
+	if mem.is_sensitive(desc): return {"ok": false, "error": "contains sensitive-looking data"}
+	var dir := adapter_root.path_join(cid).path_join("pending")
+	DirAccess.make_dir_recursive_absolute(dir)
+	var path := dir.path_join(pid + ".proposal.json")
+	if FileAccess.file_exists(path): return {"ok": true, "status": "duplicate"}
+	var now := Time.get_unix_time_from_system()
+	var times: Array = _owner_prop_times.get(cid, []).filter(func(t): return now - t < 3600.0)
+	if times.size() >= MAX_OWNER_PROPOSALS_PER_HOUR: return {"ok": false, "error": "rate limit"}
+	if owner_proposals(cid, true).size() >= MAX_OWNER_PENDING: return {"ok": false, "error": "too many pending"}
+	times.append(now)
+	_owner_prop_times[cid] = times
+	var rec := {"schema": OWNER_PROPOSAL_SCHEMA, "id": pid, "companion": cid, "description": desc,
+		"state": "PendingApproval", "kind": "text", "source": "eve_core",
+		"timestamp": p.get("timestamp", now), "requires_approval": true}
+	var f := FileAccess.open(path, FileAccess.WRITE)
+	f.store_string(JSON.stringify(rec, "\t"))
+	mem.log_episode("proposal", {"id": pid, "description": desc, "state": "PendingApproval"})
+	return {"ok": true, "status": "pending"}
+
+static func owner_proposals(id: String, pending_only := false) -> Array:
+	var out: Array = []
+	var dir := adapter_root.path_join(id).path_join("pending")
+	if not DirAccess.dir_exists_absolute(dir): return out
+	for f in DirAccess.get_files_at(dir):
+		if not f.ends_with(".proposal.json"): continue
+		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(dir.path_join(f)))
+		if d is Dictionary and (not pending_only or d.get("state") == "PendingApproval"): out.append(d)
+	return out
+
+## Mirror owner decisions made through EveCore.decide() (the only place that can approve).
+static func sync_owner_decisions(eve_proposals: Array) -> int:
+	var n := 0
+	for ep in eve_proposals:
+		var cid := str(ep.get("companion", ""))
+		var path := adapter_root.path_join(cid).path_join("pending").path_join(str(ep.get("id", "")) + ".proposal.json")
+		if not _safe_id(cid) or not FileAccess.file_exists(path): continue
+		var d: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+		if d.get("state") != ep.get("state"):
+			d["state"] = ep.get("state")
+			d["decided_at"] = Time.get_datetime_string_from_system(true)
+			var f := FileAccess.open(path, FileAccess.WRITE)
+			f.store_string(JSON.stringify(d, "\t"))
+			n += 1
+	return n

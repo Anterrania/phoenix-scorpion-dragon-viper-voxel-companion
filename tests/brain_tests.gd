@@ -141,3 +141,51 @@ static func run_agent_brain(t: Node) -> void:
 	ab._memory.erase(fake.companion_id)
 	DirAccess.remove_absolute(ab._mem_path(fake.companion_id))
 	fake.queue_free()
+
+## EveCore (scripts/ai/eve_core.gd, Foxy's port) -> BrainCore static adapter API.
+static func run_eve_adapter(t: Node) -> void:
+	var root := "user://test_brain_adapter_%d" % Time.get_ticks_usec()
+	var prev_root := BrainCore.adapter_root
+	BrainCore.adapter_root = root
+	EveCore.save_dir = root + "_eve"
+	EveCore.reset_cache()
+	EveCore.owner_override = true
+	t.check(EveCore.BrainAdapter.available(), "adapter: EveCore finds global class BrainCore")
+	t.check(BrainCore.new("foxy_ani", {}, root).has_method("store_entry"), "adapter: store_entry exists")
+	var before: int = EveCore.BrainAdapter.forwarded
+	var foxy := EveCore.for_companion("foxy_ani")
+	foxy.create_music("ember anthem", "Default")
+	t.check(EveCore.BrainAdapter.forwarded == before + 1, "adapter: Eve memory forwarded once")
+	var mem := BrainMemory.new(root, "foxy_ani")
+	var last: Dictionary = mem.episodes().back()
+	t.check(last.get("kind") == "eve" and last.get("event") == "Music Created" and last.get("voice") == "Eve", "adapter: store_entry wrote Eve entry to episodes.jsonl")
+	t.check(last.get("fire_theme") == ["phoenix", "ember", "Venus"], "adapter: non-string fields preserved")
+	var pr: Dictionary = foxy.propose_update("brighter lava in the caldera")
+	var ops := BrainCore.owner_proposals("foxy_ani", true)
+	t.check(ops.size() == 1 and ops[0]["id"] == pr["id"] and ops[0]["state"] == "PendingApproval", "adapter: queue_proposal mirrored PendingApproval")
+	t.check(BrainCore.queue_proposal(pr).get("status") == "duplicate", "adapter: duplicate proposal ignored")
+	t.check(not BrainCore.queue_proposal({"id": "x1", "companion": "../etc", "description": "x"}).get("ok"), "adapter: bad companion id rejected")
+	t.check(not BrainCore.queue_proposal({"id": "x2", "companion": "foxy_ani", "description": "my password is 1234"}).get("ok"), "adapter: sensitive proposal rejected")
+	t.check(not BrainCore.queue_proposal({"id": "x3", "companion": "foxy_ani", "description": ""}).get("ok"), "adapter: empty proposal rejected")
+	t.check(BrainCore.new("foxy_ani", {}, root).pending().is_empty(), "adapter: owner text proposals not mixed into cell pending()")
+	EveCore.decide(pr["id"], true)
+	t.check(BrainCore.sync_owner_decisions(EveCore.proposals()) == 1 and BrainCore.owner_proposals("foxy_ani")[0]["state"] == "Approved", "adapter: owner decision mirrored")
+	# npc_speak lives only in EveCore (Foxy, v2). BrainCore just receives the entry via store_entry.
+	if foxy.has_method("npc_speak"):
+		var n0: int = EveCore.BrainAdapter.forwarded
+		t.check(foxy.npc_speak("Welcome to the caldera!", "", "Welcome Guide"), "adapter: EveCore.npc_speak logs")
+		var sp: Dictionary = mem.episodes().back()
+		t.check(EveCore.BrainAdapter.forwarded == n0 + 1 and sp.get("event") == "Welcome Guide spoke" and sp.get("location") == "Game_World" and sp.get("npc") == "Welcome Guide", "adapter: npc_speak entry reaches BrainCore via store_entry only")
+	else:
+		t.check(true, "adapter: EveCore without npc_speak (v1) - nothing to forward")
+	t.check(not ab_has_npc_path(t), "adapter: no second NPC speech path in AgentBrain")
+	EveCore.owner_override = null
+	EveCore.save_dir = "user://eve"
+	EveCore.reset_cache()
+	BrainCore.adapter_root = prev_root
+	_rm_tree(root)
+	_rm_tree(root + "_eve")
+
+static func ab_has_npc_path(t: Node) -> bool:
+	var ab: Node = t.get_node_or_null("/root/AgentBrain")
+	return ab != null and ab.has_method("npc_speak")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://scripts/ui/kit/glass_card.gd" id="1"]
+[ext_resource type="Shader" path="res://shaders/ui_glass.gdshader" id="2"]
+[ext_resource type="Theme" path="res://themes/phoenix_glass.tres" id="3"]
+[sub_resource type="ShaderMaterial" id="m"]
+resource_local_to_scene = true
+shader = ExtResource("2")
+[node name="GlassCard" type="PanelContainer"]
+theme = ExtResource("3")
+script = ExtResource("1")
+[node name="Glass" type="ColorRect" parent="."]
+material = SubResource("m")
+layout_mode = 2
+mouse_filter = 2
+[node name="Pad" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Pad"]
+layout_mode = 2
+theme_override_constants/separation = 12
+[node name="Title" type="Label" parent="Pad/VBox"]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "CARD"
+[node name="Body" type="VBoxContainer" parent="Pad/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12

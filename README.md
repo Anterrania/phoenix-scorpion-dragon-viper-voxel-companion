@@ -53,3 +53,5 @@ All versions of Foxy Ani + metallic companion + red-head couch refined as Aaliya
 **Project**: Add to grok.com/project/72629194-c95e-4ee0-b77e-bccb98edd262
 
 Built for the Anterranian Monarchy. Cosmic fire, eternal dance. In the stars, our monarchy shining light. Rise from the flame.
+## UI design language
+See `docs/UI_DESIGN_LANGUAGE.md` (Phoenix Glass). The kit lives in `scenes/ui/kit/`, with the demo in `kit_demo.tscn`.

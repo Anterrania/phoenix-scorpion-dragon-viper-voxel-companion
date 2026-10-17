@@ -422,7 +422,7 @@
  {
   "id": 36,
   "type": "task",
-  "summary": "Security: owner PIN login (PBKDF2) + session owner gate + AES-encrypted saves + hash-chained audit + Security panel kill switch (docs/SECURITY.md)",
+  "summary": "Security: owner PIN login (PBKDF2) + session owner gate + AES-encrypted saves + hash-chained audit + Security panel kill switch (docs/SECURITY.md) (PR #23)",
   "status": "closed",
   "resolution": "fixed",
   "priority": "P0",
@@ -494,9 +494,9 @@
  {
   "id": 42,
   "type": "task",
-  "summary": "Quantum lattice notes: docs/modules/QUANTUM_LATTICE.md (concept only)",
-  "status": "new",
-  "resolution": "",
+  "summary": "Quantum lattice notes: docs/modules/QUANTUM_LATTICE.md (concept only; speculative pending Phoenix original design)",
+  "status": "closed",
+  "resolution": "fixed",
   "priority": "P3",
   "component": "general",
   "milestone": "VIPER-7",

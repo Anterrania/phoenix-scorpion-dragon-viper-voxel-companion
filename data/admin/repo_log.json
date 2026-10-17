@@ -1,9 +1,15 @@
 [
  {
-  "sha": "8e48c2d",
-  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
-  "date": "2026-10-17T13:03:53-07:00",
-  "subject": "Merge pull request #27 from Anterrania/chore/admin-audit-polish"
+  "sha": "f1568b1",
+  "author": "Anterrania",
+  "date": "2026-10-17T13:18:54-07:00",
+  "subject": "Merge remote-tracking branch 'origin/main' into docs/virtual-world-gap"
+ },
+ {
+  "sha": "09e9c87",
+  "author": "Anterrania",
+  "date": "2026-10-17T13:17:49-07:00",
+  "subject": "docs+feat(VWGAP-1..4): virtual-world gap checklist (Aurora/WhiteCore/OpenSim/OSgrid/SL/Avination/OLG), INTEROP plan, OAR terrain + IAR notecard import with Admin > Interop, landmarks/home/teleport his"
  },
  {
   "sha": "1a07535",

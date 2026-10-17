@@ -1,9 +1,21 @@
 [
  {
-  "sha": "8e48c2d",
-  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
-  "date": "2026-10-17T13:03:53-07:00",
-  "subject": "Merge pull request #27 from Anterrania/chore/admin-audit-polish"
+  "sha": "b4bbc84",
+  "author": "Anterrania",
+  "date": "2026-10-17T13:26:32-07:00",
+  "subject": "wip(phone): rescale_tree, patches for Foxy (ui_root display settings, face driver lip sync)"
+ },
+ {
+  "sha": "a1c8616",
+  "author": "Anterrania",
+  "date": "2026-10-17T13:14:24-07:00",
+  "subject": "Merge origin/main (#27 audit, #28 calm kit) into feature/phone-display-media; route new kit sizes through PhoenixTokens scale"
+ },
+ {
+  "sha": "79801ee",
+  "author": "Anterrania",
+  "date": "2026-10-17T13:14:03-07:00",
+  "subject": "wip(phone): display scale tokens, device check, voice fx + lip sync, beat/dance, broadcast stub, settings screen, tests"
  },
  {
   "sha": "1a07535",

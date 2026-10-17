@@ -37,6 +37,9 @@ Short pages. Tap one.
 - [Economy Metrics](economy-metrics.md) · planned
 - [Community](community.md) · partial
 - [Tiers](tiers.md) · built
+- [Display Settings](display-settings.md) · partial
+- [Device Check](device-check.md) · partial
+- [Media, Voice & Broadcast](media-broadcast.md) · partial
 
 - [FAQ](../FAQ.md)
 

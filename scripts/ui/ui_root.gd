@@ -42,6 +42,7 @@ func _ready() -> void:
 	panels["dest"] = _build_dest()
 	panels["estate"] = _build_estate()
 	panels["land"] = _build_land()
+	panels["proposals"] = _build_proposals()
 	get_viewport().size_changed.connect(_layout)
 	_layout()
 	AgentBrain.request_failed.connect(func(_id, _e): _update_chat_status())
@@ -161,6 +162,7 @@ func show_panel(n: String) -> void:
 	if n == "wyrm": _refresh_wyrm()
 	if n == "chat": _update_chat_status()
 	if n == "estate": _refresh_estate()
+	if n == "proposals": _refresh_proposals()
 	if land_cursor: land_cursor.visible = n == "land"
 	if n == "chat" and chat_target == null: _pick_chat(_companions().front() if not _companions().is_empty() else null)
 
@@ -220,7 +222,7 @@ func _build_menu() -> Dictionary:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
@@ -1288,9 +1290,38 @@ func land_apply() -> int:
 	if not Estate.can_terraform(_est_region(), true):
 		if land_info: land_info.text = "Terraform not allowed in this region."
 		return 0
-	return world.terraform(land_op, land_target(), land_size, land_strength)
+	var n: int = world.terraform(land_op, land_target(), land_size, land_strength)
+	if n > 0: EveCore.for_companion(EveCore.OWNER_ID).log_build("terraform:" + str(land_op), {"pos": str(land_target().round()), "size": land_size, "changed": n})
+	return n
 
 func _process(_d: float) -> void:
 	if land_cursor and land_cursor.visible:
 		land_cursor.global_position = land_target()
 		land_cursor.scale = Vector3.ONE * land_size
+
+
+# ---------- Eve Core owner-approval queue ----------
+var proposals_list: VBoxContainer
+func _build_proposals() -> Dictionary:
+	var p := _panel("Proposals")
+	var b: VBoxContainer = p["body"]
+	b.add_child(label("Companion update proposals waiting for your OK.", 22, GOLD))
+	proposals_list = VBoxContainer.new()
+	proposals_list.add_theme_constant_override("separation", 8)
+	b.add_child(proposals_list)
+	return p
+
+func _refresh_proposals() -> void:
+	if proposals_list == null: return
+	for c in proposals_list.get_children(): c.queue_free()
+	var all: Array = EveCore.proposals()
+	if all.is_empty(): proposals_list.add_child(label("No proposals yet.", FS))
+	for i in range(all.size() - 1, maxi(-1, all.size() - 31), -1):
+		var pr: Dictionary = all[i]
+		proposals_list.add_child(label("%s — %s [%s]" % [pr["companion"], pr["description"], pr["state"]], FS))
+		if pr["state"] == "PendingApproval":
+			var row := HBoxContainer.new()
+			var pid: String = pr["id"]
+			row.add_child(btn("✔ Approve", func(): EveCore.decide(pid, true); _refresh_proposals(), 160))
+			row.add_child(btn("✖ Reject", func(): EveCore.decide(pid, false); _refresh_proposals(), 160))
+			proposals_list.add_child(row)

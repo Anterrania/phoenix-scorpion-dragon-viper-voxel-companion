@@ -80,6 +80,7 @@ static func station_url() -> String:
 func tune(u: String) -> void:
 	url = u
 	if u == "": return
+	EveCore.for_companion(EveCore.OWNER_ID).log_music(u)
 	http.cancel_request()
 	status = "loading"
 	_update_label()

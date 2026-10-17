@@ -319,6 +319,11 @@ static func queue_proposal(p: Dictionary) -> Dictionary:
 	var rec := {"schema": OWNER_PROPOSAL_SCHEMA, "id": pid, "companion": cid, "description": desc,
 		"state": "PendingApproval", "kind": "text", "source": "eve_core",
 		"timestamp": p.get("timestamp", now), "requires_approval": true}
+	if p.get("cell") is Dictionary:
+		var err := BrainCell.validate(p["cell"], flatten_tools(_persona_for(cid).get("tools", [])))
+		if err != "": return {"ok": false, "error": "attached cell invalid: " + err}
+		rec["kind"] = "cell"
+		rec["cell"] = p["cell"]
 	var f := FileAccess.open(path, FileAccess.WRITE)
 	f.store_string(JSON.stringify(rec, "\t"))
 	mem.log_episode("proposal", {"id": pid, "description": desc, "state": "PendingApproval"})
@@ -345,7 +350,63 @@ static func sync_owner_decisions(eve_proposals: Array) -> int:
 		if d.get("state") != ep.get("state"):
 			d["state"] = ep.get("state")
 			d["decided_at"] = Time.get_datetime_string_from_system(true)
+			if d["state"] == "Approved" and d.get("cell") is Dictionary:
+				d["activated"] = _activate_owner_cell(cid, d["cell"], str(d.get("id", "")))
 			var f := FileAccess.open(path, FileAccess.WRITE)
 			f.store_string(JSON.stringify(d, "\t"))
 			n += 1
 	return n
+
+
+static func _persona_for(cid: String) -> Dictionary:
+	var path := "res://companions/%s/persona.json" % cid
+	if not FileAccess.file_exists(path): return {}
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	return d if d is Dictionary else {}
+
+## Owner approved a proposal carrying a cell: re-validate and commit it (versioned, audited).
+static func _activate_owner_cell(cid: String, cell: Dictionary, pid: String) -> bool:
+	var b := BrainCore.new(cid, _persona_for(cid), adapter_root)
+	var c := cell.duplicate(true)
+	c.erase("requires_approval")
+	if BrainCell.validate(c, b.allowed_tools) != "": return false
+	if c.get("action", {}).get("type") == "delegate" and not b.is_lead: return false
+	if not c.has("provenance"): c["provenance"] = {"source": "self_proposed"}
+	c["provenance"]["approved_at"] = Time.get_datetime_string_from_system(true)
+	c["provenance"]["owner_proposal"] = pid
+	b._commit_cell(c, "approved by owner via EveCore.decide (%s)" % pid)
+	return true
+
+## Phone flow: companion asks the OWNER (MENU > Proposals) to accept a new/edited cell.
+## Goes through EveCore.propose_update so it shows in the owner's queue; the cell is attached to the
+## mirrored proposal and only becomes active after EveCore.decide(approved) + sync_owner_decisions().
+func propose_to_owner(cell: Dictionary, reason := "") -> Dictionary:
+	if not _rate_ok(): return {"ok": false, "error": "rate limit: max %d proposals/hour" % MAX_PROPOSALS_PER_HOUR}
+	for op in owner_proposals(companion_id, true):
+		if op.get("cell") is Dictionary and op["cell"].get("id") == cell.get("id"):
+			return {"ok": false, "error": "already pending with owner"}
+	cell = cell.duplicate(true)
+	cell["companion"] = companion_id
+	if not cell.has("provenance"): cell["provenance"] = {}
+	cell["provenance"]["source"] = "self_proposed"
+	cell["provenance"]["reason"] = reason.left(200)
+	cell["provenance"]["created_at"] = Time.get_datetime_string_from_system(true)
+	if cell.get("action", {}).get("type") == "delegate" and not is_lead:
+		return {"ok": false, "error": "only the lead companion may hold delegate cells"}
+	var err := BrainCell.validate(cell, allowed_tools)
+	if err != "": return {"ok": false, "error": err}
+	if memory.is_sensitive(JSON.stringify(cell.get("action", {}))): return {"ok": false, "error": "contains sensitive-looking data"}
+	_proposal_times.append(Time.get_unix_time_from_system())
+	var desc := "Brain cell '%s' (%s): %s" % [cell["id"], cell["action"]["type"], reason.left(200)]
+	var p: Dictionary = EveCore.for_companion(companion_id).propose_update(desc)   # forwards to queue_proposal
+	var path := adapter_root.path_join(companion_id).path_join("pending").path_join(str(p.get("id", "")) + ".proposal.json")
+	if not FileAccess.file_exists(path):
+		var q := queue_proposal(p.merged({"cell": cell}))
+		return q.merged({"id": p.get("id", "")})
+	var rec: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+	rec["kind"] = "cell"
+	rec["cell"] = cell
+	var f := FileAccess.open(path, FileAccess.WRITE)
+	f.store_string(JSON.stringify(rec, "\t"))
+	_audit("proposed_to_owner", cell["id"], str(p.get("id", "")))
+	return {"ok": true, "status": "pending_owner", "id": p.get("id", "")}

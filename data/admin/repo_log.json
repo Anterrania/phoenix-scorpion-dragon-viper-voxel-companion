@@ -1,5 +1,17 @@
 [
  {
+  "sha": "8ffe09f",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:27:23-07:00",
+  "subject": "tracker: seed WIKI-1..6 subtasks under VIPER-11 (CSV rows appended after VIPER rows + regenerated tickets_seed.json)"
+ },
+ {
+  "sha": "3e19d3c",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-17T12:27:03-07:00",
+  "subject": "Merge pull request #24 from Anterrania/docs/quantum-lattice"
+ },
+ {
   "sha": "d8ae5d0",
   "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
   "date": "2026-10-17T12:23:47-07:00",

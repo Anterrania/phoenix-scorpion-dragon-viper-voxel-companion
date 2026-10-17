@@ -27,6 +27,7 @@ sources: [docs/HOW_IT_SHOULD_WORK.md, docs/modules/ECONOMY.md, data/economy/mark
 - **Planned:** buy/sell AEC between players.
 - **⚠ Needs legal and compliance review** before launch.
 - Until then, AEC stays a closed game currency.
+- Details: [Aethel Coin Exchange](aethel-coin-exchange.md) · [Economy Metrics](economy-metrics.md)
 
 ## Fees
 - Upload and land fees: **Planned**. Prices are placeholders.

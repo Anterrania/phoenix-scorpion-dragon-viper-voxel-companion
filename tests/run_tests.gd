@@ -35,6 +35,7 @@ func _ready() -> void:
 	_v08_tests()
 	await _v09_tests()
 	_eve_tests()
+	load("res://tests/brain_tests.gd").run(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

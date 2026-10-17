@@ -66,6 +66,16 @@ static func run_display(t: Node) -> void:
 		var a := ViperRadial.anchor_for(vp)
 		var half := ViperRadial.CLOSED_PX / 2.0
 		t.check(a.x + half <= vp.x and a.y - half >= 0 and a.y + half <= vp.y, "layout: radial hub on screen at %s" % vp)
+	# rescale_tree for hard-coded screens (main HUD patch): no compounding, follows Large
+	var box := VBoxContainer.new()
+	var hb := Button.new(); hb.custom_minimum_size.y = 80; hb.add_theme_font_size_override("font_size", 24); box.add_child(hb)
+	var hl := Label.new(); hl.add_theme_font_size_override("font_size", 32); box.add_child(hl)
+	DisplaySettings.rescale_tree(box, 0.75, 0.7)
+	DisplaySettings.rescale_tree(box, 0.75, 0.7)
+	t.check(hb.get_theme_font_size("font_size") == 18 and hl.get_theme_font_size("font_size") == 24 and hb.custom_minimum_size.y == 56, "rescale: HUD 24/32 px, 80 px -> compact 18/24 px, 56 px (no compounding)")
+	DisplaySettings.set_large(true); DisplaySettings.rescale_tree(box, 0.75, 0.7)
+	t.check(hb.get_theme_font_size("font_size") >= 24 and hb.custom_minimum_size.y >= 80, "rescale: Large grows HUD text + buttons")
+	box.free()
 	_restore_display()
 	# real Settings persistence (user://settings.cfg in the test's XDG dir)
 	var st: Node = t.get_node("/root/Settings")

@@ -119,3 +119,23 @@ static func attach_responsive(m: MarginContainer, max_w := 960.0) -> void:
 		fix.call()
 	if m.is_inside_tree(): hook.call()
 	else: m.tree_entered.connect(hook, CONNECT_ONE_SHOT)
+
+## Rescale a screen built with hard-coded sizes (e.g. the main HUD panels) to the current scale.
+## The first visit remembers each control's own font size / button height as its base; later calls
+## rescale from that base, so calling it again (after a change, or after new rows) never compounds.
+## text_k / tap_k map that screen's base sizes onto compact (e.g. 24 px text -> 18 px = 0.75).
+static func rescale_tree(root: Node, text_k := 1.0, tap_k := 1.0) -> int:
+	var n := 0
+	var nodes: Array = [root]
+	nodes.append_array(root.find_children("*", "Control", true, false))
+	for c in nodes:
+		if not c is Control: continue
+		var ctl := c as Control
+		if ctl.has_theme_font_size_override("font_size"):
+			if not ctl.has_meta("ds_fs"): ctl.set_meta("ds_fs", ctl.get_theme_font_size("font_size"))
+			ctl.add_theme_font_size_override("font_size", maxi(PhoenixTokens.TYPE.micro, int(round(float(ctl.get_meta("ds_fs")) * text_k * PhoenixTokens.text_scale))))
+			n += 1
+		if ctl is BaseButton and ctl.custom_minimum_size.y > 0.0:
+			if not ctl.has_meta("ds_h"): ctl.set_meta("ds_h", ctl.custom_minimum_size.y)
+			ctl.custom_minimum_size.y = maxf(PhoenixTokens.tap(), round(float(ctl.get_meta("ds_h")) * tap_k * PhoenixTokens.icon_scale))
+	return n

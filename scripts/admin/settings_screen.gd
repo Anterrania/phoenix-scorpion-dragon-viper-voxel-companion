@@ -33,7 +33,7 @@ func _rebuild_deferred() -> void:
 
 func build() -> void:
 	_building = true
-	var keep := pages.current() if pages else 0
+	var keep: int = pages.current() if pages else 0
 	if _margin: remove_child(_margin); _margin.queue_free()
 	_margin = MarginContainer.new(); _margin.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_margin.add_theme_constant_override("margin_top", PhoenixTokens.space(6)); _margin.add_theme_constant_override("margin_bottom", PhoenixTokens.space(5))
@@ -228,9 +228,10 @@ func min_font_ok(px: int) -> bool:
 		if (n is Label or n is Button) and n.has_theme_font_size_override("font_size") and n.get_theme_font_size("font_size") < px: return false
 	return true
 
-## Open (or focus) Settings on top of `host`'s parent overlay layer. tab: "Display", "Device", ...
+## Open (or focus) Settings on top of `host`'s overlay layer (host itself when it is a CanvasLayer,
+## e.g. the HUD's UIRoot; otherwise host's parent, e.g. from Admin or Security). tab: "Display", "Device", ...
 static func open_in(host: Node, tab := "Display") -> SettingsScreen:
-	var layer := host.get_parent() if host.get_parent() else host
+	var layer: Node = host if host is CanvasLayer or host.get_parent() == null else host.get_parent()
 	var s: SettingsScreen = layer.get_node_or_null("SettingsScreen")
 	if s == null:
 		s = SettingsScreen.new(); s.name = "SettingsScreen"; layer.add_child(s)

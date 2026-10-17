@@ -78,7 +78,7 @@ static func build(style: Dictionary) -> Node3D:
 			s.set_shader_parameter("circuit", 1.0 if aura == "circuit_glow" else 0.0)
 			s.set_shader_parameter("circuit_color", style.get("accent", Color(0.2, 0.7, 1)))
 			s.set_shader_parameter("eye_y", eye_y)
-	s.set_shader_parameter("detail_n", load(SKIN_N)); s.set_shader_parameter("detail_r", load(SKIN_R))
+			s.set_shader_parameter("detail_n", load(SKIN_N)); s.set_shader_parameter("detail_r", load(SKIN_R))
 			if style.has("beard"):
 				s.set_shader_parameter("goatee", 1.0); s.set_shader_parameter("goatee_color", style["beard"])
 			if chrome:  # v0.12: silver-blue chrome that stays blue in bright snow light

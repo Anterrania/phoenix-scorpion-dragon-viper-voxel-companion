@@ -28,15 +28,21 @@ func set_biome(b: int) -> void:
 		var e := ParticleFX.make(k, Settings.quality())
 		add_child(e); effects.append(e)
 
+## Wind/material updates and the biome lookup at most 10x/s; following the player stays per-frame.
+var _redraw_acc := 0.0
 func _process(delta: float) -> void:
 	_t += delta
-	ParticleFX.wind = ParticleFX.wind_at(_t)
-	for e in effects:
-		var m := e.process_material as ParticleProcessMaterial
-		if m: m.gravity = Vector3(0, m.gravity.y, 0) + ParticleFX.wind * (0.3 if e.name == "star_dust" else 1.0)
+	_redraw_acc += delta
+	var tick := _redraw_acc >= 0.1
+	if tick:
+		_redraw_acc = 0.0
+		ParticleFX.wind = ParticleFX.wind_at(_t)
+		for e in effects:
+			var m := e.process_material as ParticleProcessMaterial
+			if m: m.gravity = Vector3(0, m.gravity.y, 0) + ParticleFX.wind * (0.3 if e.name == "star_dust" else 1.0)
 	if player == null: return
 	global_position = player.global_position
-	if generator: set_biome(int(generator.biome_at(player.global_position.x, player.global_position.z)))
+	if generator and tick: set_biome(int(generator.biome_at(player.global_position.x, player.global_position.z)))
 	if footsteps and player is CharacterBody3D:
 		var cb := player as CharacterBody3D
 		footsteps.global_position = cb.global_position + Vector3(0, -0.85, 0)

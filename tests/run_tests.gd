@@ -46,6 +46,7 @@ func _ready() -> void:
 	_v10_music_tests()
 	_v11_tests()
 	_v12_tests()
+	_v12_tier_tests()
 	load("res://tests/admin_tests.gd").run(self)
 	await load("res://tests/admin_tests.gd").run_scene(self)
 	load("res://tests/security_tests.gd").run(self)
@@ -980,3 +981,20 @@ func _v12_tests() -> void:
 	check(AvatarDNA.attach_all(pm, [{"id": "halo", "point": "head"}, {"id": "scepter", "point": "hand_r"}]) == 2, "v12 attachments on rig bones")
 	pm.free()
 	check(FileAccess.get_file_as_string("res://docs/PHYSICAL_FORM_VISION.md").contains("companion-bodies/initial_concepts.md") and FileAccess.file_exists("res://docs/companion-bodies/initial_concepts.md"), "v12 physical form doc links body concepts")
+
+func _v12_tier_tests() -> void:
+	var root := "user://test_v12_tiers_%d" % Time.get_ticks_usec()
+	OwnerVault.reset_for_tests(root.path_join("security"), 1000)
+	SecureFile.reset_for_tests()
+	Tiers.reset_for_tests(root.path_join("social"))
+	Tiers.owner_override = false
+	check(CompanionTiers.seed() == 0 and Tiers.tier_of("foxy_ani") == "resident", "v12 no companion seeding without owner unlock")
+	Tiers.owner_override = true
+	check(CompanionTiers.seed() == 3, "v12 owner companions seeded")
+	check(Tiers.tier_of("foxy_ani") == "staff" and Tiers.tier_of("aaliyah") == "staff" and Tiers.tier_of("circuit_nova") == "staff", "v12 owner companions at Builder/Staff")
+	check(Tiers.tier_of("bot:someone_else") == "resident", "v12 other companions default Resident")
+	check(Tiers.can("foxy_ani", "build"), "v12 Foxy can build")
+	Tiers.set_tier("aaliyah", "creator")
+	check(CompanionTiers.seed() == 0 and Tiers.tier_of("aaliyah") == "creator", "v12 seeding never overwrites owner changes")
+	Tiers.owner_override = null
+	Tiers.reset_for_tests("user://social"); OwnerVault.reset_for_tests("user://security", CryptoBox.DEFAULT_ITERATIONS); SecureFile.reset_for_tests()

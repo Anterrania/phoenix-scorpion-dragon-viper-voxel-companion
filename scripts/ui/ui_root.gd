@@ -1355,7 +1355,7 @@ func land_target() -> Vector3:
 
 func land_apply() -> int:
 	if world == null or not world.has_method("terraform"): return 0
-	if not Estate.can_terraform(_est_region(), true):
+	if not Estate.can_terraform(_est_region(), EveCore.owner_ok()):   # was `true`, which skipped the region's owner_only rule
 		if land_info: land_info.text = "Terraform not allowed in this region."
 		return 0
 	var n: int = world.terraform(land_op, land_target(), land_size, land_strength)

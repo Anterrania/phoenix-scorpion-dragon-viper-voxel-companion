@@ -730,5 +730,101 @@
   "milestone": "SOCIAL-8",
   "owner": "",
   "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 62,
+  "type": "task",
+  "summary": "Viewer parity table docs/modules/VIEWER_PARITY.md (Firestorm/Phoenix/DarkStorm + grid side; Avination/OLG + space-sim rows pending from other workers)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VIEWER-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 63,
+  "type": "task",
+  "summary": "Land & Safety: ParcelTools (About Land + Region/Estate: general, access, timed bans, landing point/TP routing, media, objects/returns/auto-return, estate managers, estate message) + admin screen",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VIEWER-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 64,
+  "type": "task",
+  "summary": "Mute/block/derender lists (ModerationLists, ties into Social.block, SecureFile) + Safety tab",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "VIEWER-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 65,
+  "type": "task",
+  "summary": "Restrictions: opt-in RLV-style prevent-only API (consent, 18+, safeword, owner override, e-stop) + Limits tab + docs/modules/RESTRICTIONS.md",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VIEWER-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 66,
+  "type": "task",
+  "summary": "Foxy: apply patches/viewer_parity_hud_hooks.patch (fly restriction) + wire tplm/tploc/sendchat/filter_lines/derender skip/teleport_target in HUD",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VIEWER-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 67,
+  "type": "task",
+  "summary": "Foxy: client parity per VIEWER_PARITY spec (edit sheet tabs, align/grid, link, camera/flycam, radar, area search, quick prefs, AO, contact sets, minimap, TP history, inventory filters, media bar); fil",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VIEWER-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 68,
+  "type": "task",
+  "summary": "Follow-up: spam protection, keyword alerts, autoresponse store, parcel traffic stats; merge Avination/OLG + space-sim rows into VIEWER_PARITY.md",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "VIEWER-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 69,
+  "type": "task",
+  "summary": "Server-side: region restart/kick/top scripts, land sale + passes (Aethel Coin, LEGAL REVIEW), age verification for adult parcels",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "VIEWER-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
  }
 ]

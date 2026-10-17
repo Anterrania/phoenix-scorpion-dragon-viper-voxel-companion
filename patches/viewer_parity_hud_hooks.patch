@@ -1,0 +1,12 @@
+diff --git a/scripts/player.gd b/scripts/player.gd
+index 7d63907..556f014 100644
+--- a/scripts/player.gd
++++ b/scripts/player.gd
+@@ -145,6 +145,7 @@ var flying := false
+ var fly_vertical := 0.0   # -1 down .. 1 up (HUD buttons / keys)
+ 
+ func set_flying(on: bool) -> void:
++	if on and Restrictions.is_restricted(Tiers.actor_id("self"), "fly"): return   # opt-in restriction (VIEWER-4)
+ 	flying = on
+ 	velocity.y = 2.0 if on else velocity.y
+ 	flying_changed.emit(on)

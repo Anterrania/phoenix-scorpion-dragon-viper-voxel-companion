@@ -60,3 +60,11 @@ SOCIAL-5,"Roadmap: events (merge with events board), polls, forums, blogs",todo,
 SOCIAL-6,"Roadmap: photo/video albums + in-world snapshots (media store, upload review)",todo,P2
 SOCIAL-7,"Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED)",todo,P2
 SOCIAL-8,"Roadmap: grid Social service + multi-device identity, points/reputation",todo,P3
+VIEWER-1,"Viewer parity table docs/modules/VIEWER_PARITY.md (Firestorm/Phoenix/DarkStorm + grid side; Avination/OLG + space-sim rows pending from other workers)",done,P1
+VIEWER-2,"Land & Safety: ParcelTools (About Land + Region/Estate: general, access, timed bans, landing point/TP routing, media, objects/returns/auto-return, estate managers, estate message) + admin screen",done_headless,P1
+VIEWER-3,"Mute/block/derender lists (ModerationLists, ties into Social.block, SecureFile) + Safety tab",done_headless,P0
+VIEWER-4,"Restrictions: opt-in RLV-style prevent-only API (consent, 18+, safeword, owner override, e-stop) + Limits tab + docs/modules/RESTRICTIONS.md",done_headless,P1
+VIEWER-5,"Foxy: apply patches/viewer_parity_hud_hooks.patch (fly restriction) + wire tplm/tploc/sendchat/filter_lines/derender skip/teleport_target in HUD",todo,P1
+VIEWER-6,"Foxy: client parity per VIEWER_PARITY spec (edit sheet tabs, align/grid, link, camera/flycam, radar, area search, quick prefs, AO, contact sets, minimap, TP history, inventory filters, media bar); fill ours/status columns",todo,P1
+VIEWER-7,"Follow-up: spam protection, keyword alerts, autoresponse store, parcel traffic stats; merge Avination/OLG + space-sim rows into VIEWER_PARITY.md",todo,P2
+VIEWER-8,"Server-side: region restart/kick/top scripts, land sale + passes (Aethel Coin, LEGAL REVIEW), age verification for adult parcels",todo,P3

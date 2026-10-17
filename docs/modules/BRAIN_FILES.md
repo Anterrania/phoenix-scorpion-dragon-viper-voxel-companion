@@ -14,6 +14,13 @@ A companion's brain is a set of small **data-only** rules ("cells") plus a memor
 | `brain_bus.gd` (`BrainBus`) | Coordination. `post_group_task()` goes to the **lead (Foxy Ani)**, who plans by ability keywords and delegates to members. |
 | `scripts/autoload/agent_brain.gd` | Builds a `BrainCore` per registered companion and registers it on the bus. Offline chat asks the brain before canned replies. Tool and delegation results are logged as episodes. `AgentBrain.group_task(cmd, text)`. |
 
+## EveCore adapter (static API used by `scripts/ai/eve_core.gd`)
+Foxy's EveCore owns the Eve memory primitives: `lock_cell`/`unlock`, `memory_log`, `generate_image`/`generate_video`/`create_music`, `create_duet`, `output_audio`/`output_video`, `npc_speak` and `propose_update`. BrainCore does **not** duplicate any of them. `EveCore.BrainAdapter` finds the global class `BrainCore` and calls:
+- `BrainCore.store_entry(id, entry) -> bool` appends the Eve entry (event, location, state, voice, content, timestamp, npc, role, tool, output_mode, fire_theme) to `user://brains/<id>/memory/episodes.jsonl` as `kind: "eve"`, with redaction applied. NPC speech (`<name> spoke` @ `Game_World`) reaches the brain only this way.
+- `BrainCore.queue_proposal(p) -> {ok, status}` mirrors `propose_update` into `user://brains/<id>/pending/<pid>.proposal.json` (`phoenix.owner_proposal/1`, state `PendingApproval`). It validates ids, caps descriptions at 500 chars, refuses sensitive-looking text, dedupes, allows 10/hour and max 50 pending.
+- `BrainCore.owner_proposals(id, pending_only)` and `BrainCore.sync_owner_decisions(EveCore.proposals())` mirror the owner's decision. Only `EveCore.decide()` (owner-gated) can approve.
+- `BrainCore.adapter_root` (default `user://brains`) can be redirected for tests.
+
 ## Files on disk
 ```
 res://companions/<id>/brain/            # seed (shipped, read-only)

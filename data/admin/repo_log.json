@@ -1,5 +1,11 @@
 [
  {
+  "sha": "2788aaf",
+  "author": "Anterrania",
+  "date": "2026-10-17T13:24:36-07:00",
+  "subject": "fix(security): audit gates - admin writes, estate fly/damage, companion tools via Tiers.can, Tiers.set_role"
+ },
+ {
   "sha": "2f54951",
   "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
   "date": "2026-10-17T13:06:15-07:00",

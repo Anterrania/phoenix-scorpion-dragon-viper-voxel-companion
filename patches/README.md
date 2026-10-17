@@ -11,6 +11,9 @@ These touch files Foxy owns (land-tools sheet, minimap, v0.12 avatar textures), 
 - `avatar_textures_vram_compression.patch` (`assets/characters/*.import`): `compress/mode` 0 → 2 (VRAM, ETC2/ASTC on Android). Measured: export pack grows 8,831,216 → 10,846,416 bytes (+2.0 MB) because the lossless PNGs are small on disk, but GPU memory for the 10 textures drops from about 41.9 MB (RGBA8 + mips) to about 10.5 MB (calculated). Apply after v0.12, and only if on-device memory matters more than download size.
 Each one passes `git apply --check` on main at b280233.
 
+`viewer_parity_hud_hooks.patch` is for Foxy, the owner of `scripts/player.gd`. It adds one line so that `set_flying(true)` does nothing while the player has an opt-in `fly` restriction (`Restrictions.is_restricted`, VIEWER-4; see docs/modules/RESTRICTIONS.md). With no restrictions, behaviour is unchanged.
+Apply: `git apply patches/viewer_parity_hud_hooks.patch`. Verified with `git apply --check` on main at 1a07535 and on feature/v012-avatar.
+
 ## Added by fix/audit-gates (2026-10-17, not applied: Foxy's files)
 - `player_fly_estate_rule.patch` (`scripts/player.gd`, `scripts/hud.gd`): `set_flying(true)` asks `LandGate.can_fly(Tiers.SELF, position)` and emits a new `fly_refused` signal instead of flying; while flying, the player lands if they cross into a no-fly parcel (checked every 15 physics frames). The HUD shows a "Flying is off on this land" toast. The owner and estate managers can always fly.
 - `estate_panel_admin_gate.patch` (`scripts/ui/ui_root.gd`): the Region/Estate panel saves through `AdminGate.estate_set(...)`, so only the unlocked owner or an estate manager can change region/parcel settings; others get the "Owner unlock needed." toast.

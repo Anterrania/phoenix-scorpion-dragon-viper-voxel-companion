@@ -11,7 +11,7 @@ extends RefCounted
 ##   lock_minutes without input (default 30, owner-adjustable). Auto-lock keeps the DEK so companions
 ##   keep their memories; "Lock & seal" (lock_all) also drops the DEK.
 ## - Brute-force backoff: after 5 wrong tries, wait 30 s, doubling, max 1 h. Persisted.
-## File: <root>/vault.json (no secrets inside: salts, iteration counts, wrapped keys).
+## File: <root>/vault.json (no secrets inside: salts, iteration counts, wrapped keys, key check value).
 
 const VERSION := 1
 const MIN_PIN := 6
@@ -46,9 +46,10 @@ static func _save_vault() -> void:
 	DirAccess.make_dir_recursive_absolute(root)
 	var tmp := _path() + ".tmp"
 	var f := FileAccess.open(tmp, FileAccess.WRITE)
+	if f == null: push_error("OwnerVault: can't write " + tmp); return
 	f.store_string(JSON.stringify(_vault_cache, "\t"))
 	f.close()
-	DirAccess.rename_absolute(tmp, _path())
+	SecureFile.replace_file(tmp, _path())
 
 static func has_vault() -> bool: return not vault().get("slots", []).is_empty()
 static func storage_ready() -> bool: return _dek_enc.size() == 32
@@ -133,7 +134,7 @@ static func setup(secret: String, allow_fresh := false) -> String:
 	var slots: Array = [_make_slot("pin", secret, d)]
 	if _legacy_code != "": slots.append(_make_slot("legacy", _legacy_code, d))
 	_vault_cache = {"v": VERSION, "slots": slots, "lock_minutes": DEFAULT_LOCK_MIN, "fails": 0, "retry_at": 0,
-		"created": Time.get_datetime_string_from_system()}
+		"created": Time.get_datetime_string_from_system(), "dek_check": _dek_check(d)}
 	_save_vault()
 	_set_dek(d)
 	_legacy_code = ""
@@ -155,7 +156,7 @@ static func unlock(secret: String) -> String:
 	for slot in vault()["slots"]:
 		var d := _try_slot(slot, secret)
 		if d.size() == 64:
-			vault()["fails"] = 0; vault()["retry_at"] = 0; _save_vault()
+			vault()["fails"] = 0; vault()["retry_at"] = 0; _ensure_dek_check(d); _save_vault()
 			if not storage_ready(): _set_dek(d)
 			_start_session()
 			return ""
@@ -166,10 +167,26 @@ static func unlock(secret: String) -> String:
 	_save_vault()
 	return "Wrong PIN."
 
-## Future biometric plugin entry point (see BiometricHook). Not reachable today.
+## Key check value: HMAC-SHA256(DEK mac half, "phoenix/dek-check"), base64. Lets unlock_with_dek()
+## recognise the real data key without storing it (a MAC of a constant under a random 256-bit key
+## reveals nothing about the key). Added at setup, and on the next PIN unlock for older vaults.
+static func _dek_check(d: PackedByteArray) -> String:
+	return Marshalls.raw_to_base64(CryptoBox.hmac(d.slice(32, 64), "phoenix/dek-check".to_utf8_buffer()))
+
+static func _ensure_dek_check(d: PackedByteArray) -> void:
+	if str(vault().get("dek_check", "")) == "":
+		vault()["dek_check"] = _dek_check(d)
+
+## Future biometric plugin entry point (see BiometricHook). Not reachable from the UI today.
+## Fix (docs/ENCRYPTION.md, finding F1): it used to accept ANY 64 bytes and open an owner session.
+## Now the bytes must match the vault's key check value (and the loaded DEK, if one is loaded).
 static func unlock_with_dek(d: PackedByteArray) -> bool:
-	if d.size() != 64: return false
-	_set_dek(d); _start_session()
+	if d.size() != 64 or not has_vault(): return false
+	var want := str(vault().get("dek_check", ""))
+	if want == "" or not CryptoBox.equal(_dek_check(d).to_ascii_buffer(), want.to_ascii_buffer()): return false
+	if storage_ready() and not CryptoBox.equal(d, _dek_enc + _dek_mac): return false
+	if not storage_ready(): _set_dek(d)
+	_start_session()
 	return true
 
 static func change_secret(old_secret: String, new_secret: String) -> String:

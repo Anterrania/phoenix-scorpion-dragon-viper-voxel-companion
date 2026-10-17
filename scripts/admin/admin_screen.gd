@@ -116,6 +116,15 @@ func _refresh_home() -> void:
 	row2.add_theme_constant_override("h_separation", PhoenixTokens.SPACE[5]); bc.body().add_child(row2)
 	row2.add_child(ViperKit.ring(minf(1.0, s["pending_proposals"] / 10.0), "proposals", str(s["pending_proposals"])))
 	for cid in s["needs"]: row2.add_child(ViperKit.ring(s["needs"][cid], str(cid).split("_")[0], "", 120, true))
+	var sc := ViperKit.card("Security"); home.add_child(sc)
+	var row3 := HFlowContainer.new(); row3.alignment = FlowContainer.ALIGNMENT_CENTER
+	row3.add_theme_constant_override("h_separation", PhoenixTokens.SPACE[5]); sc.body().add_child(row3)
+	var chain := ViperAdminData.revisions().verify_chain()
+	row3.add_child(ViperKit.ring(1.0 if chain["ok"] else 0.0, "audit " + ("verified" if chain["ok"] else "broken"), "✓" if chain["ok"] else "✗"))
+	row3.add_child(ViperKit.ring(float(OwnerVault.seconds_left()) / maxf(1.0, OwnerVault.lock_minutes() * 60.0), "owner", "open" if OwnerVault.is_unlocked() else "locked"))
+	row3.add_child(ViperKit.ring(0.0 if AutonomyGuard.paused() else 1.0, "companions", "paused" if AutonomyGuard.paused() else "live", 120, true))
+	var sl := Label.new(); sl.text = SecurityScreen.audit_text(chain); sl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	sc.body().add_child(sl)
 	var gc := ViperKit.card("Revisions · 10 days"); home.add_child(gc)
 	var big := Label.new(); big.text = "r%d" % s["head"]; big.theme_type_variation = &"DisplayLabel"; gc.body().add_child(big)
 	gc.body().add_child(ViperKit.graph(revisions_per_day(10)))
@@ -386,8 +395,7 @@ func _refresh_profile(force_stepper := false) -> void:
 static func _signup_path() -> String: return ViperAdminData.root.path_join("signup.json")
 
 static func load_signup() -> Dictionary:
-	if not FileAccess.file_exists(_signup_path()): return {}
-	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(_signup_path()))
+	var d: Variant = SecureFile.read_json(_signup_path())
 	return d if d is Dictionary else {}
 
 ## Validate + store the local profile card (one revision). Returns "" or an error.
@@ -403,8 +411,7 @@ func save_signup(d: Dictionary) -> String:
 	var before := load_signup()
 	var after := {"name": data["name"].left(32), "handle": data["handle"], "avatar": str(data.get("avatar", "wanderer")),
 		"voice": str(data["voice"]), "realm": str(data["realm"]), "created": before.get("created", RevisionStore.local_iso())}
-	var f := FileAccess.open(_signup_path(), FileAccess.WRITE)
-	f.store_string(JSON.stringify(after, "\t")); f.close()
+	SecureFile.write_json(_signup_path(), after, "\t")
 	ViperAdminData.revisions().commit("profile", "profile/local", before if not before.is_empty() else null, after, "Profile saved", after["handle"])
 	var pn := get_node_or_null("/root/Profile") if is_inside_tree() else null
 	if write_profile and pn:

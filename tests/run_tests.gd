@@ -41,6 +41,7 @@ func _ready() -> void:
 	load("res://tests/brain_tests.gd").run_eve_adapter(self)
 	load("res://tests/brain_tests.gd").run_owner_flow(self)
 	load("res://tests/brain_tests.gd").run_agent_brain(self)
+	_ui_kit_tests()
 	_v10_tests()
 	_v10_music_tests()
 	print("FAILURES: ", failures)
@@ -748,6 +749,23 @@ func _eve_tests() -> void:
 	EveCore.save_dir = "user://eve"
 	EveCore.reset_cache()
 
+func _ui_kit_tests() -> void:
+	check(load("res://themes/phoenix_glass.tres") is Theme, "ui kit: theme loads")
+	check(load("res://shaders/ui_glass.gdshader") is Shader, "ui kit: glass shader loads")
+	for n in ["ring_stat", "radial_menu", "glass_card", "line_graph", "kit_demo"]:
+		var ps = load("res://scenes/ui/kit/%s.tscn" % n)
+		check(ps is PackedScene, "ui kit scene loads: " + n)
+		var inst: Node = ps.instantiate(); add_child(inst)
+		check(inst != null, "ui kit scene instantiates: " + n)
+		inst.queue_free()
+	var r: Node = load("res://scenes/ui/kit/ring_stat.tscn").instantiate()
+	r.value = 1.7
+	check(is_equal_approx(r.value, 1.0), "ring stat clamps value")
+	r.free()
+	var m: Node = load("res://scenes/ui/kit/radial_menu.tscn").instantiate()
+	check(m.items.size() >= 4 and m.items.size() <= 8, "radial menu has 4-8 items")
+	check(m.button_radius * 2.0 >= PhoenixTokens.TAP_MIN, "radial items meet tap minimum")
+	m.free()
 
 # ---------- v0.10 companions ----------
 func _persona(id: String) -> Dictionary:

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/ui/kit/ring_stat.gd" id="1"]
+[node name="RingStat" type="Control"]
+custom_minimum_size = Vector2(160, 160)
+script = ExtResource("1")

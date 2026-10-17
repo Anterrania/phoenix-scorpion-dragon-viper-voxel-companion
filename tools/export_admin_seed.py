@@ -16,6 +16,13 @@ OUT = os.path.join(ROOT, "data", "admin")
 MAX_COMMITS = 400
 MAX_PAGE = 24000
 
+def clip_page(text: str, source: str) -> str:
+    """Cap a page at MAX_PAGE on a line boundary and say so (2026-10-17 audit: pages used to stop mid-sentence)."""
+    if len(text) <= MAX_PAGE: return text
+    cut = text.rfind("\n", 0, MAX_PAGE)
+    cut = cut if cut > 0 else MAX_PAGE
+    return text[:cut].rstrip() + f"\n\n(Shortened in the app at {MAX_PAGE // 1000} KB. The full page is {source} in the repo.)\n"
+
 def wiki_name(fn: str) -> str:
     base = os.path.splitext(os.path.basename(fn))[0]
     return "".join(p.capitalize() for p in re.split(r"[_\-\s]+", base.lower()) if p)
@@ -45,7 +52,7 @@ def wiki_seed():
                     text = f.read()
                 name = wiki_name(fn)
                 if name in pages: name += "Guide"   # docs/wiki page shares a name with a design doc
-                pages[name] = {"text": text[:MAX_PAGE], "source": f"{d}/{fn}", "truncated": len(text) > MAX_PAGE}
+                pages[name] = {"text": clip_page(text, f"{d}/{fn}"), "source": f"{d}/{fn}", "truncated": len(text) > MAX_PAGE}
     pages.setdefault("WikiStart", {"text": "= Viper OS Wiki =\n\nStart here. Pages: " + ", ".join(sorted(pages)) + "\n", "source": "generated", "truncated": False})
     return pages
 

@@ -22,7 +22,7 @@ func _ready() -> void:
 	# when encrypted saves become readable (first unlock this launch), drop stale caches
 	OwnerVault.on_storage_ready.append(func():
 		EveCore.reload_all()
-		Estate.reload()
+		Estate.reload_data()   # not Estate.reload(): that is Script.reload() on a class_name
 		ViperAdminData.reset()
 		var ab := get_node_or_null("/root/AgentBrain")
 		if ab and ab.has_method("reload_brains"): ab.reload_brains())

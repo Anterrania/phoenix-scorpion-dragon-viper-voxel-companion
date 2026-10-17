@@ -1,4 +1,7 @@
 [gd_scene load_steps=7 format=3]
+; INACTIVE (2026-10-17): v0.1 prototype scene (blocky terrain + prototype player/companion). Not the main scene
+; (project.godot run/main_scene = res://scenes/main_world.tscn) and not instanced anywhere. Its scripts are commented out
+; and it is excluded from export (export_presets.cfg). Re-enable: restore the three scripts, then use as a voxel test scene.
 
 [ext_resource type="Script" path="res://scripts/companion_agent.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/generators/biome_generator.gd" id="2"]

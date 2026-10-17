@@ -1,5 +1,11 @@
 [
  {
+  "sha": "dea6ce4",
+  "author": "Anterrania",
+  "date": "2026-10-17T12:56:04-07:00",
+  "subject": "chore(audit): admin/codebase audit 2026-10-17 + safe cleanup + build tools/tiers spec"
+ },
+ {
   "sha": "b280233",
   "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
   "date": "2026-10-17T12:31:48-07:00",

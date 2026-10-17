@@ -44,8 +44,8 @@ VIPER-7,Quantum lattice notes: docs/modules/QUANTUM_LATTICE.md (concept only; sp
 VIPER-8,Roadmap: grid/server meshing + interplanetary travel (3D OS shell / planetary destruction later),todo,P3
 VIPER-9,Integrate Universe/MeshSystem/DNA/quantum-lattice once Phoenix provides original code,blocked,P2
 FLOW,Automated flow: routine commits and merges proceed without waiting for user; weekly Monday review re-prioritizes,active,P0
-VIPER-10,FAQ page (in-app wiki + docs),todo,P1
-VIPER-11,"Full wiki expansion: page per system, companion, realm, and module",todo,P1
+VIPER-10,FAQ page (in-app wiki + docs) (docs/FAQ.md; merged with Foxy's wiki pages),done,P1
+VIPER-11,"Full wiki expansion: page per system, companion, realm, and module (PR #25)",done,P1
 WIKI-1,"VIPER-11 sub: Worlds/regions wiki page (docs/wiki/worlds-regions.md; links welcome-island, map-minimap)",done,P1
 WIKI-2,"VIPER-11 sub: Region status + GDP-style economy metrics page (docs/wiki/economy-metrics.md) - concept/planned only, no invented numbers",done,P1
 WIKI-3,"VIPER-11 sub: Interactions wiki page (docs/wiki/interactions.md; links companions, combat-rp-breedables)",done,P1
@@ -60,3 +60,15 @@ SOCIAL-5,"Roadmap: events (merge with events board), polls, forums, blogs",todo,
 SOCIAL-6,"Roadmap: photo/video albums + in-world snapshots (media store, upload review)",todo,P2
 SOCIAL-7,"Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED)",todo,P2
 SOCIAL-8,"Roadmap: grid Social service + multi-device identity, points/reputation",todo,P3
+AUDIT-1,"Admin/codebase audit 2026-10-17 (docs/AUDIT_2026-10-17.md): brain-cell revert owner gate, Estate.reload -> reload_data (Script.reload shadowing), tracker CSV import fix, export filters, INACTIVE legacy prototype, kit redraw + admin tab perf",done_headless,P1
+BUILD-1,"Kit glass_carousel.tscn + glass menu + calm-premium tokens/theme; admin Home on the carousel (docs/modules/BUILD_TOOLS_AND_TIERS.md §7)",todo,P1
+BUILD-2,"Roles/tiers: Tiers.can(actor, action, target) + role persistence + tests (scripts/security/tiers.gd, PR #26; see SOCIAL-2)",done_headless,P0
+BUILD-3,"Admin tier editor (owner-only role changes): Admin > Community > Roles + docs/wiki/tiers.md (PR #26; see SOCIAL-3)",done_headless,P1
+BUILD-4,"Build engine core BuildOp: place/carve/paint + undo + Tiers.can + e-stop + log (Foxy, after v0.12)",todo,P1
+BUILD-5,"Build HUD: radial ops, brush ring dial, VoxelPalette material carousel, snap/grid (Foxy, after v0.12)",todo,P1
+BUILD-6,"Select + move/rotate/scale gizmo, copy/paste, blueprints JSON (Foxy, after v0.12)",todo,P2
+BUILD-7,"Enforce estate allow_build + terraform rights via Tiers.can; permissions overlay data (replaces patches/land_tools_terraform_owner_check.patch)",todo,P0
+BUILD-8,"Companion build API v2: paint_area, place_blueprint, undo_last via Tiers.can (Builder/Staff), rate limits",todo,P2
+BUILD-9,"Land info panel + events board + rental records (placeholder AEC; LEGAL REVIEW REQUIRED)",todo,P2
+BUILD-10,"Ad slots: billboard + in-world carousel, owner/estate approval queue in admin",todo,P3
+AUDIT-2,"Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(""self"", ""admin""); cache admin Home revision history per head",todo,P1

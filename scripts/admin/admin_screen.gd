@@ -55,7 +55,9 @@ func _ready() -> void:
 	head.add_child(close); v.add_child(head)
 	pages = SwipePages.new(); pages.size_flags_vertical = Control.SIZE_EXPAND_FILL; v.add_child(pages)
 	_build_home(); _build_tickets(); _build_wiki(); _build_timeline(); _build_profile()
-	pages.page_changed.connect(func(_i): refresh())
+	# perf (2026-10-17 audit): a tab change rebuilds only the tab being shown. It used to call refresh(),
+	# which rebuilt all five tabs (90 wiki rows + up to 400 timeline events) on every swipe.
+	pages.page_changed.connect(refresh_tab)
 	refresh()
 
 func _page(n: String) -> VBoxContainer:
@@ -70,6 +72,17 @@ func toast(t: String, variant := "ok") -> void: Toast.show_toast(self, t, varian
 
 func refresh() -> void:
 	_refresh_home(); _refresh_tickets(); _refresh_wiki(); _refresh_timeline(); _refresh_profile()
+
+## Rebuild one tab (by TABS index). Every tab is rebuilt when it is shown, so nothing goes stale.
+var tab_refreshes := 0   # tests: counts single-tab rebuilds
+func refresh_tab(i: int) -> void:
+	tab_refreshes += 1
+	match TABS[i] if i >= 0 and i < TABS.size() else "":
+		"Home": _refresh_home()
+		"Tickets": _refresh_tickets()
+		"Wiki": _refresh_wiki()
+		"Timeline": _refresh_timeline()
+		"Profile": _refresh_profile()
 
 # ---------- Home ----------
 func _build_home() -> void: home = _page("Home")

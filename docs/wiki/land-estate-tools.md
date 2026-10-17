@@ -26,6 +26,7 @@ sources: [STATUS.md, docs/HOW_IT_SHOULD_WORK.md]
 
 ## Heads up
 - Access rules and media are saved, but enforced only once the server exists.
+- **Who can terraform** and the **fly / build / damage** switches are saved, but this phone does not enforce them yet (audit 2026-10-17). Enforcement comes with roles and tiers ([BuildToolsAndTiers](../modules/BUILD_TOOLS_AND_TIERS.md)).
 
 ## Planned
 - Buying land, monthly fees, groups, rentals.

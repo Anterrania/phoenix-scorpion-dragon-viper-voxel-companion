@@ -120,7 +120,7 @@ Built today: the Region / Estate panel (texture, water, sun, access, terraform, 
 
 ## 7. UI (Phoenix Glass, calm premium)
 Reuse the kit; do not invent new styles:
-- `scenes/ui/kit/`: ring stat, radial menu, glass card, line graph, and the new **`glass_carousel.tscn`** (Dev Bot builds it).
+- `scenes/ui/kit/`: ring stat, radial menu, glass card, line graph, and the new **`glass_carousel.tscn`** and **`glass_menu.tscn`** (built in BUILD-1; see UI_DESIGN_LANGUAGE §12).
 - `themes/phoenix_glass.tres`, `shaders/ui_glass.gdshader`, and `scripts/ui/kit/phoenix_tokens.gd` for **every** color, size and timing. Never hard-code values.
 
 **Carousel spec** (`scenes/ui/kit/glass_carousel.tscn`): snaps one card per swipe; page dots under the card; auto-advance **only** when the list opts in (ads, event lists), never for content the user is reading; any touch pauses auto-advance.

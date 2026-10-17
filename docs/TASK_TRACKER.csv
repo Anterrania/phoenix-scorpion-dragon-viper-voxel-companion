@@ -61,7 +61,7 @@ SOCIAL-6,"Roadmap: photo/video albums + in-world snapshots (media store, upload 
 SOCIAL-7,"Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED)",todo,P2
 SOCIAL-8,"Roadmap: grid Social service + multi-device identity, points/reputation",todo,P3
 AUDIT-1,"Admin/codebase audit 2026-10-17 (docs/AUDIT_2026-10-17.md): brain-cell revert owner gate, Estate.reload -> reload_data (Script.reload shadowing), tracker CSV import fix, export filters, INACTIVE legacy prototype, kit redraw + admin tab perf",done_headless,P1
-BUILD-1,"Kit glass_carousel.tscn + glass menu + calm-premium tokens/theme; admin Home on the carousel (docs/modules/BUILD_TOOLS_AND_TIERS.md §7)",todo,P1
+BUILD-1,"Kit glass_carousel.tscn + glass menu + calm-premium tokens/theme; admin Home on the carousel (docs/modules/BUILD_TOOLS_AND_TIERS.md §7)",done_headless,P1
 BUILD-2,"Roles/tiers: Tiers.can(actor, action, target) + role persistence + tests (scripts/security/tiers.gd, PR #26; see SOCIAL-2)",done_headless,P0
 BUILD-3,"Admin tier editor (owner-only role changes): Admin > Community > Roles + docs/wiki/tiers.md (PR #26; see SOCIAL-3)",done_headless,P1
 BUILD-4,"Build engine core BuildOp: place/carve/paint + undo + Tiers.can + e-stop + log (Foxy, after v0.12)",todo,P1

@@ -43,6 +43,8 @@ func _initialize():
 	root.get_node("Settings").set_quality(2)
 	await create_timer(8.0).timeout
 	_shot("portrait_companions")
+	ui.radial.set_open(true); await create_timer(0.6).timeout; _shot("hud_radial_hub")
+	ui.radial.set_open(false); await create_timer(0.3).timeout
 	for cl in root.find_children("*", "CanvasLayer", true, false): cl.visible = false
 	for c in s.get_tree().get_nodes_in_group("companions"):
 		c.set_physics_process(false); c.following = false
@@ -63,4 +65,6 @@ func _initialize():
 		ui.show_panel("proposals"); await create_timer(0.5).timeout; _shot("proposals_panel")
 		ui.show_panel("")
 		CommunityScreen.open(ui); await create_timer(1.0).timeout; _shot("community_admin")
+		for cs in root.find_children("*", "CanvasLayer", true, false): if cs.name.to_lower().contains("community"): cs.queue_free()
+		ui.open_admin(); await create_timer(1.0).timeout; _shot("admin_carousel_menu")
 	quit()

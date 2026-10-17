@@ -18,6 +18,7 @@ AgentBrain="*res://scripts/autoload/agent_brain.gd"
 RealmBuilder="*res://scripts/autoload/realm_builder.gd"
 Inventory="*res://scripts/autoload/inventory.gd"
 Profile="*res://scripts/autoload/profile.gd"
+PowerSaver="*res://scripts/autoload/power_saver.gd"
 
 [display]
 window/size/viewport_width=720

@@ -47,6 +47,7 @@ func _ready() -> void:
 	_v11_tests()
 	_v12_tests()
 	_v12_tier_tests()
+	_v12_power_tests()
 	load("res://tests/admin_tests.gd").run(self)
 	await load("res://tests/admin_tests.gd").run_scene(self)
 	load("res://tests/security_tests.gd").run(self)
@@ -987,3 +988,14 @@ func _v12_tests() -> void:
 func _v12_tier_tests() -> void:
 	# owner companion tier seeding is deferred to the audited owner-gated setter (fix/audit-gates)
 	check(Tiers.assigned_tier("foxy_ani") == "resident" and Tiers.assigned_tier("bot:someone_else") == "resident", "v12 companions not seeded at boot (Resident default)")
+
+func _v12_power_tests() -> void:
+	var ps = get_node_or_null("/root/PowerSaver")
+	check(ps != null, "v12 PowerSaver autoload")
+	if ps == null: return
+	var fps := Engine.max_fps
+	ps.set_background(true)
+	check(get_tree().paused and Engine.max_fps == 5, "v12 background -> paused at 5 fps")
+	ps.set_background(false)
+	check(not get_tree().paused and Engine.max_fps == 30, "v12 resume -> 30 fps")
+	Engine.max_fps = fps

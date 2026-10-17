@@ -52,3 +52,11 @@ WIKI-3,"VIPER-11 sub: Interactions wiki page (docs/wiki/interactions.md; links c
 WIKI-4,"VIPER-11 sub: Popular places wiki page (docs/wiki/popular-places.md)",done,P2
 WIKI-5,"VIPER-11 sub: Aethel Coin Lindex-style exchange ties page (docs/wiki/aethel-coin-exchange.md; extends economy.md)",done,P1
 WIKI-6,"VIPER-11 sub: How-to guides page (docs/wiki/how-to.md; links getting-started, controls, land-estate-tools)",done,P1
+SOCIAL-1,"Social layer (clean-room Dolphin-style concepts): profiles + picks, friends/followers/blocks, messages + offline queue, groups (roles, notices, land), feed, companion post approval, notifications, reports + moderation (scripts/social/social.gd, docs/modules/SOCIAL.md)",done_headless,P1
+SOCIAL-2,"Tiers: Guest/Resident/Creator/Staff/Estate Manager/Owner + permission matrix, Tiers.can(actor, action, target) with estate access/terraform, owner-only role editor (scripts/security/tiers.gd)",done_headless,P1
+SOCIAL-3,"Admin > Community screen: Overview, Reports, Approvals, Groups, Roles (scripts/admin/community_screen.gd)",done_headless,P1
+SOCIAL-4,"Foxy in-world side: profile card on avatar tap, group tags, IM toasts, snapshot button, companion feed posts, build tools call Tiers.can(actor, 'build', parcel)",todo,P1
+SOCIAL-5,"Roadmap: events (merge with events board), polls, forums, blogs",todo,P2
+SOCIAL-6,"Roadmap: photo/video albums + in-world snapshots (media store, upload review)",todo,P2
+SOCIAL-7,"Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED)",todo,P2
+SOCIAL-8,"Roadmap: grid Social service + multi-device identity, points/reputation",todo,P3

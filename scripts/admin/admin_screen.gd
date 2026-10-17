@@ -143,6 +143,7 @@ func _refresh_home() -> void:
 	gc.body().add_child(ViperKit.graph(revisions_per_day(10)))
 	var rc := ViperKit.card("Report"); home.add_child(rc)
 	var rt := ViperKit.rich(); rt.text = report_text(); rc.body().add_child(rt)
+	_calm_home(s)
 
 func report_text() -> String:
 	var ts := ViperAdminData.tickets()
@@ -431,3 +432,42 @@ func save_signup(d: Dictionary) -> String:
 		var av: Dictionary = pn.preset_avatar(after["avatar"])
 		pn.save_profile(after["name"], av if not av.is_empty() else pn.avatar())
 	return ""
+
+# ---------- Home, calm premium (UI_DESIGN_LANGUAGE §12) ----------
+## The four stat cards share ONE glass carousel (one card per swipe, page dots, no auto-advance:
+## it is content you read). Visible glass surfaces drop from 5 to 2, within the §5 budget of 3.
+## A glass menu under it jumps to the other tabs and screens.
+var home_carousel: GlassCarousel
+var home_menu: GlassMenu
+const HOME_CAROUSEL_CARDS := 4
+const HOME_MENU := [["Tickets", "Tickets", "#"], ["Wiki", "Wiki", "W"], ["Timeline", "Timeline", "◷"],
+	["Community", "Community", "◎"], ["Security", "Security", "⛨"]]
+
+func _calm_home(s: Dictionary) -> void:
+	var cards: Array = []
+	for ch in home.get_children():
+		if ch is GlassCard and cards.size() < HOME_CAROUSEL_CARDS: cards.append(ch)
+	var keep := home_carousel.index if home_carousel and is_instance_valid(home_carousel) else 0
+	home_carousel = load("res://scenes/ui/kit/glass_carousel.tscn").instantiate()
+	home_carousel.name = "HomeCarousel"
+	home.add_child(home_carousel); home.move_child(home_carousel, 0)
+	for c in cards:
+		home.remove_child(c); home_carousel.add_card(c)
+	home_carousel.go(mini(keep, cards.size() - 1), false)
+	home_menu = load("res://scenes/ui/kit/glass_menu.tscn").instantiate()
+	home_menu.name = "HomeMenu"
+	for it in HOME_MENU: home_menu.add_item(it[0], it[1], it[2])
+	var open: int = s["total"] - int(s["tickets"].get("closed", 0))
+	home_menu.set_badge("Tickets", str(open) if open > 0 else "")
+	home_menu.item_selected.connect(home_go)
+	home.add_child(home_menu); home.move_child(home_menu, 1)
+
+## Home menu target: an admin tab, or the Community / Security screens next to the admin.
+func home_go(id: String) -> void:
+	if id in TABS: pages.go(TABS.find(id)); return
+	var host := get_parent() if get_parent() else self
+	if id == "Community": CommunityScreen.open(host)
+	elif id == "Security":
+		if host.has_method("open_security"): host.open_security()
+		else: host.add_child(load("res://scenes/admin/security_screen.tscn").instantiate())
+

@@ -7,13 +7,15 @@ signal item_selected(id: String)
 @export var glyphs: Array[String] = ["⬢", "◎", "✦", "♪", "▲", "⏻"]
 @export var open := true: set = set_open
 @export var button_radius := 36.0
+## Calm premium (UI_DESIGN_LANGUAGE §12): no ember halo on the hub (ember is for Foxy items only).
+@export var calm := true
 var _t := 1.0
 var _hover := -1
 func _ready() -> void: custom_minimum_size = Vector2(320, 320)
 func set_open(v: bool) -> void:
 	open = v
 	if is_inside_tree() and not Engine.is_editor_hint():
-		create_tween().tween_property(self, "_t", 1.0 if v else 0.0, PhoenixTokens.MOTION.base).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		create_tween().tween_property(self, "_t", 1.0 if v else 0.0, PhoenixTokens.MOTION.base).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)   # calm premium: no overshoot/bounce
 	else: _t = 1.0 if v else 0.0
 func _item_pos(i: int) -> Vector2:
 	var r := (minf(size.x, size.y) / 2.0 - button_radius - 4) * _t
@@ -43,8 +45,9 @@ func _draw() -> void:
 		var g := glyphs[i] if i < glyphs.size() else items[i].left(1)
 		var gw := f.get_string_size(g, HORIZONTAL_ALIGNMENT_LEFT, -1, 26).x
 		draw_string(f, p + Vector2(-gw / 2.0, 9), g, HORIZONTAL_ALIGNMENT_LEFT, -1, 26, PhoenixTokens.PLATINUM * Color(1, 1, 1, _t))
-	# hub: ember core
-	for k in 4: draw_circle(c, button_radius * (1.5 - k * 0.12), Color(PhoenixTokens.EMBER, 0.08))
+	# hub: gold rim (ember core only when calm is off)
+	if not calm:
+		for k in 4: draw_circle(c, button_radius * (1.5 - k * 0.12), Color(PhoenixTokens.EMBER, 0.08))
 	draw_circle(c, button_radius, PhoenixTokens.VOID)
 	draw_arc(c, button_radius, 0, TAU, 48, PhoenixTokens.GOLD, 3.0, true)
 	var hw := f.get_string_size("✕" if open else "☰", HORIZONTAL_ALIGNMENT_LEFT, -1, 28).x

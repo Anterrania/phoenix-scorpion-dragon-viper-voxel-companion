@@ -32,7 +32,10 @@ static func cfg() -> ConfigFile:
 		_cfg.parse(SecureFile.read_text(PATH))   # encrypted once an OwnerVault exists
 	return _cfg
 
-static func reload() -> void: _cfg = null
+## Drop the cached config so the next cfg() re-reads (and decrypts) user://estate.cfg.
+## Renamed from reload() (2026-10-17 audit): `Estate.reload()` on a class_name runs Godot's built-in
+## Script.reload() instead of this function (it re-compiles estate.gd and wipes every static var).
+static func reload_data() -> void: _cfg = null
 
 static func region_get(region: String, key: String) -> Variant:
 	return cfg().get_value("region:" + region, key, REGION_DEFAULTS.get(key))

@@ -52,6 +52,9 @@ func _ready() -> void:
 	load("res://tests/wiki_tests.gd").run(self)
 	await load("res://tests/security_tests.gd").run_ui(self)
 	load("res://tests/social_tests.gd").run(self); load("res://tests/social_tests.gd").run_docs(self); await load("res://tests/social_tests.gd").run_ui(self)
+	load("res://tests/audit_tests.gd").run(self)
+	await load("res://tests/audit_tests.gd").run_scene(self)
+	await load("res://tests/kit_calm_tests.gd").run_scene(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

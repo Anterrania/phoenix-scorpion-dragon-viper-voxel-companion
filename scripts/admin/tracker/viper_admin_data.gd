@@ -33,7 +33,11 @@ static func _on_brain_commit(companion: String, cell_id: String, before: Variant
 	revisions().commit("brain_cell", "brain/%s/%s" % [companion, cell_id], before, after, note, companion)
 
 ## Revert of a brain cell revision = write the old cell back as a learned cell (validated) or remove it.
+## Owner only (fix 2026-10-17): a revert changes what a companion has learned, so it needs the same
+## unlocked owner session as approving a proposal (EveCore.owner_ok). Before this, "Hold to revert" in
+## the admin Timeline could restore or delete a learned cell with the owner session locked.
 static func _apply_brain_cell(p: String, content: Variant) -> bool:
+	if not EveCore.owner_ok(): return false
 	var parts := p.split("/")
 	if parts.size() != 3: return false
 	var b := BrainCore.new(parts[1], BrainCore._persona_for(parts[1]), BrainCore.adapter_root)
@@ -43,6 +47,7 @@ static func _apply_brain_cell(p: String, content: Variant) -> bool:
 		return true
 	if not (content is Dictionary) or BrainCell.validate(content, b.allowed_tools) != "": return false
 	var f := FileAccess.open(learned, FileAccess.WRITE)
+	if f == null: return false   # fix 2026-10-17: missing cells dir used to crash on f.store_string
 	f.store_string(JSON.stringify(content, "\t"))
 	return true
 

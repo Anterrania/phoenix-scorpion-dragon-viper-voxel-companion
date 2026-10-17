@@ -70,7 +70,7 @@ Numbers use tabular figures and are always the largest element on a card.
 |---|---|---|
 | `tap` | 0.09 | Press feedback (scale 0.96) |
 | `fast` | 0.16 | Toggles, chips, tab underline |
-| `base` | 0.24 | Panels, radial menu bloom (`TRANS_BACK`, ease out) |
+| `base` | 0.24 | Panels, radial menu bloom, carousel snap (`TRANS_CUBIC`, ease out; `TRANS_BACK` retired by calm premium, §12) |
 | `slow` | 0.42 | Ring fill, graph draw-in (`TRANS_CUBIC`, ease out) |
 | `ambient` | 2.4 | Ember breathe, hologram shimmer |
 Panels slide up 24 px with a fade. Swiping between tabs moves pages 1:1 with the finger and snaps at 30% or above 600 px/s. Reduced motion turns these into fades only.
@@ -106,3 +106,27 @@ Built in this PR: **Ring stat, Radial menu, Glass card, Line graph.** The rest a
 ## 11. Do / Don't
 - Do: one hero number per card, circles for status, glass over the world, fire only for life.
 - Don't: floating world text, more than 5 tabs, scrolling lists over 7 rows, tiny targets, more than 3 glass layers, or copied third-party marks.
+
+## 12. Calm premium mode (default since 2026-10-17)
+Phoenix asked for a look that is modern and premium but **clean, not flashy or campy**. Calm premium is the default for every kit component; the older brighter look stays available per component (`calm = false`) but isn't used anywhere.
+
+**Rules**
+- **Motion:** 180–240 ms, ease-out (`TRANS_CUBIC`). No bounce, no overshoot, no spin. Ambient loops only for companion life (ember breathe).
+- **Glow:** at most **one accent glow per screen**. Rims are quiet by default; magenta rims appear on hover/press only.
+- **Ember** (fire gradient) only on **Foxy-related** items. The radial hub no longer has an ember halo.
+- **Glass:** ≤ 3 glass surfaces visible at once (§5). Group related cards in a carousel instead of stacking them.
+- **Spacing:** generous, Apple-like: `SPACE[5]` (24 px) page margins, `SPACE[4]` (16 px) between blocks, one idea per card.
+- **Targets and text:** tap targets ≥ 80 px and labels ≥ 16 sp in the **Large** setting (Phoenix has eye strain). The default is **Compact** (smallest usable text and icons); the scale variables for Compact/Large live in `phoenix_tokens.gd` (added on `feature/phone-display-media`). Components must read sizes from tokens, never fixed numbers. Today `TAP_MIN` is 56 px and `TYPE.label` / `TYPE.micro` are 15 / 13 px, so Compact is below the 80 px / 16 sp floors by design; Large must meet them.
+- **Color:** platinum text on obsidian/void; magenta for the one selected/pressed thing; gold for focus, page dots and "now". No rainbow or hue cycling in UI.
+
+**What changed in the kit**
+| Piece | Calm premium |
+|---|---|
+| `themes/phoenix_glass.tres` Button | normal rim magenta 0.6 / 2 px → platinum-dim 0.3 / 1 px; hover fill 0.5 → 0.28, rim 1.0 → 0.55; pressed fill 0.85 → 0.7; focus ring 3 px → 2 px at 0.8 |
+| `GlassCard` (`calm = true`) | shader rim magenta 0.55 → 0.30, sparkle 0.25 → 0.08 |
+| `RadialMenu` | bloom `TRANS_BACK` → `TRANS_CUBIC`; no ember halo on the hub |
+| **New** `GlassCarousel` (`scenes/ui/kit/glass_carousel.tscn`) | one card per swipe (≥ 30% width or > 600 px/s, max one card), snaps in `MOTION.base` ease-out, gold/platinum page dots, auto-advance **only** when `auto_advance = true` (ads, event lists), paused by any touch and resumed one interval after release (interval = 2 × `MOTION.ambient` = 4.8 s), never wraps on swipe |
+| **New** `GlassMenu` (`scenes/ui/kit/glass_menu.tscn`) | full-width rows (`TAP_MIN` tall, `TYPE.body` text): glyph, label, optional gold badge, chevron; ≤ 7 rows; magenta press tint; `foxy = true` rows use ember |
+
+**Where it's used:** admin Home shows its four stat cards in one `GlassCarousel` (5 visible glass cards → 2) with a `GlassMenu` under it (Tickets, Wiki, Timeline, Community, Security). The ads and rental carousels, events board and land info panels (docs/modules/BUILD_TOOLS_AND_TIERS.md) will reuse both.
+

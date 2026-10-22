@@ -1286,6 +1286,138 @@
  {
   "id": 108,
   "type": "task",
+  "summary": "Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(\"self\", \"admin\"); cache admin Home revision history per head",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "AUDIT-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 109,
+  "type": "task",
+  "summary": "Display settings: PhoenixTokens scale (compact default, one-tap Large 80 px / 18 px+), text + icon sliders, Max view, theme scaling; Admin > Settings > Display (docs/wiki/display-settings.md)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "PHONE-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 110,
+  "type": "task",
+  "summary": "Orientation: auto-rotate (sensor) + Portrait lock in Settings; responsive margins on resize/rotation (admin, security, community, settings) + radial menu re-anchors",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "PHONE-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 111,
+  "type": "task",
+  "summary": "Device check panel (Admin > Settings > Device): Android permissions, mic driver, mic devices, camera feeds, TTS voices; Ask for permissions (OS.request_permissions)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "PHONE-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 112,
+  "type": "task",
+  "summary": "Android permissions + audio input: camera, record_audio, modify_audio_settings, post_notifications, read_media_images/video/audio, read_external_storage; audio/driver/enable_input=true (verify on a ph",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "PHONE-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 113,
+  "type": "task",
+  "summary": "Voice morph (VoiceFx: pitch shift + formant EQ presets, folded into TTS pitch/rate) + MicCapture; CompanionVoice voice-pick + utterance-callback sync fix (VOICE-1)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "PHONE-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 114,
+  "type": "task",
+  "summary": "Lip sync (LipSync: mic/clip amplitude + TTS-synced visemes) driving FaceDriver via patches/face_driver_lip_sync.patch (Foxy applies after v0.12)",
+  "status": "accepted",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "PHONE-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 115,
+  "type": "task",
+  "summary": "Beat detector + dance timeline (our own; drives HumanoidModel now, RealisticBody bones next) for live events",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "PHONE-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 116,
+  "type": "task",
+  "summary": "Broadcast stub: stream entries + parcel media URLs, stream keys encrypted only, Tiers.can(actor,'broadcast',parcel), owner approval to go live; Admin > Settings > Broadcast (encoder INACTIVE)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "PHONE-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 117,
+  "type": "task",
+  "summary": "Main HUD follows display scale + Large toggle on first-run screens + MENU entry (patches/ui_root_display_settings.patch, Foxy)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "PHONE-9",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 118,
+  "type": "task",
+  "summary": "Roadmap (docs/modules/MEDIA_BROADCAST.md): AI music, music videos, YouTube/SoundCloud OAuth upload drafts, RTMP encoder plugin + YouTube Live, in-world media screens, voice chat + spatial audio",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "PHONE-10",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 119,
+  "type": "task",
   "summary": "SEC-FIX-1 retire unsalted legacy owner-code hash (PBKDF2 bootstrap only; refused once PIN set)",
   "status": "closed",
   "resolution": "fixed",
@@ -1296,7 +1428,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 109,
+  "id": 120,
   "type": "task",
   "summary": "SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration",
   "status": "closed",
@@ -1308,7 +1440,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 110,
+  "id": 121,
   "type": "task",
   "summary": "SEC-FIX-3 e-stop file MAC-sealed; fail closed",
   "status": "closed",
@@ -1320,7 +1452,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 111,
+  "id": 122,
   "type": "task",
   "summary": "SEC-FIX-4 arm64-only Android export + tests clean up user:// roots",
   "status": "closed",

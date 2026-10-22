@@ -11,6 +11,8 @@ config/features=PackedStringArray("4.7", "Mobile")
 [audio]
 
 general/text_to_speech=true
+; Mic capture (voice chat, voice morph, mic lip sync). Android also needs RECORD_AUDIO (export preset).
+driver/enable_input=true
 
 [autoload]
 Settings="*res://scripts/autoload/settings.gd"
@@ -22,6 +24,7 @@ Profile="*res://scripts/autoload/profile.gd"
 [display]
 window/size/viewport_width=720
 window/size/viewport_height=1280
+; 6 = sensor (auto-rotate, portrait AND landscape). Settings > Display > Orientation can lock Portrait.
 window/handheld/orientation=6
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"

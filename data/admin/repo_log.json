@@ -1,5 +1,11 @@
 [
  {
+  "sha": "a95a573",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:45:51-07:00",
+  "subject": "Merge origin/main (#29-#33) into feature/spacesim-parity; Space sims section in VIEWER_PARITY; reseed"
+ },
+ {
   "sha": "223356e",
   "author": "Anterrania",
   "date": "2026-10-22T09:45:06-07:00",

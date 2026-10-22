@@ -224,6 +224,35 @@ Our own code: DEVICE_COMPAT.md. Features only. The columns are the platforms we 
 | Interest management: sleep with no viewer, cheap catch-up | ✓ (region idle) | ✓ (EVE/DU idle grids) | — | `Dormancy` | us; living-world / Vala / social adopt | have (API) |
 | Session data usage readout | — | — | ✓ | Battery & data card | us | have |
 
+## Sandbox / open-world / virtual-world (SBX)
+
+Full rows (columns `source | feature | Viper status | owner | tracker id`) are in
+[SANDBOX_PARITY.md](SANDBOX_PARITY.md). They cover The Sims, GTA, League of Angels, Skyrim, a slots-casino
+app, InWorldz, Kitely, Minecraft, Roblox, No Man's Sky, Rust, Valheim, Garry's Mod, Fallout, Red Dead
+Online, Animal Crossing, IMVU, Sansar, VRChat, Decentraland, The Sandbox, Entropia Universe and Active
+Worlds. They are concepts only. Summary:
+
+| source | feature | Viper status | owner | tracker id |
+|---|---|---|---|---|
+| RPG / open-world | quest and mission engine (chains, timers, dailies, branches) | have | dev | SBX-2 |
+| Kitely | on-demand regions (sleep/wake, keep-awake) | have | dev | SBX-3 |
+| Kitely / OpenSim | region bundle export/import, export-permission aware | partial (OAR: SBX-9) | dev | SBX-3 |
+| InWorldz | inventory migration with copy/mod/transfer carry-over | have | dev | SBX-4 |
+| Kitely Market | marketplace delivery, derived perms, redelivery, cross-grid box | partial (protocol: SBX-11) | dev | SBX-5 |
+| InWorldz / Kitely | magic-box vendor | have | dev | SBX-5 |
+| OpenSim grids | region rental per time unit (paid rent LEGAL REVIEW) | partial | dev | SBX-6 |
+| slots / casino | free-play chance games, earned tokens, no Aethel Coin | have | dev | SBX-7, SBX-LEGAL-1..4 |
+| life sims | needs, moods, relationships | planned (spec) | Foxy | SBX-F1 |
+| life sims | household and build mode | planned (spec) | Foxy | SBX-F2 |
+| open-world | vehicles, driving (non-violent default) | planned (spec) | Foxy | SBX-F3 |
+| open-world | phone hub | planned (spec) | Foxy | SBX-F4 |
+| RPG | skill trees, crafting, shouts/powers | planned (spec) | Foxy | SBX-F5..F7 |
+| idle MMO | companion teams, pets, mounts, formations | planned (spec) | Foxy | SBX-F8 |
+| virtual worlds | grid-server authority | missing | dev | SBX-10 |
+| sandboxes | UGC scripting | missing | dev | SBX-18 |
+
+---
+
 ## Spec for Foxy (client UI parity)
 
 Everything below follows the Phoenix Glass kit, `PhoenixTokens` sizes (compact default, TAP_MIN 56,

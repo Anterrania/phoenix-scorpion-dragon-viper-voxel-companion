@@ -1,5 +1,11 @@
 [
  {
+  "sha": "2db6df8",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:54:50-07:00",
+  "subject": "Merge origin/main (fe7ea89) into feature/render-pipeline; reseed"
+ },
+ {
   "sha": "4b2329b",
   "author": "Anterrania",
   "date": "2026-10-22T09:50:24-07:00",

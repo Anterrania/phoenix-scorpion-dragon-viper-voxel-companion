@@ -189,7 +189,7 @@ func _build_tickets() -> void:
 	b.add_child(ViperKit.primary("＋ New ticket", func():
 		var id := ViperAdminData.tickets().create({"summary": nt.text}, author)
 		if id: nt.text = ""; current_ticket = id; toast("Ticket #%d created" % id); _refresh_tickets()
-		else: toast("Summary needed", "warn")))
+		else: toast("Summary needed" if AdminGate.ok() else AdminGate.DENIED, "warn")))
 
 func filtered_tickets() -> Array:
 	var f := ticket_filter.selected if ticket_filter else "open"
@@ -216,7 +216,7 @@ func _ticket_row(t: Dictionary) -> PillRow:
 
 func do_transition(id: int, to: String) -> int:
 	var rv := ViperAdminData.tickets().transition(id, to, author, "fixed", author)
-	toast(("#%d → %s · r%d" % [id, to, rv]) if rv else "Not allowed", "ok" if rv else "err")
+	toast(("#%d → %s · r%d" % [id, to, rv]) if rv else ("Not allowed" if AdminGate.ok() else AdminGate.DENIED), "ok" if rv else "err")
 	_refresh_tickets()
 	return rv
 
@@ -275,6 +275,7 @@ func _build_wiki() -> void:
 
 func save_wiki_edit() -> int:
 	if not wiki_edit.visible: return 0
+	if not AdminGate.ok(): toast(AdminGate.DENIED, "err"); return 0
 	var rv := ViperAdminData.wiki().save_page(current_page, wiki_edit.text, author)
 	if rv: wiki_edit.visible = false; open_page(current_page); toast("Saved as r%d" % rv)
 	else: toast("Nothing to save", "warn")
@@ -361,6 +362,7 @@ func show_revision(n: int) -> void:
 func revert_selected() -> int:
 	var ref := timeline.expanded()
 	if not ref.begins_with("r"): return 0
+	if not AdminGate.ok(): toast(AdminGate.DENIED, "err"); return 0
 	var nr := ViperAdminData.revisions().revert(int(ref.substr(1)), author)
 	toast(("Reverted as r%d" % nr) if nr else "Can't revert", "ok" if nr else "err")
 	if nr: refresh()

@@ -74,7 +74,19 @@ static func tts_voices() -> int:
 	if not DisplayServer.has_feature(DisplayServer.FEATURE_TEXT_TO_SPEECH): return 0
 	return DisplayServer.tts_get_voices().size()
 
+## Device detection belongs to Foxy's DeviceProfile autoload (caps()). Read it when present;
+## otherwise fall back to the local probes below. Returns {} when DeviceProfile is absent.
+static func device_caps() -> Dictionary:
+	var ml := Engine.get_main_loop()
+	if not (ml is SceneTree): return {}
+	var dp: Node = (ml as SceneTree).root.get_node_or_null("DeviceProfile")
+	if dp == null or not dp.has_method("caps"): return {}
+	var c: Variant = dp.call("caps")
+	return c if c is Dictionary else {}
+
 static func orientation_name() -> String:
+	var caps := device_caps()
+	if str(caps.get("orientation", "")) != "": return str(caps["orientation"]).capitalize()
 	if DisplayServer.get_name() == "headless": return DisplaySettings.ORIENTATION_LABELS.get(DisplaySettings.orientation(), "Auto-rotate")
 	match DisplayServer.screen_get_orientation():
 		DisplayServer.SCREEN_SENSOR: return "Auto-rotate"
@@ -102,6 +114,12 @@ static func report() -> Array:
 	rows.append({"key": "tts", "label": "Text-to-speech voices", "state": "%d voices" % tv, "ok": tv > 0, "detail": "DisplayServer TTS"})
 	rows.append({"key": "orientation", "label": "Screen", "state": orientation_name(), "ok": true,
 		"detail": "Settings > Display > Orientation"})
+	var caps := device_caps()
+	for k in ["form_factor", "compute", "network", "thermal"]:
+		if caps.has(k):
+			var v: Variant = caps[k]
+			rows.append({"key": "caps_" + k, "label": k.capitalize(), "state": "Unknown" if (str(v) == "" or str(v) == "-1") else str(v),
+				"ok": true, "detail": "DeviceProfile.caps()"})
 	return rows
 
 ## Short summary for headers: "7 of 12 ready".

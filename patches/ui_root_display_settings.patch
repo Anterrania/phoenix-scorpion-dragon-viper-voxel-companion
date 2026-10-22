@@ -1,5 +1,5 @@
 diff --git a/scripts/ui/ui_root.gd b/scripts/ui/ui_root.gd
-index 6c6a861..dc7f4a2 100644
+index 0249970..55ea858 100644
 --- a/scripts/ui/ui_root.gd
 +++ b/scripts/ui/ui_root.gd
 @@ -16,7 +16,10 @@ var target_row: HBoxContainer
@@ -64,8 +64,8 @@ index 6c6a861..dc7f4a2 100644
  	grid.add_theme_constant_override("h_separation", 12)
  	grid.add_theme_constant_override("v_separation", 12)
  	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
--			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
-+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["Aa Display & device", "_display"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
++			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["Aa Display & device", "_display"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
  		var target: String = row[1]
  		var t := btn(row[0], func():
  			if target == "_bg": AppControl.to_background(get_tree())
@@ -73,10 +73,10 @@ index 6c6a861..dc7f4a2 100644
  			elif target == "_admin": open_admin()
  			elif target == "_community": CommunityScreen.open(self)
 +			elif target == "_display": open_display_settings()
+ 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
+ 			elif target == "_interop": InteropScreen.open(self)
  			else: show_panel(target))
- 		t.custom_minimum_size = Vector2(0, 96)
- 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-@@ -469,6 +498,8 @@ func teleport(p: Vector3, exact := false) -> void:
+@@ -500,6 +529,8 @@ func teleport(p: Vector3, exact := false) -> void:
  func _build_settings() -> Dictionary:
  	var p := _panel("Settings")
  	var b: VBoxContainer = p["body"]
@@ -85,7 +85,7 @@ index 6c6a861..dc7f4a2 100644
  	var q := btn("", func(): pass)
  	q.text = "Graphics: " + Settings.QUALITY_NAMES[Settings.quality()]
  	q.pressed.connect(func(): q.text = "Graphics: " + Settings.QUALITY_NAMES[Settings.cycle_quality()])
-@@ -573,6 +604,7 @@ var av_preview: Node3D
+@@ -604,6 +635,7 @@ var av_preview: Node3D
  func _build_avatar() -> Dictionary:
  	var p := _panel("Create Your Avatar")
  	var b: VBoxContainer = p["body"]
@@ -93,7 +93,7 @@ index 6c6a861..dc7f4a2 100644
  	b.add_child(label("Everyone builds their own look. Saved on this phone only.", 24, MAG))
  	av_name = LineEdit.new()
  	av_name.placeholder_text = "Your name"
-@@ -1130,6 +1162,7 @@ func go_welcome(open_panel := true) -> void:
+@@ -1161,6 +1193,7 @@ func go_welcome(open_panel := true) -> void:
  func _build_welcome() -> Dictionary:
  	var p := _panel("🏝 Welcome Island")
  	var b: VBoxContainer = p["body"]

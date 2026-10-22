@@ -1,6 +1,6 @@
 # Legal Review Gates (SBX-LEGAL-1..5)
 
-> General information, pending counsel review. Not legal advice. This page lists rules only, with no memo or case law. **LEGAL REVIEW** applies to everything below.
+> Rules summary: general information, pending counsel review. Not legal advice. This page lists rules only, with no memo or case law. **LEGAL REVIEW** applies to everything below.
 
 Code: `scripts/economy/legal_review.gd` (`LegalReview.check(feature, ctx)`). It is **deny by default**: an unknown feature is refused. Tests: `tests/sandbox_dev_tests.gd`.
 

@@ -13,6 +13,9 @@ static func run(t: Node) -> void:
 	var saved_vault := OwnerVault.root
 	var saved_estop := AutonomyGuard.path
 	var saved_eve := EveCore.save_dir
+	var saved_brain := BrainCore.adapter_root
+	var saved_eve_ovr = EveCore.owner_override
+	var saved_tiers_ovr = Tiers.owner_override
 	var had_estate := FileAccess.file_exists(Estate.PATH)
 	var estate_raw := FileAccess.get_file_as_bytes(Estate.PATH) if had_estate else PackedByteArray()
 	BrainCore.adapter_root = root.path_join("brains")
@@ -30,15 +33,15 @@ static func run(t: Node) -> void:
 	_gate(t); _needs(t); _perks(t); _factions(t); _crafting(t)
 
 	# ---------- restore ----------
-	Tiers.owner_override = null
-	EveCore.owner_override = null
+	Tiers.owner_override = saved_tiers_ovr
+	EveCore.owner_override = saved_eve_ovr
 	EveCore.save_dir = saved_eve; EveCore.reset_cache()
 	OwnerVault.reset_for_tests(saved_vault, 1000)
 	SecureFile.reset_for_tests()
 	AutonomyGuard.reset_for_tests(saved_estop)
 	Tiers.reset_for_tests("user://social")
 	SimGate.reset_for_tests("user://sim")
-	BrainCore.adapter_root = BrainCore.DEFAULT_ROOT
+	BrainCore.adapter_root = saved_brain
 	if had_estate:
 		var f := FileAccess.open(Estate.PATH, FileAccess.WRITE); f.store_buffer(estate_raw); f.close()
 	else: DirAccess.remove_absolute(Estate.PATH)

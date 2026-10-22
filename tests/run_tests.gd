@@ -51,7 +51,6 @@ func _ready() -> void:
 	Tiers.owner_override = null
 	load("res://tests/security_tests.gd").run(self)
 	load("res://tests/wiki_tests.gd").run(self)
-	load("res://tests/sim_tests.gd").run(self); load("res://tests/sim_tests.gd").run_docs(self)
 	await load("res://tests/security_tests.gd").run_ui(self)
 	load("res://tests/social_tests.gd").run(self); load("res://tests/social_tests.gd").run_docs(self); await load("res://tests/social_tests.gd").run_ui(self)
 	load("res://tests/audit_tests.gd").run(self)
@@ -60,6 +59,7 @@ func _ready() -> void:
 	load("res://tests/viewer_tests.gd").run(self); load("res://tests/viewer_tests.gd").run_docs(self); await load("res://tests/viewer_tests.gd").run_ui(self)
 	load("res://tests/interop_tests.gd").run(self); load("res://tests/interop_tests.gd").run_docs(self); await load("res://tests/interop_tests.gd").run_ui(self)
 	load("res://tests/sandbox_dev_tests.gd").run(self); load("res://tests/sandbox_dev_tests.gd").run_docs(self)
+	load("res://tests/sim_tests.gd").run(self); load("res://tests/sim_tests.gd").run_docs(self)  # SBX: runs late, after security run_ui
 	load("res://tests/gate_tests.gd").run(self)
 	await load("res://tests/gate_tests.gd").run_scene(self)
 	load("res://tests/sec_fix_tests.gd").run(self)

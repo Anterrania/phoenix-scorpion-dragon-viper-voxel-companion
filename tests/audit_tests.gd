@@ -20,11 +20,12 @@ static func run(t: Node) -> void:
 	var revs := ViperAdminData.revisions().history("brain/foxy_ani/audit_hi", "brain_cell")
 	t.check(revs.size() == 1 and FileAccess.file_exists(learned), "audit: learned cell committed as a revision")
 	var rn: int = revs[0]["rev"] if revs.size() == 1 else 0
+	Tiers.owner_override = true   # pass the AUDIT-2 admin gate so this checks the brain-cell gate itself
 	EveCore.owner_override = false
 	t.check(ViperAdminData.revisions().revert(rn, "intruder") == 0 and FileAccess.file_exists(learned), "audit: brain-cell revert refused while owner session is locked")
 	EveCore.owner_override = true
 	t.check(ViperAdminData.revisions().revert(rn, "phoenix") > 0 and not FileAccess.file_exists(learned), "audit: brain-cell revert allowed for the unlocked owner")
-	EveCore.owner_override = null
+	EveCore.owner_override = null; Tiers.owner_override = null
 	ViperAdminData.reset()
 	BrainCore.adapter_root = old_adapter
 

@@ -191,6 +191,25 @@ static func set_tier(member: String, tier: String) -> String:
 		return "Saves are sealed. Unlock first."
 	return ""
 
+## Role aliases accepted by set_role (UI labels -> tier keys).
+const ROLE_ALIASES := {"builder": "staff", "premium": "creator", "manager": "estate_manager", "estate": "estate_manager"}
+
+## Owner-gated role setter with an audit entry (2026-10-17). Same rules as set_tier (needs
+## Profile.is_owner(): owner device + unlocked session; nobody can be made owner; the owner can't be
+## changed), plus one tamper-evident revision "role/<member>" in the Viper Admin timeline
+## (before tier -> after tier, author = owner). Accepts tier keys or the aliases above.
+## Use companion ids exactly as in res://companions/ (e.g. "foxy_ani", "aaliyah", "circuit_nova").
+## Returns "" on success or the error text.
+static func set_role(member: String, role: String) -> String:
+	var tier: String = ROLE_ALIASES.get(role.to_lower(), role.to_lower())
+	var before := assigned_tier(member) if member != "" else ""
+	var e := set_tier(member, tier)
+	if e != "": return e
+	if before != tier:
+		ViperAdminData.revisions().commit("role", "role/" + member, before, tier,
+			"Role %s: %s -> %s" % [member, label(before), label(tier)], OWNER_ID)
+	return ""
+
 static func clear_tier(member: String) -> String:
 	if not owner_session(): return "Owner unlock needed."
 	roles()["assign"].erase(member)

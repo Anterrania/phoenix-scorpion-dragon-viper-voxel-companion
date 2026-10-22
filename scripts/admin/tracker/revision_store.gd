@@ -10,7 +10,7 @@ extends RefCounted
 ## reordering or truncation are all detected by verify_chain(). Files are encrypted via SecureFile
 ## once an OwnerVault exists.
 
-const KINDS := ["ticket", "wiki", "brain_cell", "world", "profile"]
+const KINDS := ["ticket", "wiki", "brain_cell", "world", "profile", "role"]
 const MAX_SNAPSHOT := 32000
 
 var root: String
@@ -158,6 +158,7 @@ static func line_diff(a: String, b: String) -> String:
 
 ## Revert revision n: re-apply its "before" through the kind's applier and record a new revision.
 func revert(n: int, author := "local") -> int:
+	if not AdminGate.ok(): return 0   # AUDIT-2: owner session only (reads stay open)
 	var r := get_rev(n)
 	if r.is_empty(): return 0
 	var apply := _applier(r["kind"])

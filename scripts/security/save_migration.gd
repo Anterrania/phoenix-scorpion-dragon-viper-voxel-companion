@@ -15,6 +15,11 @@ const TARGETS := [
 	["memory", ".json"],            # user://memory/<id>.json (AgentBrain chat memory)           # user://brains/<id>/memory/facts.jsonl, episodes.jsonl
 	["viper", ".json"], ["viper", ".jsonl"],   # tracker, wiki, signup, revisions
 	["", "estate.cfg"],
+	# finding F7 (docs/ENCRYPTION.md): stores added after v0.12 that write through SecureFile but
+	# were missed by migration, so files written BEFORE the first PIN stayed plaintext until rewritten.
+	["social", ".json"],            # Tiers roles + Social (profiles, friends, messages, groups)
+	["world", ".json"],             # Landmarks (home, teleport history)
+	["interop", ".json"],           # OAR/IAR import log, heightmaps, notecards
 ]
 const SKIP_DIRS := ["backups", "logs", "shader_cache", "vulkan", ".godot"]
 

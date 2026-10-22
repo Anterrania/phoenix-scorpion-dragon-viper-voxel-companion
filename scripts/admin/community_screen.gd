@@ -209,9 +209,9 @@ func _roles() -> void:
 
 ## Owner only. Returns "" on success or the first error.
 func save_roles() -> String:
-	if Tiers.tier_of(Tiers.SELF) != "owner": return "Owner unlock needed."
+	if not AdminGate.ok(): return AdminGate.DENIED
 	for id in pending_tiers.keys():
-		var e := Tiers.set_tier(id, pending_tiers[id])
+		var e := Tiers.set_role(id, pending_tiers[id])
 		if e != "": return e
 		pending_tiers.erase(id)
 	refresh()

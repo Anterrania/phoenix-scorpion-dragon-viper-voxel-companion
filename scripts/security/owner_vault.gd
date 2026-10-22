@@ -11,7 +11,7 @@ extends RefCounted
 ##   lock_minutes without input (default 30, owner-adjustable). Auto-lock keeps the DEK so companions
 ##   keep their memories; "Lock & seal" (lock_all) also drops the DEK.
 ## - Brute-force backoff: after 5 wrong tries, wait 30 s, doubling, max 1 h. Persisted.
-## File: <root>/vault.json (no secrets inside: salts, iteration counts, wrapped keys).
+## File: <root>/vault.json (no secrets inside: salts, iteration counts, wrapped keys, key check value).
 
 const VERSION := 1
 const MIN_PIN := 6
@@ -26,7 +26,7 @@ static var _dek_enc := PackedByteArray()
 static var _dek_mac := PackedByteArray()
 static var _session := false
 static var _last_activity_ms := 0
-static var _legacy_code := ""          # held only during a legacy session, to add a legacy slot at setup
+static var _bootstrap := false        # SEC-FIX-1: legacy code accepted on a no-vault device -> PIN setup only
 static var _vault_cache = null
 static var on_storage_ready: Array[Callable] = []   # reload hooks (EveCore, Estate, AgentBrain...)
 static var clock_ms := Callable()   # tests: fake clock
@@ -40,22 +40,36 @@ static func vault() -> Dictionary:
 		if FileAccess.file_exists(_path()):
 			var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(_path()))
 			if d is Dictionary: _vault_cache = d
+		_migrate_legacy()
 	return _vault_cache
+
+static func _has_pin_slot(v: Dictionary) -> bool:
+	return v.get("slots", []).any(func(s): return s.get("kind") == "pin")
+
+## SEC-FIX-1 one-time migration: a vault with a pin slot drops any legacy-code slot for good.
+static func _migrate_legacy() -> void:
+	var v: Dictionary = _vault_cache
+	if not _has_pin_slot(v) or not v.get("slots", []).any(func(s): return s.get("kind") == "legacy"): return
+	v["slots"] = v["slots"].filter(func(s): return s.get("kind") != "legacy")
+	v["legacy_retired"] = Time.get_datetime_string_from_system()
+	_save_vault()
 
 static func _save_vault() -> void:
 	DirAccess.make_dir_recursive_absolute(root)
 	var tmp := _path() + ".tmp"
 	var f := FileAccess.open(tmp, FileAccess.WRITE)
+	if f == null: push_error("OwnerVault: can't write " + tmp); return
 	f.store_string(JSON.stringify(_vault_cache, "\t"))
 	f.close()
-	DirAccess.rename_absolute(tmp, _path())
+	SecureFile.replace_file(tmp, _path())
 
 static func has_vault() -> bool: return not vault().get("slots", []).is_empty()
 static func storage_ready() -> bool: return _dek_enc.size() == 32
 static func dek() -> Dictionary: return {"enc": _dek_enc, "mac": _dek_mac}
 static func lock_minutes() -> int: return int(vault().get("lock_minutes", DEFAULT_LOCK_MIN))
 static func has_legacy_slot() -> bool: return vault().get("slots", []).any(func(s): return s.get("kind") == "legacy")
-static func needs_pin_setup() -> bool: return _session and not has_vault()
+static func needs_pin_setup() -> bool: return _bootstrap and not has_vault()
+static func in_bootstrap() -> bool: return _bootstrap
 
 static func validate_secret(secret: String) -> String:
 	var s := secret.strip_edges()
@@ -78,7 +92,7 @@ static func seconds_left() -> int:
 
 static func lock() -> void:
 	_session = false
-	_legacy_code = ""
+	_bootstrap = false
 
 ## Lock and drop the data key: encrypted saves stay closed until the next unlock.
 static func lock_all() -> void:
@@ -89,11 +103,11 @@ static func _start_session() -> void:
 	_session = true
 	_last_activity_ms = _now_ms()
 
-## Legacy owner code accepted by Profile (hash match) while no vault exists yet:
-## owner session only (no storage key). The UI then offers the set-PIN step.
-static func start_legacy_session(code: String) -> void:
-	_legacy_code = code
-	_start_session()
+## Legacy owner code accepted by Profile (PBKDF2 bootstrap match) while no vault exists yet.
+## SEC-FIX-1: this is NOT an owner session (is_unlocked() stays false). It only permits setup().
+static func start_legacy_session(_code: String) -> void:
+	if has_vault(): return
+	_bootstrap = true
 
 static func set_lock_minutes(m: int) -> bool:
 	if not is_unlocked(): return false
@@ -126,17 +140,16 @@ static func _try_slot(slot: Dictionary, secret: String) -> PackedByteArray:
 ## Adds a "legacy" slot for the old owner code if this session was opened with it.
 static func setup(secret: String, allow_fresh := false) -> String:
 	if has_vault(): return "Already set up. Use Change PIN."
-	if not (_session or allow_fresh): return "Unlock with the owner code first."
+	if not (_bootstrap or allow_fresh): return "Unlock with the owner code first."
 	var e := validate_secret(secret)
 	if e != "": return e
 	var d := CryptoBox.random_bytes(64)
-	var slots: Array = [_make_slot("pin", secret, d)]
-	if _legacy_code != "": slots.append(_make_slot("legacy", _legacy_code, d))
+	var slots: Array = [_make_slot("pin", secret, d)]   # SEC-FIX-1: no legacy slot any more
 	_vault_cache = {"v": VERSION, "slots": slots, "lock_minutes": DEFAULT_LOCK_MIN, "fails": 0, "retry_at": 0,
-		"created": Time.get_datetime_string_from_system()}
+		"created": Time.get_datetime_string_from_system(), "dek_check": _dek_check(d)}
 	_save_vault()
+	_bootstrap = false
 	_set_dek(d)
-	_legacy_code = ""
 	_start_session()
 	return ""
 
@@ -153,9 +166,10 @@ static func unlock(secret: String) -> String:
 	if not has_vault(): return "No PIN set yet."
 	if retry_in_s() > 0: return "Too many tries. Wait %d s." % retry_in_s()
 	for slot in vault()["slots"]:
+		if slot.get("kind") == "legacy" and _has_pin_slot(vault()): continue   # SEC-FIX-1: refused
 		var d := _try_slot(slot, secret)
 		if d.size() == 64:
-			vault()["fails"] = 0; vault()["retry_at"] = 0; _save_vault()
+			vault()["fails"] = 0; vault()["retry_at"] = 0; _ensure_dek_check(d); _save_vault()
 			if not storage_ready(): _set_dek(d)
 			_start_session()
 			return ""
@@ -166,10 +180,26 @@ static func unlock(secret: String) -> String:
 	_save_vault()
 	return "Wrong PIN."
 
-## Future biometric plugin entry point (see BiometricHook). Not reachable today.
+## Key check value: HMAC-SHA256(DEK mac half, "phoenix/dek-check"), base64. Lets unlock_with_dek()
+## recognise the real data key without storing it (a MAC of a constant under a random 256-bit key
+## reveals nothing about the key). Added at setup, and on the next PIN unlock for older vaults.
+static func _dek_check(d: PackedByteArray) -> String:
+	return Marshalls.raw_to_base64(CryptoBox.hmac(d.slice(32, 64), "phoenix/dek-check".to_utf8_buffer()))
+
+static func _ensure_dek_check(d: PackedByteArray) -> void:
+	if str(vault().get("dek_check", "")) == "":
+		vault()["dek_check"] = _dek_check(d)
+
+## Future biometric plugin entry point (see BiometricHook). Not reachable from the UI today.
+## Fix (docs/ENCRYPTION.md, finding F1): it used to accept ANY 64 bytes and open an owner session.
+## Now the bytes must match the vault's key check value (and the loaded DEK, if one is loaded).
 static func unlock_with_dek(d: PackedByteArray) -> bool:
-	if d.size() != 64: return false
-	_set_dek(d); _start_session()
+	if d.size() != 64 or not has_vault(): return false
+	var want := str(vault().get("dek_check", ""))
+	if want == "" or not CryptoBox.equal(_dek_check(d).to_ascii_buffer(), want.to_ascii_buffer()): return false
+	if storage_ready() and not CryptoBox.equal(d, _dek_enc + _dek_mac): return false
+	if not storage_ready(): _set_dek(d)
+	_start_session()
 	return true
 
 static func change_secret(old_secret: String, new_secret: String) -> String:

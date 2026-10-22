@@ -54,3 +54,4 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | SEC-FIX-3 | SEC | E-stop file MAC under vault key, fail closed (F3) | ✅ headless-tested, needs device test |
 | SEC-FIX-4 | SEC | arm64-only Android export, tests clean up after themselves (F4, F5) | ✅ |
 | SEC-FIX-5 | SEC | First-run "Create owner PIN or passphrase" on a fresh install (no vault, no bootstrap, no owner data); confirmation required; refused if any vault file exists, even corrupted; logged to the admin timeline | ✅ headless-tested, needs device test |
+| SEC-FIX-6 | SEC | Owner-upgrade PIN setup: pre-vault device with owner role, no vault file, no bootstrap gets the confirmed create flow, logged `security/owner_setup_upgrade`; legacy code refused after | ✅ headless-tested, needs device test |

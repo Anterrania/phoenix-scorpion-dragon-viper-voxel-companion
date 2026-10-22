@@ -107,3 +107,4 @@ SEC,SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration
 SEC,SEC-FIX-3 e-stop file MAC-sealed; fail closed,done,P1
 SEC,SEC-FIX-4 arm64-only Android export + tests clean up user:// roots,done,P2
 SEC,SEC-FIX-5 first-run owner PIN/passphrase on a fresh install (confirmed; refused once any vault file exists),done,P0
+SEC,SEC-FIX-6 owner-upgrade PIN setup for pre-vault owner devices (confirmed; any vault file refuses; logged owner_setup_upgrade),done,P0

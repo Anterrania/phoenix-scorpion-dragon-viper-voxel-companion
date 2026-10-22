@@ -53,6 +53,7 @@ Result key: PASS / FAIL / NOT RUN (reason) / PASS (desktop) = verified by headle
 | 19 | No secrets in logs | `adb logcat \| grep -iE "pin\|secret\|api_key\|dek\|phoenix-"` during setup, login, wrong PIN and change PIN. | Nothing sensitive in the log. A code review found no print/push of PIN, key or secret values. | PASS (code review); logcat NOT RUN |
 | 20 | Backup | Security → Backup, then inspect `user://backups`. | The archive is sealed (`PXE1`). | NOT RUN |
 | 21 | API key sealed | Enter an LLM API key in Settings, restart, and lock the app. Optionally inspect `settings.cfg` via run-as. | `settings.cfg` has no key. The key sits in the sealed store, can't be read while sealed, and comes back after unlock. A tampered store gives no key. A plaintext key migrates once at first unlock. | PASS (headless, sec2, 8 checks). Phone NOT RUN |
+| 22 | Owner upgrade PIN (SEC-FIX-6) | On a phone upgraded from before the vault (profile role owner, no `vault.json`, release build without a bootstrap cfg), open Security. Create a PIN, confirm it, then try the old `phoenix-` code. Repeat with a corrupted `vault.json`. | "Create owner PIN or passphrase" appears; a mismatched confirmation restarts; on match the vault is created, the owner session opens, and the timeline has `security/owner_setup_upgrade`. The old code is refused afterwards, and the create flow never shows again. A corrupted vault shows no create flow and refuses setup. | PASS (headless, sec6). Phone NOT RUN |
 
 ## Findings / fixes needed
 

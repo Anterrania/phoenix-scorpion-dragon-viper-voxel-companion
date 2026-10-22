@@ -60,6 +60,8 @@ func _ready() -> void:
 	load("res://tests/interop_tests.gd").run(self); load("res://tests/interop_tests.gd").run_docs(self); await load("res://tests/interop_tests.gd").run_ui(self)
 	load("res://tests/gate_tests.gd").run(self)
 	await load("res://tests/gate_tests.gd").run_scene(self)
+	load("res://tests/sec_fix_tests.gd").run(self)
+	load("res://tests/sec_fix_tests.gd").cleanup(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

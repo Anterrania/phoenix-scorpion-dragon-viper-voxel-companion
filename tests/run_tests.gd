@@ -64,6 +64,7 @@ func _ready() -> void:
 	ph.run_display(self); ph.run_device(self); ph.run_voice(self); ph.run_lipsync(self); ph.run_dance(self); ph.run_broadcast(self); ph.run_docs(self)
 	await ph.run_ui(self)
 	load("res://tests/sec_fix_tests.gd").run(self)
+	load("res://tests/sec_fix_tests.gd").run_first_run(self)
 	load("res://tests/sec_fix_tests.gd").cleanup(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)

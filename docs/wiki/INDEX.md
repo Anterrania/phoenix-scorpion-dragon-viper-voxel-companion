@@ -52,6 +52,9 @@ Short pages. Tap one.
 - [Landmarks, Home & Teleport History](landmarks-teleport.md) · built
 - [Interop (OpenSim, Aurora, WhiteCore, OSgrid)](interop.md) · partial
 - [How Your Saves Are Protected](encryption.md) · built
+- [Display Settings](display-settings.md) · partial
+- [Device Check](device-check.md) · partial
+- [Media, Voice & Broadcast](media-broadcast.md) · partial
 
 - [FAQ](../FAQ.md)
 

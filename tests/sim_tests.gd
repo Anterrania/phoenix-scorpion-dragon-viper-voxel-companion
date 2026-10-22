@@ -36,7 +36,7 @@ static func run(t: Node) -> void:
 	Tiers.owner_override = saved_tiers_ovr
 	EveCore.owner_override = saved_eve_ovr
 	EveCore.save_dir = saved_eve; EveCore.reset_cache()
-	OwnerVault.reset_for_tests(saved_vault, 1000)
+	OwnerVault.reset_for_tests(saved_vault, CryptoBox.DEFAULT_ITERATIONS)
 	SecureFile.reset_for_tests()
 	AutonomyGuard.reset_for_tests(saved_estop)
 	Tiers.reset_for_tests("user://social")

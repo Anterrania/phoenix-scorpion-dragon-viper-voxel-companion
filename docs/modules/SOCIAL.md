@@ -40,7 +40,7 @@ Older notes: [COMMUNITY_PLATFORM.md](COMMUNITY_PLATFORM.md). Wiki: [community](.
 |---|---|
 | Guest | Browse, report |
 | Resident | + post, message, friends, follow, join groups, edit own profile |
-| Premium / Creator | + albums, classifieds, uploads, marketplace, create groups / events / polls |
+| Premium / Creator | + albums, classifieds, uploads, marketplace, create groups / events / polls, broadcast (parcel media rights; MEDIA_BROADCAST.md) |
 | Builder / Staff (bots, employees) | + moderate |
 | Estate Manager | + land / estate settings, assign group land |
 | Owner (unlocked) | Everything, incl. admin + role editor |

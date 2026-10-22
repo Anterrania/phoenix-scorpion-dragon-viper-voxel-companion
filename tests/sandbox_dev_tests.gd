@@ -34,7 +34,7 @@ static func run(t: Node) -> void:
 	_gate(t); _quests(t); _worlds(t); _migration(t); _legal(t); _ledgers(t); _market(t); _rental(t); _free_play(t); _no_random_aethel(t)
 
 	Tiers.owner_override = null
-	OwnerVault.reset_for_tests(saved_vault, 1000)
+	OwnerVault.reset_for_tests(saved_vault, CryptoBox.DEFAULT_ITERATIONS)
 	SecureFile.reset_for_tests()
 	AutonomyGuard.reset_for_tests(saved_estop)
 	Tiers.reset_for_tests("user://social")

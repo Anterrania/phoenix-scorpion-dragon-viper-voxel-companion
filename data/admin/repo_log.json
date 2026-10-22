@@ -1,5 +1,11 @@
 [
  {
+  "sha": "0db3517",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:50:36-07:00",
+  "subject": "SBX: VIEWER_PARITY sandbox section, restore statics in sim tests, run sim tests late, regen seeds"
+ },
+ {
   "sha": "6d84a89",
   "author": "Anterrania",
   "date": "2026-10-22T09:46:50-07:00",

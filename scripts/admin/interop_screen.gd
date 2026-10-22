@@ -29,10 +29,10 @@ func _ready() -> void:
 	theme = ViperKit.theme()
 	var bg := ColorRect.new(); bg.color = PhoenixTokens.VOID; bg.set_anchors_preset(Control.PRESET_FULL_RECT); add_child(bg)
 	var m := MarginContainer.new(); m.set_anchors_preset(Control.PRESET_FULL_RECT)
-	for s in ["left", "right", "bottom"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.SPACE[5])
-	m.add_theme_constant_override("margin_top", PhoenixTokens.SPACE[6])
+	for s in ["left", "right", "bottom"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.space(5))
+	m.add_theme_constant_override("margin_top", PhoenixTokens.space(6))
 	add_child(m)
-	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.SPACE[4]); m.add_child(v)
+	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.space(4)); m.add_child(v)
 	var head := HBoxContainer.new()
 	var title := Label.new(); title.text = "Interop"; title.theme_type_variation = &"TitleLabel"
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL; head.add_child(title)
@@ -43,7 +43,7 @@ func _ready() -> void:
 	var sc := ScrollContainer.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; v.add_child(sc)
 	body = VBoxContainer.new(); body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	body.add_theme_constant_override("separation", PhoenixTokens.SPACE[4]); sc.add_child(body)
+	body.add_theme_constant_override("separation", PhoenixTokens.space(4)); sc.add_child(body)
 	refresh()
 
 func _card(t: String) -> GlassCard:
@@ -71,7 +71,7 @@ func refresh() -> void:
 	var st := InteropImport.status()
 	var s := _card("Import status"); body.add_child(s)
 	var row := HFlowContainer.new(); row.alignment = FlowContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("h_separation", PhoenixTokens.SPACE[5]); s.body().add_child(row)
+	row.add_theme_constant_override("h_separation", PhoenixTokens.space(5)); s.body().add_child(row)
 	row.add_child(ViperKit.ring(minf(1.0, st["oar"] / 10.0), "regions (OAR)", str(st["oar"])))
 	row.add_child(ViperKit.ring(minf(1.0, st["iar"] / 10.0), "inventory (IAR)", str(st["iar"])))
 	row.add_child(ViperKit.ring(minf(1.0, st["failed"] / 10.0), "failed", str(st["failed"]), 120, true))
@@ -85,7 +85,7 @@ func refresh() -> void:
 	path_edit = LineEdit.new(); path_edit.placeholder_text = "File path, e.g. /sdcard/Download/region.oar"
 	path_edit.custom_minimum_size = Vector2(0, TAP_PX); path_edit.add_theme_font_size_override("font_size", TEXT_PX)
 	c.body().add_child(path_edit)
-	var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.SPACE[3])
+	var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.space(3))
 	h.add_child(_btn("Preview", func(): preview(path_edit.text.strip_edges())))
 	import_btn = _btn("Import", func(): do_import(path_edit.text.strip_edges()))
 	import_btn.disabled = not can_import; h.add_child(import_btn)

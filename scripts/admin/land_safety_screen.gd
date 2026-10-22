@@ -32,14 +32,14 @@ func _ready() -> void:
 	theme = ViperKit.theme()
 	var bg := ColorRect.new(); bg.color = PhoenixTokens.VOID; bg.set_anchors_preset(Control.PRESET_FULL_RECT); add_child(bg)
 	var m := MarginContainer.new(); m.set_anchors_preset(Control.PRESET_FULL_RECT)
-	for s in ["left", "right", "bottom"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.SPACE[4])
-	m.add_theme_constant_override("margin_top", PhoenixTokens.SPACE[5])
+	for s in ["left", "right", "bottom"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.space(4))
+	m.add_theme_constant_override("margin_top", PhoenixTokens.space(5))
 	add_child(m)
-	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.SPACE[3]); m.add_child(v)
+	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.space(3)); m.add_child(v)
 	var head := HBoxContainer.new()
 	var title := Label.new(); title.text = "Land & Safety"; title.theme_type_variation = &"TitleLabel"
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL; head.add_child(title)
-	var x := Button.new(); x.text = "✕"; x.name = "Close"; x.custom_minimum_size = Vector2(PhoenixTokens.TAP_MIN, PhoenixTokens.TAP_MIN)
+	var x := Button.new(); x.text = "✕"; x.name = "Close"; x.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap())
 	x.pressed.connect(func(): closed.emit(); queue_free()); head.add_child(x)
 	v.add_child(head)
 	pages = SwipePages.new(); pages.size_flags_vertical = Control.SIZE_EXPAND_FILL; v.add_child(pages)
@@ -47,7 +47,7 @@ func _ready() -> void:
 		var sc := ScrollContainer.new(); sc.name = t
 		sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		var b := VBoxContainer.new(); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.add_theme_constant_override("separation", PhoenixTokens.SPACE[3])
+		b.add_theme_constant_override("separation", PhoenixTokens.space(3))
 		sc.add_child(b); pages.add_page(t, sc); boxes[t] = b
 	pages.page_changed.connect(func(_i): refresh())
 	ParcelTools.sweep_bans(region, parcel)
@@ -69,19 +69,19 @@ func _text(t: String, col := PhoenixTokens.PLATINUM) -> Label:
 	return l
 
 func _btn(t: String, f: Callable, disabled := false) -> Button:
-	var b := Button.new(); b.text = t; b.custom_minimum_size = Vector2(PhoenixTokens.TAP_MIN * 2, PhoenixTokens.TAP_MIN)
+	var b := Button.new(); b.text = t; b.custom_minimum_size = Vector2(PhoenixTokens.tap() * 2, PhoenixTokens.tap())
 	b.add_theme_font_size_override("font_size", PhoenixTokens.TYPE["body"]); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	b.disabled = disabled; b.pressed.connect(f)
 	return b
 
 func _edit(placeholder: String, text := "") -> LineEdit:
 	var e := LineEdit.new(); e.placeholder_text = placeholder; e.text = text
-	e.custom_minimum_size = Vector2(0, PhoenixTokens.TAP_MIN); e.add_theme_font_size_override("font_size", PhoenixTokens.TYPE["body"])
+	e.custom_minimum_size = Vector2(0, PhoenixTokens.tap()); e.add_theme_font_size_override("font_size", PhoenixTokens.TYPE["body"])
 	e.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return e
 
 func _row(items: Array) -> HBoxContainer:
-	var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.SPACE[3])
+	var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.space(3))
 	for i in items: h.add_child(i)
 	return h
 

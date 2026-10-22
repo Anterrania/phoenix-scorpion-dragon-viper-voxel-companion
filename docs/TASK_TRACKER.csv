@@ -86,7 +86,6 @@ VWGAP-4,"Encryption write-up docs/ENCRYPTION.md + fixes F1 (unlock_with_dek key 
 VWGAP-5,"Apply an imported OAR heightmap to a region (voxel generator hook + land permission); enforce allow_fly/damage/push/scripts flags (Foxy for client paths)",todo,P1
 VWGAP-6,"Encryption next: PXE2 with associated data (path + counter, fixes F3), PBKDF2 600k / Argon2id for new slots, Android Keystore slot",todo,P1
 VWGAP-7,"Interop next: JPEG 2000 -> PNG converter, LSL subset runner, Viper archive export, Sceneflip-style scene slots (OLG idea)",todo,P2
-<<<<<<< HEAD
 SBX-1,"SandboxGate: sandbox verbs mapped onto Tiers.can actions; owner verbs need Profile.is_owner() + owner actor",done,P1
 SBX-2,"Quest/mission engine: objectives, sequence/any order, prereqs, branches, timed missions, repeatables, creator drafts + owner publish, journal/track API",done,P1
 SBX-3,"On-demand worlds (sleep/wake, schedules, phone budget) + viper-region-bundle export/import with export report",done,P1
@@ -129,14 +128,24 @@ SBX-SIM-1,"[inactive reference, Foxy owns] NeedsMood model",done,P3
 SBX-SIM-2,"[inactive reference, Foxy owns] PerkTree over SkillByUse",done,P3
 SBX-SIM-3,"[inactive reference, Foxy owns] Factions + reputation",done,P3
 SBX-SIM-4,"[inactive reference, Foxy owns] Crafting + infusion",done,P3
-=======
 AUDIT-2,"Gate admin writes (ticket create/transition/update/comment, wiki save, revision revert, role saves, Region/Estate saves) with AdminGate.ok() = Tiers.can(""self"", ""admin""); reads stay open (fix/audit-gates, tests/gate_tests.gd)",done_headless,P1
 AUDIT-3,"Estate allow_fly / allow_damage enforced: LandGate.can_fly + CombatZone.is_damage_enabled -> LandGate.damage_enabled (explicit Estate value wins, else arena rings); player/HUD wiring in patches/player_fly_estate_rule.patch for Foxy",done_headless,P1
 AUDIT-4,"Companion world tools (place_voxel, carve_area, spawn_structure -> build; build_realm -> land) go through Tiers.can(companion_id, action, parcel) in AgentBrain.dispatch_tool; CompanionLife cairn fallback respects it",done_headless,P1
 AUDIT-5,"Tiers.set_role(member, role): owner-gated role setter (aliases builder/premium/manager) with an audit revision role/<member> in the Viper Admin timeline; Community role editor uses it. For Foxy's v0.12 seeding of foxy_ani, aaliyah, circuit_nova at Builder/Staff",done_headless,P1
 AUDIT-6,"Cache admin Home revision history per revision head (split from AUDIT-2)",todo,P2
+AUDIT-2,"Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(""self"", ""admin""); cache admin Home revision history per head",todo,P1
+PHONE-1,"Display settings: PhoenixTokens scale (compact default, one-tap Large 80 px / 18 px+), text + icon sliders, Max view, theme scaling; Admin > Settings > Display (docs/wiki/display-settings.md)",done_headless,P0
+PHONE-2,"Orientation: auto-rotate (sensor) + Portrait lock in Settings; responsive margins on resize/rotation (admin, security, community, settings) + radial menu re-anchors",done_headless,P0
+PHONE-3,"Device check panel (Admin > Settings > Device): Android permissions, mic driver, mic devices, camera feeds, TTS voices; Ask for permissions (OS.request_permissions)",done_headless,P1
+PHONE-4,"Android permissions + audio input: camera, record_audio, modify_audio_settings, post_notifications, read_media_images/video/audio, read_external_storage; audio/driver/enable_input=true (verify on a phone)",done_untested,P0
+PHONE-5,"Voice morph (VoiceFx: pitch shift + formant EQ presets, folded into TTS pitch/rate) + MicCapture; CompanionVoice voice-pick + utterance-callback sync fix (VOICE-1)",done_headless,P1
+PHONE-6,"Lip sync (LipSync: mic/clip amplitude + TTS-synced visemes) driving FaceDriver via patches/face_driver_lip_sync.patch (Foxy applies after v0.12)",in_progress,P1
+PHONE-7,"Beat detector + dance timeline (our own; drives HumanoidModel now, RealisticBody bones next) for live events",done_headless,P2
+PHONE-8,"Broadcast stub: stream entries + parcel media URLs, stream keys encrypted only, Tiers.can(actor,'broadcast',parcel), owner approval to go live; Admin > Settings > Broadcast (encoder INACTIVE)",done_headless,P1
+PHONE-9,"Main HUD follows display scale + Large toggle on first-run screens + MENU entry (patches/ui_root_display_settings.patch, Foxy)",todo,P0
+PHONE-10,"Roadmap (docs/modules/MEDIA_BROADCAST.md): AI music, music videos, YouTube/SoundCloud OAuth upload drafts, RTMP encoder plugin + YouTube Live, in-world media screens, voice chat + spatial audio",todo,P2
 SEC,SEC-FIX-1 retire unsalted legacy owner-code hash (PBKDF2 bootstrap only; refused once PIN set),done,P0
 SEC,SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration,done,P0
 SEC,SEC-FIX-3 e-stop file MAC-sealed; fail closed,done,P1
 SEC,SEC-FIX-4 arm64-only Android export + tests clean up user:// roots,done,P2
->>>>>>> origin/main
+SEC,SEC-FIX-5 first-run owner PIN/passphrase on a fresh install (confirmed; refused once any vault file exists),done,P0

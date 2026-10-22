@@ -43,5 +43,5 @@ func _draw() -> void:
 	var fs := int(r * 0.55)
 	var w := f.get_string_size(txt, HORIZONTAL_ALIGNMENT_CENTER, -1, fs).x
 	draw_string(f, c + Vector2(-w / 2.0, fs * 0.3), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, PhoenixTokens.PLATINUM)
-	var cw := f.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, PhoenixTokens.TYPE.micro).x
-	draw_string(f, c + Vector2(-cw / 2.0, fs * 0.3 + 22), caption.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, PhoenixTokens.TYPE.micro, PhoenixTokens.PLATINUM_DIM)
+	var cw := f.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, PhoenixTokens.fs("micro")).x
+	draw_string(f, c + Vector2(-cw / 2.0, fs * 0.3 + 22), caption.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, PhoenixTokens.fs("micro"), PhoenixTokens.PLATINUM_DIM)

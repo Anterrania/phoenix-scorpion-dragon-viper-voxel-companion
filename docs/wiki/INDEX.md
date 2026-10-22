@@ -18,8 +18,17 @@ Short pages. Tap one.
 - [Brain, Memory & Proposals](brain-memory-proposals.md) · built
 - [Land & Estate Tools](land-estate-tools.md) · built
 - [Music](music.md) · built
+- [Vala Script](vala-script.md) · built
 - [Avatars & DNA](avatars-dna.md) · built
 - [Combat, RP & Breedables](combat-rp-breedables.md) · built
+- [Quests & Missions](quests-missions.md) · partial
+- [On-Demand Worlds](on-demand-worlds.md) · partial
+- [Market Delivery, Vendors & Rentals](market-delivery.md) · partial
+- [Free-Play Games](free-play-games.md) · partial
+- [Needs & Mood](sim-needs-mood.md) · reference (Foxy)
+- [Skills & Perks](sim-skills-perks.md) · reference (Foxy)
+- [Factions & Reputation](sim-factions.md) · reference (Foxy)
+- [Crafting & Infusion](sim-crafting.md) · reference (Foxy)
 - [Welcome Island](welcome-island.md) · built
 - [Economy](economy.md) · partial
 - [Graphics Settings](graphics-settings.md) · built
@@ -39,8 +48,10 @@ Short pages. Tap one.
 - [Economy Metrics](economy-metrics.md) · planned
 - [Community](community.md) · partial
 - [Tiers](tiers.md) · built
+- [Frontier](frontier.md) · partial
 - [Viewer Features](viewer-features.md) · partial
 - [Land & Safety](land-safety.md) · built
+- [Living World](living-world.md) · partial
 - [Mute, Block & Derender](mute-block-derender.md) · built
 - [Restrictions](restrictions.md) · partial
 - [Landmarks, Home & Teleport History](landmarks-teleport.md) · built

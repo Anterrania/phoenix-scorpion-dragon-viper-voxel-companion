@@ -1,15 +1,45 @@
 [
  {
-  "sha": "1bdf9c1",
+  "sha": "dc840b1",
   "author": "Anterrania",
-  "date": "2026-10-22T09:50:58-07:00",
-  "subject": "feat(compat): device auto-detect + AutoConfig + PowerData/data saver/Dormancy; docs, specs, wiki, tracker; 0 failures (1647 pass)"
+  "date": "2026-10-22T10:06:01-07:00",
+  "subject": "Merge origin/main into feature/vala-script"
  },
  {
-  "sha": "3ed0622",
+  "sha": "ca1e020",
   "author": "Anterrania",
-  "date": "2026-10-22T09:48:16-07:00",
-  "subject": "wip(compat): DeviceProfile caps schema, AutoConfig + PowerData, FeatureRegistry, Net, Dormancy, Device & compatibility screen, tests"
+  "date": "2026-10-22T09:59:56-07:00",
+  "subject": "docs(vala): VALA_SCRIPT.md, parity section, Foxy client spec, wiki page, VALA tracker rows; register suite"
+ },
+ {
+  "sha": "adabe41",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:58:34-07:00",
+  "subject": "feat(vala): dormancy pause + PowerData-scaled step budget; shim vector args"
+ },
+ {
+  "sha": "f6a16fc",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:54:41-07:00",
+  "subject": "Merge remote-tracking branch 'origin/main' into feature/vala-script"
+ },
+ {
+  "sha": "2c90b87",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:54:34-07:00",
+  "subject": "wip(vala): LSL shim, script store, tests"
+ },
+ {
+  "sha": "d43254f",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:49:09-07:00",
+  "subject": "wip(vala): VM + engine (gates, slots, chat bus, http allowlist)"
+ },
+ {
+  "sha": "88d03b9",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:44:29-07:00",
+  "subject": "wip(vala): Vala Script lexer + parser (VALA-1)"
  },
  {
   "sha": "1d4f15c",

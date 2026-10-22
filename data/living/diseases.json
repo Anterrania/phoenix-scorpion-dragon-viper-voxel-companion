@@ -1,0 +1,24 @@
+{
+  "_note": "LIFE-3 diseases (scripts/living/disease.gd). Family-friendly, non-graphic: symptoms are short labels and stat effects only. SIR-style spread: beta = transmission per contact-day, gamma = recovery per day (1/infectious days). Real-world reference values in docs/modules/SURVIVAL.md. Original names for realm illnesses.",
+  "schema_version": 1,
+  "diseases": {
+    "common_cold": {"name": "Common cold", "vector": "airborne", "contagious": true, "incubation_h": 48, "infectious_days": 7, "beta": 0.3, "severity": 0.1, "symptoms": ["sniffles", "tired"], "effects": {"fatigue_rate": 1.2}, "treatments": {"rest": 0.3, "warm_drink": 0.2, "cold_remedy": 0.5}, "vaccine": null, "immunity_days": 60, "realms": ["*"]},
+    "shiver_fever": {"name": "Shiver fever", "vector": "airborne", "contagious": true, "incubation_h": 36, "infectious_days": 5, "beta": 0.45, "severity": 0.35, "symptoms": ["fever", "aches", "tired"], "effects": {"fatigue_rate": 1.6, "hydration_rate": 1.3}, "treatments": {"rest": 0.2, "antiviral": 0.6}, "vaccine": "shiver_vaccine", "immunity_days": 365, "realms": ["*"]},
+    "wound_infection": {"name": "Wound infection", "vector": "contact", "contagious": false, "incubation_h": 24, "infectious_days": 10, "beta": 0.0, "severity": 0.3, "symptoms": ["sore", "fever"], "effects": {"health_rate": -0.5}, "treatments": {"clean_bandage": 0.3, "antibiotic": 0.8}, "vaccine": null, "immunity_days": 0, "realms": ["*"]},
+    "water_bug": {"name": "Water bug (upset stomach)", "vector": "water", "contagious": false, "incubation_h": 12, "infectious_days": 3, "beta": 0.0, "severity": 0.2, "symptoms": ["upset stomach"], "effects": {"hydration_rate": 2.0}, "treatments": {"oral_rehydration": 0.6, "rest": 0.2}, "vaccine": null, "immunity_days": 0, "realms": ["*"], "note": "From drinking untreated water; boiling or filtering prevents it."},
+    "taiga_tick_fever": {"name": "Taiga tick fever", "vector": "insect", "contagious": false, "incubation_h": 72, "infectious_days": 7, "beta": 0.0, "severity": 0.3, "symptoms": ["fever", "rash"], "effects": {"fatigue_rate": 1.4}, "treatments": {"antibiotic": 0.7}, "vaccine": "taiga_vaccine", "immunity_days": 730, "realms": ["alaskan_boreal"], "note": "Summer insect bites in the boreal realm. Repellent lowers the chance."},
+    "ember_lung": {"name": "Ember lung", "vector": "environment", "contagious": false, "incubation_h": 2, "infectious_days": 4, "beta": 0.0, "severity": 0.4, "symptoms": ["cough", "short of breath"], "effects": {"o2_need": 1.3}, "treatments": {"clean_air": 0.4, "inhaler": 0.6}, "vaccine": null, "immunity_days": 0, "realms": ["venus_fire", "venus_deep"], "trigger": "acid", "note": "Breathing Venus acid haze without a sealed mask."},
+    "void_sickness": {"name": "Void sickness", "vector": "environment", "contagious": false, "incubation_h": 6, "infectious_days": 6, "beta": 0.0, "severity": 0.5, "symptoms": ["nausea", "tired"], "effects": {"fatigue_rate": 1.5, "health_rate": -0.3}, "treatments": {"rad_shelter": 0.3, "rad_meds": 0.6}, "vaccine": null, "immunity_days": 0, "realms": ["cosmic"], "trigger": "radiation", "note": "Radiation dose above 1 Sv. Modelled on acute radiation syndrome, without any graphic detail."},
+    "smog_cough": {"name": "Smog cough", "vector": "environment", "contagious": false, "incubation_h": 24, "infectious_days": 3, "beta": 0.0, "severity": 0.1, "symptoms": ["cough"], "effects": {"fatigue_rate": 1.1}, "treatments": {"clean_air": 0.5, "inhaler": 0.4}, "vaccine": null, "immunity_days": 0, "realms": ["cyberpunk"], "trigger": "pollution"},
+    "frostnip": {"name": "Frostnip", "vector": "environment", "contagious": false, "incubation_h": 1, "infectious_days": 1, "beta": 0.0, "severity": 0.15, "symptoms": ["cold fingers"], "effects": {"health_rate": -0.2}, "treatments": {"warm_up": 0.8}, "vaccine": null, "immunity_days": 0, "realms": ["alaskan_tundra", "alaskan_boreal", "alaskan_glacier"], "trigger": "cold"}
+  },
+  "vaccines": {
+    "shiver_vaccine": {"name": "Shiver fever vaccine", "protects": "shiver_fever", "efficacy": 0.9, "days": 365},
+    "taiga_vaccine": {"name": "Taiga tick fever vaccine", "protects": "taiga_tick_fever", "efficacy": 0.95, "days": 730}
+  },
+  "treatments": {
+    "rest": "Rest", "warm_drink": "Warm drink", "cold_remedy": "Cold remedy", "antiviral": "Antiviral", "clean_bandage": "Clean bandage",
+    "antibiotic": "Antibiotic", "oral_rehydration": "Oral rehydration salts", "clean_air": "Clean air (habitat or sealed mask)",
+    "inhaler": "Inhaler", "rad_shelter": "Radiation shelter", "rad_meds": "Radiation meds", "warm_up": "Warm up by a fire or heater"
+  }
+}

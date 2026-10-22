@@ -1,0 +1,31 @@
+{
+  "_note": "Original sample quests for Viper OS (SBX-2). Free-play token rewards only; no Aethel Coin (LEGAL REVIEW).",
+  "quests": [
+    {"id": "first_light", "title": "First Light", "kind": "quest", "giver": "foxy_ani",
+     "summary": "Gather ice and build a small beacon on Welcome Island.", "region": "",
+     "order": "sequence", "repeatable": false,
+     "objectives": [
+       {"id": "ice", "type": "collect", "target": "voxel_ice", "count": 5, "text": "Gather 5 ice blocks"},
+       {"id": "beacon", "type": "build", "target": "beacon", "count": 1, "text": "Build a beacon"},
+       {"id": "photo", "type": "photo", "target": "beacon", "count": 1, "optional": true, "text": "Snap a photo of it"}
+     ],
+     "rewards": {"xp": {"building": 25}, "tokens": 10, "items": []}, "next": ["aurora_walk", "ember_run"]},
+    {"id": "aurora_walk", "title": "Aurora Walk", "kind": "quest", "giver": "circuit_nova",
+     "summary": "Visit three viewpoints in the tundra.", "region": "", "prereq": ["first_light"], "order": "any",
+     "objectives": [
+       {"id": "ridge", "type": "visit", "target": "tundra_ridge", "count": 1, "text": "Reach the ridge"},
+       {"id": "lake", "type": "visit", "target": "frozen_lake", "count": 1, "text": "Reach the frozen lake"},
+       {"id": "camp", "type": "visit", "target": "aurora_camp", "count": 1, "text": "Reach the camp"}
+     ],
+     "rewards": {"xp": {"exploring": 30}, "tokens": 15}},
+    {"id": "ember_run", "title": "Ember Run", "kind": "mission", "giver": "aaliyah",
+     "summary": "Carry a cooled ember across the fire wastes before it goes out.", "region": "venus",
+     "prereq": ["first_light"], "time_limit_s": 300, "fail_on": ["timeout", "leave_region"],
+     "objectives": [{"id": "carry", "type": "deliver", "target": "ember_shrine", "count": 1, "text": "Deliver the ember"}],
+     "rewards": {"xp": {"travel": 40}, "tokens": 20}},
+    {"id": "daily_garden", "title": "Daily Garden", "kind": "quest", "giver": "foxy_ani",
+     "summary": "Tend three plants. Comes back every day.", "region": "", "repeatable": true, "cooldown_s": 86400,
+     "objectives": [{"id": "tend", "type": "use", "target": "plant", "count": 3, "text": "Tend 3 plants"}],
+     "rewards": {"xp": {"gardening": 5}, "tokens": 3}}
+  ]
+}

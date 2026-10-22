@@ -18,6 +18,34 @@ func sdf_at(x: float, y: float, z: float, h: float) -> float:
 	return y - h
 
 func _generate_block(out: VoxelBuffer, origin: Vector3i, lod: int) -> void:
+	# RND-3 (2026-10-17): band fill. The SDF is clamped to +-1 beyond 4 m from the surface, so a
+	# column only needs per-voxel writes inside that band; air above and rock below are written
+	# with fill_area_f in one native call each. Output is identical to the reference loop below
+	# (tests/render_tests.gd compares them); measured gain is in docs/modules/RENDERING.md.
+	var size := out.get_size()
+	var s := 1 << lod
+	if origin.y > MAX_H + 4.0:
+		out.fill_f(1.0, CH_SDF)
+		return
+	if origin.y + size.y * s < MIN_H:
+		out.fill_f(-1.0, CH_SDF)
+		return
+	out.fill_f(1.0, CH_SDF)
+	var fs := float(s)
+	for lz in size.z:
+		for lx in size.x:
+			var h := height_f(float(origin.x + lx * s), float(origin.z + lz * s))
+			# first voxel with (wy - h) / 4 > -1 and last voxel with (wy - h) / 4 < 1
+			var lo := clampi(int(floor((h - 4.0 - origin.y) / fs)) + 1, 0, size.y)
+			var hi := clampi(int(ceil((h + 4.0 - origin.y) / fs)) - 1, -1, size.y - 1)
+			if lo > 0:
+				out.fill_area_f(-1.0, Vector3i(lx, 0, lz), Vector3i(lx + 1, lo, lz + 1), CH_SDF)
+			for ly in range(lo, hi + 1):
+				out.set_voxel_f(clampf((float(origin.y + ly * s) - h) / 4.0, -1.0, 1.0), lx, ly, lz, CH_SDF)
+
+## Reference (pre-RND-3) per-voxel loop. Superseded by the band fill above; kept only so the
+## tests can prove both produce the same SDF. Not called at runtime.
+func _generate_block_reference(out: VoxelBuffer, origin: Vector3i, lod: int) -> void:
 	var size := out.get_size()
 	var s := 1 << lod
 	if origin.y > MAX_H + 4.0:

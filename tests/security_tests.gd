@@ -53,17 +53,17 @@ static func run(t: Node) -> void:
 
 	# ---------- legacy owner code -> owner session -> set PIN -> migrate ----------
 	var saved_data: Dictionary = Profile.data.duplicate(true)
-	var saved_hash: String = Profile.owner_code_hash
-	Profile.owner_code_hash = Profile.code_hash("phoenix-test-code")
+	var saved_boot: Dictionary = Profile.legacy_bootstrap
+	Profile.legacy_bootstrap = Profile.make_bootstrap("phoenix-test-code", 1000)
 	Profile.data["role"] = "guest"
 	t.check(not Profile.is_owner(), "owner: guest is not owner")
 	t.check(not Profile.try_owner_unlock("phoenix-wrong"), "owner: wrong legacy code refused")
 	t.check(Profile.try_owner_unlock("Phoenix-Test-Code"), "owner: legacy 'phoenix-' code still works (case-insensitive)")
-	t.check(Profile.is_owner() and OwnerVault.needs_pin_setup() and not OwnerVault.storage_ready(), "owner: legacy unlock -> owner session, offers set-PIN")
+	t.check(not Profile.is_owner() and OwnerVault.needs_pin_setup() and not OwnerVault.storage_ready(), "owner: legacy code -> setup-only bootstrap (no owner powers), offers set-PIN")
 	t.check(OwnerVault.setup("12345") != "", "pin: 5 digits too short")
 	t.check(OwnerVault.setup("short") != "", "pin: short passphrase rejected")
 	t.check(OwnerVault.setup("246810") == "" and OwnerVault.has_vault() and OwnerVault.storage_ready(), "pin: setup creates vault + loads key")
-	t.check(OwnerVault.has_legacy_slot(), "pin: old code kept as a key slot")
+	t.check(not OwnerVault.has_legacy_slot() and Profile.is_owner(), "pin: no legacy slot (SEC-FIX-1); PIN session is owner")
 	var vtext := FileAccess.get_file_as_string(root.path_join("security/vault.json"))
 	t.check(not vtext.contains("246810") and not vtext.contains("phoenix-test-code"), "pin: vault file holds no secrets")
 	var rep := SaveMigration.migrate()
@@ -100,7 +100,9 @@ static func run(t: Node) -> void:
 	t.check(SecureFile.is_sealed_file(root.path_join("eve/new.json")) and SecureFile.read_text(root.path_join("eve/new.json")) == "{\"n\":1}", "unlock: pending write flushed encrypted")
 	t.check(EveCore.owner_ok(), "unlock: EveCore.owner_ok() true")
 	OwnerVault.lock_all()
-	t.check(OwnerVault.unlock("PHOENIX-TEST-CODE") == "" and SecureFile.read_text(root.path_join("eve/foxy_ani.json")) == files["eve/foxy_ani.json"], "unlock: old code still opens saves after PIN setup")
+	t.check(OwnerVault.unlock("PHOENIX-TEST-CODE") != "" and not Profile.try_owner_unlock("phoenix-test-code") and not OwnerVault.storage_ready(), "unlock: old code refused once a PIN exists (SEC-FIX-1)")
+	OwnerVault.vault()["fails"] = 0; OwnerVault.vault()["retry_at"] = 0
+	OwnerVault.unlock("246810")
 
 	# ---------- auto-lock ----------
 	var now := [1000000]
@@ -127,7 +129,7 @@ static func run(t: Node) -> void:
 	OwnerVault.lock_all()
 	t.check(OwnerVault.unlock("246810") != "" and OwnerVault.unlock("135791") == "", "change: old PIN dead, new PIN works, same data key")
 	t.check(SecureFile.read_text(root.path_join("estate.cfg")) == files["estate.cfg"], "change: saves readable without re-encryption")
-	t.check(OwnerVault.retire_legacy() and not OwnerVault.has_legacy_slot(), "legacy: owner retires old code")
+	t.check(not OwnerVault.retire_legacy() and not OwnerVault.has_legacy_slot(), "legacy: nothing left to retire (SEC-FIX-1)")
 	OwnerVault.lock_all()
 	t.check(not Profile.try_owner_unlock("phoenix-test-code"), "legacy: retired code refused")
 	for i in 4: OwnerVault.unlock("999999")
@@ -202,7 +204,7 @@ static func run(t: Node) -> void:
 	t.check(ViperRadial.GLYPHS[ViperRadial.ITEMS.find("Security")] == "", "radial: Security draws the shield icon")
 
 	Profile.data = saved_data
-	Profile.owner_code_hash = saved_hash
+	Profile.legacy_bootstrap = saved_boot
 	t.set_meta("sec_root", root)
 
 static func run_ui(t: Node) -> void:
@@ -246,8 +248,8 @@ static func run_ui(t: Node) -> void:
 	SaveMigration.data_root = root2
 	_w(root2.path_join("eve/foxy_ani.json"), "{\"log\":[]}")
 	var saved_data: Dictionary = Profile.data.duplicate(true)
-	var saved_hash: String = Profile.owner_code_hash
-	Profile.owner_code_hash = Profile.code_hash("phoenix-pad-code")
+	var saved_boot: Dictionary = Profile.legacy_bootstrap
+	Profile.legacy_bootstrap = Profile.make_bootstrap("phoenix-pad-code", 1000)
 	var p2 := PinPad.new("unlock"); t.get_tree().root.add_child(p2)
 	t.check(p2.text_mode, "pinpad: old code mode is text (letters) on a no-PIN phone")
 	p2.field.text = "phoenix-pad-code"; p2.submit()
@@ -262,7 +264,7 @@ static func run_ui(t: Node) -> void:
 	p2.queue_free()
 	await t.get_tree().process_frame
 	Profile.data = saved_data
-	Profile.owner_code_hash = saved_hash
+	Profile.legacy_bootstrap = saved_boot
 	# restore real state
 	_rm_tree(root); _rm_tree(root2)
 	OwnerVault.reset_for_tests("user://security", CryptoBox.DEFAULT_ITERATIONS)

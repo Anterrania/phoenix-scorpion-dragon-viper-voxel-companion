@@ -56,8 +56,13 @@ func _ready() -> void:
 	load("res://tests/audit_tests.gd").run(self)
 	await load("res://tests/audit_tests.gd").run_scene(self)
 	await load("res://tests/kit_calm_tests.gd").run_scene(self)
+	load("res://tests/frontier_tests.gd").run(self); load("res://tests/frontier_tests.gd").run_docs(self); await load("res://tests/frontier_tests.gd").run_ui(self)
+	load("res://tests/render_tests.gd").run(self); await load("res://tests/render_tests.gd").run_scene(self)
 	load("res://tests/viewer_tests.gd").run(self); load("res://tests/viewer_tests.gd").run_docs(self); await load("res://tests/viewer_tests.gd").run_ui(self)
+	load("res://tests/living_tests.gd").run(self); load("res://tests/living_tests.gd").run_docs(self); load("res://tests/living_tests.gd").run_dormancy(self)
 	load("res://tests/interop_tests.gd").run(self); load("res://tests/interop_tests.gd").run_docs(self); await load("res://tests/interop_tests.gd").run_ui(self)
+	load("res://tests/sandbox_dev_tests.gd").run(self); load("res://tests/sandbox_dev_tests.gd").run_docs(self)
+	load("res://tests/sim_tests.gd").run(self); load("res://tests/sim_tests.gd").run_docs(self)  # SBX: runs late, after security run_ui
 	load("res://tests/gate_tests.gd").run(self)
 	await load("res://tests/gate_tests.gd").run_scene(self)
 	var ph = load("res://tests/phone_tests.gd")
@@ -615,7 +620,7 @@ func _v08_tests() -> void:
 		var shader: Shader = load(sh)
 		check(shader != null and shader.code.length() > 100, "v0.8 shader loads: " + sh)
 	check((load("res://shaders/cinematic_sky.gdshader") as Shader).code.contains("cloud_cover"), "v0.8 sky clouds")
-	check((load("res://shaders/lava_sea.gdshader") as Shader).code.contains("gerstner"), "v0.8 water waves")
+	check(FileAccess.get_file_as_string("res://shaders/include/fluid_sea.gdshaderinc").contains("gerstner"), "v0.8 water waves")  # RND-9 body in include
 	var props = load("res://scripts/physics/physics_props.gd")
 	check(props.KINDS["rock"]["mass"] > props.KINDS["crate"]["mass"] and props.KINDS["crystal"]["friction"] < props.KINDS["rock"]["friction"], "v0.8 prop mass/friction")
 
@@ -694,9 +699,9 @@ func _v09_tests() -> void:
 	Settings.set_value("llm", "api_key", k0)
 	check(not FileAccess.file_exists("res://config/llm_default.local.cfg") or true, "v0.9 build key file optional")
 	# shaders
-	var sea: String = (load("res://shaders/lava_sea.gdshader") as Shader).code
+	var sea: String = (load("res://shaders/lava_sea.gdshader") as Shader).code + FileAccess.get_file_as_string("res://shaders/include/fluid_sea.gdshaderinc")  # RND-9 body in include
 	check(sea.contains("foam") and sea.contains("fres") and sea.contains("magma"), "v0.9 water foam/fresnel + flowing lava")
-	var ter: String = (load("res://shaders/terrain_triplanar.gdshader") as Shader).code
+	var ter: String = (load("res://shaders/terrain_triplanar.gdshader") as Shader).code + FileAccess.get_file_as_string("res://shaders/include/terrain_triplanar.gdshaderinc")  # RND-7 body in include
 	check(ter.contains("spark") and ter.contains("land_texture") and ter.contains("moss"), "v0.9 sparkly snow, land texture, sub-biomes")
 	# UI integration
 	var s = load("res://scenes/main_world.tscn").instantiate()

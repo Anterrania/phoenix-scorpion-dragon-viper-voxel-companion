@@ -1,0 +1,27 @@
+{
+  "_note": "LIFE-5 governance as a game system (scripts/living/governance.gd). Fictional nations only, no real-world political content. Law toggles are per territory. Taxes are an in-game hook: Aethel Coin taxes are LEGAL REVIEW and inactive.",
+  "schema_version": 1,
+  "government_types": {
+    "monarchy": {"name": "Monarchy", "leader": "monarch", "elections": false, "succession": "heir"},
+    "constitutional_monarchy": {"name": "Constitutional monarchy", "leader": "monarch", "elections": true, "succession": "heir"},
+    "republic": {"name": "Republic", "leader": "president", "elections": true, "succession": "election"},
+    "council": {"name": "Council", "leader": "council", "elections": true, "succession": "election"},
+    "direct_democracy": {"name": "Direct democracy", "leader": "assembly", "elections": true, "succession": "vote"},
+    "guild_charter": {"name": "Guild charter", "leader": "guildmaster", "elections": true, "succession": "election"},
+    "technocracy": {"name": "Technocracy", "leader": "chief_engineer", "elections": false, "succession": "appointment"}
+  },
+  "laws": {
+    "mining": {"name": "Mining allowed", "default": true},
+    "build_permit": {"name": "Building needs citizenship", "default": false},
+    "pvp": {"name": "Sparring allowed (only where the estate allows damage)", "default": false},
+    "trade": {"name": "Open trade", "default": true},
+    "open_borders": {"name": "Open borders", "default": true},
+    "quarantine": {"name": "Quarantine (sick visitors stay out)", "default": false},
+    "vaccination_required": {"name": "Vaccination required to enter", "default": false},
+    "hunting": {"name": "Hunting and gathering", "default": true},
+    "curfew_quiet": {"name": "Quiet hours", "default": false}
+  },
+  "tax_kinds": ["sales", "land", "mining"],
+  "max_tax_pct": 30,
+  "border_policies": ["open", "visa", "citizens_only", "closed"]
+}

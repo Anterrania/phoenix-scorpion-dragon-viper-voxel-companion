@@ -1,5 +1,11 @@
 [
  {
+  "sha": "ca1e020",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:59:56-07:00",
+  "subject": "docs(vala): VALA_SCRIPT.md, parity section, Foxy client spec, wiki page, VALA tracker rows; register suite"
+ },
+ {
   "sha": "adabe41",
   "author": "Anterrania",
   "date": "2026-10-22T09:58:34-07:00",

@@ -1,0 +1,38 @@
+{
+  "_note": "LIFE-6 ore + material table (scripts/living/geology.gd, scripts/living/materials.gd). Real elements, minerals and alloys; exotics have original names. depth = metres below the local surface. chance = share of eligible voxels that hold the deposit (deterministic hash, so every client agrees). Sources in docs/modules/MINING_AND_MATERIALS.md.",
+  "schema_version": 1,
+  "ores": {
+    "hematite_ore":     {"name": "Hematite ore", "element": "Fe", "mineral": "hematite Fe2O3", "realms": ["alaskan_tundra", "alaskan_boreal", "alaskan_glacier", "cyberpunk", "celestial_ruin_sanctum"], "depth": [2, 200], "chance": 0.05, "refines_to": "iron_concentrate"},
+    "magnetite_ore":    {"name": "Magnetite ore", "element": "Fe", "mineral": "magnetite Fe3O4", "realms": ["venus_fire", "venus_deep", "cosmic"], "depth": [3, 200], "chance": 0.04, "refines_to": "iron_concentrate"},
+    "chalcopyrite_ore": {"name": "Chalcopyrite ore", "element": "Cu", "mineral": "chalcopyrite CuFeS2", "realms": ["alaskan_tundra", "alaskan_boreal", "venus_fire", "cyberpunk"], "depth": [6, 200], "chance": 0.03, "refines_to": "copper_concentrate"},
+    "cassiterite_ore":  {"name": "Cassiterite ore", "element": "Sn", "mineral": "cassiterite SnO2", "realms": ["alaskan_boreal", "alaskan_tundra"], "depth": [8, 120], "chance": 0.015, "refines_to": "tin_concentrate"},
+    "sphalerite_ore":   {"name": "Sphalerite ore", "element": "Zn", "mineral": "sphalerite ZnS", "realms": ["alaskan_boreal", "cyberpunk", "venus_fire"], "depth": [8, 150], "chance": 0.015, "refines_to": "zinc_concentrate"},
+    "quartz":           {"name": "Quartz", "element": "Si", "mineral": "quartz SiO2", "realms": ["alaskan_tundra", "alaskan_boreal", "alaskan_glacier", "cyberpunk", "cosmic", "ai_forge", "celestial_ruin_sanctum"], "depth": [1, 200], "chance": 0.06, "refines_to": "silica_sand"},
+    "gold_vein":        {"name": "Gold-bearing quartz", "element": "Au", "mineral": "native gold in quartz veins", "realms": ["alaskan_tundra", "alaskan_boreal", "venus_fire"], "depth": [12, 200], "chance": 0.006, "refines_to": "gold_concentrate"},
+    "monazite_ore":     {"name": "Monazite ore", "element": "REE", "mineral": "monazite (Ce,La,Nd)PO4", "realms": ["alaskan_boreal", "cosmic", "ai_forge"], "depth": [20, 200], "chance": 0.004, "refines_to": "rare_earth_concentrate"},
+    "bauxite_ore":      {"name": "Bauxite", "element": "Al", "mineral": "gibbsite Al(OH)3", "realms": ["cyberpunk", "celestial_ruin_sanctum"], "depth": [1, 40], "chance": 0.04, "refines_to": "alumina"},
+    "ilmenite_ore":     {"name": "Ilmenite ore", "element": "Ti", "mineral": "ilmenite FeTiO3", "realms": ["cosmic", "venus_deep", "alaskan_glacier"], "depth": [4, 200], "chance": 0.02, "refines_to": "titanium_concentrate"},
+    "pentlandite_ore":  {"name": "Pentlandite ore", "element": "Ni", "mineral": "pentlandite (Fe,Ni)9S8", "realms": ["cosmic", "venus_deep"], "depth": [10, 200], "chance": 0.015, "refines_to": "nickel_concentrate"},
+    "coal_seam":        {"name": "Coal", "element": "C", "mineral": "bituminous coal", "realms": ["alaskan_boreal", "alaskan_tundra"], "depth": [5, 80], "chance": 0.05, "refines_to": "coke"},
+    "water_ice":        {"name": "Water ice", "element": "H2O", "mineral": "ice Ih", "realms": ["alaskan_glacier", "alaskan_tundra", "cosmic"], "depth": [0, 60], "chance": 0.12, "refines_to": "water"},
+    "native_sulfur":    {"name": "Native sulfur", "element": "S", "mineral": "native sulfur", "realms": ["venus_fire", "venus_deep"], "depth": [0, 60], "chance": 0.08, "refines_to": "sulfur"},
+    "regolith_he3":     {"name": "Helium-3 regolith", "element": "He-3", "mineral": "solar-wind implanted regolith", "realms": ["cosmic"], "depth": [0, 4], "chance": 0.02, "refines_to": "helium3"},
+    "emberite":         {"name": "Emberite", "element": "exotic", "mineral": "original: heat-storing crystal of the Venus caldera", "realms": ["venus_fire"], "depth": [25, 200], "chance": 0.003, "exotic": true, "refines_to": "ember_core"},
+    "auroralite":       {"name": "Auroralite", "element": "exotic", "mineral": "original: light-bending crystal under Alaskan glaciers", "realms": ["alaskan_glacier", "alaskan_tundra"], "depth": [30, 200], "chance": 0.003, "exotic": true, "refines_to": "aurora_crystal"},
+    "voidglass":        {"name": "Voidglass", "element": "exotic", "mineral": "original: vacuum-formed glass in cosmic rock", "realms": ["cosmic"], "depth": [15, 200], "chance": 0.003, "exotic": true, "refines_to": "void_lens"},
+    "lattice_silicate": {"name": "Lattice silicate", "element": "exotic", "mineral": "original: self-ordering silicate of the AI forge", "realms": ["ai_forge"], "depth": [5, 200], "chance": 0.01, "exotic": true, "refines_to": "lattice_wafer"}
+  },
+  "processed": {
+    "iron_concentrate": "Iron concentrate", "copper_concentrate": "Copper concentrate", "tin_concentrate": "Tin concentrate",
+    "zinc_concentrate": "Zinc concentrate", "silica_sand": "Silica sand", "gold_concentrate": "Gold concentrate",
+    "rare_earth_concentrate": "Rare-earth concentrate", "alumina": "Alumina", "titanium_concentrate": "Titanium concentrate",
+    "nickel_concentrate": "Nickel concentrate", "coke": "Coke", "water": "Water", "sulfur": "Sulfur", "helium3": "Helium-3",
+    "ember_core": "Ember core", "aurora_crystal": "Aurora crystal", "void_lens": "Void lens", "lattice_wafer": "Lattice wafer",
+    "iron_ingot": "Iron ingot", "copper_ingot": "Copper ingot", "tin_ingot": "Tin ingot", "zinc_ingot": "Zinc ingot",
+    "gold_ingot": "Gold ingot", "aluminum_ingot": "Aluminium ingot", "titanium_ingot": "Titanium ingot", "nickel_ingot": "Nickel ingot",
+    "silicon_wafer": "Silicon wafer", "rare_earth_oxide": "Rare-earth oxide", "glass": "Glass",
+    "steel": "Steel (Fe + C)", "bronze": "Bronze (Cu + Sn)", "brass": "Brass (Cu + Zn)", "stainless_steel": "Nickel steel (Fe + Ni)",
+    "titanium_alloy": "Titanium alloy (Ti-6Al)", "solder": "Solder (Sn + Cu)", "sulfuric_acid": "Sulfuric acid", "magnet": "Permanent magnet (REE)",
+    "circuit_board": "Circuit board", "oxygen": "Oxygen (electrolysis)", "hydrogen": "Hydrogen (electrolysis)"
+  }
+}

@@ -7,7 +7,7 @@ const HOLD_S := 0.6
 var _t := -1.0
 
 func _ready() -> void:
-	custom_minimum_size.y = maxf(custom_minimum_size.y, PhoenixTokens.TAP_MIN)
+	custom_minimum_size.y = maxf(custom_minimum_size.y, PhoenixTokens.tap())
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(PhoenixTokens.OBSIDIAN, 0.85); sb.border_color = PhoenixTokens.ERR
 	sb.set_border_width_all(2); sb.set_corner_radius_all(PhoenixTokens.RADIUS.pill); sb.set_content_margin_all(14)

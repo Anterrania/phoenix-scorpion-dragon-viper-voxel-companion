@@ -60,8 +60,13 @@ func _ready() -> void:
 	load("res://tests/interop_tests.gd").run(self); load("res://tests/interop_tests.gd").run_docs(self); await load("res://tests/interop_tests.gd").run_ui(self)
 	load("res://tests/gate_tests.gd").run(self)
 	await load("res://tests/gate_tests.gd").run_scene(self)
+	var ph = load("res://tests/phone_tests.gd")
+	ph.run_display(self); ph.run_device(self); ph.run_voice(self); ph.run_lipsync(self); ph.run_dance(self); ph.run_broadcast(self); ph.run_docs(self)
+	await ph.run_ui(self)
 	load("res://tests/sec_fix_tests.gd").run(self)
+	load("res://tests/sec_fix_tests.gd").run_first_run(self)
 	load("res://tests/sec_fix_tests.gd").cleanup(self)
+	var CT = load("res://tests/compat_tests.gd"); CT.run(self); CT.run_overrides(self); CT.run_power(self); await CT.run_ui(self); CT.run_docs(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

@@ -316,6 +316,7 @@ Details in VALA_SCRIPT.md. It's our own language and is not GNOME Vala.
 | Sleep when idle, power budget | region idle | idle grids | Dormancy pause + PowerData-scaled budget | us | have |
 | Editor + debug console | ✓ | ✓ | spec docs/specs/foxy/VALA_SCRIPT_CLIENT.md | Foxy | open |
 | OSSL NPC / threat-level functions | ✓ (OSSL) | — | — | us | not planned |
+
 ## Sandbox / open-world / virtual-world (SBX)
 
 Full rows (columns `source | feature | Viper status | owner | tracker id`) are in

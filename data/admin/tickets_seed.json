@@ -1370,9 +1370,9 @@
  {
   "id": 115,
   "type": "task",
-  "summary": "Android plugin ViperDevice: battery, charging, power save, thermal, network type, VRAM, vibrator (hook ready; plugin not built)",
-  "status": "new",
-  "resolution": "",
+  "summary": "Android plugin ViperDevice (Kotlin v2, no deps, ~7 KB AAR, +6.5 KB APK): battery, charging, power save, thermal, network type, API level, RAM, vibrator, camera/mic/sensor features, TV/ChromeOS/hinge; ",
+  "status": "closed",
+  "resolution": "fixed",
   "priority": "P2",
   "component": "general",
   "milestone": "COMPAT-7",

@@ -113,7 +113,7 @@ COMPAT-3,"AutoConfig: tier recommendation via AutoQuality (has_method), legacy q
 COMPAT-4,"FeatureRegistry: requirements (camera, mic, gyro, compute, RAM, network, XR, form factor) with reason strings",done_headless,P1
 COMPAT-5,"Settings > Device & compatibility screen (read-only, Re-detect, Reset to auto); reuse phone-branch DeviceCheck when merged",done_headless,P1
 COMPAT-6,"Docs: DEVICE_COMPAT.md, parity section, wiki device-compatibility, Foxy specs (caps schema, input scheme UI, gamepad HUD, AutoQuality hookup)",done,P2
-COMPAT-7,"Android plugin ViperDevice: battery, charging, power save, thermal, network type, VRAM, vibrator (hook ready; plugin not built)",open,P2
+COMPAT-7,"Android plugin ViperDevice (Kotlin v2, no deps, ~7 KB AAR, +6.5 KB APK): battery, charging, power save, thermal, network type, API level, RAM, vibrator, camera/mic/sensor features, TV/ChromeOS/hinge; live_changed events; Gradle export in CI",done_headless,P2
 COMPAT-8,"Device testing: real Android phone, tablet, foldable, Android TV, ChromeOS",open,P1
 COMPAT-PWR-1,"PowerData policy in AutoConfig: balanced-saver default, saver on battery<30%/power save/thermal>=3/cell, full on charger+Wi-Fi, background pause + keepalive",done_headless,P1
 COMPAT-PWR-2,"Data saver Auto/On/Off: Net.set_data_mode, low bitrate, thumbnails only, no autoplay, defer >5 MB to Wi-Fi",done_headless,P1

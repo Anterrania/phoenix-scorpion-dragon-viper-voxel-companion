@@ -11,7 +11,7 @@ ticket: COMPAT-PWR-1
 
 # Battery & Data
 
-> **Built** and headless-tested. Battery, heat and network readings need a small Android add-on that isn't in the app yet.
+> **Built** and headless-tested. A small built-in Android add-on reads battery, heat and network; not yet tried on a real phone.
 
 Viper OS saves battery and data by itself and stays smooth.
 

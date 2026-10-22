@@ -1,15 +1,33 @@
 [
  {
-  "sha": "1bdf9c1",
+  "sha": "09700d6",
   "author": "Anterrania",
-  "date": "2026-10-22T09:50:58-07:00",
-  "subject": "feat(compat): device auto-detect + AutoConfig + PowerData/data saver/Dormancy; docs, specs, wiki, tracker; 0 failures (1647 pass)"
+  "date": "2026-10-22T10:10:32-07:00",
+  "subject": "wip(viperdevice): Kotlin v2 Android plugin source, editor export plugin, DeviceProfile get_static/get_live + live_changed hook, fake-plugin tests"
  },
  {
-  "sha": "3ed0622",
-  "author": "Anterrania",
-  "date": "2026-10-22T09:48:16-07:00",
-  "subject": "wip(compat): DeviceProfile caps schema, AutoConfig + PowerData, FeatureRegistry, Net, Dormancy, Device & compatibility screen, tests"
+  "sha": "fe7ea89",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-22T09:53:43-07:00",
+  "subject": "Merge pull request #39 from Anterrania/feature/device-compat"
+ },
+ {
+  "sha": "3c98fd8",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-22T09:51:03-07:00",
+  "subject": "Merge pull request #37 from Anterrania/fix/first-pin-ci"
+ },
+ {
+  "sha": "af15641",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-22T09:48:39-07:00",
+  "subject": "Merge pull request #36 from Anterrania/fix/first-pin-setup"
+ },
+ {
+  "sha": "91a2e47",
+  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
+  "date": "2026-10-22T09:47:39-07:00",
+  "subject": "Merge pull request #32 from Anterrania/feature/phone-display-media"
  },
  {
   "sha": "1d4f15c",

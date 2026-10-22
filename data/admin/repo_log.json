@@ -1,45 +1,45 @@
 [
  {
-  "sha": "9911776",
+  "sha": "2db6df8",
   "author": "Anterrania",
-  "date": "2026-10-22T09:53:40-07:00",
-  "subject": "Merge origin/main (3c98fd8) into feature/sandbox-parity; restore vault iterations like main"
+  "date": "2026-10-22T09:54:50-07:00",
+  "subject": "Merge origin/main (fe7ea89) into feature/render-pipeline; reseed"
  },
  {
-  "sha": "0db3517",
+  "sha": "4b2329b",
   "author": "Anterrania",
-  "date": "2026-10-22T09:50:36-07:00",
-  "subject": "SBX: VIEWER_PARITY sandbox section, restore statics in sim tests, run sim tests late, regen seeds"
+  "date": "2026-10-22T09:50:24-07:00",
+  "subject": "test(phone): broadcast key test uses OwnerVault.setup_for_tests (SEC-FIX-5 refuses fresh setup in tests; main had 5 failures)"
  },
  {
-  "sha": "6d84a89",
+  "sha": "479f7bf",
   "author": "Anterrania",
-  "date": "2026-10-22T09:46:50-07:00",
-  "subject": "Merge origin/main (1d4f15c) into feature/sandbox-parity"
+  "date": "2026-10-22T09:49:07-07:00",
+  "subject": "Merge origin/main (af15641) into feature/render-pipeline; union tracker/patch notes, reseed"
  },
  {
-  "sha": "a760c37",
+  "sha": "372d85c",
   "author": "Anterrania",
-  "date": "2026-10-22T09:46:41-07:00",
-  "subject": "Sandbox parity: legal gates doc, Foxy specs (13), wiki pages, renumber sim ids, inactive sim modules"
+  "date": "2026-10-22T09:47:14-07:00",
+  "subject": "docs(render): RENDERING.md audit + measurements, parity Rendering section, RND-1..11 tracker rows, graphics wiki, Foxy spec + weather particle budget patch, greedy bench"
  },
  {
-  "sha": "598410e",
+  "sha": "848dd37",
   "author": "Anterrania",
-  "date": "2026-10-22T09:43:54-07:00",
-  "subject": "wip(sbx): fold feature/sandbox-dev-parity (quests, on-demand worlds, migration, delivery, rental, free-play, legal gates) into sandbox-parity"
+  "date": "2026-10-22T09:44:06-07:00",
+  "subject": "test(render): quiet legacy-quality test, tracker row format"
  },
  {
-  "sha": "193da16",
+  "sha": "bcb6aa8",
   "author": "Anterrania",
-  "date": "2026-10-17T13:27:59-07:00",
-  "subject": "Merge remote-tracking branch 'origin/main' into feature/sandbox-parity"
+  "date": "2026-10-22T09:43:14-07:00",
+  "subject": "Merge origin/main (1d4f15c) into feature/render-pipeline"
  },
  {
-  "sha": "5b4c0c6",
+  "sha": "046b99c",
   "author": "Anterrania",
-  "date": "2026-10-17T13:27:59-07:00",
-  "subject": "feat(sim): needs+mood, skills+perks, factions+reputation, crafting+infusion behind SimGate (SBX-20..24) + tests"
+  "date": "2026-10-22T09:43:08-07:00",
+  "subject": "wip(render): render pipeline, tiers, governor, particle budget, foliage scatter, greedy mesher, shader upgrades (RND)"
  },
  {
   "sha": "2f54951",

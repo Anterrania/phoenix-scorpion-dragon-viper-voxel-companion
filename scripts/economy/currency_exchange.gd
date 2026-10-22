@@ -7,12 +7,17 @@ const FEE_BPS := 50  # 0.5% fee, burned (sink)
 var bids: Array[Dictionary] = []  # {acct, qty, price}
 var asks: Array[Dictionary] = []
 
-func place_order(acct: String, side: String, qty: int, price: int) -> void:
+## HARD-DISABLED (SBX-LEGAL-1): any Aethel Coin exchange is off until counsel reviews it AND
+## LegalReview.POLICY["aethel_exchange"] is changed in code. place_order refuses every order, so the
+## matching code below is INACTIVE (kept, not deleted, for when counsel signs off).
+func place_order(acct: String, side: String, qty: int, price: int) -> bool:
+	if not LegalReview.allowed("aethel_exchange"): return false
 	var o := {"acct": acct, "qty": qty, "price": price}
 	if side == "buy":
 		bids.append(o); bids.sort_custom(func(a, b): return a.price > b.price)
 	else:
 		asks.append(o); asks.sort_custom(func(a, b): return a.price < b.price)
+	return true
 
 ## Returns the matched fills. Settlement through Ledger is TODO.
 func match_orders() -> Array[Dictionary]:

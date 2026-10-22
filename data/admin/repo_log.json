@@ -1,5 +1,11 @@
 [
  {
+  "sha": "c9f9f58",
+  "author": "Anterrania",
+  "date": "2026-10-22T10:13:54-07:00",
+  "subject": "feat(viperdevice): Gradle export with ViperDevice plugin (compressed native libs), CI builds AAR + verifies APK, docs/tracker; +6.5 KB APK"
+ },
+ {
   "sha": "09700d6",
   "author": "Anterrania",
   "date": "2026-10-22T10:10:32-07:00",

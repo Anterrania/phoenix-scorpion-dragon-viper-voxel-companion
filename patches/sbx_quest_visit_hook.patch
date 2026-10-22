@@ -1,0 +1,22 @@
+diff --git a/scripts/player.gd b/scripts/player.gd
+index 7d63907..50a66d1 100644
+--- a/scripts/player.gd
++++ b/scripts/player.gd
+@@ -76,7 +76,17 @@ func set_third_person(on: bool) -> void:
+ func toggle_camera() -> void:
+ 	set_third_person(not third_person)
+ 
++var _sbx_parcel := ""
++var _sbx_t := 0.0
+ func _process(delta: float) -> void:
++	# SBX-2 hook (patches/sbx_quest_visit_hook.patch): report parcel visits to QuestEngine, at most 1/s.
++	_sbx_t += delta
++	if _sbx_t >= 1.0:
++		_sbx_t = 0.0
++		var pid := Estate.parcel_id(global_position)
++		if pid != _sbx_parcel:
++			_sbx_parcel = pid
++			QuestEngine.report("self", "visit", pid, 1, int(Time.get_unix_time_from_system()))
+ 	_anim_t += delta
+ 	HumanoidModel.animate(avatar, _anim_t, clampf(Vector2(velocity.x, velocity.z).length() / speed, 0.0, 1.0))
+ 	_pose_tick(delta)

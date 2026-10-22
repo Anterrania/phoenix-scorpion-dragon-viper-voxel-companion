@@ -1,0 +1,42 @@
+{
+  "_note": "LIFE-1 world seeds: environmental rules per realm (scripts/living/world_env.gd). Real-world reference values with sources in docs/modules/LIVING_WORLD.md. Units: gravity m/s^2, pressure kPa, gas fractions 0..1, temperature C, radiation mSv/day, water 0..1, day length hours, soil pH. Game realms are inspired by these data, not exact simulations.",
+  "schema_version": 1,
+  "survival_realms": ["alaskan_tundra", "alaskan_boreal", "alaskan_glacier", "venus_fire", "venus_deep", "cosmic"],
+  "softcore_realms": ["cyberpunk", "ai_forge", "celestial_ruin_sanctum"],
+  "off_realms": ["social", "club", "home", "welcome", "sl_style"],
+  "realms": {
+    "alaskan_tundra": {"planet": "earth", "gravity": 9.81, "pressure_kpa": 101.3, "o2": 0.2095, "co2": 0.00042, "n2": 0.7808, "temp_min": -34, "temp_max": 18, "radiation_msv_day": 0.0066, "water": 0.6, "day_length_h": 24, "soil_ph": [5.0, 6.5], "soil": "permafrost peat, low nitrogen", "hazards": ["cold", "wind"]},
+    "alaskan_boreal": {"planet": "earth", "gravity": 9.81, "pressure_kpa": 100.5, "o2": 0.2095, "co2": 0.00042, "n2": 0.7808, "temp_min": -40, "temp_max": 30, "radiation_msv_day": 0.0066, "water": 0.85, "day_length_h": 24, "soil_ph": [4.0, 5.5], "soil": "acidic podzol under spruce", "hazards": ["cold", "insects_summer"]},
+    "alaskan_glacier": {"planet": "earth", "gravity": 9.81, "pressure_kpa": 85.0, "o2": 0.2095, "co2": 0.00042, "n2": 0.7808, "temp_min": -30, "temp_max": 5, "radiation_msv_day": 0.012, "water": 0.4, "day_length_h": 24, "soil_ph": [6.0, 7.5], "soil": "glacial till and ice, almost no organics", "hazards": ["cold", "altitude", "uv"]},
+    "venus_fire": {"planet": "venus", "gravity": 8.87, "pressure_kpa": 100.0, "o2": 0.0, "co2": 0.965, "n2": 0.035, "temp_min": 20, "temp_max": 70, "radiation_msv_day": 0.05, "water": 0.02, "day_length_h": 2802, "soil_ph": [0.0, 2.0], "soil": "basalt with sulfuric acid aerosol fallout", "acid": true, "hazards": ["no_oxygen", "co2", "acid", "heat"], "model": "Playable caldera is patterned on the Venus cloud deck near 50-55 km, where pressure is about 1 atm and temperature 0-70 C."},
+    "venus_deep": {"planet": "venus", "gravity": 8.87, "pressure_kpa": 9200.0, "o2": 0.0, "co2": 0.965, "n2": 0.035, "temp_min": 455, "temp_max": 470, "radiation_msv_day": 0.0, "water": 0.0, "day_length_h": 2802, "soil_ph": [0.0, 3.0], "soil": "basalt plains, sulfur", "acid": true, "hazards": ["crush", "extreme_heat", "no_oxygen", "co2", "acid"], "model": "True Venus surface (below y = -30 in the Venus realm). Robots and hardened vehicles only."},
+    "cosmic": {"planet": "space", "gravity": 0.0, "pressure_kpa": 0.0, "o2": 0.0, "co2": 0.0, "n2": 0.0, "temp_min": -150, "temp_max": 120, "radiation_msv_day": 1.8, "water": 0.0, "day_length_h": 1.5, "soil_ph": [7.0, 7.0], "soil": "regolith and crystal, no organics", "vacuum": true, "hazards": ["vacuum", "radiation", "cold", "heat"]},
+    "cyberpunk": {"planet": "earth", "gravity": 9.81, "pressure_kpa": 101.3, "o2": 0.209, "co2": 0.0006, "n2": 0.7808, "temp_min": 8, "temp_max": 38, "radiation_msv_day": 0.0066, "water": 0.5, "day_length_h": 24, "soil_ph": [6.5, 8.5], "soil": "urban fill, heavy metals", "pollution": 0.35, "hazards": ["smog", "heat_island"]},
+    "ai_forge": {"planet": "forge", "gravity": 9.81, "pressure_kpa": 101.3, "o2": 0.02, "co2": 0.0004, "n2": 0.88, "argon": 0.1, "temp_min": 15, "temp_max": 45, "radiation_msv_day": 0.02, "water": 0.1, "day_length_h": 24, "soil_ph": [7.0, 7.0], "soil": "sintered metal powder", "hazards": ["low_oxygen", "heat"], "model": "Self-building AI realm: an inert nitrogen/argon fabrication atmosphere (like industrial welding shields). Machines are fine; people need a mask."},
+    "celestial_ruin_sanctum": {"planet": "earth", "gravity": 9.81, "pressure_kpa": 95.0, "o2": 0.2095, "co2": 0.00042, "n2": 0.7808, "temp_min": 5, "temp_max": 24, "radiation_msv_day": 0.008, "water": 0.7, "day_length_h": 24, "soil_ph": [6.0, 7.0], "soil": "old stone and moss", "hazards": []},
+    "social": {"planet": "earth", "gravity": 9.81, "pressure_kpa": 101.3, "o2": 0.2095, "co2": 0.00042, "n2": 0.7808, "temp_min": 18, "temp_max": 26, "radiation_msv_day": 0.0066, "water": 1.0, "day_length_h": 24, "soil_ph": [6.5, 7.0], "soil": "garden loam", "hazards": []}
+  },
+  "planets": {
+    "earth": {"gravity": 9.81, "mean_pressure_kpa": 101.325, "atmosphere": {"N2": 0.7808, "O2": 0.2095, "Ar": 0.0093, "CO2": 0.00042}, "mean_temp_c": 15, "sidereal_day_h": 23.93, "solar_day_h": 24.0},
+    "venus": {"gravity": 8.87, "mean_pressure_kpa": 9200, "atmosphere": {"CO2": 0.965, "N2": 0.035, "SO2": 0.00015}, "mean_temp_c": 464, "sidereal_day_h": 5832.5, "solar_day_h": 2802.0, "cloud_deck_50km": {"pressure_kpa": 100, "temp_c": 75}},
+    "mars": {"gravity": 3.71, "mean_pressure_kpa": 0.61, "atmosphere": {"CO2": 0.951, "N2": 0.0259, "Ar": 0.0194, "O2": 0.0016}, "mean_temp_c": -63, "sidereal_day_h": 24.62, "solar_day_h": 24.66},
+    "moon": {"gravity": 1.62, "mean_pressure_kpa": 0.0, "atmosphere": {}, "mean_temp_c": -20, "sidereal_day_h": 655.7, "solar_day_h": 708.7},
+    "space": {"gravity": 0.0, "mean_pressure_kpa": 0.0, "atmosphere": {}, "mean_temp_c": -270, "sidereal_day_h": 0, "solar_day_h": 0}
+  },
+  "shelters": {
+    "_note": "Internal environment a powered shelter provides. Unpowered shelters only block wind/rain and add insulation.",
+    "tent": {"insulation_c": 12, "sealed": false, "radiation_shield": 0.0},
+    "habitat": {"insulation_c": 40, "sealed": true, "pressure_kpa": 101.3, "o2": 0.21, "co2": 0.0004, "temp": 21, "radiation_shield": 0.6},
+    "ship": {"insulation_c": 40, "sealed": true, "pressure_kpa": 101.3, "o2": 0.21, "co2": 0.0004, "temp": 21, "radiation_shield": 0.5},
+    "home": {"insulation_c": 30, "sealed": false, "radiation_shield": 0.1}
+  },
+  "suits": {
+    "_note": "Personal protection. o2_tank_h = hours of breathing gas in game time. clo-style insulation as degrees C of comfort band shift.",
+    "none": {"insulation_c": 0, "sealed": false},
+    "cold_weather": {"insulation_c": 30, "sealed": false},
+    "heat_suit": {"insulation_c": -25, "sealed": false, "acid_proof": true},
+    "rebreather": {"insulation_c": 0, "sealed": false, "o2_tank_h": 4, "mask": true},
+    "pressure_suit": {"insulation_c": 35, "sealed": true, "o2_tank_h": 8, "radiation_shield": 0.3, "acid_proof": true, "max_pressure_kpa": 200},
+    "hardsuit": {"insulation_c": 60, "sealed": true, "o2_tank_h": 12, "radiation_shield": 0.5, "acid_proof": true, "max_pressure_kpa": 12000}
+  }
+}

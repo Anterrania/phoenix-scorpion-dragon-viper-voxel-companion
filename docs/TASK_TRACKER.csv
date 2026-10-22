@@ -71,6 +71,21 @@ BUILD-7,"Enforce estate allow_build + terraform rights via Tiers.can; permission
 BUILD-8,"Companion build API v2: paint_area, place_blueprint, undo_last via Tiers.can (Builder/Staff), rate limits",todo,P2
 BUILD-9,"Land info panel + events board + rental records (placeholder AEC; LEGAL REVIEW REQUIRED)",todo,P2
 BUILD-10,"Ad slots: billboard + in-world carousel, owner/estate approval queue in admin",todo,P3
+AUDIT-2,"Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(""self"", ""admin""); cache admin Home revision history per head",todo,P1
+SPACE-1,"Frontier hub (MENU > Frontier) + SPACESIM_PARITY.md (DU/EVE/SC concepts, parity rows) + wiki page",done_headless,P1
+SPACE-2,"Org/corp rights on Social groups: titles, tag policies, alliances (OrgRights)",done_headless,P1
+SPACE-3,"Market order book in Aethel Coin, fees as sinks, settlement off (LEGAL REVIEW REQUIRED)",done_headless,P1
+SPACE-4,"Contracts + missions board: exchange, courier, auction, service, missions + reputation",done_headless,P1
+SPACE-5,"Industry: recipes, blueprint originals/copies, ME/TE research, job slots by tier",done_headless,P1
+SPACE-6,"Territory claims on Estate parcels: upkeep/grace, sovereignty, contests on damage land",done_headless,P1
+SPACE-7,"Ship ownership, hangars, stow/unstow, insurance plans gated by tier, loss reports",done_headless,P1
+SPACE-8,"Persistent planets + shard/server meshing model + SERVER_MESHING.md",done_headless,P2
+SPACE-9,"Comfort + keybind profiles (FOV, motion comfort, touch/keyboard/gamepad remaps)",done_headless,P1
+SPACE-10,"Foxy: star map routes + jump travel UI, flight HUD/MFDs, wrist hub, docking, scanner (patches/foxy/FRONTIER_CLIENT_SPECS.md)",todo,P1
+SPACE-11,"Coin settlement for market/contracts/upkeep/insurance (LEGAL REVIEW REQUIRED)",todo,P1
+SPACE-12,"Skills training queue (offline, avatars + companions)",todo,P2
+SPACE-13,"Fleets with roles/broadcasts + overview data feed",todo,P2
+SPACE-14,"Mining + territory resource pools feeding Industry",todo,P2
 VIEWER-1,"Viewer parity table docs/modules/VIEWER_PARITY.md (Firestorm/Phoenix/DarkStorm + grid side; Avination/OLG + space-sim rows pending from other workers)",done,P1
 VIEWER-2,"Land & Safety: ParcelTools (About Land + Region/Estate: general, access, timed bans, landing point/TP routing, media, objects/returns/auto-return, estate managers, estate message) + admin screen",done_headless,P1
 VIEWER-3,"Mute/block/derender lists (ModerationLists, ties into Social.block, SecureFile) + Safety tab",done_headless,P0
@@ -86,6 +101,48 @@ VWGAP-4,"Encryption write-up docs/ENCRYPTION.md + fixes F1 (unlock_with_dek key 
 VWGAP-5,"Apply an imported OAR heightmap to a region (voxel generator hook + land permission); enforce allow_fly/damage/push/scripts flags (Foxy for client paths)",todo,P1
 VWGAP-6,"Encryption next: PXE2 with associated data (path + counter, fixes F3), PBKDF2 600k / Argon2id for new slots, Android Keystore slot",todo,P1
 VWGAP-7,"Interop next: JPEG 2000 -> PNG converter, LSL subset runner, Viper archive export, Sceneflip-style scene slots (OLG idea)",todo,P2
+SBX-1,"SandboxGate: sandbox verbs mapped onto Tiers.can actions; owner verbs need Profile.is_owner() + owner actor",done,P1
+SBX-2,"Quest/mission engine: objectives, sequence/any order, prereqs, branches, timed missions, repeatables, creator drafts + owner publish, journal/track API",done,P1
+SBX-3,"On-demand worlds (sleep/wake, schedules, phone budget) + viper-region-bundle export/import with export report",done,P1
+SBX-4,"Inventory migration from OpenSim-family grids: type map, copy/mod/transfer carry-over, own/full-perm/export rules, dry run",done,P1
+SBX-5,"Market delivery: derived product perms, gifts, off-grid boxed accept, redelivery, magic-box vendor on buildable parcels",done,P1
+SBX-6,"Region rental per minute/hour/day/week + visitor-minute meter (priced rent LATER, LEGAL REVIEW)",done,P1
+SBX-7,"Free-play chance games: earned play tokens only, server odds + published odds table, cosmetic account-bound prizes, roll audit log",done,P1
+SBX-LEGAL-1,"LegalReview policy gate: deny by default; ALLOWED / LATER (owner + counsel ref) / HARD-DISABLED; age + country rules (LEGAL REVIEW)",done,P0
+SBX-LEGAL-2,"PlayTokens ledger: earned only, no buy/transfer/convert (LEGAL REVIEW)",done,P0
+SBX-LEGAL-3,"SpendLimits stub: monthly Aethel caps by age band, lower personal caps (placeholder numbers, LEGAL REVIEW)",done_untested,P1
+SBX-LEGAL-4,"AethelLedger: fixed-price purchases + refunds only; no random credit path (LEGAL REVIEW)",done,P0
+SBX-LEGAL-5,"Age verification provider for 18+ and purchase gates (LEGAL REVIEW, counsel to pick)",todo,P1
+SBX-9,"OAR converter both ways mapped to region-bundle fields (with INTEROP.md)",todo,P2
+SBX-10,"Move QuestEngine, FreePlay, ledgers and LegalReview behind the grid server (authority)",todo,P0
+SBX-11,"Cross-grid delivery protocol: signed order + accept link",todo,P2
+SBX-12,"Generated quests, achievements, badges, collections, careers/roles as quest lines, earned play-token daily source",todo,P2
+SBX-14,"Group/faction progression, territory and reputation on Social groups",todo,P2
+SBX-15,"Idle/offline companion progression (no paid boosts)",todo,P3
+SBX-16,"Co-op missions and heist-style crews (multiplayer quest state)",todo,P2
+SBX-17,"Businesses and creator royalties (Aethel income, LEGAL REVIEW)",todo,P3
+SBX-18,"UGC game modes + scripting path (LSL port, logic blocks)",todo,P2
+SBX-19,"Mods/addon packs: data-only packs, load order, owner approval",todo,P3
+SBX-20,"Survival rules per estate: decay/upkeep, portal carry rules, game modes",todo,P3
+SBX-22,"Seasons, holidays and daily respawn on the day cycle",todo,P3
+SBX-F1,"[Foxy] Needs, moods, relationships, autonomy (spec docs/specs/foxy/sbx_needs_moods_relationships.md)",todo,P2
+SBX-F2,"[Foxy] Household + build mode tools (spec sbx_build_mode_tools.md)",todo,P2
+SBX-F3,"[Foxy] Vehicles and driving, non-violent by default (spec sbx_vehicles_driving.md)",todo,P2
+SBX-F4,"[Foxy] In-world phone hub (spec sbx_phone_hub.md)",todo,P2
+SBX-F5,"[Foxy] Skill trees, perks, body stats (spec sbx_skill_trees_perks.md)",todo,P2
+SBX-F6,"[Foxy] Crafting and infusion (spec sbx_crafting.md)",todo,P2
+SBX-F7,"[Foxy] Shouts/powers with cooldowns (spec sbx_shouts_powers.md)",todo,P3
+SBX-F8,"[Foxy] Companion teams, pets, mounts, formations (spec sbx_teams_pets_mounts.md)",todo,P2
+SBX-F9,"[Foxy] Dialogue UI + quest journal over QuestEngine (spec sbx_dialogue_ui.md)",todo,P2
+SBX-F10,"[Foxy] Radio playback UI (spec sbx_radio_playback.md)",todo,P3
+SBX-F11,"[Foxy] Character creator (spec sbx_character_creator.md)",todo,P2
+SBX-F12,"[Foxy] Free-play games UI with odds panel + age gate (spec sbx_free_play_ui.md)",todo,P3
+SBX-F13,"[Foxy] HUD: mission markers, needs/skills, heat only where allow_damage (spec sbx_hud_needs_skills.md)",todo,P2
+SBX-SIM-0,"[inactive reference, Foxy owns] SimGate for scripts/sim",done,P3
+SBX-SIM-1,"[inactive reference, Foxy owns] NeedsMood model",done,P3
+SBX-SIM-2,"[inactive reference, Foxy owns] PerkTree over SkillByUse",done,P3
+SBX-SIM-3,"[inactive reference, Foxy owns] Factions + reputation",done,P3
+SBX-SIM-4,"[inactive reference, Foxy owns] Crafting + infusion",done,P3
 AUDIT-2,"Gate admin writes (ticket create/transition/update/comment, wiki save, revision revert, role saves, Region/Estate saves) with AdminGate.ok() = Tiers.can(""self"", ""admin""); reads stay open (fix/audit-gates, tests/gate_tests.gd)",done_headless,P1
 AUDIT-3,"Estate allow_fly / allow_damage enforced: LandGate.can_fly + CombatZone.is_damage_enabled -> LandGate.damage_enabled (explicit Estate value wins, else arena rings); player/HUD wiring in patches/player_fly_estate_rule.patch for Foxy",done_headless,P1
 AUDIT-4,"Companion world tools (place_voxel, carve_area, spawn_structure -> build; build_realm -> land) go through Tiers.can(companion_id, action, parcel) in AgentBrain.dispatch_tool; CompanionLife cairn fallback respects it",done_headless,P1
@@ -121,3 +178,32 @@ COMPAT-PWR-3,"Net: batched deflate frames + state delta + ETag/Last-Modified HTT
 COMPAT-PWR-4,"Dormancy shared helper (sleep with no viewer, one fast-forward catch-up); adoption by living-world, Vala Script and social workers",in_progress,P1
 COMPAT-PWR-5,"Battery & data card in Device & compatibility (mode, why, data this session, Data saver pref)",done_headless,P2
 COMPAT-PWR-6,"Foxy: AutoQuality set_power_profile / set_fps_cap_hint / recommend_tier, idle and background frame rate (docs/specs/foxy/power_data.md)",open,P1
+VALA-1,"Vala Script lexer + parser (.vscript, Vala/C#-flavoured, LSL-style states/events, compile-time checks with line numbers)",done_headless,P1
+VALA-2,"Vala Script VM: tree-walking interpreter, step budget, memory cap, call depth, event queue",done_headless,P1
+VALA-3,"Engine gates: Tiers.can + estate allow_scripts, owner override, e-stop halt, rate limits (chat/world/rez/give/teleport/http/screen)",done_headless,P1
+VALA-4,"Companion scripts via EveCore.propose_update owner approval",done_headless,P1
+VALA-5,"DU-style element slots (door/light/screen/engine/container/sensor/button), tick/update/flush, data-only screens",done_headless,P1
+VALA-6,"HTTP off by default: owner toggle, host allowlist, https only",done_headless,P1
+VALA-7,"LSL import shim with unsupported-feature report (line numbers)",done_headless,P2
+VALA-8,"Scripts as .vscript inventory items with copy/mod/transfer + next-owner perms",done_headless,P1
+VALA-9,"Dormancy pause in dormant regions + VM step budget scaled by PowerData script_budget_ms",done_headless,P1
+VALA-10,"Foxy: script editor, HUD debug console, screen/effect rendering (docs/specs/foxy/VALA_SCRIPT_CLIENT.md)",open,P1
+RND-1,"Render pipeline: RenderTiers knob table (low/med/high/ultra) registered with AutoQuality.register_knob; legacy Settings fallback; Mobile-renderer-safe (scripts/render/render_pipeline.gd, render_tiers.gd)",done_headless,P1
+RND-2,"FrameGovernor: frame-time/thermal feedback trims render scale, asks AutoQuality for a lower tier (scripts/render/frame_governor.gd)",done_headless,P1
+RND-3,"SDF generator band fill: identical output, gen time -35..-53% per block (smooth_terrain_generator.gd)",done,P1
+RND-4,"GreedyMesher for blocky builds/props: -74% faces on a 32^3 build (scripts/render/greedy_mesher.gd)",done_headless,P2
+RND-5,"MultiMesh foliage scatter + visibility ranges on props and foliage (scripts/render/foliage_scatter.gd)",done_headless,P1
+RND-6,"ParticleBudget pool per tier; weather hookup patch for Foxy (patches/weather_fx_particle_budget.patch)",partial,P2
+RND-7,"Terrain shader: LOD cross-fade variant, curvature AO, far-detail skipping, fake caustics",done_headless,P1
+RND-8,"Sky: realm variants (aurora, deep starfield), night stars, cubemap-pass skip",done_headless,P2
+RND-9,"Water: sky-gradient reflection; DEPTH_FX variant (depth fade, shore foam) on high/ultra",done_headless,P2
+RND-10,"Later/n.a.: occlusion for landmarks/caves, VoxelInstancer eval, compute (GPU erosion), texture arrays, HLOD; SSR/SSAO/SDFGI n.a. on Mobile",planned,P3
+RND-11,"Foxy: avatar shading quality knob + AutoQuality wants_lower_tier hookup (docs/specs/foxy/RENDER_QUALITY_HOOKS.md)",planned,P2
+LIFE-1,"Realm world seeds (gravity, atmosphere, temp, radiation, water, day, soil) + WorldEnv",done_headless,P1
+LIFE-2,"Tolerance genome, viability, spawn lists, non-sexual creature combine (old saves compatible)",done_headless,P1
+LIFE-3,"Survival vitals (Survival.vitals, vitals_changed), suits/habitats, SIR disease, vaccines, ecology on Dormancy + sim_tick_hz",done_headless,P0
+LIFE-4,"LivingGate: owner exemption only when unlocked, e-stop, per-estate survival on/off/softcore with realm defaults",done_headless,P0
+LIFE-5,"Governance: nations, laws, elections, embassies, borders, civic-credit taxes (Aethel Coin tax LEGAL REVIEW)",done_headless,P1
+LIFE-6,"Geology ores by realm/depth, recipe graph, blueprints w/ perms (AEC sales/payouts LEGAL REVIEW), Industry bridge",done_headless,P1
+LIFE-7,"Land: no object caps, render budgets, planet/region/chunk addressing, floating origin, SectorPager",done_headless,P1
+LIFE-8,"Foxy client: vitals HUD, suit, scanner, crafting, DNA, symptoms, gov screens, client floating origin (docs/specs/foxy/LIVING_WORLD_CLIENT.md)",todo,P1

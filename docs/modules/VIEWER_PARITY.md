@@ -160,11 +160,110 @@ other DarkStorm cell is `?`.
 | Profiles + picks + classifieds | ✓ | ✓ | ✓ | pending research | pending research | `Social.profile`, picks; classifieds INACTIVE | us | partial |
 | Search (places, people, groups, land) | ✓ | ✓ | ✓ | pending research | pending research | `show_in_search` flag (gap); no search service | us | planned |
 
+## Rendering (RND) — ours unless marked
+
+Capabilities only (no UI). Columns: `feature | SL/Firestorm | Star Citizen | Dual Universe | No Man's Sky | ours | status | owner | tracker`.
+Details and measurements: docs/modules/RENDERING.md.
+
+| feature | SL/Firestorm | Star Citizen | Dual Universe | No Man's Sky | ours | status | owner | tracker |
+|---|---|---|---|---|---|---|---|---|
+| Graphics presets + per-setting sliders | ✓ | ✓ | ✓ | ✓ | `RenderTiers` low/med/high/ultra, 29 knobs via AutoQuality | have | us + Foxy (UI) | RND-1 |
+| Auto quality / dynamic resolution | partial | ✓ | ? | ✓ | FrameGovernor trims render scale, asks for lower tier | have | us + Foxy | RND-2 |
+| Smooth voxel terrain LOD streaming | — | n/a (heightmap/planet tech) | ✓ | ✓ | Transvoxel LOD, faster SDF gen (−35…−53%) | have | us | RND-3 |
+| Greedy-meshed blocky builds | — | — | ✓ (voxel builds) | — | `GreedyMesher` (−74% faces) | have | us | RND-4 |
+| Instanced foliage / ground cover | ✓ (trees) | ✓ | ✓ | ✓ | `FoliageScatter` MultiMesh per cell | have | us | RND-5 |
+| Draw distance / object distance culling | ✓ | ✓ | ✓ | ✓ | visibility ranges on props + foliage | have | us | RND-5 |
+| Particle budget | ✓ (max particles) | ✓ | ? | ✓ | `ParticleBudget` pool per tier; weather via patch | partial | us + Foxy | RND-6 |
+| Triplanar terrain, detail normals, AO | ✓ (PBR terrain later) | ✓ | ✓ | ✓ | triplanar + curvature AO + LOD fade | have | us | RND-7 |
+| Procedural sky, day/night, aurora/starfield | ✓ (EEP) | ✓ | ✓ | ✓ | realm sky variants + night stars | have | us | RND-8 |
+| Water reflection, depth fade, foam, caustics | ✓ | ✓ | ✓ | ✓ | sky-gradient reflection, DEPTH_FX on high | have | us | RND-9 |
+| Shadows (cascaded sun) | ✓ | ✓ | ✓ | ✓ | PSSM 2/4 splits on high/ultra | have | us | RND-1 |
+| Upscaling / AA | FXAA/MSAA | TAA/upscalers | ✓ | TAA/DLSS/FSR | MSAA 2x/4x + FSR 1 | have | us | RND-1 |
+| Screen-space reflections / SSAO | ✓ | ✓ | ✓ | ✓ | Forward+ only; not on Mobile renderer | n/a | us | RND-10 |
+| Real-time GI (SDFGI/VoxelGI) | — | ✓ | ? | ? | too heavy for phones | n/a | us | RND-10 |
+| Volumetric fog / clouds | partial | ✓ | ✓ | ✓ | height fog + sky clouds; volumetric is Forward+ only | partial | us | RND-10 |
+| Occlusion culling | ✓ (object) | ✓ | ✓ | ✓ | later: landmarks/interiors, caves | planned | us | RND-10 |
+| Character/avatar shading quality | ✓ | ✓ | ✓ | ✓ | spec docs/specs/foxy/RENDER_QUALITY_HOOKS.md | planned | Foxy | RND-11 |
+
 ## Space sims
 
-Dual Universe, EVE Online and Star Citizen rows belong to the feature/spacesim-parity worker. That branch
-wasn't on main when this was written. See also: `docs/modules/` on feature/spacesim-parity. Merge its rows
-here, de-duplicated, when it lands.
+Dual Universe, EVE Online and Star Citizen. Concepts only, our own names. Source of truth and priorities:
+[SPACESIM_PARITY.md](SPACESIM_PARITY.md). Coin settlement, upkeep and payouts stay off (LEGAL REVIEW REQUIRED).
+The star map and route planner are Foxy's (patches/foxy/FRONTIER_CLIENT_SPECS.md).
+
+| feature | source | ours | owner | status |
+|---|---|---|---|---|
+| Voxel terrain dig/fill tools | DU | `scripts/world/terraform.gd` raise/lower/flatten/smooth/noise/revert on smooth SDF; phone brush | us | built |
+| Voxel construct building (cores, voxel hulls, elements) | DU | none in scripts; build tools queued (BUILD-*); phone: tap-place blocks on a construct grid | Foxy | missing · P1 |
+| Construct blueprints (save/paste a build) | DU | none; Industry blueprints cover recipes only; phone: "save build" to Satchel | Foxy | missing · P1 |
+| Element system (engines, containers, screens, doors) | DU | none; phone: elements = props with a small action list (`scripts/world/prop_kit.gd` style) | Foxy | missing · P2 |
+| Lua scripting on control units | DU | docs only (`SMARTBOT_AND_SCRIPTING.md`, `SECOND_LIFE_SCRIPTING.md`); phone: sandboxed script cards, owner approval | us | missing · P2 |
+| Territory tiles + claim beacon | DU | `Territory.claim` on Estate parcels (64 m tile), regions opened via Estate `allow_claims` | us | built |
+| Territory upkeep / tax + grace | DU | `Territory.renew`, grace `GRACE_DAYS`; coin upkeep INACTIVE (LEGAL REVIEW REQUIRED) | us | partial · P1 |
+| RDMS policies (actors, rights, tags) | DU | `OrgRights.add_policy` / `allowed` with org/member/friends/all actors and tags | us | built |
+| Organisations with legates / super legate | DU | Social groups (owner/officer/member) + `OrgRights` titles | us | built |
+| Org polls + news bulletins | DU | Social `group_notice` built; polls are Social roadmap stubs (`poll_create` INACTIVE) | us | partial · P2 |
+| Markets on planets (buy/sell orders) | DU | `OrderBook` per item + location (region id or global) | us | built |
+| Industry units + schematics | DU | `Industry.start` jobs + blueprint gate (`needs_blueprint`) | us | built |
+| Industry talents (speed/efficiency) | DU | TE/ME research on blueprints; talents → future skills queue | us | partial · P2 |
+| Mining units + ore pools per tile | DU | `Industry.add_materials` hook + Territory `mine` right; pools missing | us | missing · P2 |
+| Planets + moons, seamless space-surface | DU | 3 built realms (`map_data.gd` REALMS), `data/frontier/planets.json`; seamless transition missing | Foxy | partial · P1 |
+| Warp drive between bodies | DU | none; Foxy's star map + jump routes; phone: tap destination, confirm, short calm transition | Foxy | missing · P1 |
+| Safe zones vs PvP space | DU | Estate `allow_damage` + `CombatZone` (Ember Arena); Territory contests only on damage land | us | built |
+| Construct ownership trading | DU | `ShipRegistry` owners incl. `org:`; trading via contracts (item exchange) | us | partial · P2 |
+| Abandoned construct reclaim | DU | none; would use ShipRegistry state + Territory release | us | missing · P3 |
+| Market orders: buy/sell, range, duration | EVE | `OrderBook.place` days 0..90, location, partial fills | us | built |
+| Broker fee + sales tax as sinks | EVE | `BROKER_BPS` 1%, `SALES_TAX_BPS` 2%, tracked in `sinks` | us | built |
+| Contracts: item exchange, courier w/ collateral, auction | EVE | `ContractsBoard` kinds + auction extension + collateral (recorded only) | us | built |
+| Contract availability public/private/corp | EVE | `availability` public / private:<id> / org:<gid> | us | built |
+| Manufacturing jobs + job slots | EVE | `Industry` slots by tier (`SLOTS`), timed jobs run while app is closed | us | built |
+| Blueprint originals vs copies; ME/TE research; copying | EVE | `Industry` original/copy, ME 0..10, TE 0..20, copy keeps research | us | built |
+| Invention (T2 from copies) | EVE | none; tier-3 recipes exist (`jump_coil`); invention later | us | missing · P3 |
+| Corporation roles (director, accountant, factory, station...) | EVE | `OrgRights.RIGHTS` (wallet_view, factory, station, diplomat...) | us | built |
+| Titles = role bundles | EVE | `OrgRights.set_title` / `assign_title`; officers can't grant manage_titles | us | built |
+| Alliances + executor corp | EVE | `OrgRights.alliance_*`, executor passes on leave | us | built |
+| Corp wallet divisions | EVE | rights `wallet_view`/`wallet_take` exist; wallets INACTIVE (LEGAL REVIEW) | us | partial · P2 |
+| Skills training queue (offline) | EVE | `skill_by_use.gd` (use-based only); queue missing; companions would share it | us | missing · P2 |
+| Sovereignty (system ownership, upgrades) | EVE | `Territory.sovereign(region)` by claim share; upgrades missing | us | partial · P2 |
+| Wormholes (unstable links, mass limits) | EVE | none; would be timed star-map links | Foxy | missing · P3 |
+| Fleets (hierarchy, broadcasts, fleet warp) | EVE | none; Social groups + `fleet` org right only | us | missing · P2 |
+| Overview (sortable nearby list) | EVE | `◉ Nearby` radar panel (`ui_root.gd` `_build_radar`); filters/columns missing | Foxy | partial · P2 |
+| Neocom (side launcher menu) | EVE | MENU grid + radial launcher (`viper_radial.gd`); wrist hub spec for Foxy | Foxy | partial · P2 |
+| Killmails | EVE | `ShipRegistry.report_loss` loss reports (no public board) | us | partial · P2 |
+| Ship insurance levels | EVE | `ShipRegistry.INSURANCE` basic/plus/fleet, tier-gated; hull restore, no payouts | us | built |
+| Standings / reputation | EVE | `ContractsBoard.reputation` per faction with ranks | us | built |
+| Asset safety / hangar per station | EVE | `ShipRegistry` hangars + stow; item hangars missing | us | partial · P2 |
+| mobiGlas wrist computer + apps | SC | design notes `MOBIGLASS_UI.md`; spec in FRONTIER_CLIENT_SPECS (original "wrist hub") | Foxy | missing · P1 |
+| Contracts Manager app (general/personal/accepted/history/beacons) | SC | `ContractsBoard` (service = help beacon, private = personal); UI by Foxy | us | built |
+| Quantum travel (spool, calibrate, jump) | SC | none; Foxy's star map; phone: hold to spool, calm streak effect (`ComfortPrefs.travel_fx`) | Foxy | missing · P1 |
+| Server meshing (static → dynamic) | SC | `ShardModel` split/merge + instances; doc `SERVER_MESHING.md` | us | partial · P3 |
+| Shards + persistent entity stow/unstow | SC | `ShardModel` + `ShipRegistry.stow/deploy` across shards | us | built |
+| Ship MFDs (power, shields, comms, scan) | SC | none; spec for Foxy | Foxy | missing · P1 |
+| Personal/physicalised inventory + cargo grid | SC | Inventory autoload + Satchel (`scripts/autoload/inventory.gd`); cargo grid missing | Foxy | partial · P2 |
+| Freight elevator / hangar storage | SC | `ShipRegistry` hangars; elevator UI n/a on phone (a list instead) | Foxy | partial · P3 |
+| Insurance claim timer + expedite | SC | `ShipRegistry.claim` timer by size × plan, expedite halves (fee 0) | us | built |
+| Hangar (personal, persistent) | SC | `ShipRegistry` hangar "home"; in-world hangar scene missing | Foxy | partial · P2 |
+| Missions with faction reputation ranks | SC | `ContractsBoard` mission kind + `REP_RANKS` | us | built |
+| Crafting with blueprints from missions | SC | `Industry.grant_blueprint("system", ...)` hook; mission reward wiring later | us | partial · P2 |
+| Star map (systems, routes, search) | SC | `STAR_MAP.md` notes; world map is 2D per realm (`world_map_view.gd`) | Foxy | missing · P1 |
+| Party / friends / comms channels | SC | Social friends, messages, groups (`social.gd`) | us | built |
+| Service beacons (pay for help) | SC | `ContractsBoard` kind `service` | us | built |
+| Keybind profiles + remapping | SC | `ComfortPrefs` touch/keyboard/gamepad profiles, custom remaps, duplicate check | us | built |
+| FOV / motion blur / head bob / comfort | SC | `ComfortPrefs` fov, vignette, snap turn, shake, head bob, motion blur, horizon lock, calm preset | us | built |
+| Head/eye tracking | SC | n/a for now: phone front camera tracking is heavy and drains battery; revisit with the camera work | us | n/a |
+| Graphics presets | SC/EVE | `Settings.QUALITY` low/med/high (`settings.gd`) | us | built |
+| Scanner / ping overlay | SC | none; spec for Foxy | Foxy | missing · P2 |
+| Docking + landing (ATC, pads) | SC | none; spec for Foxy | Foxy | missing · P1 |
+| Co-pilot / crew AI | SC | companions exist (`companion_agent.gd`); co-pilot role is Foxy's | Foxy | partial · P2 |
+| Planetary war + destruction | vision | `Territory.contest/resolve` on damage land; voxel destruction later | us | partial · P3 |
+| Economy currency + exchange | all | `currency_exchange.gd` (pair), `OrderBook` (multi-item), `ledger.gd`; settlement off (LEGAL REVIEW REQUIRED) | us | partial · P1 |
+| Player-run stations / structures | EVE/DU | Estate regions + `station` org right; structure services missing | us | missing · P3 |
+| Cross-shard item transfer | SC | `ShipRegistry` stowed ships follow; items later | us | partial · P3 |
+| Mining (handheld/ship) | SC/EVE | none; would feed `Industry.add_materials` | Foxy | missing · P2 |
+| Salvage | SC | n/a for now: needs ship damage model first | us | n/a |
+| Real-money ship sales / pledges | SC | n/a: never. No paid ships; all items are in-game only (ECONOMY.md rules) | us | n/a |
+| PLEX-style time cards | EVE | n/a: no real-money items without legal review | us | n/a |
+| Full-loot PvP everywhere | EVE | n/a: safe by default; PvP only on land marked damage-enabled | us | n/a |
 
 See also: docs/FEATURE_ROADMAP_VIRTUAL_WORLDS.md, docs/modules/SOCIAL.md, docs/modules/RESTRICTIONS.md,
 docs/wiki/viewer-features.md.
@@ -198,6 +297,54 @@ Our own code: DEVICE_COMPAT.md. Features only. The columns are the platforms we 
 | Batched, compressed, delta network state | ✓ (UDP msg packing) | ✓ | ✓ | `Net.pack/unpack/delta` | us | have (API; grid sync to adopt) |
 | Interest management: sleep with no viewer, cheap catch-up | ✓ (region idle) | ✓ (EVE/DU idle grids) | — | `Dormancy` | us; living-world / Vala / social adopt | have (API) |
 | Session data usage readout | — | — | ✓ | Battery & data card | us | have |
+
+## Scripting (Vala Script)
+
+Details in VALA_SCRIPT.md. It's our own language and is not GNOME Vala.
+
+| feature | SL / OpenSim (LSL, OSSL) | Dual Universe (Lua) | ours | owner | status |
+|---|---|---|---|---|---|
+| States + events + typed vars | ✓ | — | `.vscript` states/events | us | have |
+| Element slots, tick/update/flush | — | ✓ | `slot x : door;` + unit events | us | have |
+| Screens | prim media / text | screen units (HTML/Lua) | data-only draw ops, 320×180 | us; render = Foxy | have (render: Foxy) |
+| Chat + listen channels | ✓ | — | say/whisper/shout/region_say/listen | us | have |
+| HTTP | llHTTPRequest | — | off by default, owner allowlist, https only | us | have |
+| Sandbox limits | 64 KB memory, time slices | CPU/instruction quotas | step budget, 64 KB memory, rate limits | us | have |
+| Permission gates | land/estate script flags | build rights | Tiers.can + estate allow_scripts, e-stop | us | have |
+| Inventory perms | copy/mod/transfer | — | `.vscript` items, next-owner perms | us | have |
+| Import from LSL | — | — | shim with line-numbered report | us | have (common calls) |
+| Sleep when idle, power budget | region idle | idle grids | Dormancy pause + PowerData-scaled budget | us | have |
+| Editor + debug console | ✓ | ✓ | spec docs/specs/foxy/VALA_SCRIPT_CLIENT.md | Foxy | open |
+| OSSL NPC / threat-level functions | ✓ (OSSL) | — | — | us | not planned |
+
+## Sandbox / open-world / virtual-world (SBX)
+
+Full rows (columns `source | feature | Viper status | owner | tracker id`) are in
+[SANDBOX_PARITY.md](SANDBOX_PARITY.md). They cover The Sims, GTA, League of Angels, Skyrim, a slots-casino
+app, InWorldz, Kitely, Minecraft, Roblox, No Man's Sky, Rust, Valheim, Garry's Mod, Fallout, Red Dead
+Online, Animal Crossing, IMVU, Sansar, VRChat, Decentraland, The Sandbox, Entropia Universe and Active
+Worlds. They are concepts only. Summary:
+
+| source | feature | Viper status | owner | tracker id |
+|---|---|---|---|---|
+| RPG / open-world | quest and mission engine (chains, timers, dailies, branches) | have | dev | SBX-2 |
+| Kitely | on-demand regions (sleep/wake, keep-awake) | have | dev | SBX-3 |
+| Kitely / OpenSim | region bundle export/import, export-permission aware | partial (OAR: SBX-9) | dev | SBX-3 |
+| InWorldz | inventory migration with copy/mod/transfer carry-over | have | dev | SBX-4 |
+| Kitely Market | marketplace delivery, derived perms, redelivery, cross-grid box | partial (protocol: SBX-11) | dev | SBX-5 |
+| InWorldz / Kitely | magic-box vendor | have | dev | SBX-5 |
+| OpenSim grids | region rental per time unit (paid rent LEGAL REVIEW) | partial | dev | SBX-6 |
+| slots / casino | free-play chance games, earned tokens, no Aethel Coin | have | dev | SBX-7, SBX-LEGAL-1..4 |
+| life sims | needs, moods, relationships | planned (spec) | Foxy | SBX-F1 |
+| life sims | household and build mode | planned (spec) | Foxy | SBX-F2 |
+| open-world | vehicles, driving (non-violent default) | planned (spec) | Foxy | SBX-F3 |
+| open-world | phone hub | planned (spec) | Foxy | SBX-F4 |
+| RPG | skill trees, crafting, shouts/powers | planned (spec) | Foxy | SBX-F5..F7 |
+| idle MMO | companion teams, pets, mounts, formations | planned (spec) | Foxy | SBX-F8 |
+| virtual worlds | grid-server authority | missing | dev | SBX-10 |
+| sandboxes | UGC scripting | missing | dev | SBX-18 |
+
+---
 
 ## Spec for Foxy (client UI parity)
 
@@ -238,3 +385,21 @@ when `is_restricted(self, "showminimap")`.
 the `fly` restriction (one line). Checked with `git apply --check` on main and on feature/v012-avatar.
 Still to wire on her side: `tplm` / `tploc` in landmark and map teleports, `sendchat`/`sendim` in chat,
 `filter_lines` in nearby chat, derender skip in the renderer, `teleport_target` before teleports.
+
+## Living world parity (LIFE, survival/governance/mining)
+
+Feature comparison only. No code, names or assets are copied.
+
+| feature | Dual Universe | Star Citizen | Rust | Valheim | No Man's Sky | EVE Online | Second Life | ours | status |
+|---|---|---|---|---|---|---|---|---|---|
+| survival vitals (O2/temp/food/water) | partial | yes | yes | food only | yes | no | no | Survival (O2, CO2, pressure, radiation, hydration, kcal, fatigue) | built |
+| per-planet environment | yes | yes | no | biomes | yes | no | no | realms.json + WorldEnv | built |
+| disease / immunity | no | no | no | no | no | no | no | SIR model, vaccines, treatments | built |
+| creature genetics | no | no | no | no | procedural | no | breedables (scripted) | tolerance genome, non-sexual combine | built |
+| depth-based ore geology | yes | yes | nodes | yes | yes | asteroid belts | no | Geology veins by realm and depth | built |
+| refine → craft chain | yes | partial | yes | yes | yes | yes | no | recipe graph + Industry bridge | built |
+| sellable blueprints / perms | yes | no | no | no | no | BPO/BPC | copy/mod/transfer | Blueprints (civic credits; AEC = legal review) | built |
+| nations / laws / elections | orgs + RDMS | orgs | clans | no | no | alliances + sovereignty | groups + covenants | Governance | built |
+| unlimited land, no object caps | territory tiles | no | no | no | bases | no | prim limits | Land (budgets, not caps) | built |
+| floating origin / huge worlds | yes | yes | no | no | yes | yes | 256 m regions | sector + local, SectorPager | built (server) / planned (client, Foxy) |
+

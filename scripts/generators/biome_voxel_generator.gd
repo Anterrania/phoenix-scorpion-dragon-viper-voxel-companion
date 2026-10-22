@@ -14,6 +14,7 @@ var _detail := FastNoiseLite.new()
 var _biome := FastNoiseLite.new()
 
 func _init(seed_value: int = 1337) -> void:
+	seed_for_ores = seed_value
 	_height.seed = seed_value
 	_height.frequency = 0.008
 	_height.fractal_octaves = 4
@@ -80,6 +81,15 @@ func material_at(x: int, y: int, z: int, h: int, biome: int) -> int:
 			if sparkle: return PLATINUM
 			if depth == 0: return (SNOW if _hash(z, x) > 160 else MOSS) if h > 6 else (MOSS if h > 1 else ICE)
 			return MOSS if depth < 3 else STONE
+
+## LIFE-6 geology hook: ore under this voxel ("" = none). Render voxel ids are unchanged; ores are a
+## query layer (Geology) the server and mining tool share. Biome -> realm: ALASKA alaskan_tundra,
+## VENUS venus_fire, COSMIC cosmic.
+const BIOME_REALM := ["alaskan_tundra", "venus_fire", "cosmic"]
+var seed_for_ores := 1337
+func ore_at(x: int, y: int, z: int) -> String:
+	var h := height_at(x, z)
+	return Geology.deposit_at(BIOME_REALM[biome_at(x, z)], x, y, z, h, seed_for_ores)
 
 func _generate_block(out: VoxelBuffer, origin: Vector3i, lod: int) -> void:
 	var size := out.get_size()

@@ -213,3 +213,26 @@ static func run_docs(t: Node) -> void:
 	var spec := FileAccess.get_file_as_string("res://docs/specs/foxy/LIVING_WORLD_CLIENT.md")
 	t.check(spec.contains("owner=Foxy"), "docs: Foxy client spec")
 	t.check(FileAccess.get_file_as_string("res://docs/modules/VIEWER_PARITY.md").contains("Living world parity"), "docs: parity section")
+
+static func run_dormancy(t: Node) -> void:
+	var S: Node = t.get_node("/root/Survival")
+	var root := "user://test_living_dorm_%d" % Time.get_ticks_usec()
+	var sv := OwnerVault.root; var se := AutonomyGuard.path
+	_setup(root); S.reset_for_tests(root.path_join("living")); Dormancy.reset_for_tests(); Ecology.reset_for_tests()
+	Tiers.owner_override = true; Tiers.set_tier("d_res", "resident"); Tiers.owner_override = false
+	t.check(S.tick_interval() >= S.TICK_S, "dormancy: sim tick respects PowerData budget (>= TICK_S)")
+	S.register_region("alaskan_tundra", Vector3.ZERO, 50.0)
+	S.track("d_res", "alaskan_tundra", {})
+	Ecology.seed_region("alaskan_tundra", {"tundra_leaper": 10.0, "emberstrand": 10.0})
+	Dormancy.update([Vector3(5000, 0, 0)], 0.0)
+	Dormancy.update([Vector3(5000, 0, 0)], 20.0)
+	t.check(Dormancy.is_dormant("living:alaskan_tundra"), "dormancy: region with no viewer sleeps")
+	var before: Dictionary = S.vitals("d_res")
+	Dormancy.update([Vector3(1, 0, 0)], 20.0 + 6.0 * 3600.0)   # 6 real hours away
+	var after: Dictionary = S.vitals("d_res")
+	t.check(not Dormancy.is_dormant("living:alaskan_tundra") and float(after["calories"]) < float(before["calories"]), "dormancy: one-step survival catch-up on wake")
+	var pop := Ecology.population("alaskan_tundra")
+	t.check(float(pop.get("tundra_leaper", 0)) > 10.0 and float(pop.get("emberstrand", 0)) < 10.0, "ecology: viable species grow, unfit decline in catch-up")
+	t.check(absf(Ecology.logistic(10, 100, 0.05, 1e6) - 100.0) < 0.01, "ecology: logistic saturates at K")
+	S.unregister_region("alaskan_tundra"); Dormancy.reset_for_tests(); Ecology.reset_for_tests()
+	_teardown(t, root, sv, se)

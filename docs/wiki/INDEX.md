@@ -23,6 +23,8 @@ Short pages. Tap one.
 - [Welcome Island](welcome-island.md) · built
 - [Economy](economy.md) · partial
 - [Graphics Settings](graphics-settings.md) · built
+- [Device Compatibility](device-compatibility.md) · built
+- [Battery & Data](battery-and-data.md) · built
 - [Physical Form](physical-form.md) · planned
 - [Glossary](glossary.md) · built
 - [Worlds & Regions](worlds-regions.md) · built
@@ -44,6 +46,9 @@ Short pages. Tap one.
 - [Landmarks, Home & Teleport History](landmarks-teleport.md) · built
 - [Interop (OpenSim, Aurora, WhiteCore, OSgrid)](interop.md) · partial
 - [How Your Saves Are Protected](encryption.md) · built
+- [Display Settings](display-settings.md) · partial
+- [Device Check](device-check.md) · partial
+- [Media, Voice & Broadcast](media-broadcast.md) · partial
 
 - [FAQ](../FAQ.md)
 

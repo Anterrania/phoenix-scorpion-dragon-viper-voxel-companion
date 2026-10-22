@@ -69,12 +69,43 @@ func track(actor: Variant, region: String, opts := {}) -> void:
 
 func untrack(actor: Variant) -> void: _track.erase(Tiers.actor_id(actor))
 
+## PowerData budget (docs/modules/POWER_AND_DATA.md): sim_tick_hz from AutoConfig. TICK_S stays the
+## floor (we never tick faster than every 5 s); 0 Hz (background) pauses ticking, time still accrues
+## and is applied in one step when ticking resumes.
+func tick_interval() -> float:
+	var ac := get_node_or_null("/root/AutoConfig")
+	var hz := float(ac.budget("sim_tick_hz", 1)) if ac != null and ac.has_method("budget") else 1.0
+	if hz <= 0.0: return INF
+	return maxf(TICK_S, 1.0 / hz)
+
 func _process(delta: float) -> void:
 	_acc += delta
-	if _acc < TICK_S: return
-	var dt_h := _acc * GAME_H_PER_REAL_S
+	if _acc < tick_interval(): return
+	var dt_h := minf(_acc, Dormancy.MAX_CATCH_UP_S) * GAME_H_PER_REAL_S
 	_acc = 0.0
-	for r in _active.keys(): tick_region(r, dt_h)
+	for r in _active.keys():
+		if Dormancy.is_dormant(DORMANCY_PREFIX + r): continue   # asleep: caught up on wake
+		tick_region(r, dt_h)
+		Ecology.step(r, dt_h)
+
+# ---------- Dormancy (shared helper, PR #39) ----------
+## Regions with no nearby viewer sleep (zero cost). On wake, ONE catch-up call applies the whole
+## elapsed time: survival + disease in a single tick_actor step (the physiology clamps make a large
+## dt safe) and ecology through closed-form logistic growth. Never a tick-by-tick replay.
+const DORMANCY_PREFIX := "living:"
+func register_region(region: String, center: Vector3, wake_radius := 96.0) -> void:
+	Dormancy.register(DORMANCY_PREFIX + region, center, func(elapsed_s: float): catch_up(region, elapsed_s), wake_radius, "living")
+	set_region_active(region, true)
+
+func unregister_region(region: String) -> void:
+	Dormancy.unregister(DORMANCY_PREFIX + region)
+	set_region_active(region, false)
+
+func catch_up(region: String, elapsed_s: float) -> void:
+	var dt_h := minf(elapsed_s, Dormancy.MAX_CATCH_UP_S) * GAME_H_PER_REAL_S
+	if dt_h <= 0.0: return
+	tick_region(region, dt_h)
+	Ecology.step(region, dt_h)
 
 func tick_region(region: String, dt_h: float) -> int:
 	var n := 0

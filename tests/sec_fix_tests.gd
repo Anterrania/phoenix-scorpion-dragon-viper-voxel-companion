@@ -125,6 +125,71 @@ static func run(t: Node) -> void:
 	OwnerVault.reset_for_tests(saved_root, CryptoBox.DEFAULT_ITERATIONS)
 	AutonomyGuard.reset_for_tests(saved_estop)
 
+## SEC-FIX-5: first-run owner PIN on a fresh install (no vault, no bootstrap, no owner data).
+static func run_first_run(t: Node) -> void:
+	var saved_root := OwnerVault.root
+	var saved_boot: Dictionary = Profile.legacy_bootstrap
+	var saved_data: Dictionary = Profile.data.duplicate(true)
+	var saved_admin := ViperAdminData.root
+	var saved_mig := SaveMigration.data_root
+	var root := "user://test_secfix_fr_%d" % Time.get_ticks_usec()
+	OwnerVault.reset_for_tests(root.path_join("security"), 1000)
+	SecureFile.reset_for_tests()
+	SaveMigration.data_root = root
+	ViperAdminData.root = root.path_join("viper"); ViperAdminData.reset()
+	Profile.legacy_bootstrap = {}
+	Profile.data["role"] = "guest"
+	t.check(Profile.first_run_allowed(), "sec5: fresh device offers first-run setup")
+	t.check(OwnerVault.setup("246802", false) != "", "sec5: setup without allow_fresh still refused")
+	var pad := PinPad.new("unlock")
+	t.check(pad.mode == "first_run" and pad.prompt.text.contains("Create owner PIN or passphrase"), "sec5: PIN pad opens the first-run create flow")
+	for k in "246802": pad.press(k)
+	pad.press("OK")
+	t.check(not OwnerVault.has_vault() and pad.stage == 1, "sec5: confirmation required (nothing created after first entry)")
+	for k in "246803": pad.press(k)
+	pad.press("OK")
+	t.check(not OwnerVault.has_vault() and pad.stage == 0, "sec5: mismatched confirmation refused, starts again")
+	var done := [false]
+	pad.finished.connect(func(ok): done[0] = ok)
+	for k in "246802": pad.press(k)
+	pad.press("OK")
+	for k in "246802": pad.press(k)
+	pad.press("OK")
+	t.check(done[0] and OwnerVault.has_vault() and OwnerVault.is_unlocked() and Profile.is_owner(), "sec5: fresh setup succeeds -> vault, owner session, owner role")
+	pad.free()
+	var logged := ViperAdminData.revisions().history("security/owner_setup").size() == 1
+	t.check(logged, "sec5: first-run setup logged to the admin timeline")
+	t.check(not Profile.first_run_allowed() and Profile.first_run_setup("135799") != "" and OwnerVault.setup("135799", true) != "", "sec5: second fresh setup refused")
+	OwnerVault.lock_all()
+	t.check(OwnerVault.unlock("246802") == "", "sec5: created PIN unlocks")
+	# corrupted / unreadable vault: fail closed
+	Profile.data["role"] = "guest"
+	var root2 := root + "_c"
+	OwnerVault.reset_for_tests(root2.path_join("security"), 1000)
+	_w(root2.path_join("security/vault.json"), "{corrupt")
+	t.check(not OwnerVault.has_vault() and not Profile.first_run_allowed(), "sec5: corrupted vault -> no first-run offer")
+	t.check(OwnerVault.setup("246802", true) != "" and Profile.first_run_setup("246802") != "", "sec5: corrupted vault refuses fresh setup")
+	t.check(FileAccess.get_file_as_string(root2.path_join("security/vault.json")) == "{corrupt", "sec5: corrupted vault left untouched")
+	t.check(PinPad.new("unlock").mode == "unlock", "sec5: PIN pad does not offer first-run when a vault file exists")
+	# existing owner data refuses fresh setup
+	var root3 := root + "_o"
+	OwnerVault.reset_for_tests(root3.path_join("security"), 1000)
+	Profile.data["role"] = "owner"
+	t.check(not Profile.first_run_allowed() and OwnerVault.setup("246802", true) != "", "sec5: existing owner data refuses fresh setup")
+	# bootstrap file path still works
+	Profile.data["role"] = "guest"
+	Profile.legacy_bootstrap = Profile.make_bootstrap("phoenix-boot5", 1000)
+	t.check(not Profile.first_run_allowed() and PinPad.new("unlock").mode == "unlock", "sec5: bootstrap build uses the owner-code flow, not first-run")
+	t.check(Profile.try_owner_unlock("phoenix-boot5") and OwnerVault.setup("864200") == "" and OwnerVault.has_vault(), "sec5: bootstrap file still bootstraps the first PIN")
+	# restore
+	Profile.legacy_bootstrap = saved_boot
+	Profile.data = saved_data; Profile.save()
+	for d in [root, root2, root3]: _rm_tree(d)
+	OwnerVault.reset_for_tests(saved_root, CryptoBox.DEFAULT_ITERATIONS)
+	SecureFile.reset_for_tests()
+	SaveMigration.data_root = saved_mig
+	ViperAdminData.root = saved_admin; ViperAdminData.reset()
+
 ## Remove throwaway test roots from user:// (F5) and check none are left behind.
 static func cleanup(t: Node) -> void:
 	var pre := ["test_viper_", "brains_test_", "test_sec", "test_secfix_"]

@@ -28,6 +28,7 @@ var last_report := {}
 
 func _init(p_mode := "unlock") -> void:
 	mode = p_mode
+	if mode == "unlock" and not OwnerVault.has_vault() and Profile.first_run_allowed(): mode = "first_run"   # SEC-FIX-5
 	add_theme_constant_override("separation", 20)
 	text_mode = mode == "unlock" and not OwnerVault.has_vault()   # the old code has letters
 	prompt = _label("", 44); add_child(prompt)
@@ -96,6 +97,7 @@ func _clear() -> void:
 func _update_prompt() -> void:
 	match mode:
 		"unlock": prompt.text = "Enter owner PIN" if OwnerVault.has_vault() else "Enter your owner code"
+		"first_run": prompt.text = ["Create owner PIN or passphrase (6+ digits or 8+ characters)", "Type it again to confirm"][stage]
 		"setup": prompt.text = ["Choose a new PIN (6+ digits)", "Type the same PIN again"][stage]
 		"change": prompt.text = ["Current PIN", "New PIN (6+ digits)", "New PIN again"][stage]
 	dots.text = "—"
@@ -115,6 +117,19 @@ func submit() -> void:
 			else:
 				var w := OwnerVault.retry_in_s()
 				error.text = ("Too many tries. Wait %d seconds." % w) if w > 0 else "Not right. Try again."
+		"first_run":
+			if stage == 0:
+				var ef := OwnerVault.validate_secret(v)
+				if ef != "": error.text = ef; return
+				_first = v; stage = 1; _update_prompt()
+			else:
+				if v != _first: error.text = "They did not match. Start again."; stage = 0; _first = ""; _update_prompt(); return
+				var e0 := Profile.first_run_setup(_first)
+				_first = ""
+				if e0 != "": error.text = e0; stage = 0; _update_prompt(); return
+				last_report = SaveMigration.migrate()
+				error.text = "Owner PIN created. %d saves encrypted." % last_report.get("migrated", []).size()
+				finished.emit(true)
 		"setup":
 			if stage == 0:
 				var e := OwnerVault.validate_secret(v)

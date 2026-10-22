@@ -184,7 +184,7 @@ static func _crypto(t: Node, root: String) -> void:
 	SaveMigration.data_root = saved_dr
 	# F1: unlock_with_dek must not accept arbitrary bytes
 	t.check(not OwnerVault.unlock_with_dek(CryptoBox.random_bytes(64)), "crypto F1: no vault -> unlock_with_dek refused")
-	t.check(OwnerVault.setup("13572468", true) == "", "crypto F1: vault set up")
+	t.check(OwnerVault.setup_for_tests("13572468") == "", "crypto F1: vault set up")
 	var k := OwnerVault.dek()
 	var real: PackedByteArray = k["enc"] + k["mac"]
 	t.check(str(OwnerVault.vault().get("dek_check", "")) != "" and not FileAccess.get_file_as_string(OwnerVault.root.path_join("vault.json")).contains(Marshalls.raw_to_base64(real)), "crypto F1: key check value stored, DEK not")

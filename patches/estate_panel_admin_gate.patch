@@ -1,0 +1,15 @@
+diff --git a/scripts/ui/ui_root.gd b/scripts/ui/ui_root.gd
+index 6c6a861..f999a63 100644
+--- a/scripts/ui/ui_root.gd
++++ b/scripts/ui/ui_root.gd
+@@ -1224,8 +1224,8 @@ func _est_get(key: String) -> Variant:
+ 
+ func _est_set(key: String, v: Variant) -> void:
+ 	var r := _est_region()
+-	if estate_scope == "parcel" and player: Estate.parcel_set(r, Estate.parcel_id(player.global_position), key, v)
+-	else: Estate.region_set(r, key, v)
++	var e := AdminGate.estate_set(r, Estate.parcel_id(player.global_position) if estate_scope == "parcel" and player else "", key, v)
++	if e != "": Toast.show_toast(self, e, "err"); return   # AUDIT-2: owner / estate manager only
+ 	if world and world.has_method("apply_estate"): world.apply_estate()
+ 
+ func _cycle_btn(title: String, key: String, opts: Array) -> Button:

@@ -38,6 +38,13 @@ Short pages. Tap one.
 - [Community](community.md) · partial
 - [Tiers](tiers.md) · built
 - [Frontier](frontier.md) · partial
+- [Viewer Features](viewer-features.md) · partial
+- [Land & Safety](land-safety.md) · built
+- [Mute, Block & Derender](mute-block-derender.md) · built
+- [Restrictions](restrictions.md) · partial
+- [Landmarks, Home & Teleport History](landmarks-teleport.md) · built
+- [Interop (OpenSim, Aurora, WhiteCore, OSgrid)](interop.md) · partial
+- [How Your Saves Are Protected](encryption.md) · built
 
 - [FAQ](../FAQ.md)
 

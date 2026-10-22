@@ -86,3 +86,27 @@ SPACE-11,"Coin settlement for market/contracts/upkeep/insurance (LEGAL REVIEW RE
 SPACE-12,"Skills training queue (offline, avatars + companions)",todo,P2
 SPACE-13,"Fleets with roles/broadcasts + overview data feed",todo,P2
 SPACE-14,"Mining + territory resource pools feeding Industry",todo,P2
+VIEWER-1,"Viewer parity table docs/modules/VIEWER_PARITY.md (Firestorm/Phoenix/DarkStorm + grid side; Avination/OLG + space-sim rows pending from other workers)",done,P1
+VIEWER-2,"Land & Safety: ParcelTools (About Land + Region/Estate: general, access, timed bans, landing point/TP routing, media, objects/returns/auto-return, estate managers, estate message) + admin screen",done_headless,P1
+VIEWER-3,"Mute/block/derender lists (ModerationLists, ties into Social.block, SecureFile) + Safety tab",done_headless,P0
+VIEWER-4,"Restrictions: opt-in RLV-style prevent-only API (consent, 18+, safeword, owner override, e-stop) + Limits tab + docs/modules/RESTRICTIONS.md",done_headless,P1
+VIEWER-5,"Foxy: apply patches/viewer_parity_hud_hooks.patch (fly restriction) + wire tplm/tploc/sendchat/filter_lines/derender skip/teleport_target in HUD",todo,P1
+VIEWER-6,"Foxy: client parity per VIEWER_PARITY spec (edit sheet tabs, align/grid, link, camera/flycam, radar, area search, quick prefs, AO, contact sets, minimap, TP history, inventory filters, media bar); fill ours/status columns",todo,P1
+VIEWER-7,"Follow-up: spam protection, keyword alerts, autoresponse store, parcel traffic stats; merge Avination/OLG + space-sim rows into VIEWER_PARITY.md",todo,P2
+VIEWER-8,"Server-side: region restart/kick/top scripts, land sale + passes (Aethel Coin, LEGAL REVIEW), age verification for adult parcels",todo,P3
+VWGAP-1,"Virtual-world feature gap checklist (Aurora-Sim, WhiteCore, OpenSim, OSgrid, SL, Avination, OpenLife Grid) - docs/VIRTUAL_WORLD_FEATURE_GAP.md",done,P1
+VWGAP-2,"Landmarks + Set Home + teleport history (Landmarks store, viper:// addresses) and SL/OpenSim estate flags + covenant (optional, backward compatible)",done,P1
+VWGAP-3,"Interop: OAR terrain/summary + IAR notecard import (TarGz, OpenSimArchive, InteropImport), Admin > Interop page, docs/modules/INTEROP.md",done,P1
+VWGAP-4,"Encryption write-up docs/ENCRYPTION.md + fixes F1 (unlock_with_dek key check), F2 (atomic replace), F7 (migration targets)",done,P0
+VWGAP-5,"Apply an imported OAR heightmap to a region (voxel generator hook + land permission); enforce allow_fly/damage/push/scripts flags (Foxy for client paths)",todo,P1
+VWGAP-6,"Encryption next: PXE2 with associated data (path + counter, fixes F3), PBKDF2 600k / Argon2id for new slots, Android Keystore slot",todo,P1
+VWGAP-7,"Interop next: JPEG 2000 -> PNG converter, LSL subset runner, Viper archive export, Sceneflip-style scene slots (OLG idea)",todo,P2
+AUDIT-2,"Gate admin writes (ticket create/transition/update/comment, wiki save, revision revert, role saves, Region/Estate saves) with AdminGate.ok() = Tiers.can(""self"", ""admin""); reads stay open (fix/audit-gates, tests/gate_tests.gd)",done_headless,P1
+AUDIT-3,"Estate allow_fly / allow_damage enforced: LandGate.can_fly + CombatZone.is_damage_enabled -> LandGate.damage_enabled (explicit Estate value wins, else arena rings); player/HUD wiring in patches/player_fly_estate_rule.patch for Foxy",done_headless,P1
+AUDIT-4,"Companion world tools (place_voxel, carve_area, spawn_structure -> build; build_realm -> land) go through Tiers.can(companion_id, action, parcel) in AgentBrain.dispatch_tool; CompanionLife cairn fallback respects it",done_headless,P1
+AUDIT-5,"Tiers.set_role(member, role): owner-gated role setter (aliases builder/premium/manager) with an audit revision role/<member> in the Viper Admin timeline; Community role editor uses it. For Foxy's v0.12 seeding of foxy_ani, aaliyah, circuit_nova at Builder/Staff",done_headless,P1
+AUDIT-6,"Cache admin Home revision history per revision head (split from AUDIT-2)",todo,P2
+SEC,SEC-FIX-1 retire unsalted legacy owner-code hash (PBKDF2 bootstrap only; refused once PIN set),done,P0
+SEC,SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration,done,P0
+SEC,SEC-FIX-3 e-stop file MAC-sealed; fail closed,done,P1
+SEC,SEC-FIX-4 arm64-only Android export + tests clean up user:// roots,done,P2

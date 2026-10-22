@@ -2150,6 +2150,126 @@
  {
   "id": 180,
   "type": "task",
+  "summary": "Vala Script lexer + parser (.vscript, Vala/C#-flavoured, LSL-style states/events, compile-time checks with line numbers)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 181,
+  "type": "task",
+  "summary": "Vala Script VM: tree-walking interpreter, step budget, memory cap, call depth, event queue",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 182,
+  "type": "task",
+  "summary": "Engine gates: Tiers.can + estate allow_scripts, owner override, e-stop halt, rate limits (chat/world/rez/give/teleport/http/screen)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 183,
+  "type": "task",
+  "summary": "Companion scripts via EveCore.propose_update owner approval",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 184,
+  "type": "task",
+  "summary": "DU-style element slots (door/light/screen/engine/container/sensor/button), tick/update/flush, data-only screens",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 185,
+  "type": "task",
+  "summary": "HTTP off by default: owner toggle, host allowlist, https only",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 186,
+  "type": "task",
+  "summary": "LSL import shim with unsupported-feature report (line numbers)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "VALA-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 187,
+  "type": "task",
+  "summary": "Scripts as .vscript inventory items with copy/mod/transfer + next-owner perms",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 188,
+  "type": "task",
+  "summary": "Dormancy pause in dormant regions + VM step budget scaled by PowerData script_budget_ms",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-9",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 189,
+  "type": "task",
+  "summary": "Foxy: script editor, HUD debug console, screen/effect rendering (docs/specs/foxy/VALA_SCRIPT_CLIENT.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "VALA-10",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 190,
+  "type": "task",
   "summary": "Render pipeline: RenderTiers knob table (low/med/high/ultra) registered with AutoQuality.register_knob; legacy Settings fallback; Mobile-renderer-safe (scripts/render/render_pipeline.gd, render_tiers.",
   "status": "closed",
   "resolution": "fixed",
@@ -2160,7 +2280,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 181,
+  "id": 191,
   "type": "task",
   "summary": "FrameGovernor: frame-time/thermal feedback trims render scale, asks AutoQuality for a lower tier (scripts/render/frame_governor.gd)",
   "status": "closed",
@@ -2172,7 +2292,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 182,
+  "id": 192,
   "type": "task",
   "summary": "SDF generator band fill: identical output, gen time -35..-53% per block (smooth_terrain_generator.gd)",
   "status": "closed",
@@ -2184,7 +2304,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 183,
+  "id": 193,
   "type": "task",
   "summary": "GreedyMesher for blocky builds/props: -74% faces on a 32^3 build (scripts/render/greedy_mesher.gd)",
   "status": "closed",
@@ -2196,7 +2316,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 184,
+  "id": 194,
   "type": "task",
   "summary": "MultiMesh foliage scatter + visibility ranges on props and foliage (scripts/render/foliage_scatter.gd)",
   "status": "closed",
@@ -2208,7 +2328,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 185,
+  "id": 195,
   "type": "task",
   "summary": "ParticleBudget pool per tier; weather hookup patch for Foxy (patches/weather_fx_particle_budget.patch)",
   "status": "new",
@@ -2220,7 +2340,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 186,
+  "id": 196,
   "type": "task",
   "summary": "Terrain shader: LOD cross-fade variant, curvature AO, far-detail skipping, fake caustics",
   "status": "closed",
@@ -2232,7 +2352,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 187,
+  "id": 197,
   "type": "task",
   "summary": "Sky: realm variants (aurora, deep starfield), night stars, cubemap-pass skip",
   "status": "closed",
@@ -2244,7 +2364,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 188,
+  "id": 198,
   "type": "task",
   "summary": "Water: sky-gradient reflection; DEPTH_FX variant (depth fade, shore foam) on high/ultra",
   "status": "closed",
@@ -2256,7 +2376,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 189,
+  "id": 199,
   "type": "task",
   "summary": "Later/n.a.: occlusion for landmarks/caves, VoxelInstancer eval, compute (GPU erosion), texture arrays, HLOD; SSR/SSAO/SDFGI n.a. on Mobile",
   "status": "new",
@@ -2268,7 +2388,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 190,
+  "id": 200,
   "type": "task",
   "summary": "Foxy: avatar shading quality knob + AutoQuality wants_lower_tier hookup (docs/specs/foxy/RENDER_QUALITY_HOOKS.md)",
   "status": "new",
@@ -2280,7 +2400,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 191,
+  "id": 201,
   "type": "task",
   "summary": "Realm world seeds (gravity, atmosphere, temp, radiation, water, day, soil) + WorldEnv",
   "status": "closed",
@@ -2292,7 +2412,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 192,
+  "id": 202,
   "type": "task",
   "summary": "Tolerance genome, viability, spawn lists, non-sexual creature combine (old saves compatible)",
   "status": "closed",
@@ -2304,7 +2424,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 193,
+  "id": 203,
   "type": "task",
   "summary": "Survival vitals (Survival.vitals, vitals_changed), suits/habitats, SIR disease, vaccines, ecology on Dormancy + sim_tick_hz",
   "status": "closed",
@@ -2316,7 +2436,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 194,
+  "id": 204,
   "type": "task",
   "summary": "LivingGate: owner exemption only when unlocked, e-stop, per-estate survival on/off/softcore with realm defaults",
   "status": "closed",
@@ -2328,7 +2448,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 195,
+  "id": 205,
   "type": "task",
   "summary": "Governance: nations, laws, elections, embassies, borders, civic-credit taxes (Aethel Coin tax LEGAL REVIEW)",
   "status": "closed",
@@ -2340,7 +2460,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 196,
+  "id": 206,
   "type": "task",
   "summary": "Geology ores by realm/depth, recipe graph, blueprints w/ perms (AEC sales/payouts LEGAL REVIEW), Industry bridge",
   "status": "closed",
@@ -2352,7 +2472,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 197,
+  "id": 207,
   "type": "task",
   "summary": "Land: no object caps, render budgets, planet/region/chunk addressing, floating origin, SectorPager",
   "status": "closed",
@@ -2364,7 +2484,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 198,
+  "id": 208,
   "type": "task",
   "summary": "Foxy client: vitals HUD, suit, scanner, crafting, DNA, symptoms, gov screens, client floating origin (docs/specs/foxy/LIVING_WORLD_CLIENT.md)",
   "status": "new",

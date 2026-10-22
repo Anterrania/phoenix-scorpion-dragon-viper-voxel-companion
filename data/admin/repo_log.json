@@ -1,5 +1,11 @@
 [
  {
+  "sha": "9911776",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:53:40-07:00",
+  "subject": "Merge origin/main (3c98fd8) into feature/sandbox-parity; restore vault iterations like main"
+ },
+ {
   "sha": "0db3517",
   "author": "Anterrania",
   "date": "2026-10-22T09:50:36-07:00",

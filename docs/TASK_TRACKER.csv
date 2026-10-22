@@ -149,3 +149,17 @@ SEC,SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration
 SEC,SEC-FIX-3 e-stop file MAC-sealed; fail closed,done,P1
 SEC,SEC-FIX-4 arm64-only Android export + tests clean up user:// roots,done,P2
 SEC,SEC-FIX-5 first-run owner PIN/passphrase on a fresh install (confirmed; refused once any vault file exists),done,P0
+COMPAT-1,"DeviceProfile autoload + DeviceCaps schema 1 (Foxy-approved caps(): every key, -1/'' unknown, live keys every 30 s + focus, caps_changed)",done_headless,P1
+COMPAT-2,"Capability score + class (pure, documented) and form factor/foldable heuristics; fake low/mid/high/ultra phone, tablet, foldable, TV, Chromebook, desktop tests",done_headless,P1
+COMPAT-3,"AutoConfig: tier recommendation via AutoQuality (has_method), legacy quality fallback, UI scale, input scheme + InputMap pad events, never overwrite manual choices, Reset to auto",done_headless,P1
+COMPAT-4,"FeatureRegistry: requirements (camera, mic, gyro, compute, RAM, network, XR, form factor) with reason strings",done_headless,P1
+COMPAT-5,"Settings > Device & compatibility screen (read-only, Re-detect, Reset to auto); reuse phone-branch DeviceCheck when merged",done_headless,P1
+COMPAT-6,"Docs: DEVICE_COMPAT.md, parity section, wiki device-compatibility, Foxy specs (caps schema, input scheme UI, gamepad HUD, AutoQuality hookup)",done,P2
+COMPAT-7,"Android plugin ViperDevice: battery, charging, power save, thermal, network type, VRAM, vibrator (hook ready; plugin not built)",open,P2
+COMPAT-8,"Device testing: real Android phone, tablet, foldable, Android TV, ChromeOS",open,P1
+COMPAT-PWR-1,"PowerData policy in AutoConfig: balanced-saver default, saver on battery<30%/power save/thermal>=3/cell, full on charger+Wi-Fi, background pause + keepalive",done_headless,P1
+COMPAT-PWR-2,"Data saver Auto/On/Off: Net.set_data_mode, low bitrate, thumbnails only, no autoplay, defer >5 MB to Wi-Fi",done_headless,P1
+COMPAT-PWR-3,"Net: batched deflate frames + state delta + ETag/Last-Modified HTTP cache wired into MusicRadio and SoundCloudSource; session data counter",done_headless,P1
+COMPAT-PWR-4,"Dormancy shared helper (sleep with no viewer, one fast-forward catch-up); adoption by living-world, Vala Script and social workers",in_progress,P1
+COMPAT-PWR-5,"Battery & data card in Device & compatibility (mode, why, data this session, Data saver pref)",done_headless,P2
+COMPAT-PWR-6,"Foxy: AutoQuality set_power_profile / set_fps_cap_hint / recommend_tier, idle and background frame rate (docs/specs/foxy/power_data.md)",open,P1

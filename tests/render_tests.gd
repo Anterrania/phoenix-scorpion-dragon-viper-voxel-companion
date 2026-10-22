@@ -179,7 +179,7 @@ static func run(t: Node) -> void:
 	var par := FileAccess.get_file_as_string("res://docs/modules/VIEWER_PARITY.md")
 	t.check(par.contains("Rendering") and par.contains("RND-"), "parity table has a rendering section")
 	var csv := FileAccess.get_file_as_string("res://docs/TASK_TRACKER.csv")
-	t.check(csv.contains("\nRND-1,") and not csv.contains("\r"), "tracker: RND rows, LF endings")
+	t.check(csv.contains("\nRND,RND-1 ") and not csv.contains("\r"), "tracker: RND rows, LF endings")
 	t.check(FileAccess.file_exists("res://docs/wiki/graphics-settings.md"), "wiki: graphics settings page")
 	t.check(FileAccess.file_exists("res://docs/specs/foxy/RENDER_QUALITY_HOOKS.md"), "spec for Foxy: AutoQuality hooks")
 
@@ -241,13 +241,14 @@ static func run_scene(t: Node) -> void:
 	tree.root.add_child(w2)
 	var p2 := RenderPipeline.new(); w2.add_child(p2)
 	var old := Settings.quality()
-	Settings.set_quality(1)
+	Settings.set_value("graphics", "quality", 1)  # no signal: stale HUD lambdas from scene tests stay quiet
 	if RenderPipeline.find_auto_quality(tree) == null:
 		p2.setup(w2)
 		t.check(p2.aq == null and p2.tier == "med", "pipeline: no AutoQuality -> legacy MED = mid defaults")
-		Settings.set_quality(0)
+		p2._on_legacy_quality(0)
 		t.check(p2.tier == "low", "pipeline: legacy quality change still applies without AutoQuality")
-	Settings.set_quality(old)
+		if Settings.quality_changed.is_connected(p2._on_legacy_quality): Settings.quality_changed.disconnect(p2._on_legacy_quality)
+	Settings.set_value("graphics", "quality", old)
 	w.queue_free(); w2.queue_free()
 	await tree.process_frame
 	t.get_viewport().scaling_3d_scale = 1.0

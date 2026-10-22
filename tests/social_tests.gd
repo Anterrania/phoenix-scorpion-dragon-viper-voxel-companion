@@ -199,7 +199,7 @@ static func run(t: Node) -> void:
 	t.check(Social.profile("ex_res")["display_name"] == "Example Resident" and Social.friends_of("ex_res") == ["ex_cre"], "persist: reload keeps profiles + friends")
 	var sp := root.path_join("social/social.json")
 	t.check(not SecureFile.is_sealed_file(sp), "persist: plaintext before a vault exists (same as other saves)")
-	t.check(OwnerVault.setup("864213", true) == "", "persist: vault set up for test")
+	t.check(OwnerVault.setup_for_tests("864213") == "", "persist: vault set up for test")
 	Social.post("ex_res", "after vault")
 	t.check(SecureFile.is_sealed_file(sp) and not FileAccess.get_file_as_string(sp).contains("Example Resident"), "persist: social save encrypted once a vault exists")
 	Tiers.set_tier("ex_res", "resident")

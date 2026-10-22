@@ -37,6 +37,7 @@ Short pages. Tap one.
 - [Economy Metrics](economy-metrics.md) · planned
 - [Community](community.md) · partial
 - [Tiers](tiers.md) · built
+- [Frontier](frontier.md) · partial
 
 - [FAQ](../FAQ.md)
 

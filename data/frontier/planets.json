@@ -1,0 +1,12 @@
+{
+  "_note": "Frontier persistent planets (scripts/spacesim/shard_model.gd, docs/modules/SERVER_MESHING.md). Built = in the app now; planned = no world yet.",
+  "schema_version": 1,
+  "systems": [{"id": "anterra", "name": "Anterra System", "status": "built"}],
+  "planets": [
+    {"id": "aurora_tundra", "name": "Alaskan Aurora Tundra", "system": "anterra", "preset": "alaskan_tundra", "biome": 0, "status": "built"},
+    {"id": "venus_wastes", "name": "Venus Fire Wastes", "system": "anterra", "preset": "venus_fire", "biome": 1, "status": "built"},
+    {"id": "glitter_expanse", "name": "Cosmic Glitter Expanse", "system": "anterra", "preset": "cosmic", "biome": 2, "status": "built"},
+    {"id": "neon_sprawl", "name": "Neon Sprawl (cyberpunk realm)", "system": "anterra", "preset": "cyberpunk", "biome": -1, "status": "planned"},
+    {"id": "ruin_sanctum", "name": "Celestial Ruin Sanctum", "system": "anterra", "preset": "celestial_ruin_sanctum", "biome": -1, "status": "planned"}
+  ]
+}

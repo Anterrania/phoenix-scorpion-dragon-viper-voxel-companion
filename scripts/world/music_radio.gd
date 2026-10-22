@@ -84,7 +84,8 @@ func tune(u: String) -> void:
 	http.cancel_request()
 	status = "loading"
 	_update_label()
-	if http.request(u) != OK: status = "error"; _update_label()
+	# Data saver (POWER_AND_DATA.md §4): ETag / Last-Modified revalidation through Net's cache.
+	if http.request(u, Net.request_headers(u)) != OK: status = "error"; _update_label()
 
 func _update_label() -> void:
 	if label:
@@ -99,7 +100,8 @@ static func stream_from_bytes(bytes: PackedByteArray, u: String) -> AudioStream:
 	s.loop = true
 	return s
 
-func _on_done(result: int, code: int, _h: PackedStringArray, body: PackedByteArray) -> void:
+func _on_done(result: int, code: int, h: PackedStringArray, raw: PackedByteArray) -> void:
+	var body := Net.on_response(url, code, h, raw) if result == HTTPRequest.RESULT_SUCCESS else raw   # 304 -> cached copy
 	if result != HTTPRequest.RESULT_SUCCESS or code >= 400 or body.is_empty():
 		status = "offline"
 		_update_label()

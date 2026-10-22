@@ -1226,6 +1226,510 @@
  {
   "id": 103,
   "type": "task",
+  "summary": "SandboxGate: sandbox verbs mapped onto Tiers.can actions; owner verbs need Profile.is_owner() + owner actor",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 104,
+  "type": "task",
+  "summary": "Quest/mission engine: objectives, sequence/any order, prereqs, branches, timed missions, repeatables, creator drafts + owner publish, journal/track API",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 105,
+  "type": "task",
+  "summary": "On-demand worlds (sleep/wake, schedules, phone budget) + viper-region-bundle export/import with export report",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 106,
+  "type": "task",
+  "summary": "Inventory migration from OpenSim-family grids: type map, copy/mod/transfer carry-over, own/full-perm/export rules, dry run",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 107,
+  "type": "task",
+  "summary": "Market delivery: derived product perms, gifts, off-grid boxed accept, redelivery, magic-box vendor on buildable parcels",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 108,
+  "type": "task",
+  "summary": "Region rental per minute/hour/day/week + visitor-minute meter (priced rent LATER, LEGAL REVIEW)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 109,
+  "type": "task",
+  "summary": "Free-play chance games: earned play tokens only, server odds + published odds table, cosmetic account-bound prizes, roll audit log",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 110,
+  "type": "task",
+  "summary": "LegalReview policy gate: deny by default; ALLOWED / LATER (owner + counsel ref) / HARD-DISABLED; age + country rules (LEGAL REVIEW)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "SBX-LEGAL-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 111,
+  "type": "task",
+  "summary": "PlayTokens ledger: earned only, no buy/transfer/convert (LEGAL REVIEW)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "SBX-LEGAL-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 112,
+  "type": "task",
+  "summary": "SpendLimits stub: monthly Aethel caps by age band, lower personal caps (placeholder numbers, LEGAL REVIEW)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-LEGAL-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 113,
+  "type": "task",
+  "summary": "AethelLedger: fixed-price purchases + refunds only; no random credit path (LEGAL REVIEW)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "SBX-LEGAL-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 114,
+  "type": "task",
+  "summary": "Age verification provider for 18+ and purchase gates (LEGAL REVIEW, counsel to pick)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "SBX-LEGAL-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 115,
+  "type": "task",
+  "summary": "OAR converter both ways mapped to region-bundle fields (with INTEROP.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-9",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 116,
+  "type": "task",
+  "summary": "Move QuestEngine, FreePlay, ledgers and LegalReview behind the grid server (authority)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "SBX-10",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 117,
+  "type": "task",
+  "summary": "Cross-grid delivery protocol: signed order + accept link",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-11",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 118,
+  "type": "task",
+  "summary": "Generated quests, achievements, badges, collections, careers/roles as quest lines, earned play-token daily source",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-12",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 119,
+  "type": "task",
+  "summary": "Group/faction progression, territory and reputation on Social groups",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-14",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 120,
+  "type": "task",
+  "summary": "Idle/offline companion progression (no paid boosts)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-15",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 121,
+  "type": "task",
+  "summary": "Co-op missions and heist-style crews (multiplayer quest state)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-16",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 122,
+  "type": "task",
+  "summary": "Businesses and creator royalties (Aethel income, LEGAL REVIEW)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-17",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 123,
+  "type": "task",
+  "summary": "UGC game modes + scripting path (LSL port, logic blocks)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-18",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 124,
+  "type": "task",
+  "summary": "Mods/addon packs: data-only packs, load order, owner approval",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-19",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 125,
+  "type": "task",
+  "summary": "Survival rules per estate: decay/upkeep, portal carry rules, game modes",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-20",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 126,
+  "type": "task",
+  "summary": "Seasons, holidays and daily respawn on the day cycle",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-22",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 127,
+  "type": "task",
+  "summary": "[Foxy] Needs, moods, relationships, autonomy (spec docs/specs/foxy/sbx_needs_moods_relationships.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 128,
+  "type": "task",
+  "summary": "[Foxy] Household + build mode tools (spec sbx_build_mode_tools.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 129,
+  "type": "task",
+  "summary": "[Foxy] Vehicles and driving, non-violent by default (spec sbx_vehicles_driving.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 130,
+  "type": "task",
+  "summary": "[Foxy] In-world phone hub (spec sbx_phone_hub.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 131,
+  "type": "task",
+  "summary": "[Foxy] Skill trees, perks, body stats (spec sbx_skill_trees_perks.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 132,
+  "type": "task",
+  "summary": "[Foxy] Crafting and infusion (spec sbx_crafting.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 133,
+  "type": "task",
+  "summary": "[Foxy] Shouts/powers with cooldowns (spec sbx_shouts_powers.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-F7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 134,
+  "type": "task",
+  "summary": "[Foxy] Companion teams, pets, mounts, formations (spec sbx_teams_pets_mounts.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 135,
+  "type": "task",
+  "summary": "[Foxy] Dialogue UI + quest journal over QuestEngine (spec sbx_dialogue_ui.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F9",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 136,
+  "type": "task",
+  "summary": "[Foxy] Radio playback UI (spec sbx_radio_playback.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-F10",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 137,
+  "type": "task",
+  "summary": "[Foxy] Character creator (spec sbx_character_creator.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F11",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 138,
+  "type": "task",
+  "summary": "[Foxy] Free-play games UI with odds panel + age gate (spec sbx_free_play_ui.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-F12",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 139,
+  "type": "task",
+  "summary": "[Foxy] HUD: mission markers, needs/skills, heat only where allow_damage (spec sbx_hud_needs_skills.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "SBX-F13",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 140,
+  "type": "task",
+  "summary": "[inactive reference, Foxy owns] SimGate for scripts/sim",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-SIM-0",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 141,
+  "type": "task",
+  "summary": "[inactive reference, Foxy owns] NeedsMood model",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-SIM-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 142,
+  "type": "task",
+  "summary": "[inactive reference, Foxy owns] PerkTree over SkillByUse",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-SIM-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 143,
+  "type": "task",
+  "summary": "[inactive reference, Foxy owns] Factions + reputation",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-SIM-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 144,
+  "type": "task",
+  "summary": "[inactive reference, Foxy owns] Crafting + infusion",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "SBX-SIM-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 145,
+  "type": "task",
   "summary": "Gate admin writes (ticket create/transition/update/comment, wiki save, revision revert, role saves, Region/Estate saves) with AdminGate.ok() = Tiers.can(\"self\", \"admin\"); reads stay open (fix/audit-ga",
   "status": "closed",
   "resolution": "fixed",
@@ -1236,7 +1740,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 104,
+  "id": 146,
   "type": "task",
   "summary": "Estate allow_fly / allow_damage enforced: LandGate.can_fly + CombatZone.is_damage_enabled -> LandGate.damage_enabled (explicit Estate value wins, else arena rings); player/HUD wiring in patches/player",
   "status": "closed",
@@ -1248,7 +1752,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 105,
+  "id": 147,
   "type": "task",
   "summary": "Companion world tools (place_voxel, carve_area, spawn_structure -> build; build_realm -> land) go through Tiers.can(companion_id, action, parcel) in AgentBrain.dispatch_tool; CompanionLife cairn fallb",
   "status": "closed",
@@ -1260,7 +1764,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 106,
+  "id": 148,
   "type": "task",
   "summary": "Tiers.set_role(member, role): owner-gated role setter (aliases builder/premium/manager) with an audit revision role/<member> in the Viper Admin timeline; Community role editor uses it. For Foxy's v0.1",
   "status": "closed",
@@ -1272,7 +1776,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 107,
+  "id": 149,
   "type": "task",
   "summary": "Cache admin Home revision history per revision head (split from AUDIT-2)",
   "status": "new",
@@ -1284,7 +1788,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 108,
+  "id": 150,
   "type": "task",
   "summary": "Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(\"self\", \"admin\"); cache admin Home revision history per head",
   "status": "new",
@@ -1296,7 +1800,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 109,
+  "id": 151,
   "type": "task",
   "summary": "Display settings: PhoenixTokens scale (compact default, one-tap Large 80 px / 18 px+), text + icon sliders, Max view, theme scaling; Admin > Settings > Display (docs/wiki/display-settings.md)",
   "status": "closed",
@@ -1308,7 +1812,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 110,
+  "id": 152,
   "type": "task",
   "summary": "Orientation: auto-rotate (sensor) + Portrait lock in Settings; responsive margins on resize/rotation (admin, security, community, settings) + radial menu re-anchors",
   "status": "closed",
@@ -1320,7 +1824,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 111,
+  "id": 153,
   "type": "task",
   "summary": "Device check panel (Admin > Settings > Device): Android permissions, mic driver, mic devices, camera feeds, TTS voices; Ask for permissions (OS.request_permissions)",
   "status": "closed",
@@ -1332,7 +1836,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 112,
+  "id": 154,
   "type": "task",
   "summary": "Android permissions + audio input: camera, record_audio, modify_audio_settings, post_notifications, read_media_images/video/audio, read_external_storage; audio/driver/enable_input=true (verify on a ph",
   "status": "closed",
@@ -1344,7 +1848,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 113,
+  "id": 155,
   "type": "task",
   "summary": "Voice morph (VoiceFx: pitch shift + formant EQ presets, folded into TTS pitch/rate) + MicCapture; CompanionVoice voice-pick + utterance-callback sync fix (VOICE-1)",
   "status": "closed",
@@ -1356,7 +1860,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 114,
+  "id": 156,
   "type": "task",
   "summary": "Lip sync (LipSync: mic/clip amplitude + TTS-synced visemes) driving FaceDriver via patches/face_driver_lip_sync.patch (Foxy applies after v0.12)",
   "status": "accepted",
@@ -1368,7 +1872,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 115,
+  "id": 157,
   "type": "task",
   "summary": "Beat detector + dance timeline (our own; drives HumanoidModel now, RealisticBody bones next) for live events",
   "status": "closed",
@@ -1380,7 +1884,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 116,
+  "id": 158,
   "type": "task",
   "summary": "Broadcast stub: stream entries + parcel media URLs, stream keys encrypted only, Tiers.can(actor,'broadcast',parcel), owner approval to go live; Admin > Settings > Broadcast (encoder INACTIVE)",
   "status": "closed",
@@ -1392,7 +1896,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 117,
+  "id": 159,
   "type": "task",
   "summary": "Main HUD follows display scale + Large toggle on first-run screens + MENU entry (patches/ui_root_display_settings.patch, Foxy)",
   "status": "new",
@@ -1404,7 +1908,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 118,
+  "id": 160,
   "type": "task",
   "summary": "Roadmap (docs/modules/MEDIA_BROADCAST.md): AI music, music videos, YouTube/SoundCloud OAuth upload drafts, RTMP encoder plugin + YouTube Live, in-world media screens, voice chat + spatial audio",
   "status": "new",
@@ -1416,7 +1920,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 119,
+  "id": 161,
   "type": "task",
   "summary": "SEC-FIX-1 retire unsalted legacy owner-code hash (PBKDF2 bootstrap only; refused once PIN set)",
   "status": "closed",
@@ -1428,7 +1932,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 120,
+  "id": 162,
   "type": "task",
   "summary": "SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration",
   "status": "closed",
@@ -1440,7 +1944,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 121,
+  "id": 163,
   "type": "task",
   "summary": "SEC-FIX-3 e-stop file MAC-sealed; fail closed",
   "status": "closed",
@@ -1452,7 +1956,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 122,
+  "id": 164,
   "type": "task",
   "summary": "SEC-FIX-4 arm64-only Android export + tests clean up user:// roots",
   "status": "closed",
@@ -1460,6 +1964,186 @@
   "priority": "P2",
   "component": "general",
   "milestone": "SEC",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 165,
+  "type": "task",
+  "summary": "SEC-FIX-5 first-run owner PIN/passphrase on a fresh install (confirmed; refused once any vault file exists)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "SEC",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 166,
+  "type": "task",
+  "summary": "DeviceProfile autoload + DeviceCaps schema 1 (Foxy-approved caps(): every key, -1/'' unknown, live keys every 30 s + focus, caps_changed)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 167,
+  "type": "task",
+  "summary": "Capability score + class (pure, documented) and form factor/foldable heuristics; fake low/mid/high/ultra phone, tablet, foldable, TV, Chromebook, desktop tests",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 168,
+  "type": "task",
+  "summary": "AutoConfig: tier recommendation via AutoQuality (has_method), legacy quality fallback, UI scale, input scheme + InputMap pad events, never overwrite manual choices, Reset to auto",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 169,
+  "type": "task",
+  "summary": "FeatureRegistry: requirements (camera, mic, gyro, compute, RAM, network, XR, form factor) with reason strings",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 170,
+  "type": "task",
+  "summary": "Settings > Device & compatibility screen (read-only, Re-detect, Reset to auto); reuse phone-branch DeviceCheck when merged",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 171,
+  "type": "task",
+  "summary": "Docs: DEVICE_COMPAT.md, parity section, wiki device-compatibility, Foxy specs (caps schema, input scheme UI, gamepad HUD, AutoQuality hookup)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "COMPAT-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 172,
+  "type": "task",
+  "summary": "Android plugin ViperDevice: battery, charging, power save, thermal, network type, VRAM, vibrator (hook ready; plugin not built)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "COMPAT-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 173,
+  "type": "task",
+  "summary": "Device testing: real Android phone, tablet, foldable, Android TV, ChromeOS",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 174,
+  "type": "task",
+  "summary": "PowerData policy in AutoConfig: balanced-saver default, saver on battery<30%/power save/thermal>=3/cell, full on charger+Wi-Fi, background pause + keepalive",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-PWR-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 175,
+  "type": "task",
+  "summary": "Data saver Auto/On/Off: Net.set_data_mode, low bitrate, thumbnails only, no autoplay, defer >5 MB to Wi-Fi",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-PWR-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 176,
+  "type": "task",
+  "summary": "Net: batched deflate frames + state delta + ETag/Last-Modified HTTP cache wired into MusicRadio and SoundCloudSource; session data counter",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-PWR-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 177,
+  "type": "task",
+  "summary": "Dormancy shared helper (sleep with no viewer, one fast-forward catch-up); adoption by living-world, Vala Script and social workers",
+  "status": "accepted",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-PWR-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 178,
+  "type": "task",
+  "summary": "Battery & data card in Device & compatibility (mode, why, data this session, Data saver pref)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "COMPAT-PWR-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 179,
+  "type": "task",
+  "summary": "Foxy: AutoQuality set_power_profile / set_fps_cap_hint / recommend_tier, idle and background frame rate (docs/specs/foxy/power_data.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "COMPAT-PWR-6",
   "owner": "",
   "source": "docs/TASK_TRACKER.csv"
  }

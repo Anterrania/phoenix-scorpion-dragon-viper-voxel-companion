@@ -68,7 +68,10 @@ func refresh() -> void:
 		lc.body().add_child(_big("Lock now", func(): OwnerVault.lock(); refresh()))
 		lc.body().add_child(_big("Lock & seal saves", func(): OwnerVault.lock_all(); refresh()))
 	else:
-		lc.body().add_child(_big("Unlock" if OwnerVault.has_vault() else "Enter owner code", func(): open_pad("unlock")))
+		if not OwnerVault.has_vault() and Profile.first_run_allowed():
+			lc.body().add_child(_big("Create owner PIN or passphrase", func(): open_pad("first_run")))
+		else:
+			lc.body().add_child(_big("Unlock" if OwnerVault.has_vault() else "Enter owner code", func(): open_pad("unlock")))
 	if OwnerVault.needs_pin_setup():
 		lc.body().add_child(_big("Set a PIN now", func(): open_pad("setup")))
 	# --- e-stop ---

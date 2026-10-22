@@ -8,7 +8,7 @@ func _ready():
 	OwnerVault.reset_for_tests("user://shot_sec_%d" % Time.get_ticks_usec(), 1000)
 	ViperAdminData.root = "user://shot_sec_viper_%d" % Time.get_ticks_usec()
 	AutonomyGuard.reset_for_tests(OwnerVault.root.path_join("estop.json"))
-	OwnerVault.setup("246810", true)
+	OwnerVault.setup_for_tests("246810")
 	var s: SecurityScreen = load("res://scenes/admin/security_screen.tscn").instantiate()
 	add_child(s)
 	await get_tree().create_timer(1.0).timeout

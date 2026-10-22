@@ -253,7 +253,7 @@ static func run_broadcast(t: Node) -> void:
 	t.check(not Broadcast.set_stream_key("ex_cre_ok", sid, "live_abcd_1234")["ok"], "broadcast: key refused while saves aren't encrypted")
 	t.check(not FileAccess.file_exists(root.path_join("media/stream_keys.json")), "broadcast: no plaintext key file")
 	t.check(not Broadcast.go_live("ex_cre_ok", sid)["ok"] and Broadcast.find(sid)["status"] == "awaiting_owner", "broadcast: go live waits for the owner")
-	t.check(OwnerVault.setup("246810", true) == "" and OwnerVault.storage_ready(), "broadcast: owner vault for the key test")
+	t.check(OwnerVault.setup_for_tests("246810") == "" and OwnerVault.storage_ready(), "broadcast: owner vault for the key test")
 	Estate._cfg = ConfigFile.new(); Estate.cfg().set_value("parcel:stage/1_1", "allowed", ["ex_cre_ok"])   # vault setup reloads Estate
 	var k := Broadcast.set_stream_key("ex_cre_ok", sid, "live_abcd_1234")
 	t.check(k["ok"] and k["hint"] == "••••1234" and SecureFile.is_sealed_file(root.path_join("media/stream_keys.json")), "broadcast: stream key stored ENCRYPTED")

@@ -1,5 +1,11 @@
 [
  {
+  "sha": "14c2ff7",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:58:20-07:00",
+  "subject": "Merge origin/main (#32 phone display/media) into feature/spacesim-parity; tiers keep broadcast + space actions; reseed"
+ },
+ {
   "sha": "a95a573",
   "author": "Anterrania",
   "date": "2026-10-22T09:45:51-07:00",

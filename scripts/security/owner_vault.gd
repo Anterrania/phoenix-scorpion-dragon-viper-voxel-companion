@@ -63,6 +63,10 @@ static func _save_vault() -> void:
 	f.close()
 	SecureFile.replace_file(tmp, _path())
 
+## SEC-FIX-5: any vault file on disk (valid, corrupted or half-written) blocks fresh setup (fail closed).
+static func vault_file_present() -> bool:
+	return FileAccess.file_exists(_path()) or FileAccess.file_exists(_path() + ".tmp")
+
 static func has_vault() -> bool: return not vault().get("slots", []).is_empty()
 static func storage_ready() -> bool: return _dek_enc.size() == 32
 static func dek() -> Dictionary: return {"enc": _dek_enc, "mac": _dek_mac}
@@ -140,7 +144,10 @@ static func _try_slot(slot: Dictionary, secret: String) -> PackedByteArray:
 ## Adds a "legacy" slot for the old owner code if this session was opened with it.
 static func setup(secret: String, allow_fresh := false) -> String:
 	if has_vault(): return "Already set up. Use Change PIN."
+	if vault_file_present(): return "A vault already exists on this device (unreadable). Fresh setup refused."
 	if not (_bootstrap or allow_fresh): return "Unlock with the owner code first."
+	# SEC-FIX-5: allow_fresh only on a true first run (no vault, no bootstrap file, no owner data)
+	if allow_fresh and not _bootstrap and not Profile.first_run_allowed(): return "First-run setup is not available on this device."
 	var e := validate_secret(secret)
 	if e != "": return e
 	var d := CryptoBox.random_bytes(64)
@@ -222,6 +229,12 @@ static func retire_legacy() -> bool:
 	vault()["slots"] = vault()["slots"].filter(func(s): return s.get("kind") != "legacy")
 	_save_vault()
 	return true
+
+## Tests/screenshots only: set up a vault in a throwaway root (still refused if any vault file exists).
+static func setup_for_tests(secret: String) -> String:
+	if vault_file_present(): return "A vault already exists."
+	_bootstrap = true
+	return setup(secret)
 
 static func reset_for_tests(p_root: String, p_iter := 1000) -> void:
 	root = p_root; iterations = p_iter; _vault_cache = null

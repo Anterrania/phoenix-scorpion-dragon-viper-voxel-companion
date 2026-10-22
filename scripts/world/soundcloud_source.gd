@@ -134,8 +134,15 @@ func _post(url: String, body: String, headers: Array) -> Dictionary:
 
 func _req(url: String, headers: Array, method: int, body: String) -> Dictionary:
 	if _http == null: return {}
-	if _http.request(url, PackedStringArray(headers), method, body) != OK: return {}
+	var is_get := method == HTTPClient.METHOD_GET
+	# Data saver: GETs revalidate with ETag / Last-Modified (Net cache); every request counts session bytes.
+	var hs := Net.request_headers(url, headers) if is_get else PackedStringArray(headers)
+	if _http.request(url, hs, method, body) != OK: return {}
+	Net.count(0, body.length())
 	var r: Array = await _http.request_completed
-	if int(r[0]) != HTTPRequest.RESULT_SUCCESS or int(r[1]) >= 400: return {}
-	var d: Variant = JSON.parse_string((r[3] as PackedByteArray).get_string_from_utf8())
+	if int(r[0]) != HTTPRequest.RESULT_SUCCESS: return {}
+	var raw: PackedByteArray = Net.on_response(url, int(r[1]), r[2], r[3]) if is_get else r[3]
+	if not is_get: Net.count((r[3] as PackedByteArray).size())
+	if int(r[1]) >= 400 or (int(r[1]) == 304 and raw.is_empty()): return {}
+	var d: Variant = JSON.parse_string(raw.get_string_from_utf8())
 	return d if d is Dictionary else {}

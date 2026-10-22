@@ -40,8 +40,12 @@ func _ready() -> void:
 	terrain.collision_lod_count = 1
 	terrain.lod_distance = 48.0
 	_spawn_weather()
-	apply_quality(Settings.quality())
-	Settings.quality_changed.connect(apply_quality)
+	_spawn_foliage()
+	# RND-1: quality now flows through RenderPipeline (AutoQuality knobs, or legacy Settings
+	# fallback). Superseded v0.3 wiring, kept for reference:
+	# apply_quality(Settings.quality())
+	# Settings.quality_changed.connect(apply_quality)
+	_spawn_render_pipeline()
 	RealmBuilder.realm_ready.connect(apply_realm)
 	_place_on_ground(player)
 	for c in get_children():
@@ -49,6 +53,20 @@ func _ready() -> void:
 	_update_biome(true)
 	_spawn_props()
 	_spawn_content()
+
+var pipeline: RenderPipeline
+var foliage: FoliageScatter
+func _spawn_render_pipeline() -> void:
+	pipeline = RenderPipeline.new()
+	pipeline.name = "RenderPipeline"
+	add_child(pipeline)
+	pipeline.setup(self)
+
+func _spawn_foliage() -> void:
+	foliage = FoliageScatter.new()
+	foliage.name = "Foliage"
+	add_child(foliage)
+	foliage.setup(generator, player)
 
 const WeatherScript := preload("res://scripts/fx/weather_fx.gd")
 func _spawn_weather() -> void:
@@ -176,31 +194,40 @@ func _setup_environment() -> void:
 	sun.light_angular_distance = 0.6
 	sun.directional_shadow_max_distance = 60.0
 
+## Legacy entry point (Settings LOW/MED/HIGH). RND-1: forwards to the RenderPipeline tier table
+## (scripts/render/render_tiers.gd). When AutoQuality is present it owns the tier, so this is a no-op.
 func apply_quality(level: int) -> void:
-	var q: Dictionary = Settings.quality_preset(level)
-	if "view_distance" in terrain:
-		terrain.view_distance = int(q["view"])
-		terrain.lod_count = int(q["lods"])
-	if player:
-		var vv := player.get_node_or_null("VoxelViewer")
-		if vv: vv.view_distance = int(q["view"])
-		var cam := player.get_node_or_null("Head/Camera3D") as Camera3D
-		if cam: cam.far = float(q["far"])
-	env.environment.glow_enabled = bool(q["glow"])
-	# v0.8 quality scaling for new effects
-	if sky_mat: sky_mat.set_shader_parameter("cloud_octaves", [2, 3, 5][level])
-	if terrain_mat:
-		terrain_mat.set_shader_parameter("normal_strength", [0.6, 1.0, 1.2][level])
-	if waves:
-		waves.mesh = _wave_mesh(level)
-		(waves.material_override as ShaderMaterial).set_shader_parameter("wave_quality", 0.0 if level == 0 else 1.0)
-	env.environment.ssr_enabled = level == 2  # screen-space reflections on High only
-	env.environment.ssao_enabled = level == 2
-	sun.shadow_enabled = bool(q["shadows"])
-	var vp := get_viewport()
-	if vp:
-		vp.scaling_3d_scale = float(q["scale"])
-		vp.msaa_3d = Viewport.MSAA_2X if int(q["msaa"]) > 0 else Viewport.MSAA_DISABLED
+	if pipeline and pipeline.aq == null:
+		pipeline.apply_tier(RenderTiers.from_legacy(level))
+
+# Superseded v0.3/v0.8 body (RND-1, 2026-10-17). Notes: ssr/ssao were set on High, but the Mobile
+# renderer does not implement SSR or SSAO, so they were silent no-ops on phones; the pipeline only
+# enables them on Forward+ (desktop). Kept for reference, not compiled:
+# func apply_quality(level: int) -> void:
+# 	var q: Dictionary = Settings.quality_preset(level)
+# 	if "view_distance" in terrain:
+# 		terrain.view_distance = int(q["view"])
+# 		terrain.lod_count = int(q["lods"])
+# 	if player:
+# 		var vv := player.get_node_or_null("VoxelViewer")
+# 		if vv: vv.view_distance = int(q["view"])
+# 		var cam := player.get_node_or_null("Head/Camera3D") as Camera3D
+# 		if cam: cam.far = float(q["far"])
+# 	env.environment.glow_enabled = bool(q["glow"])
+# 	# v0.8 quality scaling for new effects
+# 	if sky_mat: sky_mat.set_shader_parameter("cloud_octaves", [2, 3, 5][level])
+# 	if terrain_mat:
+# 		terrain_mat.set_shader_parameter("normal_strength", [0.6, 1.0, 1.2][level])
+# 	if waves:
+# 		waves.mesh = _wave_mesh(level)
+# 		(waves.material_override as ShaderMaterial).set_shader_parameter("wave_quality", 0.0 if level == 0 else 1.0)
+# 	env.environment.ssr_enabled = level == 2  # screen-space reflections on High only
+# 	env.environment.ssao_enabled = level == 2
+# 	sun.shadow_enabled = bool(q["shadows"])
+# 	var vp := get_viewport()
+# 	if vp:
+# 		vp.scaling_3d_scale = float(q["scale"])
+# 		vp.msaa_3d = Viewport.MSAA_2X if int(q["msaa"]) > 0 else Viewport.MSAA_DISABLED
 
 func _place_on_ground(n: Node3D) -> void:
 	if n and generator:
@@ -276,11 +303,17 @@ func _update_biome(force: bool) -> void:
 	tw.tween_property(sun, "light_color", Color(a[4]), dur)
 	tw.tween_property(sun, "light_energy", float(a[5]), dur)
 	if waves: (waves.material_override as ShaderMaterial).set_shader_parameter("sky_reflect", Color(a[1]))
+	if waves: (waves.material_override as ShaderMaterial).set_shader_parameter("sky_top_reflect", Color(a[0]))
 	if sky_mat: sky_mat.set_shader_parameter("cloud_cover", [0.5, 0.65, 0.25][b])
+	# RND-8 realm sky variant: aurora over the Alaskan realm, deep starfield over the Cosmic one
+	if sky_mat: sky_mat.set_shader_parameter("sky_variant", RenderTiers.sky_variant(b, realm_sky))
 
 ## Realm presets / LLM realms restyle ambience; terrain stays the biome generator.
+var realm_sky := ""   # RND-8: optional realm preset override ("aurora", "cosmic", "standard")
 func apply_realm(p: Dictionary) -> void:
 	if p.is_empty(): return
+	realm_sky = str(p.get("sky", ""))
+	if sky_mat and realm_sky != "": sky_mat.set_shader_parameter("sky_variant", RenderTiers.sky_variant(maxi(current_biome, 0), realm_sky))
 	var pal: Dictionary = p.get("palette", {})
 	if pal.has("fog"):
 		env.environment.fog_light_color = Color(pal["fog"])
@@ -311,6 +344,7 @@ func set_water_height(h: float) -> void:
 	water_height = h
 	if sea: sea.position.y = h - 0.15
 	if waves: waves.position.y = h + 0.02
+	if terrain_mat: terrain_mat.set_shader_parameter("water_height", h)  # RND-7 caustics
 
 func terraform(op: String, at: Vector3, size: float, strength: float) -> int:
 	var vt = get_voxel_tool()

@@ -245,7 +245,7 @@ static func can_cross(actor: Variant, region: String) -> String:
 	if nid == "": return ""
 	var n: Dictionary = _d()["nations"][nid]
 	var me := Tiers.actor_id(actor)
-	var citizen := me in n["citizens"]
+	var citizen: bool = me in n["citizens"]
 	if bool(n["laws"].get("quarantine", false)) and Disease.is_contagious(me): return "Quarantine: rest up and come back when you're well."
 	if bool(n["laws"].get("vaccination_required", false)) and not citizen and not Disease.is_immune(me, "shiver_fever"): return "A shiver fever vaccine is required to enter."
 	match str(n["border"]):

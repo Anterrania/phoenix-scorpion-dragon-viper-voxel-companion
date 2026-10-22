@@ -1,15 +1,27 @@
 [
  {
-  "sha": "1bdf9c1",
+  "sha": "bcd2cf2",
   "author": "Anterrania",
-  "date": "2026-10-22T09:50:58-07:00",
-  "subject": "feat(compat): device auto-detect + AutoConfig + PowerData/data saver/Dormancy; docs, specs, wiki, tracker; 0 failures (1647 pass)"
+  "date": "2026-10-22T09:55:13-07:00",
+  "subject": "Merge origin/main (Dormancy, PowerData); LIFE: survival/disease/ecology on Dormancy + sim_tick_hz budget"
  },
  {
-  "sha": "3ed0622",
+  "sha": "b841e9f",
   "author": "Anterrania",
-  "date": "2026-10-22T09:48:16-07:00",
-  "subject": "wip(compat): DeviceProfile caps schema, AutoConfig + PowerData, FeatureRegistry, Net, Dormancy, Device & compatibility screen, tests"
+  "date": "2026-10-22T09:54:31-07:00",
+  "subject": "LIFE: governance, geology, materials, blueprints, land addressing, tests (WIP)"
+ },
+ {
+  "sha": "030a11c",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:49:26-07:00",
+  "subject": "LIFE: survival engine, disease model, tolerance genome, living gate"
+ },
+ {
+  "sha": "8f4bd6d",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:45:34-07:00",
+  "subject": "LIFE: living-world data (realms, species, materials, recipes, diseases, governance)"
  },
  {
   "sha": "1d4f15c",

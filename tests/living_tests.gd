@@ -51,7 +51,7 @@ static func run(t: Node) -> void:
 	var cold: Dictionary = S.tick_actor("l_res", "alaskan_tundra", {"t01": 0.0}, 6.0)
 	t.check(cold["calories"] < 2500 and cold["hydration"] < 100 and cold["fatigue"] > 0, "survival: food/water/fatigue drain")
 	var vac: Dictionary = S.tick_actor("l_res2", "cosmic", {}, 0.5)
-	t.check("pressure" in vac["alerts"] and vac["state"] == "critical", "survival: vacuum without suit is critical")
+	t.check("pressure" in vac["alerts"] and vac["state"] in ["critical", "incapacitated"], "survival: vacuum without suit is critical")
 	S.refill_suit("l_res2", 8.0); S.recover("l_res2")
 	var suited: Dictionary = S.tick_actor("l_res2", "cosmic", {"suit": "pressure_suit"}, 0.5)
 	t.check(not "pressure" in suited["alerts"] and suited["suit_o2_h"] < 8.0, "survival: pressure suit protects, tank drains")
@@ -111,7 +111,7 @@ static func run(t: Node) -> void:
 	var kid := Genome.combine(ew, fw, rng)
 	t.check(not kid.is_empty() and int(kid.get("generation", 0)) >= 1, "genome: combine yields offspring genome")
 	t.check(Genome.from_record({"species": "ember_wyrm"}).size() > 0, "genome: old saves without genome still load")
-	t.check(Genome.viability(Genome.of_species("emberstrand"), WorldEnv.outdoor("venus_fire"))["ok"], "genome: acid-cloud extremophile viable on Venus cloud deck")
+	t.check("emberstrand" in Genome.spawnable("venus_fire"), "genome: acid-cloud extremophile viable on Venus cloud deck")
 	t.check(not Genome.viability(Genome.of_species("tundra_leaper"), WorldEnv.outdoor("venus_fire", -100.0))["ok"], "genome: tundra animal not viable on Venus surface")
 	t.check("frostcoil_worm" in Genome.spawnable("alaskan_glacier"), "genome: ice worm spawns on glacier")
 

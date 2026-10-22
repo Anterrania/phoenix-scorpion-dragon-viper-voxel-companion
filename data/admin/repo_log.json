@@ -1,5 +1,11 @@
 [
  {
+  "sha": "7389c26",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:58:02-07:00",
+  "subject": "Merge origin/main (1bf3e6a, sandbox parity) into feature/living-world; regen admin seeds"
+ },
+ {
   "sha": "c3bee09",
   "author": "Anterrania",
   "date": "2026-10-22T09:57:33-07:00",

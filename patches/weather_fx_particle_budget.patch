@@ -1,0 +1,47 @@
+diff --git a/scripts/fx/weather_fx.gd b/scripts/fx/weather_fx.gd
+index b4f3cab..3533747 100644
+--- a/scripts/fx/weather_fx.gd
++++ b/scripts/fx/weather_fx.gd
+@@ -7,11 +7,13 @@ var biome := -1
+ var effects: Array[GPUParticles3D] = []
+ var footsteps: GPUParticles3D
+ var _t := 0.0
++var _biome_check := 0.0
+ 
+ func setup(p: Node3D, gen) -> void:
+ 	player = p; generator = gen
+ 	Settings.quality_changed.connect(func(_q): rebuild())
+ 	footsteps = ParticleFX.make("footstep_dust", Settings.quality())
++	footsteps.amount = maxi(1, ParticleBudget.request("weather.footsteps", footsteps.amount))  # RND-6
+ 	add_child(footsteps)
+ 
+ func rebuild() -> void:
+@@ -22,10 +24,14 @@ func rebuild() -> void:
+ func set_biome(b: int) -> void:
+ 	if b == biome: return
+ 	biome = b
+-	for e in effects: e.queue_free()
++	for e in effects:
++		ParticleBudget.release("weather." + str(e.name))  # RND-6
++		e.queue_free()
+ 	effects.clear()
+ 	for k in ParticleFX.biome_effects(b):
+ 		var e := ParticleFX.make(k, Settings.quality())
++		# RND-6: shared per-tier particle pool (scripts/render/particle_budget.gd)
++		e.amount = maxi(1, ParticleBudget.request("weather." + str(k), e.amount))
+ 		add_child(e); effects.append(e)
+ 
+ func _process(delta: float) -> void:
+@@ -36,7 +42,11 @@ func _process(delta: float) -> void:
+ 		if m: m.gravity = Vector3(0, m.gravity.y, 0) + ParticleFX.wind * (0.3 if e.name == "star_dust" else 1.0)
+ 	if player == null: return
+ 	global_position = player.global_position
+-	if generator: set_biome(int(generator.biome_at(player.global_position.x, player.global_position.z)))
++	# RND-6 / audit: biome lookup 4x/s instead of every frame (biomes change slowly)
++	_biome_check -= delta
++	if generator and _biome_check <= 0.0:
++		_biome_check = 0.25
++		set_biome(int(generator.biome_at(player.global_position.x, player.global_position.z)))
+ 	if footsteps and player is CharacterBody3D:
+ 		var cb := player as CharacterBody3D
+ 		footsteps.global_position = cb.global_position + Vector3(0, -0.85, 0)

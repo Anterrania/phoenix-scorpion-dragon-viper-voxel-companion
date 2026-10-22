@@ -15,6 +15,13 @@ uniform vec3 planet_dir = vec3(-0.35, 0.5, -0.8);
 uniform vec3 planet_color : source_color = vec3(0.75, 0.42, 0.85);
 uniform vec3 moon1_dir = vec3(0.5, 0.45, -0.6);
 uniform vec3 moon2_dir = vec3(0.2, 0.62, 0.75);
+// RND-8 realm sky variants + night. 0 standard, 1 aurora (Alaskan realm), 2 deep starfield (Cosmic).
+// Variant detail is skipped in the radiance/cubemap pass (AT_CUBEMAP_PASS), so reflections and
+// ambient light stay cheap and only the visible sky pays for it.
+uniform int sky_variant = 0;
+uniform float aurora_strength = 1.0;
+uniform vec3 aurora_low : source_color = vec3(0.15, 1.0, 0.55);
+uniform vec3 aurora_high : source_color = vec3(0.85, 0.25, 0.95);
 
 float h2(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float vnoise(vec2 p) {
@@ -57,7 +64,31 @@ void sky() {
 		float s = step(0.9965, hash(cell));
 		float tw = hash(cell + 3.1);
 		float dark = 1.0 - clamp(dot(top_color, vec3(0.6)) * 2.5, 0.0, 1.0);
-		col += vec3(0.8 + tw * 0.2, 0.85, 1.0) * s * star_strength * smoothstep(0.05, 0.4, up) * (0.3 + dark);
+		// RND-8 night: stars brighten once the sun is below the horizon (day/night cycle)
+		float night = smoothstep(0.05, -0.2, sun.y);
+		col *= 1.0 - night * 0.55;
+		col += vec3(0.8 + tw * 0.2, 0.85, 1.0) * s * star_strength * smoothstep(0.05, 0.4, up) * (0.3 + dark + night * 1.2);
+		if (!AT_CUBEMAP_PASS) {
+			if (sky_variant == 1 && aurora_strength > 0.0) {
+				// aurora: wavy vertical curtains on a virtual dome, drifting slowly
+				vec2 auv = dir.xz / (up + 0.3);
+				float wav = auv.x * 1.4 + fbm(auv * 0.6 + vec2(TIME * 0.02, 0.0), 2) * 3.5;
+				float curtain = pow(1.0 - abs(sin(wav)), 5.0);
+				float rays = 0.6 + 0.4 * vnoise(vec2(wav * 9.0, TIME * 0.3));
+				float band = smoothstep(0.08, 0.3, up) * smoothstep(0.85, 0.45, up);
+				float mask_a = curtain * rays * band * (0.25 + dark + night) * aurora_strength;
+				col += mix(aurora_low, aurora_high, smoothstep(0.2, 0.7, up)) * mask_a * 0.9;
+			} else if (sky_variant == 2) {
+				// deep starfield: a second, finer star layer, a soft galactic band and nebula tint
+				vec3 cell2 = floor(dir * 620.0);
+				float s2 = step(0.9975, hash(cell2)) * (0.4 + 0.6 * hash(cell2 + 1.7));
+				vec3 gal_n = normalize(vec3(0.3, 0.9, 0.3));
+				float gal = exp(-pow(dot(dir, gal_n) * 4.0, 2.0));
+				float neb = fbm(dir.xz / (up + 0.2) * 1.2, 3);
+				col += vec3(0.85, 0.9, 1.0) * s2 * star_strength * (0.6 + gal);
+				col += mix(vec3(0.25, 0.05, 0.35), vec3(0.05, 0.2, 0.4), neb) * gal * neb * 0.5 * star_strength;
+			}
+		}
 		// gas giant with tilted rings (computed in the planet's tangent plane)
 		float pm;
 		vec3 p = body(dir, planet_dir, 0.15, planet_color, sun, pm);

@@ -160,6 +160,31 @@ other DarkStorm cell is `?`.
 | Profiles + picks + classifieds | ✓ | ✓ | ✓ | pending research | pending research | `Social.profile`, picks; classifieds INACTIVE | us | partial |
 | Search (places, people, groups, land) | ✓ | ✓ | ✓ | pending research | pending research | `show_in_search` flag (gap); no search service | us | planned |
 
+## Rendering (RND) — ours unless marked
+
+Capabilities only (no UI). Columns: `feature | SL/Firestorm | Star Citizen | Dual Universe | No Man's Sky | ours | status | owner | tracker`.
+Details and measurements: docs/modules/RENDERING.md.
+
+| feature | SL/Firestorm | Star Citizen | Dual Universe | No Man's Sky | ours | status | owner | tracker |
+|---|---|---|---|---|---|---|---|---|
+| Graphics presets + per-setting sliders | ✓ | ✓ | ✓ | ✓ | `RenderTiers` low/med/high/ultra, 29 knobs via AutoQuality | have | us + Foxy (UI) | RND-1 |
+| Auto quality / dynamic resolution | partial | ✓ | ? | ✓ | FrameGovernor trims render scale, asks for lower tier | have | us + Foxy | RND-2 |
+| Smooth voxel terrain LOD streaming | — | n/a (heightmap/planet tech) | ✓ | ✓ | Transvoxel LOD, faster SDF gen (−35…−53%) | have | us | RND-3 |
+| Greedy-meshed blocky builds | — | — | ✓ (voxel builds) | — | `GreedyMesher` (−74% faces) | have | us | RND-4 |
+| Instanced foliage / ground cover | ✓ (trees) | ✓ | ✓ | ✓ | `FoliageScatter` MultiMesh per cell | have | us | RND-5 |
+| Draw distance / object distance culling | ✓ | ✓ | ✓ | ✓ | visibility ranges on props + foliage | have | us | RND-5 |
+| Particle budget | ✓ (max particles) | ✓ | ? | ✓ | `ParticleBudget` pool per tier; weather via patch | partial | us + Foxy | RND-6 |
+| Triplanar terrain, detail normals, AO | ✓ (PBR terrain later) | ✓ | ✓ | ✓ | triplanar + curvature AO + LOD fade | have | us | RND-7 |
+| Procedural sky, day/night, aurora/starfield | ✓ (EEP) | ✓ | ✓ | ✓ | realm sky variants + night stars | have | us | RND-8 |
+| Water reflection, depth fade, foam, caustics | ✓ | ✓ | ✓ | ✓ | sky-gradient reflection, DEPTH_FX on high | have | us | RND-9 |
+| Shadows (cascaded sun) | ✓ | ✓ | ✓ | ✓ | PSSM 2/4 splits on high/ultra | have | us | RND-1 |
+| Upscaling / AA | FXAA/MSAA | TAA/upscalers | ✓ | TAA/DLSS/FSR | MSAA 2x/4x + FSR 1 | have | us | RND-1 |
+| Screen-space reflections / SSAO | ✓ | ✓ | ✓ | ✓ | Forward+ only; not on Mobile renderer | n/a | us | RND-10 |
+| Real-time GI (SDFGI/VoxelGI) | — | ✓ | ? | ? | too heavy for phones | n/a | us | RND-10 |
+| Volumetric fog / clouds | partial | ✓ | ✓ | ✓ | height fog + sky clouds; volumetric is Forward+ only | partial | us | RND-10 |
+| Occlusion culling | ✓ (object) | ✓ | ✓ | ✓ | later: landmarks/interiors, caves | planned | us | RND-10 |
+| Character/avatar shading quality | ✓ | ✓ | ✓ | ✓ | spec docs/specs/foxy/RENDER_QUALITY_HOOKS.md | planned | Foxy | RND-11 |
+
 ## Space sims
 
 Dual Universe, EVE Online and Star Citizen rows belong to the feature/spacesim-parity worker. That branch

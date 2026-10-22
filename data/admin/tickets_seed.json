@@ -1970,6 +1970,138 @@
  {
   "id": 165,
   "type": "task",
+  "summary": "Render pipeline: RenderTiers knob table (low/med/high/ultra) registered with AutoQuality.register_knob; legacy Settings fallback; Mobile-renderer-safe (scripts/render/render_pipeline.gd, render_tiers.",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "RND-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 166,
+  "type": "task",
+  "summary": "FrameGovernor: frame-time/thermal feedback trims render scale, asks AutoQuality for a lower tier (scripts/render/frame_governor.gd)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "RND-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 167,
+  "type": "task",
+  "summary": "SDF generator band fill: identical output, gen time -35..-53% per block (smooth_terrain_generator.gd)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "RND-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 168,
+  "type": "task",
+  "summary": "GreedyMesher for blocky builds/props: -74% faces on a 32^3 build (scripts/render/greedy_mesher.gd)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "RND-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 169,
+  "type": "task",
+  "summary": "MultiMesh foliage scatter + visibility ranges on props and foliage (scripts/render/foliage_scatter.gd)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "RND-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 170,
+  "type": "task",
+  "summary": "ParticleBudget pool per tier; weather hookup patch for Foxy (patches/weather_fx_particle_budget.patch)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "RND-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 171,
+  "type": "task",
+  "summary": "Terrain shader: LOD cross-fade variant, curvature AO, far-detail skipping, fake caustics",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "RND-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 172,
+  "type": "task",
+  "summary": "Sky: realm variants (aurora, deep starfield), night stars, cubemap-pass skip",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "RND-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 173,
+  "type": "task",
+  "summary": "Water: sky-gradient reflection; DEPTH_FX variant (depth fade, shore foam) on high/ultra",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "RND-9",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 174,
+  "type": "task",
+  "summary": "Later/n.a.: occlusion for landmarks/caves, VoxelInstancer eval, compute (GPU erosion), texture arrays, HLOD; SSR/SSAO/SDFGI n.a. on Mobile",
+  "status": "new",
+  "resolution": "",
+  "priority": "P3",
+  "component": "general",
+  "milestone": "RND-10",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 175,
+  "type": "task",
+  "summary": "Foxy: avatar shading quality knob + AutoQuality wants_lower_tier hookup (docs/specs/foxy/RENDER_QUALITY_HOOKS.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "RND-11",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 176,
+  "type": "task",
   "summary": "Realm world seeds (gravity, atmosphere, temp, radiation, water, day, soil) + WorldEnv",
   "status": "closed",
   "resolution": "fixed",
@@ -1980,7 +2112,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 166,
+  "id": 177,
   "type": "task",
   "summary": "Tolerance genome, viability, spawn lists, non-sexual creature combine (old saves compatible)",
   "status": "closed",
@@ -1992,7 +2124,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 167,
+  "id": 178,
   "type": "task",
   "summary": "Survival vitals (Survival.vitals, vitals_changed), suits/habitats, SIR disease, vaccines, ecology on Dormancy + sim_tick_hz",
   "status": "closed",
@@ -2004,7 +2136,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 168,
+  "id": 179,
   "type": "task",
   "summary": "LivingGate: owner exemption only when unlocked, e-stop, per-estate survival on/off/softcore with realm defaults",
   "status": "closed",
@@ -2016,7 +2148,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 169,
+  "id": 180,
   "type": "task",
   "summary": "Governance: nations, laws, elections, embassies, borders, civic-credit taxes (Aethel Coin tax LEGAL REVIEW)",
   "status": "closed",
@@ -2028,7 +2160,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 170,
+  "id": 181,
   "type": "task",
   "summary": "Geology ores by realm/depth, recipe graph, blueprints w/ perms (AEC sales/payouts LEGAL REVIEW), Industry bridge",
   "status": "closed",
@@ -2040,7 +2172,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 171,
+  "id": 182,
   "type": "task",
   "summary": "Land: no object caps, render budgets, planet/region/chunk addressing, floating origin, SectorPager",
   "status": "closed",
@@ -2052,7 +2184,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 172,
+  "id": 183,
   "type": "task",
   "summary": "Foxy client: vitals HUD, suit, scanner, crafting, DNA, symptoms, gov screens, client floating origin (docs/specs/foxy/LIVING_WORLD_CLIENT.md)",
   "status": "new",

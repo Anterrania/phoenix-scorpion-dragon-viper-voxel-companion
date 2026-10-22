@@ -12,9 +12,9 @@ var _press_t := 0
 var _down := false
 
 func _init() -> void:
-	add_theme_constant_override("separation", PhoenixTokens.SPACE[4])
+	add_theme_constant_override("separation", PhoenixTokens.space(4))
 	bar = TabBar.new(); bar.tab_alignment = TabBar.ALIGNMENT_CENTER; bar.clip_tabs = false
-	bar.custom_minimum_size.y = PhoenixTokens.TAP_MIN
+	bar.custom_minimum_size.y = PhoenixTokens.tap()
 	bar.tab_changed.connect(_show)
 	add_child(bar)
 	stack = Control.new(); stack.size_flags_vertical = Control.SIZE_EXPAND_FILL; stack.clip_contents = true

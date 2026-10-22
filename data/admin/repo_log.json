@@ -1,5 +1,11 @@
 [
  {
+  "sha": "372d85c",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:47:14-07:00",
+  "subject": "docs(render): RENDERING.md audit + measurements, parity Rendering section, RND-1..11 tracker rows, graphics wiki, Foxy spec + weather particle budget patch, greedy bench"
+ },
+ {
   "sha": "848dd37",
   "author": "Anterrania",
   "date": "2026-10-22T09:44:06-07:00",

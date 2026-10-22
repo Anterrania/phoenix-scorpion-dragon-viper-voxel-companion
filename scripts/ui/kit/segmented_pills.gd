@@ -10,11 +10,11 @@ func setup(p_options: Array, initial := "") -> SegmentedPills:
 	options = p_options
 	selected = initial if initial != "" else (str(options[0][0]) if not options.is_empty() else "")
 	for c in get_children(): c.queue_free()
-	add_theme_constant_override("separation", PhoenixTokens.SPACE[2])
+	add_theme_constant_override("separation", PhoenixTokens.space(2))
 	for o in options:
 		var b := Button.new()
 		b.text = str(o[1]); b.toggle_mode = true; b.button_group = _group
-		b.custom_minimum_size = Vector2(0, PhoenixTokens.TAP_MIN); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.custom_minimum_size = Vector2(0, PhoenixTokens.tap()); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.button_pressed = str(o[0]) == selected
 		var id := str(o[0])
 		b.pressed.connect(func(): select(id))

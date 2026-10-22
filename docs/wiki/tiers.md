@@ -16,7 +16,7 @@ ticket: SOCIAL-2
 ## The six tiers
 1. **Guest:** browse, report.
 2. **Resident:** post, message, friends, join groups. Build where the land allows.
-3. **Premium / Creator:** albums, classifieds, uploads, marketplace. Create groups, events, polls.
+3. **Premium / Creator:** albums, classifieds, uploads, marketplace. Create groups, events, polls. **Broadcast** streams and parcel media where they have media rights on the parcel (see Media, Voice & Broadcast).
 4. **Builder / Staff:** bots and employees. Build tools on staff land. Moderate.
 5. **Estate Manager:** region and estate settings. Gives groups land.
 6. **Owner:** everything. Needs your owner unlock.

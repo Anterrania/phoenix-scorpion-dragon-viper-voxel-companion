@@ -9,13 +9,13 @@ var _rows: VBoxContainer
 var _label: Label
 
 func _init() -> void:
-	add_theme_constant_override("separation", PhoenixTokens.SPACE[3])
-	_rows = VBoxContainer.new(); _rows.add_theme_constant_override("separation", PhoenixTokens.SPACE[2]); add_child(_rows)
+	add_theme_constant_override("separation", PhoenixTokens.space(3))
+	_rows = VBoxContainer.new(); _rows.add_theme_constant_override("separation", PhoenixTokens.space(2)); add_child(_rows)
 	var nav := HBoxContainer.new(); nav.alignment = BoxContainer.ALIGNMENT_CENTER; nav.add_theme_constant_override("separation", 16)
-	var prev := Button.new(); prev.text = "‹"; prev.custom_minimum_size = Vector2(PhoenixTokens.TAP_MIN, PhoenixTokens.TAP_MIN)
+	var prev := Button.new(); prev.text = "‹"; prev.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap())
 	prev.pressed.connect(func(): go(page - 1)); nav.add_child(prev)
 	_label = Label.new(); _label.add_theme_color_override("font_color", PhoenixTokens.PLATINUM_DIM); nav.add_child(_label)
-	var nxt := Button.new(); nxt.text = "›"; nxt.custom_minimum_size = Vector2(PhoenixTokens.TAP_MIN, PhoenixTokens.TAP_MIN)
+	var nxt := Button.new(); nxt.text = "›"; nxt.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap())
 	nxt.pressed.connect(func(): go(page + 1)); nav.add_child(nxt)
 	add_child(nav)
 

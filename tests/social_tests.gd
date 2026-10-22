@@ -251,7 +251,7 @@ static func run_ui(t: Node) -> void:
 	t.check(s.pages.count() == 5, "community ui: 5 swipe tabs")
 	t.check(s.save_roles_btn != null and s.save_roles_btn.disabled, "community ui: role editor save disabled while locked")
 	t.check(s.min_font_ok(16), "community ui: labels >= 16 px")
-	t.check(s.min_tap_ok(80), "community ui: buttons >= 80 px tall")
+	t.check(s.min_tap_ok(PhoenixTokens.tap()), "community ui: buttons >= token tap size (%d px)" % PhoenixTokens.tap())
 	Tiers.owner_override = true
 	s.refresh()
 	t.check(not s.save_roles_btn.disabled, "community ui: save enabled for unlocked owner")

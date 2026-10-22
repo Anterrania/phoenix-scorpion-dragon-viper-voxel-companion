@@ -1,0 +1,101 @@
+diff --git a/scripts/agent/companion_agent.gd b/scripts/agent/companion_agent.gd
+index e6dfdb7..1e6fa8e 100644
+--- a/scripts/agent/companion_agent.gd
++++ b/scripts/agent/companion_agent.gd
+@@ -52,6 +52,7 @@ func _ready() -> void:
+ 
+ func _exit_tree() -> void:
+ 	AgentBrain.unregister_agent(self)
++	if _lip_cb.is_valid(): CompanionVoice.listeners.erase(_lip_cb)
+ 
+ func _apply_look() -> void:
+ 	var box := get_node_or_null("Body")
+@@ -113,6 +114,18 @@ func slot_position() -> Vector3:
+ 	return player.global_position + player.global_transform.basis * config.slot_offset
+ 
+ var face: FaceDriver
++## Lip sync: TTS-callback-synced visemes (CompanionVoice listeners) or mic/clip amplitude.
++var lip := LipSync.new()
++var _lip_cb := Callable()
++
++func _lip_on() -> bool: return bool(Settings.get_value("voice_fx", "lip_sync", true))
++
++func _lip_event(cid: String, ev: String, data: Dictionary) -> void:
++	if cid != companion_id: return
++	match ev:
++		"started": lip.start_text(str(data["text"]), float(data["rate"]))
++		"boundary": lip.on_boundary(int(data["char"]))
++		"ended": lip.stop()
+ 
+ func _process(delta: float) -> void:
+ 	_anim_t += delta
+@@ -120,8 +133,11 @@ func _process(delta: float) -> void:
+ 	if model.has_meta("realistic"):
+ 		RealisticBody.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
+ 		if face == null or face.mesh == null or not is_instance_valid(face.mesh): face = FaceDriver.for_model(model)
++		if _lip_on() and lip.is_talking(): lip.update(delta); lip.apply_to(face)
+ 		face.update(delta)
+-	else: HumanoidModel.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
++	else:
++		HumanoidModel.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
++		if _lip_on() and lip.is_talking(): lip.update(delta); lip.apply_to(model)   # low-poly jaw
+ 	if _bubble_time > 0.0:
+ 		_bubble_time -= delta
+ 		if _bubble_time <= 0.0: _bubble.visible = false
+@@ -145,8 +161,14 @@ func _on_reply(id: String, text: String) -> void:
+ 
+ ## Voice hook: replace with TTS (DisplayServer.tts_speak or a cloud TTS).
+ func speak(text: String) -> void:
+-	CompanionVoice.speak(companion_id, persona, text)
+-	if face: face.say(text, float(CompanionVoice.profile(persona).get("rate", 1.0)))
++	if not _lip_cb.is_valid():
++		_lip_cb = _lip_event; CompanionVoice.listeners.append(_lip_cb)
++	var route := CompanionVoice.speak(companion_id, persona, text)
++	var rate := float(CompanionVoice.last_spoken.get("tts", {}).get("rate", 1.0))
++	if not _lip_on():
++		if face: face.say(text, rate)
++	elif route in ["no_tts", "cloud"]: lip.start_text(text, rate)   # no TTS callbacks: start now
++	# route "tts": lips start on the TTS 'started' callback (synced), see _lip_event
+ 
+ func get_player_position() -> Vector3:
+ 	return player.global_position if player else Vector3.ZERO
+diff --git a/scripts/agent/face_driver.gd b/scripts/agent/face_driver.gd
+index b56cd19..4b4b14b 100644
+--- a/scripts/agent/face_driver.gd
++++ b/scripts/agent/face_driver.gd
+@@ -19,6 +19,8 @@ var _talk_left := 0.0
+ var _talk_text := ""
+ var _talk_t := 0.0
+ var _ch: Dictionary = {}
++var _ext: Dictionary = {}   # LipSync channels pushed by drive() (jawOpen + viseme_*)
++var _ext_t := 0.0
+ 
+ static func find_face(model: Node3D) -> MeshInstance3D:
+ 	for n in model.find_children("*", "MeshInstance3D", true, false):
+@@ -41,7 +43,13 @@ func say(text: String, rate: float = 1.0) -> void:
+ 	_talk_left = clampf(text.length() * 0.065 / maxf(rate, 0.3), 0.4, 20.0)
+ 
+ func is_talking() -> bool:
+-	return _talk_left > 0.0
++	return _talk_left > 0.0 or _ext_t > 0.0
++
++## Lip sync hookup (scripts/audio/lip_sync.gd): LipSync.apply_to(face) calls this every frame.
++## While fresh (0.2 s) these channels replace the built-in talk cycle; blink/smile/brow stay ours.
++func drive(ch: Dictionary) -> void:
++	_ext = ch; _ext_t = 0.2
++	_talk_left = 0.0   # the TTS-synced timeline wins over the length estimate
+ 
+ func set_mood(happy: float, raised: float = 0.0) -> void:
+ 	smile = clampf(happy, 0.0, 1.0); brow = clampf(raised, -1.0, 1.0)
+@@ -83,6 +91,11 @@ func update(delta: float) -> void:
+ 		_ch["jawOpen"] = 0.0 if v == "viseme_PP" else open * 0.6
+ 		_ch["mouthSmile"] = smile * 0.5
+ 		if _talk_left <= 0.0: _talk_text = ""
++	if _ext_t > 0.0:
++		_ext_t -= delta
++		for k in _ext:
++			if _ch.has(k): _ch[k] = clampf(float(_ext[k]), 0.0, 1.0)
++		if float(_ext.get("jawOpen", 0.0)) > 0.05: _ch["mouthSmile"] = smile * 0.5
+ 	if mesh == null: return
+ 	for s in SHAPES:
+ 		var i := mesh.find_blend_shape_by_name(s)

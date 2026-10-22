@@ -10,8 +10,7 @@ extends Control
 signal closed
 
 const TABS := ["Overview", "Reports", "Approvals", "Groups", "Roles"]
-const TEXT_PX := 20
-const TAP_PX := 80
+## Sizes follow PhoenixTokens scale (Settings > Display). The old fixed 20 px text / 80 px taps are gone.
 var pages: SwipePages
 var boxes := {}
 var save_roles_btn: Button
@@ -30,15 +29,15 @@ func _ready() -> void:
 	theme = ViperKit.theme()
 	var bg := ColorRect.new(); bg.color = PhoenixTokens.VOID; bg.set_anchors_preset(Control.PRESET_FULL_RECT); add_child(bg)
 	var m := MarginContainer.new(); m.set_anchors_preset(Control.PRESET_FULL_RECT)
-	for s in ["left", "right", "bottom"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.SPACE[5])
-	m.add_theme_constant_override("margin_top", PhoenixTokens.SPACE[6])
+	for s in ["left", "right", "bottom"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.space(5))
+	m.add_theme_constant_override("margin_top", PhoenixTokens.space(6))
 	add_child(m)
-	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.SPACE[4]); m.add_child(v)
+	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.space(4)); m.add_child(v)
 	var head := HBoxContainer.new()
 	var title := Label.new(); title.text = "Community"; title.theme_type_variation = &"TitleLabel"
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL; head.add_child(title)
-	var x := Button.new(); x.text = "✕"; x.name = "Close"; x.custom_minimum_size = Vector2(TAP_PX, TAP_PX)
-	x.add_theme_font_size_override("font_size", 28)
+	var x := Button.new(); x.text = "✕"; x.name = "Close"; x.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap())
+	x.add_theme_font_size_override("font_size", PhoenixTokens.fs("title"))
 	x.pressed.connect(func(): closed.emit(); queue_free()); head.add_child(x)
 	v.add_child(head)
 	pages = SwipePages.new(); pages.size_flags_vertical = Control.SIZE_EXPAND_FILL; v.add_child(pages)
@@ -46,33 +45,33 @@ func _ready() -> void:
 		var sc := ScrollContainer.new(); sc.name = t
 		sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		var b := VBoxContainer.new(); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.add_theme_constant_override("separation", PhoenixTokens.SPACE[4])
+		b.add_theme_constant_override("separation", PhoenixTokens.space(4))
 		sc.add_child(b); pages.add_page(t, sc); boxes[t] = b
 	pages.page_changed.connect(func(_i): refresh())
 	refresh()
 
 func toast(t: String, variant := "ok") -> void: Toast.show_toast(self, t, variant)
 
-## Kit cards title at 15 px (PhoenixTokens.TYPE.label); phone rule here is >= 16, so bump locally.
+## Kit card titles: headline-size here (scaled) so section titles stand out.
 func _card(t: String) -> GlassCard:
 	var c := ViperKit.card(t)
 	var tl := c.get_node_or_null("Pad/VBox/Title")
-	if tl: tl.add_theme_font_size_override("font_size", 18)
+	if tl: tl.add_theme_font_size_override("font_size", PhoenixTokens.fs("body"))
 	return c
 
-func _text(t: String, col := PhoenixTokens.PLATINUM, px := TEXT_PX) -> Label:
+func _text(t: String, col := PhoenixTokens.PLATINUM, px := -1) -> Label:
 	var l := Label.new(); l.text = t; l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	l.add_theme_font_size_override("font_size", px); l.add_theme_color_override("font_color", col)
+	l.add_theme_font_size_override("font_size", px if px > 0 else PhoenixTokens.fs("body")); l.add_theme_color_override("font_color", col)
 	return l
 
 func _btn(t: String, f: Callable) -> Button:
-	var b := Button.new(); b.text = t; b.custom_minimum_size = Vector2(TAP_PX * 2, TAP_PX)
-	b.add_theme_font_size_override("font_size", 22); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var b := Button.new(); b.text = t; b.custom_minimum_size = Vector2(PhoenixTokens.tap() * 2, PhoenixTokens.tap())
+	b.add_theme_font_size_override("font_size", PhoenixTokens.fs("headline")); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	b.pressed.connect(f)
 	return b
 
 func _row(buttons: Array) -> HBoxContainer:
-	var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.SPACE[3])
+	var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.space(3))
 	for b in buttons: h.add_child(b)
 	return h
 
@@ -90,7 +89,7 @@ func _overview() -> void:
 	var s := Social.stats()
 	var c := _card("Community"); b.add_child(c)
 	var row := HFlowContainer.new(); row.alignment = FlowContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("h_separation", PhoenixTokens.SPACE[5]); c.body().add_child(row)
+	row.add_theme_constant_override("h_separation", PhoenixTokens.space(5)); c.body().add_child(row)
 	row.add_child(ViperKit.ring(minf(1.0, s["members"] / 50.0), "members", str(s["members"])))
 	row.add_child(ViperKit.ring(minf(1.0, s["groups"] / 10.0), "groups", str(s["groups"])))
 	row.add_child(ViperKit.ring(minf(1.0, s["posts"] / 100.0), "posts", str(s["posts"])))
@@ -169,9 +168,9 @@ func _roles() -> void:
 	var owner := Tiers.tier_of(Tiers.SELF) == "owner"
 	var c := _card("Member tiers"); b.add_child(c)
 	for id in _members().slice(0, 12):
-		var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.SPACE[3])
+		var h := HBoxContainer.new(); h.add_theme_constant_override("separation", PhoenixTokens.space(3))
 		var l := _text(str(id)); l.size_flags_horizontal = Control.SIZE_EXPAND_FILL; h.add_child(l)
-		var ob := OptionButton.new(); ob.custom_minimum_size = Vector2(260, TAP_PX); ob.add_theme_font_size_override("font_size", 22)
+		var ob := OptionButton.new(); ob.custom_minimum_size = Vector2(260, PhoenixTokens.tap()); ob.add_theme_font_size_override("font_size", PhoenixTokens.fs("headline"))
 		var cur: String = pending_tiers.get(id, Tiers.assigned_tier(id))
 		for i in Tiers.ORDER.size() - 1:   # never "owner"
 			ob.add_item(Tiers.label(Tiers.ORDER[i]), i)
@@ -180,7 +179,7 @@ func _roles() -> void:
 		ob.item_selected.connect(func(i): pending_tiers[mid] = Tiers.ORDER[i])
 		h.add_child(ob); c.body().add_child(h)
 	_new_member = LineEdit.new(); _new_member.placeholder_text = "Member or bot id"
-	_new_member.custom_minimum_size = Vector2(0, TAP_PX); _new_member.add_theme_font_size_override("font_size", 22)
+	_new_member.custom_minimum_size = Vector2(0, PhoenixTokens.tap()); _new_member.add_theme_font_size_override("font_size", PhoenixTokens.fs("headline"))
 	c.body().add_child(_new_member)
 	c.body().add_child(_row([_btn("Add member", func():
 		var id := _new_member.text.strip_edges()
@@ -195,7 +194,7 @@ func _roles() -> void:
 	var mc := _card("What each tier can do"); b.add_child(mc)
 	var mx := Tiers.matrix()
 	for t in Tiers.ORDER:
-		mc.body().add_child(_text(Tiers.label(t), PhoenixTokens.GOLD, 22))
+		mc.body().add_child(_text(Tiers.label(t), PhoenixTokens.GOLD, PhoenixTokens.fs("headline")))
 		mc.body().add_child(_text(", ".join(mx.get(t, [])).replace("_", " "), PhoenixTokens.PLATINUM_DIM))
 
 ## Owner only. Returns "" on success or the first error.

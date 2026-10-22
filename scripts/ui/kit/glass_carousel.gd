@@ -31,7 +31,7 @@ var _resume_acc := 0.0
 var _tween: Tween
 
 func _init() -> void:
-	add_theme_constant_override("separation", PhoenixTokens.SPACE[3])
+	add_theme_constant_override("separation", PhoenixTokens.space(3))
 	track = Control.new(); track.name = "Track"; track.clip_contents = true
 	track.mouse_filter = Control.MOUSE_FILTER_STOP
 	track.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -41,7 +41,7 @@ func _init() -> void:
 	strip = Control.new(); strip.name = "Strip"; strip.mouse_filter = Control.MOUSE_FILTER_PASS
 	track.add_child(strip)
 	dots = _Dots.new(); dots.name = "Dots"; dots.carousel = self
-	dots.custom_minimum_size = Vector2(0, PhoenixTokens.SPACE[5])
+	dots.custom_minimum_size = Vector2(0, PhoenixTokens.space(5))
 	dots.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(dots)
 
@@ -147,8 +147,8 @@ class _Dots extends Control:
 	var carousel: GlassCarousel
 	func _draw() -> void:
 		if carousel == null or carousel.count() < 2: return
-		var r := PhoenixTokens.SPACE[1] * 1.5
-		var gap := PhoenixTokens.SPACE[3]
+		var r := PhoenixTokens.space(1) * 1.5
+		var gap := PhoenixTokens.space(3)
 		var n := carousel.count()
 		var w := n * r * 2.0 + (n - 1) * gap
 		var x0 := (size.x - w) / 2.0 + r

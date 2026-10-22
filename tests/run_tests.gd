@@ -72,7 +72,7 @@ func _ready() -> void:
 	load("res://tests/sec_fix_tests.gd").run_first_run(self)
 	load("res://tests/vala_script_tests.gd").run(self); load("res://tests/vala_script_tests.gd").run_docs(self)
 	load("res://tests/sec_fix_tests.gd").cleanup(self)
-	var CT = load("res://tests/compat_tests.gd"); CT.run(self); CT.run_overrides(self); CT.run_power(self); await CT.run_ui(self); CT.run_docs(self)
+	var CT = load("res://tests/compat_tests.gd"); CT.run(self); CT.run_overrides(self); CT.run_power(self); await CT.run_ui(self); CT.run_docs(self); await load("res://tests/viper_device_tests.gd").run(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

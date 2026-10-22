@@ -92,6 +92,9 @@ jobs:
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' \
             "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-4.7.tres
 
+      - name: Build ViperDevice Android plugin (AAR)
+        if: matrix.preset == 'Android'
+        run: android/plugins/viper_device/build.sh
       - name: Import project
         run: ./godot --headless --import || true
       - name: Export
@@ -102,7 +105,8 @@ jobs:
           mkdir -p "build/$(dirname '${{ matrix.file }}')"
           mode=--export-debug
           if [ "${{ matrix.preset }}" = "Android" ] && [ "${{ inputs.release }}" = "true" ]; then mode=--export-release; fi
-          ./godot --headless $mode "${{ matrix.preset }}" "build/${{ matrix.file }}"
+          tpl=""; if [ "${{ matrix.preset }}" = "Android" ]; then tpl=--install-android-build-template; fi   # Gradle build (ViperDevice plugin)
+          ./godot --headless $tpl $mode "${{ matrix.preset }}" "build/${{ matrix.file }}"
       - uses: actions/upload-artifact@v4
         with:
           name: phoenix-${{ matrix.preset }}

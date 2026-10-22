@@ -43,11 +43,19 @@ jobs:
           mkdir -p ~/.config/godot
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\nexport/android/debug_keystore = "%s"\nexport/android/debug_keystore_user = "androiddebugkey"\nexport/android/debug_keystore_pass = "android"\n' \
             "$ANDROID_SDK_ROOT" "$JAVA_HOME" "$RUNNER_TEMP/debug.keystore" > ~/.config/godot/editor_settings-4.7.tres
-      - name: Export Android debug APK
+      - name: Build ViperDevice Android plugin (AAR)
+        run: |
+          android/plugins/viper_device/build.sh
+          size=$(stat -c %s addons/viper_device/bin/viper-device-release.aar)
+          echo "ViperDevice AAR: $size bytes"; test "$size" -lt 65536
+      - name: Export Android debug APK (Gradle build, ViperDevice plugin)
         run: |
           mkdir -p build/android
-          ./godot --headless --export-debug Android build/android/phoenix-voxel.apk
+          ./godot --headless --install-android-build-template --export-debug Android build/android/phoenix-voxel.apk
           test -s build/android/phoenix-voxel.apk
+          ls -l build/android/phoenix-voxel.apk
+          "$ANDROID_SDK_ROOT"/build-tools/34.0.0/aapt2 dump xmltree --file AndroidManifest.xml build/android/phoenix-voxel.apk | grep -q 'org.godotengine.plugin.v2.ViperDevice'
+          unzip -p build/android/phoenix-voxel.apk 'classes*.dex' | grep -aq 'com/anterrania/viperdevice/ViperDevicePlugin'
       - uses: actions/upload-artifact@v4
         with:
           name: phoenix-voxel-android-debug

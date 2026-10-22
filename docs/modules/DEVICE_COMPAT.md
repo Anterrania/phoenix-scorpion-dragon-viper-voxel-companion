@@ -32,7 +32,7 @@ Engine APIs only, with no plugins and no dependencies. caps() always returns the
 | Form | form_factor (phone/tablet/desktop/tv), foldable | heuristics, see §2.4 |
 | Input | touch, mouse, keyboard, gamepads, xr | `DisplayServer.is_touchscreen_available()`, `has_hardware_keyboard()`, `Input.get_connected_joypads()`, `XRServer` |
 | Sensors / media | accelerometer, gyro, haptics, camera, mic, camera_perm, mic_perm | `Input.get_accelerometer/gyroscope` (ZERO on a phone means unknown, not no), `CameraServer`, `AudioServer.get_input_device_list()`, `OS.get_granted_permissions()` |
-| Live | battery_pct, charging, power_save, thermal, network, orientation | orientation comes from the engine. The rest need the Android plugin (§6) and are -1 or "" until then. |
+| Live | battery_pct, charging, power_save, thermal, network, orientation | orientation comes from the engine; the rest come from the ViperDevice plugin (§6), and are -1 or "" without it |
 
 **2.1 When it re-detects:** at startup, on window resize, rotation or fold (`size_changed`), when a
 gamepad connects (`joy_connection_changed`), when the app regains focus, and every 30 s for the live
@@ -106,16 +106,54 @@ streams, broadcast and XR mode. Other systems call `FeatureRegistry.register(id,
 5. Headless (CI and tests) works out the plan but applies nothing.
 6. **Reset to auto** clears every choice, calls `AutoQuality.set_tier("auto")`, re-detects and re-applies.
 
-## 6. Gaps: things Godot can't read on Android without a plugin
+## 6. Android plugin: ViperDevice (COMPAT-7)
 
-These are -1 or "" today. The optional `ViperDevice` Android plugin hook is ready in DeviceProfile (§2).
-- battery %, charging, power-save mode (BatteryManager, PowerManager)
-- thermal status 0..6 (PowerManager.getCurrentThermalStatus, API 29+)
-- network type wifi/cell/none (ConnectivityManager)
-- the real SDK_INT (we map the release name), true VRAM, and whether a vibrator exists
-- camera presence before the permission is granted (CameraServer lists nothing until then)
-- foldable posture and hinge (Jetpack WindowManager): the aspect-ratio heuristic stands in
-- Android TV "leanback" and ChromeOS flags: heuristics stand in
+This is our own Godot 4 Android plugin (v2), written in Kotlin with no third-party dependencies. The source is
+in `android/plugins/viper_device/` and the editor export plugin in `addons/viper_device/`. It needs the
+**Gradle build** (`gradle_build/use_gradle_build=true`, with `compress_native_libraries=true` so the APK isn't
+inflated). Everything it reads stays on the device and is never uploaded.
+
+| key | Android source | permission |
+|---|---|---|
+| battery_pct, charging | sticky `ACTION_BATTERY_CHANGED` (no receiver kept) | none |
+| power_save | `PowerManager.isPowerSaveMode` | none |
+| thermal 0..6 | `PowerManager.getCurrentThermalStatus` (API 29+; older → -1) | none |
+| network wifi/cell/none | `ConnectivityManager` active network capabilities (metered other → cell) | ACCESS_NETWORK_STATE (normal, no prompt) |
+| android_api | `Build.VERSION.SDK_INT` (replaces the mapping from the release name) | none |
+| ram_mb, low_ram | `ActivityManager.MemoryInfo.totalMem`, `isLowRamDevice` | none |
+| vram_mb | no Android API (shared memory). The plugin returns -1 and DeviceProfile keeps the RAM/4 estimate. | none |
+| haptics | `Vibrator.hasVibrator()` | none |
+| camera, mic, gyro, accelerometer | `PackageManager.hasSystemFeature` (no camera or mic permission needed) | none |
+| form_factor tv / desktop | `FEATURE_LEANBACK` → tv; `org.chromium.arc*` → desktop (ChromeOS) | none |
+| foldable | `FEATURE_SENSOR_HINGE_ANGLE` (API 30+). Live posture needs Jetpack WindowManager, a dependency, so it's **skipped**. | none |
+
+**API:** `get_static()` and `get_live()` each return a Dictionary (one JNI call each), plus the
+`live_changed` signal.
+
+**When it refreshes, with no tight polling:**
+- DeviceProfile reads the live keys every 30 s while in the foreground. The timer stops in the background.
+- It also reads them on app focus.
+- It reads them when the plugin emits `live_changed`, which comes from Android's thermal listener and
+  default-network callback. Bursts are merged into one refresh every 2 s.
+- The listeners are registered on resume and removed on pause.
+
+A plugin value of -1 never overwrites a known engine value. Without the plugin (desktop, CI) everything
+behaves as before and the keys stay unknown.
+
+**Size:** the AAR is about 7 KB. On a debug arm64 APK, the plugin adds **+6.5 KB** (46,900,009 → 46,906,669 bytes).
+Switching from the prebuilt template to the Gradle build adds +0.8 MB (46,083,052 → 46,900,009) from the Gradle
+template's AndroidX dex. Without `compress_native_libraries` the Gradle APK would be 101.5 MB (native libraries
+stored uncompressed).
+
+**Build:** you need JDK 17 and an Android SDK (platforms;android-34). Run `android/plugins/viper_device/build.sh`,
+which writes `addons/viper_device/bin/viper-device-release.aar` (git-ignored). Then export with
+`godot --headless --install-android-build-template --export-debug Android out.apk`. CI does this on every PR
+and checks that the APK's manifest and dex contain the plugin.
+
+**Still missing:**
+- live fold posture (needs Jetpack WindowManager);
+- true VRAM (no Android API exists);
+- real-device verification (COMPAT-8).
 
 ## 7. Platform matrix
 

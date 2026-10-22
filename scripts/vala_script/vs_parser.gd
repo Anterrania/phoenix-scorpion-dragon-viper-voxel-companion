@@ -197,14 +197,16 @@ func _stmt() -> Dictionary:
 				var init: Array = []
 				while error == "" and not _op(";"):
 					init.append(_decl() if (_is("type") or _is("kw", "var")) else {"k": "expr", "e": _expr(), "line": line})
-					if _op(","): _next() else: break
+					if _op(","): _next()
+					else: break
 				_expect_op(";")
 				var c = null if _op(";") else _expr()
 				_expect_op(";")
 				var step: Array = []
 				while error == "" and not _op(")"):
 					step.append({"k": "expr", "e": _expr(), "line": line})
-					if _op(","): _next() else: break
+					if _op(","): _next()
+					else: break
 				_expect_op(")")
 				return {"k": "for", "init": init, "c": c, "step": step, "body": _body(), "line": line}
 			"foreach":
@@ -382,7 +384,8 @@ func _primary() -> Dictionary:
 				_no_gt += 1
 				while error == "":
 					items.append(_bin(0))
-					if _op(","): _next() else: break
+					if _op(","): _next()
+					else: break
 				_no_gt -= 1
 				_expect_op(">")
 				if items.size() != 3 and items.size() != 4: _err("a vector has 3 parts and a rotation 4", line)

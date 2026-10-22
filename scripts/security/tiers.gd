@@ -23,7 +23,7 @@ const OWNER_ID := "phoenix"
 const SELF := "self"
 const ACTIONS := ["browse", "report", "post", "message", "friend", "follow", "group_join", "forum_post",
 	"blog_post", "event_rsvp", "poll_vote", "album", "classified", "upload", "marketplace",
-	"group_create", "event_create", "poll_create", "broadcast", "build", "land", "enter", "moderate",
+	"group_create", "event_create", "poll_create", "broadcast", "page_create", "build", "land", "enter", "moderate",
 	"edit_profile", "admin", "roles"] + SPACE_ACTIONS
 ## Frontier (space-sim systems, docs/modules/SPACESIM_PARITY.md): market orders, contracts, industry,
 ## ship ownership + insurance (resident), territory claims (creator), mission posting (staff).
@@ -31,14 +31,14 @@ const SPACE_ACTIONS := ["trade", "contract", "industry", "ship_own", "insure", "
 const OWNER_ONLY := ["admin", "roles"]
 const _G := ["browse", "report", "enter"]
 const _R := ["post", "message", "friend", "follow", "group_join", "forum_post", "blog_post", "event_rsvp", "poll_vote", "edit_profile", "build"] + ["trade", "contract", "industry", "ship_own", "insure"]
-const _C := ["album", "classified", "upload", "marketplace", "group_create", "event_create", "poll_create", "broadcast"] + ["territory"]
+const _C := ["album", "classified", "upload", "marketplace", "group_create", "event_create", "poll_create", "broadcast", "page_create"] + ["territory"]
 const _S := ["moderate"] + ["mission_create"]
 const _E := ["land"]
 ## Membership hooks (Aethel Coin prices are INACTIVE until the economy + legal review land).
 const MEMBERSHIP := {
 	"guest": {"perks": "Browse worlds, profiles, groups and the feed.", "aethel_monthly": 0, "active": true},
 	"resident": {"perks": "Post, message, friends, join groups, build where land allows.", "aethel_monthly": 0, "active": true},
-	"creator": {"perks": "Albums, classifieds (ad slots), uploads, marketplace, create groups/events/polls.", "aethel_monthly": 0, "active": false},
+	"creator": {"perks": "Albums, classifieds (ad slots), uploads, marketplace, create groups/events/polls/pages.", "aethel_monthly": 0, "active": false},
 	"staff": {"perks": "Build tools on staff land, moderation queue. Bots and employees.", "aethel_monthly": 0, "active": true},
 	"estate_manager": {"perks": "Region/estate settings and land, plus staff powers.", "aethel_monthly": 0, "active": true},
 	"owner": {"perks": "Everything. Needs the owner unlock.", "aethel_monthly": 0, "active": true},

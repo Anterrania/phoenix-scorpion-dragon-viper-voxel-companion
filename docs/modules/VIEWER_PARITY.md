@@ -160,6 +160,27 @@ other DarkStorm cell is `?`.
 | Profiles + picks + classifieds | ✓ | ✓ | ✓ | pending research | pending research | `Social.profile`, picks; classifieds INACTIVE | us | partial |
 | Search (places, people, groups, land) | ✓ | ✓ | ✓ | pending research | pending research | `show_in_search` flag (gap); no search service | us | planned |
 
+## Social media (TikTok · X · Threads · Instagram · Facebook), SMP
+
+Owned by feature/social-media-parity. The full inventory and the cross-post plan are in
+docs/modules/SOCIAL_MEDIA_PARITY.md. This section uses its own columns:
+`source | feature | Viper status | owner | tracker id`.
+
+| source | feature | Viper status | owner | tracker id |
+|---|---|---|---|---|
+| TikTok | Short vertical clips, sounds, duet/stitch/remix links | have (server); swipe player is Foxy's | dev / Foxy | SMP-1, SMP-4, SMP-16 |
+| Instagram | Stories (24 h), highlights, close friends | have (server); viewer is Foxy's | dev / Foxy | SMP-3, SMP-17 |
+| Instagram | Upload validation, EXIF/GPS strip, WebP thumbnails | have | dev | SMP-14 |
+| Instagram | Filters / adjustments / LUT editor | Foxy (spec) | Foxy | SMP-18 |
+| X / Threads | Threads, quotes, reposts, bookmarks, lists, edit history, polls | have | dev | SMP-5, SMP-6, SMP-9 |
+| X | Context notes (bridging) | have | dev | SMP-10 |
+| Threads | Ghost posts, topic controls, hidden words | have | dev | SMP-1, SMP-7 |
+| all | Ranked + paged feed, thumbnails first, Net data-mode budgets | have | dev | SMP-2 |
+| Facebook | Pages, events + RSVP, group rules + join requests, reactions | have | dev | SMP-8, SMP-5 |
+| all | Encrypted DMs, groups, disappearing messages | have (server); screen is Foxy's | dev / Foxy | SMP-11, SMP-20 |
+| all | Reports, moderation queue, age gating | have | dev | SMP-12, SMP-13 |
+| all | Live video; shops (LEGAL REVIEW); cross-post export (off by default) | planned | dev | SMP-23, SMP-24, SMP-22 |
+
 ## Rendering (RND) — ours unless marked
 
 Capabilities only (no UI). Columns: `feature | SL/Firestorm | Star Citizen | Dual Universe | No Man's Sky | ours | status | owner | tracker`.

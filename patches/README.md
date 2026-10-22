@@ -27,3 +27,6 @@ Apply: `git apply patches/<name>.patch` (face patch after v0.12 merges).
 
 ## Added by RND render pipeline (2026-10-22, not applied)
 - `weather_fx_particle_budget.patch` (`scripts/fx/weather_fx.gd`, touched on Foxy's feature/v012-avatar): weather and footstep emitters take their particle counts from the shared `ParticleBudget` pool and release them on rebuild; the biome lookup runs 4×/s instead of every frame. Spec: docs/specs/foxy/RENDER_QUALITY_HOOKS.md. Passes `git apply --check` on main at 1d4f15c, and the full suite passed with it applied.
+
+## Added by feature/social-media-parity (2026-10-22, not applied; for Foxy)
+- `social_menu_feed_entry.patch` (`scripts/ui/ui_root.gd`): adds a **📰 Social** MENU entry after Community. It opens `res://scenes/social/feed_screen.tscn` (docs/specs/foxy/FEED_SCREEN.md) if that scene exists, and otherwise opens the Community screen. Verified with `git apply --check` on main. Apply: `git apply patches/social_menu_feed_entry.patch`.

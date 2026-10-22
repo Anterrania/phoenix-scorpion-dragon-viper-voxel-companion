@@ -20,3 +20,6 @@ Apply: `git apply patches/viewer_parity_hud_hooks.patch`. Verified with `git app
 Both pass `git apply --check` on main, and the full suite passes (0 failures) with both applied.
 Damage needs no patch: `CombatZone.is_damage_enabled` (used by player, HUD and Cinder Stalker) now asks `LandGate.damage_enabled`.
 - `player_fly_estate_rule.after_viewer.patch`: the same change for a `scripts/player.gd` that already has `viewer_parity_hud_hooks.patch` (both edit `set_flying`). Apply order: `git apply patches/viewer_parity_hud_hooks.patch patches/player_fly_estate_rule.after_viewer.patch`. Verified on main after #29/#30: suite 1463 passing, 0 failures with these two plus `estate_panel_admin_gate.patch` applied.
+
+## Added by RND render pipeline (2026-10-22, not applied)
+- `weather_fx_particle_budget.patch` (`scripts/fx/weather_fx.gd`, touched on Foxy's feature/v012-avatar): weather and footstep emitters take their particle counts from the shared `ParticleBudget` pool and release them on rebuild; the biome lookup runs 4×/s instead of every frame. Spec: docs/specs/foxy/RENDER_QUALITY_HOOKS.md. Passes `git apply --check` on main at 1d4f15c, and the full suite passed with it applied.

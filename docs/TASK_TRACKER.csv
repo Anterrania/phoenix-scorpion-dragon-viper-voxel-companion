@@ -95,3 +95,14 @@ SEC,SEC-FIX-1 retire unsalted legacy owner-code hash (PBKDF2 bootstrap only; ref
 SEC,SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration,done,P0
 SEC,SEC-FIX-3 e-stop file MAC-sealed; fail closed,done,P1
 SEC,SEC-FIX-4 arm64-only Android export + tests clean up user:// roots,done,P2
+RND-1,"Render pipeline: RenderTiers knob table (low/med/high/ultra) registered with AutoQuality.register_knob; legacy Settings fallback; Mobile-renderer-safe (scripts/render/render_pipeline.gd, render_tiers.gd)",done_headless,P1
+RND-2,"FrameGovernor: frame-time/thermal feedback trims render scale, asks AutoQuality for a lower tier (scripts/render/frame_governor.gd)",done_headless,P1
+RND-3,"SDF generator band fill: identical output, gen time -35..-53% per block (smooth_terrain_generator.gd)",done,P1
+RND-4,"GreedyMesher for blocky builds/props: -74% faces on a 32^3 build (scripts/render/greedy_mesher.gd)",done_headless,P2
+RND-5,"MultiMesh foliage scatter + visibility ranges on props and foliage (scripts/render/foliage_scatter.gd)",done_headless,P1
+RND-6,"ParticleBudget pool per tier; weather hookup patch for Foxy (patches/weather_fx_particle_budget.patch)",partial,P2
+RND-7,"Terrain shader: LOD cross-fade variant, curvature AO, far-detail skipping, fake caustics",done_headless,P1
+RND-8,"Sky: realm variants (aurora, deep starfield), night stars, cubemap-pass skip",done_headless,P2
+RND-9,"Water: sky-gradient reflection; DEPTH_FX variant (depth fade, shore foam) on high/ultra",done_headless,P2
+RND-10,"Later/n.a.: occlusion for landmarks/caves, VoxelInstancer eval, compute (GPU erosion), texture arrays, HLOD; SSR/SSAO/SDFGI n.a. on Mobile",planned,P3
+RND-11,"Foxy: avatar shading quality knob + AutoQuality wants_lower_tier hookup (docs/specs/foxy/RENDER_QUALITY_HOOKS.md)",planned,P2

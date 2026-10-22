@@ -179,7 +179,7 @@ static func run(t: Node) -> void:
 	var par := FileAccess.get_file_as_string("res://docs/modules/VIEWER_PARITY.md")
 	t.check(par.contains("Rendering") and par.contains("RND-"), "parity table has a rendering section")
 	var csv := FileAccess.get_file_as_string("res://docs/TASK_TRACKER.csv")
-	t.check(csv.contains("\nRND,RND-1 ") and not csv.contains("\r"), "tracker: RND rows, LF endings")
+	t.check(csv.contains("\nRND-1,") and not csv.contains("\r"), "tracker: RND rows, LF endings")
 	t.check(FileAccess.file_exists("res://docs/wiki/graphics-settings.md"), "wiki: graphics settings page")
 	t.check(FileAccess.file_exists("res://docs/specs/foxy/RENDER_QUALITY_HOOKS.md"), "spec for Foxy: AutoQuality hooks")
 

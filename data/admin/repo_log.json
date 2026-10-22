@@ -1,9 +1,21 @@
 [
  {
-  "sha": "2788aaf",
+  "sha": "848dd37",
   "author": "Anterrania",
-  "date": "2026-10-17T13:24:36-07:00",
-  "subject": "fix(security): audit gates - admin writes, estate fly/damage, companion tools via Tiers.can, Tiers.set_role"
+  "date": "2026-10-22T09:44:06-07:00",
+  "subject": "test(render): quiet legacy-quality test, tracker row format"
+ },
+ {
+  "sha": "bcb6aa8",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:43:14-07:00",
+  "subject": "Merge origin/main (1d4f15c) into feature/render-pipeline"
+ },
+ {
+  "sha": "046b99c",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:43:08-07:00",
+  "subject": "wip(render): render pipeline, tiers, governor, particle budget, foliage scatter, greedy mesher, shader upgrades (RND)"
  },
  {
   "sha": "2f54951",

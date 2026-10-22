@@ -575,7 +575,7 @@ static func _clean_list(v: Variant, n: int, cap: int) -> Array:
 ## - this device's non-owner player ("self" -> "local"): Settings.mature_enabled() (self-confirmed age +
 ##   the mature toggle, same check the wardrobe uses);
 ## - other members: owner-set age_verified AND their own mature opt-in on the profile.
-## The RLV-style age checks (viewer-parity branch) are not on main yet; when they land, plug them in here.
+## RLV-style Restrictions adult flag: see _restrictions_adult().
 static func age_ok(viewer: Variant) -> bool:
 	var id := _id(viewer)
 	if id == "": return false
@@ -583,9 +583,15 @@ static func age_ok(viewer: Variant) -> bool:
 	var t := Tiers.tier_of(id)
 	if t == "owner": return true
 	if t == "guest" or Tiers.is_bot(id): return false
-	if id == "local": return _settings_mature()
+	if id == "local": return _settings_mature() or (_restrictions_adult(id) and bool(db()["profiles"].get(id, {}).get("mature_opt_in", false)))
 	var p: Dictionary = db()["profiles"].get(id, {})
 	return bool(p.get("age_verified", false)) and bool(p.get("mature_opt_in", false))
+
+## The RLV-style Restrictions module (scripts/security/restrictions.gd, on main) stores a SELF-confirmed
+## adult flag. Accepted only for this device's own player (plus their mature opt-in); other members
+## always need the owner's age_verified.
+static func _restrictions_adult(id: String) -> bool:
+	return bool(Restrictions.db()["subjects"].get(id, {}).get("adult", false))
 
 static func _settings_mature() -> bool:
 	var ml := Engine.get_main_loop()
@@ -1040,7 +1046,10 @@ static func feed_page(viewer: Variant, cursor := "", limit := 20) -> Dictionary:
 	var off := maxi(0, int(parts[2])) if parts.size() >= 3 else 0
 	limit = clampi(limit, 1, 50)
 	sync_approvals()
-	var c := _candidates(me, mode, at)
+	# Snapshot = time + the highest post sequence seen on page one (posts made in the same second
+	# as the snapshot don't slip in between pages).
+	var top := int(parts[3]) if parts.size() >= 4 else _max_seq()
+	var c := _candidates(me, mode, at).filter(func(p): return _seq(p) <= top)
 	if mode in RANKED_MODES:
 		var ctx := _rank_ctx(me)
 		var scored: Array = c.map(func(p): return [_score(me, p, at, ctx), _seq(p), p])
@@ -1048,8 +1057,13 @@ static func feed_page(viewer: Variant, cursor := "", limit := 20) -> Dictionary:
 		c = _diversify(scored.map(func(x): return x[2]))
 	else: c.sort_custom(_newer)
 	var items: Array = c.slice(off, off + limit).map(func(p): return decorate(me, p))
-	var nxt := "%s|%d|%d" % [mode, at, off + limit] if off + limit < c.size() else ""
+	var nxt := "%s|%d|%d|%d" % [mode, at, off + limit, top] if off + limit < c.size() else ""
 	return {"ok": true, "error": "", "items": items, "next_cursor": nxt, "mode": mode}
+
+static func _max_seq() -> int:
+	var m := 0
+	for p in db()["feed"]: m = maxi(m, _seq(p))
+	return m
 
 static func _newer(a: Dictionary, b: Dictionary) -> bool:
 	return int(a["t"]) > int(b["t"]) or (int(a["t"]) == int(b["t"]) and _seq(a) > _seq(b))
@@ -1792,7 +1806,7 @@ static func trending(viewer: Variant, hours := 24, limit := 10) -> Array:
 		for t in p.get("tags", []):
 			var s: Dictionary = authors.get(t, {}); s[p["author"]] = true; authors[t] = s
 			posts[t] = int(posts.get(t, 0)) + 1
-	var out: Array = authors.keys().map(func(t): return {"tag": t, "authors": authors[t].size(), "posts": posts[t], "score": authors[t].size() * 2 + posts[t]})
+	var out: Array = authors.keys().map(func(t): return {"tag": t, "authors": authors[t].size(), "posts": posts[t], "score": authors[t].size() * 10 + mini(posts[t], authors[t].size() * 3)})
 	out.sort_custom(func(a, b): return a["score"] > b["score"] or (a["score"] == b["score"] and str(a["tag"]) < str(b["tag"])))
 	return out.slice(0, limit)
 

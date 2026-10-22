@@ -62,6 +62,8 @@ func _ready() -> void:
 	await load("res://tests/gate_tests.gd").run_scene(self)
 	load("res://tests/sec_fix_tests.gd").run(self)
 	load("res://tests/sec_fix_tests.gd").cleanup(self)
+	var smp = load("res://tests/social_media_tests.gd")
+	smp.run(self); smp.run_dm(self); smp.run_media(self); smp.run_docs(self); await smp.run_ui(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

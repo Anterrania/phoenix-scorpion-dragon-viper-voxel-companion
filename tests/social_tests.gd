@@ -180,8 +180,8 @@ static func run(t: Node) -> void:
 
 	# ---------- roadmap stubs ----------
 	var stubs := [Social.forum_post("ex_res", "f", "t", "x"), Social.blog_post("ex_res", "t", "x"), Social.album_add("ex_cre", "a", "m"),
-		Social.event_create("ex_cre", "e", 0, "welcome"), Social.poll_create("ex_cre", "q", ["a", "b"]), Social.classified_post("ex_cre", "t", "x", "slot1")]
-	t.check(stubs.all(func(s): return s["error"] == "INACTIVE" and str(s["roadmap"]) != ""), "roadmap: stubs report INACTIVE with a roadmap note")
+		Social.classified_post("ex_cre", "t", "x", "slot1")]
+	t.check(stubs.all(func(s): return s["error"] == "INACTIVE" and str(s["roadmap"]) != ""), "roadmap: stubs report INACTIVE with a roadmap note (events/polls are live since SMP)")
 	t.check(Social.album_add("ex_res", "a", "m")["error"] == "Not allowed." and Social.classified_post("ex_res", "t", "x", "s")["error"] == "Not allowed.", "roadmap: stubs still enforce tiers (creators only)")
 	t.check(Social.classified_post("ex_cre", "t", "x", "s")["roadmap"].contains("LEGAL REVIEW"), "roadmap: classifieds carry legal-review note")
 

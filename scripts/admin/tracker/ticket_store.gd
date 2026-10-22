@@ -68,6 +68,7 @@ static func _normalize(t: Dictionary) -> Dictionary:
 		"revisions": t.get("revisions", []) if t.get("revisions", []) is Array else []}
 
 func create(fields: Dictionary, author := "local") -> int:
+	if not AdminGate.ok(): return 0   # AUDIT-2: owner session only
 	if str(fields.get("summary", "")).strip_edges() == "": return 0
 	var t := _normalize(fields)
 	t["id"] = next_id()
@@ -87,6 +88,7 @@ func can_transition(id: int, to: String) -> bool:
 
 ## Returns the revision number, or 0 if the transition is not allowed.
 func transition(id: int, to: String, author := "local", resolution := "fixed", owner := "") -> int:
+	if not AdminGate.ok(): return 0   # AUDIT-2: owner session only
 	if not can_transition(id, to): return 0
 	if to == "closed" and resolution not in RESOLUTIONS: return 0
 	var t: Dictionary = tickets[id]
@@ -99,6 +101,7 @@ func transition(id: int, to: String, author := "local", resolution := "fixed", o
 	return _commit(id, before, "#%d %s -> %s" % [id, from, to], author)
 
 func update(id: int, fields: Dictionary, author := "local") -> int:
+	if not AdminGate.ok(): return 0   # AUDIT-2: owner session only
 	if not tickets.has(id): return 0
 	var t: Dictionary = tickets[id]
 	var before := t.duplicate(true)
@@ -109,6 +112,7 @@ func update(id: int, fields: Dictionary, author := "local") -> int:
 
 ## Comments may reference revisions (r42), other tickets (#12) and wiki pages; links are parsed on render.
 func comment(id: int, text: String, author := "local") -> int:
+	if not AdminGate.ok(): return 0   # AUDIT-2: owner session only
 	text = text.strip_edges().left(2000)
 	if not tickets.has(id) or text == "": return 0
 	var t: Dictionary = tickets[id]

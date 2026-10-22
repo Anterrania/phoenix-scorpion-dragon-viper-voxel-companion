@@ -1,5 +1,11 @@
 [
  {
+  "sha": "6798d82",
+  "author": "Anterrania",
+  "date": "2026-10-17T13:29:33-07:00",
+  "subject": "docs(phone): MEDIA_BROADCAST spec, wiki pages (display settings, device check, media/broadcast), tiers broadcast notes, PHONE-1..10 tracker rows, reseed"
+ },
+ {
   "sha": "b4bbc84",
   "author": "Anterrania",
   "date": "2026-10-17T13:26:32-07:00",

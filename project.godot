@@ -20,6 +20,8 @@ AgentBrain="*res://scripts/autoload/agent_brain.gd"
 RealmBuilder="*res://scripts/autoload/realm_builder.gd"
 Inventory="*res://scripts/autoload/inventory.gd"
 Profile="*res://scripts/autoload/profile.gd"
+DeviceProfile="*res://scripts/system/device_profile.gd"
+AutoConfig="*res://scripts/system/auto_config.gd"
 
 [display]
 window/size/viewport_width=720

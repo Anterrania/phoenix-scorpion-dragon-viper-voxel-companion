@@ -171,12 +171,39 @@ static func run_first_run(t: Node) -> void:
 	t.check(OwnerVault.setup("246802", true) != "" and Profile.first_run_setup("246802") != "", "sec5: corrupted vault refuses fresh setup")
 	t.check(FileAccess.get_file_as_string(root2.path_join("security/vault.json")) == "{corrupt", "sec5: corrupted vault left untouched")
 	t.check(PinPad.new("unlock").mode == "unlock", "sec5: PIN pad does not offer first-run when a vault file exists")
-	# existing owner data refuses fresh setup
+	# SEC-FIX-6: pre-vault owner device (role owner, no vault, no bootstrap) -> upgrade setup
+	Profile.data["role"] = "owner"
+	OwnerVault.reset_for_tests(root2.path_join("security"), 1000)
+	t.check(not Profile.first_run_allowed() and Profile.first_run_setup("246802") != "", "sec6: owner role + corrupted vault still refused")
 	var root3 := root + "_o"
 	OwnerVault.reset_for_tests(root3.path_join("security"), 1000)
-	Profile.data["role"] = "owner"
-	t.check(not Profile.first_run_allowed() and OwnerVault.setup("246802", true) != "", "sec5: existing owner data refuses fresh setup")
+	SecureFile.reset_for_tests(); SaveMigration.data_root = root3
+	ViperAdminData.root = root3.path_join("viper"); ViperAdminData.reset()
+	t.check(Profile.first_run_allowed(), "sec6: owner device without vault offers upgrade setup")
+	var up := PinPad.new("unlock")
+	t.check(up.mode == "first_run", "sec6: PIN pad opens the create flow for the upgrade")
+	for k in "975310": up.press(k)
+	up.press("OK")
+	t.check(not OwnerVault.has_vault() and up.stage == 1, "sec6: upgrade needs confirmation")
+	for k in "975310": up.press(k)
+	up.press("OK")
+	t.check(OwnerVault.has_vault() and OwnerVault.is_unlocked() and Profile.is_owner(), "sec6: upgrade path succeeds")
+	up.free()
+	t.check(ViperAdminData.revisions().history("security/owner_setup_upgrade").size() == 1 and not ViperAdminData.revisions().history("security/").any(func(h): return str(h.get("path", "")) == "security/owner_setup"), "sec6: logged as security/owner_setup_upgrade")
+	t.check(not Profile.first_run_allowed() and Profile.first_run_setup("975311") != "" and OwnerVault.setup("975311", true) != "", "sec6: second setup refused")
+	OwnerVault.lock_all()
+	Profile.legacy_bootstrap = Profile.make_bootstrap("phoenix-up6", 1000)
+	t.check(not Profile.try_owner_unlock("phoenix-up6") and not OwnerVault.is_unlocked(), "sec6: legacy code refused after upgrade setup")
+	t.check(Profile.try_owner_unlock("975310"), "sec6: upgrade PIN unlocks")
+	Profile.legacy_bootstrap = {}
+	# non-owner fresh install still works
+	var root4 := root + "_g"
+	OwnerVault.reset_for_tests(root4.path_join("security"), 1000)
+	Profile.data["role"] = "guest"
+	t.check(Profile.first_run_allowed() and Profile.first_run_setup("112358") == "" and Profile.is_owner(), "sec6: non-owner fresh install still works")
+	_rm_tree(root4)
 	# bootstrap file path still works
+	OwnerVault.reset_for_tests((root + "_b").path_join("security"), 1000)
 	Profile.data["role"] = "guest"
 	Profile.legacy_bootstrap = Profile.make_bootstrap("phoenix-boot5", 1000)
 	t.check(not Profile.first_run_allowed() and PinPad.new("unlock").mode == "unlock", "sec5: bootstrap build uses the owner-code flow, not first-run")
@@ -184,7 +211,7 @@ static func run_first_run(t: Node) -> void:
 	# restore
 	Profile.legacy_bootstrap = saved_boot
 	Profile.data = saved_data; Profile.save()
-	for d in [root, root2, root3]: _rm_tree(d)
+	for d in [root, root2, root3, root + "_b"]: _rm_tree(d)
 	OwnerVault.reset_for_tests(saved_root, CryptoBox.DEFAULT_ITERATIONS)
 	SecureFile.reset_for_tests()
 	SaveMigration.data_root = saved_mig

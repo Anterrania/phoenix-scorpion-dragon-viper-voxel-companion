@@ -1,5 +1,17 @@
 [
  {
+  "sha": "4b2329b",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:50:24-07:00",
+  "subject": "test(phone): broadcast key test uses OwnerVault.setup_for_tests (SEC-FIX-5 refuses fresh setup in tests; main had 5 failures)"
+ },
+ {
+  "sha": "479f7bf",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:49:07-07:00",
+  "subject": "Merge origin/main (af15641) into feature/render-pipeline; union tracker/patch notes, reseed"
+ },
+ {
   "sha": "372d85c",
   "author": "Anterrania",
   "date": "2026-10-22T09:47:14-07:00",

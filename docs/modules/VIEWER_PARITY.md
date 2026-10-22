@@ -196,6 +196,34 @@ docs/wiki/viewer-features.md.
 
 ---
 
+## Device compatibility
+
+Our own code: DEVICE_COMPAT.md. Features only. The columns are the platforms we match; "ours" is the evidence.
+
+| feature | Firestorm / SL viewer | Space sims (SC/EVE/DU) | mobile games baseline | ours | owner | status |
+|---|---|---|---|---|---|---|
+| Hardware detect + auto graphics preset on first run | ✓ (GPU table) | ✓ | ✓ | `DeviceProfile` + `DeviceCaps.score` → `AutoConfig` tier recommendation | us + Foxy (AutoQuality) | have |
+| Manual preset always wins, reset to recommended | ✓ | ✓ | ✓ | `[compat]` prefs + last-auto rule, Reset to auto | us | have |
+| UI scale by screen / form factor | ✓ (UI size pref) | ✓ | ✓ | `AutoConfig.UI_SCALE` (phone compact, TV 1.6×) | us + phone worker | have |
+| Gamepad support with hot-plug | — | ✓ | ✓ | `input_scheme_of`, `joy_connection_changed`, pad events on move/jump | us; HUD = Foxy | partial (HUD) |
+| Feature toggles by capability, with a reason | partial | ✓ | ✓ | `FeatureRegistry` | us | have |
+| Thermal / FPS governor | — | partial | ✓ | Foxy AutoQuality (we pass the thermal level and profile) | Foxy | planned (v0.12+) |
+| TV / 10-foot UI | — | — | partial | form_factor tv + gamepad | us + Foxy | partial |
+| XR mode | ✓ (old SL VR mode) | ✓ (SC no; DU no; EVE no) | — | feature flag only | Foxy | planned (future) |
+
+## Power & data
+
+| feature | Firestorm / SL viewer | Space sims | social apps baseline | ours | owner | status |
+|---|---|---|---|---|---|---|
+| Battery saver mode (auto on low battery / power saver / heat) | — | — | ✓ | PowerData `saver` (POWER_AND_DATA.md) | us + Foxy | have (needs plugin for inputs) |
+| Background pause + keepalive | ✓ (minimized FPS cap) | ✓ | ✓ | `background` mode + `Dormancy.set_background` | us | have |
+| Data saver: low bitrate, no autoplay, thumbnails on cell | — | — | ✓ | `Net.set_data_mode`, Data saver Auto/On/Off | us; feed UI = Foxy | have |
+| Defer large downloads to Wi-Fi, prefetch on charger | — | ✓ (launcher) | ✓ | `defer_large_downloads`, `prefetch` budgets | us | have (API) |
+| HTTP caching (ETag / Last-Modified) | ✓ (asset cache) | ✓ | ✓ | `Net.request_headers` / `on_response` in MusicRadio + SoundCloud | us | have |
+| Batched, compressed, delta network state | ✓ (UDP msg packing) | ✓ | ✓ | `Net.pack/unpack/delta` | us | have (API; grid sync to adopt) |
+| Interest management: sleep with no viewer, cheap catch-up | ✓ (region idle) | ✓ (EVE/DU idle grids) | — | `Dormancy` | us; living-world / Vala / social adopt | have (API) |
+| Session data usage readout | — | — | ✓ | Battery & data card | us | have |
+
 ## Spec for Foxy (client UI parity)
 
 Everything below follows the Phoenix Glass kit, `PhoenixTokens` sizes (compact default, TAP_MIN 56,

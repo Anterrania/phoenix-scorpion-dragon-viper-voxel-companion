@@ -23,6 +23,8 @@ Short pages. Tap one.
 - [Welcome Island](welcome-island.md) · built
 - [Economy](economy.md) · partial
 - [Graphics Settings](graphics-settings.md) · built
+- [Device Compatibility](device-compatibility.md) · built
+- [Battery & Data](battery-and-data.md) · built
 - [Physical Form](physical-form.md) · planned
 - [Glossary](glossary.md) · built
 - [Worlds & Regions](worlds-regions.md) · built

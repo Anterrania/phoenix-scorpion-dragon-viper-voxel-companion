@@ -161,7 +161,7 @@ static func score(c: Dictionary) -> int:
 static func capability_class(c: Dictionary) -> String:
 	var s := int(c.get("capability_score", -1))
 	if s < 0: s = score(c)
-	var cls := 0 if s < 30 else (1 if s < 55 else (2 if s < 78 else 3))
+	var cls := 0 if s < 30 else (1 if s < 55 else (2 if s < 80 else 3))
 	var ram := int(c.get("ram_mb", -1))
 	if ram > 0 and ram < 3072: cls = mini(cls, 0)
 	elif ram > 0 and ram < 6144: cls = mini(cls, 2)

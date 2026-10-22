@@ -49,6 +49,8 @@ Short pages. Tap one.
 - [Display Settings](display-settings.md) · partial
 - [Device Check](device-check.md) · partial
 - [Media, Voice & Broadcast](media-broadcast.md) · partial
+- [Social Media](social-media.md) · partial
+- [Messages](messages.md) · partial
 
 - [FAQ](../FAQ.md)
 

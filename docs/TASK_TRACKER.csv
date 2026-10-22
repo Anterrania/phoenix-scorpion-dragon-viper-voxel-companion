@@ -121,3 +121,28 @@ COMPAT-PWR-3,"Net: batched deflate frames + state delta + ETag/Last-Modified HTT
 COMPAT-PWR-4,"Dormancy shared helper (sleep with no viewer, one fast-forward catch-up); adoption by living-world, Vala Script and social workers",in_progress,P1
 COMPAT-PWR-5,"Battery & data card in Device & compatibility (mode, why, data this session, Data saver pref)",done_headless,P2
 COMPAT-PWR-6,"Foxy: AutoQuality set_power_profile / set_fps_cap_hint / recommend_tier, idle and background frame rate (docs/specs/foxy/power_data.md)",open,P1
+SMP-1,"Post kinds clip + story (24h expiry) and Social.feed(viewer, cursor) page + next_cursor",done_headless,P0
+SMP-2,"Ranked/paged feeds (for_you, following, latest, explore, clips, list/tag/author/group/sound), snapshot cursor, thumbnails first, Net data mode guard + image/bitrate budgets",done_headless,P0
+SMP-3,"Stories tray, viewer list, archive, highlights, story replies to DMs",done_headless,P1
+SMP-4,"Clips: original sounds, duet/stitch/remix links, allow_remix toggle",done_headless,P1
+SMP-5,"Threads, reply controls, quotes, reposts, reactions (7 kinds), bookmarks + folders, views",done_headless,P1
+SMP-6,"Polls, drafts, scheduled posts, edit window + history, pinned post, carousels + alt text",done_headless,P1
+SMP-7,"Privacy: private accounts + follow requests, mute, restrict, close friends, hidden words, topic controls",done_headless,P0
+SMP-8,"Pages (Creator+) and events (RSVP, capacity, group/page hosts, companion events via approval)",done_headless,P1
+SMP-9,"Search (posts, people, tags, groups, pages, events), trending by distinct authors, explore, lists",done_headless,P1
+SMP-10,Context notes with helpful ratings + bridging check,done_headless,P2
+SMP-11,"Encrypted DMs (SocialDM): requests, groups, receipts, reactions, unsend/edit, disappearing messages, report one message",done_headless,P0
+SMP-12,"Moderation: grouped queue, auto-hold at 3 reports, hide/mature/restore/dismiss, modlog, Community Reports tab",done_headless,P0
+SMP-13,"Age gating: age_ok (Settings mature, Restrictions adult flag, owner-verified members); mature posts/groups/events",done_headless,P0
+SMP-14,"MediaTools: upload validation, EXIF/GPS strip, rotation, WebP full/low/thumb sized to Net budgets",done_headless,P0
+SMP-15,Creator analytics + post insights,done_headless,P2
+SMP-16,"Foxy: vertical feed screen + reels player (docs/specs/foxy/FEED_SCREEN.md, REELS_PLAYER.md)",open,P1
+SMP-17,Foxy: story viewer + camera capture (docs/specs/foxy/STORY_VIEWER.md),open,P1
+SMP-18,Foxy: image editor filter/adjustment/LUT pipeline (docs/specs/foxy/IMAGE_EDITOR.md),open,P1
+SMP-19,"Foxy: composer, reactions UI, profile cards (docs/specs/foxy/COMPOSER.md)",open,P1
+SMP-20,Foxy: DM screen (docs/specs/foxy/DM_SCREEN.md),open,P1
+SMP-21,Foxy: apply patches/social_menu_feed_entry.patch (Social menu entry),open,P2
+SMP-22,"Cross-post export adapters (off by default, owner approval per post) - INACTIVE stub Social.cross_post",todo,P3
+SMP-23,Live video + live chat,todo,P3
+SMP-24,Shops / marketplace listings with Aethel Coin - LEGAL REVIEW,blocked,P3
+SMP-25,Server sync for feeds/DMs across devices + clip transcoding,todo,P2

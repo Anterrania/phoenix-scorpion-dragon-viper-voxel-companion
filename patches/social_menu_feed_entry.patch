@@ -1,0 +1,37 @@
+diff --git a/scripts/ui/ui_root.gd b/scripts/ui/ui_root.gd
+index 0249970..7eceb7d 100644
+--- a/scripts/ui/ui_root.gd
++++ b/scripts/ui/ui_root.gd
+@@ -226,13 +226,14 @@ func _build_menu() -> Dictionary:
+ 	grid.add_theme_constant_override("h_separation", 12)
+ 	grid.add_theme_constant_override("v_separation", 12)
+ 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
+-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
++			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+ 		var target: String = row[1]
+ 		var t := btn(row[0], func():
+ 			if target == "_bg": AppControl.to_background(get_tree())
+ 			elif target == "_exit": AppControl.exit_app(get_tree())
+ 			elif target == "_admin": open_admin()
+ 			elif target == "_community": CommunityScreen.open(self)
++			elif target == "_social": _open_social()
+ 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
+ 			elif target == "_interop": InteropScreen.open(self)
+ 			else: show_panel(target))
+@@ -243,6 +244,16 @@ func _build_menu() -> Dictionary:
+ 	b.add_child(label("Gold ★ YOUR INPUT HERE tags mark placeholders waiting for your decision.", 22, GOLD))
+ 	return p
+ 
++## Social feed (SMP): Foxy's vertical feed screen (docs/specs/foxy/FEED_SCREEN.md). Until that scene
++## exists the button opens Community instead.
++func _open_social() -> void:
++	const FEED := "res://scenes/social/feed_screen.tscn"
++	if ResourceLoader.exists(FEED):
++		var s: Node = load(FEED).instantiate()
++		add_child(s)
++	else:
++		CommunityScreen.open(self)
++
+ ## Radial launcher (right edge, vertically centred). Admin 12 o'clock -> dashboard,
+ ## Security 2 o'clock -> lock/audit panel, then Chat, Map, Proposals, Menu.
+ var radial: ViperRadial

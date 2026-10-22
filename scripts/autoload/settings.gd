@@ -24,7 +24,14 @@ const DEFAULTS := {
 	"sync": {"endpoint": ""},
 	"hotreload": {"allow_user_overrides": true},
 	"graphics": {"quality": 1},  # 0 Low, 1 Medium, 2 High
+	# Display / accessibility (DisplaySettings). Compact by default; Settings > Display > Large.
+	"display": {"text_scale": 1.0, "icon_scale": 1.0, "max_view": false, "orientation": "auto"},
+	# Voice morph preset (VoiceFx.PRESETS) for mic/voice chat + lip sync on/off.
+	"voice_fx": {"preset": "natural", "lip_sync": true, "mic_gate": 0.02},
 }
+
+## Emitted by DisplaySettings.apply() after text/icon scale, Max view or orientation change.
+signal display_changed
 
 signal quality_changed(level: int)
 const QUALITY_NAMES := ["LOW", "MED", "HIGH"]
@@ -56,6 +63,7 @@ func _ready() -> void:
 			for key in DEFAULTS[section]:
 				cfg.set_value(section, key, DEFAULTS[section][key])
 		cfg.save(PATH)
+	DisplaySettings.apply()   # scale tokens/theme + orientation before any UI is built
 	migrate_api_key()
 
 func get_value(section: String, key: String, fallback: Variant = null) -> Variant:

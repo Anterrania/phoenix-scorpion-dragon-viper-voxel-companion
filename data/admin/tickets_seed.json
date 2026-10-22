@@ -1106,6 +1106,138 @@
  {
   "id": 93,
   "type": "task",
+  "summary": "Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(\"self\", \"admin\"); cache admin Home revision history per head",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "AUDIT-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 94,
+  "type": "task",
+  "summary": "Display settings: PhoenixTokens scale (compact default, one-tap Large 80 px / 18 px+), text + icon sliders, Max view, theme scaling; Admin > Settings > Display (docs/wiki/display-settings.md)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "PHONE-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 95,
+  "type": "task",
+  "summary": "Orientation: auto-rotate (sensor) + Portrait lock in Settings; responsive margins on resize/rotation (admin, security, community, settings) + radial menu re-anchors",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "PHONE-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 96,
+  "type": "task",
+  "summary": "Device check panel (Admin > Settings > Device): Android permissions, mic driver, mic devices, camera feeds, TTS voices; Ask for permissions (OS.request_permissions)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "PHONE-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 97,
+  "type": "task",
+  "summary": "Android permissions + audio input: camera, record_audio, modify_audio_settings, post_notifications, read_media_images/video/audio, read_external_storage; audio/driver/enable_input=true (verify on a ph",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "PHONE-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 98,
+  "type": "task",
+  "summary": "Voice morph (VoiceFx: pitch shift + formant EQ presets, folded into TTS pitch/rate) + MicCapture; CompanionVoice voice-pick + utterance-callback sync fix (VOICE-1)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "PHONE-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 99,
+  "type": "task",
+  "summary": "Lip sync (LipSync: mic/clip amplitude + TTS-synced visemes) driving FaceDriver via patches/face_driver_lip_sync.patch (Foxy applies after v0.12)",
+  "status": "accepted",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "PHONE-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 100,
+  "type": "task",
+  "summary": "Beat detector + dance timeline (our own; drives HumanoidModel now, RealisticBody bones next) for live events",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "PHONE-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 101,
+  "type": "task",
+  "summary": "Broadcast stub: stream entries + parcel media URLs, stream keys encrypted only, Tiers.can(actor,'broadcast',parcel), owner approval to go live; Admin > Settings > Broadcast (encoder INACTIVE)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "PHONE-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 102,
+  "type": "task",
+  "summary": "Main HUD follows display scale + Large toggle on first-run screens + MENU entry (patches/ui_root_display_settings.patch, Foxy)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "PHONE-9",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 103,
+  "type": "task",
+  "summary": "Roadmap (docs/modules/MEDIA_BROADCAST.md): AI music, music videos, YouTube/SoundCloud OAuth upload drafts, RTMP encoder plugin + YouTube Live, in-world media screens, voice chat + spatial audio",
+  "status": "new",
+  "resolution": "",
+  "priority": "P2",
+  "component": "general",
+  "milestone": "PHONE-10",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 104,
+  "type": "task",
   "summary": "SEC-FIX-1 retire unsalted legacy owner-code hash (PBKDF2 bootstrap only; refused once PIN set)",
   "status": "closed",
   "resolution": "fixed",
@@ -1116,7 +1248,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 94,
+  "id": 105,
   "type": "task",
   "summary": "SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration",
   "status": "closed",
@@ -1128,7 +1260,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 95,
+  "id": 106,
   "type": "task",
   "summary": "SEC-FIX-3 e-stop file MAC-sealed; fail closed",
   "status": "closed",
@@ -1140,7 +1272,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 96,
+  "id": 107,
   "type": "task",
   "summary": "SEC-FIX-4 arm64-only Android export + tests clean up user:// roots",
   "status": "closed",
@@ -1152,7 +1284,19 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 97,
+  "id": 108,
+  "type": "task",
+  "summary": "SEC-FIX-5 first-run owner PIN/passphrase on a fresh install (confirmed; refused once any vault file exists)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "SEC",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 109,
   "type": "task",
   "summary": "DeviceProfile autoload + DeviceCaps schema 1 (Foxy-approved caps(): every key, -1/'' unknown, live keys every 30 s + focus, caps_changed)",
   "status": "closed",
@@ -1164,7 +1308,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 98,
+  "id": 110,
   "type": "task",
   "summary": "Capability score + class (pure, documented) and form factor/foldable heuristics; fake low/mid/high/ultra phone, tablet, foldable, TV, Chromebook, desktop tests",
   "status": "closed",
@@ -1176,7 +1320,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 99,
+  "id": 111,
   "type": "task",
   "summary": "AutoConfig: tier recommendation via AutoQuality (has_method), legacy quality fallback, UI scale, input scheme + InputMap pad events, never overwrite manual choices, Reset to auto",
   "status": "closed",
@@ -1188,7 +1332,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 100,
+  "id": 112,
   "type": "task",
   "summary": "FeatureRegistry: requirements (camera, mic, gyro, compute, RAM, network, XR, form factor) with reason strings",
   "status": "closed",
@@ -1200,7 +1344,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 101,
+  "id": 113,
   "type": "task",
   "summary": "Settings > Device & compatibility screen (read-only, Re-detect, Reset to auto); reuse phone-branch DeviceCheck when merged",
   "status": "closed",
@@ -1212,7 +1356,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 102,
+  "id": 114,
   "type": "task",
   "summary": "Docs: DEVICE_COMPAT.md, parity section, wiki device-compatibility, Foxy specs (caps schema, input scheme UI, gamepad HUD, AutoQuality hookup)",
   "status": "closed",
@@ -1224,7 +1368,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 103,
+  "id": 115,
   "type": "task",
   "summary": "Android plugin ViperDevice: battery, charging, power save, thermal, network type, VRAM, vibrator (hook ready; plugin not built)",
   "status": "new",
@@ -1236,7 +1380,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 104,
+  "id": 116,
   "type": "task",
   "summary": "Device testing: real Android phone, tablet, foldable, Android TV, ChromeOS",
   "status": "new",
@@ -1248,7 +1392,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 105,
+  "id": 117,
   "type": "task",
   "summary": "PowerData policy in AutoConfig: balanced-saver default, saver on battery<30%/power save/thermal>=3/cell, full on charger+Wi-Fi, background pause + keepalive",
   "status": "closed",
@@ -1260,7 +1404,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 106,
+  "id": 118,
   "type": "task",
   "summary": "Data saver Auto/On/Off: Net.set_data_mode, low bitrate, thumbnails only, no autoplay, defer >5 MB to Wi-Fi",
   "status": "closed",
@@ -1272,7 +1416,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 107,
+  "id": 119,
   "type": "task",
   "summary": "Net: batched deflate frames + state delta + ETag/Last-Modified HTTP cache wired into MusicRadio and SoundCloudSource; session data counter",
   "status": "closed",
@@ -1284,7 +1428,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 108,
+  "id": 120,
   "type": "task",
   "summary": "Dormancy shared helper (sleep with no viewer, one fast-forward catch-up); adoption by living-world, Vala Script and social workers",
   "status": "accepted",
@@ -1296,7 +1440,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 109,
+  "id": 121,
   "type": "task",
   "summary": "Battery & data card in Device & compatibility (mode, why, data this session, Data saver pref)",
   "status": "closed",
@@ -1308,7 +1452,7 @@
   "source": "docs/TASK_TRACKER.csv"
  },
  {
-  "id": 110,
+  "id": 122,
   "type": "task",
   "summary": "Foxy: AutoQuality set_power_profile / set_fps_cap_hint / recommend_tier, idle and background frame rate (docs/specs/foxy/power_data.md)",
   "status": "new",

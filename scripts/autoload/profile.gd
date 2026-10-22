@@ -81,6 +81,22 @@ func legacy_code_matches(code: String) -> bool:
 ##   old legacy key slots are removed once, on first load of a vault that has a pin slot.
 ## - No vault yet: the legacy code (PBKDF2 bootstrap match) opens a SETUP-ONLY bootstrap. It grants
 ##   no owner powers; the only thing it allows is OwnerVault.setup() of the first PIN.
+## SEC-FIX-5: first-run owner setup is allowed only when there is NO vault file (valid or corrupted),
+## no legacy bootstrap record in the build, and no existing owner data (profile role) on the device.
+func first_run_allowed() -> bool:
+	return not OwnerVault.vault_file_present() and str(legacy_bootstrap.get("hash", "")) == "" and role() != "owner"
+
+## First-run: create the owner PIN/passphrase (confirmed by the caller), claim the device, log it.
+func first_run_setup(secret: String) -> String:
+	if not first_run_allowed(): return "First-run setup is not available on this device."
+	var e := OwnerVault.setup(secret, true)
+	if e != "": return e
+	data["role"] = "owner"
+	save()
+	ViperAdminData.revisions().commit("role", "security/owner_setup", null, "first-run owner PIN created",
+		"Owner PIN/passphrase created on first run (SEC-FIX-5)", "owner")
+	return ""
+
 func try_owner_unlock(code: String) -> bool:
 	var ok := false
 	if OwnerVault.has_vault():

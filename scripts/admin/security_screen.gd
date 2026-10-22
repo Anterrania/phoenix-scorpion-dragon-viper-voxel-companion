@@ -2,10 +2,9 @@ class_name SecurityScreen
 extends Control
 ## Viper OS Security panel (radial menu, 2 o'clock, shield): lock state, auto-lock time, PIN change,
 ## old-code retirement, e-stop, lattice audit-chain verify, encrypted backup export, biometric status.
-## Large, high-contrast type throughout (owner has eye trouble): body 28 px, actions 64-96 px tall.
+## High-contrast type. Sizes come from PhoenixTokens (Settings > Display): compact by default, one tap to Large.
 signal closed
 
-const BODY := 28
 var body: VBoxContainer
 var overlay: Control
 var last_backup := ""
@@ -19,11 +18,12 @@ func _ready() -> void:
 	for s in ["left", "right", "bottom"]: m.add_theme_constant_override("margin_" + s, 24)
 	m.add_theme_constant_override("margin_top", 32)
 	add_child(m)
-	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", 16); m.add_child(v)
+	DisplaySettings.attach_responsive(m)
+	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", PhoenixTokens.space(4)); m.add_child(v)
 	var head := HBoxContainer.new()
-	var t := Label.new(); t.text = "Security"; t.theme_type_variation = &"TitleLabel"; t.add_theme_font_size_override("font_size", 40)
+	var t := Label.new(); t.text = "Security"; t.theme_type_variation = &"TitleLabel"; t.add_theme_font_size_override("font_size", PhoenixTokens.fs("title"))
 	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL; head.add_child(t)
-	var x := Button.new(); x.text = "✕"; x.custom_minimum_size = Vector2(80, 80); x.add_theme_font_size_override("font_size", 36)
+	var x := Button.new(); x.text = "✕"; x.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap()); x.add_theme_font_size_override("font_size", PhoenixTokens.fs("headline"))
 	x.pressed.connect(func(): closed.emit(); queue_free()); head.add_child(x)
 	v.add_child(head)
 	var sc := ScrollContainer.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -34,20 +34,20 @@ func _ready() -> void:
 	tm.timeout.connect(func(): if overlay == null: refresh())
 	refresh()
 
-func _text(t: String, px := BODY, col := Color(1, 1, 1)) -> Label:
+func _text(t: String, px := -1, col := Color(1, 1, 1)) -> Label:
 	var l := Label.new(); l.text = t; l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	l.add_theme_font_size_override("font_size", px); l.add_theme_color_override("font_color", col)
+	l.add_theme_font_size_override("font_size", px if px > 0 else PhoenixTokens.fs("body")); l.add_theme_color_override("font_color", col)
 	return l
 
-func _big(t: String, f: Callable, h := 88) -> Button:
-	var b := Button.new(); b.text = t; b.custom_minimum_size = Vector2(0, h)
-	b.add_theme_font_size_override("font_size", 32); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+func _big(t: String, f: Callable, h := -1) -> Button:
+	var b := Button.new(); b.text = t; b.custom_minimum_size = Vector2(0, h if h > 0 else PhoenixTokens.tap())
+	b.add_theme_font_size_override("font_size", PhoenixTokens.fs("headline")); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	b.pressed.connect(f)
 	return b
 
 func _hold(t: String, f: Callable) -> HoldButton:
-	var b := HoldButton.new(); b.text = t; b.custom_minimum_size = Vector2(0, 88)
-	b.add_theme_font_size_override("font_size", 30); b.confirmed.connect(f)
+	var b := HoldButton.new(); b.text = t; b.custom_minimum_size = Vector2(0, PhoenixTokens.tap())
+	b.add_theme_font_size_override("font_size", PhoenixTokens.fs("headline")); b.confirmed.connect(f)
 	return b
 
 func refresh() -> void:
@@ -62,46 +62,49 @@ func refresh() -> void:
 		("%d" % ceili(left / 60.0)) if owner else "—", 160)
 	row.add_child(ring)
 	var st := VBoxContainer.new(); st.size_flags_horizontal = Control.SIZE_EXPAND_FILL; row.add_child(st)
-	st.add_child(_text(state_text(), 30))
-	st.add_child(_text("Saves: " + ("encrypted, open" if OwnerVault.storage_ready() else ("encrypted, sealed" if OwnerVault.has_vault() else "not encrypted yet")), BODY, PhoenixTokens.PLATINUM_DIM))
+	st.add_child(_text(state_text(), PhoenixTokens.fs("headline")))
+	st.add_child(_text("Saves: " + ("encrypted, open" if OwnerVault.storage_ready() else ("encrypted, sealed" if OwnerVault.has_vault() else "not encrypted yet")), -1, PhoenixTokens.PLATINUM_DIM))
 	if owner:
 		lc.body().add_child(_big("Lock now", func(): OwnerVault.lock(); refresh()))
-		lc.body().add_child(_big("Lock & seal saves", func(): OwnerVault.lock_all(); refresh(), 72))
+		lc.body().add_child(_big("Lock & seal saves", func(): OwnerVault.lock_all(); refresh()))
 	else:
-		lc.body().add_child(_big("Unlock" if OwnerVault.has_vault() else "Enter owner code", func(): open_pad("unlock")))
+		if not OwnerVault.has_vault() and Profile.first_run_allowed():
+			lc.body().add_child(_big("Create owner PIN or passphrase", func(): open_pad("first_run")))
+		else:
+			lc.body().add_child(_big("Unlock" if OwnerVault.has_vault() else "Enter owner code", func(): open_pad("unlock")))
 	if OwnerVault.needs_pin_setup():
 		lc.body().add_child(_big("Set a PIN now", func(): open_pad("setup")))
 	# --- e-stop ---
 	var ec := ViperKit.card("Emergency stop"); body.add_child(ec)
 	var es := AutonomyGuard.state()
-	ec.body().add_child(_text("Companions: " + ("PAUSED since %s" % es["since"] if es["paused"] else "running"), 30, PhoenixTokens.ERR if es["paused"] else PhoenixTokens.OK))
+	ec.body().add_child(_text("Companions: " + ("PAUSED since %s" % es["since"] if es["paused"] else "running"), PhoenixTokens.fs("headline"), PhoenixTokens.ERR if es["paused"] else PhoenixTokens.OK))
 	if not es["paused"]:
 		var stop := _big("■  STOP ALL COMPANIONS", func(): AutonomyGuard.engage("security panel"); toast("Companions paused", "warn"); refresh(), 104)
 		stop.name = "EStop"
 		var sb := StyleBoxFlat.new(); sb.bg_color = Color("#7a0018"); sb.border_color = Color(1, 1, 1); sb.set_border_width_all(4); sb.set_corner_radius_all(52)
 		stop.add_theme_stylebox_override("normal", sb); stop.add_theme_color_override("font_color", Color(1, 1, 1))
 		ec.body().add_child(stop)
-		ec.body().add_child(_text("Pauses free roam, self-learning, proposals and tools. Chat keeps working. Anyone can press it.", 24, PhoenixTokens.PLATINUM_DIM))
+		ec.body().add_child(_text("Pauses free roam, self-learning, proposals and tools. Chat keeps working. Anyone can press it.", PhoenixTokens.fs("label"), PhoenixTokens.PLATINUM_DIM))
 	elif owner:
 		ec.body().add_child(_hold("Hold to resume companions", func(): AutonomyGuard.release(); toast("Companions resumed"); refresh()))
 	else:
-		ec.body().add_child(_text("Only the owner can resume. Unlock first.", 24, PhoenixTokens.PLATINUM_DIM))
+		ec.body().add_child(_text("Only the owner can resume. Unlock first.", PhoenixTokens.fs("label"), PhoenixTokens.PLATINUM_DIM))
 	# --- audit ---
 	var ac := ViperKit.card("Audit chain"); body.add_child(ac)
 	last_verify = ViperAdminData.revisions().verify_chain()
 	var arow := HBoxContainer.new(); arow.add_theme_constant_override("separation", 20); ac.body().add_child(arow)
 	arow.add_child(ViperKit.ring(1.0 if last_verify["ok"] else 0.0, "verified" if last_verify["ok"] else "BROKEN", "✓" if last_verify["ok"] else "✗", 120))
-	var at := _text(audit_text(last_verify), BODY); at.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var at := _text(audit_text(last_verify)); at.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	arow.add_child(at)
-	ac.body().add_child(_big("Verify again", func(): refresh(), 72))
+	ac.body().add_child(_big("Verify again", func(): refresh()))
 	# --- owner-only settings ---
 	var oc := ViperKit.card("Owner settings"); body.add_child(oc)
 	if not owner:
-		oc.body().add_child(_text("Unlock to change the PIN, auto-lock time or make a backup.", BODY, PhoenixTokens.PLATINUM_DIM))
+		oc.body().add_child(_text("Unlock to change the PIN, auto-lock time or make a backup.", -1, PhoenixTokens.PLATINUM_DIM))
 	else:
-		oc.body().add_child(_text("Auto-lock after (minutes)", BODY))
+		oc.body().add_child(_text("Auto-lock after (minutes)"))
 		var seg := SegmentedPills.new().setup([["5", "5"], ["15", "15"], ["30", "30"], ["60", "60"], ["120", "120"]], str(OwnerVault.lock_minutes()))
-		for b in seg.get_children(): b.custom_minimum_size.y = 80; b.add_theme_font_size_override("font_size", 30)
+		for b in seg.get_children(): b.custom_minimum_size.y = PhoenixTokens.tap(); b.add_theme_font_size_override("font_size", PhoenixTokens.fs("headline"))
 		seg.changed.connect(func(id): OwnerVault.set_lock_minutes(int(id)); toast("Auto-lock %s min" % id); refresh())
 		oc.body().add_child(seg)
 		if OwnerVault.has_vault(): oc.body().add_child(_big("Change PIN", func(): open_pad("change")))
@@ -109,8 +112,11 @@ func refresh() -> void:
 			oc.body().add_child(_hold("Hold to retire the old owner code", func(): OwnerVault.retire_legacy(); toast("Old code retired"); refresh()))
 		if OwnerVault.storage_ready():
 			oc.body().add_child(_big("Export encrypted backup", func(): export_backup()))
-			if last_backup != "": oc.body().add_child(_text("Saved: " + ProjectSettings.globalize_path(last_backup), 22, PhoenixTokens.PLATINUM_DIM))
-	oc.body().add_child(_text("Fingerprint unlock: " + ("available" if BiometricHook.available() else "not available yet (no plugin installed)"), 22, PhoenixTokens.PLATINUM_DIM))
+			if last_backup != "": oc.body().add_child(_text("Saved: " + ProjectSettings.globalize_path(last_backup), PhoenixTokens.fs("label"), PhoenixTokens.PLATINUM_DIM))
+	oc.body().add_child(_text("Fingerprint unlock: " + ("available" if BiometricHook.available() else "not available yet (no plugin installed)"), PhoenixTokens.fs("label"), PhoenixTokens.PLATINUM_DIM))
+	var dc := ViperKit.card("Display & device"); body.add_child(dc)
+	dc.body().add_child(_big("Display & text size", func(): SettingsScreen.open_in(self, "Display")))
+	dc.body().add_child(_big("Device check", func(): SettingsScreen.open_in(self, "Device")))
 
 static func state_text() -> String:
 	if OwnerVault.is_unlocked(): return "Owner unlocked · auto-lock in %d min" % ceili(OwnerVault.seconds_left() / 60.0)
@@ -139,7 +145,7 @@ func open_pad(mode: String) -> PinPad:
 	overlay.add_child(m)
 	var v := VBoxContainer.new(); m.add_child(v)
 	var pad := PinPad.new(mode); pad.size_flags_vertical = Control.SIZE_EXPAND_FILL; v.add_child(pad)
-	var cancel := _big("Cancel", func(): overlay.queue_free(); overlay = null; refresh(), 88); v.add_child(cancel)
+	var cancel := _big("Cancel", func(): overlay.queue_free(); overlay = null; refresh()); v.add_child(cancel)
 	pad.finished.connect(func(ok):
 		if ok:
 			toast("Done")

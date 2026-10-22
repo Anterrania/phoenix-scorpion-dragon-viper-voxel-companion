@@ -1,5 +1,11 @@
 [
  {
+  "sha": "1bdf9c1",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:50:58-07:00",
+  "subject": "feat(compat): device auto-detect + AutoConfig + PowerData/data saver/Dormancy; docs, specs, wiki, tracker; 0 failures (1647 pass)"
+ },
+ {
   "sha": "3ed0622",
   "author": "Anterrania",
   "date": "2026-10-22T09:48:16-07:00",

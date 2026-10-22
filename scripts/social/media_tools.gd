@@ -8,7 +8,7 @@ extends RefCounted
 ##  - has_metadata() / strip_metadata(): lossless removal of EXIF (incl. GPS), XMP, IPTC, comments
 ##    and text chunks from JPEG / PNG / WebP bytes.
 ##  - exif_orientation(): read the camera rotation before EXIF is dropped, so photos stay upright.
-##  - thumbnail(), fit(), compress(): small WebP variants (full 1440, low 720, thumb 320) so the app
+##  - thumbnail(), fit(), compress(): small WebP variants (full 1440, low 640, thumb 320 - sized to the Net budgets) so the app
 ##    and its feeds stay small. Re-encoding through Image also drops every metadata block.
 ##  - process_upload() / store_media(): the whole pipeline; refs look like "media:<sha16>".
 
@@ -16,8 +16,8 @@ const MAX_BYTES := 12 * 1024 * 1024
 const MAX_SIDE_IN := 8192
 const MAX_PIXELS := 40_000_000
 const FULL_SIDE := 1440
-const LOW_SIDE := 720
-const THUMB_SIDE := 320
+const LOW_SIDE := 640    # = Net.IMAGE_PX["saver"]["image"] (checked by tests)
+const THUMB_SIDE := 320  # = Net.IMAGE_PX["normal"]["thumb"]; FULL_SIDE 1440 <= Net "full" 2048
 const QUALITY := 0.8
 const LOW_QUALITY := 0.6
 const THUMB_QUALITY := 0.7

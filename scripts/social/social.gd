@@ -66,7 +66,7 @@ static var now_override := -1          # tests: fixed clock (unix seconds)
 static var age_override = null         # tests: {id: bool} forces age_ok() for those ids
 static var report_hooks: Array = []    # Callables called with each new report Dictionary (admin badges, toasts)
 static var notify_listeners: Array = []   # Callables(batch: {member_id: [notes]}): one call per saved action, no polling
-static var data_mode_override := ""    # tests: "wifi" | "cell" | "saver"
+static var data_mode_override := ""    # tests: "full" | "normal" | "saver" (else Net.mode)
 static var _batch := {}
 
 # ---------- store ----------
@@ -1193,7 +1193,7 @@ static func decorate(viewer: Variant, p: Dictionary) -> Dictionary:
 	return d
 
 ## Lazy full-media fetch: the ref for one media item once the viewer opens it (visibility checked
-## again). variant: "auto" (low on cell/saver, full on wifi) | "full" | "low" | "thumb".
+## again). variant: "auto" (full on "full", else low) | "full" | "low" | "thumb".
 static func media_url(viewer: Variant, pid: String, index := 0, variant := "auto") -> String:
 	var p := _find(pid)
 	if p.is_empty() or not _visible(p, _id(viewer)) or index < 0 or index >= (p.get("media", []) as Array).size(): return ""
@@ -1204,25 +1204,26 @@ static func media_url(viewer: Variant, pid: String, index := 0, variant := "auto
 		"full": return str(m["full_url"])
 		"low": return str(m["low_url"])
 		"thumb": return str(m["thumb_url"])
-	return str(m["use_url"])
+	return str(m["full_url"]) if data_mode() == "full" else str(m["low_url"])
 
-## Data mode from the Net autoload (feature/device-compat): "wifi" | "cell" | "saver".
-## Defaults to "wifi" when Net isn't there (yet).
+## Data mode from Net (scripts/system/net.gd, PR #39; AutoConfig sets it from the PowerData policy):
+## "full" | "normal" | "saver". data_mode_override is for tests only.
 static func data_mode() -> String:
-	if data_mode_override != "": return data_mode_override
-	var ml := Engine.get_main_loop()
-	var net: Node = ml.root.get_node_or_null("/root/Net") if ml is SceneTree else null
-	if net != null and net.has_method("get_data_mode"):
-		var m := str(net.get_data_mode())
-		return m if m in ["wifi", "cell", "saver"] else "wifi"
-	return "wifi"
+	if data_mode_override != "": return data_mode_override if data_mode_override in Net.MODES else "normal"
+	return Net.mode
 
-## Thumbnails first: every media item carries thumb_url + hash; full media is lazy (fetch full_url
-## only when opened / on screen). On cell or saver: no autoplay for clips/stories and the low-bitrate
-## variant (low_url) is the one to stream / show.
+## Thumbnails first: every media item carries thumb_url + hash; full media is lazy (fetch only when
+## opened / on screen). Budgets come straight from Net for the current mode:
+##  full   -> full variant, autoplay, prefetch next items
+##  normal -> low variant, autoplay, no prefetch
+##  saver  -> thumbnails only in the feed, no autoplay; opening an item streams the low variant
+## Each item also carries max_px / thumb_px (Net.image_px) and, for clips/stories, kbps
+## (Net.media_kbps("video")) so the client never asks for more than the budget.
 static func _media_hints(d: Dictionary) -> void:
 	var mode := data_mode()
-	var lean := mode != "wifi"
+	var prev := Net.mode
+	Net.mode = mode    # read Net's tables for this mode (restored below; override only differs in tests)
+	var video := str(d.get("kind", "")) in ["clip", "story"]
 	for m in d.get("media", []):
 		var ref := str(m["ref"])
 		var media_ref := ref.begins_with("media:")
@@ -1231,11 +1232,19 @@ static func _media_hints(d: Dictionary) -> void:
 		m["low_url"] = str(m.get("low_ref", "")) if str(m.get("low_ref", "")) != "" else (ref + "_low" if media_ref else ref)
 		m["full_url"] = ref
 		m["lazy"] = true
-		m["use_url"] = m["low_url"] if lean else ref
+		m["max_px"] = Net.image_px("image")
+		m["thumb_px"] = Net.image_px("thumb")
+		if video or str(m.get("type", "")) == "video": m["kbps"] = Net.media_kbps("video")
+		if Net.thumbnails_only(): m["use_url"] = m["thumb_url"] if m["thumb_url"] != "" else m["low_url"]
+		elif mode == "normal": m["use_url"] = m["low_url"]
+		else: m["use_url"] = ref
 	d["data_mode"] = mode
 	d["thumb_url"] = str(d["media"][0]["thumb_url"]) if not (d.get("media", []) as Array).is_empty() else ""
-	d["autoplay"] = d["kind"] in ["clip", "story"] and not lean
-	d["variant"] = "low" if lean else "full"
+	d["autoplay"] = video and Net.autoplay_ok()
+	d["prefetch"] = Net.prefetch_ok()
+	d["variant"] = "thumb" if Net.thumbnails_only() else ("full" if mode == "full" else "low")
+	Net.mode = prev
+
 # ---------- engagement: reactions, reposts, bookmarks, views ----------
 static func react(actor: Variant, pid: String, kind := "like") -> Dictionary:
 	var me := _id(actor)

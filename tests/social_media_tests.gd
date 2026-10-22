@@ -259,18 +259,24 @@ static func run(t: Node) -> void:
 	t.check(Social.feed_page("sg", "list:" + lst["id"], 50)["items"].all(func(x): return x["author"] == "sd") and Social.feed_page("sc", "list:" + lst["id"])["items"].is_empty(), "smp lists: list feed; private lists stay private")
 	t.check(Social.lists_of("sc", "sg").is_empty() and Social.lists_of("sg").size() == 1, "smp lists: only you see your private lists")
 	Social.now_override = T0
-	# data-mode hints (Net autoload absent -> wifi)
-	t.check(Social.data_mode() == "wifi", "smp data: no Net autoload -> wifi")
+	# data-mode hints follow Net (PR #39)
+	var net_prev := Net.mode
+	Net.set_data_mode("full")
+	t.check(Social.data_mode() == "full", "smp data: Social.data_mode() reads Net.mode")
 	var ci: Dictionary = Social.feed_page("sc", "clips")["items"][0]
-	t.check(ci["autoplay"] and ci["variant"] == "full" and ci["media"][0]["lazy"] and ci["media"][0]["hash"].length() == 16, "smp data: wifi -> autoplay, full variant, lazy media with hash")
-	Social.data_mode_override = "cell"
+	t.check(ci["autoplay"] and ci["variant"] == "full" and ci["media"][0]["lazy"] and ci["media"][0]["hash"].length() == 16 and ci["prefetch"] and ci["media"][0]["kbps"] == Net.MEDIA_KBPS["full"]["video"], "smp data: full -> autoplay, prefetch, full variant, Net video budget")
+	Net.set_data_mode("normal")
 	ci = Social.feed_page("sc", "clips")["items"][0]
-	t.check(not ci["autoplay"] and ci["variant"] == "low" and ci["media"][0]["use_url"] == ci["media"][0]["low_url"], "smp data: cell -> no autoplay, low-bitrate variant")
+	t.check(ci["variant"] == "low" and ci["media"][0]["use_url"] == ci["media"][0]["low_url"], "smp data: normal -> low variant"); t.check(ci["autoplay"] and not ci["prefetch"] and ci["media"][0]["kbps"] == 1500 and ci["media"][0]["thumb_px"] == 320, "smp data: normal budgets from Net")
 	var phi: Dictionary = Social.decorate("sb", Social._find(car["id"]))
 	t.check(phi["thumb_url"] == "media:aaaa_t" and phi["media"][1]["thumb_url"] == "media:bbbb_t", "smp data: thumbnails first (thumb_url per item)")
-	Social.data_mode_override = "saver"
+	Net.set_data_mode("saver")
+	ci = Social.feed_page("sc", "clips")["items"][0]
+	t.check(not ci["autoplay"] and ci["variant"] == "thumb" and ci["media"][0]["kbps"] == 400 and ci["media"][0]["max_px"] == 640, "smp data: saver -> thumbnails only, no autoplay, saver budgets")
 	t.check(Social.media_url("sb", car["id"], 0) == "media:aaaa_low" and Social.media_url("sb", car["id"], 0, "full") == "media:aaaa" and Social.media_url("sc", fr["id"], 0) == "", "smp data: lazy media_url (saver -> low; visibility checked)")
-	Social.data_mode_override = ""
+	Social.data_mode_override = "full"
+	t.check(Social.data_mode() == "full" and Net.mode == "saver", "smp data: test override doesn't touch Net")
+	Social.data_mode_override = ""; Net.set_data_mode(net_prev)
 
 	# ---------- pages ----------
 	t.check(not Social.page_create("sa", "Viper Builders")["ok"], "smp pages: creator tier needed")
@@ -507,7 +513,8 @@ static func run_media(t: Node) -> void:
 	t.check(r["w"] == 720 and r["h"] == 1440 and r["had_metadata"], "media: EXIF rotation applied, longest side 1440")
 	var lo = Image.new(); lo.load_webp_from_buffer(r["low"])
 	var th = Image.new(); th.load_webp_from_buffer(r["thumb"])
-	t.check(maxi(lo.get_width(), lo.get_height()) == 720 and th.get_width() == 320 and th.get_height() == 320, "media: low (720) + square thumbnail (320)")
+	t.check(maxi(lo.get_width(), lo.get_height()) == 640 and th.get_width() == 320 and th.get_height() == 320, "media: low (640) + square thumbnail (320)")
+	t.check(MediaTools.LOW_SIDE == Net.IMAGE_PX["saver"]["image"] and MediaTools.THUMB_SIDE == Net.IMAGE_PX["normal"]["thumb"] and MediaTools.FULL_SIDE <= Net.IMAGE_PX["full"]["image"], "media: variants sized to Net budgets")
 	t.check(r["bytes_out"] < r["bytes_in"] and r["thumb"].size() < r["low"].size() and r["low"].size() < r["full"].size(), "media: compression keeps it small")
 	t.check(MediaTools.process_upload("sa", tagged)["missing_alt"], "media: missing alt text flagged")
 	t.check(not MediaTools.process_upload("stranger", tagged)["ok"], "media: guests can't upload")
@@ -566,6 +573,6 @@ static func run_ui(t: Node) -> void:
 	for n in all:
 		if n is Button: labels.append(n.text)
 	t.check("Mature" in labels and "Hide" in labels and "Keep" in labels, "community ui: Hide / Mature / Keep on held posts")
-	t.check(s.min_tap_ok(80), "community ui: new buttons >= 80 px")
+	t.check(s.min_tap_ok(PhoenixTokens.tap()), "community ui: new buttons >= token tap size")
 	s.queue_free()
 	_restore(root, saved)

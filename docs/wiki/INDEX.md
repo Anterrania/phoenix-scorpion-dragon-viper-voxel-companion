@@ -20,6 +20,10 @@ Short pages. Tap one.
 - [Music](music.md) · built
 - [Avatars & DNA](avatars-dna.md) · built
 - [Combat, RP & Breedables](combat-rp-breedables.md) · built
+- [Needs & Mood](sim-needs-mood.md) · built
+- [Skills & Perks](sim-skills-perks.md) · built
+- [Factions & Reputation](sim-factions.md) · built
+- [Crafting & Infusion](sim-crafting.md) · built
 - [Welcome Island](welcome-island.md) · built
 - [Economy](economy.md) · partial
 - [Graphics Settings](graphics-settings.md) · built

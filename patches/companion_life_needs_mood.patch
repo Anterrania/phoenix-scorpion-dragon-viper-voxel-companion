@@ -1,0 +1,36 @@
+diff --git a/scripts/agent/companion_life.gd b/scripts/agent/companion_life.gd
+index 71d8e13..d605e8b 100644
+--- a/scripts/agent/companion_life.gd
++++ b/scripts/agent/companion_life.gd
+@@ -15,6 +15,9 @@ var curiosity := 0.6
+ var log_entries: Array = []
+ var built := 0
+ var gathered := {}
++## SBX-21 hook: Sims-style needs + mood (scripts/sim/needs_mood.gd). Loaded per companion, saved on finish.
++var needs: NeedsMood
++const NEED_ACTIVITY := {"explore": "explore", "gather": "build", "build": "build", "travel": "explore", "rest": "rest"}
+ 
+ func _init(a: Node3D) -> void:
+ 	agent = a
+@@ -91,6 +94,11 @@ func _start(g: String) -> void:
+ 			agent._target = null
+ 
+ func _finish(g: String) -> void:
++	if needs == null and "companion_id" in agent: needs = NeedsMood.load_for(agent.companion_id)
++	if needs != null and g != "":
++		needs.tick(timer_minutes(), NEED_ACTIVITY.get(g, "idle"))
++		energy = minf(energy, needs.to_life_energy())   # the needs model can only lower energy
++		needs.save()
+ 	var gen = _world().generator if _world() and "generator" in _world() else null
+ 	var biome := "the realm"
+ 	if gen: biome = ["the Alaskan tundra", "the Venus wastes", "the Cosmic expanse"][gen.biome_at(agent.global_position.x, agent.global_position.z)]
+@@ -119,6 +127,9 @@ func _finish(g: String) -> void:
+ 		"rest":
+ 			log_action("rested and recharged")
+ 
++## One goal cycle (8-16 s real time) counts as 10 in-world minutes for needs.
++func timer_minutes() -> float: return 10.0
++
+ ## Small structure built from smooth props (v0.6 will use real voxel building).
+ func build_cairn() -> Node3D:
+ 	var rng := RandomNumberGenerator.new()

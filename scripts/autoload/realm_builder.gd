@@ -46,7 +46,7 @@ func request_realm(prompt: String) -> void:
 		"response_format": {"type": "json_object"},
 		"messages": [{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}]}
 	http.request(str(Settings.get_value("llm", "endpoint")),
-		["Content-Type: application/json", "Authorization: Bearer %s" % Settings.get_value("llm", "api_key")],
+		["Content-Type: application/json", "Authorization: Bearer %s" % Settings.api_key()],
 		HTTPClient.METHOD_POST, JSON.stringify(body))
 
 func _on_done(result: int, code: int, _h: PackedStringArray, raw: PackedByteArray, http: HTTPRequest, prompt: String) -> void:

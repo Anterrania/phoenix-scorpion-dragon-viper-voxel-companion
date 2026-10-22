@@ -18,7 +18,9 @@ Radial order, clockwise from 12: Admin · Security · Chat · Map · Proposals �
 ## Owner login
 - `Profile.is_owner()` = role `owner` on this device **and** an unlocked owner session (`OwnerVault.is_unlocked()`). `EveCore.owner_ok()`, `EveCore.decide()`, `EveBrainCell.unlock()` (Foxy's owner-only patch, merged in #18), Inventory owner items and estate owner checks all go through it.
 - Owner-only *cosmetics* (the Sovereign avatar preset) use `is_owner_device()`, so Phoenix's look doesn't disappear when the session auto-locks.
-- **Old owner code** (starts `phoenix-`, checked against `Profile.OWNER_CODE_SHA256`, case-insensitive): on a phone without a PIN it opens an owner session and the PIN pad moves straight to **Set a PIN**. The code is kept as its own key slot, so it keeps working afterwards too, until the owner taps *Hold to retire the old owner code*.
+- **Old owner code** (SEC-FIX-1): the unsalted `Profile.OWNER_CODE_SHA256` constant is retired and its value removed from the repo. On a phone with no vault yet, the old code is accepted only if the build has a salted PBKDF2 record in the gitignored `config/owner_bootstrap.local.cfg` (`[owner] salt, iter, hash`; make one with `Profile.make_bootstrap()`), and only to **bootstrap the first PIN**: it grants no owner powers. A fresh install without that file sets the first PIN directly. Once `vault.json` has a pin slot the old code is refused, and any older legacy key slot is removed once on load (`legacy_retired` in vault.json).
+- **LLM API key** (SEC-FIX-2): no longer stored in `settings.cfg`. It is sealed in `user://security/secrets.bin` with the vault data key, held in memory only until a vault key is loaded, and any old plaintext `[llm] api_key` is moved there and blanked from `settings.cfg` once.
+- **E-stop file** (SEC-FIX-3): `estop.json` carries an HMAC under the vault data key. Unreadable, unsealed, tampered or not-yet-verifiable (vault locked) means the e-stop is treated as **engaged** (fail closed); it is re-checked on unlock.
 - PIN: 6+ digits, or a passphrase of 8+ characters. KDF: PBKDF2-HMAC-SHA256, 16-byte random salt, **310,000 iterations** (about 0.4 s on desktop, a few seconds on a mid-range phone, stored per slot so it can be tuned). Argon2 isn't built into Godot.
 - Backoff: after 5 wrong tries, wait 30 s, doubling each time up to 1 h. This is persisted.
 - **Auto-lock: 30 minutes by default.** The owner can change it in Security › Owner settings (5/15/30/60/120; the API clamps to 1–240). Any touch or keypress resets the timer.
@@ -49,3 +51,4 @@ Security › **■ STOP ALL COMPANIONS** (one tap, anyone, persisted) pauses com
 - This is a local device protection, not an account system. Multiplayer needs server-side auth (Aurora-model grid).
 - An attacker who can run code inside the unlocked app can read the key from memory.
 - PBKDF2 is weaker against GPUs than Argon2. A 6-digit PIN alone is guessable offline by someone who has the files, so a passphrase is better for long-term secrets.
+- Full encryption write-up, review findings and fixes: [ENCRYPTION.md](ENCRYPTION.md).

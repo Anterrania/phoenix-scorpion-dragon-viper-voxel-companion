@@ -2278,5 +2278,101 @@
   "milestone": "RND-11",
   "owner": "",
   "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 191,
+  "type": "task",
+  "summary": "Realm world seeds (gravity, atmosphere, temp, radiation, water, day, soil) + WorldEnv",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "LIFE-1",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 192,
+  "type": "task",
+  "summary": "Tolerance genome, viability, spawn lists, non-sexual creature combine (old saves compatible)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "LIFE-2",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 193,
+  "type": "task",
+  "summary": "Survival vitals (Survival.vitals, vitals_changed), suits/habitats, SIR disease, vaccines, ecology on Dormancy + sim_tick_hz",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "LIFE-3",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 194,
+  "type": "task",
+  "summary": "LivingGate: owner exemption only when unlocked, e-stop, per-estate survival on/off/softcore with realm defaults",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P0",
+  "component": "general",
+  "milestone": "LIFE-4",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 195,
+  "type": "task",
+  "summary": "Governance: nations, laws, elections, embassies, borders, civic-credit taxes (Aethel Coin tax LEGAL REVIEW)",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "LIFE-5",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 196,
+  "type": "task",
+  "summary": "Geology ores by realm/depth, recipe graph, blueprints w/ perms (AEC sales/payouts LEGAL REVIEW), Industry bridge",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "LIFE-6",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 197,
+  "type": "task",
+  "summary": "Land: no object caps, render budgets, planet/region/chunk addressing, floating origin, SectorPager",
+  "status": "closed",
+  "resolution": "fixed",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "LIFE-7",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
+ },
+ {
+  "id": 198,
+  "type": "task",
+  "summary": "Foxy client: vitals HUD, suit, scanner, crafting, DNA, symptoms, gov screens, client floating origin (docs/specs/foxy/LIVING_WORLD_CLIENT.md)",
+  "status": "new",
+  "resolution": "",
+  "priority": "P1",
+  "component": "general",
+  "milestone": "LIFE-8",
+  "owner": "",
+  "source": "docs/TASK_TRACKER.csv"
  }
 ]

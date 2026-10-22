@@ -189,3 +189,11 @@ RND-8,"Sky: realm variants (aurora, deep starfield), night stars, cubemap-pass s
 RND-9,"Water: sky-gradient reflection; DEPTH_FX variant (depth fade, shore foam) on high/ultra",done_headless,P2
 RND-10,"Later/n.a.: occlusion for landmarks/caves, VoxelInstancer eval, compute (GPU erosion), texture arrays, HLOD; SSR/SSAO/SDFGI n.a. on Mobile",planned,P3
 RND-11,"Foxy: avatar shading quality knob + AutoQuality wants_lower_tier hookup (docs/specs/foxy/RENDER_QUALITY_HOOKS.md)",planned,P2
+LIFE-1,"Realm world seeds (gravity, atmosphere, temp, radiation, water, day, soil) + WorldEnv",done_headless,P1
+LIFE-2,"Tolerance genome, viability, spawn lists, non-sexual creature combine (old saves compatible)",done_headless,P1
+LIFE-3,"Survival vitals (Survival.vitals, vitals_changed), suits/habitats, SIR disease, vaccines, ecology on Dormancy + sim_tick_hz",done_headless,P0
+LIFE-4,"LivingGate: owner exemption only when unlocked, e-stop, per-estate survival on/off/softcore with realm defaults",done_headless,P0
+LIFE-5,"Governance: nations, laws, elections, embassies, borders, civic-credit taxes (Aethel Coin tax LEGAL REVIEW)",done_headless,P1
+LIFE-6,"Geology ores by realm/depth, recipe graph, blueprints w/ perms (AEC sales/payouts LEGAL REVIEW), Industry bridge",done_headless,P1
+LIFE-7,"Land: no object caps, render budgets, planet/region/chunk addressing, floating origin, SectorPager",done_headless,P1
+LIFE-8,"Foxy client: vitals HUD, suit, scanner, crafting, DNA, symptoms, gov screens, client floating origin (docs/specs/foxy/LIVING_WORLD_CLIENT.md)",todo,P1

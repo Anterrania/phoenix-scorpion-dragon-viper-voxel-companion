@@ -50,6 +50,7 @@ Short pages. Tap one.
 - [Frontier](frontier.md) · partial
 - [Viewer Features](viewer-features.md) · partial
 - [Land & Safety](land-safety.md) · built
+- [Living World](living-world.md) · partial
 - [Mute, Block & Derender](mute-block-derender.md) · built
 - [Restrictions](restrictions.md) · partial
 - [Landmarks, Home & Teleport History](landmarks-teleport.md) · built

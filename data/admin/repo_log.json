@@ -1,5 +1,11 @@
 [
  {
+  "sha": "0706cc2",
+  "author": "Anterrania",
+  "date": "2026-10-22T10:01:53-07:00",
+  "subject": "Merge origin/main (#35 render pipeline) into feature/spacesim-parity; reseed"
+ },
+ {
   "sha": "5589efa",
   "author": "Anterrania",
   "date": "2026-10-22T09:59:52-07:00",

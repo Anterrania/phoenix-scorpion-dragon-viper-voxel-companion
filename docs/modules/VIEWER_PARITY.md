@@ -366,3 +366,21 @@ when `is_restricted(self, "showminimap")`.
 the `fly` restriction (one line). Checked with `git apply --check` on main and on feature/v012-avatar.
 Still to wire on her side: `tplm` / `tploc` in landmark and map teleports, `sendchat`/`sendim` in chat,
 `filter_lines` in nearby chat, derender skip in the renderer, `teleport_target` before teleports.
+
+## Living world parity (LIFE, survival/governance/mining)
+
+Feature comparison only. No code, names or assets are copied.
+
+| feature | Dual Universe | Star Citizen | Rust | Valheim | No Man's Sky | EVE Online | Second Life | ours | status |
+|---|---|---|---|---|---|---|---|---|---|
+| survival vitals (O2/temp/food/water) | partial | yes | yes | food only | yes | no | no | Survival (O2, CO2, pressure, radiation, hydration, kcal, fatigue) | built |
+| per-planet environment | yes | yes | no | biomes | yes | no | no | realms.json + WorldEnv | built |
+| disease / immunity | no | no | no | no | no | no | no | SIR model, vaccines, treatments | built |
+| creature genetics | no | no | no | no | procedural | no | breedables (scripted) | tolerance genome, non-sexual combine | built |
+| depth-based ore geology | yes | yes | nodes | yes | yes | asteroid belts | no | Geology veins by realm and depth | built |
+| refine → craft chain | yes | partial | yes | yes | yes | yes | no | recipe graph + Industry bridge | built |
+| sellable blueprints / perms | yes | no | no | no | no | BPO/BPC | copy/mod/transfer | Blueprints (civic credits; AEC = legal review) | built |
+| nations / laws / elections | orgs + RDMS | orgs | clans | no | no | alliances + sovereignty | groups + covenants | Governance | built |
+| unlimited land, no object caps | territory tiles | no | no | no | bases | no | prim limits | Land (budgets, not caps) | built |
+| floating origin / huge worlds | yes | yes | no | no | yes | yes | 256 m regions | sector + local, SectorPager | built (server) / planned (client, Foxy) |
+

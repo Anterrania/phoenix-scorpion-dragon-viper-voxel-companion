@@ -22,6 +22,7 @@ Inventory="*res://scripts/autoload/inventory.gd"
 Profile="*res://scripts/autoload/profile.gd"
 DeviceProfile="*res://scripts/system/device_profile.gd"
 AutoConfig="*res://scripts/system/auto_config.gd"
+Survival="*res://scripts/living/survival.gd"
 
 [display]
 window/size/viewport_width=720

@@ -1,63 +1,33 @@
 [
  {
-  "sha": "7389c26",
+  "sha": "0706cc2",
   "author": "Anterrania",
-  "date": "2026-10-22T09:58:02-07:00",
-  "subject": "Merge origin/main (1bf3e6a, sandbox parity) into feature/living-world; regen admin seeds"
+  "date": "2026-10-22T10:01:53-07:00",
+  "subject": "Merge origin/main (#35 render pipeline) into feature/spacesim-parity; reseed"
  },
  {
-  "sha": "c3bee09",
+  "sha": "5589efa",
   "author": "Anterrania",
-  "date": "2026-10-22T09:57:33-07:00",
-  "subject": "LIFE: docs, Foxy spec, parity section, tracker rows, wiki; suite 0 failures"
+  "date": "2026-10-22T09:59:52-07:00",
+  "subject": "Merge origin/main (#36-#39) into feature/spacesim-parity; reseed"
  },
  {
-  "sha": "bcd2cf2",
+  "sha": "14c2ff7",
   "author": "Anterrania",
-  "date": "2026-10-22T09:55:13-07:00",
-  "subject": "Merge origin/main (Dormancy, PowerData); LIFE: survival/disease/ecology on Dormancy + sim_tick_hz budget"
+  "date": "2026-10-22T09:58:20-07:00",
+  "subject": "Merge origin/main (#32 phone display/media) into feature/spacesim-parity; tiers keep broadcast + space actions; reseed"
  },
  {
-  "sha": "b841e9f",
+  "sha": "a95a573",
   "author": "Anterrania",
-  "date": "2026-10-22T09:54:31-07:00",
-  "subject": "LIFE: governance, geology, materials, blueprints, land addressing, tests (WIP)"
+  "date": "2026-10-22T09:45:51-07:00",
+  "subject": "Merge origin/main (#29-#33) into feature/spacesim-parity; Space sims section in VIEWER_PARITY; reseed"
  },
  {
-  "sha": "030a11c",
+  "sha": "223356e",
   "author": "Anterrania",
-  "date": "2026-10-22T09:49:26-07:00",
-  "subject": "LIFE: survival engine, disease model, tolerance genome, living gate"
- },
- {
-  "sha": "8f4bd6d",
-  "author": "Anterrania",
-  "date": "2026-10-22T09:45:34-07:00",
-  "subject": "LIFE: living-world data (realms, species, materials, recipes, diseases, governance)"
- },
- {
-  "sha": "1d4f15c",
-  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
-  "date": "2026-10-22T09:41:30-07:00",
-  "subject": "Merge pull request #33 from Anterrania/fix/security-device"
- },
- {
-  "sha": "dc07c77",
-  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
-  "date": "2026-10-17T13:27:57-07:00",
-  "subject": "Merge pull request #31 from Anterrania/fix/audit-gates"
- },
- {
-  "sha": "2dcf625",
-  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
-  "date": "2026-10-17T13:23:45-07:00",
-  "subject": "Merge pull request #29 from Anterrania/docs/virtual-world-gap"
- },
- {
-  "sha": "4f27a03",
-  "author": "🔱God Incarnate. Divine Celestial Majesty, Absolute Sovereign of The Anterranian Monarchy🔱",
-  "date": "2026-10-17T13:20:20-07:00",
-  "subject": "Merge pull request #30 from Anterrania/feature/viewer-parity"
+  "date": "2026-10-22T09:45:06-07:00",
+  "subject": "wip(spacesim): commit stopped worker state; Industry.start_job/recipe/blueprint API; ui_root menu entry moved to patches/ (Foxy-owned)"
  },
  {
   "sha": "2f54951",

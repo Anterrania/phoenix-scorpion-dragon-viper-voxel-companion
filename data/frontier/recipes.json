@@ -1,0 +1,12 @@
+{
+  "_note": "Frontier industry recipes (scripts/spacesim/industry.gd). Original names and numbers; concepts only. Placeholder balance - YOUR INPUT HERE.",
+  "schema_version": 1,
+  "recipes": {
+    "ferrite_plate": {"name": "Ferrite Plate", "tier": 1, "seconds": 60, "inputs": {"ferrite_ore": 4}, "outputs": {"ferrite_plate": 1}, "needs_blueprint": false},
+    "ember_glass": {"name": "Ember Glass", "tier": 1, "seconds": 90, "inputs": {"ember_sand": 3, "basalt_dust": 1}, "outputs": {"ember_glass": 1}, "needs_blueprint": false},
+    "aurora_lens": {"name": "Aurora Lens", "tier": 2, "seconds": 300, "inputs": {"ember_glass": 2, "aurora_crystal": 1}, "outputs": {"aurora_lens": 1}, "needs_blueprint": true},
+    "hull_frame": {"name": "Hull Frame", "tier": 2, "seconds": 600, "inputs": {"ferrite_plate": 10, "basalt_dust": 4}, "outputs": {"hull_frame": 1}, "needs_blueprint": true},
+    "jump_coil": {"name": "Lattice Jump Coil", "tier": 3, "seconds": 1800, "inputs": {"aurora_lens": 2, "hull_frame": 1, "glitter_core": 1}, "outputs": {"jump_coil": 1}, "needs_blueprint": true},
+    "voxel_brick": {"name": "Voxel Brick Pack", "tier": 1, "seconds": 30, "inputs": {"basalt_dust": 2}, "outputs": {"voxel_brick": 8}, "needs_blueprint": false}
+  }
+}

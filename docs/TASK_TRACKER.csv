@@ -71,6 +71,21 @@ BUILD-7,"Enforce estate allow_build + terraform rights via Tiers.can; permission
 BUILD-8,"Companion build API v2: paint_area, place_blueprint, undo_last via Tiers.can (Builder/Staff), rate limits",todo,P2
 BUILD-9,"Land info panel + events board + rental records (placeholder AEC; LEGAL REVIEW REQUIRED)",todo,P2
 BUILD-10,"Ad slots: billboard + in-world carousel, owner/estate approval queue in admin",todo,P3
+AUDIT-2,"Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(""self"", ""admin""); cache admin Home revision history per head",todo,P1
+SPACE-1,"Frontier hub (MENU > Frontier) + SPACESIM_PARITY.md (DU/EVE/SC concepts, parity rows) + wiki page",done_headless,P1
+SPACE-2,"Org/corp rights on Social groups: titles, tag policies, alliances (OrgRights)",done_headless,P1
+SPACE-3,"Market order book in Aethel Coin, fees as sinks, settlement off (LEGAL REVIEW REQUIRED)",done_headless,P1
+SPACE-4,"Contracts + missions board: exchange, courier, auction, service, missions + reputation",done_headless,P1
+SPACE-5,"Industry: recipes, blueprint originals/copies, ME/TE research, job slots by tier",done_headless,P1
+SPACE-6,"Territory claims on Estate parcels: upkeep/grace, sovereignty, contests on damage land",done_headless,P1
+SPACE-7,"Ship ownership, hangars, stow/unstow, insurance plans gated by tier, loss reports",done_headless,P1
+SPACE-8,"Persistent planets + shard/server meshing model + SERVER_MESHING.md",done_headless,P2
+SPACE-9,"Comfort + keybind profiles (FOV, motion comfort, touch/keyboard/gamepad remaps)",done_headless,P1
+SPACE-10,"Foxy: star map routes + jump travel UI, flight HUD/MFDs, wrist hub, docking, scanner (patches/foxy/FRONTIER_CLIENT_SPECS.md)",todo,P1
+SPACE-11,"Coin settlement for market/contracts/upkeep/insurance (LEGAL REVIEW REQUIRED)",todo,P1
+SPACE-12,"Skills training queue (offline, avatars + companions)",todo,P2
+SPACE-13,"Fleets with roles/broadcasts + overview data feed",todo,P2
+SPACE-14,"Mining + territory resource pools feeding Industry",todo,P2
 VIEWER-1,"Viewer parity table docs/modules/VIEWER_PARITY.md (Firestorm/Phoenix/DarkStorm + grid side; Avination/OLG + space-sim rows pending from other workers)",done,P1
 VIEWER-2,"Land & Safety: ParcelTools (About Land + Region/Estate: general, access, timed bans, landing point/TP routing, media, objects/returns/auto-return, estate managers, estate message) + admin screen",done_headless,P1
 VIEWER-3,"Mute/block/derender lists (ModerationLists, ties into Social.block, SecureFile) + Safety tab",done_headless,P0

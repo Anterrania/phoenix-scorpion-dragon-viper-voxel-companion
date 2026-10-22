@@ -42,6 +42,10 @@ var _seq := 0
 var http_enabled := false
 var http_allow: Array = []
 var http_queue: Array = []
+## PowerData: AutoConfig.budget("script_budget_ms") scales the per-event step budget
+## (REFERENCE_MS = 1x). 0 (app in background) pauses every script. Tests set budget_ms_override.
+const REFERENCE_MS := 2.0
+var budget_ms_override := -1.0
 ## Who is nearby for sensor(): Callable(object) -> Array of {key, name, pos}. Tests set it.
 var sensor_source: Callable
 
@@ -134,8 +138,28 @@ func resume_all() -> bool:
 	_log_engine("scripts resumed by owner", "info")
 	return true
 
+func budget_ms() -> float:
+	if budget_ms_override >= 0.0: return budget_ms_override
+	var ml := Engine.get_main_loop()
+	var ac: Node = ml.root.get_node_or_null("AutoConfig") if ml is SceneTree else null
+	return float(ac.budget("script_budget_ms", REFERENCE_MS)) if ac != null and ac.has_method("budget") else REFERENCE_MS
+
+## Steps per event for the current power mode (at least 1000 so tiny handlers still finish).
+func step_budget() -> int:
+	return maxi(1000, int(VsVM.BUDGET * clampf(budget_ms() / REFERENCE_MS, 0.0, 2.0)))
+
+## Dormancy (docs/modules/POWER_AND_DATA.md §5): scripts in a dormant region, or with the app in the
+## background, don't run. They resume where they were (timers don't replay missed ticks).
+func region_dormant(region: String) -> bool:
+	return Dormancy.background or Dormancy.is_dormant("region:" + region)
+
+func paused_for_power(vm) -> bool:
+	return budget_ms() <= 0.0 or region_dormant(str(obj_of(vm).get("region", "")))
+
 func may_run(vm) -> bool:
 	if estop_check(): return false
+	if paused_for_power(vm): return false
+	vm.budget = step_budget()
 	if not scripts_allowed(vm):
 		_log(vm, "scripts are off on this land", 0, "warn")
 		return false
@@ -421,11 +445,12 @@ func rezzed(oid: String, param := 0) -> void: _object_event(oid, ["on_rez"], [pa
 func _object_event(oid: String, evs: Array, args: Array, det: Array) -> void:
 	if estop_check(): return
 	for sid in scripts_on(oid):
+		if paused_for_power(scripts[sid]): continue   # dormant: nobody is there, the event is dropped
 		for ev in evs: scripts[sid].post(ev, args, det)
 		_pump(scripts[sid])
 
 func _pump(vm: VsVM) -> void:
-	if halted or not vm.running: return
+	if halted or not vm.running or paused_for_power(vm): return
 	vm.run_queue()
 	_do_resets()
 
@@ -444,7 +469,7 @@ func tick(dt: float) -> void:
 	if do_upd: _upd_acc = 0.0
 	for sid in scripts.keys():
 		var vm: VsVM = scripts[sid]
-		if not vm.running: continue
+		if not vm.running or paused_for_power(vm): continue
 		vm.advance(dt)
 		if do_upd:
 			vm.post("update", [step])

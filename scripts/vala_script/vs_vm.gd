@@ -101,6 +101,7 @@ var named_timers := {}       # id -> [period, left]
 var sensor_req := {}         # {name, range}
 var detected: Array = []     # [{key, name, pos}]
 var steps := 0
+var budget := BUDGET        # steps per event; VsEngine scales it by the PowerData script budget
 var total_steps := 0
 var _depth := 0
 var _pending_state := ""
@@ -291,8 +292,8 @@ func _queued(ev: String) -> bool:
 # ---------------- statements ----------------
 func _tick_step(line: int) -> bool:
 	steps += 1
-	if steps > BUDGET:
-		_fail("ran out of steps (budget %d per event)" % BUDGET, line)
+	if steps > budget:
+		_fail("ran out of steps (budget %d per event)" % budget, line)
 		return false
 	return not _abort
 

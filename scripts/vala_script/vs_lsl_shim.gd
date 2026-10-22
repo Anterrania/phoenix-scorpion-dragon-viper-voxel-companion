@@ -95,15 +95,18 @@ func _emit(toks: Array, a: int, b: int, line0 := -1) -> String:
 			var args: Array = []
 			var start := i + 2
 			var d := 0
+			var vd := 0   # inside a <x, y, z> vector literal
 			for j in range(i + 2, end + 1):
 				var tj: Dictionary = toks[j]
+				if tj["t"] == "op" and tj["v"] == "<" and toks[j - 1]["t"] == "op" and toks[j - 1]["v"] in ["(", ",", "[", "="]: vd += 1
+				elif tj["t"] == "op" and tj["v"] == ">" and vd > 0: vd -= 1
 				if tj["t"] == "op" and tj["v"] in ["(", "[", "{"]: d += 1
 				if tj["t"] == "op" and tj["v"] in [")", "]", "}"]:
 					if d == 0:
 						if j > start: args.append(_emit(toks, start, j, int(toks[start]["line"])).replace("\n", " ").strip_edges())
 						break
 					d -= 1
-				if tj["t"] == "op" and tj["v"] == "," and d == 0:
+				if tj["t"] == "op" and tj["v"] == "," and d == 0 and vd == 0:
 					args.append(_emit(toks, start, j, int(toks[start]["line"])).replace("\n", " ").strip_edges())
 					start = j + 1
 			var tpl: String = CALLS[nm]

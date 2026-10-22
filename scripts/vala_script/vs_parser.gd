@@ -11,7 +11,7 @@ extends RefCounted
 ##            states: {name: {events: {event: {params, body, line}}, line}}, slots: {name: type}}
 
 const TYPE_ALIAS := {"int": "integer", "double": "float", "quaternion": "rotation", "bool": "integer"}
-const MAX_DEPTH := 200   # nesting depth for the recursive-descent parser
+const MAX_DEPTH := 48   # nesting depth for the recursive-descent parser
 
 var toks: Array = []
 var p := 0

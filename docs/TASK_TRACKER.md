@@ -54,3 +54,11 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | SEC-FIX-3 | SEC | E-stop file MAC under vault key, fail closed (F3) | ✅ headless-tested, needs device test |
 | SEC-FIX-4 | SEC | arm64-only Android export, tests clean up after themselves (F4, F5) | ✅ |
 | SEC-FIX-5 | SEC | First-run "Create owner PIN or passphrase" on a fresh install (no vault, no bootstrap, no owner data); confirmation required; refused if any vault file exists, even corrupted; logged to the admin timeline | ✅ headless-tested, needs device test |
+| LIFE-1 | LIFE | Realm world seeds (gravity, atmosphere, temp, radiation, water, day, soil) + WorldEnv | ✅ headless-tested |
+| LIFE-2 | LIFE | Tolerance genome, viability, spawn lists, non-sexual creature combine (old saves compatible) | ✅ headless-tested |
+| LIFE-3 | LIFE | Survival vitals (Survival.vitals, vitals_changed), suits/habitats, SIR disease, vaccines, ecology on Dormancy + sim_tick_hz | ✅ headless-tested |
+| LIFE-4 | LIFE | LivingGate: owner exemption only when unlocked, e-stop, per-estate survival on/off/softcore with realm defaults | ✅ headless-tested |
+| LIFE-5 | LIFE | Governance: nations, laws, elections, embassies, borders, civic-credit taxes (Aethel Coin tax LEGAL REVIEW) | ✅ headless-tested |
+| LIFE-6 | LIFE | Geology ores by realm/depth, recipe graph, blueprints w/ perms (AEC sales/payouts LEGAL REVIEW), Industry bridge | ✅ headless-tested |
+| LIFE-7 | LIFE | Land: no object caps, render budgets, planet/region/chunk addressing, floating origin, SectorPager | ✅ headless-tested |
+| LIFE-8 | LIFE | Foxy client: vitals HUD, suit, scanner, crafting, DNA, symptoms, gov screens, client floating origin (docs/specs/foxy/LIVING_WORLD_CLIENT.md) | ⏳ planned (Foxy) |

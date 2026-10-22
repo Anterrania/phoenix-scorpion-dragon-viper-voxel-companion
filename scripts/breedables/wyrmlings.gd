@@ -67,7 +67,16 @@ static func breed(a: Dictionary, b: Dictionary, now: float, rng: RandomNumberGen
 	a["last_bred"] = now; b["last_bred"] = now
 	a["hunger"] = float(a["hunger"]) + 0.4; b["hunger"] = float(b["hunger"]) + 0.4
 	var names := ["Ash", "Blaze", "Nyx", "Sol", "Vex", "Lumi", "Pyra", "Zeph", "Kira", "Onyx"]
-	return make(names[rng.randi() % names.size()], genes, maxi(int(a["generation"]), int(b["generation"])) + 1)
+	var child := make(names[rng.randi() % names.size()], genes, maxi(int(a["generation"]), int(b["generation"])) + 1)
+	# LIFE-2: optional tolerance genome (creature-only genetics). Old saves have no "genome"; they read
+	# the ember_wyrm species default through Genome.from_record, so nothing needs migrating.
+	var ga := Genome.from_record(_wyrm_rec(a)); var gb := Genome.from_record(_wyrm_rec(b))
+	var tg := Genome.combine(ga, gb, rng)
+	if not tg.is_empty(): child["genome"] = tg
+	return child
+
+static func _wyrm_rec(w: Dictionary) -> Dictionary:
+	return {"species": "ember_wyrm", "genome": w.get("genome")}
 
 static func tick_hunger(list: Array, seconds: float) -> void:
 	for w in list: w["hunger"] = minf(1.0, float(w["hunger"]) + seconds / 600.0)

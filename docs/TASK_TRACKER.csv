@@ -71,6 +71,21 @@ BUILD-7,"Enforce estate allow_build + terraform rights via Tiers.can; permission
 BUILD-8,"Companion build API v2: paint_area, place_blueprint, undo_last via Tiers.can (Builder/Staff), rate limits",todo,P2
 BUILD-9,"Land info panel + events board + rental records (placeholder AEC; LEGAL REVIEW REQUIRED)",todo,P2
 BUILD-10,"Ad slots: billboard + in-world carousel, owner/estate approval queue in admin",todo,P3
+AUDIT-2,"Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(""self"", ""admin""); cache admin Home revision history per head",todo,P1
+SPACE-1,"Frontier hub (MENU > Frontier) + SPACESIM_PARITY.md (DU/EVE/SC concepts, parity rows) + wiki page",done_headless,P1
+SPACE-2,"Org/corp rights on Social groups: titles, tag policies, alliances (OrgRights)",done_headless,P1
+SPACE-3,"Market order book in Aethel Coin, fees as sinks, settlement off (LEGAL REVIEW REQUIRED)",done_headless,P1
+SPACE-4,"Contracts + missions board: exchange, courier, auction, service, missions + reputation",done_headless,P1
+SPACE-5,"Industry: recipes, blueprint originals/copies, ME/TE research, job slots by tier",done_headless,P1
+SPACE-6,"Territory claims on Estate parcels: upkeep/grace, sovereignty, contests on damage land",done_headless,P1
+SPACE-7,"Ship ownership, hangars, stow/unstow, insurance plans gated by tier, loss reports",done_headless,P1
+SPACE-8,"Persistent planets + shard/server meshing model + SERVER_MESHING.md",done_headless,P2
+SPACE-9,"Comfort + keybind profiles (FOV, motion comfort, touch/keyboard/gamepad remaps)",done_headless,P1
+SPACE-10,"Foxy: star map routes + jump travel UI, flight HUD/MFDs, wrist hub, docking, scanner (patches/foxy/FRONTIER_CLIENT_SPECS.md)",todo,P1
+SPACE-11,"Coin settlement for market/contracts/upkeep/insurance (LEGAL REVIEW REQUIRED)",todo,P1
+SPACE-12,"Skills training queue (offline, avatars + companions)",todo,P2
+SPACE-13,"Fleets with roles/broadcasts + overview data feed",todo,P2
+SPACE-14,"Mining + territory resource pools feeding Industry",todo,P2
 VIEWER-1,"Viewer parity table docs/modules/VIEWER_PARITY.md (Firestorm/Phoenix/DarkStorm + grid side; Avination/OLG + space-sim rows pending from other workers)",done,P1
 VIEWER-2,"Land & Safety: ParcelTools (About Land + Region/Estate: general, access, timed bans, landing point/TP routing, media, objects/returns/auto-return, estate managers, estate message) + admin screen",done_headless,P1
 VIEWER-3,"Mute/block/derender lists (ModerationLists, ties into Social.block, SecureFile) + Safety tab",done_headless,P0
@@ -149,13 +164,14 @@ SEC,SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration
 SEC,SEC-FIX-3 e-stop file MAC-sealed; fail closed,done,P1
 SEC,SEC-FIX-4 arm64-only Android export + tests clean up user:// roots,done,P2
 SEC,SEC-FIX-5 first-run owner PIN/passphrase on a fresh install (confirmed; refused once any vault file exists),done,P0
+SEC,SEC-FIX-6 owner-upgrade PIN setup for pre-vault owner devices (confirmed; any vault file refuses; logged owner_setup_upgrade),done,P0
 COMPAT-1,"DeviceProfile autoload + DeviceCaps schema 1 (Foxy-approved caps(): every key, -1/'' unknown, live keys every 30 s + focus, caps_changed)",done_headless,P1
 COMPAT-2,"Capability score + class (pure, documented) and form factor/foldable heuristics; fake low/mid/high/ultra phone, tablet, foldable, TV, Chromebook, desktop tests",done_headless,P1
 COMPAT-3,"AutoConfig: tier recommendation via AutoQuality (has_method), legacy quality fallback, UI scale, input scheme + InputMap pad events, never overwrite manual choices, Reset to auto",done_headless,P1
 COMPAT-4,"FeatureRegistry: requirements (camera, mic, gyro, compute, RAM, network, XR, form factor) with reason strings",done_headless,P1
 COMPAT-5,"Settings > Device & compatibility screen (read-only, Re-detect, Reset to auto); reuse phone-branch DeviceCheck when merged",done_headless,P1
 COMPAT-6,"Docs: DEVICE_COMPAT.md, parity section, wiki device-compatibility, Foxy specs (caps schema, input scheme UI, gamepad HUD, AutoQuality hookup)",done,P2
-COMPAT-7,"Android plugin ViperDevice: battery, charging, power save, thermal, network type, VRAM, vibrator (hook ready; plugin not built)",open,P2
+COMPAT-7,"Android plugin ViperDevice (Kotlin v2, no deps, ~7 KB AAR, +6.5 KB APK): battery, charging, power save, thermal, network type, API level, RAM, vibrator, camera/mic/sensor features, TV/ChromeOS/hinge; live_changed events; Gradle export in CI",done_headless,P2
 COMPAT-8,"Device testing: real Android phone, tablet, foldable, Android TV, ChromeOS",open,P1
 COMPAT-PWR-1,"PowerData policy in AutoConfig: balanced-saver default, saver on battery<30%/power save/thermal>=3/cell, full on charger+Wi-Fi, background pause + keepalive",done_headless,P1
 COMPAT-PWR-2,"Data saver Auto/On/Off: Net.set_data_mode, low bitrate, thumbnails only, no autoplay, defer >5 MB to Wi-Fi",done_headless,P1
@@ -163,6 +179,35 @@ COMPAT-PWR-3,"Net: batched deflate frames + state delta + ETag/Last-Modified HTT
 COMPAT-PWR-4,"Dormancy shared helper (sleep with no viewer, one fast-forward catch-up); adoption by living-world, Vala Script and social workers",in_progress,P1
 COMPAT-PWR-5,"Battery & data card in Device & compatibility (mode, why, data this session, Data saver pref)",done_headless,P2
 COMPAT-PWR-6,"Foxy: AutoQuality set_power_profile / set_fps_cap_hint / recommend_tier, idle and background frame rate (docs/specs/foxy/power_data.md)",open,P1
+VALA-1,"Vala Script lexer + parser (.vscript, Vala/C#-flavoured, LSL-style states/events, compile-time checks with line numbers)",done_headless,P1
+VALA-2,"Vala Script VM: tree-walking interpreter, step budget, memory cap, call depth, event queue",done_headless,P1
+VALA-3,"Engine gates: Tiers.can + estate allow_scripts, owner override, e-stop halt, rate limits (chat/world/rez/give/teleport/http/screen)",done_headless,P1
+VALA-4,"Companion scripts via EveCore.propose_update owner approval",done_headless,P1
+VALA-5,"DU-style element slots (door/light/screen/engine/container/sensor/button), tick/update/flush, data-only screens",done_headless,P1
+VALA-6,"HTTP off by default: owner toggle, host allowlist, https only",done_headless,P1
+VALA-7,"LSL import shim with unsupported-feature report (line numbers)",done_headless,P2
+VALA-8,"Scripts as .vscript inventory items with copy/mod/transfer + next-owner perms",done_headless,P1
+VALA-9,"Dormancy pause in dormant regions + VM step budget scaled by PowerData script_budget_ms",done_headless,P1
+VALA-10,"Foxy: script editor, HUD debug console, screen/effect rendering (docs/specs/foxy/VALA_SCRIPT_CLIENT.md)",open,P1
+RND-1,"Render pipeline: RenderTiers knob table (low/med/high/ultra) registered with AutoQuality.register_knob; legacy Settings fallback; Mobile-renderer-safe (scripts/render/render_pipeline.gd, render_tiers.gd)",done_headless,P1
+RND-2,"FrameGovernor: frame-time/thermal feedback trims render scale, asks AutoQuality for a lower tier (scripts/render/frame_governor.gd)",done_headless,P1
+RND-3,"SDF generator band fill: identical output, gen time -35..-53% per block (smooth_terrain_generator.gd)",done,P1
+RND-4,"GreedyMesher for blocky builds/props: -74% faces on a 32^3 build (scripts/render/greedy_mesher.gd)",done_headless,P2
+RND-5,"MultiMesh foliage scatter + visibility ranges on props and foliage (scripts/render/foliage_scatter.gd)",done_headless,P1
+RND-6,"ParticleBudget pool per tier; weather hookup patch for Foxy (patches/weather_fx_particle_budget.patch)",partial,P2
+RND-7,"Terrain shader: LOD cross-fade variant, curvature AO, far-detail skipping, fake caustics",done_headless,P1
+RND-8,"Sky: realm variants (aurora, deep starfield), night stars, cubemap-pass skip",done_headless,P2
+RND-9,"Water: sky-gradient reflection; DEPTH_FX variant (depth fade, shore foam) on high/ultra",done_headless,P2
+RND-10,"Later/n.a.: occlusion for landmarks/caves, VoxelInstancer eval, compute (GPU erosion), texture arrays, HLOD; SSR/SSAO/SDFGI n.a. on Mobile",planned,P3
+RND-11,"Foxy: avatar shading quality knob + AutoQuality wants_lower_tier hookup (docs/specs/foxy/RENDER_QUALITY_HOOKS.md)",planned,P2
+LIFE-1,"Realm world seeds (gravity, atmosphere, temp, radiation, water, day, soil) + WorldEnv",done_headless,P1
+LIFE-2,"Tolerance genome, viability, spawn lists, non-sexual creature combine (old saves compatible)",done_headless,P1
+LIFE-3,"Survival vitals (Survival.vitals, vitals_changed), suits/habitats, SIR disease, vaccines, ecology on Dormancy + sim_tick_hz",done_headless,P0
+LIFE-4,"LivingGate: owner exemption only when unlocked, e-stop, per-estate survival on/off/softcore with realm defaults",done_headless,P0
+LIFE-5,"Governance: nations, laws, elections, embassies, borders, civic-credit taxes (Aethel Coin tax LEGAL REVIEW)",done_headless,P1
+LIFE-6,"Geology ores by realm/depth, recipe graph, blueprints w/ perms (AEC sales/payouts LEGAL REVIEW), Industry bridge",done_headless,P1
+LIFE-7,"Land: no object caps, render budgets, planet/region/chunk addressing, floating origin, SectorPager",done_headless,P1
+LIFE-8,"Foxy client: vitals HUD, suit, scanner, crafting, DNA, symptoms, gov screens, client floating origin (docs/specs/foxy/LIVING_WORLD_CLIENT.md)",todo,P1
 SMP-1,"Post kinds clip + story (24h expiry) and Social.feed(viewer, cursor) page + next_cursor",done_headless,P0
 SMP-2,"Ranked/paged feeds (for_you, following, latest, explore, clips, list/tag/author/group/sound), snapshot cursor, thumbnails first, Net data mode guard + image/bitrate budgets",done_headless,P0
 SMP-3,"Stories tray, viewer list, archive, highlights, story replies to DMs",done_headless,P1

@@ -1,5 +1,17 @@
 [
  {
+  "sha": "d296101",
+  "author": "Anterrania",
+  "date": "2026-10-22T10:11:25-07:00",
+  "subject": "test(SMP): use OwnerVault.setup_for_tests (first-run gate from #33)"
+ },
+ {
+  "sha": "6723836",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:59:01-07:00",
+  "subject": "Merge origin/main (#38) into feature/social-media-parity; reseed"
+ },
+ {
   "sha": "2c31673",
   "author": "Anterrania",
   "date": "2026-10-22T09:58:54-07:00",

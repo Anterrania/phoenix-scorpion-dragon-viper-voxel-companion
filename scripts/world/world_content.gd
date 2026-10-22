@@ -169,6 +169,8 @@ func _fill_cell(k: Vector2i) -> Node3D:
 		root.add_child(n)
 		n.position = p
 		n.set_meta("base_y", p.y)
+	# RND-5: distance-cull small scatter props per device tier (RenderTiers "props.range")
+	RenderPipeline.apply_visibility(root, RenderPipeline.props_range)
 	return root
 
 func prop_count() -> int:

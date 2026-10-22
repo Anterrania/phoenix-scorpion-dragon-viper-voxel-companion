@@ -59,6 +59,8 @@ func _ready() -> void:
 	load("res://tests/viewer_tests.gd").run(self); load("res://tests/viewer_tests.gd").run_docs(self); await load("res://tests/viewer_tests.gd").run_ui(self)
 	load("res://tests/living_tests.gd").run(self); load("res://tests/living_tests.gd").run_docs(self); load("res://tests/living_tests.gd").run_dormancy(self)
 	load("res://tests/interop_tests.gd").run(self); load("res://tests/interop_tests.gd").run_docs(self); await load("res://tests/interop_tests.gd").run_ui(self)
+	load("res://tests/sandbox_dev_tests.gd").run(self); load("res://tests/sandbox_dev_tests.gd").run_docs(self)
+	load("res://tests/sim_tests.gd").run(self); load("res://tests/sim_tests.gd").run_docs(self)  # SBX: runs late, after security run_ui
 	load("res://tests/gate_tests.gd").run(self)
 	await load("res://tests/gate_tests.gd").run_scene(self)
 	var ph = load("res://tests/phone_tests.gd")

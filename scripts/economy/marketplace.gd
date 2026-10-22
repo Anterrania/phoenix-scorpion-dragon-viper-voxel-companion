@@ -61,16 +61,22 @@ static func set_moderation(id: String, status: String) -> void:
 		if i["id"] == id: i["moderation"] = status
 	_save(QUEUE, c)
 
-static func balance() -> int:
-	return int(_load(WALLET, {"aethel": 100}).get("aethel", 100))
+## SBX-LEGAL-4: Aethel Coin now lives in AethelLedger (separate from play tokens). The old local
+## wallet below is INACTIVE (kept for reference; it handed every device 100 free coins):
+##   return int(_load(WALLET, {"aethel": 100}).get("aethel", 100))
+static func balance(member := "local") -> int:
+	return AethelLedger.balance(member)
 
-static func buy(item: Dictionary, buyer_id: String) -> String:
+## Fixed-price purchase only, through LegalReview (13+, launch country, price shown, spend limits).
+## ctx: {age, country, price_shown: true}. Free items (price 0) need no ctx.
+static func buy(item: Dictionary, buyer_id: String, ctx: Dictionary = {}, now := 0) -> String:
 	if item.get("moderation", "") != "approved": return "not approved"
 	if item.get("creator_id", "") == buyer_id: return "you made this"
 	var price := int(item.get("price_aethel", 0))
-	if balance() < price: return "not enough Aethel Coin"
-	_save(WALLET, {"aethel": balance() - price})
-	return ""
+	if price <= 0: return ""
+	# INACTIVE (old local wallet debit): _save(WALLET, {"aethel": balance() - price})
+	var tx := AethelLedger.purchase_fixed(buyer_id, str(item.get("id", "")), price, ctx, now if now > 0 else int(Time.get_unix_time_from_system()))
+	return str(tx.get("error", ""))
 
 ## v0.6 stub: list a Satchel item locally ("List on Marketplace"). Server delivery later.
 const LISTINGS := "user://ugc/listings.json"

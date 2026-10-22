@@ -463,7 +463,7 @@ static func run_dm(t: Node) -> void:
 	t.check(not SocialDM.open_direct("foxy_ani", "sb")["ok"], "dm: e-stop stops companions")
 	AutonomyGuard.reset_for_tests(root.path_join("security/estop2.json"))
 	# encryption at rest
-	t.check(OwnerVault.setup("864213", true) == "", "dm: vault set up")
+	t.check(OwnerVault.setup_for_tests("864213") == "", "dm: vault set up")
 	SocialDM.send("sa", c["id"], "secret plans")
 	t.check(SocialDM.encrypted_at_rest() and SecureFile.is_sealed_file(dmp) and not FileAccess.get_file_as_string(dmp).contains("secret plans"), "dm: sealed on disk once a vault exists")
 	OwnerVault.lock_all()

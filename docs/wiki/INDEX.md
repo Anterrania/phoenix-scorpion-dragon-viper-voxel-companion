@@ -18,6 +18,7 @@ Short pages. Tap one.
 - [Brain, Memory & Proposals](brain-memory-proposals.md) · built
 - [Land & Estate Tools](land-estate-tools.md) · built
 - [Music](music.md) · built
+- [Vala Script](vala-script.md) · built
 - [Avatars & DNA](avatars-dna.md) · built
 - [Combat, RP & Breedables](combat-rp-breedables.md) · built
 - [Welcome Island](welcome-island.md) · built

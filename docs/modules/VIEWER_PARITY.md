@@ -199,6 +199,25 @@ Our own code: DEVICE_COMPAT.md. Features only. The columns are the platforms we 
 | Interest management: sleep with no viewer, cheap catch-up | ✓ (region idle) | ✓ (EVE/DU idle grids) | — | `Dormancy` | us; living-world / Vala / social adopt | have (API) |
 | Session data usage readout | — | — | ✓ | Battery & data card | us | have |
 
+## Scripting (Vala Script)
+
+Details in VALA_SCRIPT.md. It's our own language and is not GNOME Vala.
+
+| feature | SL / OpenSim (LSL, OSSL) | Dual Universe (Lua) | ours | owner | status |
+|---|---|---|---|---|---|
+| States + events + typed vars | ✓ | — | `.vscript` states/events | us | have |
+| Element slots, tick/update/flush | — | ✓ | `slot x : door;` + unit events | us | have |
+| Screens | prim media / text | screen units (HTML/Lua) | data-only draw ops, 320×180 | us; render = Foxy | have (render: Foxy) |
+| Chat + listen channels | ✓ | — | say/whisper/shout/region_say/listen | us | have |
+| HTTP | llHTTPRequest | — | off by default, owner allowlist, https only | us | have |
+| Sandbox limits | 64 KB memory, time slices | CPU/instruction quotas | step budget, 64 KB memory, rate limits | us | have |
+| Permission gates | land/estate script flags | build rights | Tiers.can + estate allow_scripts, e-stop | us | have |
+| Inventory perms | copy/mod/transfer | — | `.vscript` items, next-owner perms | us | have |
+| Import from LSL | — | — | shim with line-numbered report | us | have (common calls) |
+| Sleep when idle, power budget | region idle | idle grids | Dormancy pause + PowerData-scaled budget | us | have |
+| Editor + debug console | ✓ | ✓ | spec docs/specs/foxy/VALA_SCRIPT_CLIENT.md | Foxy | open |
+| OSSL NPC / threat-level functions | ✓ (OSSL) | — | — | us | not planned |
+
 ## Spec for Foxy (client UI parity)
 
 Everything below follows the Phoenix Glass kit, `PhoenixTokens` sizes (compact default, TAP_MIN 56,

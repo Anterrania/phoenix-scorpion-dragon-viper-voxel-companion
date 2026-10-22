@@ -121,3 +121,13 @@ COMPAT-PWR-3,"Net: batched deflate frames + state delta + ETag/Last-Modified HTT
 COMPAT-PWR-4,"Dormancy shared helper (sleep with no viewer, one fast-forward catch-up); adoption by living-world, Vala Script and social workers",in_progress,P1
 COMPAT-PWR-5,"Battery & data card in Device & compatibility (mode, why, data this session, Data saver pref)",done_headless,P2
 COMPAT-PWR-6,"Foxy: AutoQuality set_power_profile / set_fps_cap_hint / recommend_tier, idle and background frame rate (docs/specs/foxy/power_data.md)",open,P1
+VALA-1,"Vala Script lexer + parser (.vscript, Vala/C#-flavoured, LSL-style states/events, compile-time checks with line numbers)",done_headless,P1
+VALA-2,"Vala Script VM: tree-walking interpreter, step budget, memory cap, call depth, event queue",done_headless,P1
+VALA-3,"Engine gates: Tiers.can + estate allow_scripts, owner override, e-stop halt, rate limits (chat/world/rez/give/teleport/http/screen)",done_headless,P1
+VALA-4,"Companion scripts via EveCore.propose_update owner approval",done_headless,P1
+VALA-5,"DU-style element slots (door/light/screen/engine/container/sensor/button), tick/update/flush, data-only screens",done_headless,P1
+VALA-6,"HTTP off by default: owner toggle, host allowlist, https only",done_headless,P1
+VALA-7,"LSL import shim with unsupported-feature report (line numbers)",done_headless,P2
+VALA-8,"Scripts as .vscript inventory items with copy/mod/transfer + next-owner perms",done_headless,P1
+VALA-9,"Dormancy pause in dormant regions + VM step budget scaled by PowerData script_budget_ms",done_headless,P1
+VALA-10,"Foxy: script editor, HUD debug console, screen/effect rendering (docs/specs/foxy/VALA_SCRIPT_CLIENT.md)",open,P1

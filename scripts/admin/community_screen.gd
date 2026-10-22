@@ -2,7 +2,9 @@ class_name CommunityScreen
 extends Control
 ## Viper OS Admin > Community (MENU > 👥 Community). Phoenix Glass kit, portrait, five swipe tabs:
 ## Overview · Reports · Approvals · Groups · Roles.
-## - Reports: the moderation queue (Social.reports / Social.moderate), staff + unlocked owner.
+## - Reports: the moderation queue (Social.moderation_queue / Social.moderate), staff + unlocked owner.
+##   Reports are grouped per target; auto-held items (Social.REPORT_HOLD reports) come first.
+##   Decisions: Hide · Mature (age-gate it) · Keep (dismiss; releases a held item).
 ## - Approvals: companion posts waiting in the owner approval queue (same queue as MENU > Proposals).
 ## - Roles: tier editor (Tiers.set_tier). Anyone can look; only the unlocked owner can save.
 ## Phone rules (docs/UI_DESIGN_LANGUAGE.md): text >= 16 px (we use 20+), taps >= 80 px, short cards,
@@ -95,6 +97,7 @@ func _overview() -> void:
 	row.add_child(ViperKit.ring(minf(1.0, s["groups"] / 10.0), "groups", str(s["groups"])))
 	row.add_child(ViperKit.ring(minf(1.0, s["posts"] / 100.0), "posts", str(s["posts"])))
 	row.add_child(ViperKit.ring(minf(1.0, s["open_reports"] / 10.0), "reports", str(s["open_reports"]), 120, true))
+	if int(s.get("held_posts", 0)) > 0: c.body().add_child(_text("%d post(s) held for review. See Reports." % s["held_posts"], PhoenixTokens.WARN))
 	c.body().add_child(_text("Local only. Nothing leaves this phone yet.", PhoenixTokens.PLATINUM_DIM))
 	var e := _card("Example data"); b.add_child(e)
 	e.body().add_child(_text("Fake members for testing. Labelled [EXAMPLE].", PhoenixTokens.PLATINUM_DIM))
@@ -114,14 +117,20 @@ func _reports() -> void:
 	var b: VBoxContainer = boxes["Reports"]; _clear(b)
 	if not Tiers.can(Tiers.SELF, "moderate"):
 		b.add_child(_text("Staff or owner only. Unlock in Security.", PhoenixTokens.WARN)); return
-	var list := Social.reports(Tiers.SELF)
+	var list := Social.moderation_queue(Tiers.SELF)
 	if list.is_empty(): b.add_child(_text("No open reports.", PhoenixTokens.PLATINUM_DIM)); return
 	for r in list.slice(0, 7):
-		var c := _card("%s · %s" % [str(r["kind"]).capitalize(), r["target"]]); b.add_child(c)
-		c.body().add_child(_text(str(r["reason"]) if str(r["reason"]) != "" else "(no reason given)"))
-		var rid: String = r["id"]
-		c.body().add_child(_row([_btn("Hide", func(): _done(Social.moderate(Tiers.SELF, rid, "hide"))),
-			_btn("Dismiss", func(): _done(Social.moderate(Tiers.SELF, rid, "dismiss")))]))
+		var head := "%s · %s%s" % [str(r["kind"]).capitalize(), r["target"], "  ×%d" % r["count"] if int(r["count"]) > 1 else ""]
+		var c := _card(head); b.add_child(c)
+		if r["held"]: c.body().add_child(_text("Held: hidden until you decide.", PhoenixTokens.WARN))
+		if str(r["snippet"]) != "": c.body().add_child(_text("“%s”" % str(r["snippet"]), PhoenixTokens.PLATINUM_DIM))
+		c.body().add_child(_text(" · ".join(r["reasons"]) if not r["reasons"].is_empty() else "(no reason given)"))
+		var rid: String = r["report_id"]
+		var row := [_btn("Hide", func(): _done(Social.moderate(Tiers.SELF, rid, "hide")))]
+		if str(r["kind"]) in ["post", "story", "clip", "reply", "event", "group"] and not r["mature"]:
+			row.append(_btn("Mature", func(): _done(Social.moderate(Tiers.SELF, rid, "mature"))))
+		row.append(_btn("Keep", func(): _done(Social.moderate(Tiers.SELF, rid, "dismiss"))))
+		c.body().add_child(_row(row))
 
 # ---------- Approvals ----------
 func _approvals() -> void:

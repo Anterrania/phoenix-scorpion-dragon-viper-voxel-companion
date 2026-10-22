@@ -102,3 +102,7 @@ PHONE-7,"Beat detector + dance timeline (our own; drives HumanoidModel now, Real
 PHONE-8,"Broadcast stub: stream entries + parcel media URLs, stream keys encrypted only, Tiers.can(actor,'broadcast',parcel), owner approval to go live; Admin > Settings > Broadcast (encoder INACTIVE)",done_headless,P1
 PHONE-9,"Main HUD follows display scale + Large toggle on first-run screens + MENU entry (patches/ui_root_display_settings.patch, Foxy)",todo,P0
 PHONE-10,"Roadmap (docs/modules/MEDIA_BROADCAST.md): AI music, music videos, YouTube/SoundCloud OAuth upload drafts, RTMP encoder plugin + YouTube Live, in-world media screens, voice chat + spatial audio",todo,P2
+SEC,SEC-FIX-1 retire unsalted legacy owner-code hash (PBKDF2 bootstrap only; refused once PIN set),done,P0
+SEC,SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration,done,P0
+SEC,SEC-FIX-3 e-stop file MAC-sealed; fail closed,done,P1
+SEC,SEC-FIX-4 arm64-only Android export + tests clean up user:// roots,done,P2

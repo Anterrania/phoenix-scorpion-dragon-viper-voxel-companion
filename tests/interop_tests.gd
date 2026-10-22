@@ -240,7 +240,7 @@ static func run_docs(t: Node) -> void:
 	t.check(str(wiki.get("Interop", {}).get("text", "")).contains("BSD-3"), "vwgap docs: interop licensing note")
 	t.check(str(wiki.get("InteropGuide", {}).get("text", "")).contains("status: partial"), "vwgap docs: interop wiki page honest status")
 	var enc := str(wiki.get("Encryption", {}).get("text", ""))
-	t.check(enc.contains("PBKDF2") and enc.contains("F1") and not enc.contains(Profile.OWNER_CODE_SHA256), "vwgap docs: encryption doc has findings, no code hash")
+	t.check(enc.contains("PBKDF2") and enc.contains("F1") and not enc.contains("OWNER_CODE_SHA256 :="), "vwgap docs: encryption doc has findings, no code hash")
 	var tk: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/admin/tickets_seed.json"))
 	var found := {}
 	for x in tk:

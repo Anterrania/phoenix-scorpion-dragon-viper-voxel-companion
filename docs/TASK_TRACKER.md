@@ -49,3 +49,7 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | V.4 | Viper | Interplanetary travel (star map + seamless realm transitions) | 🧊 |
 | V.5 | Viper | Planetary destruction / large-scale voxel events | 🧊 |
 | 5.8 | 5 | Owner PIN/passphrase (PBKDF2), session gate + 30-min auto-lock, encrypted saves + migration, audit hash chain, e-stop, Security panel, radial launcher (`docs/SECURITY.md`) | ✅ headless-tested, needs device test |
+| SEC-FIX-1 | SEC | Retire unsalted legacy owner-code hash: PBKDF2 bootstrap only, refused once a PIN exists, legacy slots migrated (`docs/SECURITY_DEVICE_TEST_PLAN.md` F1) | ✅ headless-tested, needs device test |
+| SEC-FIX-2 | SEC | LLM API key sealed in `secrets.bin`, one-time blanking of `settings.cfg` (F2) | ✅ headless-tested, needs device test |
+| SEC-FIX-3 | SEC | E-stop file MAC under vault key, fail closed (F3) | ✅ headless-tested, needs device test |
+| SEC-FIX-4 | SEC | arm64-only Android export, tests clean up after themselves (F4, F5) | ✅ |

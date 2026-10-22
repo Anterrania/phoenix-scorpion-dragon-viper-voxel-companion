@@ -11,7 +11,7 @@ const DEFAULTS := {
 		# Example Grok/xAI endpoint: https://api.x.ai/v1/chat/completions (model e.g. "grok-4").
 		"endpoint": "https://api.x.ai/v1/chat/completions",
 		"model": "grok-4",
-		"api_key": "",
+		# api_key: NOT stored here (SEC-FIX-2). See set_api_key() / secrets.bin.
 		"timeout_sec": 45.0,
 		# v0.5: "canned" = offline persona replies (default); "live" = call the endpoint above.
 		"mode": "canned",
@@ -64,12 +64,15 @@ func _ready() -> void:
 				cfg.set_value(section, key, DEFAULTS[section][key])
 		cfg.save(PATH)
 	DisplaySettings.apply()   # scale tokens/theme + orientation before any UI is built
+	migrate_api_key()
 
 func get_value(section: String, key: String, fallback: Variant = null) -> Variant:
+	if section == "llm" and key == "api_key": return user_api_key()   # SEC-FIX-2: never from settings.cfg
 	var d: Variant = DEFAULTS.get(section, {}).get(key, fallback)
 	return cfg.get_value(section, key, d)
 
 func set_value(section: String, key: String, value: Variant) -> void:
+	if section == "llm" and key == "api_key": set_api_key(str(value)); return   # SEC-FIX-2
 	cfg.set_value(section, key, value)
 	cfg.save(PATH)
 
@@ -96,8 +99,79 @@ static func build_default_key() -> String:
 	return str(c.get_value("llm", "api_key", "")).strip_edges()
 
 func api_key() -> String:
-	var k := str(get_value("llm", "api_key", "")).strip_edges()
+	var k := user_api_key()
 	return k if k != "" else build_default_key()
+
+# ---------- SEC-FIX-2: API key in an encrypted store ----------
+## The user's key lives in <OwnerVault.root>/secrets.bin, sealed with the vault data key
+## (CryptoBox, same as SecureFile). It is NEVER written in plaintext: with no vault / key loaded it is
+## held in memory only, and sealed as soon as the owner unlocks or sets a PIN.
+## One-time migration: a plaintext [llm] api_key found in settings.cfg is moved into the store and
+## blanked from settings.cfg (immediately in memory; on disk as soon as it is sealed).
+var _secret_mem := ""        # current key (memory)
+var _secret_loaded := false  # sealed store has been read
+var _secret_dirty := false   # memory value not yet sealed to disk
+var _hooked := false
+
+static func secrets_path() -> String: return OwnerVault.root.path_join("secrets.bin")
+
+func _hook_vault() -> void:
+	if _hooked: return
+	_hooked = true
+	OwnerVault.on_storage_ready.append(func(): _secret_loaded = false; flush_secrets())
+
+## Move a plaintext key out of settings.cfg. Safe to call repeatedly.
+func migrate_api_key() -> void:
+	_hook_vault()
+	if not cfg.has_section_key("llm", "api_key"): return
+	var legacy := str(cfg.get_value("llm", "api_key", "")).strip_edges()
+	if legacy != "" and user_api_key() == "":
+		_secret_mem = legacy; _secret_dirty = true
+	if legacy == "" or flush_secrets():
+		cfg.erase_section_key("llm", "api_key")
+		cfg.save(PATH)
+
+func _read_store() -> void:
+	if _secret_loaded or not OwnerVault.storage_ready(): return
+	_secret_loaded = true
+	if _secret_dirty or not FileAccess.file_exists(secrets_path()): return
+	var k := OwnerVault.dek()
+	var st := {}
+	var p := CryptoBox.open(k["enc"], k["mac"], FileAccess.get_file_as_bytes(secrets_path()), st)
+	var d: Variant = JSON.parse_string(p.get_string_from_utf8()) if st["ok"] else null
+	if d is Dictionary: _secret_mem = str(d.get("llm_api_key", ""))
+	elif not st["ok"]: push_error("Settings: secrets store failed its integrity check; key not loaded")
+
+func user_api_key() -> String:
+	_read_store()
+	return _secret_mem.strip_edges()
+
+func set_api_key(k: String) -> void:
+	_hook_vault()
+	_read_store()
+	_secret_mem = k.strip_edges(); _secret_dirty = true
+	flush_secrets()
+
+## Seal the in-memory key to disk. False if no data key is loaded (stays in memory only).
+func flush_secrets() -> bool:
+	if not OwnerVault.storage_ready(): return not _secret_dirty
+	_read_store()
+	if _secret_dirty:
+		var k := OwnerVault.dek()
+		DirAccess.make_dir_recursive_absolute(secrets_path().get_base_dir())
+		var tmp := secrets_path() + ".tmp"
+		var f := FileAccess.open(tmp, FileAccess.WRITE)
+		if f == null: return false
+		f.store_buffer(CryptoBox.seal(k["enc"], k["mac"], JSON.stringify({"llm_api_key": _secret_mem}).to_utf8_buffer()))
+		f.close()
+		SecureFile.replace_file(tmp, secrets_path())
+		_secret_dirty = false
+	if cfg.has_section_key("llm", "api_key"):
+		cfg.erase_section_key("llm", "api_key"); cfg.save(PATH)
+	return true
+
+func reset_secrets_for_tests() -> void:
+	_secret_mem = ""; _secret_loaded = false; _secret_dirty = false
 
 ## "live" | "offline_no_key" | "offline_mode" | "offline_error"
 var last_chat_error := ""

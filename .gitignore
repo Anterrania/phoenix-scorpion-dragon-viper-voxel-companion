@@ -5,3 +5,6 @@ build/
 addons/zylann.voxel/
 *.translation
 config/*.local.cfg
+addons/viper_device/bin/
+android/plugins/viper_device/.gradle/
+android/plugins/viper_device/local.properties

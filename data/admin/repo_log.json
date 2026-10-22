@@ -1,5 +1,11 @@
 [
  {
+  "sha": "2c31673",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:58:54-07:00",
+  "subject": "docs(SMP): SOCIAL.md feed/clip/story API, SOCIAL_MEDIA_PARITY.md, Foxy specs, wiki, SMP- tracker rows, VIEWER_PARITY section, menu patch; reseed"
+ },
+ {
   "sha": "f9f54c5",
   "author": "Anterrania",
   "date": "2026-10-22T09:55:52-07:00",

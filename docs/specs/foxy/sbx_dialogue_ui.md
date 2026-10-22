@@ -1,6 +1,8 @@
-# Foxy spec: dialogue UI (SBX-33)
+# Foxy spec: dialogue UI (SBX-F9)
 
-Owner: **Foxy**. Dev builds the engine (SBX-27): nodes with text, speaker, options, conditions and effects.
+
+> 2026-10-22: written before the dev/Foxy split. Ids like SBX-SIM-n point at the inactive reference model in `scripts/sim/` (Foxy owns those features now). Dev-side APIs: QuestEngine (SBX-2), WorldHost (SBX-3), MarketDelivery (SBX-5), FreePlay (SBX-7).
+Owner: **Foxy**. A dialogue engine is not built yet (no tracker row yet; it would be dev-side): nodes with text, speaker, options, conditions and effects.
 
 ## Abilities
 - Talk to an NPC or companion: show the line, speaker name, up to 4 options.
@@ -12,6 +14,6 @@ Owner: **Foxy**. Dev builds the engine (SBX-27): nodes with text, speaker, optio
 - History: scroll back the conversation; "skip" and "auto-advance" options.
 - Companion chat stays the free-text chat panel; dialogue trees are for scripted NPC talks.
 
-## Engine contract (coming in SBX-27)
+## Engine contract (proposed)
 `Dialogue.start(npc_id, actor) -> {node}`; `Dialogue.choose(option_id) -> {node | end}`; each node:
 `{id, speaker, text, options: [{id, text, locked_reason}]}`.

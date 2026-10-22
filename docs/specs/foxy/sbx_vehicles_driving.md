@@ -1,5 +1,7 @@
-# Foxy spec: vehicles, mounts and driving (SBX-32)
+# Foxy spec: vehicles, mounts and driving (SBX-F3)
 
+
+> 2026-10-22: written before the dev/Foxy split. Ids like SBX-SIM-n point at the inactive reference model in `scripts/sim/` (Foxy owns those features now). Dev-side APIs: QuestEngine (SBX-2), WorldHost (SBX-3), MarketDelivery (SBX-5), FreePlay (SBX-7).
 Owner: **Foxy** (client physics, controls, camera). Dev owns the server record (ownership, garage,
 recovery) as a follow-up ticket once the client exists. Concepts from open-world games, our own design.
 

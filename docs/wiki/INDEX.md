@@ -20,10 +20,14 @@ Short pages. Tap one.
 - [Music](music.md) · built
 - [Avatars & DNA](avatars-dna.md) · built
 - [Combat, RP & Breedables](combat-rp-breedables.md) · built
-- [Needs & Mood](sim-needs-mood.md) · built
-- [Skills & Perks](sim-skills-perks.md) · built
-- [Factions & Reputation](sim-factions.md) · built
-- [Crafting & Infusion](sim-crafting.md) · built
+- [Quests & Missions](quests-missions.md) · partial
+- [On-Demand Worlds](on-demand-worlds.md) · partial
+- [Market Delivery, Vendors & Rentals](market-delivery.md) · partial
+- [Free-Play Games](free-play-games.md) · partial
+- [Needs & Mood](sim-needs-mood.md) · reference (Foxy)
+- [Skills & Perks](sim-skills-perks.md) · reference (Foxy)
+- [Factions & Reputation](sim-factions.md) · reference (Foxy)
+- [Crafting & Infusion](sim-crafting.md) · reference (Foxy)
 - [Welcome Island](welcome-island.md) · built
 - [Economy](economy.md) · partial
 - [Graphics Settings](graphics-settings.md) · built

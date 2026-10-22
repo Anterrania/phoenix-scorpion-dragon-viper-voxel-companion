@@ -1,5 +1,5 @@
 {
-  "_note": "SBX-23 starter factions (our own). relations: ally = 50% of rep gain spills over, rival = -50%. exclusive = members can't join each other.",
+  "_note": "SBX-SIM-3 starter factions (our own). relations: ally = 50% of rep gain spills over, rival = -50%. exclusive = members can't join each other.",
   "factions": {
     "frost_wardens": {"name": "Frost Wardens", "realm": "alaska", "relations": {"ember_court": "rival", "star_cartographers": "ally"}, "exclusive_with": ["ember_court"]},
     "ember_court": {"name": "Ember Court", "realm": "venus", "relations": {"frost_wardens": "rival"}, "exclusive_with": ["frost_wardens"]},

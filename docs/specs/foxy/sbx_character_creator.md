@@ -1,5 +1,7 @@
-# Foxy spec: character creator (SBX-35)
+# Foxy spec: character creator (SBX-F11)
 
+
+> 2026-10-22: written before the dev/Foxy split. Ids like SBX-SIM-n point at the inactive reference model in `scripts/sim/` (Foxy owns those features now). Dev-side APIs: QuestEngine (SBX-2), WorldHost (SBX-3), MarketDelivery (SBX-5), FreePlay (SBX-7).
 Owner: **Foxy** (v0.12 avatar work). Dev side: `AvatarDNA`, `AvatarAppearance`, `Profile.save_profile`,
 owner-only avatar edits through the security gate.
 

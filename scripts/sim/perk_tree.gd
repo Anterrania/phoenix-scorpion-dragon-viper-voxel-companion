@@ -1,6 +1,9 @@
 class_name PerkTree
 extends RefCounted
-## SBX-22: skill XP + perk system on top of SkillByUse (learn-by-doing skills, already shipped).
+## INACTIVE FOR DEV (2026-10-22 fold): needs/moods, skills/perks, factions-as-teams and crafting are Foxy-owned
+## client features (docs/specs/foxy/). This model was written before the split; it is kept, tested and
+## unwired as a reference Foxy may adopt or replace. Nothing in the app calls it. Do not extend it here.
+## SBX-SIM-2: skill XP + perk system on top of SkillByUse (learn-by-doing skills, already shipped).
 ## - Skills level by use (SkillByUse). Every 3 skill levels gained grant a perk point (data/sim/perks.json).
 ## - Perks have a skill level gate, prerequisites and ranks; modifier(key) sums active effects.
 ## - Unlocking goes through SimGate "play" (Tiers browse) so owner matrix overrides apply to it too.

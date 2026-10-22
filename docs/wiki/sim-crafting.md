@@ -6,7 +6,7 @@ audience: all
 status: built
 updated: 2026-10-17
 sources: [scripts/sim/crafting.gd, data/sim/recipes.json]
-ticket: SBX-24
+ticket: SBX-SIM-4
 ---
 
 # Crafting & Infusion

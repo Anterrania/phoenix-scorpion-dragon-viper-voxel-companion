@@ -1,6 +1,9 @@
 class_name NeedsMood
 extends RefCounted
-## SBX-21: needs + mood model for companions and NPCs (life-sim concept, our own numbers).
+## INACTIVE FOR DEV (2026-10-22 fold): needs/moods, skills/perks, factions-as-teams and crafting are Foxy-owned
+## client features (docs/specs/foxy/). This model was written before the split; it is kept, tested and
+## unwired as a reference Foxy may adopt or replace. Nothing in the app calls it. Do not extend it here.
+## SBX-SIM-1: needs + mood model for companions and NPCs (life-sim concept, our own numbers).
 ## Server/system side only: no UI. Implements docs/modules/NEEDS.md.
 ## - Needs 0..100 decay per in-world minute; activity multipliers (building drains energy faster).
 ## - Survival needs (warmth) only decay in hostile realms (context "hostile").

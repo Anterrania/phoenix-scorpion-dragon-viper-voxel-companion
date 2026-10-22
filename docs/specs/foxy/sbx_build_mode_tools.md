@@ -1,5 +1,7 @@
-# Foxy spec: build mode, crafting station and constraints (SBX-36)
+# Foxy spec: build mode, crafting station and constraints (SBX-F2)
 
+
+> 2026-10-22: written before the dev/Foxy split. Ids like SBX-SIM-n point at the inactive reference model in `scripts/sim/` (Foxy owns those features now). Dev-side APIs: QuestEngine (SBX-2), WorldHost (SBX-3), MarketDelivery (SBX-5), FreePlay (SBX-7).
 Owner: **Foxy** (build-mode client). Dev side: `Crafting` (scripts/sim/crafting.gd), `ParcelTools`,
 `Terraform`, `PropKit`, `Tiers.can(actor, "build", parcel)`.
 

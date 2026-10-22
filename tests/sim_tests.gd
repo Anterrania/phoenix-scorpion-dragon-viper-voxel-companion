@@ -1,5 +1,5 @@
 extends RefCounted
-## SBX-20..25: sim systems (gate, needs + mood, perks, factions, crafting)
+## SBX-SIM-0..4: sim systems (gate, needs + mood, perks, factions, crafting)
 ## and the parity docs. Throwaway roots; restores every static it touches.
 
 static func _rm_tree(p: String) -> void:
@@ -190,17 +190,17 @@ static func _crafting(t: Node) -> void:
 
 ## Docs: parity inventory, Foxy specs, tracker rows, wiki pages, legal-review markers.
 static func run_docs(t: Node) -> void:
-	var par := FileAccess.get_file_as_string("res://docs/modules/SANDBOX_PARITY.md")
-	t.check(par.length() > 5000, "sim docs: SANDBOX_PARITY.md present")
-	for src in ["The Sims", "Grand Theft Auto", "League of Angels", "Skyrim", "Game of Thrones Slots Casino", "InWorldz", "Kitely", "Minecraft", "Roblox", "VRChat", "Decentraland"]:
-		t.check(par.contains(src), "sim docs: parity covers " + src)
-	t.check(par.contains("LEGAL REVIEW") and par.contains("free play tokens"), "sim docs: casino/gacha legal review + free tokens")
-	t.check(par.contains("| Source | Feature | Viper status | Owner | Tracker |"), "sim docs: parity table columns")
-	var specs: Array = Array(DirAccess.get_files_at("res://docs/specs/foxy")).filter(func(f): return f.begins_with("sbx_"))
-	t.check(specs.size() >= 6, "sim docs: Foxy specs (%d)" % specs.size())
+	# 2026-10-22 fold: the SANDBOX_PARITY / Foxy spec / LF checks below duplicate tests/sandbox_dev_tests.gd
+	# run_docs (which owns the parity doc now), so they are commented out here, not deleted.
+	#var par := FileAccess.get_file_as_string("res://docs/modules/SANDBOX_PARITY.md")
+	#t.check(par.length() > 5000, "sim docs: SANDBOX_PARITY.md present")
+	#for src in [...]: t.check(par.contains(src), "sim docs: parity covers " + src)
+	#t.check(par.contains("LEGAL REVIEW") and par.contains("free play tokens"), "sim docs: casino/gacha legal review + free tokens")
+	#t.check(par.contains("| Source | Feature | Viper status | Owner | Tracker |"), "sim docs: parity table columns")
+	#(Foxy spec count + tracker LF checks: see sandbox_dev_tests.gd)
 	var csv := FileAccess.get_file_as_string("res://docs/TASK_TRACKER.csv")
-	t.check(not csv.contains("\r"), "sim docs: tracker LF endings")
-	for i in range(20, 31): t.check(csv.contains("SBX-%d," % i), "sim docs: tracker row SBX-%d" % i)
+	# sim ids were SBX-20..30 before the fold; renumbered SBX-SIM-0..4 so they don't clash with dev SBX-20+.
+	for i in range(0, 5): t.check(csv.contains("\nSBX-SIM-%d," % i), "sim docs: tracker row SBX-SIM-%d" % i)
 	var wiki: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/admin/wiki_seed.json"))
 	for p in ["SimNeedsMood", "SimSkillsPerks", "SimFactions", "SimCrafting", "SandboxParity"]:
 		t.check(wiki is Dictionary and wiki.has(p), "sim docs: wiki seed has " + p)

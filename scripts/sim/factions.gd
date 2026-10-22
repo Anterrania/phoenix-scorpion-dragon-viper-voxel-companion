@@ -1,6 +1,9 @@
 class_name Factions
 extends RefCounted
-## SBX-23: faction membership + reputation (RPG faction / open-world gang-territory concept, own rules).
+## INACTIVE FOR DEV (2026-10-22 fold): needs/moods, skills/perks, factions-as-teams and crafting are Foxy-owned
+## client features (docs/specs/foxy/). This model was written before the split; it is kept, tested and
+## unwired as a reference Foxy may adopt or replace. Nothing in the app calls it. Do not extend it here.
+## SBX-SIM-3: faction membership + reputation (RPG faction / open-world gang-territory concept, own rules).
 ## - Reputation per actor per faction, -1000..1000, ranks from hostile to exalted.
 ## - Gains spill over to allies (+50%) and rivals (-50%); exclusive factions block double membership.
 ## - Join: SimGate "join_faction" (Tiers group_join, residents+) and rank >= neutral.

@@ -1,6 +1,9 @@
 class_name Crafting
 extends RefCounted
-## SBX-24: crafting + infusion (enchanting concept) tied to voxel materials.
+## INACTIVE FOR DEV (2026-10-22 fold): needs/moods, skills/perks, factions-as-teams and crafting are Foxy-owned
+## client features (docs/specs/foxy/). This model was written before the split; it is kept, tested and
+## unwired as a reference Foxy may adopt or replace. Nothing in the app calls it. Do not extend it here.
+## SBX-SIM-4: crafting + infusion (enchanting concept) tied to voxel materials.
 ## - Recipes (data/sim/recipes.json) take voxel materials ("voxel:<palette id>") and crafted
 ##   items, need a station (hands / workbench / forge / infuser) and a skill level, give SkillByUse
 ##   XP through a PerkTree. Perk "tinkerer" adds a bonus-output chance, "infuser" boosts infusions.

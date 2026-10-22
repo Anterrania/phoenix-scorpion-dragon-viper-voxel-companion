@@ -1,5 +1,5 @@
 {
-  "_note": "SBX-22 perk tree (our own names and numbers). skill = SkillByUse skill, level = skill level needed, requires = perk ids, effect = modifier per rank.",
+  "_note": "SBX-SIM-2 perk tree (our own names and numbers). skill = SkillByUse skill, level = skill level needed, requires = perk ids, effect = modifier per rank.",
   "skill_levels_per_point": 3,
   "perks": {
     "steady_hands": {"skill": "building", "level": 5, "ranks": 3, "requires": [], "effect": {"build_speed": 0.1}},

@@ -6,7 +6,7 @@ audience: all
 status: built
 updated: 2026-10-17
 sources: [scripts/sim/perk_tree.gd, scripts/sim/sim_gate.gd, scripts/progression/skill_by_use.gd, data/sim/perks.json]
-ticket: SBX-22
+ticket: SBX-SIM-2
 ---
 
 # Skills & Perks

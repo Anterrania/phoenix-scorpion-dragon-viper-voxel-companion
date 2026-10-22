@@ -6,7 +6,7 @@ audience: all
 status: built
 updated: 2026-10-17
 sources: [scripts/sim/factions.gd, data/sim/factions.json]
-ticket: SBX-23
+ticket: SBX-SIM-3
 ---
 
 # Factions & Reputation

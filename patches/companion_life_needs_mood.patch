@@ -6,7 +6,7 @@ index 71d8e13..d605e8b 100644
  var log_entries: Array = []
  var built := 0
  var gathered := {}
-+## SBX-21 hook: Sims-style needs + mood (scripts/sim/needs_mood.gd). Loaded per companion, saved on finish.
++## SBX-SIM-1 hook: Sims-style needs + mood (scripts/sim/needs_mood.gd). Loaded per companion, saved on finish.
 +var needs: NeedsMood
 +const NEED_ACTIVITY := {"explore": "explore", "gather": "build", "build": "build", "travel": "explore", "rest": "rest"}
  

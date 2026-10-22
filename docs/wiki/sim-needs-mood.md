@@ -6,7 +6,7 @@ audience: all
 status: built
 updated: 2026-10-17
 sources: [scripts/sim/needs_mood.gd, docs/modules/NEEDS.md, docs/modules/SANDBOX_PARITY.md]
-ticket: SBX-21
+ticket: SBX-SIM-1
 ---
 
 # Needs & Mood

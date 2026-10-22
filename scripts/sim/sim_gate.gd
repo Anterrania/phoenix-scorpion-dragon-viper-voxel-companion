@@ -1,6 +1,9 @@
 class_name SimGate
 extends RefCounted
-## SBX-20: one permission door for the sim systems in scripts/sim (needs + mood, skills + perks,
+## INACTIVE FOR DEV (2026-10-22 fold): needs/moods, skills/perks, factions-as-teams and crafting are Foxy-owned
+## client features (docs/specs/foxy/). This model was written before the split; it is kept, tested and
+## unwired as a reference Foxy may adopt or replace. Nothing in the app calls it. Do not extend it here.
+## SBX-SIM-0: one permission door for the sim systems in scripts/sim (needs + mood, skills + perks,
 ## factions + reputation, crafting + infusion). Every check goes through Tiers.can(); owner-only
 ## actions go through Tiers.owner_session(), which is Profile.is_owner() (owner device + unlocked
 ## OwnerVault). Quests, market delivery, on-demand worlds and rentals live in scripts/sandbox
@@ -8,7 +11,7 @@ extends RefCounted
 ##
 ## Tiers.ACTIONS is shared with Social/admin, so instead of adding new actions there (and changing
 ## the role-matrix editor) the game verbs map onto existing actions. If a verb ever needs its own
-## matrix row, add it to Tiers.ACTIONS and point the map at it: nothing else changes. (SBX-30)
+## matrix row, add it to Tiers.ACTIONS and point the map at it: nothing else changes. (SBX-SIM-10)
 ##
 ## E-stop: Tiers.can already blocks bots/companions (everything but browse) while AutonomyGuard is
 ## paused, so a paused companion can't craft or join factions.

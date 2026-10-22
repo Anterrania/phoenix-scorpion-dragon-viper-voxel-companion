@@ -1,5 +1,7 @@
-# Foxy spec: needs, skills, perks and standing on the HUD (SBX-31)
+# Foxy spec: needs, skills, perks and standing on the HUD (SBX-F13)
 
+
+> 2026-10-22: written before the dev/Foxy split. Ids like SBX-SIM-n point at the inactive reference model in `scripts/sim/` (Foxy owns those features now). Dev-side APIs: QuestEngine (SBX-2), WorldHost (SBX-3), MarketDelivery (SBX-5), FreePlay (SBX-7).
 Owner: **Foxy** (client HUD). Dev side is shipped: `NeedsMood`, `PerkTree`, `Factions` (scripts/sim/).
 Features only here; look and layout follow the Phoenix Glass kit and PhoenixTokens (compact default,
 one-tap Large, portrait + auto-rotate, no bounce, at most one glow).

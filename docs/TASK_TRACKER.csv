@@ -233,3 +233,20 @@ SMP-22,"Cross-post export adapters (off by default, owner approval per post) - I
 SMP-23,Live video + live chat,todo,P3
 SMP-24,Shops / marketplace listings with Aethel Coin - LEGAL REVIEW,blocked,P3
 SMP-25,Server sync for feeds/DMs across devices + clip transcoding,todo,P2
+CHAT-1,"Chat always answers: every AgentBrain.chat() ends in one non-empty reply_ready (request start error / bad JSON / empty reply used to leave chat silent)",done,P0
+CHAT-2,"One live/offline rule: Settings.live_ai() == chat_status() (build key case); offline_locked status when the sealed key needs the PIN",done,P0
+CHAT-3,"Pasting an API key in Settings turns live chat on (unless offline replies were chosen); mode + status refresh",done,P0
+CHAT-4,"Endpoint validation + auto https:// (offline_endpoint status instead of a silent HTTP error)",done,P1
+CHAT-5,"Plain-language errors: DNS (ERR_NAME_NOT_RESOLVED equivalent) / connect / TLS / timeout / 401 / 404 / 429 / 5xx + provider message; robust response parse",done,P0
+CHAT-6,"Thinking state (AgentBrain.thinking + is_thinking) shown in the chat banner",done,P1
+CHAT-7,"Mock-provider seam AgentBrain.transport + tests/chat_core_tests.gd (live, errors, tools, queue, offline, UI)",done,P0
+CHAT-8,"Omit empty tools array; send only user/assistant history",done,P2
+CHAT-9,"Tool-only live turns show an action line instead of an empty message",done,P1
+CHAT-10,"Offline chat turns saved to memory (history trimmed to MAX_HISTORY)",done,P1
+CHAT-11,"Chat log shows why live AI failed, then the offline reply",done,P1
+CHAT-12,"BBCode-safe chat log (player + companion text escaped)",done,P2
+CHAT-13,"Send with no companion picked auto-picks one; OOC messages say they were not sent",done,P1
+CHAT-14,"Settings › Test AI connection button",done,P1
+CHAT-15,"Verify live chat on a real phone (internet permission, DNS, TLS, xAI key) via Test AI connection",todo,P0
+CHAT-16,"Follow-up turn after tool calls (send tool results back to the model for a spoken answer)",todo,P2
+CHAT-17,"Voice input (Android STT) -> companion.talk()",todo,P2

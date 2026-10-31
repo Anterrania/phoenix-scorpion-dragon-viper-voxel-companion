@@ -81,7 +81,59 @@ func mature_enabled() -> bool:
 
 ## Live AI only when the user picked "live" AND entered a key (config hook for later).
 func live_ai() -> bool:
-	return (str(get_value("llm", "mode", "canned")) == "live" or (build_default_key() != "" and not cfg.has_section_key("llm", "mode_set"))) and has_api_key()
+	# CHAT-2: same rule as chat_status() (was: status said "offline_mode" while live_ai() was true with a build key).
+	# return (str(get_value("llm", "mode", "canned")) == "live" or (build_default_key() != "" and not cfg.has_section_key("llm", "mode_set"))) and has_api_key()
+	return effective_mode() == "live" and has_api_key() and llm_endpoint() != ""
+
+## CHAT-2: "live" when the user picked live, or a build-time key exists and the user never chose a mode.
+func effective_mode() -> String:
+	if str(get_value("llm", "mode", "canned")) == "live": return "live"
+	if build_default_key() != "" and not cfg.has_section_key("llm", "mode_set"): return "live"
+	return "canned"
+
+## CHAT-3: Settings UI key entry. Entering a key turns live chat on unless the user explicitly chose
+## offline replies (mode_set). Before this, a pasted key did nothing until the mode button was found.
+func set_api_key_from_ui(k: String) -> void:
+	set_api_key(k)
+	last_chat_error = ""
+	if k.strip_edges() != "" and not bool(cfg.get_value("llm", "mode_set", false)):
+		set_value("llm", "mode", "live")
+
+## CHAT-4: validated endpoint. Trims, adds https:// when no scheme was typed, "" if unusable.
+func llm_endpoint() -> String:
+	return normalize_endpoint(str(get_value("llm", "endpoint", "")))
+
+static func normalize_endpoint(raw: String) -> String:
+	var e := raw.strip_edges()
+	if e == "": return ""
+	if not e.contains("://"): e = "https://" + e
+	if not (e.begins_with("https://") or e.begins_with("http://")): return ""
+	var host := e.split("://", true, 1)[1].split("/")[0]
+	if host == "" or host.contains(" ") or not (host.contains(".") or host.begins_with("localhost")): return ""
+	return e
+
+## CHAT-5: plain-language reason for a failed live request (HTTPRequest result + HTTP code + body).
+static func chat_error_text(result: int, code: int, body := "") -> String:
+	match result:
+		HTTPRequest.RESULT_CANT_RESOLVE: return "can't find the AI server (DNS / no internet). Check Wi-Fi or data and the endpoint."
+		HTTPRequest.RESULT_CANT_CONNECT, HTTPRequest.RESULT_CONNECTION_ERROR: return "can't connect to the AI server. Check your connection."
+		HTTPRequest.RESULT_TLS_HANDSHAKE_ERROR: return "secure connection failed (TLS). Check the phone's date/time."
+		HTTPRequest.RESULT_TIMEOUT: return "the AI server took too long to answer."
+		HTTPRequest.RESULT_NO_RESPONSE, HTTPRequest.RESULT_BODY_SIZE_LIMIT_EXCEEDED, HTTPRequest.RESULT_REQUEST_FAILED: return "the AI server sent no usable answer."
+	if result != HTTPRequest.RESULT_SUCCESS: return "network error (%d)." % result
+	var msg := ""
+	var d: Variant = JSON.parse_string(body) if body != "" else null
+	if d is Dictionary:
+		var e: Variant = d.get("error")
+		msg = str(e.get("message", "")) if e is Dictionary else (str(e) if e != null else "")
+	msg = msg.left(160)
+	match code:
+		401, 403: return "the API key was rejected (%d). Re-enter it in Settings › Companion AI." % code
+		404: return "endpoint or model not found (404). Check the endpoint and model in Settings."
+		429: return "rate limit or credits used up (429). Try again later."
+	if code >= 500: return "the AI service is having trouble (%d)." % code
+	if code >= 400: return "request refused (%d)%s" % [code, (": " + msg) if msg != "" else "."]
+	return ""
 
 func has_api_key() -> bool:
 	return api_key() != ""
@@ -176,8 +228,10 @@ func reset_secrets_for_tests() -> void:
 ## "live" | "offline_no_key" | "offline_mode" | "offline_error"
 var last_chat_error := ""
 func chat_status() -> String:
-	if api_key() == "": return "offline_no_key"
-	if str(get_value("llm", "mode", "canned")) != "live": return "offline_mode"
+	# CHAT-2: a sealed key exists but the vault is locked -> say so (was reported as "no API key").
+	if api_key() == "": return "offline_locked" if OwnerVault.has_vault() and not OwnerVault.storage_ready() and FileAccess.file_exists(secrets_path()) else "offline_no_key"
+	if effective_mode() != "live": return "offline_mode"
+	if llm_endpoint() == "": return "offline_endpoint"
 	if last_chat_error != "": return "offline_error"
 	return "live"
 
@@ -186,4 +240,6 @@ static func chat_status_text(st: String) -> String:
 		"live": return "● LIVE CHAT online"
 		"offline_no_key": return "○ CHAT OFFLINE: no API key. Add it in Settings › Companion AI (stays on this phone)."
 		"offline_mode": return "○ CHAT OFFLINE: AI mode is set to offline replies (Settings)."
+		"offline_locked": return "○ CHAT OFFLINE: unlock with your PIN to load your saved API key."
+		"offline_endpoint": return "○ CHAT OFFLINE: the AI endpoint in Settings › Companion AI isn't a valid web address."
 		_: return "○ CHAT OFFLINE: could not reach the AI service. Offline replies until it's back."

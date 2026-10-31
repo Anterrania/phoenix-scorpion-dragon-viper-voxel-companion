@@ -20,3 +20,37 @@
 
 ## Performance targets
 View distance 128 (low-end 96), max 12 tool edits per turn, edit radius ≤8, LOD terrain (`VoxelLodTerrain`) evaluated in M5.
+
+## Heaven Welcome Island (HEAVEN-1..6): the default start realm for everyone
+Full design: [docs/modules/HEAVEN.md](modules/HEAVEN.md). Client UI spec for Foxy: [docs/specs/foxy/HEAVEN_CLIENT.md](specs/foxy/HEAVEN_CLIENT.md).
+
+Real-world scale, smooth voxel floating islands high above the ground world (y 470 to 1100, 720 m radius
+centred on the origin), in the same VoxelLodTerrain (Transvoxel, LOD, voxel collisions). The Main Mall glass dome
+is in the centre. 13 district islands ring it: the Transportation Hub (spawn) at the bottom of the map, then
+Food Court, Gardens, Residential, Apartments, School, Office, Downtown, Casino (free play only), Theme Park, Beach,
+Poolrooms and Warehouses. The Spirit Realm and The Beyond float higher and are reached by portals. Ring bridges,
+floating roads to the Mall and glowing aqueduct waterways join them.
+
+| Phase | What | Status |
+|---|---|---|
+| H1 | Layout data, island SDF terrain, district buildings, Hub spawn, Kelvin weather, Heaven ambience | **playable** (this PR) |
+| H2 | Fly gate (owner + owner-granted members), studio gate, void catch, transit kiosks | **playable** (this PR) |
+| H3 | Enterable shops (clothes, shoes, hair, looks, accessories): free house items + creator listings through MarketDelivery | **playable** (this PR); priced buys stay LEGAL REVIEW |
+| H4 | Grids = realms: world picker (menu + Community shell), start-world setting (Heaven default) | **playable** (this PR) |
+| H5 | **Built live:** data-driven district files + companion edits (EveCore proposals, owner approval or standing grant) streaming into the running world; in-world "Direct a change" | **playable** (this PR) |
+| H6 | Vehicles on the floating roads, tram between Hub platforms (sbx_vehicles_driving) | planned |
+| H7 | Upper floors + interiors per building type, apartments you can own (Land budgets) | planned |
+| H8 | Companion flight-follow for granted companions; shoes/hair/glow style keys in the avatar model (Foxy) | planned |
+| H9 | Spirit Realm / The Beyond content, events at the Mall plaza screen | planned |
+| H10 | **Persistent Heaven server**: shared, multi-user Heaven; companions keep building 24/7 | planned |
+
+**24/7 building needs a persistent server.** Phase 1 runs on the phone: companions build, and edits are approved and
+applied, only while the app is open. They can't keep working while the owner is away. Building on around the clock,
+with many visitors seeing the same Heaven, needs H10: a persistent server that runs the companions' build loop,
+holds the edit log and streams changes to clients. The edit format (`user://heaven/edits.json`, ops add/set/remove
+over the base district files) is meant to move to that server unchanged.
+
+Performance: islands build one per frame (spawn island first), and small props sit in a separate "Detail" mesh
+whose range follows `RenderPipeline.props_range` (RenderTiers). Far islands are a single low-poly impostor batch.
+Rides animate from the absolute clock and sleep beyond `260 m × Dormancy.SLEEP_FACTOR`. All Heaven geometry is
+about 100k triangles over 16 islands, in roughly 40 draw calls (5 shared materials per island batch).

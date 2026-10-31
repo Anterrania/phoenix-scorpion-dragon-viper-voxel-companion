@@ -7,12 +7,17 @@ extends Node
 signal changed
 const PATH := "user://profile.json"
 const OPTIONS_PATH := "res://data/avatar_options.json"
-## SHA-256 of the owner unlock code. Placeholder: public repo, so this is NOT security.
-## Real owner auth comes with the server (account sign-in). Owner: pick your own code.
-const OWNER_CODE_SHA256 := "8ae5a77088495aa98e24931de8e55e51b027353c4d1f2026651c964df6d996eb"
+## SEC-FIX-1: the old unsalted SHA-256 of the legacy owner code is RETIRED from the release path.
+## It used to ship in every APK and could be brute-forced offline. The value was removed from the repo:
+# const OWNER_CODE_SHA256 := "<removed: SEC-FIX-1, docs/SECURITY_DEVICE_TEST_PLAN.md F1>"
+## Legacy bootstrap (optional, devices with no vault yet): a PBKDF2-HMAC-SHA256 record of the
+## legacy code with a random salt, read from the gitignored res://config/owner_bootstrap.local.cfg
+## ([owner] salt=<base64>, iter=<int>, hash=<hex>). Nothing secret is committed. The legacy code can
+## ONLY bootstrap the first PIN setup; once vault.json has a pin slot it is refused.
+const BOOTSTRAP_PATH := "res://config/owner_bootstrap.local.cfg"
 var data := {}
 var options := {}
-var owner_code_hash := OWNER_CODE_SHA256   # tests swap in a known hash
+var legacy_bootstrap := _load_bootstrap()   # {salt, iter, hash}; tests swap in make_bootstrap()
 
 func _ready() -> void:
 	var o: Variant = JSON.parse_string(FileAccess.get_file_as_string(OPTIONS_PATH))
@@ -51,18 +56,58 @@ func _input(e: InputEvent) -> void:
 func display_name() -> String:
 	return str(data.get("name", "Traveler"))
 
-static func code_hash(code: String) -> String:
-	return code.strip_edges().to_lower().sha256_text()
+static func _norm_code(code: String) -> String: return code.strip_edges().to_lower()
+
+static func _load_bootstrap() -> Dictionary:
+	if not FileAccess.file_exists(BOOTSTRAP_PATH): return {}
+	var c := ConfigFile.new()
+	if c.load(BOOTSTRAP_PATH) != OK: return {}
+	return {"salt": str(c.get_value("owner", "salt", "")), "iter": int(c.get_value("owner", "iter", 0)), "hash": str(c.get_value("owner", "hash", ""))}
+
+## Build a salted PBKDF2 bootstrap record (owner tooling + tests). Never store the code itself.
+static func make_bootstrap(code: String, iter := CryptoBox.DEFAULT_ITERATIONS) -> Dictionary:
+	var salt := CryptoBox.random_bytes(16)
+	return {"salt": Marshalls.raw_to_base64(salt), "iter": iter,
+		"hash": CryptoBox.pbkdf2_sha256(_norm_code(code).to_utf8_buffer(), salt, iter).hex_encode()}
+
+func legacy_code_matches(code: String) -> bool:
+	var b := legacy_bootstrap
+	if str(b.get("hash", "")) == "" or str(b.get("salt", "")) == "" or int(b.get("iter", 0)) < 1000 or _norm_code(code) == "": return false
+	var h := CryptoBox.pbkdf2_sha256(_norm_code(code).to_utf8_buffer(), Marshalls.base64_to_raw(str(b["salt"])), int(b["iter"]))
+	return CryptoBox.equal(h.hex_encode().to_ascii_buffer(), str(b["hash"]).to_lower().to_ascii_buffer())
 
 ## Unlock the owner session.
-## - Vault exists: PIN, passphrase or the legacy owner code (kept as its own key slot) via OwnerVault.
-## - No vault yet (phones from before v0.12): the legacy owner code (hash match) opens an owner
-##   session; the UI then offers the set-PIN step (OwnerVault.needs_pin_setup()).
+## - Vault exists: PIN or passphrase via OwnerVault. The legacy owner code is refused (SEC-FIX-1);
+##   old legacy key slots are removed once, on first load of a vault that has a pin slot.
+## - No vault yet: the legacy code (PBKDF2 bootstrap match) opens a SETUP-ONLY bootstrap. It grants
+##   no owner powers; the only thing it allows is OwnerVault.setup() of the first PIN.
+## SEC-FIX-5/6: first-run owner setup is allowed only when there is NO vault file (valid or corrupted)
+## and no legacy bootstrap record in the build. SEC-FIX-6: a device whose profile role is already
+## "owner" (upgrade from before the vault existed) may also use it; that is logged separately.
+func first_run_allowed() -> bool:
+	return not OwnerVault.vault_file_present() and str(legacy_bootstrap.get("hash", "")) == ""
+
+## First-run: create the owner PIN/passphrase (confirmed by the caller), claim the device, log it.
+func first_run_setup(secret: String) -> String:
+	if not first_run_allowed(): return "First-run setup is not available on this device."
+	var upgrade := role() == "owner"
+	var e := OwnerVault.setup(secret, true)
+	if e != "": return e
+	data["role"] = "owner"
+	save()
+	if upgrade:
+		ViperAdminData.revisions().commit("role", "security/owner_setup_upgrade", null, "owner PIN created on pre-vault owner device",
+			"Owner PIN/passphrase created for an existing owner device without a vault (SEC-FIX-6)", "owner")
+	else:
+		ViperAdminData.revisions().commit("role", "security/owner_setup", null, "first-run owner PIN created",
+			"Owner PIN/passphrase created on first run (SEC-FIX-5)", "owner")
+	return ""
+
 func try_owner_unlock(code: String) -> bool:
 	var ok := false
 	if OwnerVault.has_vault():
 		ok = OwnerVault.unlock(code) == ""
-	elif code_hash(code) == owner_code_hash:
+	elif legacy_code_matches(code):
 		OwnerVault.start_legacy_session(code.strip_edges())
 		ok = true
 	if ok and role() != "owner":

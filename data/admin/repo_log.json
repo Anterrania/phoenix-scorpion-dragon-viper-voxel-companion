@@ -1,9 +1,57 @@
 [
  {
-  "sha": "2788aaf",
+  "sha": "d296101",
   "author": "Anterrania",
-  "date": "2026-10-17T13:24:36-07:00",
-  "subject": "fix(security): audit gates - admin writes, estate fly/damage, companion tools via Tiers.can, Tiers.set_role"
+  "date": "2026-10-22T10:11:25-07:00",
+  "subject": "test(SMP): use OwnerVault.setup_for_tests (first-run gate from #33)"
+ },
+ {
+  "sha": "6723836",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:59:01-07:00",
+  "subject": "Merge origin/main (#38) into feature/social-media-parity; reseed"
+ },
+ {
+  "sha": "2c31673",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:58:54-07:00",
+  "subject": "docs(SMP): SOCIAL.md feed/clip/story API, SOCIAL_MEDIA_PARITY.md, Foxy specs, wiki, SMP- tracker rows, VIEWER_PARITY section, menu patch; reseed"
+ },
+ {
+  "sha": "f9f54c5",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:55:52-07:00",
+  "subject": "social(SMP): use Net data mode + image/bitrate budgets (PR #39) for thumbnails-first feed and clips"
+ },
+ {
+  "sha": "3a6acdc",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:54:51-07:00",
+  "subject": "Merge origin/main (#39 Net, PowerData) into feature/social-media-parity"
+ },
+ {
+  "sha": "4221ba1",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:54:41-07:00",
+  "subject": "uid"
+ },
+ {
+  "sha": "dd6ea9f",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:54:31-07:00",
+  "subject": "social(SMP): merge main, snapshot cursor, trending by authors, RLV adult flag hook, tests registered"
+ },
+ {
+  "sha": "158bd1f",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:43:08-07:00",
+  "subject": "Merge remote-tracking branch 'origin/main' into feature/social-media-parity"
+ },
+ {
+  "sha": "3d66fef",
+  "author": "Anterrania",
+  "date": "2026-10-22T09:43:08-07:00",
+  "subject": "wip(social): social-media parity server side (SMP) - feeds, stories, clips, DMs, media tools"
  },
  {
   "sha": "2f54951",

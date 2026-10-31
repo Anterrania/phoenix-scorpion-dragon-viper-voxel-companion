@@ -180,8 +180,8 @@ static func run(t: Node) -> void:
 
 	# ---------- roadmap stubs ----------
 	var stubs := [Social.forum_post("ex_res", "f", "t", "x"), Social.blog_post("ex_res", "t", "x"), Social.album_add("ex_cre", "a", "m"),
-		Social.event_create("ex_cre", "e", 0, "welcome"), Social.poll_create("ex_cre", "q", ["a", "b"]), Social.classified_post("ex_cre", "t", "x", "slot1")]
-	t.check(stubs.all(func(s): return s["error"] == "INACTIVE" and str(s["roadmap"]) != ""), "roadmap: stubs report INACTIVE with a roadmap note")
+		Social.classified_post("ex_cre", "t", "x", "slot1")]
+	t.check(stubs.all(func(s): return s["error"] == "INACTIVE" and str(s["roadmap"]) != ""), "roadmap: stubs report INACTIVE with a roadmap note (events/polls are live since SMP)")
 	t.check(Social.album_add("ex_res", "a", "m")["error"] == "Not allowed." and Social.classified_post("ex_res", "t", "x", "s")["error"] == "Not allowed.", "roadmap: stubs still enforce tiers (creators only)")
 	t.check(Social.classified_post("ex_cre", "t", "x", "s")["roadmap"].contains("LEGAL REVIEW"), "roadmap: classifieds carry legal-review note")
 
@@ -199,7 +199,7 @@ static func run(t: Node) -> void:
 	t.check(Social.profile("ex_res")["display_name"] == "Example Resident" and Social.friends_of("ex_res") == ["ex_cre"], "persist: reload keeps profiles + friends")
 	var sp := root.path_join("social/social.json")
 	t.check(not SecureFile.is_sealed_file(sp), "persist: plaintext before a vault exists (same as other saves)")
-	t.check(OwnerVault.setup("864213", true) == "", "persist: vault set up for test")
+	t.check(OwnerVault.setup_for_tests("864213") == "", "persist: vault set up for test")
 	Social.post("ex_res", "after vault")
 	t.check(SecureFile.is_sealed_file(sp) and not FileAccess.get_file_as_string(sp).contains("Example Resident"), "persist: social save encrypted once a vault exists")
 	Tiers.set_tier("ex_res", "resident")
@@ -251,7 +251,7 @@ static func run_ui(t: Node) -> void:
 	t.check(s.pages.count() == 5, "community ui: 5 swipe tabs")
 	t.check(s.save_roles_btn != null and s.save_roles_btn.disabled, "community ui: role editor save disabled while locked")
 	t.check(s.min_font_ok(16), "community ui: labels >= 16 px")
-	t.check(s.min_tap_ok(80), "community ui: buttons >= 80 px tall")
+	t.check(s.min_tap_ok(PhoenixTokens.tap()), "community ui: buttons >= token tap size (%d px)" % PhoenixTokens.tap())
 	Tiers.owner_override = true
 	s.refresh()
 	t.check(not s.save_roles_btn.disabled, "community ui: save enabled for unlocked owner")

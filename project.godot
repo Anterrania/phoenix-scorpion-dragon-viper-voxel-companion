@@ -11,6 +11,8 @@ config/features=PackedStringArray("4.7", "Mobile")
 [audio]
 
 general/text_to_speech=true
+; Mic capture (voice chat, voice morph, mic lip sync). Android also needs RECORD_AUDIO (export preset).
+driver/enable_input=true
 
 [autoload]
 Settings="*res://scripts/autoload/settings.gd"
@@ -19,10 +21,15 @@ RealmBuilder="*res://scripts/autoload/realm_builder.gd"
 Inventory="*res://scripts/autoload/inventory.gd"
 Profile="*res://scripts/autoload/profile.gd"
 PowerSaver="*res://scripts/autoload/power_saver.gd"
+DeviceProfile="*res://scripts/system/device_profile.gd"
+AutoConfig="*res://scripts/system/auto_config.gd"
+LocalLLM="*res://scripts/ai/local_llm.gd"
+Survival="*res://scripts/living/survival.gd"
 
 [display]
 window/size/viewport_width=720
 window/size/viewport_height=1280
+; 6 = sensor (auto-rotate, portrait AND landscape). Settings > Display > Orientation can lock Portrait.
 window/handheld/orientation=6
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
@@ -44,3 +51,7 @@ textures/vram_compression/import_etc2_astc=true
 anti_aliasing/quality/msaa_3d=1
 lights_and_shadows/directional_shadow/size.mobile=2048
 environment/defaults/default_clear_color=Color(0.05, 0.03, 0.1, 1)
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/viper_device/plugin.cfg", "res://addons/viper_llm/plugin.cfg")

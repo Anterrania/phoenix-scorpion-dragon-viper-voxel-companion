@@ -58,7 +58,11 @@ static func run(t: Node) -> void:
 
 	# --- coverage: Lindex-style order book (scaffold) had no test ---
 	var ex2 := CurrencyExchange.new()
-	ex2.place_order("a", "buy", 10, 105); ex2.place_order("b", "sell", 4, 100); ex2.place_order("c", "sell", 10, 110)
+	# SBX-LEGAL-1: the coin exchange is HARD-disabled, so orders are refused. The matching code is
+	# INACTIVE but still tested on hand-fed books so it stays correct for after counsel review.
+	t.check(not ex2.place_order("a", "buy", 10, 105) and ex2.bids.is_empty(), "audit: exchange refuses orders (HARD-disabled, legal review)")
+	ex2.bids = [{"acct": "a", "qty": 10, "price": 105}]
+	ex2.asks = [{"acct": "b", "qty": 4, "price": 100}, {"acct": "c", "qty": 10, "price": 110}]
 	var fills := ex2.match_orders()
 	t.check(fills.size() == 1 and fills[0]["qty"] == 4 and fills[0]["price"] == 100 and fills[0]["fee"] == 2, "audit: exchange fills at ask, 0.5% fee (scaffold)")
 	t.check(ex2.bids.size() == 1 and ex2.bids[0]["qty"] == 6 and ex2.asks.size() == 1, "audit: exchange keeps unfilled remainder")

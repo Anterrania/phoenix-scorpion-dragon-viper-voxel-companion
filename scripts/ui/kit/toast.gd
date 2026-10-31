@@ -21,7 +21,7 @@ static func show_toast(parent: Node, p_text: String, p_variant := "ok") -> Toast
 func _ready() -> void:
 	add_to_group(GROUP)
 	set_anchors_preset(Control.PRESET_CENTER_TOP); position.y = 24
-	custom_minimum_size = Vector2(0, PhoenixTokens.TAP_MIN); grow_horizontal = Control.GROW_DIRECTION_BOTH
+	custom_minimum_size = Vector2(0, PhoenixTokens.tap()); grow_horizontal = Control.GROW_DIRECTION_BOTH
 	var c: Color = VARIANTS[variant]
 	var sb := StyleBoxFlat.new(); sb.bg_color = Color(PhoenixTokens.GLASS, 0.9); sb.border_color = Color(c, 0.8)
 	sb.set_border_width_all(2); sb.set_corner_radius_all(PhoenixTokens.RADIUS.pill)

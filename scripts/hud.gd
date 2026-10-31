@@ -27,7 +27,7 @@ func _ready() -> void:
 	down.button_down.connect(func(): if player: player.fly_vertical = -1.0)
 	down.button_up.connect(func(): if player: player.fly_vertical = 0.0)
 	if player and player.has_signal("fly_refused"):
-		player.fly_refused.connect(func(): Toast.show_toast(self, "Flying is off on this land", "warn"))
+		player.fly_refused.connect(func(reason: String = ""): Toast.show_toast(self, reason if reason != "" else "Flying is off on this land", "warn"))
 	if player and player.has_signal("flying_changed"):
 		player.flying_changed.connect(func(on: bool):
 			fly.text = "LAND" if on else "FLY"

@@ -1,0 +1,15 @@
+{
+  "_note": "SBX-SIM-2 perk tree (our own names and numbers). skill = SkillByUse skill, level = skill level needed, requires = perk ids, effect = modifier per rank.",
+  "skill_levels_per_point": 3,
+  "perks": {
+    "steady_hands": {"skill": "building", "level": 5, "ranks": 3, "requires": [], "effect": {"build_speed": 0.1}},
+    "master_mason": {"skill": "building", "level": 30, "ranks": 1, "requires": ["steady_hands"], "effect": {"voxel_refund": 0.25}},
+    "keen_eye": {"skill": "gathering", "level": 5, "ranks": 2, "requires": [], "effect": {"gather_yield": 0.15}},
+    "deep_veins": {"skill": "gathering", "level": 25, "ranks": 1, "requires": ["keen_eye"], "effect": {"rare_find": 0.05}},
+    "tinkerer": {"skill": "crafting", "level": 10, "ranks": 3, "requires": [], "effect": {"craft_bonus_chance": 0.05}},
+    "infuser": {"skill": "crafting", "level": 40, "ranks": 2, "requires": ["tinkerer"], "effect": {"infuse_power": 0.2}},
+    "silver_tongue": {"skill": "speech", "level": 10, "ranks": 2, "requires": [], "effect": {"rep_gain": 0.1}},
+    "trailblazer": {"skill": "exploring", "level": 5, "ranks": 2, "requires": [], "effect": {"move_speed": 0.05}},
+    "ember_ward": {"skill": "fire_magic", "level": 15, "ranks": 2, "requires": [], "effect": {"fire_resist": 0.15}}
+  }
+}

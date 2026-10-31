@@ -16,11 +16,11 @@ var _expanded := ""
 var _press := Vector2.ZERO
 
 func _init() -> void:
-	add_theme_constant_override("separation", PhoenixTokens.SPACE[3])
+	add_theme_constant_override("separation", PhoenixTokens.space(3))
 	var head := HBoxContainer.new(); head.alignment = BoxContainer.ALIGNMENT_CENTER; head.add_theme_constant_override("separation", 16)
-	var p := Button.new(); p.text = "‹"; p.custom_minimum_size = Vector2(PhoenixTokens.TAP_MIN, PhoenixTokens.TAP_MIN); p.pressed.connect(func(): show_day(day_index + 1))
+	var p := Button.new(); p.text = "‹"; p.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap()); p.pressed.connect(func(): show_day(day_index + 1))
 	_day_label = Label.new(); _day_label.theme_type_variation = &"CaptionLabel"
-	var n := Button.new(); n.text = "›"; n.custom_minimum_size = Vector2(PhoenixTokens.TAP_MIN, PhoenixTokens.TAP_MIN); n.pressed.connect(func(): show_day(day_index - 1))
+	var n := Button.new(); n.text = "›"; n.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap()); n.pressed.connect(func(): show_day(day_index - 1))
 	head.add_child(p); head.add_child(_day_label); head.add_child(n)
 	add_child(head)
 	_list = VBoxContainer.new(); _list.add_theme_constant_override("separation", 0); add_child(_list)
@@ -57,7 +57,7 @@ func _rebuild() -> void:
 		var dot := _Ring.new(); dot.fire = e.get("actor", "system") == "companion"
 		row.add_child(dot)
 		var b := Button.new(); b.flat = true; b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		b.custom_minimum_size.y = PhoenixTokens.TAP_MIN; b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.custom_minimum_size.y = PhoenixTokens.tap(); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		b.text = "%s  %s" % [str(e.get("when", "")).substr(11, 5), str(e.get("title", ""))]
 		b.pressed.connect(func(): toggle(ref))
@@ -86,7 +86,7 @@ func _on_input(e: InputEvent) -> void:
 
 class _Ring extends Control:
 	var fire := false
-	func _init() -> void: custom_minimum_size = Vector2(32, PhoenixTokens.TAP_MIN); mouse_filter = Control.MOUSE_FILTER_IGNORE
+	func _init() -> void: custom_minimum_size = Vector2(32, PhoenixTokens.tap()); mouse_filter = Control.MOUSE_FILTER_IGNORE
 	func _draw() -> void:
 		var c := Vector2(16, size.y / 2)
 		draw_line(Vector2(16, 0), Vector2(16, size.y), Color(PhoenixTokens.PLATINUM, 0.2), 2.0)

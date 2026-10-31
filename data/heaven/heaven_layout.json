@@ -1,0 +1,434 @@
+{
+ "_note": "Heaven Welcome Island layout (HEAVEN-1). Metres, real-world scale. centre = [x, z] around the Heaven origin; top = plaza height (y). Ring angle 0 = +z (south, bottom of the map) where the Transportation Hub is the spawn.",
+ "schema_version": 1,
+ "origin": [
+  0,
+  0
+ ],
+ "ring_radius": 540,
+ "floor_y": 470,
+ "ceiling_y": 1100,
+ "extent": 720,
+ "spawn": {
+  "island": "transport_hub",
+  "offset": [
+   0,
+   -30
+  ],
+  "face": "main_mall"
+ },
+ "islands": [
+  {
+   "id": "main_mall",
+   "name": "Main Mall",
+   "kind": "mall",
+   "center": [
+    0,
+    0
+   ],
+   "radius": 190,
+   "top": 600,
+   "depth": 70,
+   "tier": "center",
+   "about": "The glass dome. Clothes, shoes, hair and looks shops."
+  },
+  {
+   "id": "transport_hub",
+   "name": "Transportation Hub",
+   "kind": "hub",
+   "center": [
+    0.0,
+    540.0
+   ],
+   "radius": 95,
+   "top": 596,
+   "depth": 52,
+   "tier": "ring",
+   "about": "Spawn, transit kiosks, vehicle bays."
+  },
+  {
+   "id": "food_court",
+   "name": "Food Court",
+   "kind": "food",
+   "center": [
+    250.95,
+    478.15
+   ],
+   "radius": 80,
+   "top": 599,
+   "depth": 44,
+   "tier": "ring",
+   "about": "Open pavilion, food stalls, terrace seating."
+  },
+  {
+   "id": "gardens",
+   "name": "Gardens",
+   "kind": "gardens",
+   "center": [
+    444.41,
+    306.75
+   ],
+   "radius": 95,
+   "top": 601,
+   "depth": 52,
+   "tier": "ring",
+   "about": "Hedges, cypress walks, fountain, gazebo."
+  },
+  {
+   "id": "residential",
+   "name": "Residential Neighborhoods",
+   "kind": "residential",
+   "center": [
+    536.06,
+    65.09
+   ],
+   "radius": 110,
+   "top": 603,
+   "depth": 61,
+   "tier": "ring",
+   "about": "Streets of family homes with yards."
+  },
+  {
+   "id": "apartments",
+   "name": "Apartments",
+   "kind": "apartments",
+   "center": [
+    504.91,
+    -191.49
+   ],
+   "radius": 85,
+   "top": 604,
+   "depth": 47,
+   "tier": "ring",
+   "about": "Mid-rise apartment blocks with lobbies."
+  },
+  {
+   "id": "school",
+   "name": "School Classrooms",
+   "kind": "school",
+   "center": [
+    358.09,
+    -404.2
+   ],
+   "radius": 80,
+   "top": 603,
+   "depth": 44,
+   "tier": "ring",
+   "about": "Two classroom wings and a sports field."
+  },
+  {
+   "id": "office",
+   "name": "Office Complex",
+   "kind": "office",
+   "center": [
+    129.23,
+    -524.31
+   ],
+   "radius": 85,
+   "top": 602,
+   "depth": 47,
+   "tier": "ring",
+   "about": "Glass towers with lobbies."
+  },
+  {
+   "id": "downtown",
+   "name": "Downtown City",
+   "kind": "downtown",
+   "center": [
+    -129.23,
+    -524.31
+   ],
+   "radius": 110,
+   "top": 601,
+   "depth": 61,
+   "tier": "ring",
+   "about": "Skyscrapers, streets, the night market."
+  },
+  {
+   "id": "casino",
+   "name": "Casino (free play)",
+   "kind": "casino",
+   "center": [
+    -358.09,
+    -404.2
+   ],
+   "radius": 85,
+   "top": 602,
+   "depth": 47,
+   "tier": "ring",
+   "about": "Free-play only. Play tokens, no coin wagers."
+  },
+  {
+   "id": "theme_park",
+   "name": "Theme Park",
+   "kind": "theme_park",
+   "center": [
+    -504.91,
+    -191.49
+   ],
+   "radius": 100,
+   "top": 603,
+   "depth": 55,
+   "tier": "ring",
+   "about": "Sky wheel, carousel, coaster loop."
+  },
+  {
+   "id": "beach",
+   "name": "Beach Coastal Town",
+   "kind": "beach",
+   "center": [
+    -536.06,
+    65.09
+   ],
+   "radius": 105,
+   "top": 601,
+   "depth": 58,
+   "tier": "ring",
+   "about": "Lagoon, boardwalk, beach shops."
+  },
+  {
+   "id": "poolrooms",
+   "name": "Poolrooms Waterways",
+   "kind": "poolrooms",
+   "center": [
+    -444.41,
+    306.75
+   ],
+   "radius": 85,
+   "top": 599,
+   "depth": 47,
+   "tier": "ring",
+   "about": "Tiled pool halls and arches."
+  },
+  {
+   "id": "warehouses",
+   "name": "Warehouses / Back of House",
+   "kind": "warehouses",
+   "center": [
+    -250.95,
+    478.15
+   ],
+   "radius": 80,
+   "top": 597,
+   "depth": 44,
+   "tier": "ring",
+   "about": "Sheds, loading docks, stock."
+  },
+  {
+   "id": "spirit_realm",
+   "name": "Spirit Realm",
+   "kind": "spirit",
+   "center": [
+    0,
+    -150
+   ],
+   "radius": 75,
+   "top": 790,
+   "depth": 40,
+   "tier": "high",
+   "about": "The higher plane. Reached by portal from the Mall."
+  },
+  {
+   "id": "the_beyond",
+   "name": "The Beyond",
+   "kind": "beyond",
+   "center": [
+    0,
+    120
+   ],
+   "radius": 60,
+   "top": 980,
+   "depth": 30,
+   "tier": "high",
+   "about": "The farthest plane. Reached by portal from the Spirit Realm."
+  }
+ ],
+ "bridges": [
+  [
+   "transport_hub",
+   "food_court"
+  ],
+  [
+   "food_court",
+   "gardens"
+  ],
+  [
+   "gardens",
+   "residential"
+  ],
+  [
+   "residential",
+   "apartments"
+  ],
+  [
+   "apartments",
+   "school"
+  ],
+  [
+   "school",
+   "office"
+  ],
+  [
+   "office",
+   "downtown"
+  ],
+  [
+   "downtown",
+   "casino"
+  ],
+  [
+   "casino",
+   "theme_park"
+  ],
+  [
+   "theme_park",
+   "beach"
+  ],
+  [
+   "beach",
+   "poolrooms"
+  ],
+  [
+   "poolrooms",
+   "warehouses"
+  ],
+  [
+   "warehouses",
+   "transport_hub"
+  ]
+ ],
+ "roads": [
+  [
+   "main_mall",
+   "transport_hub"
+  ],
+  [
+   "main_mall",
+   "food_court"
+  ],
+  [
+   "main_mall",
+   "gardens"
+  ],
+  [
+   "main_mall",
+   "residential"
+  ],
+  [
+   "main_mall",
+   "apartments"
+  ],
+  [
+   "main_mall",
+   "school"
+  ],
+  [
+   "main_mall",
+   "office"
+  ],
+  [
+   "main_mall",
+   "downtown"
+  ],
+  [
+   "main_mall",
+   "casino"
+  ],
+  [
+   "main_mall",
+   "theme_park"
+  ],
+  [
+   "main_mall",
+   "beach"
+  ],
+  [
+   "main_mall",
+   "poolrooms"
+  ],
+  [
+   "main_mall",
+   "warehouses"
+  ]
+ ],
+ "waterways": [
+  [
+   "main_mall",
+   "food_court"
+  ],
+  [
+   "main_mall",
+   "gardens"
+  ],
+  [
+   "main_mall",
+   "theme_park"
+  ],
+  [
+   "main_mall",
+   "beach"
+  ],
+  [
+   "main_mall",
+   "poolrooms"
+  ]
+ ],
+ "portals": [
+  {
+   "id": "mall_to_spirit",
+   "from": "main_mall",
+   "at": [
+    0,
+    -120
+   ],
+   "to": "spirit_realm",
+   "to_at": [
+    0,
+    30
+   ],
+   "name": "Spirit Realm"
+  },
+  {
+   "id": "spirit_to_mall",
+   "from": "spirit_realm",
+   "at": [
+    0,
+    40
+   ],
+   "to": "main_mall",
+   "to_at": [
+    0,
+    -105
+   ],
+   "name": "Main Mall"
+  },
+  {
+   "id": "spirit_to_beyond",
+   "from": "spirit_realm",
+   "at": [
+    0,
+    -40
+   ],
+   "to": "the_beyond",
+   "to_at": [
+    0,
+    20
+   ],
+   "name": "The Beyond"
+  },
+  {
+   "id": "beyond_to_spirit",
+   "from": "the_beyond",
+   "at": [
+    0,
+    30
+   ],
+   "to": "spirit_realm",
+   "to_at": [
+    0,
+    -25
+   ],
+   "name": "Spirit Realm"
+  }
+ ]
+}

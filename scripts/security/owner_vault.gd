@@ -26,7 +26,7 @@ static var _dek_enc := PackedByteArray()
 static var _dek_mac := PackedByteArray()
 static var _session := false
 static var _last_activity_ms := 0
-static var _legacy_code := ""          # held only during a legacy session, to add a legacy slot at setup
+static var _bootstrap := false        # SEC-FIX-1: legacy code accepted on a no-vault device -> PIN setup only
 static var _vault_cache = null
 static var on_storage_ready: Array[Callable] = []   # reload hooks (EveCore, Estate, AgentBrain...)
 static var clock_ms := Callable()   # tests: fake clock
@@ -40,7 +40,19 @@ static func vault() -> Dictionary:
 		if FileAccess.file_exists(_path()):
 			var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(_path()))
 			if d is Dictionary: _vault_cache = d
+		_migrate_legacy()
 	return _vault_cache
+
+static func _has_pin_slot(v: Dictionary) -> bool:
+	return v.get("slots", []).any(func(s): return s.get("kind") == "pin")
+
+## SEC-FIX-1 one-time migration: a vault with a pin slot drops any legacy-code slot for good.
+static func _migrate_legacy() -> void:
+	var v: Dictionary = _vault_cache
+	if not _has_pin_slot(v) or not v.get("slots", []).any(func(s): return s.get("kind") == "legacy"): return
+	v["slots"] = v["slots"].filter(func(s): return s.get("kind") != "legacy")
+	v["legacy_retired"] = Time.get_datetime_string_from_system()
+	_save_vault()
 
 static func _save_vault() -> void:
 	DirAccess.make_dir_recursive_absolute(root)
@@ -51,12 +63,17 @@ static func _save_vault() -> void:
 	f.close()
 	SecureFile.replace_file(tmp, _path())
 
+## SEC-FIX-5: any vault file on disk (valid, corrupted or half-written) blocks fresh setup (fail closed).
+static func vault_file_present() -> bool:
+	return FileAccess.file_exists(_path()) or FileAccess.file_exists(_path() + ".tmp")
+
 static func has_vault() -> bool: return not vault().get("slots", []).is_empty()
 static func storage_ready() -> bool: return _dek_enc.size() == 32
 static func dek() -> Dictionary: return {"enc": _dek_enc, "mac": _dek_mac}
 static func lock_minutes() -> int: return int(vault().get("lock_minutes", DEFAULT_LOCK_MIN))
 static func has_legacy_slot() -> bool: return vault().get("slots", []).any(func(s): return s.get("kind") == "legacy")
-static func needs_pin_setup() -> bool: return _session and not has_vault()
+static func needs_pin_setup() -> bool: return _bootstrap and not has_vault()
+static func in_bootstrap() -> bool: return _bootstrap
 
 static func validate_secret(secret: String) -> String:
 	var s := secret.strip_edges()
@@ -79,7 +96,7 @@ static func seconds_left() -> int:
 
 static func lock() -> void:
 	_session = false
-	_legacy_code = ""
+	_bootstrap = false
 
 ## Lock and drop the data key: encrypted saves stay closed until the next unlock.
 static func lock_all() -> void:
@@ -90,11 +107,11 @@ static func _start_session() -> void:
 	_session = true
 	_last_activity_ms = _now_ms()
 
-## Legacy owner code accepted by Profile (hash match) while no vault exists yet:
-## owner session only (no storage key). The UI then offers the set-PIN step.
-static func start_legacy_session(code: String) -> void:
-	_legacy_code = code
-	_start_session()
+## Legacy owner code accepted by Profile (PBKDF2 bootstrap match) while no vault exists yet.
+## SEC-FIX-1: this is NOT an owner session (is_unlocked() stays false). It only permits setup().
+static func start_legacy_session(_code: String) -> void:
+	if has_vault(): return
+	_bootstrap = true
 
 static func set_lock_minutes(m: int) -> bool:
 	if not is_unlocked(): return false
@@ -127,17 +144,19 @@ static func _try_slot(slot: Dictionary, secret: String) -> PackedByteArray:
 ## Adds a "legacy" slot for the old owner code if this session was opened with it.
 static func setup(secret: String, allow_fresh := false) -> String:
 	if has_vault(): return "Already set up. Use Change PIN."
-	if not (_session or allow_fresh): return "Unlock with the owner code first."
+	if vault_file_present(): return "A vault already exists on this device (unreadable). Fresh setup refused."
+	if not (_bootstrap or allow_fresh): return "Unlock with the owner code first."
+	# SEC-FIX-5: allow_fresh only on a true first run (no vault, no bootstrap file, no owner data)
+	if allow_fresh and not _bootstrap and not Profile.first_run_allowed(): return "First-run setup is not available on this device."
 	var e := validate_secret(secret)
 	if e != "": return e
 	var d := CryptoBox.random_bytes(64)
-	var slots: Array = [_make_slot("pin", secret, d)]
-	if _legacy_code != "": slots.append(_make_slot("legacy", _legacy_code, d))
+	var slots: Array = [_make_slot("pin", secret, d)]   # SEC-FIX-1: no legacy slot any more
 	_vault_cache = {"v": VERSION, "slots": slots, "lock_minutes": DEFAULT_LOCK_MIN, "fails": 0, "retry_at": 0,
 		"created": Time.get_datetime_string_from_system(), "dek_check": _dek_check(d)}
 	_save_vault()
+	_bootstrap = false
 	_set_dek(d)
-	_legacy_code = ""
 	_start_session()
 	return ""
 
@@ -154,6 +173,7 @@ static func unlock(secret: String) -> String:
 	if not has_vault(): return "No PIN set yet."
 	if retry_in_s() > 0: return "Too many tries. Wait %d s." % retry_in_s()
 	for slot in vault()["slots"]:
+		if slot.get("kind") == "legacy" and _has_pin_slot(vault()): continue   # SEC-FIX-1: refused
 		var d := _try_slot(slot, secret)
 		if d.size() == 64:
 			vault()["fails"] = 0; vault()["retry_at"] = 0; _ensure_dek_check(d); _save_vault()
@@ -209,6 +229,12 @@ static func retire_legacy() -> bool:
 	vault()["slots"] = vault()["slots"].filter(func(s): return s.get("kind") != "legacy")
 	_save_vault()
 	return true
+
+## Tests/screenshots only: set up a vault in a throwaway root (still refused if any vault file exists).
+static func setup_for_tests(secret: String) -> String:
+	if vault_file_present(): return "A vault already exists."
+	_bootstrap = true
+	return setup(secret)
 
 static func reset_for_tests(p_root: String, p_iter := 1000) -> void:
 	root = p_root; iterations = p_iter; _vault_cache = null

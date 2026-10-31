@@ -121,6 +121,28 @@ static func make(kind: String, quality: int) -> GPUParticles3D:
 			m.gravity = Vector3(0, -0.4, 0)
 			p.local_coords = false
 			p.draw_pass_1 = _quad(0.04, Color("#ffd86a"), 5.0)
+		"rain":   # HEAVEN-3 light rain: thin fast streaks
+			p.amount = amount(700, quality); p.lifetime = 1.4
+			m.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+			m.emission_box_extents = Vector3(22, 1, 22)
+			m.gravity = Vector3(0, -22.0, 0) + w
+			m.scale_min = 0.8; m.scale_max = 1.2
+			var rq := _quad(0.05, Color(0.78, 0.86, 1.0, 0.55), 0.0, false)
+			rq.size = Vector2(0.025, 0.55)
+			p.draw_pass_1 = rq
+			p.position = Vector3(0, 14, 0)
+		"petals":   # HEAVEN-3 breezy days: drifting blossom petals
+			p.amount = amount(160, quality); p.lifetime = 7.0
+			m.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+			m.emission_box_extents = Vector3(20, 2, 20)
+			m.gravity = Vector3(0, -0.6, 0) + w * 1.4
+			m.turbulence_enabled = quality > 0
+			m.turbulence_noise_strength = 0.9
+			m.angle_min = 0.0; m.angle_max = 360.0
+			m.hue_variation_min = -0.04; m.hue_variation_max = 0.04
+			m.scale_min = 0.7; m.scale_max = 1.3
+			p.draw_pass_1 = _quad(0.09, Color("#ffd1e6"), 0.0, false)
+			p.position = Vector3(0, 8, 0)
 		_:
 			return null
 	p.process_material = m

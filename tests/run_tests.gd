@@ -16,6 +16,9 @@ func _walk(dir: String, ext: String, out: Array) -> void:
 
 func _ready() -> void:
 	check(ClassDB.class_exists("VoxelTerrain"), "Voxel Tools extension loaded")
+	# HEAVEN-5: the app starts everyone in Heaven; the ground-world suites below expect the old
+	# ground start, so they run with the Alaska start world (heaven_tests covers the default).
+	Settings.set_value("world", "start_realm", "alaska")
 	var scripts: Array = []
 	_walk("res://scripts", "gd", scripts)
 	for s in scripts:
@@ -59,10 +62,28 @@ func _ready() -> void:
 	load("res://tests/audit_tests.gd").run(self)
 	await load("res://tests/audit_tests.gd").run_scene(self)
 	await load("res://tests/kit_calm_tests.gd").run_scene(self)
+	load("res://tests/frontier_tests.gd").run(self); load("res://tests/frontier_tests.gd").run_docs(self); await load("res://tests/frontier_tests.gd").run_ui(self)
+	load("res://tests/render_tests.gd").run(self); await load("res://tests/render_tests.gd").run_scene(self)
 	load("res://tests/viewer_tests.gd").run(self); load("res://tests/viewer_tests.gd").run_docs(self); await load("res://tests/viewer_tests.gd").run_ui(self)
+	load("res://tests/living_tests.gd").run(self); load("res://tests/living_tests.gd").run_docs(self); load("res://tests/living_tests.gd").run_dormancy(self)
 	load("res://tests/interop_tests.gd").run(self); load("res://tests/interop_tests.gd").run_docs(self); await load("res://tests/interop_tests.gd").run_ui(self)
+	load("res://tests/sandbox_dev_tests.gd").run(self); load("res://tests/sandbox_dev_tests.gd").run_docs(self)
+	load("res://tests/sim_tests.gd").run(self); load("res://tests/sim_tests.gd").run_docs(self)  # SBX: runs late, after security run_ui
 	load("res://tests/gate_tests.gd").run(self)
 	await load("res://tests/gate_tests.gd").run_scene(self)
+	load("res://tests/heaven_tests.gd").run(self); load("res://tests/heaven_tests.gd").run_docs(self); await load("res://tests/heaven_tests.gd").run_scene(self)
+	var ph = load("res://tests/phone_tests.gd")
+	ph.run_display(self); ph.run_device(self); ph.run_voice(self); ph.run_lipsync(self); ph.run_dance(self); ph.run_broadcast(self); ph.run_docs(self)
+	await ph.run_ui(self)
+	load("res://tests/sec_fix_tests.gd").run(self)
+	load("res://tests/sec_fix_tests.gd").run_first_run(self)
+	load("res://tests/vala_script_tests.gd").run(self); load("res://tests/vala_script_tests.gd").run_docs(self)
+	load("res://tests/sec_fix_tests.gd").cleanup(self)
+	var CT = load("res://tests/compat_tests.gd"); CT.run(self); CT.run_overrides(self); CT.run_power(self); await CT.run_ui(self); CT.run_docs(self); await load("res://tests/viper_device_tests.gd").run(self)
+	var smp = load("res://tests/social_media_tests.gd")
+	smp.run(self); smp.run_dm(self); smp.run_media(self); smp.run_docs(self); await smp.run_ui(self)
+	var cht = load("res://tests/chat_core_tests.gd"); await cht.run(self); await cht.run_ui(self)
+	var lai = load("res://tests/local_ai_tests.gd"); lai.run_prompt(self); await lai.run_state(self); await lai.run_chat(self); lai.run_docs(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -319,7 +340,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=14") and ep.contains("0.12.0"), "versionCode 14 / 0.12.0")
+	check(ep.contains("version/code=14") and ep.contains("0.12.2"), "versionCode 14 / 0.12.2")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))
@@ -610,7 +631,7 @@ func _v08_tests() -> void:
 		var shader: Shader = load(sh)
 		check(shader != null and shader.code.length() > 100, "v0.8 shader loads: " + sh)
 	check((load("res://shaders/cinematic_sky.gdshader") as Shader).code.contains("cloud_cover"), "v0.8 sky clouds")
-	check((load("res://shaders/lava_sea.gdshader") as Shader).code.contains("gerstner"), "v0.8 water waves")
+	check(FileAccess.get_file_as_string("res://shaders/include/fluid_sea.gdshaderinc").contains("gerstner"), "v0.8 water waves")  # RND-9 body in include
 	var props = load("res://scripts/physics/physics_props.gd")
 	check(props.KINDS["rock"]["mass"] > props.KINDS["crate"]["mass"] and props.KINDS["crystal"]["friction"] < props.KINDS["rock"]["friction"], "v0.8 prop mass/friction")
 
@@ -684,14 +705,15 @@ func _v09_tests() -> void:
 	var k0 = Settings.get_value("llm", "api_key", "")
 	Settings.set_value("llm", "api_key", "")
 	if Settings.build_default_key() == "":
-		check(Settings.chat_status() == "offline_no_key", "v0.9 chat offline without key")
+		# check(Settings.chat_status() == "offline_no_key", "v0.9 chat offline without key")
+		check(Settings.chat_status() == "offline_no_key" or Settings.chat_status().begins_with("local_"), "v0.9 chat without key: offline or on-device (LAI-3)")
 		check(Settings.chat_status_text("offline_no_key").contains("OFFLINE"), "v0.9 clear offline text")
 	Settings.set_value("llm", "api_key", k0)
 	check(not FileAccess.file_exists("res://config/llm_default.local.cfg") or true, "v0.9 build key file optional")
 	# shaders
-	var sea: String = (load("res://shaders/lava_sea.gdshader") as Shader).code
+	var sea: String = (load("res://shaders/lava_sea.gdshader") as Shader).code + FileAccess.get_file_as_string("res://shaders/include/fluid_sea.gdshaderinc")  # RND-9 body in include
 	check(sea.contains("foam") and sea.contains("fres") and sea.contains("magma"), "v0.9 water foam/fresnel + flowing lava")
-	var ter: String = (load("res://shaders/terrain_triplanar.gdshader") as Shader).code
+	var ter: String = (load("res://shaders/terrain_triplanar.gdshader") as Shader).code + FileAccess.get_file_as_string("res://shaders/include/terrain_triplanar.gdshaderinc")  # RND-7 body in include
 	check(ter.contains("spark") and ter.contains("land_texture") and ter.contains("moss"), "v0.9 sparkly snow, land texture, sub-biomes")
 	# UI integration
 	var s = load("res://scenes/main_world.tscn").instantiate()

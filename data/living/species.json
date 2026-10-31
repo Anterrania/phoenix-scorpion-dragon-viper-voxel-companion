@@ -1,0 +1,33 @@
+{
+  "_note": "LIFE-2 species genomes (scripts/living/genome.gd). Original species names. Each tolerance gene has two alleles; expressed value = their mean (additive, like most real tolerance traits). Real-world analogs and sources are in docs/modules/LIVING_WORLD.md. Creatures only: players and companions never have a breeding genome.",
+  "schema_version": 1,
+  "genes": ["temp_min", "temp_max", "pressure_min", "pressure_max", "o2_min", "radiation_tol", "water_min", "ph_min", "ph_max", "gravity_max"],
+  "species": {
+    "frostcoil_worm": {"name": "Frostcoil Worm", "genus": "glacier_annelid", "kind": "creature", "realms": ["alaskan_glacier"], "analog": "glacier ice worm (Mesenchytraeus solifugus)", "metabolism": "aerobic",
+      "genes": {"temp_min": -7, "temp_max": 5, "pressure_min": 50, "pressure_max": 200, "o2_min": 10, "radiation_tol": 0.05, "water_min": 0.3, "ph_min": 5.5, "ph_max": 8.0, "gravity_max": 12}},
+    "tundra_leaper": {"name": "Tundra Leaper", "genus": "lagomorph", "kind": "creature", "realms": ["alaskan_tundra", "alaskan_boreal"], "analog": "Arctic hare (Lepus arcticus)", "metabolism": "aerobic",
+      "genes": {"temp_min": -45, "temp_max": 25, "pressure_min": 60, "pressure_max": 200, "o2_min": 14, "radiation_tol": 0.05, "water_min": 0.3, "ph_min": 4.0, "ph_max": 8.5, "gravity_max": 12}},
+    "taiga_strider": {"name": "Taiga Strider", "genus": "cervid", "kind": "creature", "realms": ["alaskan_boreal"], "analog": "moose (Alces alces)", "metabolism": "aerobic",
+      "genes": {"temp_min": -45, "temp_max": 27, "pressure_min": 60, "pressure_max": 200, "o2_min": 14, "radiation_tol": 0.05, "water_min": 0.6, "ph_min": 3.8, "ph_max": 8.0, "gravity_max": 12}},
+    "lantern_lichen": {"name": "Lantern Lichen", "genus": "lichen", "kind": "plant", "realms": ["alaskan_tundra", "alaskan_glacier", "celestial_ruin_sanctum"], "analog": "reindeer lichen (Cladonia rangiferina); lichens survived 16 months outside the ISS (BIOMEX)", "metabolism": "photosynthetic",
+      "genes": {"temp_min": -60, "temp_max": 35, "pressure_min": 0.5, "pressure_max": 300, "o2_min": 0, "radiation_tol": 2.0, "water_min": 0.1, "ph_min": 3.5, "ph_max": 7.5, "gravity_max": 30}},
+    "cloudmote": {"name": "Cloudmote", "genus": "acid_archaea", "kind": "microbe", "realms": ["venus_fire"], "analog": "acidophile archaea such as Picrophilus torridus (grows near pH 0); proposed Venus cloud-deck niche", "metabolism": "chemolithotroph",
+      "genes": {"temp_min": 0, "temp_max": 80, "pressure_min": 30, "pressure_max": 300, "o2_min": 0, "radiation_tol": 0.5, "water_min": 0.01, "ph_min": -0.5, "ph_max": 3.0, "gravity_max": 20}},
+    "emberstrand": {"name": "Emberstrand", "genus": "vent_archaea", "kind": "microbe", "realms": ["venus_fire"], "analog": "hyperthermophiles: Methanopyrus kandleri strain 116 (122 C), Pyrolobus fumarii (113 C)", "metabolism": "chemolithotroph",
+      "genes": {"temp_min": 60, "temp_max": 122, "pressure_min": 50, "pressure_max": 40000, "o2_min": 0, "radiation_tol": 0.5, "water_min": 0.01, "ph_min": 1.0, "ph_max": 7.0, "gravity_max": 20}},
+    "ember_wyrm": {"name": "Ember Wyrmling", "genus": "wyrm", "kind": "creature", "realms": ["venus_fire", "alaskan_tundra", "celestial_ruin_sanctum", "social"], "analog": "fantasy creature; heat-loving reptile physiology", "metabolism": "aerobic_or_sulfur",
+      "genes": {"temp_min": -15, "temp_max": 90, "pressure_min": 40, "pressure_max": 400, "o2_min": 0, "radiation_tol": 0.2, "water_min": 0.0, "ph_min": 0.5, "ph_max": 9.0, "gravity_max": 15}},
+    "frost_wyrm": {"name": "Frost Wyrmling", "genus": "wyrm", "kind": "creature", "realms": ["alaskan_glacier", "alaskan_tundra"], "analog": "fantasy creature; cold-adapted sibling species of the Ember Wyrmling", "metabolism": "aerobic",
+      "genes": {"temp_min": -50, "temp_max": 15, "pressure_min": 40, "pressure_max": 300, "o2_min": 10, "radiation_tol": 0.2, "water_min": 0.1, "ph_min": 4.0, "ph_max": 9.0, "gravity_max": 15}},
+    "voidbear": {"name": "Voidbear", "genus": "micro_animal", "kind": "creature", "realms": ["cosmic"], "analog": "tardigrades (survived open vacuum on FOTON-M3, 2007) and Deinococcus radiodurans (5,000 Gy)", "metabolism": "cryptobiotic",
+      "genes": {"temp_min": -200, "temp_max": 150, "pressure_min": 0, "pressure_max": 600000, "o2_min": 0, "radiation_tol": 5000, "water_min": 0.0, "ph_min": 2.0, "ph_max": 11.0, "gravity_max": 100}, "dormant_in": ["vacuum", "dry"]},
+    "neon_rock_dove": {"name": "Neon Dove", "genus": "columbid", "kind": "creature", "realms": ["cyberpunk", "social"], "analog": "rock dove (Columba livia), a city survivor", "metabolism": "aerobic",
+      "genes": {"temp_min": -10, "temp_max": 42, "pressure_min": 60, "pressure_max": 200, "o2_min": 14, "radiation_tol": 0.05, "water_min": 0.3, "ph_min": 5.0, "ph_max": 9.0, "gravity_max": 12}},
+    "forge_mite": {"name": "Forge Mite", "genus": "synthetic", "kind": "synthetic", "realms": ["ai_forge", "cosmic"], "analog": "self-repairing maintenance drone (engineering, not biology)", "metabolism": "electric",
+      "genes": {"temp_min": -40, "temp_max": 85, "pressure_min": 0, "pressure_max": 1000, "o2_min": 0, "radiation_tol": 10, "water_min": 0.0, "ph_min": 4.0, "ph_max": 10.0, "gravity_max": 50}}
+  },
+  "hybrids": {
+    "_note": "Only species in the same genus can combine. Hybrids are sterile unless listed fertile (like mules).",
+    "fertile": [["ember_wyrm", "frost_wyrm"]]
+  }
+}

@@ -35,14 +35,38 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: "17" }
       - run: echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV" && yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "build-tools;34.0.0" "platforms;android-34"
-      - name: Debug keystore + editor settings
+      - name: Debug keystore (stable, from secrets) + version
+        env:
+          KS_B64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+          KS_USER: ${{ secrets.DEBUG_KEYSTORE_USER }}
+          KS_PASS: ${{ secrets.DEBUG_KEYSTORE_PASSWORD }}
         run: |
-          keytool -genkeypair -keystore "$RUNNER_TEMP/debug.keystore" -storepass android \
-            -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 \
-            -dname "CN=Android Debug,O=Android,C=US"
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/debug.keystore"
+          else
+            echo "::warning::DEBUG_KEYSTORE_BASE64 secret missing; generating a throwaway key. This APK will NOT update over earlier installs."
+            KS_USER=androiddebugkey; KS_PASS=android
+            keytool -genkeypair -keystore "$RUNNER_TEMP/debug.keystore" -storepass android \
+              -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 \
+              -dname "CN=Android Debug,O=Android,C=US"
+          fi
+          echo "KS_USER=${KS_USER:-androiddebugkey}" >> "$GITHUB_ENV"; echo "::add-mask::${KS_PASS:-android}"
+          echo "KS_PASS=${KS_PASS:-android}" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$RUNNER_TEMP/debug.keystore" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_USER=${KS_USER:-androiddebugkey}" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=${KS_PASS:-android}" >> "$GITHUB_ENV"
+          # versionCode = 100 + run number (always increases); versionName from latest tag, else 0.12.x
+          git fetch --tags --quiet || true
+          tag=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+          vname=$(echo "${tag:-v0.12.${{ github.run_number }}}" | sed -E 's/^v([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          vcode=$((100 + ${{ github.run_number }}))
+          sed -i -E "s/^version\/code=.*/version\/code=$vcode/; s/^version\/name=.*/version\/name=\"$vname\"/" export_presets.cfg
+          echo "Android versionCode=$vcode versionName=$vname"
+      - name: Editor settings
+        run: |
           mkdir -p ~/.config/godot
-          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\nexport/android/debug_keystore = "%s"\nexport/android/debug_keystore_user = "androiddebugkey"\nexport/android/debug_keystore_pass = "android"\n' \
-            "$ANDROID_SDK_ROOT" "$JAVA_HOME" "$RUNNER_TEMP/debug.keystore" > ~/.config/godot/editor_settings-4.7.tres
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\nexport/android/debug_keystore = "%s"\nexport/android/debug_keystore_user = "%s"\nexport/android/debug_keystore_pass = "%s"\n' \
+            "$ANDROID_SDK_ROOT" "$JAVA_HOME" "$RUNNER_TEMP/debug.keystore" "$KS_USER" "$KS_PASS" > ~/.config/godot/editor_settings-4.7.tres
       - name: Build ViperDevice Android plugin (AAR)
         run: |
           android/plugins/viper_device/build.sh

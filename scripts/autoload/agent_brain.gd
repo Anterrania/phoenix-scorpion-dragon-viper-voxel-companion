@@ -7,6 +7,8 @@ extends Node
 signal reply_ready(companion_id: String, text: String)
 signal tool_executed(companion_id: String, tool: String, result: Dictionary)
 signal request_failed(companion_id: String, error: String)
+## CHAT-6: true while a live request for this companion is in flight (UI shows "thinking…").
+signal thinking(companion_id: String, active: bool)
 
 const MEMORY_DIR := "user://memory"
 const MAX_HISTORY := 30
@@ -99,10 +101,27 @@ func import_memory(id: String, path: String) -> Error:
 	return OK
 
 # ---------- chat ----------
+## CHAT-7: test seam. When valid, called as transport.call(url, headers, body_json) instead of HTTPRequest and
+## must return {"result": int, "code": int, "body": String}. Tests use a mock provider; production leaves it empty.
+var transport: Callable = Callable()
+var _pending := {}   # id -> true while a live request is in flight
+var _queued := {}    # id -> Array of player texts typed while waiting (sent in order)
+
+func is_thinking(id: String) -> bool:
+	return _pending.has(id)
+
+## Contract (CHAT-1): every chat() call ends in exactly one reply_ready(id, text) with non-empty text
+## (live answer, tool summary, or offline persona reply). request_failed is extra info, never the only signal.
 func chat(id: String, player_text: String) -> void:
 	var agent: Node = _agents.get(id)
 	if agent == null:
 		request_failed.emit(id, "unknown companion")
+		return
+	player_text = player_text.strip_edges()
+	if player_text == "": return
+	if _pending.has(id):
+		if not _queued.has(id): _queued[id] = []
+		_queued[id].append(player_text)
 		return
 	EveCore.for_companion(id, agent.persona).log_chat("user", player_text)
 	_learn_signals(id, player_text)
@@ -114,56 +133,141 @@ func chat(id: String, player_text: String) -> void:
 	var mem: Dictionary = _memory[id]
 	var messages := [{"role": "system", "content": _system_prompt(persona, mem, agent)}]
 	for h in mem["history"].slice(-MAX_HISTORY):
-		messages.append(h)
+		if h is Dictionary and str(h.get("role", "")) in ["user", "assistant"] and str(h.get("content", "")) != "":
+			messages.append({"role": h["role"], "content": str(h["content"])})
 	messages.append({"role": "user", "content": player_text})
 	mem["history"].append({"role": "user", "content": player_text})
 
 	var body := {
 		"model": Settings.get_value("llm", "model"),
 		"messages": messages,
-		"tools": _tool_specs(BrainCore.flatten_tools(persona.get("tools", []))),
 		"temperature": persona.get("temperature", 0.8),
 	}
+	var specs := _tool_specs(BrainCore.flatten_tools(persona.get("tools", [])))
+	if not specs.is_empty(): body["tools"] = specs   # CHAT-8: some endpoints 400 on an empty tools array
+	var url := Settings.llm_endpoint()
+	var headers := ["Content-Type: application/json", "Authorization: Bearer %s" % Settings.api_key()]
+	_pending[id] = true
+	thinking.emit(id, true)
+	if transport.is_valid():
+		var r: Variant = transport.call(url, headers, JSON.stringify(body))
+		var rd: Dictionary = r if r is Dictionary else {}
+		call_deferred("_handle_chat_response", id, int(rd.get("result", HTTPRequest.RESULT_NO_RESPONSE)), int(rd.get("code", 0)), str(rd.get("body", "")))
+		return
 	var http := HTTPRequest.new()
 	http.timeout = float(Settings.get_value("llm", "timeout_sec", 45.0))
 	add_child(http)
 	http.request_completed.connect(_on_chat_done.bind(id, http))
-	var headers := ["Content-Type: application/json", "Authorization: Bearer %s" % Settings.api_key()]
-	var err := http.request(str(Settings.get_value("llm", "endpoint")), headers, HTTPClient.METHOD_POST, JSON.stringify(body))
+	var err := http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 	if err != OK:
 		http.queue_free()
-		request_failed.emit(id, "HTTP request error %d" % err)
+		# CHAT-1: was request_failed only -> the chat sat silent forever.
+		_live_failed(id, "couldn't start the request (error %d). Check the endpoint in Settings." % err)
 
 func _system_prompt(persona: Dictionary, mem: Dictionary, agent: Node) -> String:
+	var at: Variant = agent.get("global_position")
+	var pp: Variant = agent.call("get_player_position") if agent.has_method("get_player_position") else Vector3.ZERO
 	return "%s\n\nStyle: %s\nYou are an in-game AI companion inside a voxel world. Your position: %s. Player position: %s.\nKnown facts about the player and world: %s\nUse tools to act in the world; keep spoken replies short." % [
 		persona.get("system_prompt", ""), persona.get("voice_style", ""),
-		str(agent.global_position.round()), str(agent.get_player_position().round()),
+		str((at if at is Vector3 else Vector3.ZERO).round()), str((pp if pp is Vector3 else Vector3.ZERO).round()),
 		"; ".join(PackedStringArray(mem.get("facts", [])))]
 
 func _on_chat_done(result: int, code: int, _h: PackedStringArray, raw: PackedByteArray, id: String, http: HTTPRequest) -> void:
 	http.queue_free()
-	if result != HTTPRequest.RESULT_SUCCESS or code >= 400:
-		Settings.last_chat_error = "LLM error result=%d code=%d" % [result, code]
-		request_failed.emit(id, Settings.last_chat_error)
-		_offline_reply(id)
+	_handle_chat_response(id, result, code, raw.get_string_from_utf8())
+
+## Old handler kept for reference (CHAT-1/5): bad responses emitted request_failed with no reply, and a
+## non-Dictionary choices[0] crashed the parse.
+# func _on_chat_done(result, code, _h, raw, id, http):
+# 	http.queue_free()
+# 	if result != HTTPRequest.RESULT_SUCCESS or code >= 400:
+# 		Settings.last_chat_error = "LLM error result=%d code=%d" % [result, code]
+# 		request_failed.emit(id, Settings.last_chat_error); _offline_reply(id); return
+# 	Settings.last_chat_error = ""
+# 	var data = JSON.parse_string(raw.get_string_from_utf8())
+# 	if not (data is Dictionary) or data.get("choices", []).is_empty():
+# 		request_failed.emit(id, "bad LLM response"); return
+# 	... dispatch tool_calls, append history, save_memory, reply_ready.emit(id, text)
+
+func _handle_chat_response(id: String, result: int, code: int, body: String) -> void:
+	if not _agents.has(id):
+		_pending.erase(id); _queued.erase(id); thinking.emit(id, false)
+		return
+	if result != HTTPRequest.RESULT_SUCCESS or code >= 400 or code < 200:
+		var why := Settings.chat_error_text(result, code, body)
+		_live_failed(id, why if why != "" else "unexpected reply (HTTP %d)." % code)
+		return
+	var data: Variant = JSON.parse_string(body)
+	var msg: Variant = null
+	if data is Dictionary and data.get("choices") is Array and not data["choices"].is_empty() and data["choices"][0] is Dictionary:
+		msg = data["choices"][0].get("message")
+	if not (msg is Dictionary):
+		_live_failed(id, "the AI service sent a reply the app couldn't read.")
 		return
 	Settings.last_chat_error = ""
-	var data: Variant = JSON.parse_string(raw.get_string_from_utf8())
-	if not (data is Dictionary) or data.get("choices", []).is_empty():
-		request_failed.emit(id, "bad LLM response")
-		return
-	var msg: Dictionary = data["choices"][0]["message"]
-	var text: String = str(msg.get("content", "")) if msg.get("content") != null else ""
-	var calls: Array = msg.get("tool_calls", []) if msg.get("tool_calls") != null else []
+	var text: String = str(msg.get("content", "")).strip_edges() if msg.get("content") is String else ""
+	var calls: Array = msg.get("tool_calls") if msg.get("tool_calls") is Array else []
+	var done := []
 	for i in mini(calls.size(), MAX_TOOLS_PER_TURN):
-		var fn: Dictionary = calls[i].get("function", {})
-		var args: Variant = JSON.parse_string(str(fn.get("arguments", "{}")))
-		dispatch_tool(id, str(fn.get("name", "")), args if args is Dictionary else {})
-	if text != "":
-		_memory[id]["history"].append({"role": "assistant", "content": text})
+		if not (calls[i] is Dictionary): continue
+		var fn: Variant = calls[i].get("function", {})
+		if not (fn is Dictionary): continue
+		var a: Variant = fn.get("arguments", "{}")
+		var args: Variant = a if a is Dictionary else JSON.parse_string(str(a))
+		var tname := str(fn.get("name", ""))
+		var res := dispatch_tool(id, tname, args if args is Dictionary else {})
+		done.append(("*%s*" % tname.replace("_", " ")) if res.get("ok") else ("(couldn't %s: %s)" % [tname.replace("_", " "), str(res.get("error", "?"))]))
+	if text == "" and not done.is_empty(): text = " ".join(PackedStringArray(done))   # CHAT-9: tool-only turns used to show an empty line
+	if text == "":
+		_live_failed(id, "the AI answered with an empty message.")
+		return
+	_memory[id]["history"].append({"role": "assistant", "content": text})
 	_memory[id]["history"] = _memory[id]["history"].slice(-MAX_HISTORY)
 	save_memory(id)
+	_finish(id, text)
+
+## Live call failed: record why, tell the UI, then answer offline so the player always gets a reply.
+func _live_failed(id: String, why: String) -> void:
+	Settings.last_chat_error = why
+	request_failed.emit(id, why)
+	_pending.erase(id)
+	thinking.emit(id, false)
+	_offline_reply(id)
+
+func _finish(id: String, text: String) -> void:
+	_pending.erase(id)
+	thinking.emit(id, false)
 	reply_ready.emit(id, text)
+	var q: Array = _queued.get(id, [])
+	if not q.is_empty():
+		var nxt: String = q.pop_front()
+		if q.is_empty(): _queued.erase(id)
+		chat(id, nxt)
+
+## Live probe for Settings › "Test AI connection". cb.call(ok: bool, message: String).
+func test_connection(cb: Callable) -> void:
+	if not Settings.has_api_key(): cb.call(false, Settings.chat_status_text(Settings.chat_status())); return
+	var url := Settings.llm_endpoint()
+	if url == "": cb.call(false, Settings.chat_status_text("offline_endpoint")); return
+	var headers := ["Content-Type: application/json", "Authorization: Bearer %s" % Settings.api_key()]
+	var body := JSON.stringify({"model": Settings.get_value("llm", "model"), "messages": [{"role": "user", "content": "ping"}], "max_tokens": 4})
+	var report := func(result: int, code: int, b: String) -> void:
+		var why := Settings.chat_error_text(result, code, b)
+		Settings.last_chat_error = why
+		cb.call(why == "", "Live AI connected." if why == "" else "Live AI not working: " + why)
+	if transport.is_valid():
+		var r: Variant = transport.call(url, headers, body)
+		var rd: Dictionary = r if r is Dictionary else {}
+		report.call_deferred(int(rd.get("result", HTTPRequest.RESULT_NO_RESPONSE)), int(rd.get("code", 0)), str(rd.get("body", "")))
+		return
+	var http := HTTPRequest.new()
+	http.timeout = 20.0
+	add_child(http)
+	http.request_completed.connect(func(result: int, code: int, _h: PackedStringArray, raw: PackedByteArray):
+		http.queue_free(); report.call(result, code, raw.get_string_from_utf8()))
+	var err := http.request(url, headers, HTTPClient.METHOD_POST, body)
+	if err != OK:
+		http.queue_free(); report.call(HTTPRequest.RESULT_CANT_CONNECT, 0, "")
 
 # ---------- tools ----------
 func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
@@ -228,8 +332,11 @@ func _offline_reply(id: String, player_text := "") -> void:
 		r = CannedReplies.reply(agent.persona, player_text, agent.life.recap() if "life" in agent and agent.life else "")
 	if not (_memory[id]["history"].size() > 0 and _memory[id]["history"].back().get("content") == player_text):
 		_memory[id]["history"].append({"role": "user", "content": player_text})
+	if r == "": r = "…"   # CHAT-1: never emit an empty reply
 	_memory[id]["history"].append({"role": "assistant", "content": r})
-	reply_ready.emit(id, r)
+	_memory[id]["history"] = _memory[id]["history"].slice(-MAX_HISTORY)
+	save_memory(id)   # CHAT-10: offline turns were never saved
+	_finish(id, r)
 
 
 # ---------- brain cells + coordination (v0.10) ----------

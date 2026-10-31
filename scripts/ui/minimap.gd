@@ -33,7 +33,12 @@ func w2m(p: Vector3) -> Vector2:
 	var c := player.global_position if player else Vector3.ZERO
 	return Vector2(SIZE, SIZE) * 0.5 + Vector2(p.x - c.x, p.z - c.z) / zoom * SIZE * 0.5
 
-func _process(_d: float) -> void:
+## Redraw at most 10 times a second, and never while hidden (was every frame).
+var _redraw_acc := 0.0
+func _process(d: float) -> void:
+	_redraw_acc += d
+	if _redraw_acc < 0.1 or not is_visible_in_tree(): return
+	_redraw_acc = 0.0
 	queue_redraw()
 
 func _draw() -> void:

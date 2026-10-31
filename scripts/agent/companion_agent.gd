@@ -112,10 +112,15 @@ func slot_position() -> Vector3:
 	if player == null: return global_position
 	return player.global_position + player.global_transform.basis * config.slot_offset
 
+var face: FaceDriver
+
 func _process(delta: float) -> void:
 	_anim_t += delta
 	var sp := Vector2(velocity.x, velocity.z).length() / maxf(config.move_speed, 0.1) if config else 0.0
-	if model.has_meta("realistic"): RealisticBody.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
+	if model.has_meta("realistic"):
+		RealisticBody.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
+		if face == null or face.mesh == null or not is_instance_valid(face.mesh): face = FaceDriver.for_model(model)
+		face.update(delta)
 	else: HumanoidModel.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
 	if _bubble_time > 0.0:
 		_bubble_time -= delta
@@ -141,16 +146,22 @@ func _on_reply(id: String, text: String) -> void:
 ## Voice hook: replace with TTS (DisplayServer.tts_speak or a cloud TTS).
 func speak(text: String) -> void:
 	CompanionVoice.speak(companion_id, persona, text)
+	if face: face.say(text, float(CompanionVoice.profile(persona).get("rate", 1.0)))
 
 func get_player_position() -> Vector3:
 	return player.global_position if player else Vector3.ZERO
 
 func _physics_process(delta: float) -> void:
 	if config == null: return
-	if not is_on_floor():
+	# Fly with the player: while following a flying player, hover and match altitude (no gravity).
+	var airborne := following and player != null and bool(player.get("flying"))
+	if airborne:
+		var dy := slot_position().y - global_position.y
+		velocity.y = clampf(dy * 3.0, -config.move_speed * 2.5, config.move_speed * 2.5)
+	elif not is_on_floor():
 		velocity.y -= gravity * delta
 	if player and (global_position.y < -64.0 or (following and global_position.distance_to(player.global_position) > 48.0)):
-		global_position = slot_position() + Vector3.UP * 2.0  # catch-up teleport
+		global_position = slot_position() + (Vector3.ZERO if airborne else Vector3.UP * 2.0)  # catch-up teleport
 		velocity = Vector3.ZERO
 	var goal: Variant = _target
 	if following and player:
@@ -166,7 +177,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = d.x * spd
 			velocity.z = d.z * spd
 			_face(global_position + d, delta)
-			if is_on_wall() and is_on_floor():
+			if is_on_wall() and is_on_floor() and not airborne:
 				velocity.y = 5.0  # hop up 1-voxel steps
 		elif not following:
 			_target = null

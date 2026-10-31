@@ -1,0 +1,23 @@
+{
+  "id": "phoenix_player",
+  "gender": 1.0,
+  "age": 0.45,
+  "weight": 0.5,
+  "muscle": 0.65,
+  "proportions": 0.75,
+  "race": {
+    "african": 0.55,
+    "caucasian": 0.3,
+    "asian": 0.15
+  },
+  "targets": {
+    "chin/chin-prognathism-incr": 0.3,
+    "cheek/l-cheek-bones-incr": 0.4,
+    "cheek/r-cheek-bones-incr": 0.4,
+    "nose/nose-scale-horiz-incr": 0.2
+  },
+  "hair_mesh": "long01",
+  "outfit": "male_casualsuit05",
+  "shoes": "shoes03",
+  "skin_tex": "young_african_male"
+}

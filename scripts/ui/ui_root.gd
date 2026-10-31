@@ -230,7 +230,7 @@ func _build_menu() -> Dictionary:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
@@ -241,6 +241,8 @@ func _build_menu() -> Dictionary:
 			elif target == "_interop": InteropScreen.open(self)
 			elif target == "_heaven": show_panel(""); HeavenScreen.open(self, world.get_node_or_null("HeavenWorld") if world else null, "transit")
 			elif target == "_worlds": show_panel(""); WorldPicker.open(self)
+			elif target == "_frontier": FrontierScreen.open(self)
+			elif target == "_social": _open_social()
 			else: show_panel(target))
 		t.custom_minimum_size = Vector2(0, 96)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -248,6 +250,16 @@ func _build_menu() -> Dictionary:
 	b.add_child(grid)
 	b.add_child(label("Gold ★ YOUR INPUT HERE tags mark placeholders waiting for your decision.", 22, GOLD))
 	return p
+
+## Social feed (SMP): Foxy's vertical feed screen (docs/specs/foxy/FEED_SCREEN.md). Until that scene
+## exists the button opens Community instead.
+func _open_social() -> void:
+	const FEED := "res://scenes/social/feed_screen.tscn"
+	if ResourceLoader.exists(FEED):
+		var s: Node = load(FEED).instantiate()
+		add_child(s)
+	else:
+		CommunityScreen.open(self)
 
 ## Radial launcher (right edge, vertically centred). Admin 12 o'clock -> dashboard,
 ## Security 2 o'clock -> lock/audit panel, then Chat, Map, Proposals, Menu.
@@ -1382,8 +1394,8 @@ func _est_get(key: String) -> Variant:
 
 func _est_set(key: String, v: Variant) -> void:
 	var r := _est_region()
-	if estate_scope == "parcel" and player: Estate.parcel_set(r, Estate.parcel_id(player.global_position), key, v)
-	else: Estate.region_set(r, key, v)
+	var e := AdminGate.estate_set(r, Estate.parcel_id(player.global_position) if estate_scope == "parcel" and player else "", key, v)
+	if e != "": Toast.show_toast(self, e, "err"); return   # AUDIT-2: owner / estate manager only
 	if world and world.has_method("apply_estate"): world.apply_estate()
 
 func _cycle_btn(title: String, key: String, opts: Array) -> Button:
@@ -1529,7 +1541,7 @@ func land_target() -> Vector3:
 
 func land_apply() -> int:
 	if world == null or not world.has_method("terraform"): return 0
-	if not Estate.can_terraform(_est_region(), true):
+	if not Estate.can_terraform(_est_region(), EveCore.owner_ok()):   # was `true`, which skipped the region's owner_only rule
 		if land_info: land_info.text = "Terraform not allowed in this region."
 		return 0
 	var n: int = world.terraform(land_op, land_target(), land_size, land_strength)

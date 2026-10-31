@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf7cgqxqe3yrs"
-path="res://.godot/imported/mh_female_shoes02_diffuse.png-2a359ae840b94da315f51e63742a375e.ctex"
+uid="uid://cyugt5gidqifg"
+path="res://.godot/imported/young_lightskinned_female_diffuse.png-80513ff6a6256b87e0f67e690ca997cf.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "0b58813c388422d0b3af4e238f520f1e"
 }
 
 [deps]
 
-source_file="res://assets/characters/mh_female_shoes02_diffuse.png"
-dest_files=["res://.godot/imported/mh_female_shoes02_diffuse.png-2a359ae840b94da315f51e63742a375e.ctex"]
+source_file="res://assets/characters/tex/young_lightskinned_female_diffuse.png"
+dest_files=["res://.godot/imported/young_lightskinned_female_diffuse.png-80513ff6a6256b87e0f67e690ca997cf.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

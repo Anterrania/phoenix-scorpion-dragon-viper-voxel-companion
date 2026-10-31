@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddey7kw4k4rcs"
-path="res://.godot/imported/mh_female_young_lightskinned_female_diffuse.png-87af08891614edeeda0cea8c2c20df36.ctex"
+uid="uid://bnemu1dr16l43"
+path="res://.godot/imported/skin_detail_n.png-e06feb9af036777b041d360dc5588e97.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "299e2769f0e0badfa873e71ac17e302e"
 }
 
 [deps]
 
-source_file="res://assets/characters/mh_female_young_lightskinned_female_diffuse.png"
-dest_files=["res://.godot/imported/mh_female_young_lightskinned_female_diffuse.png-87af08891614edeeda0cea8c2c20df36.ctex"]
+source_file="res://assets/characters/skin_detail_n.png"
+dest_files=["res://.godot/imported/skin_detail_n.png-e06feb9af036777b041d360dc5588e97.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

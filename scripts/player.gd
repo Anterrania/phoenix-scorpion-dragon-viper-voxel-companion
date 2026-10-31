@@ -60,7 +60,8 @@ func refresh_avatar() -> void:
 	if avatar:
 		remove_child(avatar)
 		avatar.queue_free()
-	avatar = HumanoidModel.build(Inventory.styled("player", Profile.to_style(Profile.avatar())))
+	var pst: Dictionary = Inventory.styled("player", Profile.to_style(Profile.avatar()))
+	avatar = RealisticBody.build(RealisticBody.player_style(pst)) if RealisticBody.available() else HumanoidModel.build(pst)
 	AvatarDNA.apply_all(avatar, Profile.avatar())  # DNA morphs, alpha masks, attachments
 	avatar.name = "Avatar"
 	avatar.position.y = -0.85
@@ -78,7 +79,9 @@ func toggle_camera() -> void:
 
 func _process(delta: float) -> void:
 	_anim_t += delta
-	HumanoidModel.animate(avatar, _anim_t, clampf(Vector2(velocity.x, velocity.z).length() / speed, 0.0, 1.0))
+	var sp01 := clampf(Vector2(velocity.x, velocity.z).length() / speed, 0.0, 1.0)
+	if avatar.has_meta("realistic"): RealisticBody.animate(avatar, _anim_t, sp01)
+	else: HumanoidModel.animate(avatar, _anim_t, sp01)
 	_pose_tick(delta)
 	if health < MAX_HEALTH and surface != SurfacePhysics.Surface.LAVA:
 		health = minf(health + delta * 4.0, MAX_HEALTH)
@@ -145,10 +148,14 @@ const FLY_CEILING := 600.0
 var flying := false
 var fly_vertical := 0.0   # -1 down .. 1 up (HUD buttons / keys)
 
+
 func set_flying(on: bool) -> void:
+	if on and Restrictions.is_restricted(Tiers.actor_id("self"), "fly"): return   # opt-in restriction (VIEWER-4)
 	if on and is_inside_tree() and HeavenLayout.contains(global_position) and not LandGate.can_fly(Tiers.SELF, global_position):
 		fly_refused.emit("Flying in Heaven is by the owner's grant. Walk, or use a transit kiosk.")
 		return
+	if on and not LandGate.can_fly(Tiers.SELF, global_position):
+		fly_refused.emit("Flying is off on this land"); return
 	flying = on
 	velocity.y = 2.0 if on else velocity.y
 	flying_changed.emit(on)
@@ -182,6 +189,9 @@ func _fly_step(delta: float, dir: Vector3) -> void:
 
 func _physics_process(delta: float) -> void:
 	_combat_tick(delta)
+	if flying and Engine.get_physics_frames() % 15 == 0 and not LandGate.can_fly(Tiers.SELF, global_position):
+		set_flying(false)   # flew into a no-fly parcel: land gently (checked 4x/s at 60 Hz)
+		fly_refused.emit("Flying is off on this land")
 	if flying:
 		var fi := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		if _touch_move != Vector2.ZERO: fi = _touch_move

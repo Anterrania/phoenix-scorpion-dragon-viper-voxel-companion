@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgvs4vtq3ngju"
-path="res://.godot/imported/mh_female_female_sportsuit01_normal.jpg-c725179d5fe6b1370d4f8f6db570a5f7.ctex"
+uid="uid://iqkw2bcdmh7c"
+path="res://.godot/imported/eyelashes01.png-b666f747ca7889aeb65cba54cd59267e.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "f41a65efbc1be64405f64f5a1378a400"
 }
 
 [deps]
 
-source_file="res://assets/characters/mh_female_female_sportsuit01_normal.jpg"
-dest_files=["res://.godot/imported/mh_female_female_sportsuit01_normal.jpg-c725179d5fe6b1370d4f8f6db570a5f7.ctex"]
+source_file="res://assets/characters/tex/eyelashes01.png"
+dest_files=["res://.godot/imported/eyelashes01.png-b666f747ca7889aeb65cba54cd59267e.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

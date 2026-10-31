@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chiia5l2uudae"
-path="res://.godot/imported/mh_female_eyebrow001.png-94e4884a7b59df1cd815f2134ab66bc5.ctex"
+uid="uid://bnblv7bj4rryo"
+path="res://.godot/imported/afro_diffuse.png-8652d25675490bc65df8564e18d05423.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "67bd4a6045281c2f8aa7f28610223c5c"
 }
 
 [deps]
 
-source_file="res://assets/characters/mh_female_eyebrow001.png"
-dest_files=["res://.godot/imported/mh_female_eyebrow001.png-94e4884a7b59df1cd815f2134ab66bc5.ctex"]
+source_file="res://assets/characters/tex/afro_diffuse.png"
+dest_files=["res://.godot/imported/afro_diffuse.png-8652d25675490bc65df8564e18d05423.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

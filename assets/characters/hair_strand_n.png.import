@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brmkcsxwi0uft"
-path="res://.godot/imported/mh_female_eyelashes01.png-0ba3b73f4d6aecdd4e79891e449d96f7.ctex"
+uid="uid://isrlp34oil14"
+path="res://.godot/imported/hair_strand_n.png-35e45e0fd542e12adc7b319de4ffab3c.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "050add4f6a49b84709d4e478963163c9"
 }
 
 [deps]
 
-source_file="res://assets/characters/mh_female_eyelashes01.png"
-dest_files=["res://.godot/imported/mh_female_eyelashes01.png-0ba3b73f4d6aecdd4e79891e449d96f7.ctex"]
+source_file="res://assets/characters/hair_strand_n.png"
+dest_files=["res://.godot/imported/hair_strand_n.png-35e45e0fd542e12adc7b319de4ffab3c.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

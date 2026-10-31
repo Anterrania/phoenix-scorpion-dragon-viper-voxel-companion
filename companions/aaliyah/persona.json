@@ -123,6 +123,36 @@
     "trim": "#c0c0cc",
     "look": "classic",
     "freckles": true,
-    "horns": false
+    "horns": false,
+    "face": {
+      "gender": 0.0,
+      "age": 0.5,
+      "weight": 0.5,
+      "muscle": 0.5,
+      "proportions": 0.8,
+      "race": {
+        "african": 0.45,
+        "caucasian": 0.45,
+        "asian": 0.1
+      },
+      "targets": {
+        "nose/nose-flaring-incr": 0.3,
+        "mouth/mouth-cupidsbow-width-incr": 0.4,
+        "cheek/l-cheek-volume-incr": 0.3,
+        "cheek/r-cheek-volume-incr": 0.3,
+        "chin/chin-prognathism-decr": 0.2,
+        "head/head-diamond": 0.3
+      },
+      "hair_mesh": "long01",
+      "outfit": "female_sportsuit01",
+      "shoes": "shoes03",
+      "skin_tex": "young_caucasian_female"
+    },
+    "outfit_look": {
+      "top": "#0a0708",
+      "bottom": "#0a0708",
+      "studs": 0.25,
+      "top_sequin": 0.0
+    }
   }
 }

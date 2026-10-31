@@ -240,6 +240,38 @@
     "look": "fire",
     "aura": "phoenix_fire",
     "chains": true,
-    "freckles": false
+    "freckles": false,
+    "face": {
+      "gender": 0.0,
+      "age": 0.45,
+      "weight": 0.4,
+      "muscle": 0.55,
+      "proportions": 0.85,
+      "race": {
+        "caucasian": 0.6,
+        "asian": 0.25,
+        "african": 0.15
+      },
+      "targets": {
+        "cheek/l-cheek-bones-incr": 0.6,
+        "cheek/r-cheek-bones-incr": 0.6,
+        "nose/nose-scale-horiz-decr": 0.3,
+        "chin/chin-height-decr": 0.2,
+        "mouth/mouth-cupidsbow-incr": 0.5,
+        "head/head-invertedtriangular": 0.4
+      },
+      "hair_mesh": "long01",
+      "outfit": "female_sportsuit01",
+      "shoes": "shoes03",
+      "skin_tex": "young_caucasian_female"
+    },
+    "outfit_look": {
+      "top": "#0c0d16",
+      "bottom": "#5a1fa8",
+      "bottom_sequin": 0.9,
+      "sequin": "#8a3cff",
+      "top_sequin": 0.25,
+      "studs": 0.4
+    }
   }
 }

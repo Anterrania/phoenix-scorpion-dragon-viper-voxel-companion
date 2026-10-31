@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d16sebnl7bbsp"
-path="res://.godot/imported/mh_female_brown_eye.png-59438cd4cf8527ae78288c000a631e24.ctex"
+uid="uid://dy5dux3vjgk6f"
+path="res://.godot/imported/shoes03_diffuse.png-ceac01e85116d07769a29161f7f017de.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "1b93ce1fc9dfa16177a6d61005cdb4fd"
 }
 
 [deps]
 
-source_file="res://assets/characters/mh_female_brown_eye.png"
-dest_files=["res://.godot/imported/mh_female_brown_eye.png-59438cd4cf8527ae78288c000a631e24.ctex"]
+source_file="res://assets/characters/tex/shoes03_diffuse.png"
+dest_files=["res://.godot/imported/shoes03_diffuse.png-ceac01e85116d07769a29161f7f017de.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

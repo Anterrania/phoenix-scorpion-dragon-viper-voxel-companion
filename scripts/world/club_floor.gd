@@ -20,8 +20,13 @@ func build() -> void:
 	sh.size = Vector3(N * 2.0, 0.2, N * 2.0); cs.shape = sh; body.add_child(cs); body.position.y = 0.1; add_child(body)
 	var s := PropKit.make_sign("Radio Club", "dance floor · DJ nights on Events board")
 	s.position = Vector3(N + 1.5, 0, 0); add_child(s)
+## Recolor at most 10x/s and never while hidden (was every frame, like the old minimap).
+var _redraw_acc := 0.0
 func _process(delta: float) -> void:
 	_t += delta
+	_redraw_acc += delta
+	if _redraw_acc < 0.1 or not is_visible_in_tree(): return
+	_redraw_acc = 0.0
 	for i in tiles.size():
 		var h := fposmod(_t * 0.15 + float(i % N) * 0.11 + float(i / N) * 0.07, 1.0)
 		tiles[i].albedo_color = Color.from_hsv(h, 0.8, 1.0)

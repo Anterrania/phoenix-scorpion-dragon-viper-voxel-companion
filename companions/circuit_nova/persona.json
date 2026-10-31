@@ -121,6 +121,34 @@
     "trim": "#d8e0f0",
     "look": "chrome",
     "aura": "circuit_glow",
-    "freckles": false
+    "freckles": false,
+    "face": {
+      "gender": 0.0,
+      "age": 0.35,
+      "weight": 0.4,
+      "muscle": 0.5,
+      "proportions": 0.75,
+      "race": {
+        "asian": 0.5,
+        "caucasian": 0.4,
+        "african": 0.1
+      },
+      "targets": {
+        "nose/nose-scale-vert-decr": 0.3,
+        "chin/chin-height-incr": 0.2,
+        "mouth/mouth-dimples-in": 0.4,
+        "head/head-fat-decr": 0.4,
+        "eyes/l-eye-corner1-up": 0.4,
+        "eyes/r-eye-corner1-up": 0.4
+      },
+      "hair_mesh": "afro01",
+      "outfit": "female_sportsuit01",
+      "shoes": "shoes03",
+      "skin_tex": "young_caucasian_female"
+    },
+    "outfit_look": {
+      "top": "#08080c",
+      "bottom": "#0b0b12"
+    }
   }
 }

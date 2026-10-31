@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqnads3i8qgr3"
-path="res://.godot/imported/mh_female_afro_diffuse.png-35ed117c2c29e3e4d91755fdcc705d19.ctex"
+uid="uid://c4vqd38g7a058"
+path="res://.godot/imported/young_darkskinned_male_diffuse.png-d837da910c037a985b7c7b125f95a0b4.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "38a4282486eb83724bb72ccb60495b68"
 }
 
 [deps]
 
-source_file="res://assets/characters/mh_female_afro_diffuse.png"
-dest_files=["res://.godot/imported/mh_female_afro_diffuse.png-35ed117c2c29e3e4d91755fdcc705d19.ctex"]
+source_file="res://assets/characters/tex/young_darkskinned_male_diffuse.png"
+dest_files=["res://.godot/imported/young_darkskinned_male_diffuse.png-d837da910c037a985b7c7b125f95a0b4.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

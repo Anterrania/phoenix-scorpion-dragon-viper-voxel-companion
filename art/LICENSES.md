@@ -8,3 +8,7 @@
 
 ## Particle texture
 - Procedurally generated in code (`SoftParticle`, a radial gradient). No external asset.
+
+## v0.12 character bodies
+- `assets/characters/{foxy_ani,aaliyah,circuit_nova,default_female,phoenix_player}.glb`: CC0, generated with MakeHuman/MPFB 2 by `tools/mh/gen_makehuman.py` (specs in the generator inputs). Face blend shapes come from MPFB's bundled expression-unit targets (CC0).
+- Owner-provided models: none used. The `.glb` files the media catalog lists for Foxy, Aaliyah and Circuit Nova (M2079–M2093, `/workspace/media-archive/history/companions/*/*.glb`) are byte-identical (sha256) copies of these generated MakeHuman files, not separate owner models.

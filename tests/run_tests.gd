@@ -48,6 +48,9 @@ func _ready() -> void:
 	_v10_tests()
 	_v10_music_tests()
 	_v11_tests()
+	_v12_tests()
+	_v12_tier_tests()
+	_v12_power_tests()
 	Tiers.owner_override = true   # AUDIT-2: admin writes need the owner session (gate_tests covers the refusal)
 	load("res://tests/admin_tests.gd").run(self)
 	await load("res://tests/admin_tests.gd").run_scene(self)
@@ -928,7 +931,7 @@ func _v11_tests() -> void:
 	var meshes := {}
 	for mi in m.find_children("*", "MeshInstance3D", true, false): meshes[mi.name.to_lower()] = mi
 	check(meshes.has("human") and meshes["human"].material_override is ShaderMaterial and meshes["human"].material_override.shader.resource_path.ends_with("skin.gdshader"), "v11 skin shader on body")
-	check(meshes.has("human_long01") and meshes["human_long01"].visible and not meshes["human_afro01"].visible, "v11 foxy long hair cards")
+	check(meshes.has("human_long01") and meshes["human_long01"].visible and (not meshes.has("human_afro01") or not meshes["human_afro01"].visible), "v11 foxy long hair cards")
 	var hm: ShaderMaterial = meshes["human_long01"].material_override
 	var rc: Color = hm.get_shader_parameter("root_color"); var tc: Color = hm.get_shader_parameter("tip_color")
 	check(rc.b > rc.r and rc.b > 0.8 and tc.r > 0.9 and tc.r > tc.g, "v11 foxy hair purple -> magenta gradient")
@@ -959,3 +962,93 @@ func _v11_tests() -> void:
 		var mat = p.draw_pass_1.material if p.draw_pass_1 else null
 		check(mat is BaseMaterial3D and mat.albedo_texture != null and mat.billboard_mode == BaseMaterial3D.BILLBOARD_PARTICLES, "v11 soft billboard particle: " + k)
 		p.free()
+
+func _v12_tests() -> void:
+	# face blend shapes (MPFB expression units) on every character body
+	for id in ["foxy_ani", "aaliyah", "circuit_nova", "default_female", "phoenix_player"]:
+		var g: Node3D = load("res://assets/characters/%s.glb" % id).instantiate()
+		var f := FaceDriver.for_model(g)
+		var ok := f.has_face()
+		if ok:
+			for s in ["eyeBlinkLeft", "eyeBlinkRight", "mouthSmile", "browInnerUp", "jawOpen", "viseme_aa", "viseme_O", "viseme_PP", "jaw"]:
+				ok = ok and f.mesh.find_blend_shape_by_name(s) >= 0
+		check(ok, "v12 face blend shapes on " + id)
+		g.free()
+	var m := RealisticBody.build(CompanionDNA.apply(_persona("foxy_ani"), {}))
+	var fd := FaceDriver.for_model(m)
+	fd.say("hello mama", 1.0)
+	check(fd.is_talking(), "v12 talk driver starts on speech")
+	var talked := false
+	for i in 20:
+		fd.update(0.05)
+		talked = talked or float(fd.channels()["jawOpen"]) > 0.05
+	check(talked, "v12 talk driver opens jaw")
+	var blinked := false
+	for i in 200:
+		fd.update(0.05)
+		blinked = blinked or float(fd.channels()["eyeBlinkLeft"]) > 0.5
+	check(blinked, "v12 blink driver")
+	check(float(fd.channels()["mouthSmile"]) > 0.0, "v12 resting smile channel")
+	for i in 400: fd.update(0.05)
+	check(not fd.is_talking(), "v12 talk stops")
+	check(float(m.get_meta("eye_y", 0.0)) > 1.2 and float(m.get_meta("eye_y", 0.0)) < 1.8, "v12 eye height measured for face bands")
+	m.free()
+	# player on the MakeHuman male base; sliders + attachments target bones/blend shapes
+	var old_save := {"skin": "#8a5a3c", "hair": "#120c12"}  # minimal pre-v0.12 save, no new keys
+	var pst := RealisticBody.player_style(Profile.to_style(old_save))
+	check(pst["body_id"] == "phoenix_player" and pst["player_jewelry"] and not old_save.has("body_id"), "v12 player defaults without touching the save")
+	var pm := RealisticBody.build(pst)
+	check(pm.has_meta("realistic") and pm.find_child("DragonPendant", true, false) != null and pm.find_child("Choker", true, false) != null, "v12 player jewelry on bones")
+	AvatarDNA.apply_morphs(pm, {"height": 1.0, "leg_length": 1.0, "head_size": 1.0, "jaw": 1.0, "shoulders": 0.5})
+	var psk := RealisticBody.skeleton(pm)
+	check(pm.scale.y > 1.05 and psk.get_bone_pose_scale(psk.find_bone("thigh_l")).y > 1.05 and psk.get_bone_pose_scale(psk.find_bone("head")).x > 1.05, "v12 DNA sliders drive bones")
+	var jaw_ok := false
+	for mi in pm.find_children("*", "MeshInstance3D", true, false):
+		var k: int = mi.find_blend_shape_by_name("jaw") if mi.mesh else -1
+		if k >= 0: jaw_ok = mi.get_blend_shape_value(k) > 0.9
+	check(jaw_ok, "v12 jaw slider drives blend shape")
+	check(AvatarDNA.attach_all(pm, [{"id": "halo", "point": "head"}, {"id": "scepter", "point": "hand_r"}]) == 2, "v12 attachments on rig bones")
+	pm.free()
+	check(FileAccess.get_file_as_string("res://docs/PHYSICAL_FORM_VISION.md").contains("companion-bodies/initial_concepts.md") and FileAccess.file_exists("res://docs/companion-bodies/initial_concepts.md"), "v12 physical form doc links body concepts")
+
+
+func _v12_tier_tests() -> void:
+	var root := "user://test_v12_tiers_%d" % Time.get_ticks_usec()
+	OwnerVault.reset_for_tests(root.path_join("security"), 1000)
+	SecureFile.reset_for_tests()
+	Tiers.reset_for_tests(root.path_join("social"))
+	Settings.set_value(CompanionTiers.FLAG_SECTION, CompanionTiers.FLAG_KEY, false)
+	check(Tiers.assigned_tier("foxy_ani") == "resident", "v12 companions Resident before seeding")
+	Tiers.owner_override = false
+	check(Tiers.set_role("foxy_ani", "builder") != "" and Tiers.assigned_tier("foxy_ani") == "resident", "v12 set_role refused while owner locked, nothing changed")
+	var errs := CompanionTiers.seed_once(true)   # caller claims owner but the gate says locked
+	check(errs.size() == 3 and not CompanionTiers.seeded() and Tiers.assigned_tier("aaliyah") == "resident", "v12 locked seeding errors, no flag, no change")
+	check(CompanionTiers.seed_once(false).is_empty() and not CompanionTiers.seeded(), "v12 no seeding when not owner")
+	Tiers.owner_override = true
+	check(CompanionTiers.seed_once(true).is_empty() and CompanionTiers.seeded(), "v12 first owner unlock seeds once")
+	check(Tiers.assigned_tier("foxy_ani") == "staff" and Tiers.assigned_tier("aaliyah") == "staff" and Tiers.assigned_tier("circuit_nova") == "staff", "v12 owner companions Builder/Staff")
+	check(Tiers.assigned_tier("bot:someone_else") == "resident", "v12 other companions stay Resident")
+	Tiers.set_role("aaliyah", "creator")
+	CompanionTiers.seed_once(true)
+	check(Tiers.assigned_tier("aaliyah") == "creator", "v12 seeding does not repeat")
+	Tiers.owner_override = null
+	Settings.set_value(CompanionTiers.FLAG_SECTION, CompanionTiers.FLAG_KEY, false)
+	Tiers.reset_for_tests("user://social"); OwnerVault.reset_for_tests("user://security", CryptoBox.DEFAULT_ITERATIONS); SecureFile.reset_for_tests()
+
+func _v12_power_tests() -> void:
+	var ps = get_node_or_null("/root/PowerSaver")
+	check(ps != null, "v12 PowerSaver autoload")
+	if ps == null: return
+	var fps := Engine.max_fps
+	ps.set_background(true)
+	check(get_tree().paused and Engine.max_fps == 5, "v12 background -> paused at 5 fps")
+	ps.set_background(false)
+	check(not get_tree().paused and Engine.max_fps == 30, "v12 resume -> 30 fps")
+	ps.set_saver(true)
+	check(Engine.max_fps == 20, "v12 battery low / hot (PowerData saver) -> 20 fps")
+	ps.set_background(true)
+	check(Engine.max_fps == 5, "v12 background wins over saver")
+	ps.set_background(false); ps.set_saver(false)
+	check(Engine.max_fps == 30 and not get_tree().paused, "v12 saver off -> 30 fps")
+	check(ps.target_fps(false, false) == 30 and ps.target_fps(false, true) == 20 and ps.target_fps(true, true) == 5, "v12 target_fps table")
+	Engine.max_fps = fps

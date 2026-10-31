@@ -22,6 +22,7 @@ Inventory="*res://scripts/autoload/inventory.gd"
 Profile="*res://scripts/autoload/profile.gd"
 DeviceProfile="*res://scripts/system/device_profile.gd"
 AutoConfig="*res://scripts/system/auto_config.gd"
+LocalLLM="*res://scripts/ai/local_llm.gd"
 Survival="*res://scripts/living/survival.gd"
 
 [display]
@@ -52,4 +53,4 @@ environment/defaults/default_clear_color=Color(0.05, 0.03, 0.1, 1)
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/viper_device/plugin.cfg")
+enabled=PackedStringArray("res://addons/viper_device/plugin.cfg", "res://addons/viper_llm/plugin.cfg")

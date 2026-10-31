@@ -40,7 +40,9 @@ static func run(t: Node) -> void:
 	Settings.cfg.set_value("llm", "mode", "canned")
 	Settings.cfg.set_value("llm", "endpoint", "https://api.x.ai/v1/chat/completions")
 	Settings.set_api_key_from_ui("")
-	t.check(not Settings.live_ai() and Settings.chat_status() in ["offline_no_key", "offline_locked"] or Settings.build_default_key() != "", "chat: no key -> offline")
+	# t.check(not Settings.live_ai() and Settings.chat_status() in ["offline_no_key", "offline_locked"] or Settings.build_default_key() != "", "chat: no key -> offline")
+	# LAI-3: an unchosen "canned" is the old default -> on-device AI (local_*) when there's no key.
+	t.check(not Settings.live_ai() and Settings.chat_status().begins_with("local_") or Settings.build_default_key() != "", "chat: no key -> on-device / offline, not live")
 	Settings.set_api_key_from_ui("xk-test-mock-key")
 	t.check(str(Settings.get_value("llm", "mode")) == "live" and Settings.live_ai() and Settings.chat_status() == "live", "chat: entering a key turns live chat on")
 	Settings.cfg.set_value("llm", "mode", "canned"); Settings.cfg.set_value("llm", "mode_set", true)

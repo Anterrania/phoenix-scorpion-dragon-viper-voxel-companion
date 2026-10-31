@@ -76,6 +76,7 @@ func _ready() -> void:
 	var smp = load("res://tests/social_media_tests.gd")
 	smp.run(self); smp.run_dm(self); smp.run_media(self); smp.run_docs(self); await smp.run_ui(self)
 	var cht = load("res://tests/chat_core_tests.gd"); await cht.run(self); await cht.run_ui(self)
+	var lai = load("res://tests/local_ai_tests.gd"); lai.run_prompt(self); await lai.run_state(self); await lai.run_chat(self); lai.run_docs(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -697,7 +698,8 @@ func _v09_tests() -> void:
 	var k0 = Settings.get_value("llm", "api_key", "")
 	Settings.set_value("llm", "api_key", "")
 	if Settings.build_default_key() == "":
-		check(Settings.chat_status() == "offline_no_key", "v0.9 chat offline without key")
+		# check(Settings.chat_status() == "offline_no_key", "v0.9 chat offline without key")
+		check(Settings.chat_status() == "offline_no_key" or Settings.chat_status().begins_with("local_"), "v0.9 chat without key: offline or on-device (LAI-3)")
 		check(Settings.chat_status_text("offline_no_key").contains("OFFLINE"), "v0.9 clear offline text")
 	Settings.set_value("llm", "api_key", k0)
 	check(not FileAccess.file_exists("res://config/llm_default.local.cfg") or true, "v0.9 build key file optional")

@@ -250,3 +250,14 @@ CHAT-14,"Settings › Test AI connection button",done,P1
 CHAT-15,"Verify live chat on a real phone (internet permission, DNS, TLS, xAI key) via Test AI connection",todo,P0
 CHAT-16,"Follow-up turn after tool calls (send tool results back to the model for a spoken answer)",todo,P2
 CHAT-17,"Voice input (Android STT) -> companion.talk()",todo,P2
+LAI-1,"ViperLLM Android plugin (self-written Kotlin/JNI/C++ over llama.cpp b12017, MIT; arm64; 3 CPU variants; streamed generate, KV prefix reuse, cancel, resumable SHA-256 download)",done_headless,P0
+LAI-2,"LocalLLM autoload: catalog (Qwen2.5 0.5B/1.5B Q4_0, Apache-2.0), Wi-Fi-only first-run download, lazy load + idle unload, request queue, mock backend for desktop/CI",done_headless,P0
+LAI-3,"Settings: on-device 'local' is the default mode (old unchosen 'canned' migrates), local_* chat statuses",done_headless,P0
+LAI-4,"AgentBrain local path: persona + memory + brain-cell hint prompt, streaming reply_partial, tool calls via dispatch_tool (LandGate/Tiers.can), context_full retry; live failure -> local -> canned",done_headless,P0
+LAI-5,"PowerData/thermal: pause at CRITICAL or background (cancel reply), throttle at SEVERE/saver/low battery (2 threads, shorter replies)",done_headless,P0
+LAI-6,"Minimal UI: green on-device status + streamed text line, mode cycle On-device/Live/Offline, Settings on-device block (download/cancel/model/Wi-Fi only/delete) - Foxy to polish",done_headless,P1
+LAI-7,"CI: build ViperLLM AAR (NDK 27.2 + CMake 3.22.1), verify libviper_llm.so + plugin in APK; desktop smoke harness tools/llm/desktop_smoke",done_headless,P0
+LAI-8,"Tests (tests/local_ai_tests.gd) + docs/modules/LOCAL_AI.md",done_headless,P0
+LAI-9,"Real-phone test: CPU variant pick, download/resume, tok/s + first-reply latency + RAM (0.5B and 1.5B), thermal pause/throttle, background/idle unload",todo,P0
+LAI-10,"Phase 2: tool-result follow-up turn, grammar-constrained tool JSON for 0.5B, GPU backend (Vulkan/OpenCL), auto 1.5B on 8 GB+ phones",todo,P2
+LF-LAI,"Foxy client follow-up: chat bubble streaming + download card for on-device AI (minimal hooks in ui_root.gd from LAI-6; hold until Phoenix marks the checklist)",todo,P2

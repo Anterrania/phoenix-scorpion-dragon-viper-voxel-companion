@@ -38,6 +38,7 @@ floating roads to the Mall and glowing aqueduct waterways join them.
 | H3 | Enterable shops (clothes, shoes, hair, looks, accessories): free house items + creator listings through MarketDelivery | **playable** (this PR); priced buys stay LEGAL REVIEW |
 | H4 | Grids = realms: world picker (menu + Community shell), start-world setting (Heaven default) | **playable** (this PR) |
 | H5 | **Built live:** data-driven district files + companion edits (EveCore proposals, owner approval or standing grant) streaming into the running world; in-world "Direct a change" | **playable** (this PR) |
+| H5b | **Edits from chat (HEAVEN-9):** companions call `heaven_edit` from chat (live and on-device), always via owner approval unless they hold a build grant; companion undo; the companion reports back (CHAT-16) | **playable** |
 | H6 | Vehicles on the floating roads, tram between Hub platforms (sbx_vehicles_driving) | planned |
 | H7 | Upper floors + interiors per building type, apartments you can own (Land budgets) | planned |
 | H8 | Companion flight-follow for granted companions; shoes/hair/glow style keys in the avatar model (Foxy) | planned |

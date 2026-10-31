@@ -67,7 +67,10 @@ static func cfg() -> ConfigFile:
 static func reload_data() -> void: _cfg = null
 
 static func region_get(region: String, key: String) -> Variant:
-	return cfg().get_value("region:" + region, key, REGION_DEFAULTS.get(key))
+	# return cfg().get_value("region:" + region, key, REGION_DEFAULTS.get(key))
+	# A null default makes ConfigFile log "no default was given" for keys without a REGION_DEFAULTS entry.
+	if not cfg().has_section_key("region:" + region, key): return REGION_DEFAULTS.get(key)
+	return cfg().get_value("region:" + region, key)
 
 static func region_set(region: String, key: String, v: Variant) -> void:
 	cfg().set_value("region:" + region, key, v)

@@ -44,6 +44,27 @@ no code, assets or names taken from any other game, viewer or grid.
 4. Applied edits overlay the base district files in order. `revision(island)` goes up, and `HeavenWorld.poll_edits()`
    (every 1.5 s) rebuilds only that island in place, with no restart.
 5. Undo is owner-only. It marks the edit `reverted`; history is never deleted.
+   (HEAVEN-9 adds companion undo of the companion's own changes, below.)
+
+## Edits from chat (HEAVEN-9)
+- `heaven_edit` is in the companion tool registry (`AgentBrain.tools_of`): every companion that can build
+  (`spawn_structure`) gets it, in live chat (OpenAI tools schema, `AgentBrain.heaven_schema()`) and in on-device chat.
+  It is world-only (`AgentBrain.WORLD_TOOLS`), so standalone chat bots never expose it.
+- A call runs `HeavenEdits.tool_call(companion, args, now, directed = false)` through `AgentBrain.dispatch_tool`
+  (e-stop and persona permissions apply). **Chat never self-approves**, even when the unlocked owner is the one typing:
+  the edit becomes an EveCore proposal (`propose_update`) and waits for the owner (Proposals panel or Heaven ›
+  Direct a change), unless that companion holds the owner's standing `build` grant, in which case it applies at once.
+  Only the in-person Direct-a-change UI passes `directed = true`.
+- `op: "undo"` (`HeavenEdits.companion_undo`, target = edit id or `last`): a companion takes back its own change.
+  A pending change becomes `withdrawn` (sync never applies it, even if approved later). An applied change can be
+  reverted by the companion only if it holds the `build` grant; otherwise the owner undoes it. Nothing is deleted.
+- The result goes back to the model (CHAT-16) so the companion says whether the change is done or waiting for
+  approval. If the model can't answer, the chat shows `HeavenEdits.status_line` ("I asked the owner to approve: …").
+- In Heaven, the companion's prompt says where it is and that `heaven_edit` is the way to change Heaven (voxel tools
+  there still need the studio grant).
+- On-device: missing coordinates are filled 3 m in front of the companion, plural or loose type words are mapped
+  through `HeavenDirector.TYPE_WORDS`, and the intent guard needs a build/change word in the player's message.
+- Tests: `tests/heaven_chat_tests.gd`.
 
 **Runs while the app is open.** True 24/7 building while the owner is away needs a persistent server (H10). It
 would run the companions' build loop server-side, keep the edit log and stream changes to every client. The edit

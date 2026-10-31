@@ -202,7 +202,8 @@ func migrate_api_key() -> void:
 	if legacy != "" and user_api_key() == "":
 		_secret_mem = legacy; _secret_dirty = true
 	if legacy == "" or flush_secrets():
-		cfg.erase_section_key("llm", "api_key")
+		# flush_secrets() already erases the plaintext key; erasing again logged "nonexistent key".
+		if cfg.has_section_key("llm", "api_key"): cfg.erase_section_key("llm", "api_key")
 		cfg.save(PATH)
 
 func _read_store() -> void:

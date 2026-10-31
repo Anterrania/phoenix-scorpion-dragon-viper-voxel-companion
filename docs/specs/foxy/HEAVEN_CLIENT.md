@@ -29,6 +29,8 @@ A working version lives in `HeavenScreen` (page "direct"). The steps are: pick a
 - The pending list needs per-item Approve / Reject (call `EveCore.decide(proposal, ok)` and then `HeavenEdits.sync()`). Undo for applied edits is owner only.
 
 ## 3. Chat tool hook (owned by fix/chat-core, not this branch)
+**Done (HEAVEN-9):** `AgentBrain` registers `heaven_edit` for builder companions; see docs/modules/HEAVEN.md "Edits from chat". The Direct-a-change UI keeps calling `HeavenEdits.tool_call(..., directed = true)` itself.
+
 Register `HeavenEdits.TOOL_SPEC` (name **`heaven_edit`**) in the companion tool registry. On a call, run
 `HeavenEdits.tool_call(companion_id, args, now)` with **`directed = false`**: a companion acting on its own always
 goes through approval unless it holds the owner's standing `build` grant. Only the in-person Direct-a-change UI,

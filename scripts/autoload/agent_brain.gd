@@ -17,7 +17,14 @@ const MAX_HISTORY := 30
 const MAX_TOOLS_PER_TURN := 12
 
 ## Tool names that only exist in-world. Standalone chat bots must not expose these.
-const WORLD_TOOLS := ["place_voxel", "carve_area", "spawn_structure", "follow", "move_to", "build_realm"]
+# const WORLD_TOOLS := ["place_voxel", "carve_area", "spawn_structure", "follow", "move_to", "build_realm"]
+const WORLD_TOOLS := ["place_voxel", "carve_area", "spawn_structure", "follow", "move_to", "build_realm", "heaven_edit"]
+## HEAVEN-9: Heaven layout edits from chat (HeavenEdits.tool_call). Every companion that can build
+## (spawn_structure) gets it. Edits always go through the owner's approval (EveCore proposal) unless the
+## companion holds the owner's standing "build" grant (HeavenAccess). Chat never self-approves.
+const HEAVEN_TOOL := "heaven_edit"
+## CHAT-16: after tools run, the results go back to the model for one follow-up reply (Settings llm/tool_followup).
+const FOLLOWUP_MAX_TOKENS := 96
 
 var _agents := {}   # id -> CompanionAgent
 var _memory := {}   # id -> Dictionary (memory_export.json schema)
@@ -50,6 +57,12 @@ func register_agent(agent: Node) -> void:
 func unregister_agent(agent: Node) -> void:
 	_agents.erase(agent.companion_id)
 	bus.unregister(agent.companion_id)
+
+## Tool names this companion may use: persona tools, plus heaven_edit for builders (HEAVEN-9).
+func tools_of(agent: Node) -> Array:
+	var t := BrainCore.flatten_tools(agent.persona.get("tools", []) if agent.get("persona") is Dictionary else [])
+	if "spawn_structure" in t and not HEAVEN_TOOL in t: t.append(HEAVEN_TOOL)
+	return t
 
 # ---------- memory ----------
 func _mem_path(id: String) -> String:
@@ -150,38 +163,59 @@ func chat(id: String, player_text: String) -> void:
 		"messages": messages,
 		"temperature": persona.get("temperature", 0.8),
 	}
-	var specs := _tool_specs(BrainCore.flatten_tools(persona.get("tools", [])))
+	# var specs := _tool_specs(BrainCore.flatten_tools(persona.get("tools", [])))
+	var specs := _tool_specs(tools_of(agent))   # HEAVEN-9: + heaven_edit for builders
 	if not specs.is_empty(): body["tools"] = specs   # CHAT-8: some endpoints 400 on an empty tools array
-	var url := Settings.llm_endpoint()
-	var headers := ["Content-Type: application/json", "Authorization: Bearer %s" % Settings.api_key()]
 	_pending[id] = true
 	thinking.emit(id, true)
+	_live_body[id] = body   # CHAT-16: kept for the follow-up turn after tool calls
+	# Old inline transport/HTTPRequest code moved into _send_live() so the CHAT-16 follow-up reuses it.
+	var err := _send_live(body, func(r: int, c: int, b: String): _handle_chat_response(id, r, c, b))
+	if err != OK:
+		# CHAT-1: was request_failed only -> the chat sat silent forever.
+		_live_failed(id, "couldn't start the request (error %d). Check the endpoint in Settings." % err)
+
+var _live_body := {}   # id -> last live request body (CHAT-16)
+
+## One live request (test transport or HTTPRequest). on_done(result, code, body) is always called later,
+## unless the request couldn't start (returns the error; on_done is then never called).
+func _send_live(body: Dictionary, on_done: Callable) -> Error:
+	var url := Settings.llm_endpoint()
+	var headers := ["Content-Type: application/json", "Authorization: Bearer %s" % Settings.api_key()]
 	if transport.is_valid():
 		var r: Variant = transport.call(url, headers, JSON.stringify(body))
 		var rd: Dictionary = r if r is Dictionary else {}
-		call_deferred("_handle_chat_response", id, int(rd.get("result", HTTPRequest.RESULT_NO_RESPONSE)), int(rd.get("code", 0)), str(rd.get("body", "")))
-		return
+		on_done.call_deferred(int(rd.get("result", HTTPRequest.RESULT_NO_RESPONSE)), int(rd.get("code", 0)), str(rd.get("body", "")))
+		return OK
 	var http := HTTPRequest.new()
 	http.timeout = float(Settings.get_value("llm", "timeout_sec", 45.0))
 	add_child(http)
-	http.request_completed.connect(_on_chat_done.bind(id, http))
+	http.request_completed.connect(func(result: int, code: int, _h: PackedStringArray, raw: PackedByteArray):
+		http.queue_free(); on_done.call(result, code, raw.get_string_from_utf8()))
 	var err := http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
-	if err != OK:
-		http.queue_free()
-		# CHAT-1: was request_failed only -> the chat sat silent forever.
-		_live_failed(id, "couldn't start the request (error %d). Check the endpoint in Settings." % err)
+	if err != OK: http.queue_free()
+	return err
 
 func _system_prompt(persona: Dictionary, mem: Dictionary, agent: Node) -> String:
 	var at: Variant = agent.get("global_position")
 	var pp: Variant = agent.call("get_player_position") if agent.has_method("get_player_position") else Vector3.ZERO
-	return "%s\n\nStyle: %s\nYou are an in-game AI companion inside a voxel world. Your position: %s. Player position: %s.\nKnown facts about the player and world: %s\nUse tools to act in the world; keep spoken replies short." % [
+	return "%s\n\nStyle: %s\nYou are an in-game AI companion inside a voxel world. Your position: %s. Player position: %s.\nKnown facts about the player and world: %s\nUse tools to act in the world; keep spoken replies short.%s" % [
 		persona.get("system_prompt", ""), persona.get("voice_style", ""),
 		str((at if at is Vector3 else Vector3.ZERO).round()), str((pp if pp is Vector3 else Vector3.ZERO).round()),
-		"; ".join(PackedStringArray(mem.get("facts", [])))]
+		"; ".join(PackedStringArray(mem.get("facts", []))), (" " + _heaven_hint(agent)) if _heaven_hint(agent) != "" else ""]
 
-func _on_chat_done(result: int, code: int, _h: PackedStringArray, raw: PackedByteArray, id: String, http: HTTPRequest) -> void:
-	http.queue_free()
-	_handle_chat_response(id, result, code, raw.get_string_from_utf8())
+## HEAVEN-9: one line telling the model it is in Heaven and how to change it ("" elsewhere).
+func _heaven_hint(agent: Node) -> String:
+	if not (HEAVEN_TOOL in tools_of(agent)): return ""
+	var at: Variant = agent.get("global_position")
+	if not (at is Vector3) or not HeavenLayout.contains(at): return ""
+	var isl := HeavenLayout.district_at(at)
+	return "You are in Heaven (%s). To change Heaven use heaven_edit; the owner approves each change unless you hold a build grant, so say whether it is done or waiting." % str(isl.get("name", "Heaven"))
+
+## CHAT-16: replaced by the lambda in _send_live() (same behaviour, shared with the follow-up turn).
+# func _on_chat_done(result: int, code: int, _h: PackedStringArray, raw: PackedByteArray, id: String, http: HTTPRequest) -> void:
+# 	http.queue_free()
+# 	_handle_chat_response(id, result, code, raw.get_string_from_utf8())
 
 ## Old handler kept for reference (CHAT-1/5): bad responses emitted request_failed with no reply, and a
 ## non-Dictionary choices[0] crashed the parse.
@@ -215,6 +249,7 @@ func _handle_chat_response(id: String, result: int, code: int, body: String) -> 
 	var text: String = str(msg.get("content", "")).strip_edges() if msg.get("content") is String else ""
 	var calls: Array = msg.get("tool_calls") if msg.get("tool_calls") is Array else []
 	var done := []
+	var results := []   # CHAT-16: [{call_id, name, args_json, res}]
 	for i in mini(calls.size(), MAX_TOOLS_PER_TURN):
 		if not (calls[i] is Dictionary): continue
 		var fn: Variant = calls[i].get("function", {})
@@ -224,14 +259,71 @@ func _handle_chat_response(id: String, result: int, code: int, body: String) -> 
 		var tname := str(fn.get("name", ""))
 		var res := dispatch_tool(id, tname, args if args is Dictionary else {})
 		done.append(("*%s*" % tname.replace("_", " ")) if res.get("ok") else ("(couldn't %s: %s)" % [tname.replace("_", " "), str(res.get("error", "?"))]))
+		var cid := str(calls[i].get("id", ""))
+		results.append({"call_id": cid if cid != "" else "call_%d" % i, "name": tname,
+			"args_json": a if a is String else JSON.stringify(args if args is Dictionary else {}), "res": res})
 	if text == "" and not done.is_empty(): text = " ".join(PackedStringArray(done))   # CHAT-9: tool-only turns used to show an empty line
 	if text == "":
 		_live_failed(id, "the AI answered with an empty message.")
 		return
+	# CHAT-16: tools ran -> one follow-up request with the results so the companion answers about what happened.
+	var fallback := _with_tool_notes(text, results)   # canned follow-up if the model can't answer
+	if not results.is_empty() and followup_enabled() and _live_body.has(id):
+		_live_followup(id, msg, results, fallback)
+		return
+	_live_save_finish(id, fallback)
+
+func _live_save_finish(id: String, text: String) -> void:
 	_memory[id]["history"].append({"role": "assistant", "content": text})
 	_memory[id]["history"] = _memory[id]["history"].slice(-MAX_HISTORY)
 	save_memory(id)
 	_finish(id, text)
+
+# ---------- CHAT-16: tool results back to the model ----------
+func followup_enabled() -> bool: return bool(Settings.get_value("llm", "tool_followup", true))
+
+## What the model sees for one tool result: ok / error / state / say, no internals, small.
+static func result_for_model(name: String, res: Dictionary) -> Dictionary:
+	var out := {"tool": name, "ok": bool(res.get("ok", false))}
+	for k in ["error", "state", "say", "note"]:
+		if res.has(k): out[k] = str(res[k]).left(240)
+	return out
+
+## Canned follow-up: the model's own line plus any result line it didn't already say (heaven_edit "say").
+static func _with_tool_notes(text: String, results: Array) -> String:
+	var out := text
+	for r in results:
+		var say := str(r["res"].get("say", ""))
+		if say != "" and not out.contains(say): out = (out + " " + say).strip_edges()
+	return out
+
+## Live path: assistant message with its tool_calls + one "tool" message per result, tool_choice none.
+func _live_followup(id: String, msg: Dictionary, results: Array, fallback: String) -> void:
+	var body: Dictionary = _live_body[id].duplicate(true)
+	var tcs := []
+	for r in results:
+		tcs.append({"id": r["call_id"], "type": "function", "function": {"name": r["name"], "arguments": r["args_json"]}})
+	body["messages"].append({"role": "assistant", "content": msg.get("content") if msg.get("content") is String else null, "tool_calls": tcs})
+	for r in results:
+		body["messages"].append({"role": "tool", "tool_call_id": r["call_id"], "content": JSON.stringify(result_for_model(r["name"], r["res"]))})
+	body["tool_choice"] = "none"   # answer in words; tools already ran this turn
+	body["max_tokens"] = 200
+	var err := _send_live(body, func(rr: int, c: int, b: String): _on_live_followup(id, rr, c, b, fallback))
+	if err != OK: _live_save_finish(id, fallback)
+
+## Follow-up answer. Any problem (network, empty, more tool calls) -> the canned fallback. Never request_failed:
+## the turn itself worked and the tools already ran.
+func _on_live_followup(id: String, result: int, code: int, body: String, fallback: String) -> void:
+	if not _agents.has(id):
+		_pending.erase(id); _queued.erase(id); thinking.emit(id, false)
+		return
+	var text := ""
+	if result == HTTPRequest.RESULT_SUCCESS and code >= 200 and code < 400:
+		var data: Variant = JSON.parse_string(body)
+		if data is Dictionary and data.get("choices") is Array and not data["choices"].is_empty() and data["choices"][0] is Dictionary:
+			var m: Variant = data["choices"][0].get("message")
+			if m is Dictionary and m.get("content") is String: text = str(m["content"]).strip_edges()
+	_live_save_finish(id, text if text != "" else fallback)
 
 ## Live call failed: record why, tell the UI, then answer offline so the player always gets a reply.
 func _live_failed(id: String, why: String) -> void:
@@ -287,13 +379,20 @@ func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
 	var res := {"ok": false}
 	if AutonomyGuard.paused():
 		res["error"] = "e-stop engaged: tools paused"
-	elif agent == null or tool not in BrainCore.flatten_tools(agent.persona.get("tools", [])):
+	# elif agent == null or tool not in BrainCore.flatten_tools(agent.persona.get("tools", [])):
+	elif agent == null or tool not in tools_of(agent):
 		res["error"] = "tool not allowed for this companion"
 	elif _land_error(id, tool, args, agent) != "":
 		res["error"] = _land_error(id, tool, args, agent)   # audit 2026-10-17: Tiers.can(id, build|land, parcel)
 	elif tool == "remember":
 		remember_fact(id, str(args.get("fact", "")))
 		res = {"ok": true}
+	elif tool == HEAVEN_TOOL:
+		res = _heaven_edit(id, args)
+		if brains.has(id):
+			brains[id].memory.log_episode("tool", {"name": tool, "ok": bool(res.get("ok")), "args": args})
+		if res.get("ok") and str(res.get("state", "")) == "applied":
+			EveCore.for_companion(id, agent.persona).log_build(tool, args)
 	elif agent.has_method("tool_" + tool):
 		res = agent.call("tool_" + tool, args)
 		if brains.has(id):
@@ -306,6 +405,26 @@ func dispatch_tool(id: String, tool: String, args: Dictionary) -> Dictionary:
 		res["error"] = "unknown tool"
 	tool_executed.emit(id, tool, res)
 	return res
+
+## HEAVEN-9: heaven_edit from chat. directed = false ALWAYS: a companion acting from chat goes through the
+## owner's approval (EveCore.propose_update; owner decides in MENU > Proposals or Heaven > Direct a change)
+## unless it holds the owner's standing build grant. op "undo" takes back the companion's own change
+## (HeavenEdits.companion_undo). Result: {ok, state, edit_id, proposal?, say} or {ok: false, error, say}.
+func _heaven_edit(id: String, args: Dictionary) -> Dictionary:
+	var r: Dictionary
+	if str(args.get("op", "add")) == HeavenEdits.UNDO_OP:
+		r = HeavenEdits.companion_undo(id, str(args.get("target", "")))
+	else:
+		r = HeavenEdits.tool_call(id, args, int(Time.get_unix_time_from_system()), false)
+	var out := {"ok": not r.has("error"), "say": HeavenEdits.status_line(r)}
+	if r.has("error"):
+		out["error"] = str(r["error"])
+		return out
+	out["state"] = str(r.get("state", ""))
+	out["edit_id"] = str(r.get("id", ""))
+	if r.has("proposal"): out["proposal"] = str(r["proposal"])
+	if out["state"] == "pending": out["note"] = "waiting for the owner's approval"
+	return out
 
 ## World-changing tools need Tiers.can(companion, "build"|"land", parcel) (LandGate.TOOL_ACTIONS).
 func _land_error(id: String, tool: String, args: Dictionary, agent: Node) -> String:
@@ -323,11 +442,26 @@ const TOOL_SCHEMAS := {
 	"emote": {"description": "Play an animation.", "properties": {"name": {"type": "string", "enum": ["dance", "wave", "fire_cast", "idle"]}}, "required": ["name"]},
 }
 
+## HEAVEN-9: heaven_edit schema (built at runtime: the piece types come from HeavenBuilder.EDITABLE).
+static func heaven_schema() -> Dictionary:
+	var num := {"type": "number"}
+	return {"description": "Change Heaven Welcome Island while you are in Heaven: add a piece, change one (move, resize, recolor, rename), remove one, or undo your own last change. Each change goes to the owner for approval unless you hold a build grant.",
+		"properties": {"op": {"type": "string", "enum": HeavenEdits.OPS + [HeavenEdits.UNDO_OP]},
+			"type": {"type": "string", "enum": HeavenBuilder.EDITABLE, "description": "piece type for add"},
+			"x": num, "y": num, "z": num, "target": {"type": "string", "description": "piece id for set/remove; for undo an edit id or 'last'"},
+			"yaw": num, "w": num, "d": num, "h": num, "r": num,
+			"color": {"type": "string", "description": "#rrggbb"}, "trim": {"type": "string", "description": "#rrggbb"},
+			"text": {"type": "string", "description": "sign text"}, "name": {"type": "string"}, "shop": {"type": "string"},
+			"move": {"type": "boolean", "description": "set: move the piece to x/z"}, "note": {"type": "string", "description": "why"}},
+		"required": ["op"]}
+
 func _tool_specs(names: Array) -> Array:
 	var out := []
 	for n in names:
-		if TOOL_SCHEMAS.has(n):
-			var s: Dictionary = TOOL_SCHEMAS[n]
+		# if TOOL_SCHEMAS.has(n):
+		# 	var s: Dictionary = TOOL_SCHEMAS[n]
+		if TOOL_SCHEMAS.has(n) or n == HEAVEN_TOOL:
+			var s: Dictionary = TOOL_SCHEMAS[n] if TOOL_SCHEMAS.has(n) else heaven_schema()
 			out.append({"type": "function", "function": {"name": n, "description": s["description"], "parameters": {"type": "object", "properties": s["properties"], "required": s["required"]}}})
 	return out
 
@@ -381,7 +515,8 @@ func _local_run(id: String, sys: String, hist: Array, text: String, ctx: String,
 	var opts := {"temperature": float(agent.persona.get("temperature", 0.7)) if agent else 0.7, "top_p": 0.9}
 	llm.generate(b["prompt"], opts,
 		func(partial: String): reply_partial.emit(id, LlmPrompt.visible(partial)),
-		func(res: Dictionary): _on_local_done(id, res, [sys, hist, text, ctx, allowed, act, budget, attempt]))
+		# func(res: Dictionary): _on_local_done(id, res, [sys, hist, text, ctx, allowed, act, budget, attempt]))
+		func(res: Dictionary): _on_local_done(id, res, [sys, hist, text, ctx, allowed, act, budget, attempt, b["prompt"]]))   # CHAT-16: + prompt
 
 func _on_local_done(id: String, res: Dictionary, run: Array) -> void:
 	if not _agents.has(id):
@@ -402,6 +537,7 @@ func _on_local_done(id: String, res: Dictionary, run: Array) -> void:
 		else: _offline_reply(id, str(run[2]), true)
 		return
 	var done := []
+	var results := []   # CHAT-16
 	var n := 0
 	for c in parsed["calls"]:
 		var tname := str(c["name"])
@@ -411,6 +547,7 @@ func _on_local_done(id: String, res: Dictionary, run: Array) -> void:
 		n += 1
 		var r := dispatch_tool(id, tname, args)
 		done.append(("*%s*" % tname.replace("_", " ")) if r.get("ok") else ("(couldn't %s: %s)" % [tname.replace("_", " "), str(r.get("error", "?"))]))
+		results.append({"name": tname, "res": r})
 	var text := str(parsed["text"])
 	if text == "": text = str(act.get("say", ""))
 	if text == "" and not done.is_empty(): text = " ".join(PackedStringArray(done))
@@ -419,7 +556,33 @@ func _on_local_done(id: String, res: Dictionary, run: Array) -> void:
 		_pending.erase(id); thinking.emit(id, false)
 		_offline_reply(id, str(run[2]), true)
 		return
-	_local_save_finish(id, text)
+	# CHAT-16 (on-device): a second, short generation only when the results need explaining (the model said
+	# nothing itself, a tool failed, or a tool has news such as "waiting for approval"). Saves battery otherwise.
+	var fallback := _with_tool_notes(text, results)
+	if _local_needs_followup(str(parsed["text"]), results) and run.size() > 8 and Settings.local_llm() and Settings.local_llm().can_chat():
+		var fr := []
+		for r in results: fr.append(result_for_model(r["name"], r["res"]))
+		var prompt2 := LlmPrompt.followup(str(run[8]), str(res.get("text", "")), fr)
+		Settings.local_llm().generate(prompt2, {"max_tokens": FOLLOWUP_MAX_TOKENS, "temperature": 0.6, "top_p": 0.9},
+			func(partial: String): reply_partial.emit(id, LlmPrompt.visible(partial)),
+			func(res2: Dictionary): _on_local_followup(id, res2, run[4], fallback))
+		return
+	_local_save_finish(id, fallback)
+
+static func _local_needs_followup(model_text: String, results: Array) -> bool:
+	if results.is_empty() or not bool(Settings.get_value("llm", "tool_followup", true)): return false
+	if model_text.strip_edges() == "": return true
+	for r in results:
+		if not r["res"].get("ok", false) or r["res"].has("say"): return true
+	return false
+
+func _on_local_followup(id: String, res: Dictionary, allowed: Array, fallback: String) -> void:
+	if not _agents.has(id):
+		_pending.erase(id); _queued.erase(id); thinking.emit(id, false)
+		return
+	var t := ""
+	if str(res.get("error", "")) == "": t = str(LlmPrompt.parse(str(res.get("text", "")), allowed)["text"])   # calls ignored: tools already ran
+	_local_save_finish(id, t if t != "" else fallback)
 
 func _local_save_finish(id: String, text: String) -> void:
 	_memory[id]["history"].append({"role": "assistant", "content": text})
@@ -429,7 +592,8 @@ func _local_save_finish(id: String, text: String) -> void:
 
 ## Tools offered to the on-device model: the persona's tools that this companion can actually run.
 func _local_tools(agent: Node) -> Array:
-	return BrainCore.flatten_tools(agent.persona.get("tools", [])).filter(func(t): return t == "remember" or agent.has_method("tool_" + str(t)))
+	# return BrainCore.flatten_tools(agent.persona.get("tools", [])).filter(func(t): return t == "remember" or agent.has_method("tool_" + str(t)))
+	return tools_of(agent).filter(func(t): return t == "remember" or t == HEAVEN_TOOL or agent.has_method("tool_" + str(t)))
 
 ## Volatile context for the latest user message (keeps the system block cache-friendly).
 func _local_context(agent: Node, act: Dictionary) -> String:
@@ -440,6 +604,8 @@ func _local_context(agent: Node, act: Dictionary) -> String:
 	if pp is Vector3: parts.append("Player is at %s." % str(pp.round()))
 	if str(act.get("did", "")) != "": parts.append("You just did: %s (don't call it again)." % str(act["did"]).replace("_", " "))
 	if str(act.get("say", "")) != "": parts.append("Idea for your reply: " + str(act["say"]).left(160))
+	var hh := _heaven_hint(agent)   # HEAVEN-9
+	if hh != "": parts.append(hh)
 	return " ".join(parts)
 
 ## Small models leave out or garble arguments: fill coordinates ("right in front of me") and safe defaults.
@@ -466,6 +632,17 @@ func _local_args(agent: Node, tool: String, args: Dictionary) -> Dictionary:
 		"follow": a["enabled"] = bool(a.get("enabled", true))
 		"remember": a["fact"] = str(a.get("fact", "")).left(200)
 		"build_realm": a["prompt"] = str(a.get("prompt", "")).left(200)
+		HEAVEN_TOOL:   # HEAVEN-9: small models guess; validation in HeavenEdits still has the last word
+			var op := str(a.get("op", "add"))
+			a["op"] = op if op in HeavenEdits.OPS + [HeavenEdits.UNDO_OP] else "add"
+			if a["op"] in ["add", "set"]:
+				for k in ["x", "y", "z"]:
+					var v: Variant = a.get(k)
+					if not (v is float or v is int): a[k] = front[["x", "y", "z"].find(k)]
+			if a["op"] == "add" and not (str(a.get("type", "")) in HeavenBuilder.EDITABLE):
+				var w := str(a.get("type", "")).to_lower()
+				a["type"] = HeavenDirector.TYPE_WORDS.get(w, HeavenDirector.TYPE_WORDS.get(w.trim_suffix("s"), w))
+			if a.has("note"): a["note"] = str(a["note"]).left(200)
 	return a
 
 

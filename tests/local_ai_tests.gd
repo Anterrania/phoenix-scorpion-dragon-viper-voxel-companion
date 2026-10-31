@@ -39,7 +39,7 @@ static func run_prompt(t: Node) -> void:
 ## Settings modes + LocalLLM state machine with the mock backend.
 static func run_state(t: Node) -> void:
 	var llm: Node = t.get_node("/root/LocalLLM")
-	var snap := {"mode": Settings.cfg.get_value("llm", "mode", null), "mode_set": Settings.cfg.get_value("llm", "mode_set", null)}
+	var snap := {"mode": (Settings.cfg.get_value("llm", "mode") if Settings.cfg.has_section_key("llm", "mode") else null), "mode_set": (Settings.cfg.get_value("llm", "mode_set") if Settings.cfg.has_section_key("llm", "mode_set") else null)}
 	t.check(Settings.DEFAULTS["llm"]["mode"] == "local", "lai: on-device AI is the default mode")
 	Settings.cfg.set_value("llm", "mode", "canned")
 	if Settings.cfg.has_section_key("llm", "mode_set"): Settings.cfg.erase_section_key("llm", "mode_set")
@@ -121,7 +121,7 @@ static func run_chat(t: Node) -> void:
 	if mock == null or not llm.can_chat():
 		t.check(false, "lai: chat tests need run_state first"); return
 	var ab: Node = AgentBrain
-	var snap := {"mode": Settings.cfg.get_value("llm", "mode", null), "mode_set": Settings.cfg.get_value("llm", "mode_set", null), "key": Settings.user_api_key()}
+	var snap := {"mode": (Settings.cfg.get_value("llm", "mode") if Settings.cfg.has_section_key("llm", "mode") else null), "mode_set": (Settings.cfg.get_value("llm", "mode_set") if Settings.cfg.has_section_key("llm", "mode_set") else null), "key": Settings.user_api_key()}
 	Settings.set_api_key("")
 	Settings.cfg.set_value("llm", "mode", "local"); Settings.cfg.set_value("llm", "mode_set", true)
 	var gs := GDScript.new()

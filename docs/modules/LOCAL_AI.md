@@ -114,4 +114,17 @@ LocalLLM listens to `DeviceProfile.caps_changed` and `AutoConfig.power_changed`,
 5. Background and resume, plus idle unload and reload.
 6. Signals arriving from worker threads (they connect with CONNECT_DEFERRED).
 
-**Phase 2 ideas:** a tool-result follow-up turn (CHAT-16), GPU (Vulkan/OpenCL) backends, grammar-constrained tool JSON for the 0.5B model, and an automatic 1.5B pick on 8 GB+ phones.
+## Tool-result follow-up (CHAT-16)
+After tools run, the companion answers about what actually happened (built, refused, waiting for approval):
+1. **On-device first:** one extra short generation (max 96 tokens) with the results as Qwen `<tool_response>` blocks
+   (`LlmPrompt.followup`). To save battery it only runs when the results need explaining: the model said nothing,
+   a tool failed, or a tool has news (e.g. `heaven_edit` "waiting for approval"). The prompt prefix is unchanged,
+   so the KV cache is reused. Tool calls in the follow-up are ignored (tools run once per turn).
+2. **Live (with a key):** a second request with the assistant `tool_calls` and one `tool` message per result,
+   `tool_choice: "none"`. A failed follow-up never raises `request_failed`; the turn already worked.
+3. **Canned:** if neither answers, the model's own line plus the tool's result line (`say`), or the old
+   `*tool*` / `(couldn't …)` summary.
+Switch: Settings `llm/tool_followup` (default on). What the model sees per result: `AgentBrain.result_for_model`
+(tool, ok, error, state, say, note; no internals).
+
+**Phase 2 ideas:** GPU (Vulkan/OpenCL) backends, grammar-constrained tool JSON for the 0.5B model, and an automatic 1.5B pick on 8 GB+ phones.

@@ -80,7 +80,9 @@ func _ready() -> void:
 	var smp = load("res://tests/social_media_tests.gd")
 	smp.run(self); smp.run_dm(self); smp.run_media(self); smp.run_docs(self); await smp.run_ui(self)
 	var cht = load("res://tests/chat_core_tests.gd"); await cht.run(self); await cht.run_ui(self)
-	var lai = load("res://tests/local_ai_tests.gd"); lai.run_prompt(self); await lai.run_state(self); await lai.run_chat(self); lai.run_docs(self)
+	var lai = load("res://tests/local_ai_tests.gd"); lai.run_prompt(self); await lai.run_state(self)
+	var hct = load("res://tests/heaven_chat_tests.gd"); await hct.run(self); hct.run_docs(self)   # HEAVEN-9 + CHAT-16
+	await lai.run_chat(self); lai.run_docs(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

@@ -17,6 +17,8 @@ extends RefCounted
 ## (docs/VOXEL_WORLD_PLAN.md, Heaven roadmap).
 
 const OPS := ["add", "remove", "set"]
+## HEAVEN-9: extra op on the chat tool only (never stored as an edit op).
+const UNDO_OP := "undo"
 const SET_KEYS := ["at", "yaw", "w", "d", "h", "r", "color", "trim", "text", "name", "n"]
 const LIMITS := {"w": [1.0, 60.0], "d": [1.0, 60.0], "h": [0.5, 140.0], "r": [0.5, 40.0], "n": [3, 24]}
 const MAX_APPLIED := 2000
@@ -236,6 +238,40 @@ static func revert(actor: Variant, edit_id: String) -> String:
 	return ""
 
 static func _bump(island_id: String) -> void: _rev[island_id] = revision(island_id) + 1
+
+## HEAVEN-9: a companion takes back its OWN change (chat "undo that").
+## - pending (waiting for the owner): withdrawn, so sync() never applies it; kept in the log.
+## - applied: only when this companion holds the owner's standing build grant (it could have applied the
+##   change without approval anyway). Otherwise the owner undoes it (Heaven > Direct a change > Undo).
+## edit_id "" or "last" = this companion's newest pending or applied edit. Returns {id, state} or {error}.
+static func companion_undo(companion: String, edit_id := "") -> Dictionary:
+	var e := {}
+	if edit_id == "" or edit_id == "last":
+		for x in _all()["edits"]:
+			if x["by"] == companion and x["state"] in ["pending", "applied"]: e = x
+	else:
+		e = _edit(edit_id)
+	if e.is_empty() or e["by"] != companion or not e["state"] in ["pending", "applied"]:
+		return {"error": "Nothing of mine to undo."}
+	var was := str(e["state"])
+	if was == "applied" and not HeavenAccess.granted("build", companion):
+		return {"error": "That change is already approved. Only the owner can undo it (Heaven > Direct a change > Undo)."}
+	e["state"] = "withdrawn" if was == "pending" else "reverted"
+	e["undone_by"] = companion
+	if not _save(): _e = null; return {"error": "Saves are sealed. Unlock first."}
+	if was == "applied": _bump(e["island"])
+	return {"id": e["id"], "state": e["state"], "edit": e}
+
+## One plain line about a tool_call / companion_undo result, for chat (CHAT-16 canned follow-up).
+static func status_line(r: Dictionary) -> String:
+	if r.has("error"): return "I couldn't change Heaven: %s" % str(r["error"])
+	var what := describe(r["edit"]) if r.get("edit") is Dictionary and not r["edit"].is_empty() else "the change"
+	match str(r.get("state", "")):
+		"applied": return "Done: %s." % what
+		"pending": return "I asked the owner to approve: %s." % what
+		"withdrawn": return "I took back my request: %s." % what
+		"reverted": return "Undone: %s." % what
+	return str(r.get("state", ""))
 
 # ---------- companion build tool ----------
 ## Entry point for the companion tool registry. args per TOOL_SPEC (world coordinates).

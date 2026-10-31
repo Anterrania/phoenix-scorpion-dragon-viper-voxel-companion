@@ -169,3 +169,12 @@ and checks that the APK's manifest and dex contain the plugin.
 
 Tests use fake caps for low, mid, high and ultra phones, a tablet, a foldable, a TV, a Chromebook and a
 desktop (tests/compat_tests.gd).
+
+## APK signing and updates (v0.12.2+)
+
+Every CI APK is signed with one permanent debug key stored in the repo secrets
+`DEBUG_KEYSTORE_BASE64`, `DEBUG_KEYSTORE_USER`, `DEBUG_KEYSTORE_PASSWORD` (the keystore is never
+committed). Because the signature stays the same, new builds install over old ones. If the secret
+is missing, CI makes a throwaway key and warns; that APK will not update an existing install.
+`versionCode` is `100 + github.run_number` in CI (always increases) and `versionName` comes from the
+latest `vX.Y.Z` tag. Builds before v0.12.2 used random keys: uninstall them once, then install v0.12.2.

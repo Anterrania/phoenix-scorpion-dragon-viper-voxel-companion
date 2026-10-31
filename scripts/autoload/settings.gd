@@ -13,9 +13,13 @@ const DEFAULTS := {
 		"model": "grok-4",
 		# api_key: NOT stored here (SEC-FIX-2). See set_api_key() / secrets.bin.
 		"timeout_sec": 45.0,
-		# v0.5: "canned" = offline persona replies (default); "live" = call the endpoint above.
-		"mode": "canned",
+		# v0.5: "canned" = offline persona replies; "live" = call the endpoint above.
+		# LAI-3: "local" = on-device model (LocalLLM, no key) is the default; live stays optional, canned is the last fallback.
+		# "mode": "canned",
+		"mode": "local",
 	},
+	# LAI-3: on-device AI (LocalLLM). model "auto" = catalog default (data/ai/local_models.json).
+	"local_ai": {"model": "auto", "wifi_only": true, "auto_download": true, "enabled": true},
 	"content": {"mature_cosmetics_enabled": false, "age_confirmed": false},
 	"ui": {"show_menu_on_start": false, "show_labels": false, "compact": true},
 	"voice": {"tts_enabled": true, "push_to_talk": false},
@@ -86,10 +90,28 @@ func live_ai() -> bool:
 	return effective_mode() == "live" and has_api_key() and llm_endpoint() != ""
 
 ## CHAT-2: "live" when the user picked live, or a build-time key exists and the user never chose a mode.
+## LAI-3: otherwise "local" (on-device model). "canned" only when the user explicitly picked offline replies;
+## an old saved "canned" without mode_set was just the previous default, so it migrates to "local".
+# func effective_mode() -> String:
+# 	if str(get_value("llm", "mode", "canned")) == "live": return "live"
+# 	if build_default_key() != "" and not cfg.has_section_key("llm", "mode_set"): return "live"
+# 	return "canned"
 func effective_mode() -> String:
-	if str(get_value("llm", "mode", "canned")) == "live": return "live"
+	var m := str(get_value("llm", "mode", "local"))
+	if m == "live": return "live"
 	if build_default_key() != "" and not cfg.has_section_key("llm", "mode_set"): return "live"
-	return "canned"
+	if m == "canned" and bool(cfg.get_value("llm", "mode_set", false)): return "canned"
+	return "local"
+
+## LAI-3: the LocalLLM autoload, or null (unit tests that run without it).
+func local_llm() -> Node:
+	return get_node_or_null("/root/LocalLLM") if is_inside_tree() else null
+
+## LAI-3: chat should go to the on-device model (not live, not explicit canned, model usable now).
+func local_ai() -> bool:
+	if live_ai() or effective_mode() == "canned": return false
+	var l := local_llm()
+	return l != null and l.can_chat()
 
 ## CHAT-3: Settings UI key entry. Entering a key turns live chat on unless the user explicitly chose
 ## offline replies (mode_set). Before this, a pasted key did nothing until the mode button was found.
@@ -225,9 +247,16 @@ func flush_secrets() -> bool:
 func reset_secrets_for_tests() -> void:
 	_secret_mem = ""; _secret_loaded = false; _secret_dirty = false
 
-## "live" | "offline_no_key" | "offline_mode" | "offline_error"
+## "live" | "offline_no_key" | "offline_mode" | "offline_error" | "local_<LocalLLM.state>" (LAI-3)
+const LocalLlmScript := preload("res://scripts/ai/local_llm.gd")
 var last_chat_error := ""
 func chat_status() -> String:
+	# LAI-3: local mode reports the on-device model ("local_ready", "local_downloading", ...).
+	var em := effective_mode()
+	if em == "canned": return "offline_mode"
+	if em == "local":
+		var l := local_llm()
+		return l.status() if l else "local_unsupported"
 	# CHAT-2: a sealed key exists but the vault is locked -> say so (was reported as "no API key").
 	if api_key() == "": return "offline_locked" if OwnerVault.has_vault() and not OwnerVault.storage_ready() and FileAccess.file_exists(secrets_path()) else "offline_no_key"
 	if effective_mode() != "live": return "offline_mode"
@@ -236,6 +265,10 @@ func chat_status() -> String:
 	return "live"
 
 static func chat_status_text(st: String) -> String:
+	if st.begins_with("local_"):
+		var ml := Engine.get_main_loop()
+		var l: Node = ml.root.get_node_or_null("LocalLLM") if ml is SceneTree else null
+		return LocalLlmScript.status_text(st, l.dl_done_mb if l else 0.0, l.dl_total_mb if l else 0.0)
 	match st:
 		"live": return "● LIVE CHAT online"
 		"offline_no_key": return "○ CHAT OFFLINE: no API key. Add it in Settings › Companion AI (stays on this phone)."

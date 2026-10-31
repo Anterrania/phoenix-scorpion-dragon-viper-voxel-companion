@@ -66,7 +66,7 @@ jobs:
         run: echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV"   # preinstalled on ubuntu-latest
       - name: Install SDK packages
         if: matrix.preset == 'Android'
-        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "build-tools;34.0.0" "platforms;android-34" "ndk;27.2.12479018" "cmake;3.22.1"
       - name: Debug keystore (stable, from secrets) + version
         if: matrix.preset == 'Android'
         env:
@@ -114,6 +114,9 @@ jobs:
       - name: Build ViperDevice Android plugin (AAR)
         if: matrix.preset == 'Android'
         run: android/plugins/viper_device/build.sh
+      - name: Build ViperLLM Android plugin (AAR, on-device AI)
+        if: matrix.preset == 'Android'
+        run: android/plugins/viper_llm/build.sh
       - name: Import project
         run: ./godot --headless --import || true
       - name: Export

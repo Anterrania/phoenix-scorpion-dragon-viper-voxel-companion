@@ -1,0 +1,35 @@
+{
+	"schema_version": 1,
+	"default": "qwen2.5-0.5b-instruct-q4_0",
+	"note": "On-device companion models (LocalLLM). Downloaded once on Wi-Fi to user://models/, SHA-256 checked. All Apache-2.0. See docs/modules/LOCAL_AI.md.",
+	"models": [
+		{
+			"id": "qwen2.5-0.5b-instruct-q4_0",
+			"name": "Qwen2.5 0.5B Instruct (fast)",
+			"file": "qwen2.5-0.5b-instruct-q4_0.gguf",
+			"url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-q4_0.gguf",
+			"sha256": "7671c0c304e6ce5a7fc577bcb12aba01e2c155cc2efd29b2213c95b18edaf6ed",
+			"size": 428730208,
+			"params_b": 0.5,
+			"license": "Apache-2.0",
+			"license_url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/blob/main/LICENSE",
+			"min_ram_mb": 2048,
+			"n_ctx": 2048,
+			"max_tokens": 160
+		},
+		{
+			"id": "qwen2.5-1.5b-instruct-q4_0",
+			"name": "Qwen2.5 1.5B Instruct (smarter, slower)",
+			"file": "qwen2.5-1.5b-instruct-q4_0.gguf",
+			"url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_0.gguf",
+			"sha256": "dcd819ff094852c38faba6873d8ff0c9d51eadb2844539e52042ae5d647bbfdb",
+			"size": 1066227232,
+			"params_b": 1.5,
+			"license": "Apache-2.0",
+			"license_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/blob/main/LICENSE",
+			"min_ram_mb": 5500,
+			"n_ctx": 2048,
+			"max_tokens": 160
+		}
+	]
+}

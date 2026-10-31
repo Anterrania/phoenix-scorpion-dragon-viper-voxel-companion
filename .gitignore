@@ -10,3 +10,10 @@ android/plugins/viper_device/.gradle/
 android/plugins/viper_device/local.properties
 android/build/
 android/.build_version
+addons/viper_llm/bin/
+android/plugins/viper_llm/.gradle/
+android/plugins/viper_llm/.cxx/
+android/plugins/viper_llm/local.properties
+android/plugins/viper_llm/third_party/
+android/plugins/viper_llm/src/main/assets/licenses/
+tools/llm/desktop_smoke/build/

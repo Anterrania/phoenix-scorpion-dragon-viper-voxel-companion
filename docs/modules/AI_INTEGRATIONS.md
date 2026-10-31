@@ -6,6 +6,7 @@
 | Backend | Role | Status |
 |---|---|---|
 | **Local (default)** | Offline. Rule-based now; llama.cpp GDExtension + small GGUF later | Keyword fallback stub |
+| **On-device LLM (default chat, LAI-1..9)** | Qwen2.5-0.5B GGUF via the ViperLLM Android plugin (llama.cpp). See [LOCAL_AI.md](LOCAL_AI.md) | Phase 1 implemented (headless + debug APK); real-phone test pending |
 | **Grok (xAI API)** | Optional online reasoning, matching the standalone Grok Bot personas | Stub only |
 Fallback: Grok → Local. Gameplay never blocks on the network.
 

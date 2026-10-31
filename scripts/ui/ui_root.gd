@@ -50,6 +50,7 @@ func _ready() -> void:
 	# AgentBrain.request_failed.connect(func(_id, _e): _update_chat_status())   # CHAT-11: now also shows the reason in the log
 	AgentBrain.request_failed.connect(_on_chat_failed)
 	AgentBrain.thinking.connect(_on_thinking)
+	AgentBrain.reply_partial.connect(_on_reply_partial)   # LAI-6: on-device replies stream into the status line
 	var lt := Timer.new(); lt.wait_time = 2.0; lt.autostart = true; add_child(lt)
 	lt.timeout.connect(func(): FloatingText.apply(get_tree()))
 	call_deferred("_apply_labels")
@@ -424,17 +425,30 @@ func _pick_chat(c: Node) -> void:
 	chat_target = c
 	_update_follow()
 	if c and chat_log:
-		chat_log.append_text("[color=#ffd04a]— talking to %s (%s) —[/color]\n" % [c.persona.get("name", c.name), "live AI" if Settings.chat_status() == "live" else "chat offline: persona replies"])
+		# chat_log.append_text("[color=#ffd04a]— talking to %s (%s) —[/color]\n" % [c.persona.get("name", c.name), "live AI" if Settings.chat_status() == "live" else "chat offline: persona replies"])
+		var st := Settings.chat_status()
+		chat_log.append_text("[color=#ffd04a]— talking to %s (%s) —[/color]\n" % [c.persona.get("name", c.name), "live AI" if st == "live" else ("on-device AI" if st in LOCAL_OK else "chat offline: persona replies")])
+	if Settings.local_llm(): Settings.local_llm().warm_up()   # LAI-6: load the model while the player types
 
 var chat_ic := true
 var chat_status: Label
+const LOCAL_OK := ["local_ready", "local_downloaded", "local_loading"]   # LAI-6: on-device AI usable (green)
+var _partial := ""
 func _update_chat_status() -> void:
 	if chat_status == null: return
 	var st := Settings.chat_status()
 	chat_status.text = Settings.chat_status_text(st)
-	chat_status.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if st == "live" else Color(1, 0.55, 0.55))
+	# chat_status.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if st == "live" else Color(1, 0.55, 0.55))
+	chat_status.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if st == "live" or st in LOCAL_OK else (GOLD if st == "local_downloading" else Color(1, 0.55, 0.55)))
 	if st == "offline_error" and Settings.last_chat_error != "": chat_status.text += "\n" + Settings.last_chat_error
-	if chat_target and AgentBrain.is_thinking(chat_target.companion_id): chat_status.text += "\n%s is thinking…" % _short_name(chat_target)
+	if chat_target and AgentBrain.is_thinking(chat_target.companion_id):
+		chat_status.text += ("\n%s: %s…" % [_short_name(chat_target), _partial.right(160)]) if _partial != "" else "\n%s is thinking…" % _short_name(chat_target)
+
+## LAI-6: streamed on-device text (tool markup already hidden). The full reply still lands in the log via _on_reply.
+func _on_reply_partial(id: String, text: String) -> void:
+	if chat_target == null or chat_target.companion_id != id: return
+	_partial = text
+	_update_chat_status()
 
 ## BBCode-safe text for the chat log (CHAT-12: a "[" in a message used to break or restyle the log).
 static func _bb(t: String) -> String:
@@ -458,6 +472,7 @@ func _send(t: String) -> void:
 	elif not chat_ic: chat_log.append_text("[color=#9aa0b8](OOC: not sent to %s. Tap OOC to switch back to IC.)[/color]\n" % _short_name(chat_target))   # CHAT-13
 
 func _on_reply(id: String, text: String) -> void:
+	if chat_target and chat_target.companion_id == id: _partial = ""
 	if text.strip_edges() == "": return
 	if chat_target and chat_target.companion_id == id and chat_log:
 		chat_log.append_text("[color=#ff8de8]%s:[/color] %s\n" % [_bb(str(chat_target.persona.get("name", id))), _bb(text)])
@@ -465,11 +480,55 @@ func _on_reply(id: String, text: String) -> void:
 
 func _on_chat_failed(id: String, why: String) -> void:
 	if chat_target and chat_target.companion_id == id and chat_log:
-		chat_log.append_text("[color=#ff8c8c](Live AI unavailable: %s Offline reply below.)[/color]\n" % _bb(why))
+		if why.begins_with("on-device AI"): chat_log.append_text("[color=#ff8c8c](%s. Persona reply below.)[/color]\n" % _bb(why))   # LAI-6
+		else: chat_log.append_text("[color=#ff8c8c](Live AI unavailable: %s Offline reply below.)[/color]\n" % _bb(why))
 	_update_chat_status()
 
 func _on_thinking(_id: String, _active: bool) -> void:
 	_update_chat_status()
+
+## LAI-6: On-device AI block (Settings › Companion AI): status + download progress, download / cancel,
+## model pick, Wi-Fi-only, delete. Mobile data needs a second tap (the file is 400 MB+).
+func _build_local_ai(b: VBoxContainer) -> void:
+	var llm: Node = Settings.local_llm()
+	if llm == null: return
+	b.add_child(label("On-device AI (no key, runs on this phone)", 26, GOLD))
+	var st := label("", 22)
+	b.add_child(st)
+	var dl := btn("", func(): pass)
+	var pick := btn("", func(): pass)
+	var confirm := [false]
+	var refresh := func():
+		var m: Dictionary = llm.model()
+		st.text = Settings.chat_status_text(llm.status()) + "\n%s · %s · %d MB" % [m.get("name", "?"), m.get("license", ""), int(int(m.get("size", 0)) / 1048576)]
+		if llm.last_error != "" and llm.state == "error": st.text += "\n" + llm.last_error
+		dl.text = "Cancel download" if llm.state == "downloading" else ("Downloaded ✓" if llm.is_downloaded() else ("Tap again: download over mobile data" if confirm[0] else "Download now"))
+		pick.text = "Model: " + str(m.get("name", "?"))
+	dl.pressed.connect(func():
+		if llm.state == "downloading": llm.cancel_download()
+		elif not llm.is_downloaded():
+			if not llm.start_download(confirm[0]) and llm.state == "waiting_wifi": confirm[0] = true
+			else: confirm[0] = false
+		refresh.call())
+	pick.pressed.connect(func():
+		var ids: Array = llm.models().map(func(x): return str(x["id"]))
+		if ids.is_empty(): return
+		llm.set_pref("model", ids[(ids.find(llm.model_id()) + 1) % ids.size()])
+		confirm[0] = false
+		refresh.call()
+		_update_chat_status())
+	b.add_child(dl)
+	b.add_child(pick)
+	var wifi := CheckButton.new()
+	wifi.text = "Download only on Wi-Fi"
+	wifi.add_theme_font_size_override("font_size", FS)
+	wifi.button_pressed = bool(llm.pref("wifi_only"))
+	wifi.toggled.connect(func(on): llm.set_pref("wifi_only", on); refresh.call())
+	b.add_child(wifi)
+	b.add_child(btn("Delete downloaded model", func(): llm.delete_model(); refresh.call(); _update_chat_status()))
+	llm.state_changed.connect(func(_s): if is_instance_valid(st): refresh.call(); _update_chat_status())
+	llm.progress_changed.connect(func(_d, _t): if is_instance_valid(st): refresh.call())
+	refresh.call()
 
 # ---------- travel ----------
 func _build_travel() -> Dictionary:
@@ -557,10 +616,13 @@ func _build_settings() -> Dictionary:
 	b.add_child(lab)
 	b.add_child(label("Companion AI", 32, GOLD))
 	var mode := btn("", func(): pass)
-	var upd := func(): mode.text = "AI mode: " + ("LIVE (uses API key)" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "OFFLINE canned replies")
+	# var upd := func(): mode.text = "AI mode: " + ("LIVE (uses API key)" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "OFFLINE canned replies")
+	# LAI-6: three modes, on-device first. Tap cycles On-device -> Live -> Offline replies.
+	var upd := func(): mode.text = "AI mode: " + {"local": "ON-DEVICE (no key, private)", "live": "LIVE (uses API key)", "canned": "OFFLINE canned replies"}[Settings.effective_mode()]
 	upd.call()
 	mode.pressed.connect(func():
-		Settings.set_value("llm", "mode", "canned" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "live")
+		# Settings.set_value("llm", "mode", "canned" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "live")
+		Settings.set_value("llm", "mode", {"local": "live", "live": "canned", "canned": "local"}[Settings.effective_mode()])
 		Settings.set_value("llm", "mode_set", true)
 		Settings.last_chat_error = ""
 		upd.call()
@@ -591,6 +653,7 @@ func _build_settings() -> Dictionary:
 			probe.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if ok else Color(1, 0.55, 0.55))
 			_update_chat_status())))
 	b.add_child(probe)
+	_build_local_ai(b)
 	b.add_child(label("Voice & Music", 32, GOLD))
 	for t in [["voice", "tts_enabled", "Companions speak out loud (text-to-speech)"], ["music", "enabled", "Phoenix Radio music"]]:
 		var cb := CheckButton.new()

@@ -79,6 +79,7 @@ func _ready() -> void:
 	var CT = load("res://tests/compat_tests.gd"); CT.run(self); CT.run_overrides(self); CT.run_power(self); await CT.run_ui(self); CT.run_docs(self); await load("res://tests/viper_device_tests.gd").run(self)
 	var smp = load("res://tests/social_media_tests.gd")
 	smp.run(self); smp.run_dm(self); smp.run_media(self); smp.run_docs(self); await smp.run_ui(self)
+	var cht = load("res://tests/chat_core_tests.gd"); await cht.run(self); await cht.run_ui(self)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -335,7 +336,7 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=13") and ep.contains("0.11.0"), "versionCode 13 / 0.11.0")
+	check(ep.contains("version/code=14") and ep.contains("0.12.2"), "versionCode 14 / 0.12.2")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))

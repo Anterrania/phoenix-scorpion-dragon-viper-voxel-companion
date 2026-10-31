@@ -47,7 +47,9 @@ func _ready() -> void:
 	_viper_radial()
 	get_viewport().size_changed.connect(_layout)
 	_layout()
-	AgentBrain.request_failed.connect(func(_id, _e): _update_chat_status())
+	# AgentBrain.request_failed.connect(func(_id, _e): _update_chat_status())   # CHAT-11: now also shows the reason in the log
+	AgentBrain.request_failed.connect(_on_chat_failed)
+	AgentBrain.thinking.connect(_on_thinking)
 	var lt := Timer.new(); lt.wait_time = 2.0; lt.autostart = true; add_child(lt)
 	lt.timeout.connect(func(): FloatingText.apply(get_tree()))
 	call_deferred("_apply_labels")
@@ -431,17 +433,43 @@ func _update_chat_status() -> void:
 	var st := Settings.chat_status()
 	chat_status.text = Settings.chat_status_text(st)
 	chat_status.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if st == "live" else Color(1, 0.55, 0.55))
+	if st == "offline_error" and Settings.last_chat_error != "": chat_status.text += "\n" + Settings.last_chat_error
+	if chat_target and AgentBrain.is_thinking(chat_target.companion_id): chat_status.text += "\n%s is thinking…" % _short_name(chat_target)
+
+## BBCode-safe text for the chat log (CHAT-12: a "[" in a message used to break or restyle the log).
+static func _bb(t: String) -> String:
+	return t.replace("[", "[lb]")
+
+func _short_name(c: Node) -> String:
+	return str(c.persona.get("name", c.name)).split(" ")[0]
+
 func _send(t: String) -> void:
-	if t.strip_edges() == "" or chat_target == null: return
-	var f := RoleplayProfile.format_chat(Profile.display_name(), t, chat_ic)
+	if t.strip_edges() == "": return
+	# CHAT-13: was a silent return when no companion was picked yet.
+	if chat_target == null and not _companions().is_empty(): _pick_chat(_companions().front())
+	if chat_target == null:
+		chat_log.append_text("[color=#ffd04a]No companion is nearby to talk to yet.[/color]\n")
+		return
+	var f := RoleplayProfile.format_chat(_bb(Profile.display_name()), _bb(t), chat_ic)
 	chat_log.append_text(f["text"] + "\n")
 	chat_input.clear()
 	if f.get("emote", false) and player and player.has_method("set_pose"): player.set_pose("wave", 2.0)
 	if f["to_companion"]: chat_target.talk(t)
+	elif not chat_ic: chat_log.append_text("[color=#9aa0b8](OOC: not sent to %s. Tap OOC to switch back to IC.)[/color]\n" % _short_name(chat_target))   # CHAT-13
 
 func _on_reply(id: String, text: String) -> void:
+	if text.strip_edges() == "": return
 	if chat_target and chat_target.companion_id == id and chat_log:
-		chat_log.append_text("[color=#ff8de8]%s:[/color] %s\n" % [chat_target.persona.get("name", id), text])
+		chat_log.append_text("[color=#ff8de8]%s:[/color] %s\n" % [_bb(str(chat_target.persona.get("name", id))), _bb(text)])
+	_update_chat_status()
+
+func _on_chat_failed(id: String, why: String) -> void:
+	if chat_target and chat_target.companion_id == id and chat_log:
+		chat_log.append_text("[color=#ff8c8c](Live AI unavailable: %s Offline reply below.)[/color]\n" % _bb(why))
+	_update_chat_status()
+
+func _on_thinking(_id: String, _active: bool) -> void:
+	_update_chat_status()
 
 # ---------- travel ----------
 func _build_travel() -> Dictionary:
@@ -535,7 +563,8 @@ func _build_settings() -> Dictionary:
 		Settings.set_value("llm", "mode", "canned" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "live")
 		Settings.set_value("llm", "mode_set", true)
 		Settings.last_chat_error = ""
-		upd.call())
+		upd.call()
+		_update_chat_status())
 	b.add_child(mode)
 	for f in [["endpoint", "LLM endpoint (OpenAI-compatible)", false], ["model", "Model", false], ["api_key", "API key (stored only on this phone)", true]]:
 		b.add_child(label(f[1], 24))
@@ -545,8 +574,23 @@ func _build_settings() -> Dictionary:
 		le.custom_minimum_size = Vector2(0, 72)
 		le.add_theme_font_size_override("font_size", 26)
 		var key: String = f[0]
-		le.text_changed.connect(func(t): Settings.set_value("llm", key, t.strip_edges()))
+		# le.text_changed.connect(func(t): Settings.set_value("llm", key, t.strip_edges()))
+		# CHAT-3: a pasted key switches live chat on (unless offline was chosen); the mode label follows.
+		le.text_changed.connect(func(t):
+			if key == "api_key": Settings.set_api_key_from_ui(t)
+			else: Settings.set_value("llm", key, t.strip_edges()); Settings.last_chat_error = ""
+			upd.call()
+			_update_chat_status())
+		if key == "endpoint": le.placeholder_text = "https://api.x.ai/v1/chat/completions"
 		b.add_child(le)
+	var probe := label("", 22, GOLD)
+	b.add_child(btn("Test AI connection", func():
+		probe.text = "Testing…"
+		AgentBrain.test_connection(func(ok: bool, m: String):
+			probe.text = m
+			probe.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if ok else Color(1, 0.55, 0.55))
+			_update_chat_status())))
+	b.add_child(probe)
 	b.add_child(label("Voice & Music", 32, GOLD))
 	for t in [["voice", "tts_enabled", "Companions speak out loud (text-to-speech)"], ["music", "enabled", "Phoenix Radio music"]]:
 		var cb := CheckButton.new()

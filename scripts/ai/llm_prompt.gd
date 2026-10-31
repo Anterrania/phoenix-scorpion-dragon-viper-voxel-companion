@@ -143,6 +143,8 @@ const TOOL_TRIGGERS := {
 	"build_realm": ["realm", "world", "island", "landscape", "terrain"],
 	"remember": ["remember", "forget", "note", "my name", "i like", "i love", "i hate", "favorite", "favourite", "call me", "i am", "i'm"],
 	"emote": ["dance", "wave", "cast", "spin", "celebrate", "emote", "show me", "fire", "idle", "twirl"],
+	"heaven_edit": ["build", "add", "put", "place", "plant", "make", "remove", "delete", "take away", "change", "move",
+		"paint", "color", "colour", "bigger", "taller", "smaller", "shorter", "rename", "undo", "take back", "heaven"],
 }
 
 static func plausible(tool: String, player_text: String) -> bool:
@@ -151,3 +153,10 @@ static func plausible(tool: String, player_text: String) -> bool:
 	for w in TOOL_TRIGGERS[tool]:
 		if t.contains(w): return true
 	return false
+
+## CHAT-16: follow-up prompt after tools ran. Qwen2.5 format: the assistant turn that called the tools, then
+## a user turn with one <tool_response> per result, then a fresh assistant turn for the spoken answer.
+static func followup(prompt: String, raw_reply: String, results: Array) -> String:
+	var lines := PackedStringArray()
+	for r in results: lines.append("<tool_response>\n%s\n</tool_response>" % JSON.stringify(r))
+	return "%s%s%s\n%suser\n%s%s\n%sassistant\n" % [prompt, raw_reply.strip_edges(), IM_END, IM_START, "\n".join(lines), IM_END, IM_START]

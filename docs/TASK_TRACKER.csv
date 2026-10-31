@@ -248,7 +248,7 @@ CHAT-12,"BBCode-safe chat log (player + companion text escaped)",done,P2
 CHAT-13,"Send with no companion picked auto-picks one; OOC messages say they were not sent",done,P1
 CHAT-14,"Settings › Test AI connection button",done,P1
 CHAT-15,"Verify live chat on a real phone (internet permission, DNS, TLS, xAI key) via Test AI connection",todo,P0
-CHAT-16,"Follow-up turn after tool calls (send tool results back to the model for a spoken answer)",todo,P2
+CHAT-16,"Follow-up turn after tool calls: live sends tool results back (tool messages, tool_choice none); on-device runs one short <tool_response> follow-up only when results need explaining; canned result line as last fallback; Settings llm/tool_followup",done,P2
 CHAT-17,"Voice input (Android STT) -> companion.talk()",todo,P2
 LAI-1,"ViperLLM Android plugin (self-written Kotlin/JNI/C++ over llama.cpp b12017, MIT; arm64; 3 CPU variants; streamed generate, KV prefix reuse, cancel, resumable SHA-256 download)",done_headless,P0
 LAI-2,"LocalLLM autoload: catalog (Qwen2.5 0.5B/1.5B Q4_0, Apache-2.0), Wi-Fi-only first-run download, lazy load + idle unload, request queue, mock backend for desktop/CI",done_headless,P0
@@ -269,5 +269,5 @@ HEAVEN-5,"Grids = realms: world picker (menu + Community shell), start-world set
 HEAVEN-6,"Heaven built live: data-driven district files, companion heaven_edit tool (EveCore proposals, owner approval or standing build grant), live rebuild, Direct a change",done,P0
 HEAVEN-7,"Foxy: Heaven client polish per docs/specs/foxy/HEAVEN_CLIENT.md (shoes/hair/glow style keys, Direct-a-change UI, flight-follow)",todo,P1
 HEAVEN-8,"Heaven vehicles + Hub tram on the floating roads; upper floors and interiors; ownable apartments",todo,P2
-HEAVEN-9,"Chat hook: register HeavenEdits.TOOL_SPEC in the companion tool registry (chat owner, fix/chat-core)",todo,P1
+HEAVEN-9,"Chat hook: heaven_edit in the companion tool registry (AgentBrain, builders only); chat never self-approves (EveCore proposal unless standing build grant); companion undo of own pending/granted edits",done,P1
 HEAVEN-10,"Persistent Heaven server: shared multi-user Heaven, companions build 24/7 while the owner is away",todo,P2

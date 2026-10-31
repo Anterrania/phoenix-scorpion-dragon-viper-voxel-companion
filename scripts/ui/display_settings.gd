@@ -107,10 +107,18 @@ static func columns_for(width: float, tile_w := 300.0) -> int:
 
 ## Keep a MarginContainer's side margins right on every resize / rotation / display change.
 static func attach_responsive(m: MarginContainer, max_w := 960.0) -> void:
+	# var fix := func():
+	# 	if not is_instance_valid(m) or not m.is_inside_tree(): return
+	# 	var mm := side_margin(m.get_viewport().get_visible_rect().size, max_w)
+	# 	m.add_theme_constant_override("margin_left", mm); m.add_theme_constant_override("margin_right", mm)
+	# Old fix captured `m` directly: once the screen was freed, every display_changed logged
+	# "Lambda capture at index 0 was freed". A weak reference stays valid and simply goes empty.
+	var wm: WeakRef = weakref(m)
 	var fix := func():
-		if not is_instance_valid(m) or not m.is_inside_tree(): return
-		var mm := side_margin(m.get_viewport().get_visible_rect().size, max_w)
-		m.add_theme_constant_override("margin_left", mm); m.add_theme_constant_override("margin_right", mm)
+		var mc := wm.get_ref() as MarginContainer
+		if mc == null or not mc.is_inside_tree(): return
+		var mm := side_margin(mc.get_viewport().get_visible_rect().size, max_w)
+		mc.add_theme_constant_override("margin_left", mm); mc.add_theme_constant_override("margin_right", mm)
 	var hook := func():
 		var vp := m.get_viewport()
 		if vp and not vp.size_changed.is_connected(fix): vp.size_changed.connect(fix)

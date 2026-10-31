@@ -538,8 +538,12 @@ func _build_local_ai(b: VBoxContainer) -> void:
 	wifi.toggled.connect(func(on): llm.set_pref("wifi_only", on); refresh.call())
 	b.add_child(wifi)
 	b.add_child(btn("Delete downloaded model", func(): llm.delete_model(); refresh.call(); _update_chat_status()))
-	llm.state_changed.connect(func(_s): if is_instance_valid(st): refresh.call(); _update_chat_status())
-	llm.progress_changed.connect(func(_d, _t): if is_instance_valid(st): refresh.call())
+	# llm.state_changed.connect(func(_s): if is_instance_valid(st): refresh.call(); _update_chat_status())
+	# llm.progress_changed.connect(func(_d, _t): if is_instance_valid(st): refresh.call())
+	# Capturing `st` itself logged "Lambda capture at index 0 was freed" once the panel was gone; a weak ref goes empty.
+	var wst: WeakRef = weakref(st)
+	llm.state_changed.connect(func(_s): if wst.get_ref() != null: refresh.call(); _update_chat_status())
+	llm.progress_changed.connect(func(_d, _t): if wst.get_ref() != null: refresh.call())
 	refresh.call()
 
 # ---------- travel ----------

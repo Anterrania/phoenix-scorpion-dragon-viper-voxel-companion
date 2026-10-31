@@ -10,6 +10,7 @@ extends Node3D
 @onready var player: Node3D = get_node_or_null("Player")
 
 const SmoothGen := preload("res://scripts/generators/smooth_terrain_generator.gd")
+const HeavenGen := preload("res://scripts/heaven/heaven_terrain_generator.gd")   # HEAVEN-1: ground + floating islands
 const TERRAIN_SHADER := preload("res://shaders/terrain_triplanar.gdshader")
 const SEA_SHADER := preload("res://shaders/lava_sea.gdshader")
 const SKY_SHADER := preload("res://shaders/cinematic_sky.gdshader")
@@ -18,7 +19,9 @@ const AMBIENCE := {
 	0: ["#0b1a3c", "#8fb1d8", "#c9d6e4", "#9fb6d2", "#fff1dc", 1.25, "#9a7fd8", 0.5],  # Alaska
 	1: ["#1c0508", "#d4521f", "#2a0806", "#8a2e1c", "#ffb27a", 1.5, "#f0b060", 0.25],  # Venus
 	2: ["#03010d", "#4a1f8a", "#0c0620", "#2b1257", "#e4d0ff", 0.9, "#ff5ad8", 1.2],   # Cosmic
+	3: ["#5d8fd8", "#ffe9c8", "#f4efe6", "#efe6f4", "#fff3dc", 1.35, "#f0c35a", 0.12],  # Heaven (HEAVEN-1)
 }
+const HEAVEN_BIOME := 3   # ambience key while the player is in Heaven airspace (not a ground biome)
 var generator
 var current_biome := -1
 var sky_mat: ShaderMaterial
@@ -27,7 +30,8 @@ var _check := 0.0
 var _estate_key := ""
 
 func _ready() -> void:
-	generator = SmoothGen.new(1337)
+	# generator = SmoothGen.new(1337)   # pre-HEAVEN: ground only
+	generator = HeavenGen.new(1337)
 	_setup_environment()
 	_setup_materials()
 	if not ClassDB.class_exists("VoxelLodTerrain"):
@@ -53,6 +57,14 @@ func _ready() -> void:
 	_update_biome(true)
 	_spawn_props()
 	_spawn_content()
+	_spawn_heaven()
+
+## HEAVEN-1..6: Heaven Welcome Island (built progressively, live-editable by companions).
+var heaven: HeavenWorld
+func _spawn_heaven() -> void:
+	heaven = HeavenWorld.new()
+	add_child(heaven)
+	heaven.setup(self, player)
 
 var pipeline: RenderPipeline
 var foliage: FoliageScatter
@@ -290,6 +302,7 @@ func _update_biome(force: bool) -> void:
 	if generator == null or player == null: return
 	if env_mode != "region": return
 	var b: int = generator.biome_at(player.global_position.x, player.global_position.z)
+	if HeavenLayout.contains(player.global_position): b = HEAVEN_BIOME
 	if b == current_biome and not force: return
 	current_biome = b
 	var a: Array = AMBIENCE[b]
@@ -304,16 +317,16 @@ func _update_biome(force: bool) -> void:
 	tw.tween_property(sun, "light_energy", float(a[5]), dur)
 	if waves: (waves.material_override as ShaderMaterial).set_shader_parameter("sky_reflect", Color(a[1]))
 	if waves: (waves.material_override as ShaderMaterial).set_shader_parameter("sky_top_reflect", Color(a[0]))
-	if sky_mat: sky_mat.set_shader_parameter("cloud_cover", [0.5, 0.65, 0.25][b])
+	if sky_mat: sky_mat.set_shader_parameter("cloud_cover", [0.5, 0.65, 0.25, 0.45][b])
 	# RND-8 realm sky variant: aurora over the Alaskan realm, deep starfield over the Cosmic one
-	if sky_mat: sky_mat.set_shader_parameter("sky_variant", RenderTiers.sky_variant(b, realm_sky))
+	if sky_mat: sky_mat.set_shader_parameter("sky_variant", RenderTiers.sky_variant(0 if b == HEAVEN_BIOME else b, realm_sky))
 
 ## Realm presets / LLM realms restyle ambience; terrain stays the biome generator.
 var realm_sky := ""   # RND-8: optional realm preset override ("aurora", "cosmic", "standard")
 func apply_realm(p: Dictionary) -> void:
 	if p.is_empty(): return
 	realm_sky = str(p.get("sky", ""))
-	if sky_mat and realm_sky != "": sky_mat.set_shader_parameter("sky_variant", RenderTiers.sky_variant(maxi(current_biome, 0), realm_sky))
+	if sky_mat and realm_sky != "": sky_mat.set_shader_parameter("sky_variant", RenderTiers.sky_variant(0 if current_biome == HEAVEN_BIOME else maxi(current_biome, 0), realm_sky))
 	var pal: Dictionary = p.get("palette", {})
 	if pal.has("fog"):
 		env.environment.fog_light_color = Color(pal["fog"])
@@ -350,4 +363,9 @@ func terraform(op: String, at: Vector3, size: float, strength: float) -> int:
 	var vt = get_voxel_tool()
 	if vt == null: return 0
 	var g = generator
+	if HeavenLayout.contains(at):
+		# HEAVEN-4: Heaven is studio-gated (owner + granted members); reference field = island SDF
+		if not HeavenAccess.can_studio(Tiers.SELF): return 0
+		if g.has_method("heaven_sdf_at"):
+			return Terraform.apply(vt, op, at, size, strength, func(p: Vector3): return g.heaven_sdf_at(p))   # already band-normalised
 	return Terraform.apply(vt, op, at, size, strength, func(p: Vector3): return clampf((p.y - g.height_f(p.x, p.z)) / 4.0, -1.0, 1.0))

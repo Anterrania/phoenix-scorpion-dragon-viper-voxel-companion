@@ -233,3 +233,13 @@ SMP-22,"Cross-post export adapters (off by default, owner approval per post) - I
 SMP-23,Live video + live chat,todo,P3
 SMP-24,Shops / marketplace listings with Aethel Coin - LEGAL REVIEW,blocked,P3
 SMP-25,Server sync for feeds/DMs across devices + clip transcoding,todo,P2
+HEAVEN-1,"Heaven Welcome Island phase 1: layout data (data/heaven), floating-island SDF in the voxel terrain, district buildings, Hub spawn, Kelvin weather, Heaven ambience",done,P0
+HEAVEN-2,"Heaven fly gate (owner + owner-granted members only, no rank bypass), sky ceiling below the islands, void catch, transit kiosks",done,P0
+HEAVEN-3,"Heaven shops (clothes, shoes, hair, looks, accessories): free house items into the wardrobe; creator listings via MarketDelivery (priced buys LEGAL REVIEW)",done,P1
+HEAVEN-4,"Heaven studio gate: voxel tools and terraform in Heaven need the owner's studio grant",done,P1
+HEAVEN-5,"Grids = realms: world picker (menu + Community shell), start-world setting, Heaven default for all users",done,P1
+HEAVEN-6,"Heaven built live: data-driven district files, companion heaven_edit tool (EveCore proposals, owner approval or standing build grant), live rebuild, Direct a change",done,P0
+HEAVEN-7,"Foxy: Heaven client polish per docs/specs/foxy/HEAVEN_CLIENT.md (shoes/hair/glow style keys, Direct-a-change UI, flight-follow)",todo,P1
+HEAVEN-8,"Heaven vehicles + Hub tram on the floating roads; upper floors and interiors; ownable apartments",todo,P2
+HEAVEN-9,"Chat hook: register HeavenEdits.TOOL_SPEC in the companion tool registry (chat owner, fix/chat-core)",todo,P1
+HEAVEN-10,"Persistent Heaven server: shared multi-user Heaven, companions build 24/7 while the owner is away",todo,P2

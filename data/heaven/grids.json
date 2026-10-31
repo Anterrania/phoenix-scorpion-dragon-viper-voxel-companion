@@ -1,0 +1,50 @@
+{
+ "_note": "HEAVEN-5 grids = realms shown in the world picker (social app shell). 'enter': \"heaven\", \"welcome\" (tutorial island), ground [x, z], or \"biome:N\" (nearest ground spot of that biome).",
+ "schema_version": 1,
+ "grids": [
+  {
+   "id": "heaven",
+   "name": "Heaven Welcome Island",
+   "about": "Home for everyone. Mall, districts, transit. Flying by owner grant only.",
+   "kind": "heaven",
+   "default": true,
+   "enter": "heaven",
+   "rating": "general"
+  },
+  {
+   "id": "alaska",
+   "name": "Alaskan Aurora Tundra",
+   "about": "Snow, aurora skies, ice cliffs.",
+   "kind": "ground",
+   "enter": [
+    0,
+    0
+   ],
+   "rating": "general"
+  },
+  {
+   "id": "venus",
+   "name": "Venus Fire Wastes",
+   "about": "Lava seas, ember storms.",
+   "kind": "ground",
+   "enter": "biome:1",
+   "rating": "general"
+  },
+  {
+   "id": "cosmic",
+   "name": "Cosmic Glitter Expanse",
+   "about": "Starlit water and crystal fields.",
+   "kind": "ground",
+   "enter": "biome:2",
+   "rating": "general"
+  },
+  {
+   "id": "tutorial",
+   "name": "Tutorial Island",
+   "about": "The ring of training stations.",
+   "kind": "welcome",
+   "enter": "welcome",
+   "rating": "general"
+  }
+ ]
+}

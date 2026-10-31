@@ -424,3 +424,18 @@ Feature comparison only. No code, names or assets are copied.
 | unlimited land, no object caps | territory tiles | no | no | no | bases | no | prim limits | Land (budgets, not caps) | built |
 | floating origin / huge worlds | yes | yes | no | no | yes | yes | 256 m regions | sector + local, SectorPager | built (server) / planned (client, Foxy) |
 
+
+## Heaven Welcome Island (HEAVEN) — grid-style welcome area
+Concepts only. No code, assets or names copied from any grid or viewer.
+
+| Feature | Typical grid | Ours | Status |
+|---|---|---|---|
+| Welcome / infohub region every new resident lands in | yes | Heaven Welcome Island, Transportation Hub spawn | built |
+| Grid selector (several grids in one viewer) | yes | Grids = realms: 🌐 Worlds picker (menu + Community shell), start-world setting | built |
+| Shopping mall with clothes / shoes / hair / skins-looks stores | yes (residents' shops) | Mall dome + district shops; free house items, creator listings via MarketDelivery | built (priced buys LEGAL REVIEW) |
+| Teleport hubs between areas | yes | Transit kiosks + portals (Spirit Realm, The Beyond) | built |
+| Parcel "no fly" | yes | Heaven: owner + owner-granted members only | built |
+| Build / terraform rights | parcel or estate | Heaven studio grant (owner-given), plus companion edit proposals | built |
+| Region weather / environment | windlight presets | Kelvin weather per district (gentle, no storms) | built |
+| Live building by scripted agents | rare (scripted rezzers) | Companions edit Heaven live (proposal → approval → rebuild) | built (app open only; 24/7 = persistent server, planned) |
+| Vehicles on roads | yes | planned (H6) | planned |

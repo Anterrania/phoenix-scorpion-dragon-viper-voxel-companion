@@ -1,0 +1,154 @@
+{
+ "_note": "HEAVEN-4 shops inside Heaven buildings. category matches MarketDelivery listing categories; items are free starter items (data/heaven/shop_items.json). Priced creator items come from the marketplace (LegalReview applies).",
+ "schema_version": 1,
+ "shops": [
+  {
+   "id": "seraph_threads",
+   "name": "Seraph Threads",
+   "category": "clothes",
+   "island": "main_mall",
+   "about": "Clothes: robes, jackets, streetwear.",
+   "items": [
+    "heaven_robe_dawn",
+    "heaven_jacket_cloud",
+    "heaven_suit_gilded",
+    "heaven_street_aurora"
+   ]
+  },
+  {
+   "id": "cloudstep_shoes",
+   "name": "Cloudstep Shoes",
+   "category": "shoes",
+   "island": "main_mall",
+   "about": "Shoes and boots.",
+   "items": [
+    "shoes_pearl_sneakers",
+    "shoes_gold_boots",
+    "shoes_midnight_heels",
+    "shoes_sky_runners"
+   ]
+  },
+  {
+   "id": "halo_hair",
+   "name": "Halo Hair Studio",
+   "category": "hair",
+   "island": "main_mall",
+   "about": "Hair colours and styles.",
+   "items": [
+    "hair_platinum",
+    "hair_rose_gold",
+    "hair_midnight_violet",
+    "hair_ember_red"
+   ]
+  },
+  {
+   "id": "radiance_looks",
+   "name": "Radiance Looks",
+   "category": "looks",
+   "island": "main_mall",
+   "about": "Looks: glow, eyes, aura.",
+   "items": [
+    "look_soft_glow",
+    "look_starlit_eyes",
+    "look_ember_aura",
+    "look_frost_aura"
+   ]
+  },
+  {
+   "id": "gilded_wings",
+   "name": "Gilded Wings Accessories",
+   "category": "accessories",
+   "island": "main_mall",
+   "about": "Trims, halos and accents.",
+   "items": [
+    "accent_halo_gold",
+    "accent_wing_trim",
+    "accent_pearl_chain"
+   ]
+  },
+  {
+   "id": "mall_market_hall",
+   "name": "Creator Market Hall",
+   "category": "all",
+   "island": "main_mall",
+   "about": "Creator listings from the marketplace, every category.",
+   "items": []
+  },
+  {
+   "id": "mall_info",
+   "name": "Guest Services",
+   "category": "info",
+   "island": "main_mall",
+   "about": "Maps, transit and help.",
+   "items": []
+  },
+  {
+   "id": "mall_looks_lab",
+   "name": "Mirror Lab",
+   "category": "looks",
+   "island": "main_mall",
+   "about": "Try looks on before you go.",
+   "items": [
+    "look_soft_glow",
+    "look_frost_aura",
+    "hair_platinum"
+   ]
+  },
+  {
+   "id": "night_market",
+   "name": "Night Market Outfitters",
+   "category": "clothes",
+   "island": "downtown",
+   "about": "City wear.",
+   "items": [
+    "heaven_street_aurora",
+    "heaven_jacket_cloud",
+    "shoes_midnight_heels"
+   ]
+  },
+  {
+   "id": "downtown_kicks",
+   "name": "Skyline Kicks",
+   "category": "shoes",
+   "island": "downtown",
+   "about": "Street shoes.",
+   "items": [
+    "shoes_sky_runners",
+    "shoes_pearl_sneakers"
+   ]
+  },
+  {
+   "id": "tidewear",
+   "name": "Tidewear",
+   "category": "clothes",
+   "island": "beach",
+   "about": "Beach and swim wear.",
+   "items": [
+    "heaven_swim_lagoon",
+    "heaven_robe_dawn"
+   ]
+  },
+  {
+   "id": "sandal_sole",
+   "name": "Sandal & Sole",
+   "category": "shoes",
+   "island": "beach",
+   "about": "Sandals and beach shoes.",
+   "items": [
+    "shoes_shell_sandals",
+    "shoes_pearl_sneakers"
+   ]
+  },
+  {
+   "id": "corner_salon",
+   "name": "Corner Salon",
+   "category": "hair",
+   "island": "residential",
+   "about": "Neighbourhood salon.",
+   "items": [
+    "hair_rose_gold",
+    "hair_ember_red"
+   ]
+  }
+ ]
+}

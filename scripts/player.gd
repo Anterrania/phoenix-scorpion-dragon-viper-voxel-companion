@@ -138,6 +138,7 @@ func _look(d: Vector2) -> void:
 
 ## v0.5.1 Second Life-style flying: toggle, up/down, hover in place when idle.
 signal flying_changed(on: bool)
+signal fly_refused(reason: String)   # HEAVEN-2: flight asked for where this player may not fly
 const FLY_SPEED := 14.0
 const FLY_VERTICAL := 8.0
 const FLY_CEILING := 600.0
@@ -145,9 +146,19 @@ var flying := false
 var fly_vertical := 0.0   # -1 down .. 1 up (HUD buttons / keys)
 
 func set_flying(on: bool) -> void:
+	if on and is_inside_tree() and HeavenLayout.contains(global_position) and not LandGate.can_fly(Tiers.SELF, global_position):
+		fly_refused.emit("Flying in Heaven is by the owner's grant. Walk, or use a transit kiosk.")
+		return
 	flying = on
 	velocity.y = 2.0 if on else velocity.y
 	flying_changed.emit(on)
+
+## HEAVEN-2: the sky above the ground stops below Heaven unless this player may fly there.
+func fly_ceiling() -> float:
+	var probe := Vector3(global_position.x, HeavenLayout.floor_y() + 1.0, global_position.z)
+	if not HeavenLayout.contains(probe): return FLY_CEILING            # not under Heaven: old rule
+	if LandGate.can_fly(Tiers.SELF, probe): return HeavenLayout.ceiling_y() + 50.0
+	return minf(FLY_CEILING, HeavenLayout.floor_y() - 20.0)          # stay below the islands
 
 func toggle_fly() -> void:
 	set_flying(not flying)
@@ -158,7 +169,8 @@ func _fly_step(delta: float, dir: Vector3) -> void:
 	if Input.is_physical_key_pressed(KEY_C): v = -1.0
 	var target := dir * FLY_SPEED + Vector3.UP * v * FLY_VERTICAL
 	velocity = velocity.lerp(target, clampf(delta * 4.0, 0.0, 1.0))  # smooth, hovers at 0
-	if global_position.y > FLY_CEILING and velocity.y > 0.0: velocity.y = 0.0
+	# if global_position.y > FLY_CEILING and velocity.y > 0.0: velocity.y = 0.0   # pre-HEAVEN
+	if global_position.y > fly_ceiling() and velocity.y > 0.0: velocity.y = 0.0
 	var g = _gen()
 	if g:
 		var floor_y: float = maxf(g.height_f(global_position.x, global_position.z), g.LAVA_LEVEL) + 1.0

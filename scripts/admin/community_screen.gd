@@ -98,6 +98,12 @@ func _overview() -> void:
 	row.add_child(ViperKit.ring(minf(1.0, s["open_reports"] / 10.0), "reports", str(s["open_reports"]), 120, true))
 	if int(s.get("held_posts", 0)) > 0: c.body().add_child(_text("%d post(s) held for review. See Reports." % s["held_posts"], PhoenixTokens.WARN))
 	c.body().add_child(_text("Local only. Nothing leaves this phone yet.", PhoenixTokens.PLATINUM_DIM))
+	# HEAVEN-5: grids = realms, picked from the social shell
+	var wc := _card("Worlds"); b.add_child(wc)
+	wc.body().add_child(_text("Start world: %s. Heaven Welcome Island is home for everyone." % WorldPicker.grid(WorldPicker.start_realm()).get("name", "Heaven"), PhoenixTokens.PLATINUM_DIM))
+	var wb := _btn("🌐 Open worlds", func(): WorldPicker.open(get_parent() if get_parent() else self))
+	wb.name = "OpenWorlds"
+	wc.body().add_child(wb)
 	var e := _card("Example data"); b.add_child(e)
 	e.body().add_child(_text("Fake members for testing. Labelled [EXAMPLE].", PhoenixTokens.PLATINUM_DIM))
 	var owner := Tiers.tier_of(Tiers.SELF) == "owner"

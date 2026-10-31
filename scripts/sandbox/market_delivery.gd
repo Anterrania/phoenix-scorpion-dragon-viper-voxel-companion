@@ -40,7 +40,9 @@ static func derived_perms(items: Array) -> Dictionary:
 		out["transfer"] = out["transfer"] and bool(p.get("transfer", false))
 	return out
 
-static func create_listing(actor: Variant, id: String, title: String, items: Array, price_aethel := 0, export := false) -> String:
+## HEAVEN-4: optional `category` ("clothes", "shoes", "hair", "looks", "accessories", or "") so Heaven
+## shops can show matching creator listings (HeavenShops.creator_listings). Older listings have none.
+static func create_listing(actor: Variant, id: String, title: String, items: Array, price_aethel := 0, export := false, category := "") -> String:
 	if not SandboxGate.can(actor, "sell"): return "Selling needs Creator tier or higher."
 	if id == "" or not id.is_valid_identifier(): return "Listing id must be letters, digits and _."
 	if _all()["listings"].has(id): return "That listing id is taken."
@@ -52,7 +54,7 @@ static func create_listing(actor: Variant, id: String, title: String, items: Arr
 	if not (p["copy"] or p["transfer"]): return "Items need copy or transfer to be sold."
 	if price_aethel < 0: return "Price can't be negative."
 	_all()["listings"][id] = {"id": id, "merchant": SandboxGate.id_of(actor), "title": title.left(120), "items": items.duplicate(true),
-		"perms": p, "export": export, "price_aethel": price_aethel, "status": "draft"}
+		"perms": p, "export": export, "price_aethel": price_aethel, "status": "draft", "category": category.left(24)}
 	return "" if _save() else "Saves are sealed. Unlock first."
 
 static func listing(id: String) -> Dictionary: return _all()["listings"].get(id, {})

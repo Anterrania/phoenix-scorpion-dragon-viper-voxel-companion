@@ -54,7 +54,8 @@ func _ready() -> void:
 	var lt := Timer.new(); lt.wait_time = 2.0; lt.autostart = true; add_child(lt)
 	lt.timeout.connect(func(): FloatingText.apply(get_tree()))
 	call_deferred("_apply_labels")
-	if not bool(Settings.get_value("welcome", "done", false)): call_deferred("go_welcome", false)
+	# if not bool(Settings.get_value("welcome", "done", false)): call_deferred("go_welcome", false)   # pre-HEAVEN
+	call_deferred("go_start_realm")   # HEAVEN-5: everyone starts in Heaven unless they chose another start world
 	AgentBrain.reply_ready.connect(_on_reply)
 	if OwnerVault.has_vault() and not OwnerVault.storage_ready(): call_deferred("open_unlock_prompt")
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
@@ -229,7 +230,7 @@ func _build_menu() -> Dictionary:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
@@ -238,6 +239,8 @@ func _build_menu() -> Dictionary:
 			elif target == "_community": CommunityScreen.open(self)
 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
 			elif target == "_interop": InteropScreen.open(self)
+			elif target == "_heaven": show_panel(""); HeavenScreen.open(self, world.get_node_or_null("HeavenWorld") if world else null, "transit")
+			elif target == "_worlds": show_panel(""); WorldPicker.open(self)
 			else: show_panel(target))
 		t.custom_minimum_size = Vector2(0, 96)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1041,6 +1044,10 @@ func status_text() -> String:
 	var g = world.generator if world and "generator" in world else null
 	var realm: String = MapData.REALMS[g.biome_at(player.global_position.x, player.global_position.z)] if g else "?"
 	var hr: float = world.hour if world and "hour" in world else 12.0
+	if HeavenLayout.contains(player.global_position):   # HEAVEN-1: district + Kelvin weather instead of the grid region
+		var dist := HeavenLayout.district_at(player.global_position)
+		var w := HeavenWeather.report(str(dist.get("id", "")), HeavenWeather.today(), hr)
+		return "Heaven · %s · %s · %s" % [dist.get("name", "Sky"), HeavenWeather.fmt_k(float(w["kelvin"])), EnvPresets.clock_text(hr)]
 	return "%s · %s · %s" % [MapData.region_name(player.global_position), realm.split(" ")[0], EnvPresets.clock_text(hr)]
 
 func update_status() -> void:
@@ -1261,6 +1268,19 @@ func collapse_sections(body: VBoxContainer, headers: Array, start_closed := true
 var welcome_box: VBoxContainer
 var help_out: Label
 var help_in: LineEdit
+## HEAVEN-5: launch destination = Settings world/start_realm (default Heaven for all users).
+## Choosing the tutorial keeps the old first-run rule (Welcome Island until done or skipped).
+func go_start_realm() -> void:
+	var id := WorldPicker.start_realm()
+	if id == "heaven":
+		# arrive on the Transportation Hub; panels stay as they are (first launch keeps the avatar creator)
+		var hw: Node = world.get_node_or_null("HeavenWorld") if world else null
+		if hw and hw.has_method("go_spawn"): hw.go_spawn()
+		elif player: player.global_position = HeavenLayout.spawn_point()
+		return
+	# other start worlds: the pre-HEAVEN first-run rule (Welcome Island until done or skipped)
+	if not bool(Settings.get_value("welcome", "done", false)): go_welcome(false)
+
 func go_welcome(open_panel := true) -> void:
 	teleport(WelcomeIsland.spawn_point(), true)
 	if open_panel: show_panel("welcome")

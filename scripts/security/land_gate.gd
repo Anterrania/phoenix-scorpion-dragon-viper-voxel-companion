@@ -23,6 +23,8 @@ static func explicit(pos: Vector3, key: String) -> Variant:
 	return null
 
 static func can_fly(actor: Variant, pos: Vector3) -> bool:
+	# HEAVEN-2: Heaven airspace has its own rule (owner + owner-granted members only; no rank bypass)
+	if HeavenLayout.contains(pos): return HeavenAccess.can_fly(actor)
 	if Tiers.rank(Tiers.tier_of(actor)) >= Tiers.rank("estate_manager"): return true
 	var t := target_at(pos)
 	return bool(Estate.parcel_get(t["region"], t["parcel"], "allow_fly"))
@@ -39,7 +41,11 @@ static func companion_tool_error(id: String, tool: String, args: Dictionary, at 
 	var action: String = TOOL_ACTIONS[tool]
 	var pos := at
 	if args.has("x") and args.has("z"):
-		pos = Vector3(float(args["x"]), float(args.get("y", 0.0)), float(args["z"]))
+		# pos = Vector3(float(args["x"]), float(args.get("y", 0.0)), float(args["z"]))   # pre-HEAVEN
+		pos = Vector3(float(args["x"]), float(args.get("y", at.y)), float(args["z"]))
+	# HEAVEN-4: voxel studio tools in Heaven need the owner's studio grant for that companion
+	if HeavenLayout.contains(pos) and not HeavenAccess.can_studio(id):
+		return "heaven: %s needs the owner's studio grant to change Heaven terrain (use heaven_edit to propose)" % id
 	var t := target_at(pos)
 	var target: Variant = t if action == "build" else t["region"]
 	if Tiers.can(id, action, target): return ""

@@ -1,0 +1,258 @@
+{
+ "_note": "HEAVEN-4 free starter items sold in Heaven shops (price 0). Appended to Inventory items. Slots: outfit, accent, hair, shoes, look. Style keys are colours read by the avatar (boots, hair, glow, eyes: see docs/specs/foxy/HEAVEN_CLIENT.md).",
+ "schema_version": 1,
+ "items": [
+  {
+   "id": "heaven_robe_dawn",
+   "name": "Dawn Robe",
+   "slot": "outfit",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "outfit": "#f4efe6",
+    "jacket": "#f4efe6",
+    "top": "#ffe7b8",
+    "pants": "#efe7da",
+    "trim": "#e6b84a"
+   }
+  },
+  {
+   "id": "heaven_jacket_cloud",
+   "name": "Cloud Jacket",
+   "slot": "outfit",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "jacket": "#dfe8f5",
+    "top": "#9fc4ec",
+    "pants": "#3a4660",
+    "trim": "#ffffff"
+   }
+  },
+  {
+   "id": "heaven_suit_gilded",
+   "name": "Gilded Suit",
+   "slot": "outfit",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "outfit": "#141018",
+    "jacket": "#141018",
+    "top": "#f2e6c8",
+    "pants": "#141018",
+    "trim": "#f2bd3a"
+   }
+  },
+  {
+   "id": "heaven_street_aurora",
+   "name": "Aurora Streetwear",
+   "slot": "outfit",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "jacket": "#1a1030",
+    "top": "#5ad8ff",
+    "pants": "#22183a",
+    "accent": "#9a7fd8",
+    "trim": "#5ad8ff"
+   }
+  },
+  {
+   "id": "heaven_swim_lagoon",
+   "name": "Lagoon Swim Set",
+   "slot": "outfit",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "outfit": "#1fb6c9",
+    "top": "#1fb6c9",
+    "pants": "#f7e3b5",
+    "trim": "#ffffff"
+   }
+  },
+  {
+   "id": "shoes_pearl_sneakers",
+   "name": "Pearl Sneakers",
+   "slot": "shoes",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "boots": "#f2f0ec"
+   }
+  },
+  {
+   "id": "shoes_gold_boots",
+   "name": "Gold Boots",
+   "slot": "shoes",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "boots": "#c99a2e"
+   }
+  },
+  {
+   "id": "shoes_midnight_heels",
+   "name": "Midnight Heels",
+   "slot": "shoes",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "boots": "#100c18"
+   }
+  },
+  {
+   "id": "shoes_sky_runners",
+   "name": "Sky Runners",
+   "slot": "shoes",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "boots": "#6fb7ff"
+   }
+  },
+  {
+   "id": "shoes_shell_sandals",
+   "name": "Shell Sandals",
+   "slot": "shoes",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "boots": "#e9cfa8"
+   }
+  },
+  {
+   "id": "hair_platinum",
+   "name": "Platinum",
+   "slot": "hair",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "hair": "#e9e6e1"
+   }
+  },
+  {
+   "id": "hair_rose_gold",
+   "name": "Rose Gold",
+   "slot": "hair",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "hair": "#d99a8a"
+   }
+  },
+  {
+   "id": "hair_midnight_violet",
+   "name": "Midnight Violet",
+   "slot": "hair",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "hair": "#2b1240"
+   }
+  },
+  {
+   "id": "hair_ember_red",
+   "name": "Ember Red",
+   "slot": "hair",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "hair": "#a8261a"
+   }
+  },
+  {
+   "id": "look_soft_glow",
+   "name": "Soft Glow",
+   "slot": "look",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "glow": "#fff1dc"
+   }
+  },
+  {
+   "id": "look_starlit_eyes",
+   "name": "Starlit Eyes",
+   "slot": "look",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "eyes": "#8fd8ff"
+   }
+  },
+  {
+   "id": "look_ember_aura",
+   "name": "Ember Aura",
+   "slot": "look",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "glow": "#ff7a1a"
+   }
+  },
+  {
+   "id": "look_frost_aura",
+   "name": "Frost Aura",
+   "slot": "look",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "glow": "#bfe6ff"
+   }
+  },
+  {
+   "id": "accent_halo_gold",
+   "name": "Gold Halo Trim",
+   "slot": "accent",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "accent": "#f2bd3a",
+    "trim": "#fff1c4"
+   }
+  },
+  {
+   "id": "accent_wing_trim",
+   "name": "Wing Trim",
+   "slot": "accent",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "accent": "#ffffff",
+    "trim": "#bfe6ff"
+   }
+  },
+  {
+   "id": "accent_pearl_chain",
+   "name": "Pearl Chain",
+   "slot": "accent",
+   "for": "any",
+   "source": "heaven_shop",
+   "price_aethel": 0,
+   "style": {
+    "accent": "#f4efe6",
+    "trim": "#d8d2c8"
+   }
+  }
+ ]
+}

@@ -16,6 +16,9 @@ func _walk(dir: String, ext: String, out: Array) -> void:
 
 func _ready() -> void:
 	check(ClassDB.class_exists("VoxelTerrain"), "Voxel Tools extension loaded")
+	# HEAVEN-5: the app starts everyone in Heaven; the ground-world suites below expect the old
+	# ground start, so they run with the Alaska start world (heaven_tests covers the default).
+	Settings.set_value("world", "start_realm", "alaska")
 	var scripts: Array = []
 	_walk("res://scripts", "gd", scripts)
 	for s in scripts:
@@ -65,6 +68,7 @@ func _ready() -> void:
 	load("res://tests/sim_tests.gd").run(self); load("res://tests/sim_tests.gd").run_docs(self)  # SBX: runs late, after security run_ui
 	load("res://tests/gate_tests.gd").run(self)
 	await load("res://tests/gate_tests.gd").run_scene(self)
+	load("res://tests/heaven_tests.gd").run(self); load("res://tests/heaven_tests.gd").run_docs(self); await load("res://tests/heaven_tests.gd").run_scene(self)
 	var ph = load("res://tests/phone_tests.gd")
 	ph.run_display(self); ph.run_device(self); ph.run_voice(self); ph.run_lipsync(self); ph.run_dance(self); ph.run_broadcast(self); ph.run_docs(self)
 	await ph.run_ui(self)

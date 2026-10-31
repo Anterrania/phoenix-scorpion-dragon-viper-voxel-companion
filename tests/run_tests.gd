@@ -1044,4 +1044,11 @@ func _v12_power_tests() -> void:
 	check(get_tree().paused and Engine.max_fps == 5, "v12 background -> paused at 5 fps")
 	ps.set_background(false)
 	check(not get_tree().paused and Engine.max_fps == 30, "v12 resume -> 30 fps")
+	ps.set_saver(true)
+	check(Engine.max_fps == 20, "v12 battery low / hot (PowerData saver) -> 20 fps")
+	ps.set_background(true)
+	check(Engine.max_fps == 5, "v12 background wins over saver")
+	ps.set_background(false); ps.set_saver(false)
+	check(Engine.max_fps == 30 and not get_tree().paused, "v12 saver off -> 30 fps")
+	check(ps.target_fps(false, false) == 30 and ps.target_fps(false, true) == 20 and ps.target_fps(true, true) == 5, "v12 target_fps table")
 	Engine.max_fps = fps

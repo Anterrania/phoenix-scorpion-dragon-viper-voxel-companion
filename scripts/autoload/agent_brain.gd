@@ -9,6 +9,8 @@ signal tool_executed(companion_id: String, tool: String, result: Dictionary)
 signal request_failed(companion_id: String, error: String)
 ## CHAT-6: true while a live request for this companion is in flight (UI shows "thinking…").
 signal thinking(companion_id: String, active: bool)
+## LAI-4: on-device replies stream; text so far (tool-call markup hidden). reply_ready still ends every turn.
+signal reply_partial(companion_id: String, text: String)
 
 const MEMORY_DIR := "user://memory"
 const MAX_HISTORY := 30
@@ -126,8 +128,13 @@ func chat(id: String, player_text: String) -> void:
 	EveCore.for_companion(id, agent.persona).log_chat("user", player_text)
 	_learn_signals(id, player_text)
 	if Settings.live_ai() and brains.has(id): brains[id].memory.log_episode("chat", {"text": player_text})
+	# if not Settings.live_ai():
+	# 	_offline_reply(id, player_text)
+	# 	return
+	# LAI-4: live (optional key) -> on-device model (default, no key) -> canned persona replies (last fallback).
 	if not Settings.live_ai():
-		_offline_reply(id, player_text)
+		if Settings.local_ai(): _local_chat(id, player_text)
+		else: _offline_reply(id, player_text)
 		return
 	var persona: Dictionary = agent.persona
 	var mem: Dictionary = _memory[id]
@@ -230,6 +237,11 @@ func _handle_chat_response(id: String, result: int, code: int, body: String) -> 
 func _live_failed(id: String, why: String) -> void:
 	Settings.last_chat_error = why
 	request_failed.emit(id, why)
+	# LAI-4: a failed live call tries the on-device model before canned replies.
+	if Settings.effective_mode() != "canned" and Settings.local_llm() and Settings.local_llm().can_chat() and _agents.has(id):
+		var h: Array = _memory[id]["history"]
+		_local_chat(id, str(h.back().get("content", "")) if not h.is_empty() else "", true)
+		return
 	_pending.erase(id)
 	thinking.emit(id, false)
 	_offline_reply(id)
@@ -321,13 +333,14 @@ func _tool_specs(names: Array) -> Array:
 
 
 ## v0.9: canned persona reply used whenever live chat is offline (no key, mode, or error).
-func _offline_reply(id: String, player_text := "") -> void:
+## LAI-4: skip_brain = the brain cell already ran this turn (on-device path), so its action isn't repeated.
+func _offline_reply(id: String, player_text := "", skip_brain := false) -> void:
 	var agent: Node = _agents.get(id)
 	if agent == null: return
 	if player_text == "":
 		var h: Array = _memory[id]["history"]
 		player_text = str(h.back().get("content", "")) if not h.is_empty() else ""
-	var r := _brain_reply(id, player_text)
+	var r := "" if skip_brain else _brain_reply(id, player_text)
 	if r == "":
 		r = CannedReplies.reply(agent.persona, player_text, agent.life.recap() if "life" in agent and agent.life else "")
 	if not (_memory[id]["history"].size() > 0 and _memory[id]["history"].back().get("content") == player_text):
@@ -337,6 +350,123 @@ func _offline_reply(id: String, player_text := "") -> void:
 	_memory[id]["history"] = _memory[id]["history"].slice(-MAX_HISTORY)
 	save_memory(id)   # CHAT-10: offline turns were never saved
 	_finish(id, r)
+
+
+# ---------- LAI-4: on-device chat (LocalLLM) ----------
+const LOCAL_MAX_TOOLS := 3
+const LOCAL_RETRY_BUDGET := 0.55   # context_full: retry with this share of the prompt budget (fewer old turns)
+
+## On-device turn: brain cell first (exact commands stay instant), then the local model with persona, memory facts,
+## recent history and the companion's tools. Tool calls go through dispatch_tool (permissions + Tiers.can/LandGate).
+## Ends in exactly one reply_ready, like every other path. logged: the player's line is already in history.
+func _local_chat(id: String, player_text: String, logged := false) -> void:
+	var agent: Node = _agents.get(id)
+	if agent == null: return
+	var persona: Dictionary = agent.persona
+	var mem: Dictionary = _memory[id]
+	_pending[id] = true
+	thinking.emit(id, true)
+	var act := _brain_act(id, player_text)
+	if not logged: mem["history"].append({"role": "user", "content": player_text})
+	var allowed := _local_tools(agent)
+	var specs := LlmPrompt.local_tool_specs(_tool_specs(allowed))
+	var sys := LlmPrompt.system_block(persona, mem.get("facts", []), specs, str(Settings.get_value("profile", "name", "")))
+	var hist: Array = mem["history"].slice(-MAX_HISTORY, -1)
+	_local_run(id, sys, hist, player_text, _local_context(agent, act), allowed, act, Settings.local_llm().prompt_budget(), 0)
+
+func _local_run(id: String, sys: String, hist: Array, text: String, ctx: String, allowed: Array, act: Dictionary, budget: int, attempt: int) -> void:
+	var llm: Node = Settings.local_llm()
+	var agent: Node = _agents.get(id)
+	var b := LlmPrompt.build(sys, hist, text, ctx, budget)
+	var opts := {"temperature": float(agent.persona.get("temperature", 0.7)) if agent else 0.7, "top_p": 0.9}
+	llm.generate(b["prompt"], opts,
+		func(partial: String): reply_partial.emit(id, LlmPrompt.visible(partial)),
+		func(res: Dictionary): _on_local_done(id, res, [sys, hist, text, ctx, allowed, act, budget, attempt]))
+
+func _on_local_done(id: String, res: Dictionary, run: Array) -> void:
+	if not _agents.has(id):
+		_pending.erase(id); _queued.erase(id); thinking.emit(id, false)
+		return
+	var err := str(res.get("error", ""))
+	if err == "context_full" and int(run[7]) < 2:
+		_local_run(id, run[0], run[1], run[2], run[3], run[4], run[5], int(int(run[6]) * LOCAL_RETRY_BUDGET), int(run[7]) + 1)
+		return
+	var act: Dictionary = run[5]
+	var parsed := LlmPrompt.parse(str(res.get("text", "")), run[4])
+	if err != "" and str(parsed["text"]) == "" and parsed["calls"].is_empty():
+		request_failed.emit(id, "on-device AI: " + err)
+		_pending.erase(id)
+		thinking.emit(id, false)
+		var say := str(act.get("say", ""))
+		if say != "": _local_save_finish(id, say)
+		else: _offline_reply(id, str(run[2]), true)
+		return
+	var done := []
+	var n := 0
+	for c in parsed["calls"]:
+		var tname := str(c["name"])
+		if n >= LOCAL_MAX_TOOLS or tname == str(act.get("did", "")) or not LlmPrompt.plausible(tname, str(run[2])): continue
+		var args := _local_args(_agents[id], tname, c["args"])
+		if tname == "remember" and str(args["fact"]).strip_edges() == "": continue
+		n += 1
+		var r := dispatch_tool(id, tname, args)
+		done.append(("*%s*" % tname.replace("_", " ")) if r.get("ok") else ("(couldn't %s: %s)" % [tname.replace("_", " "), str(r.get("error", "?"))]))
+	var text := str(parsed["text"])
+	if text == "": text = str(act.get("say", ""))
+	if text == "" and not done.is_empty(): text = " ".join(PackedStringArray(done))
+	if text == "": text = str(act.get("reply", ""))
+	if text == "":
+		_pending.erase(id); thinking.emit(id, false)
+		_offline_reply(id, str(run[2]), true)
+		return
+	_local_save_finish(id, text)
+
+func _local_save_finish(id: String, text: String) -> void:
+	_memory[id]["history"].append({"role": "assistant", "content": text})
+	_memory[id]["history"] = _memory[id]["history"].slice(-MAX_HISTORY)
+	save_memory(id)
+	_finish(id, text)
+
+## Tools offered to the on-device model: the persona's tools that this companion can actually run.
+func _local_tools(agent: Node) -> Array:
+	return BrainCore.flatten_tools(agent.persona.get("tools", [])).filter(func(t): return t == "remember" or agent.has_method("tool_" + str(t)))
+
+## Volatile context for the latest user message (keeps the system block cache-friendly).
+func _local_context(agent: Node, act: Dictionary) -> String:
+	var parts := PackedStringArray()
+	var at: Variant = agent.get("global_position")
+	var pp: Variant = agent.call("get_player_position") if agent.has_method("get_player_position") else null
+	if at is Vector3: parts.append("You are at %s." % str(at.round()))
+	if pp is Vector3: parts.append("Player is at %s." % str(pp.round()))
+	if str(act.get("did", "")) != "": parts.append("You just did: %s (don't call it again)." % str(act["did"]).replace("_", " "))
+	if str(act.get("say", "")) != "": parts.append("Idea for your reply: " + str(act["say"]).left(160))
+	return " ".join(parts)
+
+## Small models leave out or garble arguments: fill coordinates ("right in front of me") and safe defaults.
+func _local_args(agent: Node, tool: String, args: Dictionary) -> Dictionary:
+	var a := args.duplicate()
+	var front := Vector3.ZERO
+	if agent is Node3D: front = agent.global_position - agent.global_basis.z * 3.0
+	if tool in ["place_voxel", "carve_area", "spawn_structure", "move_to"]:
+		var target := front
+		if tool == "move_to" and agent.has_method("get_player_position"):
+			var pp: Variant = agent.call("get_player_position")
+			if pp is Vector3: target = pp
+		for k in ["x", "y", "z"]:
+			var v: Variant = a.get(k)
+			if not (v is float or v is int): a[k] = target[["x", "y", "z"].find(k)]
+	match tool:
+		"carve_area": a["radius"] = clampf(float(a.get("radius", 2.0)) if (a.get("radius") is float or a.get("radius") is int) else 2.0, 1.0, 8.0)
+		"spawn_structure":
+			var names: Array = TOOL_SCHEMAS["spawn_structure"]["properties"]["name"]["enum"]
+			if not (str(a.get("name", "")) in names): a["name"] = "fire_altar" if "altar" in str(a.get("name", "")) else "pillar"
+		"place_voxel": if not (a.get("material") is float or a.get("material") is int): a["material"] = 1
+		"emote":
+			if not (str(a.get("name", "")) in TOOL_SCHEMAS["emote"]["properties"]["name"]["enum"]): a["name"] = "wave"
+		"follow": a["enabled"] = bool(a.get("enabled", true))
+		"remember": a["fact"] = str(a.get("fact", "")).left(200)
+		"build_realm": a["prompt"] = str(a.get("prompt", "")).left(200)
+	return a
 
 
 # ---------- brain cells + coordination (v0.10) ----------
@@ -366,21 +496,26 @@ func _on_bus_message(msg: Dictionary, id: String) -> Dictionary:
 
 ## Offline: let a matching brain cell answer before canned replies. Returns "" if no cell fired.
 func _brain_reply(id: String, player_text: String) -> String:
+	return str(_brain_act(id, player_text).get("reply", ""))
+
+## LAI-4: same as the old _brain_reply, but also says what happened so the on-device model can talk about it:
+## {"reply": old return value, "say": cell's line or "", "did": tool/command that ran or ""}.
+func _brain_act(id: String, player_text: String) -> Dictionary:
 	var brain: BrainCore = brains.get(id)
-	if brain == null or player_text == "": return ""
+	if brain == null or player_text == "": return {}
 	brain.memory.log_episode("chat", {"text": player_text})
 	var hit := brain.best({"type": "chat", "text": player_text},
 		{"affinity": int(_memory[id].get("relationship", {}).get("affinity", 0)), "player": str(Settings.get_value("profile", "name", "friend"))})
-	if hit.is_empty(): return ""
+	if hit.is_empty(): return {}
 	last_cell[id] = str(hit.get("cell_id", ""))
 	var a: Dictionary = hit["action"]
 	match a.get("type"):
-		"say": return str(a.get("text", ""))
-		"emote": dispatch_tool(id, "emote", {"name": a.get("name", "dance")}); return "*%s*" % a.get("name", "")
-		"remember": remember_fact(id, str(a.get("fact", ""))); return ""
-		"tool": dispatch_tool(id, str(a.get("name", "")), a.get("args", {})); return ""
-		"delegate": group_task(str(a.get("command", "")), player_text); return ""
-	return ""
+		"say": return {"reply": str(a.get("text", "")), "say": str(a.get("text", ""))}
+		"emote": dispatch_tool(id, "emote", {"name": a.get("name", "dance")}); return {"reply": "*%s*" % a.get("name", ""), "did": "emote"}
+		"remember": remember_fact(id, str(a.get("fact", ""))); return {"did": "remember"}
+		"tool": dispatch_tool(id, str(a.get("name", "")), a.get("args", {})); return {"did": str(a.get("name", ""))}
+		"delegate": group_task(str(a.get("command", "")), player_text); return {"did": "group " + str(a.get("command", ""))}
+	return {}
 
 
 # ---------- v0.10 self-learning (feeds BrainCore episodes; BrainLearner does the learning) ----------

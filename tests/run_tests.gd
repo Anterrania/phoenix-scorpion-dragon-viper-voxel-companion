@@ -86,6 +86,7 @@ func _ready() -> void:
 	var lai = load("res://tests/local_ai_tests.gd"); lai.run_prompt(self); await lai.run_state(self)
 	var hct = load("res://tests/heaven_chat_tests.gd"); await hct.run(self); hct.run_docs(self)   # HEAVEN-9 + CHAT-16
 	await lai.run_chat(self); lai.run_docs(self)
+	await load("res://tests/v013_tests.gd").run(self)   # v0.13 brain core, companions admin, intro, Sparks, icons
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -342,7 +343,8 @@ func _v05_tests() -> void:
 	check(FileAccess.file_exists("res://data/input_checklist.json"), "in-game input checklist")
 	check(FileAccess.file_exists("res://docs/WHERE_TO_GIVE_INPUT.md"), "WHERE_TO_GIVE_INPUT doc")
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
-	check(ep.contains("version/code=14") and ep.contains("0.12.2"), "versionCode 14 / 0.12.2")
+	# check(ep.contains("version/code=14") and ep.contains("0.12.2"), "versionCode 14 / 0.12.2")
+	check(ep.contains("version/code=15") and ep.contains("version/name=\"0.13.0\""), "versionCode 15 / 0.13.0 (v0.13)")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))

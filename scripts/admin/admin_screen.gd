@@ -446,7 +446,10 @@ func save_signup(d: Dictionary) -> String:
 var home_carousel: GlassCarousel
 var home_menu: GlassMenu
 const HOME_CAROUSEL_CARDS := 4
-const HOME_MENU := [["Tickets", "Tickets", "#"], ["Wiki", "Wiki", "W"], ["Timeline", "Timeline", "◷"],
+# const HOME_MENU := [["Tickets", "Tickets", "#"], ["Wiki", "Wiki", "W"], ["Timeline", "Timeline", "◷"],
+# 	["Community", "Community", "◎"], ["Security", "Security", "⛨"], ["Device", "Device & compatibility", "▣"]]
+# v0.13 ADMIN-COMP: + Companions (the voxel companion menu, owner only).
+const HOME_MENU := [["Companions", "Companions", "✦"], ["Tickets", "Tickets", "#"], ["Wiki", "Wiki", "W"], ["Timeline", "Timeline", "◷"],
 	["Community", "Community", "◎"], ["Security", "Security", "⛨"], ["Device", "Device & compatibility", "▣"]]
 
 func _calm_home(s: Dictionary) -> void:
@@ -472,7 +475,8 @@ func _calm_home(s: Dictionary) -> void:
 func home_go(id: String) -> void:
 	if id in TABS: pages.go(TABS.find(id)); return
 	var host := get_parent() if get_parent() else self
-	if id == "Community": CommunityScreen.open(host)
+	if id == "Companions": CompanionsScreen.open(self, host if host.has_method("show_panel") else null)
+	elif id == "Community": CommunityScreen.open(host)
 	elif id == "Device": DeviceCompatScreen.open(host)
 	elif id == "Security":
 		if host.has_method("open_security"): host.open_security()

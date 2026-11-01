@@ -1338,6 +1338,7 @@ static func record_view(viewer: Variant, pid: String, watch_ms := 0) -> Dictiona
 	if me == p["author"] or me == str(p.get("by", "")): return _ok()
 	var snap := _snap()
 	var vw: Dictionary = p.get("viewers", {})
+	if not vw.has(me): CreatorEconomy.on_unique_view(str(p["author"]), pid, me, _now())   # v0.13 ECON-1
 	if vw.has(me) or vw.size() < 1000:
 		var e: Dictionary = vw.get(me, {"n": 0, "ms": 0, "t": 0})
 		e["n"] = int(e["n"]) + 1; e["ms"] = maxi(int(e["ms"]), maxi(0, watch_ms)); e["t"] = _now()

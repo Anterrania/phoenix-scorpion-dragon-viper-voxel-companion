@@ -59,6 +59,9 @@ jobs:
           git fetch --tags --quiet || true
           tag=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+' | head -1)
           vname=$(echo "${tag:-v0.12.${{ github.run_number }}}" | sed -E 's/^v([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          # v0.13: never go below the version already in export_presets.cfg (a bump lands before its tag)
+          pname=$(sed -nE 's/^version\/name="([0-9]+\.[0-9]+\.[0-9]+)".*/\1/p' export_presets.cfg | head -1)
+          vname=$(printf '%s\n%s\n' "$vname" "${pname:-0.0.0}" | sort -V | tail -1)
           vcode=$((100 + ${{ github.run_number }}))
           sed -i -E "s/^version\/code=.*/version\/code=$vcode/; s/^version\/name=.*/version\/name=\"$vname\"/" export_presets.cfg
           echo "Android versionCode=$vcode versionName=$vname"

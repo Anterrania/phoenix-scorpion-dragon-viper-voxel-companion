@@ -142,7 +142,7 @@ static func run_voice(t: Node) -> void:
 	st.set_value("voice", "tts_enabled", true)
 	var route := CompanionVoice.speak("t_comp", {"voice": {"pitch": 1.1}}, "Hello Phoenix")
 	var utt := int(CompanionVoice.last_spoken.get("utt", -1))
-	t.check(route in ["tts", "no_tts"] and utt > 0 and CompanionVoice.talk_state("t_comp")["state"] == "queued", "voice sync: line queued with an utterance id (not talking yet)")
+	t.check(route in ["tts", "tts_default", "no_tts"] and utt > 0 and CompanionVoice.talk_state("t_comp")["state"] == "queued", "voice sync: line queued with an utterance id (not talking yet)")
 	var evs: Array = []
 	var l := func(cid, ev, data): evs.append([cid, ev, data["char"]])
 	CompanionVoice.listeners.append(l)

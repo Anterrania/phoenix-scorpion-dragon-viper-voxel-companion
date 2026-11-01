@@ -278,7 +278,13 @@ static func _icons(t: Node) -> void:
 static func _docs(t: Node) -> void:
 	var csv := FileAccess.get_file_as_string("res://docs/TASK_TRACKER.csv")
 	t.check(csv.contains("INT-NSFW") and csv.contains("REL-013"), "v013 tracker keeps REL-013 + INT-NSFW rows")
+	# INT-NSFW: the tracker label is the task manager's (it moved blocked -> awaiting_builder on Oct 31);
+	# the build guarantee is that it is never marked done and no sexual-content feature ships.
+	# for line in csv.split("\n"):
+	# 	if line.begins_with("INT-NSFW"):
+	# 		t.check(line.to_lower().contains("blocked"), "v013 INT-NSFW stays blocked")
 	for line in csv.split("\n"):
-		if line.begins_with("INT-NSFW"):
-			t.check(line.to_lower().contains("blocked"), "v013 INT-NSFW stays blocked")
+		if line.begins_with("INT-NSFW") or line.begins_with("FLAG-SEXUAL"):
+			t.check(not line.ends_with(",done,P0") and not line.contains(",done_headless,"), "v013 %s not built" % line.get_slice(",", 0))
+	t.check(not LegalReview.POLICY.has("sexual_content") and not FileAccess.file_exists("res://scripts/social/nsfw.gd"), "v013 no sexual-content feature in the build")
 	t.check(FileAccess.file_exists("res://docs/trac/OBSERVATION_2026-10-31.md"), "v013 observation doc")

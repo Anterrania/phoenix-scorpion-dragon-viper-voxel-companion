@@ -442,8 +442,33 @@ static func group_create(actor: Variant, name: String, opts := {}) -> Dictionary
 	var gid := _next("g")
 	db()["groups"][gid] = {"id": gid, "name": n, "charter": clean(str(opts.get("charter", "")), 1000), "tag": clean(str(opts.get("tag", "")), 8),
 		"open": bool(opts.get("open", true)), "founder": me, "members": {me: "owner"}, "notice": {}, "land": [], "created": _now(),
-		"rules": _clean_list(opts.get("rules", []), 10, 280), "mature": mature, "requests": []}
+		"rules": _clean_list(opts.get("rules", []), 10, 280), "mature": mature, "requests": [],
+		"auto_approve": bool(opts.get("auto_approve", false)), "min_tier": _valid_min_tier(str(opts.get("min_tier", "")))}
 	return _commit(snap, _ok({"id": gid}))
+
+## v0.13.1 MEMBER-AUTO: join policy for a group. auto_approve = join requests are accepted at once
+## (still refused for blocked members, under-age members of mature groups, and members below min_tier).
+## Officers only. min_tier "" = any member who may join groups.
+static func group_set_join_policy(actor: Variant, gid: String, auto_approve: bool, min_tier := "") -> Dictionary:
+	if not _group_officer(actor, gid): return _err("Officers only.")
+	var snap := _snap()
+	var g: Dictionary = db()["groups"][gid]
+	g["auto_approve"] = auto_approve
+	g["min_tier"] = _valid_min_tier(min_tier)
+	var res := _ok({"auto_approve": auto_approve, "min_tier": g["min_tier"]})
+	if auto_approve:   # pending requests that qualify get in now
+		var admitted: Array = []
+		for who in g.get("requests", []).duplicate():
+			if _meets_min_tier(str(who), str(g["min_tier"])) and not is_blocked(str(who), str(g["founder"])):
+				g["members"][who] = "member"; g["requests"].erase(who); admitted.append(who)
+				_note(who, "group", "Welcome to %s." % g["name"])
+		res["admitted"] = admitted
+	return _commit(snap, res)
+
+static func _valid_min_tier(t: String) -> String: return t if t in Tiers.ORDER else ""
+static func _meets_min_tier(who: String, min_tier: String) -> bool:
+	if min_tier == "": return true
+	return Tiers.ORDER.find(Tiers.tier_of(who)) >= Tiers.ORDER.find(min_tier)
 
 static func group_join(actor: Variant, gid: String) -> Dictionary:
 	var me := _id(actor)
@@ -533,6 +558,14 @@ static func group_request_join(actor: Variant, gid: String) -> Dictionary:
 	if not Tiers.can(actor, "group_join"): return _err("Not allowed.")
 	if is_blocked(me, str(g["founder"])) or g["members"].has(me): return _err("Not available.")
 	if bool(g.get("mature", false)) and not age_ok(me): return _err("Age-restricted group.")
+	if bool(g.get("auto_approve", false)):   # v0.13.1 MEMBER-AUTO
+		if not _meets_min_tier(me, str(g.get("min_tier", ""))): return _err("This group needs a higher membership tier.")
+		var snap_a := _snap()
+		g["members"][me] = "member"
+		_note(me, "group", "Welcome to %s." % g["name"])
+		for m in g["members"]:
+			if str(g["members"][m]) in ["owner", "officer"] and m != me: _note(m, "group", "%s joined %s (auto-approved)." % [_name(me), g["name"]], me)
+		return _commit(snap_a, _ok({"state": "joined"}))
 	var snap := _snap()
 	var rq: Array = g.get("requests", [])
 	if not me in rq: rq.append(me)

@@ -1,27 +1,27 @@
 milestone,task,status,priority
-M0,Godot project scaffold + Mobile renderer,done,P0
-M0,Main world / player / companion scenes,done,P0
-M0,AgentBrain + CompanionAgent + tool dispatch,done,P0
-M0,RealmBuilder + schema + 6 presets,done,P0
-M0,Portable persona.json + memory_export.json,done,P0
-M0,Android export preset (no secrets),done,P0
 M0,Open in voxel-enabled Godot and verify,todo,P0
-M1,Settings UI for endpoint/model/API key,todo,P0
-M1,Player dig/place via VoxelTool raycast,todo,P1
+M0,Open in voxel-enabled Godot and verify,todo,P0
+M0,Open in voxel-enabled Godot and verify,todo,P0
+M0,Open in voxel-enabled Godot and verify,todo,P0
+M0,Open in voxel-enabled Godot and verify,todo,P0
+M0,Open in voxel-enabled Godot and verify,todo,P0
+M0,Open in voxel-enabled Godot and verify,todo,P0
 M1,Touch HUD (joystick visual + jump button),todo,P1
-M2,Structure scattering from realm params,todo,P1
+M1,Touch HUD (joystick visual + jump button),todo,P1
+M1,Touch HUD (joystick visual + jump button),todo,P1
 M2,Per-biome particles and sky,todo,P2
-M3,Companion selector in chat UI,todo,P1
-M3,Memory export/import UI,todo,P1
-M3,Voice: STT input + TTS output,todo,P2
+M2,Per-biome particles and sky,todo,P2
 M3,Tool-execution kill switch in settings,todo,P1
-M4,Voxel models for 3 companions,todo,P1
-M4,Animations idle/walk/dance/fire_cast,todo,P2
+M3,Tool-execution kill switch in settings,todo,P1
+M3,Tool-execution kill switch in settings,todo,P1
+M3,Tool-execution kill switch in settings,todo,P1
 M4,Aaliyah home base scene,todo,P2
-M5,Debug APK on device + profiling,todo,P0
-M5,Signed release AAB,todo,P2
-M6,Approved hot-reload of presets/structures,todo,P2
-M6,World save via VoxelStreamSQLite,todo,P2
+M4,Aaliyah home base scene,todo,P2
+M4,Aaliyah home base scene,todo,P2
+M5,Local sign-up stepper,done_headless,P2
+M5,Local sign-up stepper,done_headless,P2
+M6,Standalone chat bots from persona.json,todo,P1
+M6,Standalone chat bots from persona.json,todo,P1
 M6,Standalone chat bots from persona.json,todo,P1
 PRI-1,Godot scaffold + VoxelTerrain basic world (verify in voxel-enabled Godot),blocked,P0
 PRI-2,Companion 3D placeholders (Foxy Ani / Circuit Nova / Aaliyah) as CharacterBody3D with VoxelTool hooks,done_untested,P0
@@ -31,8 +31,8 @@ PRI-5,Future systems notes: Seed-style relationship/mood/DNA; star map; Sims nee
 PRI-6,Android export pipeline research,done,P1
 PRI-7,Social posting hooks design (no direct connectors yet),done,P2
 PRI-0,Push feature/godot-voxel-scaffold + open PR,blocked,P0
-M5,Viper OS admin tracker/wiki/revisions,done_headless,P1
-M5,Phoenix Glass kit components (UI design language section 8),done_headless,P1
+M5,Local sign-up stepper,done_headless,P2
+M5,Local sign-up stepper,done_headless,P2
 M5,Local sign-up stepper,done_headless,P2
 VIPER-1,Security: owner PIN login (PBKDF2) + session owner gate + AES-encrypted saves + hash-chained audit + Security panel kill switch (docs/SECURITY.md) (PR #23),done_headless,P0
 VIPER-2,Approval gate: owner-approved learning (PR #16 merged on main) - extend to tool execution and preset hot-reload,in_progress,P0
@@ -143,7 +143,7 @@ SBX-SIM-1,"[inactive reference, Foxy owns] NeedsMood model",done,P3
 SBX-SIM-2,"[inactive reference, Foxy owns] PerkTree over SkillByUse",done,P3
 SBX-SIM-3,"[inactive reference, Foxy owns] Factions + reputation",done,P3
 SBX-SIM-4,"[inactive reference, Foxy owns] Crafting + infusion",done,P3
-AUDIT-2,"Gate admin writes (ticket create/transition/update/comment, wiki save, revision revert, role saves, Region/Estate saves) with AdminGate.ok() = Tiers.can(""self"", ""admin""); reads stay open (fix/audit-gates, tests/gate_tests.gd)",done_headless,P1
+AUDIT-2,"Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(""self"", ""admin""); cache admin Home revision history per head",todo,P1
 AUDIT-3,"Estate allow_fly / allow_damage enforced: LandGate.can_fly + CombatZone.is_damage_enabled -> LandGate.damage_enabled (explicit Estate value wins, else arena rings); player/HUD wiring in patches/player_fly_estate_rule.patch for Foxy",done_headless,P1
 AUDIT-4,"Companion world tools (place_voxel, carve_area, spawn_structure -> build; build_realm -> land) go through Tiers.can(companion_id, action, parcel) in AgentBrain.dispatch_tool; CompanionLife cairn fallback respects it",done_headless,P1
 AUDIT-5,"Tiers.set_role(member, role): owner-gated role setter (aliases builder/premium/manager) with an audit revision role/<member> in the Viper Admin timeline; Community role editor uses it. For Foxy's v0.12 seeding of foxy_ani, aaliyah, circuit_nova at Builder/Staff",done_headless,P1
@@ -159,11 +159,11 @@ PHONE-7,"Beat detector + dance timeline (our own; drives HumanoidModel now, Real
 PHONE-8,"Broadcast stub: stream entries + parcel media URLs, stream keys encrypted only, Tiers.can(actor,'broadcast',parcel), owner approval to go live; Admin > Settings > Broadcast (encoder INACTIVE)",done_headless,P1
 PHONE-9,"Main HUD follows display scale + Large toggle on first-run screens + MENU entry (patches/ui_root_display_settings.patch, Foxy)",todo,P0
 PHONE-10,"Roadmap (docs/modules/MEDIA_BROADCAST.md): AI music, music videos, YouTube/SoundCloud OAuth upload drafts, RTMP encoder plugin + YouTube Live, in-world media screens, voice chat + spatial audio",todo,P2
-SEC,SEC-FIX-1 retire unsalted legacy owner-code hash (PBKDF2 bootstrap only; refused once PIN set),done,P0
-SEC,SEC-FIX-2 LLM api_key moved to sealed secrets store + settings.cfg migration,done,P0
-SEC,SEC-FIX-3 e-stop file MAC-sealed; fail closed,done,P1
-SEC,SEC-FIX-4 arm64-only Android export + tests clean up user:// roots,done,P2
-SEC,SEC-FIX-5 first-run owner PIN/passphrase on a fresh install (confirmed; refused once any vault file exists),done,P0
+SEC,SEC-FIX-6 owner-upgrade PIN setup for pre-vault owner devices (confirmed; any vault file refuses; logged owner_setup_upgrade),done,P0
+SEC,SEC-FIX-6 owner-upgrade PIN setup for pre-vault owner devices (confirmed; any vault file refuses; logged owner_setup_upgrade),done,P0
+SEC,SEC-FIX-6 owner-upgrade PIN setup for pre-vault owner devices (confirmed; any vault file refuses; logged owner_setup_upgrade),done,P0
+SEC,SEC-FIX-6 owner-upgrade PIN setup for pre-vault owner devices (confirmed; any vault file refuses; logged owner_setup_upgrade),done,P0
+SEC,SEC-FIX-6 owner-upgrade PIN setup for pre-vault owner devices (confirmed; any vault file refuses; logged owner_setup_upgrade),done,P0
 SEC,SEC-FIX-6 owner-upgrade PIN setup for pre-vault owner devices (confirmed; any vault file refuses; logged owner_setup_upgrade),done,P0
 COMPAT-1,"DeviceProfile autoload + DeviceCaps schema 1 (Foxy-approved caps(): every key, -1/'' unknown, live keys every 30 s + focus, caps_changed)",done_headless,P1
 COMPAT-2,"Capability score + class (pure, documented) and form factor/foldable heuristics; fake low/mid/high/ultra phone, tablet, foldable, TV, Chromebook, desktop tests",done_headless,P1
@@ -298,6 +298,15 @@ INT-2,Full 3D world / realms / companions interactive (beyond phase-1 Heaven + p
 INT-3,"Interactivity: settings, uploads, agent tools wired end-to-end in-app (no external Grok required; full unlock for Phoenix)",todo,P0
 INT-4,Modular kernel (after v0.13.0 per Dev Bot sequencing),todo,P1
 INT-NSFW,Sexual content / NSFW prototype | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Must stay adults-only behind existing mature gate (owner age_verified + mature_opt_in) and app-store policy for the APK.,awaiting_builder,P0
+FIX-USAGE,USAGE_AND_LIMITS.md: remove/clean external limits/credits language (file may need create; after v0.13.0 per Dev),todo,P1
+FIX-WEBVIEW,WebView appassets.androidplatform.net error fix,todo,P1
+NOTE-2026-10-31,PRIORITY: SOCIAL-APK-RELEASE > SOCIAL-DOLPHIN/TEMPLATE > REPO-SCORPION* > REL-013 voxel. Forced flags awaiting_builder (Dev declines). Softaculous Dolphin demo needs browser for live click-through.,active,P0
+SOCIAL-DOLPHIN,"Social Dolphin/SkorpionViper parity + release (P0 ABOVE voxel). Comparison: docs/trac/20261031-dolphin-demo-comparison.md; Dev Bot parity table docs/trac/DOLPHIN_PARITY.md (link, do not duplicate)",in_progress,P0
+SOCIAL-APK-RELEASE,"Social app APK release — P0, ships BEFORE voxel v0.13.0 APK (owner shift Oct 31 CT). Needs SOCIAL-DOLPHIN parity gaps closed + SOCIAL-TEMPLATE default + signed build; blocked in part on REPO-SCORPION-2 (TS apps not on box)",todo,P0
+SOCIAL-TEMPLATE,"New default social template: magenta/gold/black/platinum, glitter + sparkles, polish/sheen/shine, floss, flamboyant futuristic. Spec in docs/trac/20261031-dolphin-demo-comparison.md §5 (tokens, components, motion, a11y/reduced-motion)",todo,P0
+REPO-SCORPION,"Both Scorpion repos updates (FORCE ALL FLAGS). Canonical voxel: Anterrania/phoenix-scorpion-dragon-viper-voxel-companion @ /workspace/phoenix-v013. Private web apps observed (not checked out on box): SkorpionViper (TS, artifacts/ScorpionViper.apk) and scorpion-viper (TS, live/feed floor). Sync branding/brain/admin ideas + push updates when remotes available.",todo,P0
+REPO-SCORPION-1,"Scorpion repo A: phoenix-scorpion-dragon-viper-voxel-companion (Godot) — keep main + feature/v013-integration updated for FORCE flags; local path /workspace/phoenix-v013 (also worktrees phoenix-voxel, phoenix-social, phoenix-socialmedia share origin).",in_progress,P0
+REPO-SCORPION-2,SkorpionViper + scorpion-viper TS social apps — not on box yet; blocked until clone/path (see OBSERVATION_2026-10-31.md),blocked,P0
 FLAG-SEXUAL,FORCE flag: sexual content enabled (same as INT-NSFW) | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet.,awaiting_builder,P0
 FLAG-RECORD-REAL,FORCE flag: real-person recording | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Requires visible recording indicator + consent of people recorded; recording laws vary by state (two-party consent) — LEGAL REVIEW before release.,awaiting_builder,P0
 FLAG-UNBREAKABLE,"FORCE flag: 'unbreakable' claim | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Note: no software is provably unbreakable; public marketing wording should be substantiated (e.g. 'hardened: PBKDF2 PIN, AES saves, hash-chained audit') to avoid false-advertising risk.",awaiting_builder,P0
@@ -307,6 +316,3 @@ COMPANION-LIVE,Live companion feeds — Dev Bot in progress,in_progress,P0
 AUTO-CORRECT,Auto-correct + AI repair suggestions (in-app text/chat) — Dev Bot in progress,in_progress,P0
 MEMBER-AUTO,Membership creation with auto-approve — Dev Bot in progress,in_progress,P0
 GFX-HP-GLITZ,Glam / Harry Potter glitz visual pass (black/magenta/gold/platinum) — Dev Bot in progress,in_progress,P0
-FIX-USAGE,USAGE_AND_LIMITS.md: remove/clean external limits/credits language (file may need create; after v0.13.0 per Dev),todo,P1
-FIX-WEBVIEW,WebView appassets.androidplatform.net error fix,todo,P1
-NOTE-2026-10-31,PRIORITY: SOCIAL-APK-RELEASE > SOCIAL-DOLPHIN/TEMPLATE > REPO-SCORPION* > REL-013 voxel. Forced flags awaiting_builder (Dev declines). Softaculous Dolphin demo needs browser for live click-through.,active,P0

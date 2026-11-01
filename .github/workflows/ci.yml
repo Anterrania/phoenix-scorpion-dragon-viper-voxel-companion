@@ -81,6 +81,24 @@ jobs:
           size=$(stat -c %s addons/viper_llm/bin/viper-llm-release.aar)
           echo "ViperLLM AAR: $size bytes"; test "$size" -lt 6291456
           unzip -l addons/viper_llm/bin/viper-llm-release.aar | grep -q 'jni/arm64-v8a/libviper_llm.so'
+      # v0.14 AUTH-1: shared owner sign-in (same account as the Scorpion Viper social app). The secret holds only
+      # the PBKDF2 record (pbkdf2-sha256$iter$salt$hash), never the password. Written AFTER the tests (so the
+      # first-run tests see a clean build) into the gitignored config/owner_login.local.cfg, never echoed.
+      - name: Owner sign-in record (secret OWNER_PASS_HASH, never printed)
+        env:
+          OWNER_PASS_HASH: ${{ secrets.OWNER_PASS_HASH }}
+        run: |
+          if [ -z "$OWNER_PASS_HASH" ]; then
+            echo "::warning::OWNER_PASS_HASH secret not set: owner password sign-in is off in this build (PIN still works)."
+            exit 0
+          fi
+          if ! printf '%s' "$OWNER_PASS_HASH" | tr -d '\r\n' | grep -Eq '^pbkdf2-sha256\$[0-9]{6,7}\$[A-Za-z0-9+/]{21,}={0,2}\$[0-9a-fA-F]{64}$'; then
+            echo "::warning::OWNER_PASS_HASH is not a pbkdf2-sha256 record: sign-in off in this build."
+            exit 0
+          fi
+          printf '[owner]\nrecord="%s"\n' "$(printf '%s' "$OWNER_PASS_HASH" | tr -d '\r\n')" > config/owner_login.local.cfg
+          echo "OWNER_LOGIN=1" >> "$GITHUB_ENV"
+          echo "Owner sign-in record written (gitignored; contents not shown)."
       - name: Export Android debug APK (Gradle build, ViperDevice + ViperLLM plugins)
         run: |
           mkdir -p build/android
@@ -92,6 +110,10 @@ jobs:
           "$ANDROID_SDK_ROOT"/build-tools/34.0.0/aapt2 dump xmltree --file AndroidManifest.xml build/android/phoenix-voxel.apk | grep -q 'org.godotengine.plugin.v2.ViperLLM'
           unzip -p build/android/phoenix-voxel.apk 'classes*.dex' | grep -aq 'com/anterrania/viperllm/ViperLlmPlugin'
           unzip -l build/android/phoenix-voxel.apk | grep -E 'lib/arm64-v8a/lib(viper_llm|llama|ggml-base|ggml-cpu-android_armv8.0_1)\.so' | wc -l | grep -qx 4
+          # v0.14 BRIDGE-1: Enter World deep link + package visibility for Scorpion Viper
+          "$ANDROID_SDK_ROOT"/build-tools/34.0.0/aapt2 dump xmltree --file AndroidManifest.xml build/android/phoenix-voxel.apk | grep -q 'phoenixvoxel'
+          "$ANDROID_SDK_ROOT"/build-tools/34.0.0/aapt2 dump xmltree --file AndroidManifest.xml build/android/phoenix-voxel.apk | grep -q 'os.viper.scorpion'
+          if [ "${OWNER_LOGIN:-0}" = "1" ]; then unzip -l build/android/phoenix-voxel.apk | grep -q 'owner_login.local.cfg' && echo "owner sign-in record packed"; fi
       - uses: actions/upload-artifact@v4
         with:
           name: phoenix-voxel-android-debug

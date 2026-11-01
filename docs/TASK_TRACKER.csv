@@ -310,3 +310,10 @@ COMPANION-LIVE,"Live companion feeds — done: Companions Live (scene events, ch
 AUTO-CORRECT,"Auto-correct + AI repair suggestions — done: TextAssist (skips secret fields), chat repair chips, AI hook as suggestion only",done_headless,P0
 MEMBER-AUTO,"Membership/group auto-approve on join — done: auto_approve + min_tier, officer policy toggle",done_headless,P0
 GFX-HP-GLITZ,"Glam pass — done: GlamFx sparkle/shine/bloom/motes, original procedural art, off/subtle/full",done_headless,P0
+PERSONA-IMPORT,"v0.14: teammate bot profiles → companions/<id>/persona.json (job, abilities, tasks, source); 8 companions",done_headless,P0
+COMPANION-HOMES,"v0.14: home realm per companion in the world picker + companion court in Heaven",done_headless,P0
+LIVE-BROADCAST,"v0.14: Companions Live member broadcast of in-world activity + opt-in viewer lines; never private chats, no camera",done_headless,P0
+CREATE-COMPANION,"v0.14: members-only Create your own companion with cinematic reveal; non-members use owner's companions",done_headless,P0
+OWNER-LOGIN,"v0.14: SkorpionViper owner sign-in shared with the social app (record via CI secret); owner gates stay",done_headless,P0
+SOCIAL-BRIDGE,"v0.14: Open Social (os.viper.scorpion) + phoenixvoxel://enter Enter World link",done_headless,P0
+REL-014,"v0.14.0-debug APK release (stable debug key)",in_progress,P0

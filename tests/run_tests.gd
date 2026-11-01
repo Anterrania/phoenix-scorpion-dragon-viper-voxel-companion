@@ -88,6 +88,7 @@ func _ready() -> void:
 	await lai.run_chat(self); lai.run_docs(self)
 	await load("res://tests/v013_tests.gd").run(self)   # v0.13 brain core, companions admin, intro, Sparks, icons
 	await load("res://tests/v0131_tests.gd").run(self)   # v0.13.1 auto-correct, companions live, group auto-approve, glam
+	await load("res://tests/v014_tests.gd").run(self)   # v0.14 personas, homes, live broadcast, creator, owner sign-in, bridge
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -346,7 +347,8 @@ func _v05_tests() -> void:
 	var ep := FileAccess.get_file_as_string("res://export_presets.cfg")
 	# check(ep.contains("version/code=14") and ep.contains("0.12.2"), "versionCode 14 / 0.12.2")
 	# check(ep.contains("version/code=15") and ep.contains("version/name=\"0.13.0\""), "versionCode 15 / 0.13.0 (v0.13)")
-	check(ep.contains("version/code=16") and ep.contains("version/name=\"0.13.1\""), "versionCode 16 / 0.13.1 (v0.13.1)")
+	# check(ep.contains("version/code=16") and ep.contains("version/name=\"0.13.1\""), "versionCode 16 / 0.13.1 (v0.13.1)")
+	check(ep.contains("version/code=17") and ep.contains("version/name=\"0.14.0\""), "versionCode 17 / 0.14.0 (v0.14)")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))

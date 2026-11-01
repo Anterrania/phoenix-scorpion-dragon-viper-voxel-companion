@@ -28,11 +28,19 @@ Result key: PASS / FAIL / NOT RUN (reason) / PASS (desktop) = verified by headle
 | APK secret re-scan | PASS: see case 18. |
 | Emulator / phone | NOT RUN: there is no KVM permission and no arm64 device. |
 
+## Re-run after PRs #36/#37 (3c98fd8, SEC-FIX-5), 2026-10-22 9:52 AM PT
+
+| What | Result |
+|---|---|
+| Worktree at 3c98fd8, `--import`, then the suite with `XDG_DATA_HOME=$(mktemp -d)` | PASS: 1668 PASS lines, `FAILURES: 0`. All 16 sec5 first-run checks pass. |
+| Debug APK, arm64-only | `/workspace/pv-debug-arm64.apk`, 46,020,208 bytes. The re-scan is clean: no old hash, no bootstrap cfg, no sk-/xai- keys. |
+| Emulator / phone | NOT RUN: there is no KVM permission and no device. |
+
 ## Test cases
 
 | # | Area | Steps | Expected | Result |
 |---|---|---|---|---|
-| 1 | PIN set | (a) Upgraded phone that already has a vault: it unlocks with the PIN. (b) Fresh install: open Security and set a PIN. | (a) The vault opens and the legacy slot is stripped. (b) The owner can set a first PIN. | (a) PASS (headless, sec1 migration). (b) **FAIL (by code review, after PR #33):** no bootstrap cfg ships, `setup()` refuses without bootstrap unless `allow_fresh`, and no caller passes `allow_fresh=true`. A fresh install cannot set a PIN. Needs a phone to confirm. |
+| 1 | PIN set | (a) Upgraded phone that already has a vault: it unlocks with the PIN. (b) Fresh install with no bootstrap file: Security shows "Create owner PIN or passphrase". Enter it, confirm it, and try a mismatched confirmation. | (a) The vault opens and the legacy slot is stripped. (b) Needs 6+ digits or 8+ characters. A mismatch starts over. Success creates the vault, opens an owner session, runs save migration (encrypting saves) and logs a timeline entry. The setup is never offered again. A corrupted `vault.json` refuses setup and is left untouched. | (a) PASS (headless, sec1). (b) **PASS (headless, 3c98fd8, sec5, 16 checks, plus pin length tests)**. The save encryption after first-run comes from code review (`pin_pad.gd` calls `SaveMigration.migrate()`); there's no direct sealed-file assertion in sec5. Phone NOT RUN |
 | 2 | PIN rules | Try a 5-digit PIN and an 8+ char passphrase in ABC mode. | The short PIN is rejected (minimum 6) and the passphrase is accepted (minimum 8). | PASS (desktop) |
 | 3 | Login | Lock the app, then enter the correct PIN. | The session opens, the owner gate is on, and saves can be read. Writes made while locked are flushed encrypted. | PASS (desktop) |
 | 4 | Wrong PIN | Enter the wrong PIN once. | It's refused, no data is unlocked, and the error message doesn't reveal the PIN. | PASS (desktop) |
@@ -65,28 +73,32 @@ Result key: PASS / FAIL / NOT RUN (reason) / PASS (desktop) = verified by headle
 
 ## Phone checklist (about 10 min, no developer tools)
 
-Install the new APK **over** the existing app (don't uninstall it), then open the app.
+A fresh install is fine now. If you're upgrading, install **over** the existing app and skip part A.
 
-**One-time upgrade effects (expected, not bugs):**
-- The kill switch (e-stop) shows as **engaged** on first launch, because the old unsigned state fails closed. After you log in, hold "Resume companions" to release it.
-- An API key you saved earlier moves into the encrypted store at your first PIN unlock. Settings still shows that it's set.
-- Your old `phoenix-…` owner code stops working, and there's no "Hold to retire" button any more, because it was removed automatically.
+**A. Fresh install only (first run)**
+1. Open the app, then Admin, then Security. You should see "Create owner PIN or passphrase". ☐
+2. Try 5 digits. It's refused (you need 6+ digits or 8+ characters). ☐
+3. Enter a good PIN, then type a *different* one to confirm. It's refused and starts over. ☐
+4. Enter your PIN and confirm it correctly. You're now the owner, and the Admin timeline shows a setup entry. ☐
+5. Close the app fully and reopen it. "Create owner PIN" is no longer shown, and the app asks for your PIN. ☐
 
-1. Open Admin, then Security. Unlock with your PIN. ☐
-2. You should see the e-stop engaged. Hold "Resume companions" and it releases. ☐
-3. Try the old `phoenix-` code. It's refused. ☐
-4. Check there's no "Hold to retire the old owner code" button. ☐
-5. Open Settings. If you had an API key, chat with a companion and check it still answers online. ☐
-6. Close the app fully and reopen it. Owner tools ask for the PIN, and the e-stop stays released. ☐
+**B. Upgrade only, one-time effects (expected, not bugs)**
+- The e-stop shows as **engaged** on first launch. After you log in, hold "Resume companions" to release it.
+- A saved API key moves to the encrypted store at your first PIN unlock.
+- The old `phoenix-…` code stops working, and there's no "Hold to retire" button.
+6. Unlock with your PIN, release the e-stop, and check that the old code is refused. ☐
+
+**C. Everyone**
 7. Enter a wrong PIN once (refused), then 5 more times. You have to wait, even with the right PIN. ☐
 8. Note how long unlock takes. Under 2 s is good: ____ s ☐
 9. Set auto-lock to 1 min and leave the phone for 2 min. It asks for the PIN again. Set it back. ☐
 10. Without logging in, try to edit a wiki page. It's blocked. ☐
-11. Log in, edit one wiki page, then tap "Verify chain". It says OK. ☐
+11. Log in, edit a wiki page, then tap "Verify chain". It says OK. ☐
 12. Engage the e-stop, ask a companion to build, and it refuses. Reopen the app and it's still engaged. Release it with your PIN. ☐
 13. Change your PIN. The old PIN fails and the new one works. ☐
+14. If you use an API key, check that a companion still answers online. ☐
 
-Report anything that behaves differently, with a screenshot. Don't test on a fresh install yet (see case 1b).
+Report anything different, with a screenshot.
 
 ## Fix status (branch fix/security-device)
 

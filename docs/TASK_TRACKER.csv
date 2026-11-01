@@ -43,7 +43,7 @@ VIPER-6,AI body design vision: docs/PHYSICAL_FORM_VISION.md (Foxy) with Anterran
 VIPER-7,Quantum lattice notes: docs/modules/QUANTUM_LATTICE.md (concept only; speculative pending Phoenix original design),done,P3
 VIPER-8,Roadmap: grid/server meshing + interplanetary travel (3D OS shell / planetary destruction later),todo,P3
 VIPER-9,Integrate Universe/MeshSystem/DNA/quantum-lattice once Phoenix provides original code,blocked,P2
-FLOW,Automated flow: routine commits/merges proceed without waiting; weekly Monday review re-prioritizes. Oct 31 2026: voxel app is the ONLY active priority; other bots paused for resources.,active,P0
+FLOW,Automated flow: routine commits/merges proceed without waiting; weekly Monday review re-prioritizes. Oct 31 2026 CT: FORCE ALL FLAGS — voxel + Dolphin social are active P0; NSFW unblocked by owner override; other bots remain paused for resources.,active,P0
 VIPER-10,FAQ page (in-app wiki + docs) (docs/FAQ.md; merged with Foxy's wiki pages),done,P1
 VIPER-11,"Full wiki expansion: page per system, companion, realm, and module (PR #25)",done,P1
 WIKI-1,"VIPER-11 sub: Worlds/regions wiki page (docs/wiki/worlds-regions.md; links welcome-island, map-minimap)",done,P1
@@ -55,7 +55,7 @@ WIKI-6,"VIPER-11 sub: How-to guides page (docs/wiki/how-to.md; links getting-sta
 SOCIAL-1,"Social layer (clean-room Dolphin-style concepts): profiles + picks, friends/followers/blocks, messages + offline queue, groups (roles, notices, land), feed, companion post approval, notifications, reports + moderation (scripts/social/social.gd, docs/modules/SOCIAL.md)",done_headless,P1
 SOCIAL-2,"Tiers: Guest/Resident/Creator/Staff/Estate Manager/Owner + permission matrix, Tiers.can(actor, action, target) with estate access/terraform, owner-only role editor (scripts/security/tiers.gd)",done_headless,P1
 SOCIAL-3,"Admin > Community screen: Overview, Reports, Approvals, Groups, Roles (scripts/admin/community_screen.gd)",done_headless,P1
-SOCIAL-4,"Foxy in-world side: profile card on avatar tap, group tags, IM toasts, snapshot button, companion feed posts, build tools call Tiers.can(actor, 'build', parcel)",todo,P1
+SOCIAL-4,"Foxy in-world side: profile card on avatar tap, group tags, IM toasts, snapshot button, companion feed posts (see COMPANION-LIVE for live feeds), build tools call Tiers.can(actor, 'build', parcel)",todo,P0
 SOCIAL-5,"Roadmap: events (merge with events board), polls, forums, blogs",todo,P2
 SOCIAL-6,"Roadmap: photo/video albums + in-world snapshots (media store, upload review)",todo,P2
 SOCIAL-7,Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED),todo,P2
@@ -277,21 +277,36 @@ HEAVEN-12,Heaven livable shops polish (clothing/hair/looks Second-Life style) be
 HEAVEN-13,Integrate voxel world into social app shell; Studio remains creators-only (builds on HEAVEN-4 studio gate + SMP social),todo,P0
 HEAVEN-14,Fly gate confirmation: Phoenix (owner) + allowed angels only; others walk or use transport (HEAVEN-2 done for owner+granted; verify angel grant path),todo,P1
 BUILD-FIX-121,"Fix last 2-3 non-working builds: v0.12.1 install conflict + chat (Dev-reported fixed by PR #45/#46 / v0.12.2; label as reported by Dev Bot, not re-verified here)",done,P0
-REL-013,"v0.13.0 release package (URGENT): Brain Cell unrestricted abilities, companion menu→admin, logos/icons redesign, economy fixes, full docs/trac logging, ship arm64 APK. Dev-reported in progress on feature/v013-integration; APK estimated tonight after CI. Current export still 0.12.2 (versionCode 14).",in_progress,P0
+SOCIAL-DOLPHIN,"Social Dolphin/SkorpionViper parity + release (P0 ABOVE voxel). Comparison: docs/trac/20261031-dolphin-demo-comparison.md; Dev Bot parity table docs/trac/DOLPHIN_PARITY.md (link, do not duplicate)",in_progress,P0
+SOCIAL-APK-RELEASE,"Social app APK release — P0, ships BEFORE voxel v0.13.0 APK (owner shift Oct 31 CT). Needs SOCIAL-DOLPHIN parity gaps closed + SOCIAL-TEMPLATE default + signed build; blocked in part on REPO-SCORPION-2 (TS apps not on box)",todo,P0
+SOCIAL-TEMPLATE,"New default social template: magenta/gold/black/platinum, glitter + sparkles, polish/sheen/shine, floss, flamboyant futuristic. Spec in docs/trac/20261031-dolphin-demo-comparison.md §5 (tokens, components, motion, a11y/reduced-motion)",todo,P0
+REPO-SCORPION,"Both Scorpion repos updates (FORCE ALL FLAGS). Canonical voxel: Anterrania/phoenix-scorpion-dragon-viper-voxel-companion @ /workspace/phoenix-v013. Private web apps observed (not checked out on box): SkorpionViper (TS, artifacts/ScorpionViper.apk) and scorpion-viper (TS, live/feed floor). Sync branding/brain/admin ideas + push updates when remotes available.",todo,P0
+REPO-SCORPION-1,"Scorpion repo A: phoenix-scorpion-dragon-viper-voxel-companion (Godot) — keep main + feature/v013-integration updated for FORCE flags; local path /workspace/phoenix-v013 (also worktrees phoenix-voxel, phoenix-social, phoenix-socialmedia share origin).",in_progress,P0
+REPO-SCORPION-2,SkorpionViper + scorpion-viper TS social apps — not on box yet; blocked until clone/path (see OBSERVATION_2026-10-31.md),blocked,P0
+REL-013,"v0.13.0 release package (URGENT + FORCE ALL FLAGS): Brain Cell unrestricted, companion menu→admin, logos/icons, economy/Aethel, full docs/trac logging, ship arm64 APK. ALSO bundles social Dolphin release track (SOCIAL-DOLPHIN). Dev-reported feature/v013-integration; APK after CI. Current export may still show 0.12.2 until REL-013-6.",in_progress,P0
 REL-013-1,"Full AI Brain Cell / unrestricted abilities list (lock + versioned memory + hash log per Dev streams) — done: MemoryVault lock+versions, InteractionLedger hash chain, PatternRecall, SceneSnapshots, PersonaPresets (Foxy/none); unsafe items left out",done_headless,P0
 REL-013-2,"Move companion menu into admin panel — done: Admin > Companions (owner only), main-menu redirect",done_headless,P0
-REL-013-3,"Redesign logos/icons for v0.13.0 — done: tools/icons script-generated launcher/adaptive/monochrome/favicons",done_headless,P0
+REL-013-3,Redesign logos/icons for v0.13.0 — done: tools/icons script-generated launcher/adaptive/monochrome/favicons,done_headless,P0
 REL-013-4,"Creator economy fixes for v0.13.0 — done: Sparks (views, tips, 70% sale share), in-game only",done_headless,P0
 REL-013-5,"Full Trac-style progress logging under docs/trac/ (all bots/builders log thoughts, files edited, pages searched, projects added) — done: docs/trac/OBSERVATION_2026-10-31.md + 20261031-dev-bot-v013.md",done,P0
 REL-013-6,Ship arm64 APK v0.13.0 (immediate release after CI; Dev estimate tonight),todo,P0
-REL-013-7,"Voice check for v0.13.0 package (related open: CHAT-17 STT) — done: empty Android voice list speaks with default voice; pitch/rate/locale/voice settings",done_headless,P0
-REL-013-8,"Video intro for v0.13.0 — done: CompanionIntro cinematic on add",done_headless,P0
+REL-013-7,Voice check for v0.13.0 package (related open: CHAT-17 STT) — done: empty Android voice list speaks with default voice; pitch/rate/locale/voice settings,done_headless,P0
+REL-013-8,Video intro for v0.13.0 — done: CompanionIntro cinematic on add,done_headless,P0
 DEMO-1,"One build for everyone: same APK/features for owner, testers and demo users; no demo flavor (BuildInfo + test)",done_headless,P0
 INT-1,Placeholder removal across companions/world (replace CharacterBody3D stubs with full assets),todo,P0
 INT-2,Full 3D world / realms / companions interactive (beyond phase-1 Heaven + placeholder companions),todo,P0
 INT-3,"Interactivity: settings, uploads, agent tools wired end-to-end in-app (no external Grok required; full unlock for Phoenix)",todo,P0
 INT-4,Modular kernel (after v0.13.0 per Dev Bot sequencing),todo,P1
-INT-NSFW,NSFW enabled/prototype — Phoenix ordered as P0; Dev Bot reports NOT building. Status blocked pending owner decision (build vs defer).,blocked,P0
+INT-NSFW,Sexual content / NSFW prototype | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Must stay adults-only behind existing mature gate (owner age_verified + mature_opt_in) and app-store policy for the APK.,awaiting_builder,P0
+FLAG-SEXUAL,FORCE flag: sexual content enabled (same as INT-NSFW) | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet.,awaiting_builder,P0
+FLAG-RECORD-REAL,FORCE flag: real-person recording | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Requires visible recording indicator + consent of people recorded; recording laws vary by state (two-party consent) — LEGAL REVIEW before release.,awaiting_builder,P0
+FLAG-UNBREAKABLE,"FORCE flag: 'unbreakable' claim | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Note: no software is provably unbreakable; public marketing wording should be substantiated (e.g. 'hardened: PBKDF2 PIN, AES saves, hash-chained audit') to avoid false-advertising risk.",awaiting_builder,P0
+ECON-AETHEL,Aethel Coin replaces Marks in-game only (real-money exchange stays LEGAL REVIEW); Dev Bot in progress,in_progress,P0
+AI-UNRESTRICTED,Unrestricted AI (hardware limits only) / remove artificial locks + safety/owner gates | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Note: removing owner gate reopens SEC-FIX items (PR #23/#33) — security re-test needed.,awaiting_builder,P0
+COMPANION-LIVE,Live companion feeds — Dev Bot in progress,in_progress,P0
+AUTO-CORRECT,Auto-correct + AI repair suggestions (in-app text/chat) — Dev Bot in progress,in_progress,P0
+MEMBER-AUTO,Membership creation with auto-approve — Dev Bot in progress,in_progress,P0
+GFX-HP-GLITZ,Glam / Harry Potter glitz visual pass (black/magenta/gold/platinum) — Dev Bot in progress,in_progress,P0
 FIX-USAGE,USAGE_AND_LIMITS.md: remove/clean external limits/credits language (file may need create; after v0.13.0 per Dev),todo,P1
 FIX-WEBVIEW,WebView appassets.androidplatform.net error fix,todo,P1
-NOTE-2026-10-31,"Sonic Gage priority lock Oct 31 2026 CT: voxel app only active priority. Dev-reported (unverified): HEAD main 6adbd9c (#50), 3274 tests; merged #45-#48,#50; SEC-FIX-1..6 done; phone still open CHAT-15 LAI-9 COMPAT-8. See docs/trac/20261031-sonic-gage-priority-lock.md",active,P0
+NOTE-2026-10-31,PRIORITY: SOCIAL-APK-RELEASE > SOCIAL-DOLPHIN/TEMPLATE > REPO-SCORPION* > REL-013 voxel. Forced flags awaiting_builder (Dev declines). Softaculous Dolphin demo needs browser for live click-through.,active,P0

@@ -1,22 +1,27 @@
 # Roadmap
 
-> **Status Oct 31, 2026:** Debug APKs through **v0.12.2** have shipped (see release track / CI). **v0.13.0** is the active ship target (`REL-013`). Longer phases below remain the backlog path; Active P0 section above is current.
+> **Status Oct 31, 2026 (owner priority shift, CT):** **Social app + social APK first**, then voxel **v0.13.0**. Debug APKs through **v0.12.2** have shipped. Active P0 section is current.
 
-## Active P0 — Oct 31, 2026 (Sonic Gage priority lock)
+## Active P0 — Oct 31, 2026 (SOCIAL FIRST + FORCE ALL)
 
-Voxel app is the **only** active priority (other bots paused). Tracker: `docs/TASK_TRACKER.csv`. Progress log: `docs/trac/`.
+Tracker: `docs/TASK_TRACKER.csv`. Logs: `docs/trac/20261031-dolphin-demo-comparison.md`, `20261031-sonic-gage-force-all-flags.md`.
 
-- **REL-013** — ship **v0.13.0** APK now (Brain Cell unrestricted abilities, companion menu→admin, logos/icons, creator economy, `docs/trac` logging, voice/video intro). Sub-IDs `REL-013-1`…`REL-013-8`.
-- **HEAVEN-GIGA** — Heaven Welcome Island as default start at Star-Citizen / real-world scale (zones: Main Mall, Transportation Hub spawn, Residential, Casino, Poolrooms, Downtown, Theme Park, Beach, Apartments, Offices, School, Warehouses, Spirit Realm). Phase 1 + `heaven_edit` already done (`HEAVEN-1`…`6`, `HEAVEN-9`). Next: `HEAVEN-8` vehicles/tram/interiors, `HEAVEN-11` Spirit Realm, `HEAVEN-13` social-app integration.
-- **INT-1…3** — placeholder removal, full 3D world/realms/companions, in-app interactivity (no external Grok; full unlock for Phoenix). **INT-NSFW** is P0 **blocked** pending owner decision (Phoenix ordered; Dev not building).
+**1. Social (P0, above voxel)**
+- **SOCIAL-DOLPHIN** — SkorpionViper + scorpion-viper Dolphin-style user/admin parity (gap list in the comparison doc).
+- **SOCIAL-TEMPLATE** — new default template: magenta/gold/black/platinum, glitter, sparkles, sheen, flamboyant futuristic.
+- **SOCIAL-APK-RELEASE** — social APK ships before the voxel v0.13.0 APK.
+- **REPO-SCORPION** / **-1** (voxel repo, in progress) / **-2** (TS social apps not on box, blocked).
+
+**2. Voxel v0.13**
+- **REL-013** / **REL-013-6** — v0.13.0 arm64 APK.
+- **HEAVEN-GIGA** + **HEAVEN-8** / **11** / **13**; **INT-1…3**.
+- **ECON-AETHEL**, **COMPANION-LIVE**, **AUTO-CORRECT**, **MEMBER-AUTO**, **GFX-HP-GLITZ**.
+
+**3. Owner-forced flags (in_progress P0; Dev Bot decline overridden on tracker, no builder accepted yet)**
+- **INT-NSFW** / **FLAG-SEXUAL** (adults-only mature gate), **FLAG-RECORD-REAL** (consent + legal review), **AI-UNRESTRICTED** (conflicts with PR #23/#33 security work), **FLAG-UNBREAKABLE** (wording to substantiate).
+
 - **Phone still open:** `CHAT-15`, `LAI-9` (P0); `COMPAT-8` (P1).
-- **After v0.13.0 (P1):** `INT-4` modular kernel, `FIX-USAGE` (`USAGE_AND_LIMITS.md` cleanup), `FIX-WEBVIEW` (`appassets.androidplatform.net`).
-
-Dev-reported (unverified here): HEAD `6adbd9c` (#50), 3274 tests; build fixes #45/#46 / v0.12.2 (`BUILD-FIX-121` done).
-
-**v0.13.0 progress (Dev Bot, Oct 31 evening):** `feature/v013-integration` — REL-013-1/2/3/4/5/7/8 + DEMO-1 done
-(headless-tested; device check pending). Export preset 0.13.0 / code 15. REL-013-6 (APK release) follows the merge.
-Details: `docs/trac/20261031-dev-bot-v013.md`, `docs/modules/BRAIN_V013.md`.
+- **After APKs (P1):** `INT-4` modular kernel, `FIX-USAGE`, `FIX-WEBVIEW`.
 
 ## Phase 0: Scaffold ✅ (local branch `feature/godot-voxel-scaffold`)
 Project, main scene, biome generator stub, player controller, companion agent, AI adapter stub, shared personas, docs.

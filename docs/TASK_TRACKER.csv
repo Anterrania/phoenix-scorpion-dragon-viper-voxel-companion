@@ -43,14 +43,14 @@ VIPER-6,AI body design vision: docs/PHYSICAL_FORM_VISION.md (Foxy) with Anterran
 VIPER-7,Quantum lattice notes: docs/modules/QUANTUM_LATTICE.md (concept only; speculative pending Phoenix original design),done,P3
 VIPER-8,Roadmap: grid/server meshing + interplanetary travel (3D OS shell / planetary destruction later),todo,P3
 VIPER-9,Integrate Universe/MeshSystem/DNA/quantum-lattice once Phoenix provides original code,blocked,P2
-FLOW,Automated flow: routine commits and merges proceed without waiting for user; weekly Monday review re-prioritizes,active,P0
+FLOW,Automated flow: routine commits/merges proceed without waiting; weekly Monday review re-prioritizes. Oct 31 2026: voxel app is the ONLY active priority; other bots paused for resources.,active,P0
 VIPER-10,FAQ page (in-app wiki + docs) (docs/FAQ.md; merged with Foxy's wiki pages),done,P1
 VIPER-11,"Full wiki expansion: page per system, companion, realm, and module (PR #25)",done,P1
 WIKI-1,"VIPER-11 sub: Worlds/regions wiki page (docs/wiki/worlds-regions.md; links welcome-island, map-minimap)",done,P1
 WIKI-2,"VIPER-11 sub: Region status + GDP-style economy metrics page (docs/wiki/economy-metrics.md) - concept/planned only, no invented numbers",done,P1
 WIKI-3,"VIPER-11 sub: Interactions wiki page (docs/wiki/interactions.md; links companions, combat-rp-breedables)",done,P1
-WIKI-4,"VIPER-11 sub: Popular places wiki page (docs/wiki/popular-places.md)",done,P2
-WIKI-5,"VIPER-11 sub: Aethel Coin Lindex-style exchange ties page (docs/wiki/aethel-coin-exchange.md; extends economy.md)",done,P1
+WIKI-4,VIPER-11 sub: Popular places wiki page (docs/wiki/popular-places.md),done,P2
+WIKI-5,VIPER-11 sub: Aethel Coin Lindex-style exchange ties page (docs/wiki/aethel-coin-exchange.md; extends economy.md),done,P1
 WIKI-6,"VIPER-11 sub: How-to guides page (docs/wiki/how-to.md; links getting-started, controls, land-estate-tools)",done,P1
 SOCIAL-1,"Social layer (clean-room Dolphin-style concepts): profiles + picks, friends/followers/blocks, messages + offline queue, groups (roles, notices, land), feed, companion post approval, notifications, reports + moderation (scripts/social/social.gd, docs/modules/SOCIAL.md)",done_headless,P1
 SOCIAL-2,"Tiers: Guest/Resident/Creator/Staff/Estate Manager/Owner + permission matrix, Tiers.can(actor, action, target) with estate access/terraform, owner-only role editor (scripts/security/tiers.gd)",done_headless,P1
@@ -58,18 +58,18 @@ SOCIAL-3,"Admin > Community screen: Overview, Reports, Approvals, Groups, Roles 
 SOCIAL-4,"Foxy in-world side: profile card on avatar tap, group tags, IM toasts, snapshot button, companion feed posts, build tools call Tiers.can(actor, 'build', parcel)",todo,P1
 SOCIAL-5,"Roadmap: events (merge with events board), polls, forums, blogs",todo,P2
 SOCIAL-6,"Roadmap: photo/video albums + in-world snapshots (media store, upload review)",todo,P2
-SOCIAL-7,"Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED)",todo,P2
+SOCIAL-7,Roadmap: classifieds tied to ad slots + Aethel Coin pricing (LEGAL REVIEW REQUIRED),todo,P2
 SOCIAL-8,"Roadmap: grid Social service + multi-device identity, points/reputation",todo,P3
 AUDIT-1,"Admin/codebase audit 2026-10-17 (docs/AUDIT_2026-10-17.md): brain-cell revert owner gate, Estate.reload -> reload_data (Script.reload shadowing), tracker CSV import fix, export filters, INACTIVE legacy prototype, kit redraw + admin tab perf",done_headless,P1
-BUILD-1,"Kit glass_carousel.tscn + glass menu + calm-premium tokens/theme; admin Home on the carousel (docs/modules/BUILD_TOOLS_AND_TIERS.md §7)",done_headless,P1
+BUILD-1,Kit glass_carousel.tscn + glass menu + calm-premium tokens/theme; admin Home on the carousel (docs/modules/BUILD_TOOLS_AND_TIERS.md §7),done_headless,P1
 BUILD-2,"Roles/tiers: Tiers.can(actor, action, target) + role persistence + tests (scripts/security/tiers.gd, PR #26; see SOCIAL-2)",done_headless,P0
-BUILD-3,"Admin tier editor (owner-only role changes): Admin > Community > Roles + docs/wiki/tiers.md (PR #26; see SOCIAL-3)",done_headless,P1
+BUILD-3,Admin tier editor (owner-only role changes): Admin > Community > Roles + docs/wiki/tiers.md (PR #26; see SOCIAL-3),done_headless,P1
 BUILD-4,"Build engine core BuildOp: place/carve/paint + undo + Tiers.can + e-stop + log (Foxy, after v0.12)",todo,P1
 BUILD-5,"Build HUD: radial ops, brush ring dial, VoxelPalette material carousel, snap/grid (Foxy, after v0.12)",todo,P1
 BUILD-6,"Select + move/rotate/scale gizmo, copy/paste, blueprints JSON (Foxy, after v0.12)",todo,P2
-BUILD-7,"Enforce estate allow_build + terraform rights via Tiers.can; permissions overlay data (replaces patches/land_tools_terraform_owner_check.patch)",todo,P0
+BUILD-7,Enforce estate allow_build + terraform rights via Tiers.can; permissions overlay data (replaces patches/land_tools_terraform_owner_check.patch),todo,P0
 BUILD-8,"Companion build API v2: paint_area, place_blueprint, undo_last via Tiers.can (Builder/Staff), rate limits",todo,P2
-BUILD-9,"Land info panel + events board + rental records (placeholder AEC; LEGAL REVIEW REQUIRED)",todo,P2
+BUILD-9,Land info panel + events board + rental records (placeholder AEC; LEGAL REVIEW REQUIRED),todo,P2
 BUILD-10,"Ad slots: billboard + in-world carousel, owner/estate approval queue in admin",todo,P3
 AUDIT-2,"Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(""self"", ""admin""); cache admin Home revision history per head",todo,P1
 SPACE-1,"Frontier hub (MENU > Frontier) + SPACESIM_PARITY.md (DU/EVE/SC concepts, parity rows) + wiki page",done_headless,P1
@@ -79,18 +79,18 @@ SPACE-4,"Contracts + missions board: exchange, courier, auction, service, missio
 SPACE-5,"Industry: recipes, blueprint originals/copies, ME/TE research, job slots by tier",done_headless,P1
 SPACE-6,"Territory claims on Estate parcels: upkeep/grace, sovereignty, contests on damage land",done_headless,P1
 SPACE-7,"Ship ownership, hangars, stow/unstow, insurance plans gated by tier, loss reports",done_headless,P1
-SPACE-8,"Persistent planets + shard/server meshing model + SERVER_MESHING.md",done_headless,P2
+SPACE-8,Persistent planets + shard/server meshing model + SERVER_MESHING.md,done_headless,P2
 SPACE-9,"Comfort + keybind profiles (FOV, motion comfort, touch/keyboard/gamepad remaps)",done_headless,P1
 SPACE-10,"Foxy: star map routes + jump travel UI, flight HUD/MFDs, wrist hub, docking, scanner (patches/foxy/FRONTIER_CLIENT_SPECS.md)",todo,P1
-SPACE-11,"Coin settlement for market/contracts/upkeep/insurance (LEGAL REVIEW REQUIRED)",todo,P1
+SPACE-11,Coin settlement for market/contracts/upkeep/insurance (LEGAL REVIEW REQUIRED),todo,P1
 SPACE-12,"Skills training queue (offline, avatars + companions)",todo,P2
-SPACE-13,"Fleets with roles/broadcasts + overview data feed",todo,P2
-SPACE-14,"Mining + territory resource pools feeding Industry",todo,P2
-VIEWER-1,"Viewer parity table docs/modules/VIEWER_PARITY.md (Firestorm/Phoenix/DarkStorm + grid side; Avination/OLG + space-sim rows pending from other workers)",done,P1
+SPACE-13,Fleets with roles/broadcasts + overview data feed,todo,P2
+SPACE-14,Mining + territory resource pools feeding Industry,todo,P2
+VIEWER-1,Viewer parity table docs/modules/VIEWER_PARITY.md (Firestorm/Phoenix/DarkStorm + grid side; Avination/OLG + space-sim rows pending from other workers),done,P1
 VIEWER-2,"Land & Safety: ParcelTools (About Land + Region/Estate: general, access, timed bans, landing point/TP routing, media, objects/returns/auto-return, estate managers, estate message) + admin screen",done_headless,P1
 VIEWER-3,"Mute/block/derender lists (ModerationLists, ties into Social.block, SecureFile) + Safety tab",done_headless,P0
 VIEWER-4,"Restrictions: opt-in RLV-style prevent-only API (consent, 18+, safeword, owner override, e-stop) + Limits tab + docs/modules/RESTRICTIONS.md",done_headless,P1
-VIEWER-5,"Foxy: apply patches/viewer_parity_hud_hooks.patch (fly restriction) + wire tplm/tploc/sendchat/filter_lines/derender skip/teleport_target in HUD",todo,P1
+VIEWER-5,Foxy: apply patches/viewer_parity_hud_hooks.patch (fly restriction) + wire tplm/tploc/sendchat/filter_lines/derender skip/teleport_target in HUD,todo,P1
 VIEWER-6,"Foxy: client parity per VIEWER_PARITY spec (edit sheet tabs, align/grid, link, camera/flycam, radar, area search, quick prefs, AO, contact sets, minimap, TP history, inventory filters, media bar); fill ours/status columns",todo,P1
 VIEWER-7,"Follow-up: spam protection, keyword alerts, autoresponse store, parcel traffic stats; merge Avination/OLG + space-sim rows into VIEWER_PARITY.md",todo,P2
 VIEWER-8,"Server-side: region restart/kick/top scripts, land sale + passes (Aethel Coin, LEGAL REVIEW), age verification for adult parcels",todo,P3
@@ -98,45 +98,45 @@ VWGAP-1,"Virtual-world feature gap checklist (Aurora-Sim, WhiteCore, OpenSim, OS
 VWGAP-2,"Landmarks + Set Home + teleport history (Landmarks store, viper:// addresses) and SL/OpenSim estate flags + covenant (optional, backward compatible)",done,P1
 VWGAP-3,"Interop: OAR terrain/summary + IAR notecard import (TarGz, OpenSimArchive, InteropImport), Admin > Interop page, docs/modules/INTEROP.md",done,P1
 VWGAP-4,"Encryption write-up docs/ENCRYPTION.md + fixes F1 (unlock_with_dek key check), F2 (atomic replace), F7 (migration targets)",done,P0
-VWGAP-5,"Apply an imported OAR heightmap to a region (voxel generator hook + land permission); enforce allow_fly/damage/push/scripts flags (Foxy for client paths)",todo,P1
+VWGAP-5,Apply an imported OAR heightmap to a region (voxel generator hook + land permission); enforce allow_fly/damage/push/scripts flags (Foxy for client paths),todo,P1
 VWGAP-6,"Encryption next: PXE2 with associated data (path + counter, fixes F3), PBKDF2 600k / Argon2id for new slots, Android Keystore slot",todo,P1
 VWGAP-7,"Interop next: JPEG 2000 -> PNG converter, LSL subset runner, Viper archive export, Sceneflip-style scene slots (OLG idea)",todo,P2
-SBX-1,"SandboxGate: sandbox verbs mapped onto Tiers.can actions; owner verbs need Profile.is_owner() + owner actor",done,P1
+SBX-1,SandboxGate: sandbox verbs mapped onto Tiers.can actions; owner verbs need Profile.is_owner() + owner actor,done,P1
 SBX-2,"Quest/mission engine: objectives, sequence/any order, prereqs, branches, timed missions, repeatables, creator drafts + owner publish, journal/track API",done,P1
 SBX-3,"On-demand worlds (sleep/wake, schedules, phone budget) + viper-region-bundle export/import with export report",done,P1
 SBX-4,"Inventory migration from OpenSim-family grids: type map, copy/mod/transfer carry-over, own/full-perm/export rules, dry run",done,P1
 SBX-5,"Market delivery: derived product perms, gifts, off-grid boxed accept, redelivery, magic-box vendor on buildable parcels",done,P1
 SBX-6,"Region rental per minute/hour/day/week + visitor-minute meter (priced rent LATER, LEGAL REVIEW)",done,P1
 SBX-7,"Free-play chance games: earned play tokens only, server odds + published odds table, cosmetic account-bound prizes, roll audit log",done,P1
-SBX-LEGAL-1,"LegalReview policy gate: deny by default; ALLOWED / LATER (owner + counsel ref) / HARD-DISABLED; age + country rules (LEGAL REVIEW)",done,P0
+SBX-LEGAL-1,LegalReview policy gate: deny by default; ALLOWED / LATER (owner + counsel ref) / HARD-DISABLED; age + country rules (LEGAL REVIEW),done,P0
 SBX-LEGAL-2,"PlayTokens ledger: earned only, no buy/transfer/convert (LEGAL REVIEW)",done,P0
 SBX-LEGAL-3,"SpendLimits stub: monthly Aethel caps by age band, lower personal caps (placeholder numbers, LEGAL REVIEW)",done_untested,P1
-SBX-LEGAL-4,"AethelLedger: fixed-price purchases + refunds only; no random credit path (LEGAL REVIEW)",done,P0
+SBX-LEGAL-4,AethelLedger: fixed-price purchases + refunds only; no random credit path (LEGAL REVIEW),done,P0
 SBX-LEGAL-5,"Age verification provider for 18+ and purchase gates (LEGAL REVIEW, counsel to pick)",todo,P1
-SBX-9,"OAR converter both ways mapped to region-bundle fields (with INTEROP.md)",todo,P2
+SBX-9,OAR converter both ways mapped to region-bundle fields (with INTEROP.md),todo,P2
 SBX-10,"Move QuestEngine, FreePlay, ledgers and LegalReview behind the grid server (authority)",todo,P0
-SBX-11,"Cross-grid delivery protocol: signed order + accept link",todo,P2
+SBX-11,Cross-grid delivery protocol: signed order + accept link,todo,P2
 SBX-12,"Generated quests, achievements, badges, collections, careers/roles as quest lines, earned play-token daily source",todo,P2
 SBX-14,"Group/faction progression, territory and reputation on Social groups",todo,P2
-SBX-15,"Idle/offline companion progression (no paid boosts)",todo,P3
-SBX-16,"Co-op missions and heist-style crews (multiplayer quest state)",todo,P2
+SBX-15,Idle/offline companion progression (no paid boosts),todo,P3
+SBX-16,Co-op missions and heist-style crews (multiplayer quest state),todo,P2
 SBX-17,"Businesses and creator royalties (Aethel income, LEGAL REVIEW)",todo,P3
 SBX-18,"UGC game modes + scripting path (LSL port, logic blocks)",todo,P2
 SBX-19,"Mods/addon packs: data-only packs, load order, owner approval",todo,P3
 SBX-20,"Survival rules per estate: decay/upkeep, portal carry rules, game modes",todo,P3
 SBX-22,"Seasons, holidays and daily respawn on the day cycle",todo,P3
 SBX-F1,"[Foxy] Needs, moods, relationships, autonomy (spec docs/specs/foxy/sbx_needs_moods_relationships.md)",todo,P2
-SBX-F2,"[Foxy] Household + build mode tools (spec sbx_build_mode_tools.md)",todo,P2
+SBX-F2,[Foxy] Household + build mode tools (spec sbx_build_mode_tools.md),todo,P2
 SBX-F3,"[Foxy] Vehicles and driving, non-violent by default (spec sbx_vehicles_driving.md)",todo,P2
-SBX-F4,"[Foxy] In-world phone hub (spec sbx_phone_hub.md)",todo,P2
+SBX-F4,[Foxy] In-world phone hub (spec sbx_phone_hub.md),todo,P2
 SBX-F5,"[Foxy] Skill trees, perks, body stats (spec sbx_skill_trees_perks.md)",todo,P2
-SBX-F6,"[Foxy] Crafting and infusion (spec sbx_crafting.md)",todo,P2
-SBX-F7,"[Foxy] Shouts/powers with cooldowns (spec sbx_shouts_powers.md)",todo,P3
+SBX-F6,[Foxy] Crafting and infusion (spec sbx_crafting.md),todo,P2
+SBX-F7,[Foxy] Shouts/powers with cooldowns (spec sbx_shouts_powers.md),todo,P3
 SBX-F8,"[Foxy] Companion teams, pets, mounts, formations (spec sbx_teams_pets_mounts.md)",todo,P2
-SBX-F9,"[Foxy] Dialogue UI + quest journal over QuestEngine (spec sbx_dialogue_ui.md)",todo,P2
-SBX-F10,"[Foxy] Radio playback UI (spec sbx_radio_playback.md)",todo,P3
-SBX-F11,"[Foxy] Character creator (spec sbx_character_creator.md)",todo,P2
-SBX-F12,"[Foxy] Free-play games UI with odds panel + age gate (spec sbx_free_play_ui.md)",todo,P3
+SBX-F9,[Foxy] Dialogue UI + quest journal over QuestEngine (spec sbx_dialogue_ui.md),todo,P2
+SBX-F10,[Foxy] Radio playback UI (spec sbx_radio_playback.md),todo,P3
+SBX-F11,[Foxy] Character creator (spec sbx_character_creator.md),todo,P2
+SBX-F12,[Foxy] Free-play games UI with odds panel + age gate (spec sbx_free_play_ui.md),todo,P3
 SBX-F13,"[Foxy] HUD: mission markers, needs/skills, heat only where allow_damage (spec sbx_hud_needs_skills.md)",todo,P2
 SBX-SIM-0,"[inactive reference, Foxy owns] SimGate for scripts/sim",done,P3
 SBX-SIM-1,"[inactive reference, Foxy owns] NeedsMood model",done,P3
@@ -147,14 +147,14 @@ AUDIT-2,"Gate admin writes (ticket create/transition/update/comment, wiki save, 
 AUDIT-3,"Estate allow_fly / allow_damage enforced: LandGate.can_fly + CombatZone.is_damage_enabled -> LandGate.damage_enabled (explicit Estate value wins, else arena rings); player/HUD wiring in patches/player_fly_estate_rule.patch for Foxy",done_headless,P1
 AUDIT-4,"Companion world tools (place_voxel, carve_area, spawn_structure -> build; build_realm -> land) go through Tiers.can(companion_id, action, parcel) in AgentBrain.dispatch_tool; CompanionLife cairn fallback respects it",done_headless,P1
 AUDIT-5,"Tiers.set_role(member, role): owner-gated role setter (aliases builder/premium/manager) with an audit revision role/<member> in the Viper Admin timeline; Community role editor uses it. For Foxy's v0.12 seeding of foxy_ani, aaliyah, circuit_nova at Builder/Staff",done_headless,P1
-AUDIT-6,"Cache admin Home revision history per revision head (split from AUDIT-2)",todo,P2
+AUDIT-6,Cache admin Home revision history per revision head (split from AUDIT-2),todo,P2
 AUDIT-2,"Gate admin writes (tickets, wiki edits, ticket/wiki reverts) with Tiers.can(""self"", ""admin""); cache admin Home revision history per head",todo,P1
 PHONE-1,"Display settings: PhoenixTokens scale (compact default, one-tap Large 80 px / 18 px+), text + icon sliders, Max view, theme scaling; Admin > Settings > Display (docs/wiki/display-settings.md)",done_headless,P0
 PHONE-2,"Orientation: auto-rotate (sensor) + Portrait lock in Settings; responsive margins on resize/rotation (admin, security, community, settings) + radial menu re-anchors",done_headless,P0
 PHONE-3,"Device check panel (Admin > Settings > Device): Android permissions, mic driver, mic devices, camera feeds, TTS voices; Ask for permissions (OS.request_permissions)",done_headless,P1
 PHONE-4,"Android permissions + audio input: camera, record_audio, modify_audio_settings, post_notifications, read_media_images/video/audio, read_external_storage; audio/driver/enable_input=true (verify on a phone)",done_untested,P0
 PHONE-5,"Voice morph (VoiceFx: pitch shift + formant EQ presets, folded into TTS pitch/rate) + MicCapture; CompanionVoice voice-pick + utterance-callback sync fix (VOICE-1)",done_headless,P1
-PHONE-6,"Lip sync (LipSync: mic/clip amplitude + TTS-synced visemes) driving FaceDriver via patches/face_driver_lip_sync.patch (Foxy applies after v0.12)",in_progress,P1
+PHONE-6,Lip sync (LipSync: mic/clip amplitude + TTS-synced visemes) driving FaceDriver via patches/face_driver_lip_sync.patch (Foxy applies after v0.12),in_progress,P1
 PHONE-7,"Beat detector + dance timeline (our own; drives HumanoidModel now, RealisticBody bones next) for live events",done_headless,P2
 PHONE-8,"Broadcast stub: stream entries + parcel media URLs, stream keys encrypted only, Tiers.can(actor,'broadcast',parcel), owner approval to go live; Admin > Settings > Broadcast (encoder INACTIVE)",done_headless,P1
 PHONE-9,"Main HUD follows display scale + Large toggle on first-run screens + MENU entry (patches/ui_root_display_settings.patch, Foxy)",todo,P0
@@ -175,31 +175,31 @@ COMPAT-7,"Android plugin ViperDevice (Kotlin v2, no deps, ~7 KB AAR, +6.5 KB APK
 COMPAT-8,"Device testing: real Android phone, tablet, foldable, Android TV, ChromeOS",open,P1
 COMPAT-PWR-1,"PowerData policy in AutoConfig: balanced-saver default, saver on battery<30%/power save/thermal>=3/cell, full on charger+Wi-Fi, background pause + keepalive",done_headless,P1
 COMPAT-PWR-2,"Data saver Auto/On/Off: Net.set_data_mode, low bitrate, thumbnails only, no autoplay, defer >5 MB to Wi-Fi",done_headless,P1
-COMPAT-PWR-3,"Net: batched deflate frames + state delta + ETag/Last-Modified HTTP cache wired into MusicRadio and SoundCloudSource; session data counter",done_headless,P1
+COMPAT-PWR-3,Net: batched deflate frames + state delta + ETag/Last-Modified HTTP cache wired into MusicRadio and SoundCloudSource; session data counter,done_headless,P1
 COMPAT-PWR-4,"Dormancy shared helper (sleep with no viewer, one fast-forward catch-up); adoption by living-world, Vala Script and social workers",in_progress,P1
 COMPAT-PWR-5,"Battery & data card in Device & compatibility (mode, why, data this session, Data saver pref)",done_headless,P2
 COMPAT-PWR-6,"Foxy: AutoQuality set_power_profile / set_fps_cap_hint / recommend_tier, idle and background frame rate (docs/specs/foxy/power_data.md)",open,P1
 VALA-1,"Vala Script lexer + parser (.vscript, Vala/C#-flavoured, LSL-style states/events, compile-time checks with line numbers)",done_headless,P1
 VALA-2,"Vala Script VM: tree-walking interpreter, step budget, memory cap, call depth, event queue",done_headless,P1
 VALA-3,"Engine gates: Tiers.can + estate allow_scripts, owner override, e-stop halt, rate limits (chat/world/rez/give/teleport/http/screen)",done_headless,P1
-VALA-4,"Companion scripts via EveCore.propose_update owner approval",done_headless,P1
+VALA-4,Companion scripts via EveCore.propose_update owner approval,done_headless,P1
 VALA-5,"DU-style element slots (door/light/screen/engine/container/sensor/button), tick/update/flush, data-only screens",done_headless,P1
 VALA-6,"HTTP off by default: owner toggle, host allowlist, https only",done_headless,P1
-VALA-7,"LSL import shim with unsupported-feature report (line numbers)",done_headless,P2
-VALA-8,"Scripts as .vscript inventory items with copy/mod/transfer + next-owner perms",done_headless,P1
-VALA-9,"Dormancy pause in dormant regions + VM step budget scaled by PowerData script_budget_ms",done_headless,P1
+VALA-7,LSL import shim with unsupported-feature report (line numbers),done_headless,P2
+VALA-8,Scripts as .vscript inventory items with copy/mod/transfer + next-owner perms,done_headless,P1
+VALA-9,Dormancy pause in dormant regions + VM step budget scaled by PowerData script_budget_ms,done_headless,P1
 VALA-10,"Foxy: script editor, HUD debug console, screen/effect rendering (docs/specs/foxy/VALA_SCRIPT_CLIENT.md)",open,P1
 RND-1,"Render pipeline: RenderTiers knob table (low/med/high/ultra) registered with AutoQuality.register_knob; legacy Settings fallback; Mobile-renderer-safe (scripts/render/render_pipeline.gd, render_tiers.gd)",done_headless,P1
 RND-2,"FrameGovernor: frame-time/thermal feedback trims render scale, asks AutoQuality for a lower tier (scripts/render/frame_governor.gd)",done_headless,P1
 RND-3,"SDF generator band fill: identical output, gen time -35..-53% per block (smooth_terrain_generator.gd)",done,P1
-RND-4,"GreedyMesher for blocky builds/props: -74% faces on a 32^3 build (scripts/render/greedy_mesher.gd)",done_headless,P2
-RND-5,"MultiMesh foliage scatter + visibility ranges on props and foliage (scripts/render/foliage_scatter.gd)",done_headless,P1
-RND-6,"ParticleBudget pool per tier; weather hookup patch for Foxy (patches/weather_fx_particle_budget.patch)",partial,P2
+RND-4,GreedyMesher for blocky builds/props: -74% faces on a 32^3 build (scripts/render/greedy_mesher.gd),done_headless,P2
+RND-5,MultiMesh foliage scatter + visibility ranges on props and foliage (scripts/render/foliage_scatter.gd),done_headless,P1
+RND-6,ParticleBudget pool per tier; weather hookup patch for Foxy (patches/weather_fx_particle_budget.patch),partial,P2
 RND-7,"Terrain shader: LOD cross-fade variant, curvature AO, far-detail skipping, fake caustics",done_headless,P1
 RND-8,"Sky: realm variants (aurora, deep starfield), night stars, cubemap-pass skip",done_headless,P2
 RND-9,"Water: sky-gradient reflection; DEPTH_FX variant (depth fade, shore foam) on high/ultra",done_headless,P2
 RND-10,"Later/n.a.: occlusion for landmarks/caves, VoxelInstancer eval, compute (GPU erosion), texture arrays, HLOD; SSR/SSAO/SDFGI n.a. on Mobile",planned,P3
-RND-11,"Foxy: avatar shading quality knob + AutoQuality wants_lower_tier hookup (docs/specs/foxy/RENDER_QUALITY_HOOKS.md)",planned,P2
+RND-11,Foxy: avatar shading quality knob + AutoQuality wants_lower_tier hookup (docs/specs/foxy/RENDER_QUALITY_HOOKS.md),planned,P2
 LIFE-1,"Realm world seeds (gravity, atmosphere, temp, radiation, water, day, soil) + WorldEnv",done_headless,P1
 LIFE-2,"Tolerance genome, viability, spawn lists, non-sexual creature combine (old saves compatible)",done_headless,P1
 LIFE-3,"Survival vitals (Survival.vitals, vitals_changed), suits/habitats, SIR disease, vaccines, ecology on Dormancy + sim_tick_hz",done_headless,P0
@@ -233,23 +233,23 @@ SMP-22,"Cross-post export adapters (off by default, owner approval per post) - I
 SMP-23,Live video + live chat,todo,P3
 SMP-24,Shops / marketplace listings with Aethel Coin - LEGAL REVIEW,blocked,P3
 SMP-25,Server sync for feeds/DMs across devices + clip transcoding,todo,P2
-CHAT-1,"Chat always answers: every AgentBrain.chat() ends in one non-empty reply_ready (request start error / bad JSON / empty reply used to leave chat silent)",done,P0
-CHAT-2,"One live/offline rule: Settings.live_ai() == chat_status() (build key case); offline_locked status when the sealed key needs the PIN",done,P0
-CHAT-3,"Pasting an API key in Settings turns live chat on (unless offline replies were chosen); mode + status refresh",done,P0
-CHAT-4,"Endpoint validation + auto https:// (offline_endpoint status instead of a silent HTTP error)",done,P1
-CHAT-5,"Plain-language errors: DNS (ERR_NAME_NOT_RESOLVED equivalent) / connect / TLS / timeout / 401 / 404 / 429 / 5xx + provider message; robust response parse",done,P0
-CHAT-6,"Thinking state (AgentBrain.thinking + is_thinking) shown in the chat banner",done,P1
+CHAT-1,Chat always answers: every AgentBrain.chat() ends in one non-empty reply_ready (request start error / bad JSON / empty reply used to leave chat silent),done,P0
+CHAT-2,One live/offline rule: Settings.live_ai() == chat_status() (build key case); offline_locked status when the sealed key needs the PIN,done,P0
+CHAT-3,Pasting an API key in Settings turns live chat on (unless offline replies were chosen); mode + status refresh,done,P0
+CHAT-4,Endpoint validation + auto https:// (offline_endpoint status instead of a silent HTTP error),done,P1
+CHAT-5,Plain-language errors: DNS (ERR_NAME_NOT_RESOLVED equivalent) / connect / TLS / timeout / 401 / 404 / 429 / 5xx + provider message; robust response parse,done,P0
+CHAT-6,Thinking state (AgentBrain.thinking + is_thinking) shown in the chat banner,done,P1
 CHAT-7,"Mock-provider seam AgentBrain.transport + tests/chat_core_tests.gd (live, errors, tools, queue, offline, UI)",done,P0
-CHAT-8,"Omit empty tools array; send only user/assistant history",done,P2
-CHAT-9,"Tool-only live turns show an action line instead of an empty message",done,P1
-CHAT-10,"Offline chat turns saved to memory (history trimmed to MAX_HISTORY)",done,P1
+CHAT-8,Omit empty tools array; send only user/assistant history,done,P2
+CHAT-9,Tool-only live turns show an action line instead of an empty message,done,P1
+CHAT-10,Offline chat turns saved to memory (history trimmed to MAX_HISTORY),done,P1
 CHAT-11,"Chat log shows why live AI failed, then the offline reply",done,P1
-CHAT-12,"BBCode-safe chat log (player + companion text escaped)",done,P2
-CHAT-13,"Send with no companion picked auto-picks one; OOC messages say they were not sent",done,P1
-CHAT-14,"Settings › Test AI connection button",done,P1
+CHAT-12,BBCode-safe chat log (player + companion text escaped),done,P2
+CHAT-13,Send with no companion picked auto-picks one; OOC messages say they were not sent,done,P1
+CHAT-14,Settings › Test AI connection button,done,P1
 CHAT-15,"Verify live chat on a real phone (internet permission, DNS, TLS, xAI key) via Test AI connection",todo,P0
 CHAT-16,"Follow-up turn after tool calls: live sends tool results back (tool messages, tool_choice none); on-device runs one short <tool_response> follow-up only when results need explaining; canned result line as last fallback; Settings llm/tool_followup",done,P2
-CHAT-17,"Voice input (Android STT) -> companion.talk()",todo,P2
+CHAT-17,Voice input (Android STT) -> companion.talk(),todo,P2
 LAI-1,"ViperLLM Android plugin (self-written Kotlin/JNI/C++ over llama.cpp b12017, MIT; arm64; 3 CPU variants; streamed generate, KV prefix reuse, cancel, resumable SHA-256 download)",done_headless,P0
 LAI-2,"LocalLLM autoload: catalog (Qwen2.5 0.5B/1.5B Q4_0, Apache-2.0), Wi-Fi-only first-run download, lazy load + idle unload, request queue, mock backend for desktop/CI",done_headless,P0
 LAI-3,"Settings: on-device 'local' is the default mode (old unchosen 'canned' migrates), local_* chat statuses",done_headless,P0
@@ -257,17 +257,41 @@ LAI-4,"AgentBrain local path: persona + memory + brain-cell hint prompt, streami
 LAI-5,"PowerData/thermal: pause at CRITICAL or background (cancel reply), throttle at SEVERE/saver/low battery (2 threads, shorter replies)",done_headless,P0
 LAI-6,"Minimal UI: green on-device status + streamed text line, mode cycle On-device/Live/Offline, Settings on-device block (download/cancel/model/Wi-Fi only/delete) - Foxy to polish",done_headless,P1
 LAI-7,"CI: build ViperLLM AAR (NDK 27.2 + CMake 3.22.1), verify libviper_llm.so + plugin in APK; desktop smoke harness tools/llm/desktop_smoke",done_headless,P0
-LAI-8,"Tests (tests/local_ai_tests.gd) + docs/modules/LOCAL_AI.md",done_headless,P0
+LAI-8,Tests (tests/local_ai_tests.gd) + docs/modules/LOCAL_AI.md,done_headless,P0
 LAI-9,"Real-phone test: CPU variant pick, download/resume, tok/s + first-reply latency + RAM (0.5B and 1.5B), thermal pause/throttle, background/idle unload",todo,P0
 LAI-10,"Phase 2: tool-result follow-up turn, grammar-constrained tool JSON for 0.5B, GPU backend (Vulkan/OpenCL), auto 1.5B on 8 GB+ phones",todo,P2
-LF-LAI,"Foxy client follow-up: chat bubble streaming + download card for on-device AI (minimal hooks in ui_root.gd from LAI-6; hold until Phoenix marks the checklist)",todo,P2
+LF-LAI,Foxy client follow-up: chat bubble streaming + download card for on-device AI (minimal hooks in ui_root.gd from LAI-6; hold until Phoenix marks the checklist),todo,P2
 HEAVEN-1,"Heaven Welcome Island phase 1: layout data (data/heaven), floating-island SDF in the voxel terrain, district buildings, Hub spawn, Kelvin weather, Heaven ambience",done,P0
 HEAVEN-2,"Heaven fly gate (owner + owner-granted members only, no rank bypass), sky ceiling below the islands, void catch, transit kiosks",done,P0
 HEAVEN-3,"Heaven shops (clothes, shoes, hair, looks, accessories): free house items into the wardrobe; creator listings via MarketDelivery (priced buys LEGAL REVIEW)",done,P1
-HEAVEN-4,"Heaven studio gate: voxel tools and terraform in Heaven need the owner's studio grant",done,P1
-HEAVEN-5,"Grids = realms: world picker (menu + Community shell), start-world setting, Heaven default for all users",done,P1
+HEAVEN-4,Heaven studio gate: voxel tools and terraform in Heaven need the owner's studio grant,done,P1
+HEAVEN-5,"Grids = realms: world picker (menu + Community shell), start-world setting, Heaven default for all users (phase 1 done; giga scale = HEAVEN-GIGA)",done,P1
 HEAVEN-6,"Heaven built live: data-driven district files, companion heaven_edit tool (EveCore proposals, owner approval or standing build grant), live rebuild, Direct a change",done,P0
 HEAVEN-7,"Foxy: Heaven client polish per docs/specs/foxy/HEAVEN_CLIENT.md (shoes/hair/glow style keys, Direct-a-change UI, flight-follow)",todo,P1
-HEAVEN-8,"Heaven vehicles + Hub tram on the floating roads; upper floors and interiors; ownable apartments",todo,P2
+HEAVEN-8,Heaven vehicles + Hub tram on floating roads; upper floors and interiors; ownable apartments; Spirit Realm portals (Dev next after phase 1 / heaven_edit),todo,P0
 HEAVEN-9,"Chat hook: heaven_edit in the companion tool registry (AgentBrain, builders only); chat never self-approves (EveCore proposal unless standing build grant); companion undo of own pending/granted edits",done,P1
 HEAVEN-10,"Persistent Heaven server: shared multi-user Heaven, companions build 24/7 while the owner is away",todo,P2
+HEAVEN-GIGA,"Heaven Welcome Island GIGA: default start realm at Star-Citizen quality / real-world scale (larger than current terrain, smooth). Floating city with labeled zones — Main Mall, Transportation Hub (spawn), Residential, Casino, Poolrooms, Downtown, Theme Park, Beach, Apartments, Offices, School, Warehouses, Spirit Realm portals. Phase 1 (HEAVEN-1..6,#48) + heaven_edit (#50) done; this is the polish/scale epic. Dev-reported HEAD main 6adbd9c.",in_progress,P0
+HEAVEN-11,Spirit Realm portals on Heaven Welcome Island (labeled zone + transit; Dev next with HEAVEN-8),todo,P0
+HEAVEN-12,Heaven livable shops polish (clothing/hair/looks Second-Life style) beyond HEAVEN-3 free-house items; creator MarketDelivery priced buys still LEGAL REVIEW,todo,P1
+HEAVEN-13,Integrate voxel world into social app shell; Studio remains creators-only (builds on HEAVEN-4 studio gate + SMP social),todo,P0
+HEAVEN-14,Fly gate confirmation: Phoenix (owner) + allowed angels only; others walk or use transport (HEAVEN-2 done for owner+granted; verify angel grant path),todo,P1
+BUILD-FIX-121,"Fix last 2-3 non-working builds: v0.12.1 install conflict + chat (Dev-reported fixed by PR #45/#46 / v0.12.2; label as reported by Dev Bot, not re-verified here)",done,P0
+REL-013,"v0.13.0 release package (URGENT): Brain Cell unrestricted abilities, companion menu→admin, logos/icons redesign, economy fixes, full docs/trac logging, ship arm64 APK. Dev-reported in progress on feature/v013-integration; APK estimated tonight after CI. Current export still 0.12.2 (versionCode 14).",in_progress,P0
+REL-013-1,"Full AI Brain Cell / unrestricted abilities list (lock + versioned memory + hash log per Dev streams) — done: MemoryVault lock+versions, InteractionLedger hash chain, PatternRecall, SceneSnapshots, PersonaPresets (Foxy/none); unsafe items left out",done_headless,P0
+REL-013-2,"Move companion menu into admin panel — done: Admin > Companions (owner only), main-menu redirect",done_headless,P0
+REL-013-3,"Redesign logos/icons for v0.13.0 — done: tools/icons script-generated launcher/adaptive/monochrome/favicons",done_headless,P0
+REL-013-4,"Creator economy fixes for v0.13.0 — done: Sparks (views, tips, 70% sale share), in-game only",done_headless,P0
+REL-013-5,"Full Trac-style progress logging under docs/trac/ (all bots/builders log thoughts, files edited, pages searched, projects added) — done: docs/trac/OBSERVATION_2026-10-31.md + 20261031-dev-bot-v013.md",done,P0
+REL-013-6,Ship arm64 APK v0.13.0 (immediate release after CI; Dev estimate tonight),todo,P0
+REL-013-7,"Voice check for v0.13.0 package (related open: CHAT-17 STT) — done: empty Android voice list speaks with default voice; pitch/rate/locale/voice settings",done_headless,P0
+REL-013-8,"Video intro for v0.13.0 — done: CompanionIntro cinematic on add",done_headless,P0
+DEMO-1,"One build for everyone: same APK/features for owner, testers and demo users; no demo flavor (BuildInfo + test)",done_headless,P0
+INT-1,Placeholder removal across companions/world (replace CharacterBody3D stubs with full assets),todo,P0
+INT-2,Full 3D world / realms / companions interactive (beyond phase-1 Heaven + placeholder companions),todo,P0
+INT-3,"Interactivity: settings, uploads, agent tools wired end-to-end in-app (no external Grok required; full unlock for Phoenix)",todo,P0
+INT-4,Modular kernel (after v0.13.0 per Dev Bot sequencing),todo,P1
+INT-NSFW,NSFW enabled/prototype — Phoenix ordered as P0; Dev Bot reports NOT building. Status blocked pending owner decision (build vs defer).,blocked,P0
+FIX-USAGE,USAGE_AND_LIMITS.md: remove/clean external limits/credits language (file may need create; after v0.13.0 per Dev),todo,P1
+FIX-WEBVIEW,WebView appassets.androidplatform.net error fix,todo,P1
+NOTE-2026-10-31,"Sonic Gage priority lock Oct 31 2026 CT: voxel app only active priority. Dev-reported (unverified): HEAD main 6adbd9c (#50), 3274 tests; merged #45-#48,#50; SEC-FIX-1..6 done; phone still open CHAT-15 LAI-9 COMPAT-8. See docs/trac/20261031-sonic-gage-priority-lock.md",active,P0

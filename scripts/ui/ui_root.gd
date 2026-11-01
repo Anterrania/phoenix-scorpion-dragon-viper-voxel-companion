@@ -55,11 +55,15 @@ func _ready() -> void:
 	lt.timeout.connect(func(): FloatingText.apply(get_tree()))
 	call_deferred("_apply_labels")
 	# if not bool(Settings.get_value("welcome", "done", false)): call_deferred("go_welcome", false)   # pre-HEAVEN
+	call_deferred("_restore_companions")   # v0.13: companions the owner added come back
 	call_deferred("go_start_realm")   # HEAVEN-5: everyone starts in Heaven unless they chose another start world
 	AgentBrain.reply_ready.connect(_on_reply)
 	if OwnerVault.has_vault() and not OwnerVault.storage_ready(): call_deferred("open_unlock_prompt")
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", false)) else "")
+
+func _restore_companions() -> void:
+	if world and world.is_inside_tree(): CompanionsScreen.restore(self)
 
 func _apply_labels() -> void:
 	FloatingText.apply(get_tree())
@@ -221,7 +225,8 @@ func _topbar() -> void:
 
 # ---------- main menu ----------
 func _build_menu() -> Dictionary:
-	var p := _panel("Phoenix · v0.11")
+	# var p := _panel("Phoenix · v0.11")
+	var p := _panel("Phoenix · v" + BuildInfo.version())
 	var b: VBoxContainer = p["body"]
 	b.add_child(label("Anterrania — Flamma. Ordo. Aeterna.", 26, MAG))
 	var grid := GridContainer.new()
@@ -229,13 +234,17 @@ func _build_menu() -> Dictionary:
 	grid.columns = 2
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
+	# v0.13 ADMIN-COMP: Proposals + History moved into Admin > Companions (owner only). Old rows:
+	#   ["📜 Proposals", "proposals"], ["🕮 History", "history"],
+	# The panels still exist (radial "Proposals" and the Companions screen open them); "🧬 Companions" redirects.
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["📜 Proposals", "proposals"], ["🕮 History", "history"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
 			elif target == "_exit": AppControl.exit_app(get_tree())
 			elif target == "_admin": open_admin()
+			elif target == "_companions": open_companions()
 			elif target == "_community": CommunityScreen.open(self)
 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
 			elif target == "_interop": InteropScreen.open(self)
@@ -300,6 +309,12 @@ func open_admin() -> Control:
 	add_child(a)
 	if a.get("pages"): a.pages.go(0)   # dashboard
 	return a
+
+## v0.13 ADMIN-COMP: the companion menu inside the admin panel. Not the owner -> the lock card / PIN pad.
+func open_companions() -> Control:
+	show_panel("")
+	var a := open_admin()
+	return CompanionsScreen.open(a, self)
 
 # ---------- wardrobe ----------
 func _build_wardrobe() -> Dictionary:
@@ -598,6 +613,8 @@ func teleport(p: Vector3, exact := false) -> void:
 	ModerationLists.on_teleport("self")   # temporary derenders come back after a teleport (VIEWER-3)
 	if "velocity" in player: player.velocity = Vector3.ZERO
 	Landmarks.record_teleport(_est_region(), player.global_position)   # SL-style teleport history
+	if bool(Settings.get_value("brain", "scene_snapshots", true)):   # v0.13 BRAIN-SCENE (in-world only)
+		SceneSnapshots.capture("player_teleport", {"to": player.global_position, "region": _est_region()})
 	for c in _companions():
 		c.global_position = player.global_position + Vector3(randf_range(-3, 3), 1.0, randf_range(-3, 3))
 	show_panel("")

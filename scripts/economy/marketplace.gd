@@ -76,6 +76,8 @@ static func buy(item: Dictionary, buyer_id: String, ctx: Dictionary = {}, now :=
 	if price <= 0: return ""
 	# INACTIVE (old local wallet debit): _save(WALLET, {"aethel": balance() - price})
 	var tx := AethelLedger.purchase_fixed(buyer_id, str(item.get("id", "")), price, ctx, now if now > 0 else int(Time.get_unix_time_from_system()))
+	# v0.13 ECON-1: the creator's share is paid in Sparks by the creator fund (no coin moves member to member).
+	if not tx.has("error"): CreatorEconomy.on_sale(str(item.get("creator_id", "")), str(item.get("id", "")), price, now)
 	return str(tx.get("error", ""))
 
 ## v0.6 stub: list a Satchel item locally ("List on Marketplace"). Server delivery later.

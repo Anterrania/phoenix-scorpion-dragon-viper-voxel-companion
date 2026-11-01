@@ -22,13 +22,26 @@ static var _talk := {}         # companion id -> {"state": "queued"|"speaking"|"
 static var _hooked := false
 static var listeners: Array[Callable] = []   # func(companion_id, event, data) - LipSync hookups
 
+## v0.13 VOICE-2: the user's Settings voice/pitch, voice/rate, voice/locale, voice/voice_id customize
+## every companion from the start (pitch/rate multiply the companion's own values).
 static func profile(persona: Dictionary) -> Dictionary:
 	var v: Variant = persona.get("voice", {})
 	var vd: Dictionary = v if v is Dictionary else {}
-	return {"profile": str(vd.get("profile", EveCore.DEFAULT_VOICE)), "pitch": clampf(float(vd.get("pitch", 1.0)), 0.5, 2.0),
-		"rate": clampf(float(vd.get("rate", 1.0)), 0.5, 2.0), "locale": str(vd.get("locale", "en")),
+	var up := clampf(float(Settings.get_value("voice", "pitch", 1.0)), 0.5, 2.0)
+	var ur := clampf(float(Settings.get_value("voice", "rate", 1.0)), 0.5, 2.0)
+	var ul := str(Settings.get_value("voice", "locale", ""))
+	return {"profile": str(vd.get("profile", EveCore.DEFAULT_VOICE)), "pitch": clampf(float(vd.get("pitch", 1.0)) * up, 0.5, 2.0),
+		"rate": clampf(float(vd.get("rate", 1.0)) * ur, 0.5, 2.0), "locale": ul if ul != "" else str(vd.get("locale", "en")),
 		"cloud_voice_id": str(vd.get("cloud_voice_id", "")), "enabled": bool(vd.get("tts_enabled", true)),
-		"fx": str(vd.get("fx", ""))}
+		"fx": str(vd.get("fx", "")), "voice_id": str(Settings.get_value("voice", "voice_id", ""))}
+
+## Settings voice_id wins when that voice exists on this phone; else the per-companion pick.
+static func choose_voice(id: String, p: Dictionary, voices: Array) -> Dictionary:
+	var want := str(p.get("voice_id", ""))
+	if want != "":
+		for v in voices:
+			if str(v.get("id", "")) == want: return v
+	return pick_voice(id, str(p.get("locale", "en")), voices)
 
 static func muted() -> bool:
 	return not bool(Settings.get_value("voice", "tts_enabled", true))
@@ -78,7 +91,7 @@ static func utterance_event(utt: int, ev: String, pos := 0) -> void:
 static func talk_state(id: String) -> Dictionary: return _talk.get(id, {"state": "done"})
 static func is_speaking(id: String) -> bool: return talk_state(id).get("state") == "speaking"
 
-## Returns the route taken: "muted", "cloud", "tts", or "no_tts".
+## Returns the route taken: "muted", "cloud", "tts", "tts_default" (system default voice), or "no_tts".
 static func speak(id: String, persona: Dictionary, text: String) -> String:
 	var p := profile(persona)
 	var fx := VoiceFx.tts_params(p, p["fx"] if p["fx"] != "" else VoiceFx.current_preset())
@@ -92,9 +105,17 @@ static func speak(id: String, persona: Dictionary, text: String) -> String:
 		cloud_hook.call(p, text); return "cloud"
 	if not DisplayServer.has_feature(DisplayServer.FEATURE_TEXT_TO_SPEECH): return "no_tts"
 	var voices := DisplayServer.tts_get_voices()
-	if voices.is_empty(): return "no_tts"
+	# VOICE-2 fix: Android fills the voice list asynchronously, so it is often empty for the first lines
+	# after launch. That used to return "no_tts" and the companion stayed silent. Now it speaks with the
+	# system default voice ("" id) instead.
+	# if voices.is_empty(): return "no_tts"
 	_hook()
-	var pick := pick_voice(id, p["locale"], voices)
+	if voices.is_empty():
+		last_spoken["voice_id"] = ""
+		DisplayServer.tts_speak(text, "", 70, fx["pitch"], fx["rate"], utt)
+		return "tts_default"
+	# var pick := pick_voice(id, p["locale"], voices)
+	var pick := choose_voice(id, p, voices)
 	last_spoken["voice_id"] = pick.get("id", "")
 	DisplayServer.tts_speak(text, pick["id"], 70, fx["pitch"], fx["rate"], utt)
 	return "tts"

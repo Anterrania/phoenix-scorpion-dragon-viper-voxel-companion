@@ -31,6 +31,9 @@ const MIN_CHANCE_AGE := 13
 const POLICY := {
 	# --- ALLOWED NOW ---
 	"play_token_earn": {"state": ALLOWED, "min_age": 0, "geo": false},          # earned-only tokens
+	# v0.13 ECON-1: creator Sparks (CreatorEconomy). In-game credit only; earned from content, never bought.
+	"sparks_earn": {"state": ALLOWED, "min_age": 0, "geo": false},
+	"sparks_tip": {"state": ALLOWED, "min_age": MIN_PURCHASE_AGE, "geo": false},
 	"free_play_chance": {"state": ALLOWED, "min_age": MIN_CHANCE_AGE, "geo": true},  # spins paid with earned play tokens only
 	"casino_content": {"state": ALLOWED, "min_age": ADULT, "geo": true},          # any casino-themed game: 18+
 	"cosmetic_reward": {"state": ALLOWED, "min_age": 0, "geo": false},           # account-bound, never tradable
@@ -52,7 +55,10 @@ const POLICY := {
 	"p2p_chance_item_trade": {"state": HARD}, # trading / gifting anything won by chance
 	"play_token_purchase": {"state": HARD},   # selling play tokens, paid spins or paid refills
 	"play_token_transfer": {"state": HARD},
-	"play_token_convert": {"state": HARD},    # play tokens never become Aethel Coin
+	"play_token_convert": {"state": HARD},
+	"sparks_purchase": {"state": HARD},       # v0.13: Sparks are never sold for money
+	"sparks_cashout": {"state": HARD},        # v0.13: Sparks never become money
+	"sparks_convert": {"state": HARD},        # v0.13: Sparks never become Aethel Coin or play tokens    # play tokens never become Aethel Coin
 	"sweepstakes": {"state": HARD},           # incl. two-currency / dual-coin models
 	"real_money_gaming": {"state": HARD},
 	"nft_blockchain": {"state": HARD},

@@ -63,3 +63,13 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | LIFE-6 | LIFE | Geology ores by realm/depth, recipe graph, blueprints w/ perms (AEC sales/payouts LEGAL REVIEW), Industry bridge | ✅ headless-tested |
 | LIFE-7 | LIFE | Land: no object caps, render budgets, planet/region/chunk addressing, floating origin, SectorPager | ✅ headless-tested |
 | LIFE-8 | LIFE | Foxy client: vitals HUD, suit, scanner, crafting, DNA, symptoms, gov screens, client floating origin (docs/specs/foxy/LIVING_WORLD_CLIENT.md) | ⏳ planned (Foxy) |
+| REL-013-1 | v0.13 | Brain Cell core: lock (owner-only unlock), versioned append-only vault, hash-chained local ledger, recall, in-world scene snapshots, Foxy / no-personality presets (`docs/modules/BRAIN_V013.md`) | ✅ headless-tested, needs device test |
+| REL-013-2 | v0.13 | Companion menu → Admin > Companions (owner only); main-menu rows commented out, redirect | ✅ headless-tested, needs device test |
+| REL-013-3 | v0.13 | New icon set (launcher, adaptive fg/bg/monochrome, favicons), script-generated | ✅ headless-tested, needs device test |
+| REL-013-4 | v0.13 | Creator Sparks: views, tips, 70% marketplace share; in-game only | ✅ headless-tested |
+| REL-013-5 | v0.13 | Trac logging `docs/trac/` | ✅ |
+| REL-013-6 | v0.13 | Ship v0.13.0-debug arm64 APK | ⏳ after merge |
+| REL-013-7 | v0.13 | Voice: default-voice fallback on Android, pitch/rate/locale/voice settings | ✅ headless-tested, needs device test |
+| REL-013-8 | v0.13 | Cinematic companion intro | ✅ headless-tested, needs device test |
+| DEMO-1 | v0.13 | One build for everyone, no demo flavor | ✅ headless-tested |
+| INT-NSFW | INT | Not built — blocked pending owner decision | ⛔ blocked |

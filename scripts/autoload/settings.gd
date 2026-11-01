@@ -22,7 +22,14 @@ const DEFAULTS := {
 	"local_ai": {"model": "auto", "wifi_only": true, "auto_download": true, "enabled": true},
 	"content": {"mature_cosmetics_enabled": false, "age_confirmed": false},
 	"ui": {"show_menu_on_start": false, "show_labels": false, "compact": true},
-	"voice": {"tts_enabled": true, "push_to_talk": false},
+	# "voice": {"tts_enabled": true, "push_to_talk": false},
+	# v0.13 VOICE-2: customizable from the start. pitch/rate multiply each companion's own voice;
+	# locale "" = companion's own; voice_id "" = automatic pick (CompanionVoice.pick_voice).
+	"voice": {"tts_enabled": true, "push_to_talk": false, "pitch": 1.0, "rate": 1.0, "locale": "", "voice_id": ""},
+	# v0.13 PERSONA-1: "foxy" (default) or "none" (PersonaPresets).
+	"persona": {"preset": "foxy"},
+	# v0.13 BRAIN: record chat turns + in-world scene changes to the local hash-chained ledger.
+	"brain": {"record": true, "scene_snapshots": true},
 	# Royalty-free default (Kevin MacLeod, incompetech.com, CC BY 4.0). YOUR INPUT HERE: your station URL.
 	"music": {"enabled": true, "volume_db": -12.0, "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3", "user_url": "", "soundcloud_url": "", "everywhere": true, "muted": false, "sc_client_id": "", "sc_client_secret": ""},
 	"sync": {"endpoint": ""},

@@ -89,6 +89,8 @@ func remember_fact(id: String, fact: String) -> void:
 	var facts: Array = _memory[id]["facts"]
 	if fact not in facts:
 		facts.append(fact)
+		# v0.13 BRAIN-VAULT: the recorder (not the AI) appends a new version to the Brain Cell core.
+		MemoryVault.remember(id, fact, "system", "", "remember_tool")
 	save_memory(id)
 
 ## Export to the portable sync format (companions/<id>/memory_export.json schema).
@@ -140,6 +142,7 @@ func chat(id: String, player_text: String) -> void:
 		_queued[id].append(player_text)
 		return
 	EveCore.for_companion(id, agent.persona).log_chat("user", player_text)
+	_last_user[id] = player_text   # v0.13 BRAIN-LEDGER: paired with the reply in _finish()
 	_learn_signals(id, player_text)
 	if Settings.live_ai() and brains.has(id): brains[id].memory.log_episode("chat", {"text": player_text})
 	# if not Settings.live_ai():
@@ -150,7 +153,8 @@ func chat(id: String, player_text: String) -> void:
 		if Settings.local_ai(): _local_chat(id, player_text)
 		else: _offline_reply(id, player_text)
 		return
-	var persona: Dictionary = agent.persona
+	# var persona: Dictionary = agent.persona
+	var persona: Dictionary = PersonaPresets.effective(agent.persona, id)   # v0.13 PERSONA-1
 	var mem: Dictionary = _memory[id]
 	var messages := [{"role": "system", "content": _system_prompt(persona, mem, agent)}]
 	for h in mem["history"].slice(-MAX_HISTORY):
@@ -339,9 +343,18 @@ func _live_failed(id: String, why: String) -> void:
 	thinking.emit(id, false)
 	_offline_reply(id)
 
+var _last_user := {}   # id -> last player line (v0.13 BRAIN-LEDGER)
+
+## v0.13: every finished turn becomes one Anterranian record in the local hash-chained ledger.
+func record_turn(id: String, user_text: String, reply: String) -> Dictionary:
+	if not bool(Settings.get_value("brain", "record", true)) or user_text == "": return {}
+	return InteractionLedger.record_interaction(id, user_text, reply)
+
 func _finish(id: String, text: String) -> void:
 	_pending.erase(id)
 	thinking.emit(id, false)
+	record_turn(id, str(_last_user.get(id, "")), text)
+	_last_user.erase(id)
 	reply_ready.emit(id, text)
 	var q: Array = _queued.get(id, [])
 	if not q.is_empty():
@@ -423,6 +436,8 @@ func _heaven_edit(id: String, args: Dictionary) -> Dictionary:
 		return out
 	out["state"] = str(r.get("state", ""))
 	out["edit_id"] = str(r.get("id", ""))
+	if bool(Settings.get_value("brain", "scene_snapshots", true)):
+		SceneSnapshots.capture("heaven_edit", {"edit": out["edit_id"], "state": out["state"], "op": str(args.get("op", "add"))}, id)
 	if r.has("proposal"): out["proposal"] = str(r["proposal"])
 	if out["state"] == "pending": out["note"] = "waiting for the owner's approval"
 	return out
@@ -497,7 +512,8 @@ const LOCAL_RETRY_BUDGET := 0.55   # context_full: retry with this share of the 
 func _local_chat(id: String, player_text: String, logged := false) -> void:
 	var agent: Node = _agents.get(id)
 	if agent == null: return
-	var persona: Dictionary = agent.persona
+	# var persona: Dictionary = agent.persona
+	var persona: Dictionary = PersonaPresets.effective(agent.persona, id)   # v0.13 PERSONA-1
 	var mem: Dictionary = _memory[id]
 	_pending[id] = true
 	thinking.emit(id, true)

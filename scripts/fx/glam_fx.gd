@@ -23,7 +23,7 @@ static func level() -> String:
 	var l := str(Settings.get_value("look", "glam", "subtle"))
 	if not l in LEVELS: l = "subtle"
 	if l == "full":
-		var ps := Engine.get_main_loop().root.get_node_or_null("PowerSaver") if Engine.get_main_loop() is SceneTree else null
+		var ps: Node = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("PowerSaver") if Engine.get_main_loop() is SceneTree else null
 		if ps and bool(ps.get("saver")): l = "subtle"
 	return l
 
@@ -71,7 +71,14 @@ static func palette_ramp() -> Gradient:
 static func bloom(env: Environment, lvl := "") -> bool:
 	if env == null: return false
 	var l := lvl if lvl != "" else level()
+	var keys := ["glow_enabled", "glow_intensity", "glow_bloom", "glow_hdr_threshold", "glow_blend_mode"]
+	if not env.has_meta("glam_base"):   # remember the world's own glow so "off" puts it back
+		var base := {}
+		for k in keys: base[k] = env.get(k)
+		env.set_meta("glam_base", base)
 	if l == "off":
+		var b: Dictionary = env.get_meta("glam_base")
+		for k in keys: env.set(k, b[k])
 		return false
 	env.glow_enabled = true
 	env.glow_intensity = 0.9 if l == "subtle" else 1.25
@@ -132,7 +139,10 @@ static var _shine_shader: Shader = null
 ## Slow sheen across a Control (buttons, cards). No-op when glam is off.
 static func shine(c: CanvasItem, lvl := "") -> bool:
 	var l := lvl if lvl != "" else level()
-	if c == null or l == "off": return false
+	if c == null: return false
+	if l == "off":
+		if c.material is ShaderMaterial and (c.material as ShaderMaterial).shader == _shine_shader: c.material = null
+		return false
 	if _shine_shader == null:
 		_shine_shader = Shader.new(); _shine_shader.code = SHINE_SHADER
 	var m := ShaderMaterial.new(); m.shader = _shine_shader

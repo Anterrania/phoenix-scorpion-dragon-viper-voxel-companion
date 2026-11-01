@@ -69,3 +69,6 @@ All V-phases are future research. None of them exists yet.
 
 ## Release track
 Signed release APK/AAB, privacy policy (AI + social data), Play Store listing. Any needed legal/business structure gets coordinated with the Business Setup and Law bots.
+
+## v0.13.1 (Oct 31, 2026)
+Companions Live feed, auto-correct + repair chips, group auto-approve on join, glam pass (sparkle / shine / bloom / motes). Details: `docs/modules/V0131_FOLLOWUPS.md`, log `docs/trac/20261031-dev-bot-v0131.md`.

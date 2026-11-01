@@ -70,7 +70,7 @@ static func autocorrect(text: String, capitalize := true) -> Dictionary:
 				var f := fix_word(w)
 				if f != "": fixed = f
 		# doubled word ("the the")
-		if fixed.to_lower() == prev_word.to_lower() and gap == " " and fixed.length() > 1 and not fixed.to_lower() in ["that", "had", "very"]:
+		if fixed.to_lower() == prev_word.to_lower() and gap != "" and gap.strip_edges() == "" and not "\n" in gap and fixed.length() > 1 and not fixed.to_lower() in ["that", "had", "very"]:
 			fixes.append({"from": w, "to": "(removed repeat)"})
 			out = out.rstrip(" ")
 			pos = m.get_end()
@@ -164,5 +164,7 @@ static func undo_last(le: LineEdit) -> bool:
 static func watch(tree: SceneTree) -> void:
 	if tree.has_meta("text_assist_watch"): return
 	tree.set_meta("text_assist_watch", true)
+	if tree.root:
+		for n in tree.root.find_children("*", "LineEdit", true, false): attach(n)
 	tree.node_added.connect(func(n):
 		if n is LineEdit: TextAssist.attach(n))

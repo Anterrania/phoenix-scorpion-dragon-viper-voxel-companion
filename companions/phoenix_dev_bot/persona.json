@@ -54,7 +54,8 @@
     "pitch": 1.0,
     "rate": 1.0,
     "locale": "en-US",
-    "cloud_voice_id": ""
+    "cloud_voice_id": "",
+    "profile": "PhoenixDevBot_Voice"
   },
   "avatar_dna": {
     "skin": "#2a2630",

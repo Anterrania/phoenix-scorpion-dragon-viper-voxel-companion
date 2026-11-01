@@ -56,9 +56,11 @@ func _ready() -> void:
 	call_deferred("_apply_labels")
 	# if not bool(Settings.get_value("welcome", "done", false)): call_deferred("go_welcome", false)   # pre-HEAVEN
 	call_deferred("_restore_companions")   # v0.13: companions the owner added come back
+	var tk := CompanionBroadcast.Ticker.new(); tk.name = "BroadcastTicker"; add_child(tk)   # v0.14 LIVE-2
 	TextAssist.watch(get_tree())   # v0.13.1 TYPE-1: auto-correct in text fields (never secret ones)
 	call_deferred("_apply_glam")   # v0.13.1 GLAM-1
 	call_deferred("go_start_realm")   # HEAVEN-5: everyone starts in Heaven unless they chose another start world
+	call_deferred("_check_enter_link")   # v0.14 BRIDGE-1: opened from Scorpion Viper's Enter World
 	AgentBrain.reply_ready.connect(_on_reply)
 	if OwnerVault.has_vault() and not OwnerVault.storage_ready(): call_deferred("open_unlock_prompt")
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
@@ -70,6 +72,11 @@ func _apply_glam() -> void:
 	if m and m.get_node_or_null("GlamSparkles") == null:
 		var sp := GlamFx.sparkle_layer("ui")
 		m.add_child(sp)   # on top, ignores input, additive and faint
+
+## v0.14 BRIDGE-1: follow an "Enter World" link from Scorpion Viper (validated in SocialBridge).
+func _check_enter_link() -> void:
+	var r := SocialBridge.check_launch(self)
+	if r != "" and r != "ok": Toast.show_toast(self, r, "warn")
 
 func _restore_companions() -> void:
 	if world and world.is_inside_tree(): CompanionsScreen.restore(self)
@@ -101,6 +108,7 @@ func _notification(what: int) -> void:
 		else: AppControl.to_background(get_tree())
 	elif what == NOTIFICATION_APPLICATION_FOCUS_IN or what == NOTIFICATION_APPLICATION_RESUMED:
 		if get_tree().paused: AppControl.resume(get_tree())
+		if what == NOTIFICATION_APPLICATION_RESUMED: call_deferred("_check_enter_link")   # v0.14 BRIDGE-1
 
 # ---------- helpers ----------
 func _style(bg: Color, border := MAG, radius := 18) -> StyleBoxFlat:
@@ -247,7 +255,7 @@ func _build_menu() -> Dictionary:
 	#   ["📜 Proposals", "proposals"], ["🕮 History", "history"],
 	# The panels still exist (radial "Proposals" and the Companions screen open them); "🧬 Companions" redirects.
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["📡 Companions Live", "_live"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["📡 Companions Live", "_live"], ["✨ Create Companion", "_create"], ["🦂 Open Social", "_open_social_app"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
@@ -255,6 +263,10 @@ func _build_menu() -> Dictionary:
 			elif target == "_admin": open_admin()
 			elif target == "_companions": open_companions()
 			elif target == "_live": show_panel(""); LiveFeedScreen.open(self)
+			elif target == "_create": show_panel(""); CompanionCreatorScreen.open(self)   # v0.14 CREATE-1
+			elif target == "_open_social_app":   # v0.14 BRIDGE-1
+				var how := SocialBridge.open_social()
+				Toast.show_toast(self, "Opening Scorpion Viper" if how == "app" else ("Scorpion Viper isn't installed: opening its download page" if how == "web" else "Couldn't open Scorpion Viper"), "ok" if how != "" else "warn")
 			elif target == "_community": CommunityScreen.open(self)
 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
 			elif target == "_interop": InteropScreen.open(self)
@@ -1352,6 +1364,7 @@ func go_start_realm() -> void:
 		var hw: Node = world.get_node_or_null("HeavenWorld") if world else null
 		if hw and hw.has_method("go_spawn"): hw.go_spawn()
 		elif player: player.global_position = HeavenLayout.spawn_point()
+		CompanionHomes.heaven_court(self)   # v0.14 HOME-1: the companion court stands in Heaven
 		return
 	# other start worlds: the pre-HEAVEN first-run rule (Welcome Island until done or skipped)
 	if not bool(Settings.get_value("welcome", "done", false)): go_welcome(false)

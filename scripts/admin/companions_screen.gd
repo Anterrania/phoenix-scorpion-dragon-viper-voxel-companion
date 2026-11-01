@@ -185,6 +185,7 @@ func add_companion(cid: String) -> Dictionary:
 	return r
 
 static func persona_of(cid: String) -> Dictionary:
+	if CompanionCreator.is_custom(cid): return CompanionCreator.persona(cid)   # v0.14 CREATE-1: member-made, user://
 	var p := "res://companions/%s/persona.json" % cid
 	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(p)) if FileAccess.file_exists(p) else null
 	return d if d is Dictionary else {}
@@ -204,7 +205,8 @@ static func _spawn(p_ui: Node, cid: String, p_intro_speed: float, intro: bool, r
 	for c in world.get_tree().get_nodes_in_group("companions"):
 		if str(c.get("companion_id")) == str(persona.get("id", cid)): return {"error": "Already here."}
 	var cfg := CompanionConfig.new()
-	cfg.persona_path = "res://companions/%s/persona.json" % cid
+	# cfg.persona_path = "res://companions/%s/persona.json" % cid   # v0.13; v0.14 adds member-made companions:
+	cfg.persona_path = CompanionCreator.path_of(cid) if CompanionCreator.is_custom(cid) else "res://companions/%s/persona.json" % cid
 	cfg.body_color = Color(PhoenixTokens.MAGENTA_DEEP); cfg.accent_color = Color(PhoenixTokens.GOLD)
 	cfg.slot_offset = Vector3(randf_range(-4, 4), 0, randf_range(-5, -2))
 	var n: Node3D = load("res://scenes/companion_agent.tscn").instantiate()

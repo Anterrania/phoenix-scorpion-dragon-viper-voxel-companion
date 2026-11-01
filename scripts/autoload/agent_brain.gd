@@ -204,6 +204,15 @@ func _send_live(body: Dictionary, on_done: Callable) -> Error:
 func _system_prompt(persona: Dictionary, mem: Dictionary, agent: Node) -> String:
 	var at: Variant = agent.get("global_position")
 	var pp: Variant = agent.call("get_player_position") if agent.has_method("get_player_position") else Vector3.ZERO
+	return _job_lines(persona) + _system_prompt_v013(persona, mem, agent, at, pp)
+
+## v0.14 PERSONA-1: imported job + task list, for personas whose prompt does not already carry them.
+static func _job_lines(persona: Dictionary) -> String:
+	var sp := str(persona.get("system_prompt", ""))
+	if not persona.has("job") or sp.contains("Your job in the app"): return ""
+	return "Your job in the app: %s Your tasks: %s.\n" % [str(persona["job"]), "; ".join(PackedStringArray(persona.get("tasks", [])))]
+
+func _system_prompt_v013(persona: Dictionary, mem: Dictionary, agent: Node, at: Variant, pp: Variant) -> String:
 	return "%s\n\nStyle: %s\nYou are an in-game AI companion inside a voxel world. Your position: %s. Player position: %s.\nKnown facts about the player and world: %s\nUse tools to act in the world; keep spoken replies short.%s" % [
 		persona.get("system_prompt", ""), persona.get("voice_style", ""),
 		str((at if at is Vector3 else Vector3.ZERO).round()), str((pp if pp is Vector3 else Vector3.ZERO).round()),

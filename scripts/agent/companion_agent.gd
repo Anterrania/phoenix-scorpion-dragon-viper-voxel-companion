@@ -37,7 +37,8 @@ func _ready() -> void:
 	if config == null:
 		push_error("CompanionAgent needs a CompanionConfig")
 		return
-	var p: Variant = JSON.parse_string(FileAccess.get_file_as_string(config.persona_path))
+	# v0.14 CREATE-1: member-made personas live in user:// (SecureFile, may be encrypted at rest)
+	var p: Variant = SecureFile.read_json(config.persona_path, null) if config.persona_path.begins_with("user://") else JSON.parse_string(FileAccess.get_file_as_string(config.persona_path))
 	persona = p if p is Dictionary else {}
 	companion_id = persona.get("id", name)
 	add_to_group("companions")
@@ -48,6 +49,7 @@ func _ready() -> void:
 	life = CompanionLife.new(self)
 	add_child(life)
 	life.did.connect(func(t): if not following: show_bubble("I " + t + "."))
+	life.did.connect(func(t): CompanionBroadcast.activity(companion_id, t))   # v0.14 LIVE-2 (in-world actions only)
 	AgentBrain.reply_ready.connect(_on_reply)
 
 func _exit_tree() -> void:
@@ -135,6 +137,9 @@ func _process(delta: float) -> void:
 
 ## Text chat entry point (UI calls this). Voice hook: feed STT text here.
 func talk(text: String) -> void:
+	if not CompanionCreator.may_interact("self", companion_id):   # v0.14 CREATE-1
+		show_bubble("I'm a member's companion. Members can chat with me; everyone can talk with the owner's companions.")
+		return
 	AgentBrain.chat(companion_id, text)
 
 func _on_reply(id: String, text: String) -> void:

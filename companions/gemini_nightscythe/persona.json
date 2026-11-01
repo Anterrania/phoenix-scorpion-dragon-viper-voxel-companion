@@ -50,7 +50,8 @@
     "pitch": 1.0,
     "rate": 1.0,
     "locale": "en-US",
-    "cloud_voice_id": ""
+    "cloud_voice_id": "",
+    "profile": "GeminiNightscythe_Voice"
   },
   "avatar_dna": {
     "skin": "#c8a98a",

@@ -72,6 +72,8 @@ func refresh() -> void:
 			lc.body().add_child(_big("Create owner PIN or passphrase", func(): open_pad("first_run")))
 		else:
 			lc.body().add_child(_big("Unlock" if OwnerVault.has_vault() else "Enter owner code", func(): open_pad("unlock")))
+		if OwnerLogin.available() or OwnerVault.has_account_slot():   # v0.14 AUTH-1
+			lc.body().add_child(_big("Sign in as " + OwnerLogin.USERNAME, func(): open_login("sign_in")))
 	if OwnerVault.needs_pin_setup():
 		lc.body().add_child(_big("Set a PIN now", func(): open_pad("setup")))
 	# --- e-stop ---
@@ -108,6 +110,8 @@ func refresh() -> void:
 		seg.changed.connect(func(id): OwnerVault.set_lock_minutes(int(id)); toast("Auto-lock %s min" % id); refresh())
 		oc.body().add_child(seg)
 		if OwnerVault.has_vault(): oc.body().add_child(_big("Change PIN", func(): open_pad("change")))
+		if OwnerVault.has_vault() and OwnerVault.storage_ready():   # v0.14 AUTH-1
+			oc.body().add_child(_big(("Re-link " if OwnerVault.has_account_slot() else "Link ") + OwnerLogin.USERNAME + " password", func(): open_login("link")))
 		if OwnerVault.has_legacy_slot():
 			oc.body().add_child(_hold("Hold to retire the old owner code", func(): OwnerVault.retire_legacy(); toast("Old code retired"); refresh()))
 		if OwnerVault.storage_ready():
@@ -146,9 +150,40 @@ func open_pad(mode: String) -> PinPad:
 	var v := VBoxContainer.new(); m.add_child(v)
 	var pad := PinPad.new(mode); pad.size_flags_vertical = Control.SIZE_EXPAND_FILL; v.add_child(pad)
 	var cancel := _big("Cancel", func(): overlay.queue_free(); overlay = null; refresh()); v.add_child(cancel)
+	if mode in ["unlock", "first_run"] and (OwnerLogin.available() or OwnerVault.has_account_slot()):   # v0.14 AUTH-1
+		v.add_child(_big("Use %s sign-in instead" % OwnerLogin.USERNAME, func(): open_login("sign_in")))
 	pad.finished.connect(func(ok):
 		if ok:
 			toast("Done")
 			overlay.queue_free(); overlay = null
 			refresh())
 	return pad
+
+## v0.14 AUTH-1: username + password sign-in (same account as the Scorpion Viper social app).
+## mode "sign_in" opens the owner session; "link" adds the password to an unlocked vault.
+func open_login(mode := "sign_in") -> Control:
+	if overlay: overlay.queue_free()
+	overlay = Control.new(); overlay.name = "OwnerLogin"; overlay.set_anchors_preset(Control.PRESET_FULL_RECT); add_child(overlay)
+	var bg := ColorRect.new(); bg.color = Color(0, 0, 0); bg.set_anchors_preset(Control.PRESET_FULL_RECT); overlay.add_child(bg)
+	var m := MarginContainer.new(); m.set_anchors_preset(Control.PRESET_FULL_RECT)
+	for s in ["left", "right", "top", "bottom"]: m.add_theme_constant_override("margin_" + s, 32)
+	overlay.add_child(m)
+	var v := VBoxContainer.new(); v.add_theme_constant_override("separation", 16); m.add_child(v)
+	v.add_child(_text(("Sign in" if mode == "sign_in" else "Link your account password"), PhoenixTokens.fs("headline"), PhoenixTokens.GOLD))
+	v.add_child(_text("Same sign-in as the Scorpion Viper app. Your PIN keeps working.", -1, PhoenixTokens.PLATINUM_DIM))
+	var u := LineEdit.new(); u.name = "Username"; u.placeholder_text = "Username"; u.custom_minimum_size.y = PhoenixTokens.tap()
+	u.virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_DEFAULT; v.add_child(u)
+	var pw := LineEdit.new(); pw.name = "Password"; pw.placeholder_text = "Password"; pw.secret = true; pw.custom_minimum_size.y = PhoenixTokens.tap()
+	pw.virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_PASSWORD; v.add_child(pw)
+	var msg := _text("", -1, PhoenixTokens.ERR); msg.name = "Msg"; v.add_child(msg)
+	var go := func():
+		var e := OwnerLogin.sign_in(u.text, pw.text) if mode == "sign_in" else OwnerLogin.link(u.text, pw.text)
+		pw.text = ""
+		if e == "":
+			toast("Welcome, %s" % OwnerLogin.DISPLAY_NAME if mode == "sign_in" else "Password linked")
+			overlay.queue_free(); overlay = null; refresh()
+		else: msg.text = e
+	var b := _big("Sign in" if mode == "sign_in" else "Link", go); b.name = "Go"; v.add_child(b)
+	pw.text_submitted.connect(func(_t): go.call())
+	v.add_child(_big("Cancel", func(): overlay.queue_free(); overlay = null; refresh()))
+	return overlay

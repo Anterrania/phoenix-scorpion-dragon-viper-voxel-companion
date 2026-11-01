@@ -161,7 +161,8 @@ def main():
                  "personality": d["personality"], "appearance": d["appearance"], "abilities": d["abilities"],
                  "home_biome": d["home_realm"], "memory": MEM(cid), "tools": d["tools"], "temperature": 0.7,
                  "starter_message": d["starter_message"], "game_lines": d["game_lines"], "voice_style": d["voice_style"],
-                 "voice": {"tts_enabled": True, "pitch": 1.0, "rate": 1.0, "locale": "en-US", "cloud_voice_id": ""},
+                 "voice": {"tts_enabled": True, "pitch": 1.0, "rate": 1.0, "locale": "en-US", "cloud_voice_id": "",
+                           "profile": "".join(w.capitalize() for w in cid.split("_")) + "_Voice"},
                  "avatar_dna": d["avatar_dna"], "accents": ["platinum", "gold"], "finish": "glitter_sparkle", "palette_version": 2,
                  "hierarchy": {"rank": "member", "reports_to": "foxy_ani"},
                  "grok_bot": {"standalone": True, "sync": "Same file seeds the standalone Grok Bot's system prompt; memory_export.json is the exchange format."}}

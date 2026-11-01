@@ -56,11 +56,20 @@ func _ready() -> void:
 	call_deferred("_apply_labels")
 	# if not bool(Settings.get_value("welcome", "done", false)): call_deferred("go_welcome", false)   # pre-HEAVEN
 	call_deferred("_restore_companions")   # v0.13: companions the owner added come back
+	TextAssist.watch(get_tree())   # v0.13.1 TYPE-1: auto-correct in text fields (never secret ones)
+	call_deferred("_apply_glam")   # v0.13.1 GLAM-1
 	call_deferred("go_start_realm")   # HEAVEN-5: everyone starts in Heaven unless they chose another start world
 	AgentBrain.reply_ready.connect(_on_reply)
 	if OwnerVault.has_vault() and not OwnerVault.storage_ready(): call_deferred("open_unlock_prompt")
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", false)) else "")
+
+func _apply_glam() -> void:
+	GlamFx.apply(self)
+	var m: Control = panels.get("menu", {}).get("root") if panels.get("menu") is Dictionary else null
+	if m and m.get_node_or_null("GlamSparkles") == null:
+		var sp := GlamFx.sparkle_layer("ui")
+		m.add_child(sp)   # on top, ignores input, additive and faint
 
 func _restore_companions() -> void:
 	if world and world.is_inside_tree(): CompanionsScreen.restore(self)
@@ -238,13 +247,14 @@ func _build_menu() -> Dictionary:
 	#   ["📜 Proposals", "proposals"], ["🕮 History", "history"],
 	# The panels still exist (radial "Proposals" and the Companions screen open them); "🧬 Companions" redirects.
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["📡 Companions Live", "_live"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
 			elif target == "_exit": AppControl.exit_app(get_tree())
 			elif target == "_admin": open_admin()
 			elif target == "_companions": open_companions()
+			elif target == "_live": show_panel(""); LiveFeedScreen.open(self)
 			elif target == "_community": CommunityScreen.open(self)
 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
 			elif target == "_interop": InteropScreen.open(self)
@@ -421,9 +431,27 @@ func _build_chat() -> Dictionary:
 	row.add_child(chat_input)
 	row.add_child(btn("Send", func(): _send(chat_input.text), 160))
 	b.add_child(row)
+	# v0.13.1 TYPE-1: repair chips under the chat box (tap to use; nothing is sent on its own)
+	chat_fix_row = HFlowContainer.new()
+	chat_fix_row.name = "ChatFixes"
+	b.add_child(chat_fix_row)
+	chat_input.text_changed.connect(func(_t): _refresh_fixes())
 	b.add_child(input_tag("YOUR INPUT HERE: offline replies are canned from persona files - tell Foxy what each companion should say. Live AI: Settings."))
 	call_deferred("_fill_who", who)
 	return p
+
+var chat_fix_row: HFlowContainer
+func _refresh_fixes() -> void:
+	if chat_fix_row == null: return
+	for c in chat_fix_row.get_children(): c.queue_free()
+	for sug in TextAssist.suggestions(chat_input.text).slice(0, 3):
+		var txt: String = sug["text"]
+		var b := btn(str(sug["label"]), func():
+			chat_input.text = txt
+			chat_input.caret_column = txt.length()
+			_refresh_fixes(), 0)
+		b.add_theme_font_size_override("font_size", 22)
+		chat_fix_row.add_child(b)
 
 func _fill_who(who: HBoxContainer) -> void:
 	for c in _companions():
@@ -627,6 +655,20 @@ func _build_settings() -> Dictionary:
 	q.text = "Graphics: " + Settings.QUALITY_NAMES[Settings.quality()]
 	q.pressed.connect(func(): q.text = "Graphics: " + Settings.QUALITY_NAMES[Settings.cycle_quality()])
 	b.add_child(q)
+	# v0.13.1 GLAM-1 + TYPE-1
+	var gl := btn("Glam: " + GlamFx.level(), func(): pass)
+	gl.pressed.connect(func():
+		var order := GlamFx.LEVELS
+		GlamFx.set_level(order[(order.find(str(Settings.get_value("look", "glam", "subtle"))) + 1) % order.size()])
+		gl.text = "Glam: " + GlamFx.level()
+		_apply_glam())
+	b.add_child(gl)
+	var ac := btn("", func(): pass)
+	ac.text = "Auto-correct: " + ("on" if TextAssist.enabled() else "off")
+	ac.pressed.connect(func():
+		Settings.set_value("input", "autocorrect", not TextAssist.enabled())
+		ac.text = "Auto-correct: " + ("on" if TextAssist.enabled() else "off"))
+	b.add_child(ac)
 	var cam := btn("Switch 1st / 3rd person", func(): if player and player.has_method("toggle_camera"): player.toggle_camera())
 	b.add_child(cam)
 	var menu_start := CheckButton.new()

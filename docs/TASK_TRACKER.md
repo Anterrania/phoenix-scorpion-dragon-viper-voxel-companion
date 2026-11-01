@@ -68,7 +68,12 @@ Status: ✅ done (written, untested) · 🔄 in progress · ⏳ todo · 🧊 fut
 | REL-013-3 | v0.13 | New icon set (launcher, adaptive fg/bg/monochrome, favicons), script-generated | ✅ headless-tested, needs device test |
 | REL-013-4 | v0.13 | Creator Sparks: views, tips, 70% marketplace share; in-game only | ✅ headless-tested |
 | REL-013-5 | v0.13 | Trac logging `docs/trac/` | ✅ |
-| REL-013-6 | v0.13 | Ship v0.13.0-debug arm64 APK | ⏳ after merge |
+| REL-013-6 | v0.13 | Ship v0.13.0-debug arm64 APK ([release](https://github.com/Anterrania/phoenix-scorpion-dragon-viper-voxel-companion/releases/tag/v0.13.0-debug)) | ✅ |
+| COMPANION-LIVE | v0.13.1 | Companions Live feed (`docs/modules/V0131_FOLLOWUPS.md`) | ✅ headless-tested, needs device test |
+| AUTO-CORRECT | v0.13.1 | Auto-correct + repair chips, secret fields skipped | ✅ headless-tested, needs device test |
+| MEMBER-AUTO | v0.13.1 | Group auto-approve on join + min tier | ✅ headless-tested |
+| GFX-HP-GLITZ | v0.13.1 | Glam pass: glitter, sparkle, shine, bloom, magic motes | ✅ headless-tested, needs device look |
+| ECON-AETHEL | v0.13.1 | Marks → Aethel: n/a in voxel (already Aethel) | ✅ |
 | REL-013-7 | v0.13 | Voice: default-voice fallback on Android, pitch/rate/locale/voice settings | ✅ headless-tested, needs device test |
 | REL-013-8 | v0.13 | Cinematic companion intro | ✅ headless-tested, needs device test |
 | DEMO-1 | v0.13 | One build for everyone, no demo flavor | ✅ headless-tested |

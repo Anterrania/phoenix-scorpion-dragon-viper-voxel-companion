@@ -250,7 +250,8 @@ static func _cfg_sections(path: String) -> Array:
 	return out
 
 static func _build(t: Node) -> void:
-	t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.13.0", "v013 one main channel, version 0.13.0")
+	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.13.0", "v013 one main channel, version 0.13.0")
+	t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.13.1", "v013 one main channel, version 0.13.1")
 	var presets := _cfg_sections("res://export_presets.cfg")
 	var demo := false
 	for p in presets:
@@ -260,7 +261,8 @@ static func _build(t: Node) -> void:
 			if (str(k) + val).to_lower().contains("demo"): demo = true
 	t.check(not demo, "v013 no demo preset, flavor or feature tag")
 	var android: Dictionary = presets[0]
-	t.check(android.get("version/name", "") == "\"0.13.0\"" and int(android.get("version/code", "0")) > 14, "v013 Android version 0.13.0, code > 14")
+	# t.check(android.get("version/name", "") == "\"0.13.0\"" and int(android.get("version/code", "0")) > 14, "v013 Android version 0.13.0, code > 14")
+	t.check(android.get("version/name", "") == "\"0.13.1\"" and int(android.get("version/code", "0")) > 15, "v013 Android version 0.13.1, code > 15")
 	t.check(not FileAccess.get_file_as_string("res://project.godot").to_lower().contains("demo"), "v013 project has no demo switch")
 	t.check(FileAccess.get_file_as_string("res://.github/workflows/ci.yml").contains("sort -V"), "v013 CI never lowers versionName below the preset")
 
@@ -278,7 +280,13 @@ static func _icons(t: Node) -> void:
 static func _docs(t: Node) -> void:
 	var csv := FileAccess.get_file_as_string("res://docs/TASK_TRACKER.csv")
 	t.check(csv.contains("INT-NSFW") and csv.contains("REL-013"), "v013 tracker keeps REL-013 + INT-NSFW rows")
+	# INT-NSFW: the tracker label is the task manager's (it moved blocked -> awaiting_builder on Oct 31);
+	# the build guarantee is that it is never marked done and no sexual-content feature ships.
+	# for line in csv.split("\n"):
+	# 	if line.begins_with("INT-NSFW"):
+	# 		t.check(line.to_lower().contains("blocked"), "v013 INT-NSFW stays blocked")
 	for line in csv.split("\n"):
-		if line.begins_with("INT-NSFW"):
-			t.check(line.to_lower().contains("blocked"), "v013 INT-NSFW stays blocked")
+		if line.begins_with("INT-NSFW") or line.begins_with("FLAG-SEXUAL"):
+			t.check(not line.ends_with(",done,P0") and not line.contains(",done_headless,"), "v013 %s not built" % line.get_slice(",", 0))
+	t.check(not LegalReview.POLICY.has("sexual_content") and not FileAccess.file_exists("res://scripts/social/nsfw.gd"), "v013 no sexual-content feature in the build")
 	t.check(FileAccess.file_exists("res://docs/trac/OBSERVATION_2026-10-31.md"), "v013 observation doc")

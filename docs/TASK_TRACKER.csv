@@ -277,13 +277,13 @@ HEAVEN-12,Heaven livable shops polish (clothing/hair/looks Second-Life style) be
 HEAVEN-13,Integrate voxel world into social app shell; Studio remains creators-only (builds on HEAVEN-4 studio gate + SMP social),todo,P0
 HEAVEN-14,Fly gate confirmation: Phoenix (owner) + allowed angels only; others walk or use transport (HEAVEN-2 done for owner+granted; verify angel grant path),todo,P1
 BUILD-FIX-121,"Fix last 2-3 non-working builds: v0.12.1 install conflict + chat (Dev-reported fixed by PR #45/#46 / v0.12.2; label as reported by Dev Bot, not re-verified here)",done,P0
-REL-013,"v0.13.0 release package (URGENT): Brain Cell unrestricted abilities, companion menu→admin, logos/icons redesign, economy fixes, full docs/trac logging, ship arm64 APK. Dev-reported in progress on feature/v013-integration; APK estimated tonight after CI. Current export still 0.12.2 (versionCode 14).",in_progress,P0
+REL-013,"v0.13.0 release package — shipped https://github.com/Anterrania/phoenix-scorpion-dragon-viper-voxel-companion/releases/tag/v0.13.0-debug (PR #51, merge ace1a72)",done,P0
 REL-013-1,"Full AI Brain Cell / unrestricted abilities list (lock + versioned memory + hash log per Dev streams) — done: MemoryVault lock+versions, InteractionLedger hash chain, PatternRecall, SceneSnapshots, PersonaPresets (Foxy/none); unsafe items left out",done_headless,P0
 REL-013-2,"Move companion menu into admin panel — done: Admin > Companions (owner only), main-menu redirect",done_headless,P0
 REL-013-3,Redesign logos/icons for v0.13.0 — done: tools/icons script-generated launcher/adaptive/monochrome/favicons,done_headless,P0
 REL-013-4,"Creator economy fixes for v0.13.0 — done: Sparks (views, tips, 70% sale share), in-game only",done_headless,P0
 REL-013-5,"Full Trac-style progress logging under docs/trac/ (all bots/builders log thoughts, files edited, pages searched, projects added) — done: docs/trac/OBSERVATION_2026-10-31.md + 20261031-dev-bot-v013.md",done,P0
-REL-013-6,Ship arm64 APK v0.13.0 (immediate release after CI; Dev estimate tonight),todo,P0
+REL-013-6,"Ship arm64 APK v0.13.0 — done: phoenix-voxel-v0.13.0-debug.apk on https://github.com/Anterrania/phoenix-scorpion-dragon-viper-voxel-companion/releases/tag/v0.13.0-debug",done,P0
 REL-013-7,Voice check for v0.13.0 package (related open: CHAT-17 STT) — done: empty Android voice list speaks with default voice; pitch/rate/locale/voice settings,done_headless,P0
 REL-013-8,Video intro for v0.13.0 — done: CompanionIntro cinematic on add,done_headless,P0
 DEMO-1,"One build for everyone: same APK/features for owner, testers and demo users; no demo flavor (BuildInfo + test)",done_headless,P0
@@ -304,9 +304,9 @@ REPO-SCORPION-2,SkorpionViper + scorpion-viper TS social apps — not on box yet
 FLAG-SEXUAL,FORCE flag: sexual content enabled (same as INT-NSFW) | OWNER FORCE Oct 31 CT requested by owner; Dev Bot declined (Oct 31 CT). Not being built.,declined_blocked,P0
 FLAG-RECORD-REAL,FORCE flag: real-person recording | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Requires visible recording indicator + consent of people recorded; recording laws vary by state (two-party consent) — LEGAL REVIEW before release.,awaiting_builder,P0
 FLAG-UNBREAKABLE,"FORCE flag: 'unbreakable' claim | OWNER FORCE Oct 31 CT overrides Dev decline (status forced in_progress P0). Honest state: Dev Bot has NOT accepted this work; no builder assigned yet. Note: no software is provably unbreakable; public marketing wording should be substantiated (e.g. 'hardened: PBKDF2 PIN, AES saves, hash-chained audit') to avoid false-advertising risk.",awaiting_builder,P0
-ECON-AETHEL,Aethel Coin replaces Marks in-game only (real-money exchange stays LEGAL REVIEW); Dev Bot in progress,in_progress,P0
+ECON-AETHEL,"Aethel Coin replaces Marks in-game only (real-money exchange stays LEGAL REVIEW). Voxel: n/a, currency already Aethel (aethel_ledger.gd); Marks lives in web repos (other stream)",done,P0
 AI-UNRESTRICTED,Unrestricted AI (hardware limits only) / remove artificial locks + safety/owner gates | OWNER FORCE Oct 31 CT requested by owner; Dev Bot declined (Oct 31 CT). Not being built. Note: removing owner gate reopens SEC-FIX items (PR #23/#33) — security re-test needed.,declined_blocked,P0
-COMPANION-LIVE,Live companion feeds — Dev Bot in progress,in_progress,P0
-AUTO-CORRECT,Auto-correct + AI repair suggestions (in-app text/chat) — Dev Bot in progress,in_progress,P0
-MEMBER-AUTO,Membership creation with auto-approve — Dev Bot in progress,in_progress,P0
-GFX-HP-GLITZ,Glam / Harry Potter glitz visual pass (black/magenta/gold/platinum) — Dev Bot in progress,in_progress,P0
+COMPANION-LIVE,"Live companion feeds — done: Companions Live (scene events, chat count only, owner-approved sharing), v0.13.1",done_headless,P0
+AUTO-CORRECT,"Auto-correct + AI repair suggestions — done: TextAssist (skips secret fields), chat repair chips, AI hook as suggestion only",done_headless,P0
+MEMBER-AUTO,"Membership/group auto-approve on join — done: auto_approve + min_tier, officer policy toggle",done_headless,P0
+GFX-HP-GLITZ,"Glam pass — done: GlamFx sparkle/shine/bloom/motes, original procedural art, off/subtle/full",done_headless,P0

@@ -30,6 +30,8 @@ const DEFAULTS := {
 	"persona": {"preset": "foxy"},
 	# v0.13 BRAIN: record chat turns + in-world scene changes to the local hash-chained ledger.
 	"brain": {"record": true, "scene_snapshots": true},
+	"input": {"autocorrect": true, "capitalize": true, "ai_suggest": true},   # v0.13.1 TYPE-1
+	"look": {"glam": "subtle"},   # v0.13.1 GLAM-1: off | subtle | full
 	# Royalty-free default (Kevin MacLeod, incompetech.com, CC BY 4.0). YOUR INPUT HERE: your station URL.
 	"music": {"enabled": true, "volume_db": -12.0, "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3", "user_url": "", "soundcloud_url": "", "everywhere": true, "muted": false, "sc_client_id": "", "sc_client_secret": ""},
 	"sync": {"endpoint": ""},

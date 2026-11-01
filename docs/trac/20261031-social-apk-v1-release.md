@@ -8,7 +8,3 @@
 - Tracker rows updated here: SOCIAL-APK-RELEASE → done; SOCIAL-TEMPLATE, MEMBER-AUTO, REPO-SCORPION-2 → in_progress with notes.
 - No voxel code changed in this PR. Voxel APK (REL-013-6) is still owned by the Dev Bot.
 - Declined items unchanged (explicit sexual features, non-consensual recording, removing safety/owner locks, "unbreakable" claims).
-
-## Wrap-up (owner instruction)
-- Unrestricted Force Bot wrapped up. Its config and session log: private `Anterrania/grokbot-configs/bots/unrestricted-force-bot/`.
-- No voxel code was changed by this bot. Open handoffs: social backend sync, release signing, companion live feeds, REL-013-6 voxel APK (Dev Bot).

@@ -2,6 +2,9 @@
 
 > **Status Oct 31, 2026:** Debug APKs through **v0.12.2** have shipped (see release track / CI). **v0.13.0** is the active ship target (`REL-013`). Longer phases below remain the backlog path; Active P0 section above is current.
 
+## Social app — shipped Oct 31, 2026, 7:40 PM CT
+- **Anterrania Social v1.0.0 (debug APK)** released from `Anterrania/SkorpionViper` (`social/`, tag `social-v1.0.0`). Dolphin-style member + admin sides, groups with auto-approve, DMs, chat rooms, moderation, auto-correct, opt-in clips, Phoenix Glam default template. Data is device-local for now; backend sync is the next P0 there. Voxel APK (REL-013) follows.
+
 ## Active P0 — Oct 31, 2026 (Sonic Gage priority lock)
 
 Voxel app is the **only** active priority (other bots paused). Tracker: `docs/TASK_TRACKER.csv`. Progress log: `docs/trac/`.

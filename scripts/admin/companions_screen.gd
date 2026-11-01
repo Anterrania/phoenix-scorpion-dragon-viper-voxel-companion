@@ -13,7 +13,7 @@ signal closed
 const SUMMONED_KEY := "summoned"
 ## Main-menu companion panels now reached from here: [label, ui_root panel id]
 const MOVED := [["💬 Talk", "chat"], ["🧑 Avatar", "avatar"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-	["📜 Proposals", "proposals"], ["🕮 History", "history"], ["◉ Nearby", "radar"]]
+	["📜 Proposals", "proposals"], ["🕮 History", "history"], ["◉ Nearby", "radar"], ["📡 Live", "_live"]]
 
 var ui: Node = null          # ui_root (CanvasLayer) when opened in the app; null in some tests
 var body: VBoxContainer
@@ -147,6 +147,10 @@ func refresh() -> void:
 		toast("Voice route: " + route))
 
 func open_panel(target: String) -> void:
+	if target == "_live":
+		LiveFeedScreen.open(ui if ui else get_parent())
+		queue_free()
+		return
 	if ui and ui.has_method("show_panel"):
 		ui.show_panel(target)
 		queue_free()

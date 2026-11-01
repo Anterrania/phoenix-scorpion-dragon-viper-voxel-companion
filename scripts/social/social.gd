@@ -1039,6 +1039,7 @@ static func feed_page(viewer: Variant, cursor := "", limit := 20) -> Dictionary:
 	if not Tiers.can(viewer, "browse"): empty["error"] = "Not allowed."; return empty
 	var parts := cursor.split("|")
 	var mode := parts[0] if parts[0] != "" else "for_you"
+	if mode == "live": return CompanionLive.page(viewer)   # v0.13.1 LIVE-1: companions' creative spaces
 	if not (mode in FEED_MODES or FEED_PREFIX_MODES.any(func(x): return mode.begins_with(x))): empty["error"] = "Unknown feed."; return empty
 	var me := _id(viewer)
 	if mode == "following" and Tiers.tier_of(viewer) == "guest": mode = "latest"

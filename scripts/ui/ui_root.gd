@@ -238,13 +238,14 @@ func _build_menu() -> Dictionary:
 	#   ["📜 Proposals", "proposals"], ["🕮 History", "history"],
 	# The panels still exist (radial "Proposals" and the Companions screen open them); "🧬 Companions" redirects.
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["📡 Companions Live", "_live"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
 			elif target == "_exit": AppControl.exit_app(get_tree())
 			elif target == "_admin": open_admin()
 			elif target == "_companions": open_companions()
+			elif target == "_live": show_panel(""); LiveFeedScreen.open(self)
 			elif target == "_community": CommunityScreen.open(self)
 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
 			elif target == "_interop": InteropScreen.open(self)

@@ -206,6 +206,26 @@
       "name_status": "assigned by Foxy, user may rename",
       "content_rating": "general",
       "companion_group": "t31u_ai_bodies"
+    },
+    "gemini-nightscythe": {
+      "dir": "gemini_nightscythe",
+      "role": "Cosmic Phoenix Knight (guardian)"
+    },
+    "seraphyx": {
+      "dir": "seraphyx",
+      "role": "Royal secretary"
+    },
+    "sonic-gage": {
+      "dir": "sonic_gage",
+      "role": "Task manager"
+    },
+    "viper-gamer-companion": {
+      "dir": "viper_gamer",
+      "role": "Gaming companion"
+    },
+    "phoenix-voxel-dev-bot": {
+      "dir": "phoenix_dev_bot",
+      "role": "Developer companion"
     }
   }
 }

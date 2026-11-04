@@ -70,11 +70,36 @@ jobs:
           mkdir -p ~/.config/godot
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\nexport/android/debug_keystore = "%s"\nexport/android/debug_keystore_user = "%s"\nexport/android/debug_keystore_pass = "%s"\n' \
             "$ANDROID_SDK_ROOT" "$JAVA_HOME" "$RUNNER_TEMP/debug.keystore" "$KS_USER" "$KS_PASS" > ~/.config/godot/editor_settings-4.7.tres
+      # v0.14.1 ONE-APP-1: Scorpion Viper web app embedded in this APK (social_web/bundle -> plugin assets/social).
+      # The committed bundle holds a placeholder; the owner record comes from secret OWNER_PASS_HASH (never printed).
+      - name: Embed Scorpion Viper web app (owner record from secret, never printed)
+        env:
+          OWNER_PASS_HASH: ${{ secrets.OWNER_PASS_HASH }}
+        run: |
+          dst=android/plugins/viper_device/src/main/assets/social
+          rm -rf "$dst"; mkdir -p "$dst"; cp -r social_web/bundle/. "$dst/"
+          test -f "$dst/index.html"
+          python3 - <<'PY'
+          import os, glob
+          h = os.environ.get("OWNER_PASS_HASH", "").strip()
+          n = 0
+          for f in glob.glob("android/plugins/viper_device/src/main/assets/social/**/*.js", recursive=True):
+              b = open(f, "rb").read()
+              if b"__OWNER_PASS_HASH__" in b:
+                  n += 1
+                  open(f, "wb").write(b.replace(b"__OWNER_PASS_HASH__", h.encode()))
+          print("social owner record injected" if h and n else "::warning::social owner record not injected (secret missing or no placeholder)")
+          PY
       - name: Build ViperDevice Android plugin (AAR)
         run: |
           android/plugins/viper_device/build.sh
           size=$(stat -c %s addons/viper_device/bin/viper-device-release.aar)
-          echo "ViperDevice AAR: $size bytes"; test "$size" -lt 65536
+          # echo "ViperDevice AAR: $size bytes"; test "$size" -lt 65536
+          # v0.14.1: the AAR now carries the embedded social web app; keep the code itself small.
+          echo "ViperDevice AAR: $size bytes"; test "$size" -lt 16777216
+          code=$(unzip -p addons/viper_device/bin/viper-device-release.aar classes.jar | wc -c)
+          echo "ViperDevice classes.jar: $code bytes"; test "$code" -lt 65536
+          unzip -l addons/viper_device/bin/viper-device-release.aar | grep -q 'assets/social/index.html'
       - name: Build ViperLLM Android plugin (AAR, llama.cpp pinned b12017, MIT)
         run: |
           android/plugins/viper_llm/build.sh
@@ -113,6 +138,7 @@ jobs:
           # v0.14 BRIDGE-1: Enter World deep link + package visibility for Scorpion Viper
           "$ANDROID_SDK_ROOT"/build-tools/34.0.0/aapt2 dump xmltree --file AndroidManifest.xml build/android/phoenix-voxel.apk | grep -q 'phoenixvoxel'
           "$ANDROID_SDK_ROOT"/build-tools/34.0.0/aapt2 dump xmltree --file AndroidManifest.xml build/android/phoenix-voxel.apk | grep -q 'os.viper.scorpion'
+          unzip -l build/android/phoenix-voxel.apk | grep -q 'assets/social/index.html' && echo "social app embedded"
           if [ "${OWNER_LOGIN:-0}" = "1" ]; then unzip -l build/android/phoenix-voxel.apk | grep -q 'owner_login.local.cfg' && echo "owner sign-in record packed"; fi
       - uses: actions/upload-artifact@v4
         with:

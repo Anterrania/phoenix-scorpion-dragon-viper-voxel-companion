@@ -28,10 +28,15 @@ import org.godotengine.godot.plugin.UsedByGodot
  * and on app focus, and this plugin emits "live_changed" when Android reports a thermal or network change.
  */
 class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
+    companion object {
+        const val HOST = "appassets.androidplatform.net"
+        const val ORIGIN = "https://appassets.androidplatform.net"
+    }
 
     override fun getPluginName() = "ViperDevice"
 
-    override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"))
+    // override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"))
+    override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"), SignalInfo("social_closed"), SignalInfo("social_enter_world", String::class.java))
 
     private val ctx: Context? get() = activity?.applicationContext
 
@@ -44,8 +49,11 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
     // @UsedByGodot
     // fun get_plugin_version(): Int = 1
     /** v2 (v0.14 BRIDGE-1): adds the Scorpion Viper bridge (open_app, is_app_installed, get_launch_uri). */
+    // @UsedByGodot
+    // fun get_plugin_version(): Int = 2
+    /** v3 (v0.14.1 ONE-APP-1): adds the in-app Social panel (open_social_panel / close_social_panel). */
     @UsedByGodot
-    fun get_plugin_version(): Int = 2
+    fun get_plugin_version(): Int = 3
 
     @UsedByGodot
     fun get_static(): Dictionary {
@@ -177,6 +185,112 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
             val launch = a.packageManager.getLaunchIntentForPackage(pkg) ?: return false
             try { a.startActivity(launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); true } catch (_: Exception) { false }
         } catch (_: Exception) { false }
+    }
+
+    // ---------- v0.14.1 ONE-APP-1: Scorpion Viper inside this app ----------
+    // The Scorpion Viper web app ships inside this APK (assets/social/, copied in by CI). It is shown in a
+    // full-screen WebView over the world; nothing is downloaded. Only https://appassets.androidplatform.net/
+    // is served (from the APK); every other address is blocked, so no outside page gets the bridge.
+
+    private var panel: android.widget.FrameLayout? = null
+    private var web: android.webkit.WebView? = null
+    @Volatile private var ownerSession = false
+
+    /** Godot tells the panel whether the owner is unlocked in the world (the embedded app can ask). */
+    @UsedByGodot
+    fun set_owner_session(on: Boolean) { ownerSession = on }
+
+    @UsedByGodot
+    fun has_social_bundle(): Boolean {
+        val c = ctx ?: return false
+        return try { c.assets.open("social/index.html").close(); true } catch (_: Exception) { false }
+    }
+
+    @UsedByGodot
+    fun is_social_open(): Boolean = panel != null
+
+    @UsedByGodot
+    fun open_social_panel(path: String): Boolean {
+        val a = activity ?: return false
+        if (!has_social_bundle()) return false
+        a.runOnUiThread {
+            if (panel == null) buildPanel(a)
+            val p = if (path.startsWith("/") && path.length < 200 && !path.contains("..")) path else "/"
+            web?.loadUrl(ORIGIN + p)
+            panel?.visibility = android.view.View.VISIBLE
+        }
+        return true
+    }
+
+    @UsedByGodot
+    fun close_social_panel() {
+        activity?.runOnUiThread { hidePanel() }
+    }
+
+    private fun hidePanel() {
+        val p = panel ?: return
+        (p.parent as? android.view.ViewGroup)?.removeView(p)
+        web?.destroy(); web = null; panel = null
+        emitSignal("social_closed")
+    }
+
+    @android.annotation.SuppressLint("SetJavaScriptEnabled")
+    private fun buildPanel(a: android.app.Activity) {
+        val root = a.window.decorView as android.view.ViewGroup
+        val box = android.widget.FrameLayout(a)
+        box.setBackgroundColor(android.graphics.Color.BLACK)
+        val w = android.webkit.WebView(a)
+        w.settings.javaScriptEnabled = true
+        w.settings.domStorageEnabled = true
+        w.settings.allowFileAccess = false
+        w.settings.allowContentAccess = false
+        w.settings.mediaPlaybackRequiresUserGesture = false
+        val assets = a.assets
+        w.webViewClient = object : android.webkit.WebViewClient() {
+            override fun shouldOverrideUrlLoading(v: android.webkit.WebView, r: android.webkit.WebResourceRequest): Boolean =
+                !r.url.toString().startsWith(ORIGIN)
+            override fun shouldInterceptRequest(v: android.webkit.WebView, r: android.webkit.WebResourceRequest): android.webkit.WebResourceResponse? {
+                val u = r.url
+                if (u.scheme != "https" || u.host != HOST) return android.webkit.WebResourceResponse("text/plain", "utf-8", 403, "Blocked", emptyMap(), null)
+                var rel = (u.path ?: "/").trimStart('/')
+                if (rel.isEmpty() || rel.endsWith("/")) rel = "index.html"
+                if (rel.contains("..")) return null
+                return open(assets, rel) ?: if (!rel.substringAfterLast('/').contains('.')) open(assets, "index.html") else null
+            }
+        }
+        w.addJavascriptInterface(HostBridge(), "ViperHost")
+        box.addView(w, android.widget.FrameLayout.LayoutParams(-1, -1))
+        val close = android.widget.Button(a)
+        close.text = "✕ World"
+        close.setOnClickListener { hidePanel() }
+        val lp = android.widget.FrameLayout.LayoutParams(-2, -2)
+        lp.gravity = android.view.Gravity.TOP or android.view.Gravity.END
+        box.addView(close, lp)
+        root.addView(box, android.view.ViewGroup.LayoutParams(-1, -1))
+        panel = box; web = w
+    }
+
+    private fun open(assets: android.content.res.AssetManager, rel: String): android.webkit.WebResourceResponse? = try {
+        android.webkit.WebResourceResponse(mime(rel), "utf-8", assets.open("social/$rel"))
+    } catch (_: Exception) { null }
+
+    private fun mime(rel: String): String = when (rel.substringAfterLast('.', "").lowercase()) {
+        "html" -> "text/html"; "js", "mjs" -> "text/javascript"; "css" -> "text/css"; "svg" -> "image/svg+xml"
+        "json" -> "application/json"; "png" -> "image/png"; "jpg", "jpeg" -> "image/jpeg"; "webp" -> "image/webp"
+        "webmanifest" -> "application/manifest+json"; "woff2" -> "font/woff2"; "mp4" -> "video/mp4"; "mp3" -> "audio/mpeg"
+        else -> "application/octet-stream"
+    }
+
+    /** window.ViperHost inside the embedded app. Read-only facts plus "go back to the world". */
+    inner class HostBridge {
+        @android.webkit.JavascriptInterface fun isEmbedded(): Boolean = true
+        @android.webkit.JavascriptInterface fun ownerSession(): Boolean = ownerSession
+        @android.webkit.JavascriptInterface fun closePanel() { activity?.runOnUiThread { hidePanel() } }
+        /** Enter World from the social app: Godot validates the link (SocialBridge.parse_enter) before travel. */
+        @android.webkit.JavascriptInterface fun enterWorld(link: String) {
+            if (link.length > 200) return
+            activity?.runOnUiThread { hidePanel(); emitSignal("social_enter_world", link) }
+        }
     }
 
     // ---------- helpers ----------

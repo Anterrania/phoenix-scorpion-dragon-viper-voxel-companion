@@ -84,8 +84,11 @@ func legacy_code_matches(code: String) -> bool:
 ## SEC-FIX-5/6: first-run owner setup is allowed only when there is NO vault file (valid or corrupted)
 ## and no legacy bootstrap record in the build. SEC-FIX-6: a device whose profile role is already
 ## "owner" (upgrade from before the vault existed) may also use it; that is logged separately.
+## v0.13 rule, kept for reference (v0.14 AUTH-1 adds: no owner sign-in record in the build either):
+# func first_run_allowed() -> bool:
+# 	return not OwnerVault.vault_file_present() and str(legacy_bootstrap.get("hash", "")) == ""
 func first_run_allowed() -> bool:
-	return not OwnerVault.vault_file_present() and str(legacy_bootstrap.get("hash", "")) == ""
+	return not OwnerVault.vault_file_present() and str(legacy_bootstrap.get("hash", "")) == "" and not OwnerLogin.available()
 
 ## First-run: create the owner PIN/passphrase (confirmed by the caller), claim the device, log it.
 func first_run_setup(secret: String) -> String:

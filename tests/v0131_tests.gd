@@ -84,7 +84,10 @@ static func _live(t: Node) -> void:
 	var c: Dictionary = pg["items"][0]
 	t.check(c["kind"] == "live" and c["live"] and c["text"].contains("shaping Heaven"), "v0131 live card shows the creative space (%s)" % c["text"])
 	t.check(not JSON.stringify(c).contains("secret plans") and int(c["chats"]) >= 1, "v0131 live card never shows chat text, only a count")
-	t.check(not CompanionLive.page("sa")["ok"], "v0131 other members can't open companion live feeds")
+	# v0.14 LIVE-2 made Companions Live public to members, so this v0.13.1 rule no longer holds:
+	# t.check(not CompanionLive.page("sa")["ok"], "v0131 other members can't open companion live feeds")
+	var sa_pg := CompanionLive.page("sa")
+	t.check(not sa_pg["ok"] or sa_pg["items"].all(func(it): return not it.has("chats")), "v0131 (v0.14 rule) other members never see the private chat count")
 	var fp := Social.feed_page("local", "live")
 	t.check(fp["ok"] and fp["mode"] == "live" and fp["items"].size() >= 1, "v0131 feed mode 'live' routes to CompanionLive")
 	CompanionLive.now_override = int(Time.get_unix_time_from_system()) + 100000

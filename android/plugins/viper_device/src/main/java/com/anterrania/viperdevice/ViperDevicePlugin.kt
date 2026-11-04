@@ -4,7 +4,9 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.ActivityNotFoundException
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
@@ -38,8 +40,12 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
 
     // ---------- static facts (read once per detect) ----------
 
+    // v1 (v0.12-v0.13): device facts only.
+    // @UsedByGodot
+    // fun get_plugin_version(): Int = 1
+    /** v2 (v0.14 BRIDGE-1): adds the Scorpion Viper bridge (open_app, is_app_installed, get_launch_uri). */
     @UsedByGodot
-    fun get_plugin_version(): Int = 1
+    fun get_plugin_version(): Int = 2
 
     @UsedByGodot
     fun get_static(): Dictionary {
@@ -128,6 +134,50 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
     }
 
     private fun changed() = emitSignal("live_changed")
+
+    // ---------- v0.14 BRIDGE-1: Scorpion Viper social app bridge ----------
+    // Only the apps on this list can be opened (and the manifest <queries> lists the same package).
+
+    private val bridgeApps = setOf("os.viper.scorpion")
+
+    /** The phoenixvoxel://enter?... link this activity was opened with, or "". GDScript validates it. */
+    @UsedByGodot
+    fun get_launch_uri(): String {
+        val i = activity?.intent ?: return ""
+        if (i.action != Intent.ACTION_VIEW) return ""
+        val u = i.data ?: return ""
+        return if (u.scheme == "phoenixvoxel") u.toString() else ""
+    }
+
+    /** Forget the link once handled, so a resume does not re-enter the same world. */
+    @UsedByGodot
+    fun consume_launch_uri() {
+        activity?.intent?.let { it.data = null; it.action = Intent.ACTION_MAIN }
+    }
+
+    @UsedByGodot
+    fun is_app_installed(pkg: String): Boolean {
+        val c = ctx ?: return false
+        if (pkg !in bridgeApps) return false
+        return try { c.packageManager.getLaunchIntentForPackage(pkg) != null } catch (_: Exception) { false }
+    }
+
+    /** Open an allowed app: with a deep link when uri is set, else its launcher screen. false = not installed. */
+    @UsedByGodot
+    fun open_app(pkg: String, uri: String): Boolean {
+        val a = activity ?: return false
+        if (pkg !in bridgeApps) return false
+        val intent = if (uri.isNotEmpty()) Intent(Intent.ACTION_VIEW, Uri.parse(uri)).setPackage(pkg)
+            else a.packageManager.getLaunchIntentForPackage(pkg) ?: return false
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        return try {
+            a.startActivity(intent); true
+        } catch (_: ActivityNotFoundException) {
+            // the social app has no handler for that link yet: open it normally instead
+            val launch = a.packageManager.getLaunchIntentForPackage(pkg) ?: return false
+            try { a.startActivity(launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); true } catch (_: Exception) { false }
+        } catch (_: Exception) { false }
+    }
 
     // ---------- helpers ----------
 

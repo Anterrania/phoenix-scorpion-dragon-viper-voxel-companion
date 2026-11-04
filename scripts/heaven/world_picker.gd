@@ -12,6 +12,7 @@ static func grids() -> Array:
 	if _grids.is_empty():
 		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(DATA))
 		_grids = d.get("grids", []) if d is Dictionary else []
+		_grids = _grids + CompanionHomes.grids()   # v0.14 HOME-1: one home realm per court companion
 	return _grids
 
 static func grid(id: String) -> Dictionary:
@@ -39,6 +40,7 @@ static func target(g: Dictionary, gen: Object = null) -> Dictionary:
 	var e: Variant = g.get("enter", [0, 0])
 	if e is String and e == "heaven": return {"kind": "heaven", "pos": HeavenLayout.spawn_point()}
 	if e is String and e == "welcome": return {"kind": "welcome", "pos": WelcomeIsland.spawn_point()}
+	if e is String and str(e).begins_with("home:"): return CompanionHomes.target(str(e).trim_prefix("home:"), gen)   # v0.14 HOME-1
 	if e is String and str(e).begins_with("biome:"):
 		var want := int(str(e).trim_prefix("biome:"))
 		if gen and gen.has_method("biome_at"):
@@ -60,6 +62,7 @@ static func enter(ui: Node, id: String) -> String:
 	var w = ui.get("world") if ui else null
 	var gen = w.get("generator") if w else null
 	var t := target(g, gen)
+	CompanionHomes.clear_visitors(w)   # v0.14 HOME-1: last trip's visitors go home
 	match t["kind"]:
 		"heaven":
 			var hw: Node = w.get_node_or_null("HeavenWorld") if w else null
@@ -67,7 +70,11 @@ static func enter(ui: Node, id: String) -> String:
 				ui.teleport(t["pos"], true)
 				hw.go_spawn()
 			else: ui.teleport(t["pos"], true)
+			CompanionHomes.heaven_court(ui)
 		"welcome": ui.go_welcome(false)
+		"companion_home":
+			ui.teleport(t["pos"])
+			CompanionHomes.arrive(ui, str(t["companion"]))
 		_: ui.teleport(t["pos"])
 	return ""
 

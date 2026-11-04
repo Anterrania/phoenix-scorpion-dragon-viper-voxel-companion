@@ -2,9 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Normal (install-time, no prompt) permission: needed to read wifi/cell/none. Nothing is sent anywhere. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- v0.14 BRIDGE-1: package visibility for the Scorpion Viper social app only (Android 11+). -->
+    <queries>
+        <package android:name="os.viper.scorpion" />
+    </queries>
     <application>
         <meta-data
             android:name="org.godotengine.plugin.v2.ViperDevice"
             android:value="com.anterrania.viperdevice.ViperDevicePlugin" />
+        <!-- v0.14 BRIDGE-1: "Enter World" links from Scorpion Viper: phoenixvoxel://enter?realm=<grid id>&companion=<id>.
+             An alias of Godot's main activity (the template keeps GodotApp itself non-exported). -->
+        <activity-alias
+            android:name="com.godot.game.GodotAppEnterWorld"
+            android:targetActivity="com.godot.game.GodotApp"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="phoenixvoxel" android:host="enter" />
+            </intent-filter>
+        </activity-alias>
     </application>
 </manifest>

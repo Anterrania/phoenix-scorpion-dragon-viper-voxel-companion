@@ -70,5 +70,9 @@ All V-phases are future research. None of them exists yet.
 ## Release track
 Signed release APK/AAB, privacy policy (AI + social data), Play Store listing. Any needed legal/business structure gets coordinated with the Business Setup and Law bots.
 
+## v0.14 (Oct 31, 2026)
+- PERSONA-IMPORT, COMPANION-HOMES, LIVE-BROADCAST, CREATE-COMPANION, OWNER-LOGIN, SOCIAL-BRIDGE, REL-014 — see docs/modules/V014_COMPANIONS.md.
+- Still not built: always-on server broadcast (HEAVEN-10); Aethel Coin real-money exchange stays under LEGAL REVIEW.
+
 ## v0.13.1 (Oct 31, 2026)
 Companions Live feed, auto-correct + repair chips, group auto-approve on join, glam pass (sparkle / shine / bloom / motes). Details: `docs/modules/V0131_FOLLOWUPS.md`, log `docs/trac/20261031-dev-bot-v0131.md`.

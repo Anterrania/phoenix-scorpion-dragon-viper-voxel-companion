@@ -113,6 +113,24 @@ static func start_legacy_session(_code: String) -> void:
 	if has_vault(): return
 	_bootstrap = true
 
+## v0.14 AUTH-1: OwnerLogin verified the shared owner password on a no-vault device -> setup only.
+static func start_login_bootstrap() -> void:
+	if has_vault() or vault_file_present(): return
+	_bootstrap = true
+
+## v0.14 AUTH-1: the shared owner password as its own key slot ("account"), so it survives Change PIN.
+static func has_account_slot() -> bool: return vault().get("slots", []).any(func(s): return s.get("kind") == "account")
+
+static func add_account_slot(secret: String) -> String:
+	if not is_unlocked() or not storage_ready(): return "Unlock with your PIN first."
+	var e := validate_secret(secret)
+	if e != "": return e
+	var slots: Array = vault()["slots"].filter(func(s): return s.get("kind") != "account")
+	slots.append(_make_slot("account", secret, _dek_enc + _dek_mac))
+	vault()["slots"] = slots
+	_save_vault()
+	return ""
+
 static func set_lock_minutes(m: int) -> bool:
 	if not is_unlocked(): return false
 	vault()["lock_minutes"] = clampi(m, LOCK_RANGE[0], LOCK_RANGE[1])

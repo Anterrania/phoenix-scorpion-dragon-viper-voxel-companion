@@ -55,6 +55,20 @@ static func connect_panel(ui: Node) -> void:
 	var p := _plugin()
 	if not _panel_ok(p) or not p.has_signal("social_enter_world"): return
 	if not p.is_connected("social_enter_world", _on_enter.bind(ui)): p.connect("social_enter_world", _on_enter.bind(ui))
+	connect_actions(ui)
+
+## v0.15 SOCIAL-SHELL: the social app is the menu; its "World" actions run here (ids whitelisted by set_actions).
+static func connect_actions(ui: Node) -> void:
+	var p := _plugin()
+	if p == null or not p.has_signal("social_world_action"): return
+	if not p.is_connected("social_world_action", _on_action.bind(ui)): p.connect("social_world_action", _on_action.bind(ui))
+
+static func _on_action(id: String, ui: Node) -> void:
+	if is_instance_valid(ui) and ui.has_method("menu_action") and _ident(id): ui.call("menu_action", id)
+
+static func set_actions(actions: Array) -> void:
+	var p := _plugin()
+	if p != null and p.has_method("set_world_actions"): p.call("set_world_actions", JSON.stringify(actions))
 
 static func _on_enter(link: String, ui: Node) -> void:
 	var e := handle_enter(ui, link)

@@ -36,7 +36,9 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
     override fun getPluginName() = "ViperDevice"
 
     // override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"))
-    override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"), SignalInfo("social_closed"), SignalInfo("social_enter_world", String::class.java))
+    // override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"), SignalInfo("social_closed"), SignalInfo("social_enter_world", String::class.java))
+    override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"), SignalInfo("social_closed"),
+        SignalInfo("social_enter_world", String::class.java), SignalInfo("social_world_action", String::class.java))
 
     private val ctx: Context? get() = activity?.applicationContext
 
@@ -52,8 +54,11 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
     // @UsedByGodot
     // fun get_plugin_version(): Int = 2
     /** v3 (v0.14.1 ONE-APP-1): adds the in-app Social panel (open_social_panel / close_social_panel). */
+    // @UsedByGodot
+    // fun get_plugin_version(): Int = 3
+    /** v4 (v0.15 SOCIAL-SHELL): the social app is the menu: world actions + keyboard-aware panel. */
     @UsedByGodot
-    fun get_plugin_version(): Int = 3
+    fun get_plugin_version(): Int = 4
 
     @UsedByGodot
     fun get_static(): Dictionary {
@@ -195,6 +200,17 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
     private var panel: android.widget.FrameLayout? = null
     private var web: android.webkit.WebView? = null
     @Volatile private var ownerSession = false
+    @Volatile private var worldActionsJson = "[]"
+    private val actionIds = java.util.Collections.synchronizedSet(mutableSetOf<String>())
+
+    /** Godot sends the world actions the social menu may run: JSON [{id,label}]. Only these ids are accepted back. */
+    @UsedByGodot
+    fun set_world_actions(json: String) {
+        if (json.length > 8000) return
+        worldActionsJson = json
+        actionIds.clear()
+        Regex("\"id\"\\s*:\\s*\"([A-Za-z0-9_]{1,40})\"").findAll(json).forEach { actionIds.add(it.groupValues[1]) }
+    }
 
     /** Godot tells the panel whether the owner is unlocked in the world (the embedded app can ask). */
     @UsedByGodot
@@ -207,7 +223,8 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
     }
 
     @UsedByGodot
-    fun is_social_open(): Boolean = panel != null
+    // fun is_social_open(): Boolean = panel != null
+    fun is_social_open(): Boolean = panel?.visibility == android.view.View.VISIBLE
 
     @UsedByGodot
     fun open_social_panel(path: String): Boolean {
@@ -216,7 +233,9 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
         a.runOnUiThread {
             if (panel == null) buildPanel(a)
             val p = if (path.startsWith("/") && path.length < 200 && !path.contains("..")) path else "/"
-            web?.loadUrl(ORIGIN + p)
+            // web?.loadUrl(ORIGIN + p)
+            val cur = web?.url ?: ""
+            if (!cur.startsWith(ORIGIN) || p != "/") web?.loadUrl(ORIGIN + p)
             panel?.visibility = android.view.View.VISIBLE
         }
         return true
@@ -227,10 +246,18 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
         activity?.runOnUiThread { hidePanel() }
     }
 
+    // v0.14.1: destroyed the WebView on close.
+    // private fun hidePanel() {
+    //     val p = panel ?: return
+    //     (p.parent as? android.view.ViewGroup)?.removeView(p)
+    //     web?.destroy(); web = null; panel = null
+    //     emitSignal("social_closed")
+    // }
+    /** v0.15: the social app is the menu, so it stays loaded and is only hidden (opens instantly, keeps its page). */
     private fun hidePanel() {
         val p = panel ?: return
-        (p.parent as? android.view.ViewGroup)?.removeView(p)
-        web?.destroy(); web = null; panel = null
+        if (p.visibility == android.view.View.GONE) return
+        p.visibility = android.view.View.GONE
         emitSignal("social_closed")
     }
 
@@ -266,7 +293,22 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
         val lp = android.widget.FrameLayout.LayoutParams(-2, -2)
         lp.gravity = android.view.Gravity.TOP or android.view.Gravity.END
         box.addView(close, lp)
+        // v0.15 KB-1: pad the panel by the keyboard (IME) and system bar insets so the focused field stays visible.
+        box.setOnApplyWindowInsetsListener { v, insets ->
+            if (Build.VERSION.SDK_INT >= 30) {
+                val ime = insets.getInsets(android.view.WindowInsets.Type.ime())
+                val bars = insets.getInsets(android.view.WindowInsets.Type.systemBars())
+                v.setPadding(bars.left, bars.top, bars.right, maxOf(ime.bottom, bars.bottom))
+            } else {
+                @Suppress("DEPRECATION")
+                v.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, insets.systemWindowInsetBottom)
+            }
+            insets
+        }
+        @Suppress("DEPRECATION")
+        a.window.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         root.addView(box, android.view.ViewGroup.LayoutParams(-1, -1))
+        box.requestApplyInsets()
         panel = box; web = w
     }
 
@@ -286,6 +328,12 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
         @android.webkit.JavascriptInterface fun isEmbedded(): Boolean = true
         @android.webkit.JavascriptInterface fun ownerSession(): Boolean = ownerSession
         @android.webkit.JavascriptInterface fun closePanel() { activity?.runOnUiThread { hidePanel() } }
+        @android.webkit.JavascriptInterface fun worldActions(): String = worldActionsJson
+        /** Run a world action (teleport, worlds, avatar, ...). Unknown ids are ignored; the panel closes first. */
+        @android.webkit.JavascriptInterface fun worldAction(id: String) {
+            if (id !in actionIds) return
+            activity?.runOnUiThread { hidePanel(); emitSignal("social_world_action", id) }
+        }
         /** Enter World from the social app: Godot validates the link (SocialBridge.parse_enter) before travel. */
         @android.webkit.JavascriptInterface fun enterWorld(link: String) {
             if (link.length > 200) return

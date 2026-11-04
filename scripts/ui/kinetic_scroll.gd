@@ -11,12 +11,18 @@ var _start := Vector2.ZERO
 var _last := Vector2.ZERO
 var _vel := 0.0
 var _cancel_sent := false
+# v0.15 SCROLL-1: sub-pixel accumulator + time-based velocity (the old per-frame delta made flings jumpy).
+var _pos_f := 0.0
+var _last_t := 0
+const MAX_VEL := 6000.0
 
 func _ready() -> void:
 	horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_ALWAYS
+	# vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_ALWAYS
+	vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO   # v0.15: bar only when the list overflows
 	var bar := get_v_scroll_bar()
-	bar.custom_minimum_size.x = 26
+	# bar.custom_minimum_size.x = 26
+	bar.custom_minimum_size.x = 14   # v0.15: slimmer; the body keeps a right gutter so it never covers buttons
 	var grab := StyleBoxFlat.new(); grab.bg_color = Color(1, 0.18, 0.82, 0.85); grab.set_corner_radius_all(12)
 	var track := StyleBoxFlat.new(); track.bg_color = Color(1, 1, 1, 0.08); track.set_corner_radius_all(12)
 	for k in ["grabber", "grabber_highlight", "grabber_pressed"]: bar.add_theme_stylebox_override(k, grab)
@@ -42,9 +48,11 @@ func _input(e: InputEvent) -> void:
 		if pressed:
 			if get_global_rect().has_point(pos):
 				_down = true; _dragging = false; _start = pos; _last = pos; _vel = 0.0; _cancel_sent = false
+				_pos_f = float(scroll_vertical); _last_t = Time.get_ticks_usec()
 		else:
 			if _dragging:
 				get_viewport().set_input_as_handled()  # swallow the tap at the end of a drag
+				if Time.get_ticks_usec() - _last_t > 80000: _vel = 0.0   # finger paused before lifting: no fling
 			_down = false
 			_dragging = false
 	elif is_motion and _down:
@@ -53,8 +61,14 @@ func _input(e: InputEvent) -> void:
 			_cancel_button_press()
 		if _dragging:
 			var dy := pos.y - _last.y
-			scroll_vertical -= int(dy)
-			_vel = -dy / maxf(get_process_delta_time(), 0.001)
+			# scroll_vertical -= int(dy)
+			# _vel = -dy / maxf(get_process_delta_time(), 0.001)
+			_pos_f = clampf(_pos_f - dy, 0.0, _max_scroll())
+			scroll_vertical = int(round(_pos_f))
+			var now := Time.get_ticks_usec()
+			var dt := maxf(float(now - _last_t) / 1000000.0, 0.004)
+			_last_t = now
+			_vel = clampf(lerpf(_vel, -dy / dt, 0.6), -MAX_VEL, MAX_VEL)
 			get_viewport().set_input_as_handled()
 		_last = pos
 
@@ -71,10 +85,18 @@ func _cancel_button_press() -> void:
 
 func _process(delta: float) -> void:
 	if not _down and absf(_vel) > 5.0:
-		scroll_vertical += int(_vel * delta)
+		# scroll_vertical += int(_vel * delta)
+		if absf(_pos_f - scroll_vertical) > 2.0: _pos_f = float(scroll_vertical)
+		_pos_f = clampf(_pos_f + _vel * delta, 0.0, _max_scroll())
+		scroll_vertical = int(round(_pos_f))
+		if _pos_f <= 0.0 or _pos_f >= _max_scroll(): _vel = 0.0
 		_vel = lerpf(_vel, 0.0, clampf(FRICTION * delta, 0.0, 1.0))
 	elif not _down:
 		_vel = 0.0
+
+func _max_scroll() -> float:
+	var bar := get_v_scroll_bar()
+	return maxf(0.0, bar.max_value - bar.page)
 
 ## Test helper: simulate a drag of dy pixels starting at p.
 func simulate_drag(p: Vector2, dy: float) -> void:

@@ -49,3 +49,17 @@ static func run(t: Node) -> void:
 	t.check(kt.contains("fun worldAction(") and kt.contains("fun worldActions()") and kt.contains("social_world_action") and kt.contains("id !in actionIds"), "v015 plugin: whitelisted world actions over the JS bridge")
 	t.check(kt.contains("WindowInsets.Type.ime()") and kt.contains("SOFT_INPUT_ADJUST_RESIZE"), "v015 plugin: keyboard-aware panel")
 	t.check(kt.contains("fun get_plugin_version(): Int = 4"), "v015 plugin v4")
+
+## v0.15.1 BOOT: the embedded social bundle must be self-consistent (v0.15.0 shipped an index.html whose
+## /assets/index-*.js was not in the bundle, so the panel sat on the splash).
+static func run_bundle(t: Node) -> void:
+	var root := "res://social_web/bundle"
+	var html := FileAccess.get_file_as_string(root + "/index.html")
+	t.check(html.contains("<html"), "v0151 social bundle has index.html")
+	var re := RegEx.new()
+	re.compile("(?:src|href)=\"(/assets/[^\"]+)\"")
+	var refs := re.search_all(html)
+	t.check(refs.size() > 0, "v0151 social index.html references its scripts")
+	for m in refs:
+		t.check(FileAccess.file_exists(root + m.get_string(1)), "v0151 social asset present: " + m.get_string(1))
+	t.check(html.contains("boot-error"), "v0151 social boot error screen instead of a stuck splash")

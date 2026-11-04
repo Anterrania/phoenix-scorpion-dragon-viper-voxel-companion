@@ -90,6 +90,7 @@ func _ready() -> void:
 	await load("res://tests/v0131_tests.gd").run(self)   # v0.13.1 auto-correct, companions live, group auto-approve, glam
 	await load("res://tests/v014_tests.gd").run(self)   # v0.14 personas, homes, live broadcast, creator, owner sign-in, bridge
 	await load("res://tests/v015_tests.gd").run(self)   # v0.15 social app is the menu, portrait scroll, keyboard
+	load("res://tests/v015_tests.gd").run_bundle(self)   # v0.15.1 embedded social bundle boots
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -350,7 +351,7 @@ func _v05_tests() -> void:
 	# check(ep.contains("version/code=15") and ep.contains("version/name=\"0.13.0\""), "versionCode 15 / 0.13.0 (v0.13)")
 	# check(ep.contains("version/code=16") and ep.contains("version/name=\"0.13.1\""), "versionCode 16 / 0.13.1 (v0.13.1)")
 	# check(ep.contains("version/code=17") and ep.contains("version/name=\"0.14.0\""), "versionCode 17 / 0.14.0 (v0.14)")
-	check(ep.contains("version/code=19") and ep.contains("version/name=\"0.15.0\""), "versionCode 19 / 0.15.0 (v0.15)")
+	check(ep.contains("version/code=20") and ep.contains("version/name=\"0.15.1\""), "versionCode 20 / 0.15.1 (v0.15.1)")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))

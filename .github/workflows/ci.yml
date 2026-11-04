@@ -27,6 +27,12 @@ jobs:
         run: ./godot --headless --import
       - name: Run tests
         run: ./godot --headless res://tests/test_runner.tscn
+      - name: Fresh install first run (v0.15.1 FRESH-1; empty user data, no PIN, no settings)
+        run: |
+          export XDG_DATA_HOME="$(mktemp -d)" XDG_CONFIG_HOME="$(mktemp -d)"
+          timeout 180 ./godot --headless --quit-after 600 > first_run.log 2>&1 || true
+          grep -E "owner_hash_loaded=" first_run.log
+          if grep -E "Parse Error|Compile Error|Invalid call|Invalid access" first_run.log; then echo "first run has script errors"; exit 1; fi
       - name: Install export templates
         run: |
           curl -fsSLO https://github.com/godotengine/godot/releases/download/${GODOT_TAG}/Godot_v${GODOT_TAG}_export_templates.tpz

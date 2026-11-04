@@ -170,7 +170,8 @@ static func status_text(st: String, done_mb := 0.0, total_mb := 0.0) -> String:
 		"local_not_downloaded": return "○ On-device AI not downloaded yet (Settings › Companion AI). Persona replies for now."
 		"local_paused_hot": return "○ On-device AI paused: phone is hot. Persona replies until it cools down."
 		"local_paused_bg": return "○ On-device AI paused in the background."
-		"local_unsupported": return "○ On-device AI isn't available on this device. Persona replies (or add an API key for live AI)."
+		# "local_unsupported": return "○ On-device AI isn't available on this device. Persona replies (or add an API key for live AI)."
+		"local_unsupported": return "○ On-device AI isn't available on this device. Companions use persona replies."
 		"local_unsupported_ram": return "○ This phone has too little memory for the on-device AI. Persona replies."
 		_: return "○ On-device AI hit a problem. Persona replies for now."
 

@@ -705,41 +705,47 @@ func _build_settings() -> Dictionary:
 	var mode := btn("", func(): pass)
 	# var upd := func(): mode.text = "AI mode: " + ("LIVE (uses API key)" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "OFFLINE canned replies")
 	# LAI-6: three modes, on-device first. Tap cycles On-device -> Live -> Offline replies.
-	var upd := func(): mode.text = "AI mode: " + {"local": "ON-DEVICE (no key, private)", "live": "LIVE (uses API key)", "canned": "OFFLINE canned replies"}[Settings.effective_mode()]
+	# var upd := func(): mode.text = "AI mode: " + {"local": "ON-DEVICE (no key, private)", "live": "LIVE (uses API key)", "canned": "OFFLINE canned replies"}[Settings.effective_mode()]
+	# v0.14 AI-KEY-1: no API key field; companions use the built-in on-device AI. Tap cycles On-device <-> Offline replies
+	# (an old "live" setting goes back to On-device on the first tap).
+	var upd := func(): mode.text = "AI mode: " + {"local": "ON-DEVICE (built in, private)", "live": "LIVE (old setting, tap to switch)", "canned": "OFFLINE canned replies"}[Settings.effective_mode()]
 	upd.call()
 	mode.pressed.connect(func():
 		# Settings.set_value("llm", "mode", "canned" if str(Settings.get_value("llm", "mode", "canned")) == "live" else "live")
-		Settings.set_value("llm", "mode", {"local": "live", "live": "canned", "canned": "local"}[Settings.effective_mode()])
+		# Settings.set_value("llm", "mode", {"local": "live", "live": "canned", "canned": "local"}[Settings.effective_mode()])
+		Settings.set_value("llm", "mode", Settings.next_ui_mode(Settings.effective_mode()))
 		Settings.set_value("llm", "mode_set", true)
 		Settings.last_chat_error = ""
 		upd.call()
 		_update_chat_status())
 	b.add_child(mode)
-	for f in [["endpoint", "LLM endpoint (OpenAI-compatible)", false], ["model", "Model", false], ["api_key", "API key (stored only on this phone)", true]]:
-		b.add_child(label(f[1], 24))
-		var le := LineEdit.new()
-		le.text = str(Settings.get_value("llm", f[0], ""))
-		le.secret = f[2]
-		le.custom_minimum_size = Vector2(0, 72)
-		le.add_theme_font_size_override("font_size", 26)
-		var key: String = f[0]
-		# le.text_changed.connect(func(t): Settings.set_value("llm", key, t.strip_edges()))
-		# CHAT-3: a pasted key switches live chat on (unless offline was chosen); the mode label follows.
-		le.text_changed.connect(func(t):
-			if key == "api_key": Settings.set_api_key_from_ui(t)
-			else: Settings.set_value("llm", key, t.strip_edges()); Settings.last_chat_error = ""
-			upd.call()
-			_update_chat_status())
-		if key == "endpoint": le.placeholder_text = "https://api.x.ai/v1/chat/completions"
-		b.add_child(le)
-	var probe := label("", 22, GOLD)
-	b.add_child(btn("Test AI connection", func():
-		probe.text = "Testing…"
-		AgentBrain.test_connection(func(ok: bool, m: String):
-			probe.text = m
-			probe.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if ok else Color(1, 0.55, 0.55))
-			_update_chat_status())))
-	b.add_child(probe)
+	# v0.14 AI-KEY-1: endpoint / model / API key fields and "Test AI connection" hidden (Settings.SHOW_LIVE_AI_FIELDS).
+	if Settings.SHOW_LIVE_AI_FIELDS:
+		for f in [["endpoint", "LLM endpoint (OpenAI-compatible)", false], ["model", "Model", false], ["api_key", "API key (stored only on this phone)", true]]:
+			b.add_child(label(f[1], 24))
+			var le := LineEdit.new()
+			le.text = str(Settings.get_value("llm", f[0], ""))
+			le.secret = f[2]
+			le.custom_minimum_size = Vector2(0, 72)
+			le.add_theme_font_size_override("font_size", 26)
+			var key: String = f[0]
+			# le.text_changed.connect(func(t): Settings.set_value("llm", key, t.strip_edges()))
+			# CHAT-3: a pasted key switches live chat on (unless offline was chosen); the mode label follows.
+			le.text_changed.connect(func(t):
+				if key == "api_key": Settings.set_api_key_from_ui(t)
+				else: Settings.set_value("llm", key, t.strip_edges()); Settings.last_chat_error = ""
+				upd.call()
+				_update_chat_status())
+			if key == "endpoint": le.placeholder_text = "https://api.x.ai/v1/chat/completions"
+			b.add_child(le)
+		var probe := label("", 22, GOLD)
+		b.add_child(btn("Test AI connection", func():
+			probe.text = "Testing…"
+			AgentBrain.test_connection(func(ok: bool, m: String):
+				probe.text = m
+				probe.add_theme_color_override("font_color", Color(0.5, 1, 0.6) if ok else Color(1, 0.55, 0.55))
+				_update_chat_status())))
+		b.add_child(probe)
 	_build_local_ai(b)
 	b.add_child(label("Voice & Music", 32, GOLD))
 	for t in [["voice", "tts_enabled", "Companions speak out loud (text-to-speech)"], ["music", "enabled", "Phoenix Radio music"]]:

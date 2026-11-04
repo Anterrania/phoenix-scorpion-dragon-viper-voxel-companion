@@ -122,6 +122,15 @@ func local_ai() -> bool:
 	var l := local_llm()
 	return l != null and l.can_chat()
 
+## v0.14 AI-KEY-1: the Settings screen no longer shows endpoint / model / API key (companions use the built-in
+## on-device AI). The live-AI code stays for later; flip this to bring the fields back.
+const SHOW_LIVE_AI_FIELDS := false
+
+## v0.14 AI-KEY-1: what the AI mode button switches to. Without the key fields: On-device <-> Offline replies.
+static func next_ui_mode(current: String) -> String:
+	if SHOW_LIVE_AI_FIELDS: return {"local": "live", "live": "canned", "canned": "local"}.get(current, "local")
+	return "canned" if current == "local" else "local"
+
 ## CHAT-3: Settings UI key entry. Entering a key turns live chat on unless the user explicitly chose
 ## offline replies (mode_set). Before this, a pasted key did nothing until the mode button was found.
 func set_api_key_from_ui(k: String) -> void:
@@ -281,7 +290,8 @@ static func chat_status_text(st: String) -> String:
 		return LocalLlmScript.status_text(st, l.dl_done_mb if l else 0.0, l.dl_total_mb if l else 0.0)
 	match st:
 		"live": return "● LIVE CHAT online"
-		"offline_no_key": return "○ CHAT OFFLINE: no API key. Add it in Settings › Companion AI (stays on this phone)."
+		# "offline_no_key": return "○ CHAT OFFLINE: no API key. Add it in Settings › Companion AI (stays on this phone)."
+		"offline_no_key": return "○ CHAT OFFLINE: AI mode is set to an old live setting. Tap AI mode in Settings › Companion AI to use the built-in AI."
 		"offline_mode": return "○ CHAT OFFLINE: AI mode is set to offline replies (Settings)."
 		"offline_locked": return "○ CHAT OFFLINE: unlock with your PIN to load your saved API key."
 		"offline_endpoint": return "○ CHAT OFFLINE: the AI endpoint in Settings › Companion AI isn't a valid web address."

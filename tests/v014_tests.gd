@@ -48,6 +48,7 @@ static func run(t: Node) -> void:
 	InteractionLedger.reset_for_tests("user://brain_core")
 	smt._restore(ROOT, saved)
 	_sources(t)
+	_ai_key(t)
 
 static func _p(cid: String) -> Dictionary: return CompanionsScreen.persona_of(cid)
 
@@ -251,3 +252,12 @@ static func _sources(t: Node) -> void:
 	var tr := FileAccess.get_file_as_string("res://docs/TASK_TRACKER.csv")
 	for row in ["PERSONA-IMPORT", "COMPANION-HOMES", "LIVE-BROADCAST", "CREATE-COMPANION", "OWNER-LOGIN", "SOCIAL-BRIDGE"]:
 		t.check(tr.contains(row), "v014 tracker row " + row)
+
+## v0.14 AI-KEY-1: no API key field in Settings; companions use the built-in on-device AI.
+static func _ai_key(t: Node) -> void:
+	t.check(not Settings.SHOW_LIVE_AI_FIELDS, "v014 AI-KEY-1 live AI fields hidden")
+	t.check(Settings.next_ui_mode("local") == "canned" and Settings.next_ui_mode("canned") == "local", "v014 AI-KEY-1 mode button: on-device <-> offline")
+	t.check(Settings.next_ui_mode("live") == "local", "v014 AI-KEY-1 an old live setting goes back to on-device")
+	var ui := FileAccess.get_file_as_string("res://scripts/ui/ui_root.gd")
+	t.check(ui.contains("if Settings.SHOW_LIVE_AI_FIELDS:\n\t\tfor f in [[\"endpoint\""), "v014 AI-KEY-1 key fields are behind the flag")
+	t.check(not Settings.chat_status_text("offline_no_key").contains("Add it"), "v014 AI-KEY-1 status no longer asks for a key")

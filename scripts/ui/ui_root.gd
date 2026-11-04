@@ -255,7 +255,7 @@ func _build_menu() -> Dictionary:
 	#   ["📜 Proposals", "proposals"], ["🕮 History", "history"],
 	# The panels still exist (radial "Proposals" and the Companions screen open them); "🧬 Companions" redirects.
 	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["📡 Companions Live", "_live"], ["✨ Create Companion", "_create"], ["🦂 Open Social", "_open_social_app"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["📡 Companions Live", "_live"], ["✨ Create Companion", "_create"], ["🦂 Social (Scorpion Viper)", "_open_social_app"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
 		var target: String = row[1]
 		var t := btn(row[0], func():
 			if target == "_bg": AppControl.to_background(get_tree())
@@ -265,8 +265,11 @@ func _build_menu() -> Dictionary:
 			elif target == "_live": show_panel(""); LiveFeedScreen.open(self)
 			elif target == "_create": show_panel(""); CompanionCreatorScreen.open(self)   # v0.14 CREATE-1
 			elif target == "_open_social_app":   # v0.14 BRIDGE-1
-				var how := SocialBridge.open_social()
-				Toast.show_toast(self, "Opening Scorpion Viper" if how == "app" else ("Scorpion Viper isn't installed: opening its download page" if how == "web" else "Couldn't open Scorpion Viper"), "ok" if how != "" else "warn")
+				# var how := SocialBridge.open_social()
+				# Toast.show_toast(self, "Opening Scorpion Viper" if how == "app" else ("Scorpion Viper isn't installed: opening its download page" if how == "web" else "Couldn't open Scorpion Viper"), "ok" if how != "" else "warn")
+				# v0.14.1 ONE-APP-1: built-in panel, no download page.
+				SocialBridge.connect_panel(self)
+				if SocialBridge.open_social() == "": _open_social()   # desktop / no bundle: in-world Social feed
 			elif target == "_community": CommunityScreen.open(self)
 			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
 			elif target == "_interop": InteropScreen.open(self)
@@ -898,19 +901,40 @@ func _refresh_avatar(reload := true) -> void:
 		show_panel("")))
 	av_list.add_child(label("Profile: %s · role: %s" % [Profile.display_name(), Profile.role().to_upper()], 24))
 	if not Profile.is_owner():
-		var oh := HBoxContainer.new()
-		var code := LineEdit.new()
-		code.placeholder_text = "Owner code (world owner only)"
-		code.secret = true
-		code.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		code.custom_minimum_size = Vector2(0, 72)
-		code.add_theme_font_size_override("font_size", 26)
-		oh.add_child(code)
-		oh.add_child(btn("Unlock", func():
-			if Profile.try_owner_unlock(code.text):
+		# v0.14.1 ONE-APP-1: one owner unlock (username + password below) replaces the old owner-code row.
+		# var oh := HBoxContainer.new()
+		# var code := LineEdit.new()
+		# code.placeholder_text = "Owner code (world owner only)"
+		# code.secret = true
+		# code.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		# code.custom_minimum_size = Vector2(0, 72)
+		# code.add_theme_font_size_override("font_size", 26)
+		# oh.add_child(code)
+		# oh.add_child(btn("Unlock", func():
+		# 	if Profile.try_owner_unlock(code.text):
+		# 		_refresh_avatar(false)
+		# 		if OwnerVault.needs_pin_setup(): open_security().open_pad("setup"), 170))
+		# av_list.add_child(oh)
+		# v0.14.1 ONE-APP-1: the one owner unlock (same account and PBKDF2 check as Scorpion Viper; the
+		# embedded social panel is told the owner state). The vault PIN on the Security screen also works.
+		av_list.add_child(label("Owner sign-in (SkorpionViper)", 24, GOLD))
+		var su := LineEdit.new(); su.name = "AvUsername"; su.placeholder_text = "Username"
+		su.custom_minimum_size = Vector2(0, 72); su.add_theme_font_size_override("font_size", 26)
+		av_list.add_child(su)
+		var sp := LineEdit.new(); sp.name = "AvPassword"; sp.placeholder_text = "Password"; sp.secret = true
+		sp.virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_PASSWORD
+		sp.custom_minimum_size = Vector2(0, 72); sp.add_theme_font_size_override("font_size", 26)
+		av_list.add_child(sp)
+		var smsg := label("" if OwnerLogin.available() or OwnerVault.has_vault() else OwnerLogin.MISSING_MSG, 22, Color(1, 0.55, 0.55))
+		av_list.add_child(btn("🔑 Sign in", func():
+			var e := OwnerLogin.sign_in(su.text, sp.text)
+			sp.text = ""
+			if e == "":
+				Toast.show_toast(self, "Welcome, " + OwnerLogin.DISPLAY_NAME, "ok")
+				SocialBridge.push_owner()
 				_refresh_avatar(false)
-				if OwnerVault.needs_pin_setup(): open_security().open_pad("setup"), 170))
-		av_list.add_child(oh)
+			else: smsg.text = e))
+		av_list.add_child(smsg)
 	av_list.add_child(input_tag("YOUR INPUT HERE: more hair styles, body sliders, tattoos, wings?"))
 	collapse_sections(av_list, ["Hair streaks", "DNA blend", "Fine-tune", "Attachments"])
 

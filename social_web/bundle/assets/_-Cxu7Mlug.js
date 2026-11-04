@@ -1,0 +1,1 @@
+import{t as e}from"./index-BBGRcdaf.js";var t=e;export{t as component};

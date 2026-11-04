@@ -20,6 +20,7 @@ var options := {}
 var legacy_bootstrap := _load_bootstrap()   # {salt, iter, hash}; tests swap in make_bootstrap()
 
 func _ready() -> void:
+	OwnerLogin.log_status()   # v0.14.1 AUTH-2
 	var o: Variant = JSON.parse_string(FileAccess.get_file_as_string(OPTIONS_PATH))
 	options = o if o is Dictionary else {}
 	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(PATH)) if FileAccess.file_exists(PATH) else null

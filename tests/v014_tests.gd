@@ -25,6 +25,13 @@ class FakeBridge extends Object:
 		opened.append([pkg, u]); return installed
 	func get_launch_uri() -> String: return uri
 	func consume_launch_uri() -> void: consumed = true; uri = ""
+	# v0.14.1 ONE-APP-1 panel API
+	var bundle := true
+	var panel_paths: Array = []
+	var owner_flag := false
+	func has_social_bundle() -> bool: return bundle
+	func open_social_panel(p: String) -> bool: panel_paths.append(p); return bundle
+	func set_owner_session(on: bool) -> void: owner_flag = on
 
 static func run(t: Node) -> void:
 	_personas(t)
@@ -49,6 +56,7 @@ static func run(t: Node) -> void:
 	smt._restore(ROOT, saved)
 	_sources(t)
 	_ai_key(t)
+	_one_app(t)
 
 static func _p(cid: String) -> Dictionary: return CompanionsScreen.persona_of(cid)
 
@@ -158,7 +166,8 @@ static func _login(t: Node) -> void:
 	OwnerVault.reset_for_tests(sroot.path_join("security"), 1000)
 	OwnerLogin.reset_for_tests(sroot.path_join("security"))
 	t.check(not OwnerLogin.available(), "v014 no record in a test build -> sign-in off (fail closed)")
-	t.check(OwnerLogin.sign_in("SkorpionViper", TEST_PW).contains("isn't set up"), "v014 sign-in off says use the PIN")
+	# t.check(OwnerLogin.sign_in("SkorpionViper", TEST_PW).contains("isn't set up"), "v014 sign-in off says use the PIN")
+	t.check(OwnerLogin.sign_in("SkorpionViper", TEST_PW) == OwnerLogin.MISSING_MSG and OwnerLogin.MISSING_MSG.contains("PIN"), "v014 sign-in off says use the PIN (v0.14.1 message)")
 	t.check(OwnerLogin.parse(VECTOR).is_empty(), "v014 production minimum: 1000 iterations refused")
 	OwnerLogin.min_iter = 1000
 	var pr := OwnerLogin.parse(VECTOR)
@@ -218,11 +227,19 @@ static func _bridge(t: Node) -> void:
 	var urls: Array = []
 	SocialBridge.plugin_override = fb
 	SocialBridge.open_url_override = func(u): urls.append(u)
-	t.check(SocialBridge.open_social() == "app" and fb.opened[0] == ["os.viper.scorpion", SocialBridge.SOCIAL_URI], "v014 Open Social opens Scorpion Viper")
-	fb.installed = false
-	t.check(SocialBridge.open_social() == "web" and urls[-1] == SocialBridge.FALLBACK_URL, "v014 not installed -> release page")
-	fb.installed = true; fb.version = 1
-	t.check(SocialBridge.open_social() == "web", "v014 old plugin -> release page")
+	# t.check(SocialBridge.open_social() == "app" and fb.opened[0] == ["os.viper.scorpion", SocialBridge.SOCIAL_URI], "v014 Open Social opens Scorpion Viper")
+	# fb.installed = false
+	# t.check(SocialBridge.open_social() == "web" and urls[-1] == SocialBridge.FALLBACK_URL, "v014 not installed -> release page")
+	# fb.installed = true; fb.version = 1
+	# t.check(SocialBridge.open_social() == "web", "v014 old plugin -> release page")
+	# v0.14.1 ONE-APP-1: the social app opens inside this app; never a browser / download page.
+	fb.version = 3
+	t.check(SocialBridge.open_social() == "panel" and fb.panel_paths[-1] == "/" and fb.opened.is_empty() and urls.is_empty(), "v0141 Social opens the built-in panel")
+	t.check(fb.owner_flag == Profile.is_owner(), "v0141 panel told the owner state")
+	fb.bundle = false
+	t.check(SocialBridge.open_social() == "" and urls.is_empty(), "v0141 no bundle -> no download page")
+	fb.bundle = true; fb.version = 2
+	t.check(SocialBridge.open_social() == "" and urls.is_empty(), "v0141 old plugin -> no download page")
 	fb.version = 2
 	fb.uri = "phoenixvoxel://enter?realm=nowhere"
 	t.check(SocialBridge.check_launch(null) == "Unknown world." and fb.consumed, "v014 launch link validated and consumed once")
@@ -254,6 +271,17 @@ static func _sources(t: Node) -> void:
 		t.check(tr.contains(row), "v014 tracker row " + row)
 
 ## v0.14 AI-KEY-1: no API key field in Settings; companions use the built-in on-device AI.
+static func _one_app(t: Node) -> void:
+	var sb := FileAccess.get_file_as_string("res://scripts/social/social_bridge.gd")
+	t.check(not sb.contains("\nconst FALLBACK_URL") and not sb.contains("\n\treturn \"web\" if OS.shell_open"), "v0141 no GitHub download link in the bridge")
+	var ci := FileAccess.get_file_as_string("res://.github/workflows/ci.yml")
+	t.check(ci.contains("social_web/bundle") and ci.contains("__OWNER_PASS_HASH__") and ci.contains("assets/social/index.html"), "v0141 CI embeds the social web app")
+	t.check(FileAccess.file_exists("res://social_web/.gdignore"), "v0141 social bundle hidden from the Godot importer")
+	t.check(OwnerLogin.log_status() in ["owner_hash_loaded=true", "owner_hash_loaded=false"], "v0141 owner_hash_loaded flag")
+	t.check(OwnerLogin.MISSING_MSG.contains("missing"), "v0141 clear message when the owner record is missing")
+	var kt := FileAccess.get_file_as_string("res://android/plugins/viper_device/src/main/java/com/anterrania/viperdevice/ViperDevicePlugin.kt")
+	t.check(kt.contains("fun get_plugin_version(): Int = 3") and kt.contains("fun open_social_panel(") and kt.contains("!r.url.toString().startsWith(ORIGIN)"), "v0141 plugin v3 panel, outside pages blocked")
+
 static func _ai_key(t: Node) -> void:
 	t.check(not Settings.SHOW_LIVE_AI_FIELDS, "v014 AI-KEY-1 live AI fields hidden")
 	t.check(Settings.next_ui_mode("local") == "canned" and Settings.next_ui_mode("canned") == "local", "v014 AI-KEY-1 mode button: on-device <-> offline")

@@ -21,6 +21,7 @@ const MIN_ITER := 200000
 const MAX_ITER := 5000000
 const FREE_TRIES := 5
 const ERR := "Wrong username or password."
+const MISSING_MSG := "Owner sign-in record is missing from this build (owner_hash_loaded=false). Use your PIN, or install the latest release."
 
 static var record_override = null   # tests: a record string (or "" for none)
 static var min_iter := MIN_ITER      # tests lower this
@@ -52,6 +53,12 @@ static func parse(rec: String) -> Dictionary:
 	return {"iter": it, "salt": salt, "key": hx.hex_decode()}
 
 static func available() -> bool: return not parse(record()).is_empty()
+
+## v0.14.1 AUTH-2: non-secret startup flag for logcat ("owner_hash_loaded=true|false"). Never logs the record.
+static func log_status() -> String:
+	var line := "owner_hash_loaded=" + ("true" if available() else "false")
+	print(line)
+	return line
 
 static func username_ok(u: String) -> bool: return u.strip_edges().to_lower() == USERNAME.to_lower()
 static func norm_password(p: String) -> String: return p.strip_edges()
@@ -92,7 +99,8 @@ static func sign_in(username: String, password: String) -> String:
 		if e != "": return e if e.begins_with("Too many") else ERR
 		_after(false)
 		return ""
-	if not available(): return "Owner sign-in isn't set up in this build. Use your PIN."
+	# if not available(): return "Owner sign-in isn't set up in this build. Use your PIN."
+	if not available(): return MISSING_MSG
 	if retry_in_s() > 0: return "Too many tries. Wait %d s." % retry_in_s()
 	if not verify(username, password):
 		_fail()

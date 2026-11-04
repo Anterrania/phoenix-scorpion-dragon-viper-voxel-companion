@@ -97,9 +97,33 @@ func _layout() -> void:
 		if pc == null: continue
 		var m := 12.0 if por else 80.0
 		pc.offset_left = m; pc.offset_right = -m
-		pc.offset_top = 40.0; pc.offset_bottom = -12.0
+		# pc.offset_top = 40.0; pc.offset_bottom = -12.0
+		pc.offset_top = 40.0; pc.offset_bottom = -12.0 - _kb_h   # v0.15 KB-1: sit above the on-screen keyboard
 		if panels[k].get("land", false): pc.offset_top = get_viewport().get_visible_rect().size.y * (0.52 if por else 0.35)
 	if menu_grid: menu_grid.columns = 2 if por else 4
+
+## v0.15 KB-1: keyboard avoidance. Godot runs immersive, so Android adjustResize does not shrink the view; read the
+## keyboard height, lift the open panel above it and scroll the focused field into view.
+var _kb_h := 0.0
+func _keyboard_tick() -> void:
+	var px := 0.0
+	if DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD):
+		px = float(DisplayServer.virtual_keyboard_get_height())
+	var vp := get_viewport()
+	var win_h := float(DisplayServer.window_get_size().y)
+	var h := px * (vp.get_visible_rect().size.y / win_h) if win_h > 0.0 else 0.0
+	h = clampf(h, 0.0, vp.get_visible_rect().size.y * 0.6)
+	if absf(h - _kb_h) < 1.0: return
+	_kb_h = h
+	_layout()
+	if _kb_h > 0.0: call_deferred("_reveal_focus")
+
+func _reveal_focus() -> void:
+	var f := get_viewport().gui_get_focus_owner()
+	if f == null: return
+	var n: Node = f.get_parent()
+	while n != null and not (n is ScrollContainer): n = n.get_parent()
+	if n is ScrollContainer: (n as ScrollContainer).ensure_control_visible(f)
 
 ## Android back gesture: close the open panel, otherwise send the app to the background.
 func _notification(what: int) -> void:
@@ -174,12 +198,36 @@ func _panel(title: String) -> Dictionary:
 	var body := VBoxContainer.new()
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation", 10)
-	sc.add_child(body)
+	# sc.add_child(body)
+	# v0.15 MENU-2: right gutter so the scrollbar never sits on top of buttons.
+	var gutter := MarginContainer.new()
+	gutter.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	gutter.add_theme_constant_override("margin_right", 22)
+	gutter.add_child(body)
+	sc.add_child(gutter)
 	add_child(root)
 	root.visible = false
 	return {"root": root, "body": body, "box": v, "scroll": sc, "pc": pc}
 
+## v0.15 SOCIAL-SHELL: the Scorpion Viper social app is the main menu (embedded panel). The Godot menu is the
+## fallback (desktop, no bundle, or Settings › "Classic menu"). SOCIAL_MENU = false brings the old menu back.
+const SOCIAL_MENU := true
+var _classic_once := false
+func _social_menu_on() -> bool:
+	return SOCIAL_MENU and not bool(Settings.get_value("ui", "classic_menu", false))
+
+func _show_classic_menu() -> void:
+	_classic_once = true
+	show_panel("menu")
+
 func show_panel(n: String) -> void:
+	if n == "menu" and _social_menu_on() and not _classic_once:
+		SocialBridge.connect_panel(self)
+		SocialBridge.set_actions(menu_actions())
+		if SocialBridge.open_social() != "":
+			n = ""
+	_classic_once = false
+	if radial: radial.visible = n == ""   # v0.15 MENU-3: the radial never covers an open list
 	for k in panels:
 		panels[k]["root"].visible = k == n
 	if n == "wardrobe": _refresh_wardrobe()
@@ -241,6 +289,18 @@ func _topbar() -> void:
 	add_child(sys)
 
 # ---------- main menu ----------
+const MENU_ROWS := [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
+			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["📡 Companions Live", "_live"], ["✨ Create Companion", "_create"], ["🦂 Social (Scorpion Viper)", "_open_social_app"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]
+
+## v0.15 SOCIAL-SHELL: the world actions shown in the social app's "World menu" ([{id,label}]).
+func menu_actions() -> Array:
+	var out: Array = [{"id": "play", "label": "▶ Play"}]
+	for r in MENU_ROWS:
+		var id: String = r[1]
+		if id == "" or id == "_open_social_app" or id == "_social": continue
+		out.append({"id": id, "label": r[0]})
+	out.append({"id": "menu_classic", "label": "☰ Classic menu"})
+	return out
 func _build_menu() -> Dictionary:
 	# var p := _panel("Phoenix · v0.11")
 	var p := _panel("Phoenix · v" + BuildInfo.version())
@@ -254,36 +314,63 @@ func _build_menu() -> Dictionary:
 	# v0.13 ADMIN-COMP: Proposals + History moved into Admin > Companions (owner only). Old rows:
 	#   ["📜 Proposals", "proposals"], ["🕮 History", "history"],
 	# The panels still exist (radial "Proposals" and the Companions screen open them); "🧬 Companions" redirects.
-	for row in [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
-			["🧭 Teleport", "travel"], ["◎ World Map", "map"], ["◉ Nearby", "radar"], ["☀ Environment", "env"], ["♪ Music", "music"], ["☁ Heaven", "_heaven"], ["🌐 Worlds", "_worlds"], ["🏝 Welcome Island", "welcome"], ["🗺 Destinations", "dest"], ["❓ Help", "help"], ["⛰ Land Tools", "land"], ["🏛 Region / Estate", "estate"], ["⚙ Settings", "settings"], ["★ Your input", "input"], ["🧬 Companions", "_companions"], ["🛡 Viper Admin", "_admin"], ["👥 Community", "_community"], ["📰 Social", "_social"], ["📡 Companions Live", "_live"], ["✨ Create Companion", "_create"], ["🦂 Social (Scorpion Viper)", "_open_social_app"], ["🪐 Frontier", "_frontier"], ["⚖ Land & Safety", "_landsafety"], ["⇄ Interop", "_interop"], ["⤓ Background", "_bg"], ["✕ Exit app", "_exit"]]:
+	for row in MENU_ROWS:
 		var target: String = row[1]
-		var t := btn(row[0], func():
-			if target == "_bg": AppControl.to_background(get_tree())
-			elif target == "_exit": AppControl.exit_app(get_tree())
-			elif target == "_admin": open_admin()
-			elif target == "_companions": open_companions()
-			elif target == "_live": show_panel(""); LiveFeedScreen.open(self)
-			elif target == "_create": show_panel(""); CompanionCreatorScreen.open(self)   # v0.14 CREATE-1
-			elif target == "_open_social_app":   # v0.14 BRIDGE-1
-				# var how := SocialBridge.open_social()
-				# Toast.show_toast(self, "Opening Scorpion Viper" if how == "app" else ("Scorpion Viper isn't installed: opening its download page" if how == "web" else "Couldn't open Scorpion Viper"), "ok" if how != "" else "warn")
-				# v0.14.1 ONE-APP-1: built-in panel, no download page.
-				SocialBridge.connect_panel(self)
-				if SocialBridge.open_social() == "": _open_social()   # desktop / no bundle: in-world Social feed
-			elif target == "_community": CommunityScreen.open(self)
-			elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
-			elif target == "_interop": InteropScreen.open(self)
-			elif target == "_heaven": show_panel(""); HeavenScreen.open(self, world.get_node_or_null("HeavenWorld") if world else null, "transit")
-			elif target == "_worlds": show_panel(""); WorldPicker.open(self)
-			elif target == "_frontier": FrontierScreen.open(self)
-			elif target == "_social": _open_social()
-			else: show_panel(target))
+		# v0.15 SOCIAL-SHELL: the dispatch moved to menu_action() so the social menu can run the same actions.
+		# var t := btn(row[0], func():
+		# 	if target == "_bg": AppControl.to_background(get_tree())
+		# 	elif target == "_exit": AppControl.exit_app(get_tree())
+		# 	elif target == "_admin": open_admin()
+		# 	elif target == "_companions": open_companions()
+		# 	elif target == "_live": show_panel(""); LiveFeedScreen.open(self)
+		# 	elif target == "_create": show_panel(""); CompanionCreatorScreen.open(self)   # v0.14 CREATE-1
+		# 	elif target == "_open_social_app":   # v0.14 BRIDGE-1
+		# 		# var how := SocialBridge.open_social()
+		# 		# Toast.show_toast(self, "Opening Scorpion Viper" if how == "app" else ("Scorpion Viper isn't installed: opening its download page" if how == "web" else "Couldn't open Scorpion Viper"), "ok" if how != "" else "warn")
+		# 		# v0.14.1 ONE-APP-1: built-in panel, no download page.
+		# 		SocialBridge.connect_panel(self)
+		# 		if SocialBridge.open_social() == "": _open_social()   # desktop / no bundle: in-world Social feed
+		# 	elif target == "_community": CommunityScreen.open(self)
+		# 	elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
+		# 	elif target == "_interop": InteropScreen.open(self)
+		# 	elif target == "_heaven": show_panel(""); HeavenScreen.open(self, world.get_node_or_null("HeavenWorld") if world else null, "transit")
+		# 	elif target == "_worlds": show_panel(""); WorldPicker.open(self)
+		# 	elif target == "_frontier": FrontierScreen.open(self)
+		# 	elif target == "_social": _open_social()
+		# 	else: show_panel(target))
+		var t := btn(row[0], func(): menu_action(target))
 		t.custom_minimum_size = Vector2(0, 96)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		grid.add_child(t)
 	b.add_child(grid)
 	b.add_child(label("Gold ★ YOUR INPUT HERE tags mark placeholders waiting for your decision.", 22, GOLD))
 	return p
+
+
+## v0.15 SOCIAL-SHELL: one place that runs a world/menu action (Godot menu buttons and the social menu).
+func menu_action(target: String) -> void:
+	if target == "play": show_panel("")
+	elif target == "menu_classic": _show_classic_menu()
+	elif target == "_bg": AppControl.to_background(get_tree())
+	elif target == "_exit": AppControl.exit_app(get_tree())
+	elif target == "_admin": open_admin()
+	elif target == "_companions": open_companions()
+	elif target == "_live": show_panel(""); LiveFeedScreen.open(self)
+	elif target == "_create": show_panel(""); CompanionCreatorScreen.open(self)   # v0.14 CREATE-1
+	elif target == "_open_social_app":   # v0.14 BRIDGE-1
+		# var how := SocialBridge.open_social()
+		# Toast.show_toast(self, "Opening Scorpion Viper" if how == "app" else ("Scorpion Viper isn't installed: opening its download page" if how == "web" else "Couldn't open Scorpion Viper"), "ok" if how != "" else "warn")
+		# v0.14.1 ONE-APP-1: built-in panel, no download page.
+		SocialBridge.connect_panel(self)
+		if SocialBridge.open_social() == "": _open_social()   # desktop / no bundle: in-world Social feed
+	elif target == "_community": CommunityScreen.open(self)
+	elif target == "_landsafety": LandSafetyScreen.open(self, _est_region(), Estate.parcel_id(player.global_position) if player else "0_0", player.global_position if player else Vector3.ZERO)
+	elif target == "_interop": InteropScreen.open(self)
+	elif target == "_heaven": show_panel(""); HeavenScreen.open(self, world.get_node_or_null("HeavenWorld") if world else null, "transit")
+	elif target == "_worlds": show_panel(""); WorldPicker.open(self)
+	elif target == "_frontier": FrontierScreen.open(self)
+	elif target == "_social": _open_social()
+	else: show_panel(target)
 
 ## Social feed (SMP): Foxy's vertical feed screen (docs/specs/foxy/FEED_SCREEN.md). Until that scene
 ## exists the button opens Community instead.
@@ -1655,6 +1742,7 @@ func land_apply() -> int:
 	return n
 
 func _process(_d: float) -> void:
+	_keyboard_tick()
 	if land_cursor and land_cursor.visible:
 		land_cursor.global_position = land_target()
 		land_cursor.scale = Vector3.ONE * land_size

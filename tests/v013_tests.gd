@@ -253,7 +253,7 @@ static func _build(t: Node) -> void:
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.13.0", "v013 one main channel, version 0.13.0")
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.13.1", "v013 one main channel, version 0.13.1")
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.14.0", "v013 one main channel, version 0.14.0 (v0.14)")
-	t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.14.1", "v013 one main channel, version 0.14.1 (v0.14.1)")
+	t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.15.0", "v013 one main channel, version 0.15.0 (v0.15)")
 	var presets := _cfg_sections("res://export_presets.cfg")
 	var demo := false
 	for p in presets:
@@ -266,7 +266,7 @@ static func _build(t: Node) -> void:
 	# t.check(android.get("version/name", "") == "\"0.13.0\"" and int(android.get("version/code", "0")) > 14, "v013 Android version 0.13.0, code > 14")
 	# t.check(android.get("version/name", "") == "\"0.13.1\"" and int(android.get("version/code", "0")) > 15, "v013 Android version 0.13.1, code > 15")
 	# t.check(android.get("version/name", "") == "\"0.14.0\"" and int(android.get("version/code", "0")) > 16, "v013 Android version 0.14.0, code > 16 (v0.14)")
-	t.check(android.get("version/name", "") == "\"0.14.1\"" and int(android.get("version/code", "0")) > 17, "v013 Android version 0.14.1, code > 17 (v0.14.1)")
+	t.check(android.get("version/name", "") == "\"0.15.0\"" and int(android.get("version/code", "0")) > 18, "v013 Android version 0.15.0, code > 18 (v0.15)")
 	t.check(not FileAccess.get_file_as_string("res://project.godot").to_lower().contains("demo"), "v013 project has no demo switch")
 	t.check(FileAccess.get_file_as_string("res://.github/workflows/ci.yml").contains("sort -V"), "v013 CI never lowers versionName below the preset")
 

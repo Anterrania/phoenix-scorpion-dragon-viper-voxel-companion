@@ -187,7 +187,8 @@ static func _crypto(t: Node, root: String) -> void:
 	t.check(OwnerVault.setup_for_tests("13572468") == "", "crypto F1: vault set up")
 	var k := OwnerVault.dek()
 	var real: PackedByteArray = k["enc"] + k["mac"]
-	t.check(str(OwnerVault.vault().get("dek_check", "")) != "" and not FileAccess.get_file_as_string(OwnerVault.root.path_join("vault.json")).contains(Marshalls.raw_to_base64(real)), "crypto F1: key check value stored, DEK not")
+	# t.check(str(OwnerVault.vault().get("dek_check", "")) != "" and not FileAccess.get_file_as_string(OwnerVault.root.path_join("vault.json")).contains(Marshalls.raw_to_base64(real)), "crypto F1: key check value stored, DEK not")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(str(OwnerVault.vault().get("dek_check", "")) != "" and not FileAccess.get_file_as_bytes(OwnerVault.root.path_join("vault.json")).get_string_from_ascii().contains(Marshalls.raw_to_base64(real)), "crypto F1: key check value stored, DEK not")
 	OwnerVault.lock_all()
 	t.check(not OwnerVault.unlock_with_dek(CryptoBox.random_bytes(64)) and not OwnerVault.is_unlocked() and not OwnerVault.storage_ready(), "crypto F1: random 64 bytes refused (was: owner session)")
 	t.check(not OwnerVault.unlock_with_dek(PackedByteArray()), "crypto F1: wrong length refused")

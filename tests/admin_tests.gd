@@ -100,7 +100,10 @@ static func run(t: Node) -> void:
 	t.check(not RepoTimeline.find(str(commits[0]["sha"])).is_empty(), "repo: find by sha")
 	var merged := RepoTimeline.merged(ViperAdminData.revisions(), 500)
 	t.check(merged.any(func(e): return e["kind"] == "commit") and merged.any(func(e): return e["kind"] == "revision"), "repo: merged timeline has commits + revisions")
-	t.check(ViperKit.ring(0.4, "x") is Control, "kit: ring control (RingStat or RingGauge fallback)")
+	# t.check(ViperKit.ring(0.4, "x") is Control, "kit: ring control (RingStat or RingGauge fallback)")   # v0.16 QUIET: the ring leaked
+	var ring := ViperKit.ring(0.4, "x")
+	t.check(ring is Control, "kit: ring control (RingStat or RingGauge fallback)")
+	if ring: ring.free()
 	t.check(ViperKit.theme() is Theme, "kit: theme")
 
 static func run_scene(t: Node) -> void:

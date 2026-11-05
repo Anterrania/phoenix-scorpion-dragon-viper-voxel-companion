@@ -465,7 +465,8 @@ static func run_dm(t: Node) -> void:
 	# encryption at rest
 	t.check(OwnerVault.setup_for_tests("864213") == "", "dm: vault set up")
 	SocialDM.send("sa", c["id"], "secret plans")
-	t.check(SocialDM.encrypted_at_rest() and SecureFile.is_sealed_file(dmp) and not FileAccess.get_file_as_string(dmp).contains("secret plans"), "dm: sealed on disk once a vault exists")
+	# t.check(SocialDM.encrypted_at_rest() and SecureFile.is_sealed_file(dmp) and not FileAccess.get_file_as_string(dmp).contains("secret plans"), "dm: sealed on disk once a vault exists")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(SocialDM.encrypted_at_rest() and SecureFile.is_sealed_file(dmp) and not FileAccess.get_file_as_bytes(dmp).get_string_from_ascii().contains("secret plans"), "dm: sealed on disk once a vault exists")
 	OwnerVault.lock_all()
 	SocialDM.reset_for_tests(root.path_join("social"))
 	t.check(SocialDM.messages("sa", c["id"]).is_empty() and not SocialDM.send("sa", c["id"], "locked")["ok"], "dm: locked -> unreadable, writes refused")
@@ -556,7 +557,8 @@ static func run_docs(t: Node) -> void:
 	for x in tk:
 		if str(x.get("milestone", "")).begins_with("SMP-"): n += 1
 	t.check(n >= 15, "smp docs: SMP- tickets seeded (%d)" % n)
-	t.check(not FileAccess.get_file_as_string("res://docs/TASK_TRACKER.csv").contains("\r"), "smp docs: tracker has LF line endings")
+	# t.check(not FileAccess.get_file_as_string("res://docs/TASK_TRACKER.csv").contains("\r"), "smp docs: tracker has LF line endings")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not FileAccess.get_file_as_bytes("res://docs/TASK_TRACKER.csv").get_string_from_ascii().contains("\r"), "smp docs: tracker has LF line endings")
 
 ## Admin Community: Reports tab uses the grouped queue with a Mature decision.
 static func run_ui(t: Node) -> void:

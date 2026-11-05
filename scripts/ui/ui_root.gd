@@ -66,6 +66,7 @@ func _ready() -> void:
 	# PIN pad still opened on top of the social sign-in -> two logins on the phone. Decide at deferred time instead.
 	# if OwnerVault.has_vault() and not OwnerVault.storage_ready(): call_deferred("open_unlock_prompt")
 	call_deferred("_launch_unlock")
+	call_deferred("_setup_notify")   # v0.16 NOTIFY
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", false)) else "")
 
@@ -112,6 +113,7 @@ func _layout() -> void:
 		if panels[k].get("land", false): pc.offset_top = get_viewport().get_visible_rect().size.y * (0.52 if por else 0.35)
 	# if menu_grid: menu_grid.columns = 2 if por else 4
 	if menu_grid: menu_grid.columns = 2   # v0.15.2: the landscape side sheet is narrow too
+	_fit_topbar()   # v0.16 MORE-1
 
 ## v0.15 KB-1: keyboard avoidance. Godot runs immersive, so Android adjustResize does not shrink the view; read the
 ## keyboard height, lift the open panel above it and scroll the focused field into view.
@@ -262,24 +264,56 @@ func is_open() -> bool:
 func _companions() -> Array:
 	return get_tree().get_nodes_in_group("companions")
 
+## v0.16 MORE-1 (old top bar kept below for reference): the same buttons plus a 🔔, and anything that does not fit
+## the screen next to the minimap (portrait, landscape, any size) goes into a "More ▾" dropdown.
+# func _topbar() -> void:
+# 	var h := HBoxContainer.new()
+# 	h.name = "TopBar"
+# 	h.position = Vector2(12, 52)
+# 	h.add_theme_constant_override("separation", 8)
+# 	for pair in [["☰", "menu"], ["💬", "chat"], ["◎", "map"], ["⛰", "land"], ["👜", "wardrobe"]]:
+# 		var tgt: String = pair[1]
+# 		var b := btn(pair[0], func(): show_panel(tgt), 68)
+# 		b.add_theme_font_size_override("font_size", 34)
+# 		h.add_child(b)
+# 	var mute := btn("♪" if not bool(Settings.get_value("music", "muted", false)) else "🔇", func(): pass, 68)
+# 	mute.name = "Mute"
+# 	mute.add_theme_font_size_override("font_size", 34)
+# 	mute.pressed.connect(func():
+# 		var m := not bool(Settings.get_value("music", "muted", false))
+# 		MusicRadio.set_muted(m)
+# 		mute.text = "🔇" if m else "♪")
+# 	h.add_child(mute)
+# 	add_child(h)
+const TOP_ITEMS := [["☰", "menu", "Menu"], ["🔔", "_alerts", "Notifications"], ["💬", "chat", "Talk"], ["◎", "map", "World map"],
+		["⛰", "land", "Land tools"], ["👜", "wardrobe", "Wardrobe"], ["♪", "_mute", "Music on / off"]]
+var top_bar: HBoxContainer
+var top_more: Button
+var top_items: Array[Button] = []
+var top_menu: Control = null
 func _topbar() -> void:
 	var h := HBoxContainer.new()
 	h.name = "TopBar"
 	h.position = Vector2(12, 52)
 	h.add_theme_constant_override("separation", 8)
-	for pair in [["☰", "menu"], ["💬", "chat"], ["◎", "map"], ["⛰", "land"], ["👜", "wardrobe"]]:
-		var tgt: String = pair[1]
-		var b := btn(pair[0], func(): show_panel(tgt), 68)
+	top_bar = h
+	for it in TOP_ITEMS:
+		var id: String = it[1]
+		var b := btn(it[0], func(): _top_action(id), 68)
+		b.name = "Top_" + id.trim_prefix("_")
+		b.tooltip_text = it[2]
+		b.set_meta("top_id", id); b.set_meta("top_label", it[2])
 		b.add_theme_font_size_override("font_size", 34)
+		if id == "_mute":
+			b.name = "Mute"
+			b.text = "♪" if not bool(Settings.get_value("music", "muted", false)) else "🔇"
 		h.add_child(b)
-	var mute := btn("♪" if not bool(Settings.get_value("music", "muted", false)) else "🔇", func(): pass, 68)
-	mute.name = "Mute"
-	mute.add_theme_font_size_override("font_size", 34)
-	mute.pressed.connect(func():
-		var m := not bool(Settings.get_value("music", "muted", false))
-		MusicRadio.set_muted(m)
-		mute.text = "🔇" if m else "♪")
-	h.add_child(mute)
+		top_items.append(b)
+	top_more = btn("More ▾", _toggle_top_more, 120)
+	top_more.name = "TopMore"
+	top_more.add_theme_font_size_override("font_size", 24)
+	top_more.visible = false
+	h.add_child(top_more)
 	add_child(h)
 	# Exit + Background: always on screen, top-right under the minimap, big targets.
 	var sys := HBoxContainer.new()
@@ -298,6 +332,91 @@ func _topbar() -> void:
 		x.add_theme_font_size_override("font_size", 22)
 		sys.add_child(x)
 	add_child(sys)
+
+func _top_action(id: String) -> void:
+	_close_top_more()
+	if id == "_mute":
+		var m := not bool(Settings.get_value("music", "muted", false))
+		MusicRadio.set_muted(m)
+		var mb := top_bar.get_node_or_null("Mute") as Button if top_bar else null
+		if mb: mb.text = "🔇" if m else "♪"
+	elif id == "_alerts":
+		# Alerts live in the social app (its bell); without it (desktop) say so instead of doing nothing.
+		SocialBridge.connect_panel(self)
+		if SocialBridge.open_social("/") == "": Toast.show_toast(self, "Notifications appear in the social menu on the phone app.", "warn")
+	else: show_panel(id)
+
+## Space the top bar may use: from its left edge to the minimap / system buttons on the right.
+func top_bar_room() -> float:
+	var vw := get_viewport().get_visible_rect().size.x
+	return vw - 12.0 - Minimap.SIZE - 28.0
+
+## v0.16 MORE-1: show as many top buttons as fit; the rest go into "More ▾". Returns how many are shown.
+func _fit_topbar() -> int:
+	if top_bar == null: return 0
+	var room := top_bar_room()
+	var sep := 8.0
+	var widths: Array[float] = []
+	var total := 0.0
+	for b in top_items:
+		var w := b.get_combined_minimum_size().x
+		widths.append(w); total += w + sep
+	var shown := top_items.size()
+	if total - sep > room:
+		var more_w := top_more.get_combined_minimum_size().x
+		var used := 0.0
+		shown = 0
+		for w in widths:
+			if used + w + sep + more_w > room: break
+			used += w + sep; shown += 1
+	for i in top_items.size(): top_items[i].visible = i < shown
+	top_more.visible = shown < top_items.size()
+	if not top_more.visible: _close_top_more()
+	return shown
+
+func top_overflow() -> Array:
+	var out: Array = []
+	for b in top_items:
+		if not b.visible: out.append(String(b.get_meta("top_id")))
+	return out
+
+func _close_top_more() -> void:
+	if top_menu and is_instance_valid(top_menu): top_menu.queue_free()
+	top_menu = null
+
+func _toggle_top_more() -> void:
+	if top_menu and is_instance_valid(top_menu): _close_top_more(); return
+	var root := Control.new()
+	root.name = "TopMoreMenu"
+	root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.mouse_filter = Control.MOUSE_FILTER_STOP
+	root.gui_input.connect(func(e: InputEvent):   # tap outside closes it
+		if (e is InputEventMouseButton or e is InputEventScreenTouch) and e.pressed: _close_top_more())
+	var pc := PanelContainer.new()
+	pc.add_theme_stylebox_override("panel", _style(Color(0.05, 0.02, 0.07, 0.97), GOLD, 20))
+	var sc := KineticScroll.new()
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 8)
+	for b in top_items:
+		if b.visible: continue
+		var id := String(b.get_meta("top_id"))
+		var row := btn(b.text + "  " + String(b.get_meta("top_label")), func(): _top_action(id))
+		row.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		v.add_child(row)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(v)
+	pc.add_child(sc)
+	root.add_child(pc)
+	add_child(root)
+	top_menu = root
+	# under the More button, inside the screen (right-aligned to it, clamped), scrolls if the list is taller
+	var vp := get_viewport().get_visible_rect().size
+	var w := minf(420.0, vp.x - 24.0)
+	var r := top_more.get_global_rect()
+	var h := minf(v.get_combined_minimum_size().y + 32.0, vp.y - r.end.y - 24.0 - _kb_h)
+	pc.size = Vector2(w, maxf(h, 96.0))
+	pc.position = Vector2(clampf(r.end.x - w, 12.0, vp.x - w - 12.0), r.end.y + 6.0)
 
 # ---------- main menu ----------
 const MENU_ROWS := [["▶ Play", ""], ["🧑 Avatar", "avatar"], ["👜 Wardrobe", "wardrobe"], ["💬 Talk", "chat"], ["🎭 Roleplay", "rp"], ["🐉 Wyrmlings", "wyrm"],
@@ -426,6 +545,12 @@ func _launch_unlock() -> String:
 	if SocialBridge.one_login(): return "social"
 	open_unlock_prompt()
 	return "pin"
+
+## v0.16 NOTIFY: Android 13+ asks once for notifications (never again after that, the user can change it in Settings).
+func _setup_notify() -> String:
+	var r := SocialBridge.setup_notifications(bool(Settings.get_value("notify", "asked", false)))
+	if r == "requested": Settings.set_value("notify", "asked", true)
+	return r
 
 ## App start with encrypted saves: big PIN pad, or continue as guest (memories stay sealed).
 func open_unlock_prompt() -> void:
@@ -1585,8 +1710,9 @@ func _build_dest() -> Dictionary:
 	var b: VBoxContainer = p["body"]
 	var d := WelcomeIsland.load_json("res://data/welcome/destinations.json")
 	for cat in d.get("categories", []):
-		var sec := VBoxContainer.new()
-		sec.name = str(cat)
+		# v0.16 QUIET: this VBox was never added to the panel, so 5 nodes leaked per build (leaked instances at exit)
+		# var sec := VBoxContainer.new()
+		# sec.name = str(cat)
 		b.add_child(label("▸ " + str(cat), 30, GOLD))
 		for x in d.get("destinations", []):
 			if x["category"] != cat: continue

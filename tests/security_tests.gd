@@ -28,7 +28,8 @@ static func run(t: Node) -> void:
 	t.check(CryptoBox.open(ek, mk, bad, st2).is_empty() and not st2["ok"], "crypto: flipped bit rejected (HMAC)")
 	var st3 := {}
 	t.check(CryptoBox.open(CryptoBox.random_bytes(32), CryptoBox.random_bytes(32), box, st3).is_empty() and not st3["ok"], "crypto: wrong key rejected")
-	t.check(not box.slice(4).get_string_from_utf8().contains("secret"), "crypto: ciphertext hides plaintext")
+	# t.check(not box.slice(4).get_string_from_utf8().contains("secret"), "crypto: ciphertext hides plaintext")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not box.slice(4).get_string_from_ascii().contains("secret"), "crypto: ciphertext hides plaintext")
 
 	# ---------- fixture: an old phone's user:// ----------
 	var root := "user://test_sec_%d" % Time.get_ticks_usec()
@@ -79,7 +80,8 @@ static func run(t: Node) -> void:
 		lossless = lossless and SecureFile.is_sealed_file(root.path_join(rel)) and SecureFile.read_text(root.path_join(rel)) == files[rel]
 	t.check(lossless, "migrate: targets sealed on disk and decrypt to the exact originals")
 	t.check(FileAccess.get_file_as_string(root.path_join("profile.json")) == files["profile.json"] and FileAccess.get_file_as_string(root.path_join("settings.cfg")) == files["settings.cfg"], "migrate: profile/avatar + music prefs untouched (plaintext)")
-	t.check(not FileAccess.get_file_as_string(root.path_join("eve/foxy_ani.json")).contains("first memory"), "migrate: memory text no longer readable on disk")
+	# t.check(not FileAccess.get_file_as_string(root.path_join("eve/foxy_ani.json")).contains("first memory"), "migrate: memory text no longer readable on disk")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not FileAccess.get_file_as_bytes(root.path_join("eve/foxy_ani.json")).get_string_from_ascii().contains("first memory"), "migrate: memory text no longer readable on disk")
 	var rep2 := SaveMigration.migrate()
 	t.check(rep2["migrated"].is_empty() and rep2["skipped"].size() == 6, "migrate: idempotent second run")
 	var cfg := ConfigFile.new(); cfg.parse(SecureFile.read_text(root.path_join("estate.cfg")))

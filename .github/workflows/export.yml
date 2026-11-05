@@ -39,7 +39,8 @@ jobs:
           - { preset: "iOS",     file: "ios/phoenix.ipa" }  # Xcode project only; needs a Mac to sign
     steps:
       # - uses: actions/checkout@v4   (v0.15.2 CLEAN-CI: Node 20 deprecated)
-      - uses: actions/checkout@v5
+      # - uses: actions/checkout@v5   (v0.16 CLEAN-CI: Node 20 deprecated)
+      - uses: actions/checkout@v6
 
       - name: Install Godot editor + export templates
         run: |
@@ -60,7 +61,8 @@ jobs:
       # ---- Android only (official setup actions) ----
       - name: Set up JDK 17
         if: matrix.preset == 'Android'
-        uses: actions/setup-java@v5   # v0.15.2 CLEAN-CI (was v4)
+        # uses: actions/setup-java@v5   # v0.15.2 CLEAN-CI (was v4)   (v0.16 CLEAN-CI: Node 20 deprecated)
+        uses: actions/setup-java@v6   # v0.15.2 CLEAN-CI (was v4)
         with: { distribution: temurin, java-version: "17" }
       - name: Set up Android SDK
         if: matrix.preset == 'Android'
@@ -131,7 +133,8 @@ jobs:
           tpl=""; if [ "${{ matrix.preset }}" = "Android" ]; then tpl=--install-android-build-template; fi   # Gradle build (ViperDevice plugin)
           ./godot --headless $tpl $mode "${{ matrix.preset }}" "build/${{ matrix.file }}"
       # - uses: actions/upload-artifact@v4   (v0.15.2 CLEAN-CI: Node 20 deprecated)
-      - uses: actions/upload-artifact@v5
+      # - uses: actions/upload-artifact@v5   (v0.16 CLEAN-CI: Node 20 deprecated)
+      - uses: actions/upload-artifact@v7
         with:
           name: phoenix-${{ matrix.preset }}
           path: build/

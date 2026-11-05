@@ -63,7 +63,8 @@ static func run_session(t: Node) -> void:
 	t.check(SocialBridge.owner_sign_in("SkorpionViper", "wrong-password-x") != "" and not OwnerVault.is_unlocked(), "v0151 one login: wrong password refused")
 	t.check(SocialBridge.owner_sign_in("SkorpionViper", V014.TEST_PW) == "" and prof.is_owner(), "v0151 one login: the social sign-in unlocks the world owner")
 	t.check(OwnerVault.has_saved_session(), "v0151 owner session saved for the next launch")
-	t.check(not FileAccess.get_file_as_string(sroot.path_join("session.json")).contains(V014.TEST_PW), "v0151 the password is never in the saved session")
+	# t.check(not FileAccess.get_file_as_string(sroot.path_join("session.json")).contains(V014.TEST_PW), "v0151 the password is never in the saved session")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not FileAccess.get_file_as_bytes(sroot.path_join("session.json")).get_string_from_ascii().contains(V014.TEST_PW), "v0151 the password is never in the saved session")
 	# app restart: memory gone, saved session restores without a password
 	OwnerVault._vault_cache = null; OwnerVault._session = false; OwnerVault._dek_enc = PackedByteArray(); OwnerVault._dek_mac = PackedByteArray()
 	now[0] += 600

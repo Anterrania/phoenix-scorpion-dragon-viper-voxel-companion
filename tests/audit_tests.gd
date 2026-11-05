@@ -51,7 +51,8 @@ static func run(t: Node) -> void:
 	Estate._cfg = c
 	Estate.reload_data()
 	t.check(Estate._cfg == null, "audit: Estate.reload_data() drops the cached config")
-	t.check(not FileAccess.get_file_as_string("res://scripts/world/estate.gd").contains("static func reload()"), "audit: Estate has no static reload() (would be Script.reload)")
+	# t.check(not FileAccess.get_file_as_string("res://scripts/world/estate.gd").contains("static func reload()"), "audit: Estate has no static reload() (would be Script.reload)")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not FileAccess.get_file_as_bytes("res://scripts/world/estate.gd").get_string_from_ascii().contains("static func reload()"), "audit: Estate has no static reload() (would be Script.reload)")
 	t.check(FileAccess.get_file_as_string("res://scripts/autoload/profile.gd").contains("Estate.reload_data()"), "audit: Profile unlock hook calls Estate.reload_data()")
 	var bad := _shadowing_statics()
 	t.check(bad.is_empty(), "audit: no class_name static func shadows a built-in Script/Object method %s" % [bad])

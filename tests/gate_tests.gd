@@ -124,6 +124,7 @@ static func run_scene(t: Node) -> void:
 		t.check(false, "gate: AgentBrain autoload present"); return
 	var root := "user://test_gates_scene_%d" % Time.get_ticks_usec()
 	var old_tiers := Tiers.root
+	var old_admin_root: String = ViperAdminData.root   # v0.16 QUIET: restored below (later tests wrote into this test's dir)
 	Tiers.reset_for_tests(root.path_join("social"))
 	ViperAdminData.root = root.path_join("viper"); ViperAdminData.reset()
 	var gs := GDScript.new()
@@ -148,4 +149,5 @@ static func run_scene(t: Node) -> void:
 	fake.queue_free()
 	await t.get_tree().process_frame
 	ViperAdminData.reset()
+	ViperAdminData.root = old_admin_root; ViperAdminData.reset()
 	Tiers.reset_for_tests(old_tiers)

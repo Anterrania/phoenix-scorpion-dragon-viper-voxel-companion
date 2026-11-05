@@ -233,7 +233,8 @@ func _read_store() -> void:
 	var p := CryptoBox.open(k["enc"], k["mac"], FileAccess.get_file_as_bytes(secrets_path()), st)
 	var d: Variant = JSON.parse_string(p.get_string_from_utf8()) if st["ok"] else null
 	if d is Dictionary: _secret_mem = str(d.get("llm_api_key", ""))
-	elif not st["ok"]: push_error("Settings: secrets store failed its integrity check; key not loaded")
+	# elif not st["ok"]: push_error("Settings: secrets store failed its integrity check; key not loaded")
+	elif not st["ok"] and not SecureFile.quiet: push_error("Settings: secrets store failed its integrity check; key not loaded")
 
 func user_api_key() -> String:
 	_read_store()

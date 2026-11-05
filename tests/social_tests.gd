@@ -201,7 +201,8 @@ static func run(t: Node) -> void:
 	t.check(not SecureFile.is_sealed_file(sp), "persist: plaintext before a vault exists (same as other saves)")
 	t.check(OwnerVault.setup_for_tests("864213") == "", "persist: vault set up for test")
 	Social.post("ex_res", "after vault")
-	t.check(SecureFile.is_sealed_file(sp) and not FileAccess.get_file_as_string(sp).contains("Example Resident"), "persist: social save encrypted once a vault exists")
+	# t.check(SecureFile.is_sealed_file(sp) and not FileAccess.get_file_as_string(sp).contains("Example Resident"), "persist: social save encrypted once a vault exists")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(SecureFile.is_sealed_file(sp) and not FileAccess.get_file_as_bytes(sp).get_string_from_ascii().contains("Example Resident"), "persist: social save encrypted once a vault exists")
 	Tiers.set_tier("ex_res", "resident")
 	t.check(SecureFile.is_sealed_file(root.path_join("social/roles.json")), "persist: roles encrypted")
 	OwnerVault.lock_all()

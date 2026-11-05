@@ -230,7 +230,8 @@ static func _ledgers(t: Node) -> void:
 			for w in forbidden:
 				if str(m["name"]).to_lower().contains(w) and str(m["name"]) != "purchase_fixed": bad.append(m["name"])
 		t.check(bad.is_empty(), "ledger: no P2P/cash-out/payout endpoint on %s %s" % [(cls as Script).resource_path.get_file(), bad])
-	t.check(PlayTokens._path() != AethelLedger._path() and not FileAccess.get_file_as_string("res://scripts/economy/play_tokens.gd").contains("AethelLedger."), "ledger: play tokens and Aethel Coin are separate ledgers")
+	# t.check(PlayTokens._path() != AethelLedger._path() and not FileAccess.get_file_as_string("res://scripts/economy/play_tokens.gd").contains("AethelLedger."), "ledger: play tokens and Aethel Coin are separate ledgers")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(PlayTokens._path() != AethelLedger._path() and not FileAccess.get_file_as_bytes("res://scripts/economy/play_tokens.gd").get_string_from_ascii().contains("AethelLedger."), "ledger: play tokens and Aethel Coin are separate ledgers")
 	# Aethel fixed-price + spend limits + refund
 	t.check(AethelLedger.owner_adjust("sx_led", 5000, "test", 0) != "", "ledger: adjust is owner-only")
 	Tiers.owner_override = true; AethelLedger.owner_adjust("sx_led", 5000, "test wallet", 0); AethelLedger.owner_adjust("sx_teen", 5000, "test wallet", 0); Tiers.owner_override = false

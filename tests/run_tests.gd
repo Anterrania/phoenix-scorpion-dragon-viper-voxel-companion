@@ -354,7 +354,8 @@ func _v05_tests() -> void:
 	# check(ep.contains("version/code=15") and ep.contains("version/name=\"0.13.0\""), "versionCode 15 / 0.13.0 (v0.13)")
 	# check(ep.contains("version/code=16") and ep.contains("version/name=\"0.13.1\""), "versionCode 16 / 0.13.1 (v0.13.1)")
 	# check(ep.contains("version/code=17") and ep.contains("version/name=\"0.14.0\""), "versionCode 17 / 0.14.0 (v0.14)")
-	check(ep.contains("version/code=20") and ep.contains("version/name=\"0.15.1\""), "versionCode 20 / 0.15.1 (v0.15.1)")
+	# check(ep.contains("version/code=20") and ep.contains("version/name=\"0.15.1\""), "versionCode 20 / 0.15.1 (v0.15.1)")
+	check(ep.contains("version/code=21") and ep.contains("version/name=\"0.15.2\""), "versionCode 21 / 0.15.2 (v0.15.2)")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))

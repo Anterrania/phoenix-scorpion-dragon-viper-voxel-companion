@@ -14,11 +14,14 @@ static func seeded() -> bool:
 ## Returns the list of errors ("" entries are not included). Empty list = done.
 static func seed_once(is_owner: bool) -> Array:
 	if not is_owner or seeded(): return []
+	# v0.16 QUIET: saves still sealed (owner role restored before the unlock) -> try again on the unlock, no warning.
+	if OwnerVault.has_vault() and not OwnerVault.storage_ready(): return ["sealed: waiting for the unlock"]
 	var errors: Array = []
 	for id in OWNER_COMPANIONS:
 		var e := Tiers.set_role(id, "builder")
 		if e != "":
 			errors.append("%s: %s" % [id, e])
-			push_warning("CompanionTiers: set_role(%s, builder) failed: %s" % [id, e])
+			# push_warning("CompanionTiers: set_role(%s, builder) failed: %s" % [id, e])
+			if not SecureFile.quiet: push_warning("CompanionTiers: set_role(%s, builder) failed: %s" % [id, e])
 	if errors.is_empty(): Settings.set_value(FLAG_SECTION, FLAG_KEY, true)
 	return errors

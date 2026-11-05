@@ -10,6 +10,10 @@ extends RefCounted
 ##   is copied once to <path>.tampered for inspection.
 
 static var refused_writes := 0
+## v0.16 QUIET: the test run sets this so deliberate tamper tests count integrity failures instead of printing
+## ERROR lines (the runner prints the total). Always false in the app.
+static var quiet := false
+static var integrity_failures := 0
 static var _pending := {}    # path -> text (new files written while locked)
 static var _hooked := false
 
@@ -43,7 +47,9 @@ static func read_text(path: String, status := {}) -> String:
 	if not st["ok"]:
 		status["tampered"] = true
 		if not FileAccess.file_exists(path + ".tampered"): DirAccess.copy_absolute(path, path + ".tampered")
-		push_error("SecureFile: integrity check failed for " + path)
+		integrity_failures += 1
+		# push_error("SecureFile: integrity check failed for " + path)
+		if not quiet: push_error("SecureFile: integrity check failed for " + path)
 		return ""
 	return p.get_string_from_utf8()
 

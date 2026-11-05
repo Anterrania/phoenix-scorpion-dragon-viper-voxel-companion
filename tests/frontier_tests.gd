@@ -198,7 +198,8 @@ static func run(t: Node) -> void:
 	# ---------- persistence ----------
 	FrontierStore.reload_all()
 	t.check(ContractsBoard.reputation("f_res", "Aurora Wardens")["value"] == 12 and ComfortPrefs.bindings()["jump"] == "swipe_up" and OrgRights.titles(g).has("Hauler"), "frontier: state persists across reload")
-	t.check(not FileAccess.get_file_as_string(FrontierStore.path("contracts")).is_empty(), "frontier: saved through SecureFile")
+	# t.check(not FileAccess.get_file_as_string(FrontierStore.path("contracts")).is_empty(), "frontier: saved through SecureFile")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not FileAccess.get_file_as_bytes(FrontierStore.path("contracts")).get_string_from_ascii().is_empty(), "frontier: saved through SecureFile")
 
 	Tiers.owner_override = null
 	FrontierStore.clock = Callable()

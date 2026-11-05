@@ -47,7 +47,8 @@ static func run(t: Node) -> void:
 	t.check(FileAccess.get_file_as_string(OwnerVault.root.path_join("vault.json")).contains("\"legacy\""), "sec1: fixture vault with legacy slot")
 	OwnerVault.reset_for_tests(root.path_join("security"), 1000)
 	t.check(not OwnerVault.has_legacy_slot() and str(OwnerVault.vault().get("legacy_retired", "")) != "", "sec1: migration strips the legacy slot on load")
-	t.check(not FileAccess.get_file_as_string(OwnerVault.root.path_join("vault.json")).contains("\"legacy\""), "sec1: migration persisted to vault.json")
+	# t.check(not FileAccess.get_file_as_string(OwnerVault.root.path_join("vault.json")).contains("\"legacy\""), "sec1: migration persisted to vault.json")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not FileAccess.get_file_as_bytes(OwnerVault.root.path_join("vault.json")).get_string_from_ascii().contains("\"legacy\""), "sec1: migration persisted to vault.json")
 	t.check(OwnerVault.unlock("phoenix-old") != "" and OwnerVault.unlock("135790") == "", "sec1: migrated vault: old code refused, PIN works")
 
 	# ---------- SEC-FIX-2: API key ----------
@@ -57,13 +58,16 @@ static func run(t: Node) -> void:
 	Settings.cfg.set_value("llm", "api_key", "xk-test-PLAINTEXT-123"); Settings.cfg.save(cfgp)
 	Settings.migrate_api_key()
 	t.check(Settings.api_key() == "xk-test-PLAINTEXT-123", "sec2: migrated key still works")
-	t.check(not Settings.cfg.has_section_key("llm", "api_key") and not FileAccess.get_file_as_string(cfgp).contains("PLAINTEXT"), "sec2: key blanked out of settings.cfg")
+	# t.check(not Settings.cfg.has_section_key("llm", "api_key") and not FileAccess.get_file_as_string(cfgp).contains("PLAINTEXT"), "sec2: key blanked out of settings.cfg")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not Settings.cfg.has_section_key("llm", "api_key") and not FileAccess.get_file_as_bytes(cfgp).get_string_from_ascii().contains("PLAINTEXT"), "sec2: key blanked out of settings.cfg")
 	var sb := FileAccess.get_file_as_bytes(Settings.secrets_path())
-	t.check(CryptoBox.is_sealed(sb) and not sb.get_string_from_utf8().contains("PLAINTEXT"), "sec2: key sealed on disk")
+	# t.check(CryptoBox.is_sealed(sb) and not sb.get_string_from_utf8().contains("PLAINTEXT"), "sec2: key sealed on disk")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(CryptoBox.is_sealed(sb) and not sb.get_string_from_ascii().contains("PLAINTEXT"), "sec2: key sealed on disk")
 	Settings.migrate_api_key()
 	t.check(Settings.api_key() == "xk-test-PLAINTEXT-123", "sec2: migration is one-time / idempotent")
 	Settings.set_value("llm", "api_key", "xk-new-456")
-	t.check(Settings.get_value("llm", "api_key") == "xk-new-456" and not FileAccess.get_file_as_string(cfgp).contains("xk-new"), "sec2: UI writes go to the sealed store")
+	# t.check(Settings.get_value("llm", "api_key") == "xk-new-456" and not FileAccess.get_file_as_string(cfgp).contains("xk-new"), "sec2: UI writes go to the sealed store")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(Settings.get_value("llm", "api_key") == "xk-new-456" and not FileAccess.get_file_as_bytes(cfgp).get_string_from_ascii().contains("xk-new"), "sec2: UI writes go to the sealed store")
 	Settings.reset_secrets_for_tests()
 	t.check(Settings.api_key() == "xk-new-456", "sec2: sealed key reloads after restart")
 	OwnerVault.lock_all(); Settings.reset_secrets_for_tests()
@@ -170,7 +174,10 @@ static func run_first_run(t: Node) -> void:
 	t.check(not OwnerVault.has_vault() and not Profile.first_run_allowed(), "sec5: corrupted vault -> no first-run offer")
 	t.check(OwnerVault.setup("246802", true) != "" and Profile.first_run_setup("246802") != "", "sec5: corrupted vault refuses fresh setup")
 	t.check(FileAccess.get_file_as_string(root2.path_join("security/vault.json")) == "{corrupt", "sec5: corrupted vault left untouched")
-	t.check(PinPad.new("unlock").mode == "unlock", "sec5: PIN pad does not offer first-run when a vault file exists")
+	# t.check(PinPad.new("unlock").mode == "unlock", "sec5: PIN pad does not offer first-run when a vault file exists")   # v0.16 QUIET: the pad leaked
+	var p5 := PinPad.new("unlock")
+	t.check(p5.mode == "unlock", "sec5: PIN pad does not offer first-run when a vault file exists")
+	p5.free()
 	# SEC-FIX-6: pre-vault owner device (role owner, no vault, no bootstrap) -> upgrade setup
 	Profile.data["role"] = "owner"
 	OwnerVault.reset_for_tests(root2.path_join("security"), 1000)
@@ -206,7 +213,10 @@ static func run_first_run(t: Node) -> void:
 	OwnerVault.reset_for_tests((root + "_b").path_join("security"), 1000)
 	Profile.data["role"] = "guest"
 	Profile.legacy_bootstrap = Profile.make_bootstrap("phoenix-boot5", 1000)
-	t.check(not Profile.first_run_allowed() and PinPad.new("unlock").mode == "unlock", "sec5: bootstrap build uses the owner-code flow, not first-run")
+	# t.check(not Profile.first_run_allowed() and PinPad.new("unlock").mode == "unlock", "sec5: bootstrap build uses the owner-code flow, not first-run")   # v0.16 QUIET: the pad leaked
+	var p6 := PinPad.new("unlock")
+	t.check(not Profile.first_run_allowed() and p6.mode == "unlock", "sec5: bootstrap build uses the owner-code flow, not first-run")
+	p6.free()
 	t.check(Profile.try_owner_unlock("phoenix-boot5") and OwnerVault.setup("864200") == "" and OwnerVault.has_vault(), "sec5: bootstrap file still bootstraps the first PIN")
 	# restore
 	Profile.legacy_bootstrap = saved_boot

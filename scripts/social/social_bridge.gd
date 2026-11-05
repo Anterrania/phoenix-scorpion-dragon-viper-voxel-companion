@@ -152,3 +152,32 @@ static func check_launch(ui: Node) -> String:
 	if p.has_method("consume_launch_uri"): p.call("consume_launch_uri")
 	var e := handle_enter(ui, uri)
 	return e if e != "" else "ok"
+
+# ---------- v0.16 NOTIFY: Android system notifications (plugin v6) ----------
+const NOTIFY_KINDS := ["message", "friend", "live", "announcement"]
+
+static func _notify_ok(p: Object) -> bool:
+	return p != null and p.has_method("get_plugin_version") and int(p.call("get_plugin_version")) >= 6 and p.has_method("post_notification")
+
+## "granted", "default" (Android 13+ not yet allowed) or "unsupported" (desktop / old plugin).
+static func notify_permission() -> String:
+	var p := _plugin()
+	return String(p.call("notify_permission")) if _notify_ok(p) else "unsupported"
+
+## Post a notification; kind picks the channel. Unknown kinds fall back to "message". Text is trimmed.
+static func notify(title: String, body: String, kind := "message") -> bool:
+	var p := _plugin()
+	if not _notify_ok(p) or title.strip_edges() == "": return false
+	if not kind in NOTIFY_KINDS: kind = "message"
+	return bool(p.call("post_notification", title.left(80), body.left(200), kind))
+
+## At launch: ask once for the Android 13+ permission and build the social panel hidden, so its alert watcher
+## (messages, friend requests, live, announcements) can notify before the menu is opened. Returns what it did.
+static func setup_notifications(asked: bool) -> String:
+	var p := _plugin()
+	if not _notify_ok(p): return "unsupported"
+	if p.has_method("prepare_social_panel"): p.call("prepare_social_panel")
+	if String(p.call("notify_permission")) == "granted": return "granted"
+	if asked: return "asked"
+	p.call("request_notify_permission")
+	return "requested"

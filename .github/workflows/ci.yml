@@ -14,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # - uses: actions/checkout@v4   (v0.15.2 CLEAN-CI: Node 20 deprecated)
-      - uses: actions/checkout@v5
+      # - uses: actions/checkout@v5   (v0.16 CLEAN-CI: Node 20 deprecated)
+      - uses: actions/checkout@v6
       - name: Validate JSON
         run: find . -name '*.json' -not -path './.git/*' -print0 | xargs -0 -n1 python3 -m json.tool > /dev/null
       - name: Install Godot + Voxel Tools GDExtension
@@ -40,7 +41,8 @@ jobs:
           tdir=~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
           mkdir -p "$tdir" /tmp/t && unzip -q Godot_v${GODOT_TAG}_export_templates.tpz -d /tmp/t && mv /tmp/t/templates/* "$tdir"/
       # - uses: actions/setup-java@v4   (v0.15.2 CLEAN-CI: Node 20 deprecated)
-      - uses: actions/setup-java@v5
+      # - uses: actions/setup-java@v5   (v0.16 CLEAN-CI: Node 20 deprecated)
+      - uses: actions/setup-java@v6
         with: { distribution: temurin, java-version: "17" }
       - run: echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV" && yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "build-tools;34.0.0" "platforms;android-34" "ndk;27.2.12479018" "cmake;3.22.1"
       - name: Debug keystore (stable, from secrets) + version
@@ -149,7 +151,8 @@ jobs:
           unzip -l build/android/phoenix-voxel.apk | grep -q 'assets/social/index.html' && echo "social app embedded"
           if [ "${OWNER_LOGIN:-0}" = "1" ]; then unzip -l build/android/phoenix-voxel.apk | grep -q 'owner_login.local.cfg' && echo "owner sign-in record packed"; fi
       # - uses: actions/upload-artifact@v4   (v0.15.2 CLEAN-CI: Node 20 deprecated)
-      - uses: actions/upload-artifact@v5
+      # - uses: actions/upload-artifact@v5   (v0.16 CLEAN-CI: Node 20 deprecated)
+      - uses: actions/upload-artifact@v7
         with:
           name: phoenix-voxel-android-debug
           path: build/android/phoenix-voxel.apk

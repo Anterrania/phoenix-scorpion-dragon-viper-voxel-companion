@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Normal (install-time, no prompt) permission: needed to read wifi/cell/none. Nothing is sent anywhere. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- v0.16 NOTIFY: Android 13+ asks once; notifications for messages, friend requests, live, announcements. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- v0.14 BRIDGE-1: package visibility for the Scorpion Viper social app only (Android 11+). -->
     <queries>
         <package android:name="os.viper.scorpion" />

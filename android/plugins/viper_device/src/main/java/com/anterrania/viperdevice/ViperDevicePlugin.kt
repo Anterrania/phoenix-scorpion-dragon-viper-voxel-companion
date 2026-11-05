@@ -63,7 +63,72 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
     /** v4 (v0.15 SOCIAL-SHELL): the social app is the menu: world actions + keyboard-aware panel. */
     @UsedByGodot
     // fun get_plugin_version(): Int = 4
-    fun get_plugin_version(): Int = 5
+    /** v5 (v0.15.1): one owner sign-in through the social menu. v6 (v0.16 NOTIFY): system notifications. */
+    // fun get_plugin_version(): Int = 5
+    fun get_plugin_version(): Int = 6
+
+    // ---------- v0.16 NOTIFY: system notifications (messages, friend requests, companion live, announcements) ----------
+    private val channels = arrayOf(arrayOf("message", "Messages"), arrayOf("friend", "Friend requests"),
+        arrayOf("live", "Companion live"), arrayOf("announcement", "Announcements"))
+
+    private fun ensureChannels(c: Context) {
+        if (Build.VERSION.SDK_INT < 26) return
+        val nm = c.getSystemService(android.app.NotificationManager::class.java) ?: return
+        for (ch in channels) {
+            val imp = if (ch[0] == "announcement") android.app.NotificationManager.IMPORTANCE_DEFAULT else android.app.NotificationManager.IMPORTANCE_HIGH
+            nm.createNotificationChannel(android.app.NotificationChannel(ch[0], ch[1], imp))
+        }
+    }
+
+    /** "granted" or "default" (Android 13+ needs POST_NOTIFICATIONS; older Android always allows). */
+    @UsedByGodot
+    fun notify_permission(): String {
+        val c = ctx ?: return "default"
+        if (Build.VERSION.SDK_INT < 33) return "granted"
+        return if (c.checkSelfPermission("android.permission.POST_NOTIFICATIONS") == PackageManager.PERMISSION_GRANTED) "granted" else "default"
+    }
+
+    /** Ask once for POST_NOTIFICATIONS on Android 13+ (no-op when granted or on older Android). */
+    @UsedByGodot
+    fun request_notify_permission() {
+        val a = activity ?: return
+        if (Build.VERSION.SDK_INT >= 33 && notify_permission() != "granted") a.runOnUiThread {
+            a.requestPermissions(arrayOf("android.permission.POST_NOTIFICATIONS"), 44)
+        }
+    }
+
+    /** Post one notification. tag picks the channel (message / friend / live / announcement). */
+    @UsedByGodot
+    fun post_notification(title: String, body: String, tag: String): Boolean {
+        val c = ctx ?: return false
+        if (notify_permission() != "granted") return false
+        ensureChannels(c)
+        val channel = channels.firstOrNull { it[0] == tag }?.get(0) ?: "message"
+        val nm = c.getSystemService(Context.NOTIFICATION_SERVICE) as? android.app.NotificationManager ?: return false
+        val open = c.packageManager.getLaunchIntentForPackage(c.packageName)?.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        val pi = if (open != null) android.app.PendingIntent.getActivity(c, 0, open,
+            android.app.PendingIntent.FLAG_IMMUTABLE or android.app.PendingIntent.FLAG_UPDATE_CURRENT) else null
+        @Suppress("DEPRECATION")
+        val b = if (Build.VERSION.SDK_INT >= 26) android.app.Notification.Builder(c, channel) else android.app.Notification.Builder(c)
+        b.setSmallIcon(c.applicationInfo.icon)
+            .setContentTitle(title.take(80))
+            .setContentText(body.take(200))
+            .setAutoCancel(true)
+        if (pi != null) b.setContentIntent(pi)
+        nm.notify((channel + ":" + title + body).hashCode(), b.build())
+        return true
+    }
+
+    /** Build the social panel hidden so its alert watcher runs (notifications) before the menu is first opened. */
+    @UsedByGodot
+    fun prepare_social_panel(): Boolean {
+        val a = activity ?: return false
+        if (!has_social_bundle()) return false
+        a.runOnUiThread {
+            if (panel == null) { buildPanel(a); panel?.visibility = android.view.View.GONE; web?.loadUrl(ORIGIN + "/") }
+        }
+        return true
+    }
 
     @UsedByGodot
     fun get_static(): Dictionary {
@@ -341,6 +406,13 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
             if (user.length > 64 || password.length > 256) return
             activity?.runOnUiThread { emitSignal("social_owner_sign_in", user, password) }
         }
+        // v0.16 NOTIFY: the social app's alerts (bell) become Android notifications.
+        @android.webkit.JavascriptInterface fun notify(title: String, body: String, tag: String) {
+            if (title.length > 200 || body.length > 1000 || tag.length > 32) return
+            post_notification(title, body, tag)
+        }
+        @android.webkit.JavascriptInterface fun notifyPermission(): String = notify_permission()
+        @android.webkit.JavascriptInterface fun requestNotifyPermission() { request_notify_permission() }
         @android.webkit.JavascriptInterface fun ownerLogout() { activity?.runOnUiThread { emitSignal("social_owner_logout") } }
         @android.webkit.JavascriptInterface fun worldActions(): String = worldActionsJson
         /** Run a world action (teleport, worlds, avatar, ...). Unknown ids are ignored; the panel closes first. */

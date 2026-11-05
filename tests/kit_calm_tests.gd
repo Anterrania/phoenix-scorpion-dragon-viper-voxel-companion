@@ -86,7 +86,8 @@ static func run_scene(t: Node) -> void:
 	var normal := th.get_stylebox("normal", "Button") as StyleBoxFlat
 	t.check(normal.border_color.a <= 0.35 and normal.border_width_left <= 1, "calm: button rim toned down")
 	t.check((th.get_stylebox("focus", "Button") as StyleBoxFlat).border_width_left <= 2, "calm: focus ring 2 px")
-	t.check(not FileAccess.get_file_as_string("res://scripts/ui/kit/radial_menu.gd").contains("TRANS_BACK"), "calm: radial bloom has no bounce")
+	# t.check(not FileAccess.get_file_as_string("res://scripts/ui/kit/radial_menu.gd").contains("TRANS_BACK"), "calm: radial bloom has no bounce")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
+	t.check(not FileAccess.get_file_as_bytes("res://scripts/ui/kit/radial_menu.gd").get_string_from_ascii().contains("TRANS_BACK"), "calm: radial bloom has no bounce")
 	var rm: RadialMenu = load("res://scenes/ui/kit/radial_menu.tscn").instantiate()
 	t.check(rm.calm, "calm: radial calm by default (no ember halo)")
 	rm.free()

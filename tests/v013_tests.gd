@@ -267,7 +267,8 @@ static func _build(t: Node) -> void:
 	# t.check(android.get("version/name", "") == "\"0.13.0\"" and int(android.get("version/code", "0")) > 14, "v013 Android version 0.13.0, code > 14")
 	# t.check(android.get("version/name", "") == "\"0.13.1\"" and int(android.get("version/code", "0")) > 15, "v013 Android version 0.13.1, code > 15")
 	# t.check(android.get("version/name", "") == "\"0.14.0\"" and int(android.get("version/code", "0")) > 16, "v013 Android version 0.14.0, code > 16 (v0.14)")
-	t.check(android.get("version/name", "") == "\"0.15.1\"" and int(android.get("version/code", "0")) > 19, "v013 Android version 0.15.1, code > 19 (v0.15.1)")
+	# t.check(android.get("version/name", "") == "\"0.15.1\"" and int(android.get("version/code", "0")) > 19, "v013 Android version 0.15.1, code > 19 (v0.15.1)")
+	t.check(android.get("version/name", "") == "\"0.15.2\"" and int(android.get("version/code", "0")) > 20, "v013 Android version 0.15.2, code > 20 (v0.15.2)")
 	t.check(not FileAccess.get_file_as_string("res://project.godot").to_lower().contains("demo"), "v013 project has no demo switch")
 	t.check(FileAccess.get_file_as_string("res://.github/workflows/ci.yml").contains("sort -V"), "v013 CI never lowers versionName below the preset")
 

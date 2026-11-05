@@ -225,7 +225,9 @@ static func run_scene(t: Node) -> void:
 	t.check(p.auto_mode() and p.tier == "med", "pipeline: auto mode tracked")
 	for i in FrameGovernor.WINDOW: p._process(0.05)
 	t.check(p.effective_scale() < 0.8 and is_equal_approx(t.get_viewport().scaling_3d_scale, p.effective_scale()), "pipeline: auto mode trims render scale on slow frames")
-	t.check(t.get_viewport().scaling_3d_mode == Viewport.SCALING_3D_MODE_FSR, "pipeline: med upscales with FSR1")
+	# t.check(t.get_viewport().scaling_3d_mode == Viewport.SCALING_3D_MODE_FSR, "pipeline: med upscales with FSR1")
+	# v0.16.1: FSR1 only on Forward+; on Mobile the pipeline uses bilinear (no engine warning)
+	t.check(t.get_viewport().scaling_3d_mode == RenderTiers.scaling_mode("fsr", p.effective_scale(), p.method_name()), "pipeline: med upscaler matches the renderer (FSR1 on Forward+, bilinear on Mobile)")
 	# restore the real viewport for later tests
 	t.get_viewport().scaling_3d_scale = 1.0
 	t.get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR

@@ -20,6 +20,7 @@ const FS := 24  # v0.9 compact menus (tap targets stay >= 80 px)
 
 func _ready() -> void:
 	layer = 10
+	if BootIntro.should_play(): get_tree().root.add_child.call_deferred(BootIntro.new())   # v0.16 BRAND boot animation
 	player = get_node_or_null(player_path)
 	world = get_node_or_null(world_path)
 	_topbar()

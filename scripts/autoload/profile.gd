@@ -32,6 +32,13 @@ func _ready() -> void:
 		ViperAdminData.reset()
 		var ab := get_node_or_null("/root/AgentBrain")
 		if ab and ab.has_method("reload_brains"): ab.reload_brains())
+	# v0.15.1 REMEMBER-1: owner stays signed in across restarts (until logout or the inactivity lock).
+	if role() == "owner": _restore_owner.call_deferred()
+
+func _restore_owner() -> void:
+	if OwnerVault.restore_session():
+		print("owner_session_restored=true")
+		SocialBridge.push_owner()
 
 func has_profile() -> bool:
 	return data.has("avatar") and str(data.get("name", "")) != ""

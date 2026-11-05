@@ -30,6 +30,13 @@ static var _bootstrap := false        # SEC-FIX-1: legacy code accepted on a no-
 static var _vault_cache = null
 static var on_storage_ready: Array[Callable] = []   # reload hooks (EveCore, Estate, AgentBrain...)
 static var clock_ms := Callable()   # tests: fake clock
+# v0.15.1 REMEMBER-1: the owner session survives app restarts until logout or the inactivity lock.
+# <root>/session.json holds the data key (app-private storage) plus the last activity time (unix s).
+# It is deleted on lock (inactivity or manual) and logout; after that the owner password unlocks again
+# (the vault and its slots stay, so it is never a re-setup). remember=false turns this off.
+static var remember := true
+static var clock_unix := Callable()   # tests: fake wall clock (seconds)
+static var _session_saved_s := 0
 
 static func _now_ms() -> int: return clock_ms.call() if clock_ms.is_valid() else Time.get_ticks_msec()
 static func _path() -> String: return root.path_join("vault.json")
@@ -88,7 +95,9 @@ static func is_unlocked() -> bool:
 	return _session
 
 static func touch() -> void:
-	if _session: _last_activity_ms = _now_ms()
+	if _session:
+		_last_activity_ms = _now_ms()
+		if _unix() - _session_saved_s >= 30: _save_session()   # throttled: activity time for the next launch
 
 static func seconds_left() -> int:
 	if not is_unlocked(): return 0
@@ -97,6 +106,7 @@ static func seconds_left() -> int:
 static func lock() -> void:
 	_session = false
 	_bootstrap = false
+	_forget_session()
 
 ## Lock and drop the data key: encrypted saves stay closed until the next unlock.
 static func lock_all() -> void:
@@ -106,6 +116,43 @@ static func lock_all() -> void:
 static func _start_session() -> void:
 	_session = true
 	_last_activity_ms = _now_ms()
+	_save_session()
+
+static func _unix() -> int: return int(clock_unix.call()) if clock_unix.is_valid() else int(Time.get_unix_time_from_system())
+static func _session_path() -> String: return root.path_join("session.json")
+
+static func _save_session() -> void:
+	if not remember or not _session or not storage_ready(): return
+	_session_saved_s = _unix()
+	DirAccess.make_dir_recursive_absolute(root)
+	var tmp := _session_path() + ".tmp"
+	var f := FileAccess.open(tmp, FileAccess.WRITE)
+	if f == null: return
+	f.store_string(JSON.stringify({"v": 1, "dek": Marshalls.raw_to_base64(_dek_enc + _dek_mac), "seen": _session_saved_s}))
+	f.close()
+	SecureFile.replace_file(tmp, _session_path())
+
+static func _forget_session() -> void:
+	_session_saved_s = 0
+	if FileAccess.file_exists(_session_path()): DirAccess.remove_absolute(_session_path())
+
+static func has_saved_session() -> bool: return FileAccess.file_exists(_session_path())
+
+## v0.15.1 REMEMBER-1: at launch, reopen the owner session saved by the last run if it was active within
+## lock_minutes. Older -> deleted (the owner signs in with the password; no re-setup). Returns true if restored.
+static func restore_session() -> bool:
+	if _session or not remember or not has_saved_session(): return _session
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(_session_path()))
+	if not (d is Dictionary) or not has_vault():
+		_forget_session(); return false
+	var seen := int(d.get("seen", 0))
+	var now := _unix()
+	if seen <= 0 or seen > now + 60 or now - seen > lock_minutes() * 60:
+		_forget_session(); return false
+	var key := Marshalls.base64_to_raw(str(d.get("dek", "")))
+	if not unlock_with_dek(key):   # must match the vault's key check value
+		_forget_session(); return false
+	return true
 
 ## Legacy owner code accepted by Profile (PBKDF2 bootstrap match) while no vault exists yet.
 ## SEC-FIX-1: this is NOT an owner session (is_unlocked() stays false). It only permits setup().
@@ -256,4 +303,4 @@ static func setup_for_tests(secret: String) -> String:
 
 static func reset_for_tests(p_root: String, p_iter := 1000) -> void:
 	root = p_root; iterations = p_iter; _vault_cache = null
-	lock_all(); clock_ms = Callable()
+	lock_all(); clock_ms = Callable(); clock_unix = Callable(); remember = true

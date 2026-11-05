@@ -37,8 +37,12 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
 
     // override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"))
     // override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"), SignalInfo("social_closed"), SignalInfo("social_enter_world", String::class.java))
+    // override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"), SignalInfo("social_closed"),
+    //     SignalInfo("social_enter_world", String::class.java), SignalInfo("social_world_action", String::class.java))
+    // v0.15.1 ONE-LOGIN: the social app's one owner sign-in / logout reach Godot (OwnerLogin checks the password).
     override fun getPluginSignals(): Set<SignalInfo> = setOf(SignalInfo("live_changed"), SignalInfo("social_closed"),
-        SignalInfo("social_enter_world", String::class.java), SignalInfo("social_world_action", String::class.java))
+        SignalInfo("social_enter_world", String::class.java), SignalInfo("social_world_action", String::class.java),
+        SignalInfo("social_owner_sign_in", String::class.java, String::class.java), SignalInfo("social_owner_logout"))
 
     private val ctx: Context? get() = activity?.applicationContext
 
@@ -58,7 +62,8 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
     // fun get_plugin_version(): Int = 3
     /** v4 (v0.15 SOCIAL-SHELL): the social app is the menu: world actions + keyboard-aware panel. */
     @UsedByGodot
-    fun get_plugin_version(): Int = 4
+    // fun get_plugin_version(): Int = 4
+    fun get_plugin_version(): Int = 5
 
     @UsedByGodot
     fun get_static(): Dictionary {
@@ -328,6 +333,12 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
         @android.webkit.JavascriptInterface fun isEmbedded(): Boolean = true
         @android.webkit.JavascriptInterface fun ownerSession(): Boolean = ownerSession
         @android.webkit.JavascriptInterface fun closePanel() { activity?.runOnUiThread { hidePanel() } }
+        /** v0.15.1 ONE-LOGIN: one sign-in in the social app also unlocks the world owner. Godot verifies it. */
+        @android.webkit.JavascriptInterface fun ownerSignIn(user: String, password: String) {
+            if (user.length > 64 || password.length > 256) return
+            activity?.runOnUiThread { emitSignal("social_owner_sign_in", user, password) }
+        }
+        @android.webkit.JavascriptInterface fun ownerLogout() { activity?.runOnUiThread { emitSignal("social_owner_logout") } }
         @android.webkit.JavascriptInterface fun worldActions(): String = worldActionsJson
         /** Run a world action (teleport, worlds, avatar, ...). Unknown ids are ignored; the panel closes first. */
         @android.webkit.JavascriptInterface fun worldAction(id: String) {

@@ -5,7 +5,8 @@ config_version=5
 config/name="Phoenix Scorpion Dragon Viper AI Voxel Companion"
 ; config/version="0.15.2"
 ; config/version="0.16.0"
-config/version="0.17.0"
+; config/version="0.17.0"
+config/version="0.18.0"
 ; v0.17 BRAND: Viper crest boot splash (static; the animated boot plays from scripts/ui/boot_intro.gd)
 boot_splash/bg_color=Color(0.027, 0.024, 0.039, 1)
 boot_splash/image="res://assets/brand/viper_crest.png"

@@ -68,9 +68,23 @@ func refresh_avatar() -> void:
 	avatar.visible = third_person
 	add_child(avatar)
 
+## v0.18 CAMERA: Firestorm-style orbit/zoom/collision camera (scripts/camera/firestorm_cam.gd).
+var fcam := FirestormCam.new()
+var _pinch := {}          # touch index -> position, for two-finger pinch zoom on the look side
+var _pinch_d := 0.0
+
 func set_third_person(on: bool) -> void:
 	third_person = on
-	camera.position = TP_CAM if on else FP_CAM
+	# camera.position = TP_CAM if on else FP_CAM
+	fcam.mouselook = not on
+	if on:
+		if fcam.dist_target <= FirestormCam.DIST_MIN: fcam.dist_target = FirestormCam.DIST_DEFAULT
+	camera.top_level = on   # third person: placed in world space each frame by _tp_camera()
+	if not on:
+		camera.position = FP_CAM
+		camera.rotation = Vector3.ZERO
+	else:
+		_tp_camera(0.0)
 	if avatar: avatar.visible = on
 	if titler: titler.visible = on and titler.text != ""
 
@@ -83,6 +97,7 @@ func _process(delta: float) -> void:
 	if avatar.has_meta("realistic"): RealisticBody.animate(avatar, _anim_t, sp01)
 	else: HumanoidModel.animate(avatar, _anim_t, sp01)
 	_pose_tick(delta)
+	if third_person: _tp_camera(delta)
 	if health < MAX_HEALTH and surface != SurfacePhysics.Surface.LAVA:
 		health = minf(health + delta * 4.0, MAX_HEALTH)
 		health_changed.emit(health)
@@ -112,6 +127,10 @@ func set_move_vector(v: Vector2) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_V:
 		toggle_camera()
+	elif event is InputEventMouseButton and event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
+		_zoom(0.88 if event.button_index == MOUSE_BUTTON_WHEEL_UP else 1.0 / 0.88)   # v0.18 CAMERA wheel zoom
+	elif event is InputEventMagnifyGesture:
+		_zoom(1.0 / maxf(event.factor, 0.01))   # v0.18 CAMERA trackpad pinch
 	elif event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		_look(event.relative * look_sensitivity)
 	elif event is InputEventScreenTouch:
@@ -122,19 +141,31 @@ func _unhandled_input(event: InputEvent) -> void:
 				_joy_origin = event.position
 			elif _look_index == -1:
 				_look_index = event.index
+			if event.position.x >= half: _pinch[event.index] = event.position   # v0.18 CAMERA pinch
 		else:
+			_pinch.erase(event.index)
+			_pinch_d = 0.0
 			if event.index == _joy_index:
 				_joy_index = -1
 				_touch_move = Vector2.ZERO
 			elif event.index == _look_index:
 				_look_index = -1
 	elif event is InputEventScreenDrag:
+		if _pinch.has(event.index): _pinch[event.index] = event.position
+		if _pinch.size() >= 2 and _pinch.has(event.index):
+			var d := pinch_distance(_pinch)   # v0.18 CAMERA: two fingers on the look side zoom
+			if _pinch_d > 0.0 and d > 0.0: _zoom(_pinch_d / d)
+			_pinch_d = d
+			return
 		if event.index == _joy_index:
 			_touch_move = ((event.position - _joy_origin) / joystick_radius).limit_length(1.0)
 		elif event.index == _look_index:
 			_look(event.relative * touch_look_sensitivity)
 
 func _look(d: Vector2) -> void:
+	if third_person:
+		fcam.orbit(d)   # v0.18 CAMERA: orbit around the avatar (the avatar does not spin)
+		return
 	rotate_y(-d.x)
 	head.rotate_x(-d.y)
 	head.rotation.x = clamp(head.rotation.x, -1.45, 1.45)
@@ -364,3 +395,39 @@ func take_damage(amount: float) -> void:
 func _gen():
 	var w := get_parent()
 	return w.generator if w and "generator" in w else null
+
+## v0.18 CAMERA helpers
+static func pinch_distance(touches: Dictionary) -> float:
+	var ps: Array = touches.values()
+	return (ps[0] as Vector2).distance_to(ps[1]) if ps.size() >= 2 else 0.0
+
+func _zoom(factor: float) -> void:
+	match fcam.zoom(factor):
+		"mouselook":
+			rotate_y(fcam.yaw)   # look where the camera was looking
+			head.rotation.x = clampf(-fcam.pitch, -1.45, 1.45)
+			fcam.yaw = 0.0
+			set_third_person(false)
+		"third":
+			fcam.pitch = clampf(-head.rotation.x, FirestormCam.PITCH_MIN, FirestormCam.PITCH_MAX)
+			head.rotation.x = 0.0
+			set_third_person(true)
+
+func _tp_camera(delta: float) -> void:
+	if camera == null or not camera.is_inside_tree(): return
+	var moving := _touch_move != Vector2.ZERO or Input.get_vector("move_left", "move_right", "move_forward", "move_back") != Vector2.ZERO
+	fcam.tick(delta, moving)
+	var pivot := global_position + FirestormCam.SHOULDER
+	var wanted := FirestormCam.ideal(pivot, global_rotation.y, fcam.yaw, fcam.pitch, fcam.dist)
+	var hit: Variant = null
+	var space := get_world_3d().direct_space_state if get_world_3d() else null
+	if space:
+		var q := PhysicsRayQueryParameters3D.create(pivot, wanted)
+		q.exclude = [get_rid()]
+		var r := space.intersect_ray(q)
+		if not r.is_empty(): hit = r["position"]
+	var at := FirestormCam.collide(pivot, wanted, hit)
+	var smooth := float(ComfortPrefs.get_pref("camera_smoothing"))
+	camera.global_position = fcam.follow(at, delta, smooth) if delta > 0.0 else at
+	if camera.global_position.distance_to(pivot) > 0.05:
+		camera.look_at(pivot + Vector3(0, 0.1, 0), Vector3.UP)

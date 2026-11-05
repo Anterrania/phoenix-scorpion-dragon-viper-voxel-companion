@@ -119,6 +119,7 @@ var face: FaceDriver
 func _process(delta: float) -> void:
 	_anim_t += delta
 	var sp := Vector2(velocity.x, velocity.z).length() / maxf(config.move_speed, 0.1) if config else 0.0
+	sp = AvatarMotion.gait(clampf(sp, 0.0, 1.0), turn_speed)   # v0.19 WALK: step when turning on the spot
 	if model.has_meta("realistic"):
 		RealisticBody.animate(model, _anim_t, clampf(sp, 0.0, 1.0))
 		if face == null or face.mesh == null or not is_instance_valid(face.mesh): face = FaceDriver.for_model(model)
@@ -181,16 +182,19 @@ func _physics_process(delta: float) -> void:
 			var spd := config.move_speed * clampf(to.length() / 3.0, 0.6, 1.8)
 			velocity.x = d.x * spd
 			velocity.z = d.z * spd
-			_face(global_position + d, delta)
+			# _face(global_position + d, delta)
+			_face_walk(d, delta)   # v0.19 WALK: rate-capped turn toward where it walks
 			if is_on_wall() and is_on_floor() and not airborne:
 				velocity.y = 5.0  # hop up 1-voxel steps
 		elif not following:
 			_target = null
 	if not moving:
+		turn_speed = 0.0   # v0.19 WALK: no stale shuffle when standing
 		velocity.x = move_toward(velocity.x, 0, config.move_speed)
 		velocity.z = move_toward(velocity.z, 0, config.move_speed)
 		if player and following:
-			_face(player.global_position, delta)
+			# _face(player.global_position, delta)
+			_face_idle(player.global_position, delta)   # v0.19 WALK: only turns once you are well off to the side
 	# v0.4: separation steering - never overlap other companions or the player.
 	var sep := SurfacePhysics.separation(global_position, neighbour_positions())
 	velocity.x += sep.x
@@ -210,6 +214,24 @@ func neighbour_positions() -> Array:
 	for a in get_tree().get_nodes_in_group("companions"):
 		if a != self: out.append(a.global_position)
 	return out
+
+## v0.19 WALK: SL-style facing for companions.
+var turn_speed := 0.0
+var _idle_turn := {"turning": false}
+
+func _face_walk(d: Vector3, delta: float) -> void:
+	var prev := rotation.y
+	rotation.y = AvatarMotion.turn(rotation.y, AvatarMotion.yaw_to(d), AvatarMotion.TURN_RATE, delta)
+	turn_speed = angle_difference(prev, rotation.y) / maxf(delta, 0.0001)
+	_idle_turn["turning"] = false
+
+func _face_idle(p: Vector3, delta: float) -> void:
+	var to := p - global_position
+	to.y = 0
+	if to.length() < 0.05: turn_speed = 0.0; return
+	var prev := rotation.y
+	rotation.y = AvatarMotion.idle_face(_idle_turn, rotation.y, AvatarMotion.yaw_to(to), delta)
+	turn_speed = angle_difference(prev, rotation.y) / maxf(delta, 0.0001)
 
 ## Smoothly yaw toward a point (models face -Z like Godot's look_at).
 func _face(p: Vector3, delta: float) -> void:

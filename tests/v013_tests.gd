@@ -257,7 +257,8 @@ static func _build(t: Node) -> void:
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.15.2", "v013 one main channel, version 0.15.2 (v0.15.2)")
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.16.0", "v013 one main channel, version 0.16.0 (v0.16.0)")
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.17.0", "v013 one main channel, version 0.17.0 (v0.17.0)")
-	t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.18.0", "v013 one main channel, version 0.18.0 (v0.18.0)")
+	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.18.0", "v013 one main channel, version 0.18.0 (v0.18.0)")
+	t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.19.0", "v013 one main channel, version 0.19.0 (v0.19.0)")
 	var presets := _cfg_sections("res://export_presets.cfg")
 	var demo := false
 	for p in presets:
@@ -274,7 +275,8 @@ static func _build(t: Node) -> void:
 	# t.check(android.get("version/name", "") == "\"0.15.2\"" and int(android.get("version/code", "0")) > 20, "v013 Android version 0.15.2, code > 20 (v0.15.2)")
 	# t.check(android.get("version/name", "") == "\"0.16.0\"" and int(android.get("version/code", "0")) > 21, "v013 Android version 0.16.0, code > 21 (v0.16.0)")
 	# t.check(android.get("version/name", "") == "\"0.17.0\"" and int(android.get("version/code", "0")) > 22, "v013 Android version 0.17.0, code > 22 (v0.17.0)")
-	t.check(android.get("version/name", "") == "\"0.18.0\"" and int(android.get("version/code", "0")) > 23, "v013 Android version 0.18.0, code > 23 (v0.18.0)")
+	# t.check(android.get("version/name", "") == "\"0.18.0\"" and int(android.get("version/code", "0")) > 23, "v013 Android version 0.18.0, code > 23 (v0.18.0)")
+	t.check(android.get("version/name", "") == "\"0.19.0\"" and int(android.get("version/code", "0")) > 24, "v013 Android version 0.19.0, code > 24 (v0.19.0)")
 	# t.check(not FileAccess.get_file_as_string("res://project.godot").to_lower().contains("demo"), "v013 project has no demo switch")   # v0.16 QUIET: decoding ciphertext as UTF-8 printed "Unicode parsing error" noise
 	t.check(not FileAccess.get_file_as_bytes("res://project.godot").get_string_from_ascii().to_lower().contains("demo"), "v013 project has no demo switch")
 	t.check(FileAccess.get_file_as_string("res://.github/workflows/ci.yml").contains("sort -V"), "v013 CI never lowers versionName below the preset")

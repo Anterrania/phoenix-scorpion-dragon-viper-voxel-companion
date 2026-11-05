@@ -94,6 +94,7 @@ func toggle_camera() -> void:
 func _process(delta: float) -> void:
 	_anim_t += delta
 	var sp01 := clampf(Vector2(velocity.x, velocity.z).length() / speed, 0.0, 1.0)
+	sp01 = AvatarMotion.gait(sp01, _turn_speed)   # v0.19 WALK: step when turning on the spot
 	if avatar.has_meta("realistic"): RealisticBody.animate(avatar, _anim_t, sp01)
 	else: HumanoidModel.animate(avatar, _anim_t, sp01)
 	_pose_tick(delta)
@@ -233,7 +234,8 @@ func _physics_process(delta: float) -> void:
 	var input := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	if _touch_move != Vector2.ZERO:
 		input = _touch_move
-	var dir := (transform.basis * Vector3(input.x, 0, input.y)).normalized()
+	# var dir := (transform.basis * Vector3(input.x, 0, input.y)).normalized()
+	var dir := _walk_dir(input, delta)   # v0.19 WALK: SL-style turn-to-face (mouselook still strafes)
 	var on_floor := is_on_floor()
 	var jump_pressed := Input.is_action_just_pressed("jump") or _jump_queued
 	_jump_queued = false
@@ -431,3 +433,28 @@ func _tp_camera(delta: float) -> void:
 	camera.global_position = fcam.follow(at, delta, smooth) if delta > 0.0 else at
 	if camera.global_position.distance_to(pivot) > 0.05:
 		camera.look_at(pivot + Vector3(0, 0.1, 0), Vector3.UP)
+
+## v0.19 WALK: Second Life-style walking and turning (scripts/agent/avatar_motion.gd).
+## Third person: the touch joystick walks relative to the camera and the avatar turns to face that way;
+## the keyboard is SL-style (W/S along the facing, A/D turn). The camera keeps its world heading while
+## the body turns, then eases back behind (FirestormCam snap back). Mouselook strafes as before.
+var _turn_speed := 0.0
+
+func _walk_dir(input: Vector2, delta: float) -> Vector3:
+	var prev := rotation.y
+	var dir := Vector3.ZERO
+	if not third_person:
+		dir = (transform.basis * Vector3(input.x, 0, input.y)).normalized()
+	elif _touch_move != Vector2.ZERO:
+		var w := AvatarMotion.camera_relative(input, fcam.heading(rotation.y))
+		if w.length() > 0.05:
+			rotation.y = AvatarMotion.turn(rotation.y, AvatarMotion.yaw_to(w), AvatarMotion.TURN_RATE, delta)
+			dir = w.normalized()
+	else:
+		var k := AvatarMotion.keyboard(input)
+		rotation.y = wrapf(rotation.y + float(k["turn"]) * delta, -PI, PI)
+		dir = -transform.basis.z * float(k["forward"])
+	var turned := angle_difference(prev, rotation.y)
+	if third_person: fcam.yaw = wrapf(fcam.yaw - turned, -PI, PI)   # the view does not jump with the body
+	_turn_speed = turned / delta if delta > 0.0 else 0.0
+	return dir

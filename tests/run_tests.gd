@@ -98,6 +98,7 @@ func _ready() -> void:
 	await load("res://tests/v016_tests.gd").run(self)   # v0.16 More ▾ top bar, Android notifications, v0.43 bundle
 	await load("res://tests/v017_tests.gd").run(self)   # v0.17 Viper brand + boot animation
 	await load("res://tests/v018_tests.gd").run(self)   # v0.18 Firestorm-style camera
+	await load("res://tests/v019_tests.gd").run(self)   # v0.19 SL-style walking and turning
 	print("SecureFile integrity failures (deliberate tamper tests): ", SecureFile.integrity_failures)
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
@@ -363,7 +364,8 @@ func _v05_tests() -> void:
 	# check(ep.contains("version/code=21") and ep.contains("version/name=\"0.15.2\""), "versionCode 21 / 0.15.2 (v0.15.2)")
 	# check(ep.contains("version/code=22") and ep.contains("version/name=\"0.16.0\""), "versionCode 22 / 0.16.0 (v0.16.0)")
 	# check(ep.contains("version/code=23") and ep.contains("version/name=\"0.17.0\""), "versionCode 23 / 0.17.0 (v0.17.0)")
-	check(ep.contains("version/code=24") and ep.contains("version/name=\"0.18.0\""), "versionCode 24 / 0.18.0 (v0.18.0)")
+	# check(ep.contains("version/code=24") and ep.contains("version/name=\"0.18.0\""), "versionCode 24 / 0.18.0 (v0.18.0)")
+	check(ep.contains("version/code=25") and ep.contains("version/name=\"0.19.0\""), "versionCode 25 / 0.19.0 (v0.19.0)")
 	# Autonomous companions
 	var dummy := Node3D.new()
 	dummy.set_script(load("res://tests/fake_agent.gd"))

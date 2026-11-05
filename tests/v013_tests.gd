@@ -253,7 +253,8 @@ static func _build(t: Node) -> void:
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.13.0", "v013 one main channel, version 0.13.0")
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.13.1", "v013 one main channel, version 0.13.1")
 	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.14.0", "v013 one main channel, version 0.14.0 (v0.14)")
-	t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.15.1", "v013 one main channel, version 0.15.1 (v0.15.1)")
+	# t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.15.1", "v013 one main channel, version 0.15.1 (v0.15.1)")
+	t.check(BuildInfo.CHANNEL == "main" and BuildInfo.version() == "0.15.2", "v013 one main channel, version 0.15.2 (v0.15.2)")
 	var presets := _cfg_sections("res://export_presets.cfg")
 	var demo := false
 	for p in presets:

@@ -24,7 +24,8 @@ func _ready() -> void:
 	var m := MarginContainer.new(); m.set_anchors_preset(Control.PRESET_FULL_RECT)
 	for s in ["left", "right", "bottom", "top"]: m.add_theme_constant_override("margin_" + s, PhoenixTokens.space(5))
 	add_child(m)
-	var sc := ScrollContainer.new(); sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; m.add_child(sc)
+	# var sc := ScrollContainer.new(); sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; m.add_child(sc)
+	var sc := KineticScroll.new(); sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; m.add_child(sc)   # v0.15.2 SCROLL-2: finger drag scrolls over buttons
 	form = VBoxContainer.new(); form.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	form.add_theme_constant_override("separation", PhoenixTokens.space(3)); sc.add_child(form)
 	var head := HBoxContainer.new(); form.add_child(head)

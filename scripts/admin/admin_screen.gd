@@ -65,7 +65,8 @@ func _ready() -> void:
 	refresh()
 
 func _page(n: String) -> VBoxContainer:
-	var sc := ScrollContainer.new(); sc.name = n
+	# var sc := ScrollContainer.new(); sc.name = n
+	var sc := KineticScroll.new(); sc.name = n   # v0.15.2 SCROLL-2: finger drag scrolls over buttons
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	var b := VBoxContainer.new(); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	b.add_theme_constant_override("separation", PhoenixTokens.space(4))

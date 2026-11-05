@@ -93,6 +93,7 @@ func _ready() -> void:
 	load("res://tests/v015_tests.gd").run_bundle(self)   # v0.15.1 embedded social bundle boots
 	await load("res://tests/v0151_tests.gd").run_scroll(self)   # v0.15.1 menu scrolls by touch (guest + owner)
 	load("res://tests/v0151_tests.gd").run_session(self)   # v0.15.1 remembered owner session + one login
+	await load("res://tests/v0152_tests.gd").run(self)   # v0.15.2 one launch login, finger scroll everywhere, landscape
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 

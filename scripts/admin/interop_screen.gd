@@ -40,7 +40,8 @@ func _ready() -> void:
 	x.add_theme_font_size_override("font_size", 28)
 	x.pressed.connect(func(): closed.emit(); queue_free()); head.add_child(x)
 	v.add_child(head)
-	var sc := ScrollContainer.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	# var sc := ScrollContainer.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var sc := KineticScroll.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL   # v0.15.2 SCROLL-2: finger drag scrolls over buttons
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; v.add_child(sc)
 	body = VBoxContainer.new(); body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation", PhoenixTokens.space(4)); sc.add_child(body)

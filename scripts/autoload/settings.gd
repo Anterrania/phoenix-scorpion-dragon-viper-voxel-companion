@@ -82,6 +82,9 @@ func _ready() -> void:
 func get_value(section: String, key: String, fallback: Variant = null) -> Variant:
 	if section == "llm" and key == "api_key": return user_api_key()   # SEC-FIX-2: never from settings.cfg
 	var d: Variant = DEFAULTS.get(section, {}).get(key, fallback)
+	# return cfg.get_value(section, key, d)
+	# v0.16.1: ConfigFile logs an ERROR when the key is missing and the default is null.
+	if d == null and not cfg.has_section_key(section, key): return null
 	return cfg.get_value(section, key, d)
 
 func set_value(section: String, key: String, value: Variant) -> void:

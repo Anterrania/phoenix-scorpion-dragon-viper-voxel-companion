@@ -51,7 +51,8 @@ func build() -> void:
 	pages = SwipePages.new(); pages.size_flags_vertical = Control.SIZE_EXPAND_FILL; v.add_child(pages)
 	boxes.clear()
 	for n in TABS:
-		var sc := ScrollContainer.new(); sc.name = n; sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		# var sc := ScrollContainer.new(); sc.name = n; sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		var sc := KineticScroll.new(); sc.name = n; sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED   # v0.15.2 SCROLL-2: finger drag scrolls over buttons
 		var b := VBoxContainer.new(); b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.add_theme_constant_override("separation", PhoenixTokens.space(4)); sc.add_child(b)
 		pages.add_page(n, sc); boxes[n] = b

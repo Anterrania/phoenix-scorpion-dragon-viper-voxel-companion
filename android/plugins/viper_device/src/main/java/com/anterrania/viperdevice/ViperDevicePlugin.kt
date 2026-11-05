@@ -277,6 +277,9 @@ class ViperDevicePlugin(godot: Godot) : GodotPlugin(godot) {
         w.settings.allowFileAccess = false
         w.settings.allowContentAccess = false
         w.settings.mediaPlaybackRequiresUserGesture = false
+        // v0.15.2 PHONE-3: a large Android font scale blew the social menu up (too big in landscape). Follow the
+        // system font scale but cap it at 115%; the page itself fits 130% (phone-size tests).
+        w.settings.textZoom = (a.resources.configuration.fontScale * 100f).toInt().coerceIn(100, 115)
         val assets = a.assets
         w.webViewClient = object : android.webkit.WebViewClient() {
             override fun shouldOverrideUrlLoading(v: android.webkit.WebView, r: android.webkit.WebResourceRequest): Boolean =

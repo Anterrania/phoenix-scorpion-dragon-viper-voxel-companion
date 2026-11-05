@@ -17,6 +17,7 @@ var _last_t := 0
 const MAX_VEL := 6000.0
 
 func _ready() -> void:
+	add_to_group("kinetic_scroll")   # v0.15.2 SCROLL-2: only the top-most list under the finger scrolls
 	horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	# vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_ALWAYS
 	vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO   # v0.15: bar only when the list overflows
@@ -27,6 +28,14 @@ func _ready() -> void:
 	var track := StyleBoxFlat.new(); track.bg_color = Color(1, 1, 1, 0.08); track.set_corner_radius_all(12)
 	for k in ["grabber", "grabber_highlight", "grabber_pressed"]: bar.add_theme_stylebox_override(k, grab)
 	bar.add_theme_stylebox_override("scroll", track)
+
+## v0.15.2 SCROLL-2: another visible list drawn above this one (later in the tree) under the finger wins.
+func _covered(pos: Vector2) -> bool:
+	for n in get_tree().get_nodes_in_group("kinetic_scroll"):
+		if n == self or not (n as Control).is_visible_in_tree(): continue
+		if is_ancestor_of(n): continue   # a nested list inside us: we still scroll the outer body
+		if n.is_greater_than(self) and (n as Control).get_global_rect().has_point(pos): return true
+	return false
 
 func _active() -> bool:
 	return is_visible_in_tree()
@@ -46,7 +55,8 @@ func _input(e: InputEvent) -> void:
 	if pos.x < -500: return  # our own synthetic cancel
 	if is_press:
 		if pressed:
-			if get_global_rect().has_point(pos):
+			# if get_global_rect().has_point(pos):
+			if get_global_rect().has_point(pos) and not _covered(pos):
 				_down = true; _dragging = false; _start = pos; _last = pos; _vel = 0.0; _cancel_sent = false
 				_pos_f = float(scroll_vertical); _last_t = Time.get_ticks_usec()
 		else:

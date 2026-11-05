@@ -49,7 +49,8 @@ func _ready() -> void:
 	close.pressed.connect(func(): closed.emit(); queue_free())
 	head.add_child(close); v.add_child(head)
 	status = Label.new(); status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; v.add_child(status)
-	var sc := ScrollContainer.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	# var sc := ScrollContainer.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var sc := KineticScroll.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL   # v0.15.2 SCROLL-2: finger drag scrolls over buttons
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; v.add_child(sc)
 	body = VBoxContainer.new(); body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation", PhoenixTokens.space(3)); sc.add_child(body)

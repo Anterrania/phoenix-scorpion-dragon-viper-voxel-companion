@@ -62,7 +62,10 @@ func _ready() -> void:
 	call_deferred("go_start_realm")   # HEAVEN-5: everyone starts in Heaven unless they chose another start world
 	call_deferred("_check_enter_link")   # v0.14 BRIDGE-1: opened from Scorpion Viper's Enter World
 	AgentBrain.reply_ready.connect(_on_reply)
-	if OwnerVault.has_vault() and not OwnerVault.storage_ready(): call_deferred("open_unlock_prompt")
+	# v0.15.2 ONE-LOGIN-2: this check ran BEFORE Profile restored the remembered owner session (deferred), so the
+	# PIN pad still opened on top of the social sign-in -> two logins on the phone. Decide at deferred time instead.
+	# if OwnerVault.has_vault() and not OwnerVault.storage_ready(): call_deferred("open_unlock_prompt")
+	call_deferred("_launch_unlock")
 	if not Profile.has_profile(): show_panel("avatar")  # first launch: make YOUR avatar
 	else: show_panel("menu" if bool(Settings.get_value("ui", "show_menu_on_start", false)) else "")
 
@@ -95,12 +98,20 @@ func _layout() -> void:
 	for k in panels:
 		var pc: PanelContainer = panels[k].get("pc")
 		if pc == null: continue
-		var m := 12.0 if por else 80.0
+		# var m := 12.0 if por else 80.0
+		# pc.offset_left = m; pc.offset_right = -m
+		# v0.15.2 PHONE-3: landscape menu was a full-width wall. It is a side sheet on the right (max ~46% width,
+		# at least 640 px) so the world stays visible, like a viewer sidebar.
+		var m := 12.0
 		pc.offset_left = m; pc.offset_right = -m
+		if not por:
+			var vw := get_viewport().get_visible_rect().size.x
+			pc.offset_left = maxf(m, vw - maxf(640.0, vw * 0.46))
 		# pc.offset_top = 40.0; pc.offset_bottom = -12.0
 		pc.offset_top = 40.0; pc.offset_bottom = -12.0 - _kb_h   # v0.15 KB-1: sit above the on-screen keyboard
 		if panels[k].get("land", false): pc.offset_top = get_viewport().get_visible_rect().size.y * (0.52 if por else 0.35)
-	if menu_grid: menu_grid.columns = 2 if por else 4
+	# if menu_grid: menu_grid.columns = 2 if por else 4
+	if menu_grid: menu_grid.columns = 2   # v0.15.2: the landscape side sheet is narrow too
 
 ## v0.15 KB-1: keyboard avoidance. Godot runs immersive, so Android adjustResize does not shrink the view; read the
 ## keyboard height, lift the open panel above it and scroll the focused field into view.
@@ -406,6 +417,15 @@ func open_security() -> SecurityScreen:
 	var s: SecurityScreen = load("res://scenes/admin/security_screen.tscn").instantiate()
 	add_child(s)
 	return s
+
+## v0.15.2 ONE-LOGIN-2: at most ONE sign-in at launch. Restored session -> none. Social menu present -> its
+## SkorpionViper sign-in is the only one (it unlocks the vault too). Only without the social menu: the PIN pad.
+func _launch_unlock() -> String:
+	if not OwnerVault.has_vault() or OwnerVault.storage_ready(): return "none"
+	if Profile.role() == "owner" and OwnerVault.restore_session(): return "none"
+	if SocialBridge.one_login(): return "social"
+	open_unlock_prompt()
+	return "pin"
 
 ## App start with encrypted saves: big PIN pad, or continue as guest (memories stay sealed).
 func open_unlock_prompt() -> void:

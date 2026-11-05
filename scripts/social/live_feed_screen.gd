@@ -32,7 +32,8 @@ func _ready() -> void:
 	close.custom_minimum_size = Vector2(PhoenixTokens.tap(), PhoenixTokens.tap())
 	close.pressed.connect(queue_free); head.add_child(close)
 	status = Label.new(); status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; v.add_child(status)
-	var sc := ScrollContainer.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	# var sc := ScrollContainer.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var sc := KineticScroll.new(); sc.size_flags_vertical = Control.SIZE_EXPAND_FILL   # v0.15.2 SCROLL-2: finger drag scrolls over buttons
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; v.add_child(sc)
 	list = VBoxContainer.new(); list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	list.add_theme_constant_override("separation", PhoenixTokens.space(3)); sc.add_child(list)

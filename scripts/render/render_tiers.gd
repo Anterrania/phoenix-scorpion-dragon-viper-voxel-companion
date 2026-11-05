@@ -89,7 +89,9 @@ static func renderer_supports(feature: String, method: String) -> bool:
 static func scaling_mode(name: String, scale: float, method: String) -> int:
 	if scale >= 0.999: return Viewport.SCALING_3D_MODE_BILINEAR
 	if name == "fsr2" and renderer_supports("fsr2", method): return Viewport.SCALING_3D_MODE_FSR2
-	if name == "fsr" or name == "fsr2": return Viewport.SCALING_3D_MODE_FSR
+	# if name == "fsr" or name == "fsr2": return Viewport.SCALING_3D_MODE_FSR
+	# v0.16.1: Godot 4.7 only runs FSR1 on Forward+; Mobile/Compatibility warn and ignore it.
+	if (name == "fsr" or name == "fsr2") and method == "forward_plus": return Viewport.SCALING_3D_MODE_FSR
 	return Viewport.SCALING_3D_MODE_BILINEAR
 
 static func msaa_mode(samples: int) -> int:

@@ -51,9 +51,13 @@ static func run(t: Node) -> void:
 	t.check(RenderTiers.to_legacy("ultra") == 2 and RenderTiers.to_legacy("low") == 0, "render: tier -> legacy index")
 	t.check(not RenderTiers.renderer_supports("ssao", "mobile") and not RenderTiers.renderer_supports("ssr", "mobile") and RenderTiers.renderer_supports("ssao", "forward_plus"), "render: SSAO/SSR are Forward+ only (no-op on Mobile)")
 	t.check(RenderTiers.renderer_supports("compute", "mobile") and not RenderTiers.renderer_supports("compute", "gl_compatibility"), "render: compute needs Vulkan, not Compatibility")
-	t.check(RenderTiers.scaling_mode("fsr", 0.8, "mobile") == Viewport.SCALING_3D_MODE_FSR, "render: FSR1 below native scale on Mobile")
-	t.check(RenderTiers.scaling_mode("fsr2", 0.8, "mobile") == Viewport.SCALING_3D_MODE_FSR, "render: FSR2 falls back to FSR1 on Mobile")
+	# t.check(RenderTiers.scaling_mode("fsr", 0.8, "mobile") == Viewport.SCALING_3D_MODE_FSR, "render: FSR1 below native scale on Mobile")
+	# t.check(RenderTiers.scaling_mode("fsr2", 0.8, "mobile") == Viewport.SCALING_3D_MODE_FSR, "render: FSR2 falls back to FSR1 on Mobile")
 	t.check(RenderTiers.scaling_mode("fsr", 1.0, "mobile") == Viewport.SCALING_3D_MODE_BILINEAR, "render: no upscaler at native scale")
+	# v0.16.1: Godot 4.7 prints "FSR1 3D scaling is only available when using the Forward+ renderer"
+	t.check(RenderTiers.scaling_mode("fsr", 0.8, "mobile") == Viewport.SCALING_3D_MODE_BILINEAR, "render: FSR1 falls back to bilinear on Mobile")
+	t.check(RenderTiers.scaling_mode("fsr2", 0.8, "mobile") == Viewport.SCALING_3D_MODE_BILINEAR, "render: FSR2 falls back to bilinear on Mobile")
+	t.check(RenderTiers.scaling_mode("fsr", 0.8, "forward_plus") == Viewport.SCALING_3D_MODE_FSR, "render: FSR1 below native scale on Forward+")
 	t.check(RenderTiers.msaa_mode(2) == Viewport.MSAA_2X and RenderTiers.msaa_mode(0) == Viewport.MSAA_DISABLED, "render: MSAA mapping")
 	t.check(RenderTiers.shadow_mode(4) == DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS and RenderTiers.shadow_mode(1) == DirectionalLight3D.SHADOW_ORTHOGONAL, "render: shadow split mapping")
 	t.check(RenderTiers.value("terrain.lod_fade", "low") == 0.0 and RenderTiers.value("terrain.lod_fade", "med") == 0.0, "render: LOD fade (discard) off on low/med")
@@ -221,7 +225,9 @@ static func run_scene(t: Node) -> void:
 	t.check(p.auto_mode() and p.tier == "med", "pipeline: auto mode tracked")
 	for i in FrameGovernor.WINDOW: p._process(0.05)
 	t.check(p.effective_scale() < 0.8 and is_equal_approx(t.get_viewport().scaling_3d_scale, p.effective_scale()), "pipeline: auto mode trims render scale on slow frames")
-	t.check(t.get_viewport().scaling_3d_mode == Viewport.SCALING_3D_MODE_FSR, "pipeline: med upscales with FSR1")
+	# t.check(t.get_viewport().scaling_3d_mode == Viewport.SCALING_3D_MODE_FSR, "pipeline: med upscales with FSR1")
+	# v0.16.1: FSR1 only on Forward+; on Mobile the pipeline uses bilinear (no engine warning)
+	t.check(t.get_viewport().scaling_3d_mode == RenderTiers.scaling_mode("fsr", p.effective_scale(), p.method_name()), "pipeline: med upscaler matches the renderer (FSR1 on Forward+, bilinear on Mobile)")
 	# restore the real viewport for later tests
 	t.get_viewport().scaling_3d_scale = 1.0
 	t.get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR

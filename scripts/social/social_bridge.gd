@@ -56,6 +56,33 @@ static func connect_panel(ui: Node) -> void:
 	if not _panel_ok(p) or not p.has_signal("social_enter_world"): return
 	if not p.is_connected("social_enter_world", _on_enter.bind(ui)): p.connect("social_enter_world", _on_enter.bind(ui))
 	connect_actions(ui)
+	# v0.15.1 ONE-LOGIN: the social app's owner sign-in is the only one; it unlocks the world owner too.
+	if p.has_signal("social_owner_sign_in") and not p.is_connected("social_owner_sign_in", _on_owner_sign_in.bind(ui)):
+		p.connect("social_owner_sign_in", _on_owner_sign_in.bind(ui))
+	if p.has_signal("social_owner_logout") and not p.is_connected("social_owner_logout", _on_owner_logout.bind(ui)):
+		p.connect("social_owner_logout", _on_owner_logout.bind(ui))
+
+## v0.15.1: the embedded social menu exists, so its sign-in is the one owner sign-in (no second unlock here).
+static func one_login() -> bool:
+	var p := _plugin()
+	return _panel_ok(p) and int(p.call("get_plugin_version")) >= 5 and bool(p.call("has_social_bundle"))
+
+static func _on_owner_sign_in(user: String, password: String, ui: Node) -> void:
+	var e := owner_sign_in(user, password)
+	if e != "" and is_instance_valid(ui): Toast.show_toast(ui, "World owner: " + e, "warn")
+
+## Shared with tests: same checks as the avatar-screen sign-in (vault unlock, or first-run setup).
+static func owner_sign_in(user: String, password: String) -> String:
+	var e := OwnerLogin.sign_in(user, password) if not Profile.is_owner() else ""
+	push_owner()
+	return e
+
+static func _on_owner_logout(_ui: Node) -> void:
+	owner_logout()
+
+static func owner_logout() -> void:
+	OwnerVault.lock()   # ends the session and forgets the saved one; the data key stays for companions
+	push_owner()
 
 ## v0.15 SOCIAL-SHELL: the social app is the menu; its "World" actions run here (ids whitelisted by set_actions).
 static func connect_actions(ui: Node) -> void:

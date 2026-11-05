@@ -48,7 +48,8 @@ static func run(t: Node) -> void:
 	var kt := FileAccess.get_file_as_string("res://android/plugins/viper_device/src/main/java/com/anterrania/viperdevice/ViperDevicePlugin.kt")
 	t.check(kt.contains("fun worldAction(") and kt.contains("fun worldActions()") and kt.contains("social_world_action") and kt.contains("id !in actionIds"), "v015 plugin: whitelisted world actions over the JS bridge")
 	t.check(kt.contains("WindowInsets.Type.ime()") and kt.contains("SOFT_INPUT_ADJUST_RESIZE"), "v015 plugin: keyboard-aware panel")
-	t.check(kt.contains("fun get_plugin_version(): Int = 4"), "v015 plugin v4")
+	# t.check(kt.contains("fun get_plugin_version(): Int = 4"), "v015 plugin v4")
+	t.check(kt.contains("fun get_plugin_version(): Int = 5"), "v0151 plugin v5 (one login)")
 
 ## v0.15.1 BOOT: the embedded social bundle must be self-consistent (v0.15.0 shipped an index.html whose
 ## /assets/index-*.js was not in the bundle, so the panel sat on the splash).

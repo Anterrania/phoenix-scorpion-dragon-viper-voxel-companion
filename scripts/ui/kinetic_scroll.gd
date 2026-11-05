@@ -76,10 +76,22 @@ func _input(e: InputEvent) -> void:
 func _cancel_button_press() -> void:
 	if _cancel_sent: return
 	_cancel_sent = true
+	# v0.15.1 SCROLL-FIX: the release alone FIRED the button under the finger. Godot's BaseButton decides on
+	# release from "pressing_inside", which only changes on mouse motion, so a release at (-1000,-1000) with
+	# no motion before it counted as a tap: the first drag on the menu ran that menu row (closing the menu)
+	# instead of scrolling. Move the pointer off the button first, then release. Far off in window pixels, so
+	# it stays off-screen at any stretch scale.
+	var far := Vector2(-100000, -100000)
+	var m := InputEventMouseMotion.new()
+	m.button_mask = MOUSE_BUTTON_MASK_LEFT
+	m.position = far
+	m.global_position = far
+	Input.parse_input_event(m)
 	var r := InputEventMouseButton.new()
 	r.button_index = MOUSE_BUTTON_LEFT
 	r.pressed = false
-	r.position = Vector2(-1000, -1000)
+	# r.position = Vector2(-1000, -1000)
+	r.position = far
 	r.global_position = r.position
 	Input.parse_input_event(r)
 

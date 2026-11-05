@@ -1004,6 +1004,14 @@ func _refresh_avatar(reload := true) -> void:
 		# av_list.add_child(oh)
 		# v0.14.1 ONE-APP-1: the one owner unlock (same account and PBKDF2 check as Scorpion Viper; the
 		# embedded social panel is told the owner state). The vault PIN on the Security screen also works.
+		# v0.15.1 ONE-LOGIN: with the embedded social menu, its sign-in is the only one (it unlocks the world
+		# too and is remembered). The second sign-in below is hidden there; desktop builds keep it.
+		if SocialBridge.one_login():
+			av_list.add_child(label("Owner: sign in once in the ☰ Viper menu. It unlocks the world too and stays signed in.", 22, GOLD))
+			av_list.add_child(btn("☰ Open Viper menu to sign in", func(): SocialBridge.open_social("/")))
+			av_list.add_child(input_tag("YOUR INPUT HERE: more hair styles, body sliders, tattoos, wings?"))
+			collapse_sections(av_list, ["Hair streaks", "DNA blend", "Fine-tune", "Attachments"])
+			return
 		av_list.add_child(label("Owner sign-in (SkorpionViper)", 24, GOLD))
 		var su := LineEdit.new(); su.name = "AvUsername"; su.placeholder_text = "Username"
 		su.custom_minimum_size = Vector2(0, 72); su.add_theme_font_size_override("font_size", 26)

@@ -91,6 +91,8 @@ func _ready() -> void:
 	await load("res://tests/v014_tests.gd").run(self)   # v0.14 personas, homes, live broadcast, creator, owner sign-in, bridge
 	await load("res://tests/v015_tests.gd").run(self)   # v0.15 social app is the menu, portrait scroll, keyboard
 	load("res://tests/v015_tests.gd").run_bundle(self)   # v0.15.1 embedded social bundle boots
+	await load("res://tests/v0151_tests.gd").run_scroll(self)   # v0.15.1 menu scrolls by touch (guest + owner)
+	load("res://tests/v0151_tests.gd").run_session(self)   # v0.15.1 remembered owner session + one login
 	print("FAILURES: ", failures)
 	get_tree().quit(1 if failures > 0 else 0)
 
